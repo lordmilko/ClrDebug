@@ -1009,7 +1009,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT GarbageCollectionStarted(
             [In] int cGenerations,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] bool[] generationCollected,
+            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Bool, SizeParamIndex = 0)] bool[] generationCollected,
             [In] COR_PRF_GC_REASON reason);
 
         /// <summary>

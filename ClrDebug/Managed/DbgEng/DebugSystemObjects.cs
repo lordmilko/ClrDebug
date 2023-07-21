@@ -25,7 +25,7 @@ namespace ClrDebug.DbgEng
         private IDebugSystemObjects4Vtbl* Vtbl4 => (IDebugSystemObjects4Vtbl*) base.Vtbl;
 
         #endregion
-        
+
         public DebugSystemObjects(IntPtr raw) : base(raw, IID_IDebugSystemObjects)
         {
         }

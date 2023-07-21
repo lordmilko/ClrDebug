@@ -31,7 +31,7 @@ namespace ClrDebug.DbgEng
         private IDebugClient6Vtbl* Vtbl6 => (IDebugClient6Vtbl*) base.Vtbl;
 
         #endregion
-        
+
         public DebugClient(IntPtr raw) : base(raw, IID_IDebugClient)
         {
         }

@@ -23,6 +23,8 @@ $normalArgs = @{
     BaseCallbackTypes = "ICorProfilerCallback*"
 
     CharArrayHandler = "ClrDebug.Extensions.CreateString"
+
+    GeneratedMarshalling = "GENERATED_MARSHALLING"
 }
 
 New-ComWrapper @normalArgs

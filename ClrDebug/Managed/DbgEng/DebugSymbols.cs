@@ -28,7 +28,7 @@ namespace ClrDebug.DbgEng
         private IDebugSymbols5Vtbl* Vtbl5 => (IDebugSymbols5Vtbl*) base.Vtbl;
 
         #endregion
-        
+
         public DebugSymbols(IntPtr raw) : base(raw, IID_IDebugSymbols)
         {
         }

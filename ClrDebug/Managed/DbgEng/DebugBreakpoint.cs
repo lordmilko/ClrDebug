@@ -22,7 +22,7 @@ namespace ClrDebug.DbgEng
         private IDebugBreakpoint3Vtbl* Vtbl3 => (IDebugBreakpoint3Vtbl*) base.Vtbl;
 
         #endregion
-        
+
         public DebugBreakpoint(IntPtr raw) : base(raw, IID_IDebugBreakpoint)
         {
         }

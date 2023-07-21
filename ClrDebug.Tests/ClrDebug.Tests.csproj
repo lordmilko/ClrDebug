@@ -9,6 +9,7 @@
     <DefineConstants Condition="'$(IsGeneratedMarshalling)'">$(DefineConstants);GENERATED_MARSHALLING</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <LangVersion Condition="'$(VisualStudioVersion)' == '15.0'">7.3</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

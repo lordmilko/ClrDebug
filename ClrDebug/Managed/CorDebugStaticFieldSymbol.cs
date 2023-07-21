@@ -128,7 +128,7 @@ namespace ClrDebug
 
         #endregion
         #endregion
-        
+
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>

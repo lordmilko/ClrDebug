@@ -26,7 +26,7 @@ namespace ClrDebug
         HRESULT ICorDebugUnmanagedCallback.DebugEvent(ref DEBUG_EVENT pDebugEvent, bool fOutOfBand) => HandleEvent(OnDebugEvent, new DebugEventCorDebugUnmanagedCallbackEventArgs(pDebugEvent, fOutOfBand));
 
         #endregion
-        
+
         protected virtual HRESULT HandleEvent(EventHandler<DebugEventCorDebugUnmanagedCallbackEventArgs> handler, DebugEventCorDebugUnmanagedCallbackEventArgs args)
         {
             handler?.Invoke(this, args);

@@ -22,7 +22,7 @@ namespace ClrDebug.DbgEng
         private IDebugAdvanced3Vtbl* Vtbl3 => (IDebugAdvanced3Vtbl*) base.Vtbl;
 
         #endregion
-        
+
         public DebugAdvanced(IntPtr raw) : base(raw, IID_IDebugAdvanced)
         {
         }

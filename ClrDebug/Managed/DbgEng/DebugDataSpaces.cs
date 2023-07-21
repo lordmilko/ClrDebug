@@ -25,7 +25,7 @@ namespace ClrDebug.DbgEng
         private IDebugDataSpaces4Vtbl* Vtbl4 => (IDebugDataSpaces4Vtbl*) base.Vtbl;
 
         #endregion
-        
+
         public DebugDataSpaces(IntPtr raw) : base(raw, IID_IDebugDataSpaces)
         {
         }

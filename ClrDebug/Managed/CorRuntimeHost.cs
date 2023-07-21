@@ -347,7 +347,7 @@ namespace ClrDebug
         {
             /*HRESULT CreateDomain(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName,
-            [In, MarshalAs(UnmanagedType.LPArray)] object[] pIdentityArray,
+            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface)] object[] pIdentityArray,
             [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomain);*/
             return Raw.CreateDomain(pwzFriendlyName, pIdentityArray, out pAppDomain);
         }

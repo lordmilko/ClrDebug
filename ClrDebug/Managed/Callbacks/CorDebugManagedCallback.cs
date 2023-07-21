@@ -304,7 +304,7 @@ namespace ClrDebug
         HRESULT ICorDebugManagedCallback4.DataBreakpoint(ICorDebugProcess pProcess, ICorDebugThread pThread, IntPtr pContext, int contextSize) => HandleEvent(OnDataBreakpoint, new DataBreakpointCorDebugManagedCallbackEventArgs(pProcess, pThread, pContext, contextSize));
 
         #endregion
-        
+
         protected virtual HRESULT HandleEvent<T>(EventHandler<T> handler, CorDebugManagedCallbackEventArgs args)
             where T : CorDebugManagedCallbackEventArgs
         {

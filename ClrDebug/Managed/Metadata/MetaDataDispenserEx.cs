@@ -103,18 +103,8 @@ namespace ClrDebug
         public HRESULT TrySetOption(Guid optionId, object pValue)
         {
             /*HRESULT SetOption(
-#if !GENERATED_MARSHALLING
-            [In, MarshalAs(UnmanagedType.LPStruct)]
-#else
-            [MarshalUsing(typeof(GuidMarshaller))] in
-#endif
-            Guid optionId,
-#if !GENERATED_MARSHALLING
-            [In, MarshalAs(UnmanagedType.Struct)]
-#else
-            [MarshalUsing(typeof(VariantMarshaller))]
-#endif
-            ref object pValue);*/
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid optionId,
+            [In, MarshalAs(UnmanagedType.Struct)] ref object pValue);*/
             return Raw.SetOption(optionId, ref pValue);
         }
 
@@ -150,15 +140,7 @@ namespace ClrDebug
         public HRESULT TryGetOption(Guid optionId, out object pValue)
         {
             /*HRESULT GetOption(
-#if !GENERATED_MARSHALLING
-            [In, MarshalAs(UnmanagedType.LPStruct)]
-#else
-            [MarshalUsing(typeof(GuidMarshaller))] in
-#endif
-            Guid optionId,
-#if GENERATED_MARSHALLING
-            [MarshalUsing(typeof(VariantMarshaller))]
-#endif
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid optionId,
             [Out] out object pValue);*/
             return Raw.GetOption(optionId, out pValue);
         }
@@ -193,12 +175,7 @@ namespace ClrDebug
             /*HRESULT OpenScopeOnITypeInfo(
             [In, MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
             [In] int dwOpenFlags,
-#if !GENERATED_MARSHALLING
-            [In, MarshalAs(UnmanagedType.LPStruct)]
-#else
-            [MarshalUsing(typeof(GuidMarshaller))] in
-#endif
-            Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);*/
             return Raw.OpenScopeOnITypeInfo(pITI, dwOpenFlags, riid, out ppIUnk);
         }

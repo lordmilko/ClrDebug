@@ -19,7 +19,7 @@ namespace ClrDebug.DbgEng
         private IDebugRegisters2Vtbl* Vtbl2 => (IDebugRegisters2Vtbl*) base.Vtbl;
 
         #endregion
-        
+
         public DebugRegisters(IntPtr raw) : base(raw, IID_IDebugRegisters)
         {
         }

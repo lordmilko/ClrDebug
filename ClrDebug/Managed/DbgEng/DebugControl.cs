@@ -31,7 +31,7 @@ namespace ClrDebug.DbgEng
         private IDebugControl6Vtbl* Vtbl6 => (IDebugControl6Vtbl*) base.Vtbl;
 
         #endregion
-        
+
         public DebugControl(IntPtr raw) : base(raw, IID_IDebugControl)
         {
         }

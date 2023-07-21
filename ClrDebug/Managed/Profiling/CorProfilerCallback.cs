@@ -38,7 +38,8 @@ namespace ClrDebug
         /// is enabled by the Initialize call, it cannot be disabled later using <see cref="ICorProfilerInfo.SetEventMask"/>.
         /// The COR_PRF_MONITOR_IMMUTABLE value of the <see cref="COR_PRF_MONITOR"/> enumeration indicates which events are immutable.
         /// </remarks>
-        public virtual HRESULT Initialize(object pICorProfilerInfoUnk)
+        public virtual HRESULT Initialize(
+            object pICorProfilerInfoUnk)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -71,7 +72,8 @@ namespace ClrDebug
         /// <remarks>
         /// The ID is not valid for any information request until the <see cref="AppDomainCreationFinished"/> method is called.
         /// </remarks>
-        public virtual HRESULT AppDomainCreationStarted(AppDomainID appDomainId)
+        public virtual HRESULT AppDomainCreationStarted(
+            AppDomainID appDomainId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -87,7 +89,9 @@ namespace ClrDebug
         /// HRESULT in hrStatus indicates a failure. However, a success HRESULT in hrStatus indicates only that the first part
         /// of creating the application domain has succeeded.
         /// </remarks>
-        public virtual HRESULT AppDomainCreationFinished(AppDomainID appDomainId, HRESULT hrStatus)
+        public virtual HRESULT AppDomainCreationFinished(
+            AppDomainID appDomainId,
+            HRESULT hrStatus)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -100,7 +104,8 @@ namespace ClrDebug
         /// The value of appDomainId is not valid for any information request after the AppDomainShutdownStarted method returns
         /// — this is the profiler's last chance to get information about this application domain.
         /// </remarks>
-        public virtual HRESULT AppDomainShutdownStarted(AppDomainID appDomainId)
+        public virtual HRESULT AppDomainShutdownStarted(
+            AppDomainID appDomainId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -116,7 +121,9 @@ namespace ClrDebug
         /// callback. A failure HRESULT in hrStatus indicates a failure. However, a success HRESULT in hrStatus indicates only
         /// that the first part of unloading the application domain has succeeded.
         /// </remarks>
-        public virtual HRESULT AppDomainShutdownFinished(AppDomainID appDomainId, HRESULT hrStatus)
+        public virtual HRESULT AppDomainShutdownFinished(
+            AppDomainID appDomainId,
+            HRESULT hrStatus)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -129,7 +136,8 @@ namespace ClrDebug
         /// The value of assemblyId is not valid for an information request until the <see cref="AssemblyLoadFinished"/> method
         /// is called.
         /// </remarks>
-        public virtual HRESULT AssemblyLoadStarted(AssemblyID assemblyId)
+        public virtual HRESULT AssemblyLoadStarted(
+            AssemblyID assemblyId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -145,7 +153,9 @@ namespace ClrDebug
         /// hrStatus indicates a failure. However, a success HRESULT in hrStatus indicates only that the first part of loading
         /// the assembly has succeeded.
         /// </remarks>
-        public virtual HRESULT AssemblyLoadFinished(AssemblyID assemblyId, HRESULT hrStatus)
+        public virtual HRESULT AssemblyLoadFinished(
+            AssemblyID assemblyId,
+            HRESULT hrStatus)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -158,7 +168,8 @@ namespace ClrDebug
         /// The value of assemblyId is not valid for an information request after the AssemblyUnloadStarted method returns
         /// — this is the profiler's last chance to get information about this assembly.
         /// </remarks>
-        public virtual HRESULT AssemblyUnloadStarted(AssemblyID assemblyId)
+        public virtual HRESULT AssemblyUnloadStarted(
+            AssemblyID assemblyId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -174,7 +185,9 @@ namespace ClrDebug
         /// HRESULT in hrStatus indicates a failure. However, a success HRESULT in hrStatus indicates only that the first part
         /// of unloading the assembly has succeeded.
         /// </remarks>
-        public virtual HRESULT AssemblyUnloadFinished(AssemblyID assemblyId, HRESULT hrStatus)
+        public virtual HRESULT AssemblyUnloadFinished(
+            AssemblyID assemblyId,
+            HRESULT hrStatus)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -187,7 +200,8 @@ namespace ClrDebug
         /// The value of moduleId is not valid for an information request until the <see cref="ModuleLoadFinished"/> method
         /// is called.
         /// </remarks>
-        public virtual HRESULT ModuleLoadStarted(ModuleID moduleId)
+        public virtual HRESULT ModuleLoadStarted(
+            ModuleID moduleId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -203,7 +217,9 @@ namespace ClrDebug
         /// indicates a failure. However, a success HRESULT in hrStatus indicates only that the first part of loading the module
         /// has succeeded.
         /// </remarks>
-        public virtual HRESULT ModuleLoadFinished(ModuleID moduleId, HRESULT hrStatus)
+        public virtual HRESULT ModuleLoadFinished(
+            ModuleID moduleId,
+            HRESULT hrStatus)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -216,7 +232,8 @@ namespace ClrDebug
         /// The value of moduleId is not valid for an information request after the ModuleUnloadStarted method returns — this
         /// is the profiler's last chance to get information about this module.
         /// </remarks>
-        public virtual HRESULT ModuleUnloadStarted(ModuleID moduleId)
+        public virtual HRESULT ModuleUnloadStarted(
+            ModuleID moduleId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -232,7 +249,9 @@ namespace ClrDebug
         /// in hrStatus indicates a failure. However, a success HRESULT in hrStatus indicates only that the first part of unloading
         /// the module has succeeded.
         /// </remarks>
-        public virtual HRESULT ModuleUnloadFinished(ModuleID moduleId, HRESULT hrStatus)
+        public virtual HRESULT ModuleUnloadFinished(
+            ModuleID moduleId,
+            HRESULT hrStatus)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -249,7 +268,9 @@ namespace ClrDebug
         /// does not know what assembly it is in and getting the parent assembly ID is not possible. The ModuleAttachedToAssembly
         /// method is called when the module is attached to its parent assembly and its parent assembly ID can be obtained.
         /// </remarks>
-        public virtual HRESULT ModuleAttachedToAssembly(ModuleID moduleId, AssemblyID assemblyId)
+        public virtual HRESULT ModuleAttachedToAssembly(
+            ModuleID moduleId,
+            AssemblyID assemblyId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -262,7 +283,8 @@ namespace ClrDebug
         /// The value of classId is not valid for an information request until the <see cref="ClassLoadFinished"/> method is
         /// called.
         /// </remarks>
-        public virtual HRESULT ClassLoadStarted(ClassID classId)
+        public virtual HRESULT ClassLoadStarted(
+            ClassID classId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -277,7 +299,9 @@ namespace ClrDebug
         /// parts of loading the class might continue after the ClassLoadFinished callback. A failure HRESULT in hrStatus indicates
         /// a failure. However, a success HRESULT in hrStatus indicates only that the first part of loading the class has succeeded.
         /// </remarks>
-        public virtual HRESULT ClassLoadFinished(ClassID classId, HRESULT hrStatus)
+        public virtual HRESULT ClassLoadFinished(
+            ClassID classId,
+            HRESULT hrStatus)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -290,7 +314,8 @@ namespace ClrDebug
         /// The value of classId is not valid for an information request after the ClassUnloadStarted method returns — this
         /// is the profiler's last chance to obtain information about this class.
         /// </remarks>
-        public virtual HRESULT ClassUnloadStarted(ClassID classId)
+        public virtual HRESULT ClassUnloadStarted(
+            ClassID classId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -305,7 +330,9 @@ namespace ClrDebug
         /// indicates a failure. However, a success HRESULT in hrStatus indicates only that the first part of unloading the
         /// class has succeeded.
         /// </remarks>
-        public virtual HRESULT ClassUnloadFinished(ClassID classId, HRESULT hrStatus)
+        public virtual HRESULT ClassUnloadFinished(
+            ClassID classId,
+            HRESULT hrStatus)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -317,7 +344,8 @@ namespace ClrDebug
         /// <remarks>
         /// The value of the functionId parameter is no longer valid after this method returns to the caller.
         /// </remarks>
-        public virtual HRESULT FunctionUnloadStarted(FunctionID functionId)
+        public virtual HRESULT FunctionUnloadStarted(
+            FunctionID functionId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -343,7 +371,9 @@ namespace ClrDebug
         /// It might appear that the function ID should not yet be valid because a call to JITCompilationFinished had not yet
         /// been received by the profiler. However, in a case like this one, the function ID is valid.
         /// </remarks>
-        public virtual HRESULT JITCompilationStarted(FunctionID functionId, bool fIsSafeToBlock)
+        public virtual HRESULT JITCompilationStarted(
+            FunctionID functionId,
+            bool fIsSafeToBlock)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -355,7 +385,10 @@ namespace ClrDebug
         /// <param name="hrStatus">[in] A value indicating whether compilation was successful.</param>
         /// <param name="fIsSafeToBlock">[in] A value indicating to the profiler whether blocking will affect the operation of the runtime. The value is true if blocking may cause the runtime to wait for the calling thread to return from this callback; otherwise, false.<para/>
         /// Although a value of true will not harm the runtime, it can skew the profiling results.</param>
-        public virtual HRESULT JITCompilationFinished(FunctionID functionId, HRESULT hrStatus, bool fIsSafeToBlock)
+        public virtual HRESULT JITCompilationFinished(
+            FunctionID functionId,
+            HRESULT hrStatus,
+            bool fIsSafeToBlock)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -383,7 +416,9 @@ namespace ClrDebug
         /// when JITCachedFunctionSearchStarted is called multiple times with the same functionId value, the profiler must
         /// respond the same each time.
         /// </remarks>
-        public virtual HRESULT JITCachedFunctionSearchStarted(FunctionID functionId, out bool pbUseCachedFunction)
+        public virtual HRESULT JITCachedFunctionSearchStarted(
+            FunctionID functionId,
+            out bool pbUseCachedFunction)
         {
             pbUseCachedFunction = default(bool);
 
@@ -402,7 +437,9 @@ namespace ClrDebug
         /// request profiler-optimized NGen images only if it intends to use these callbacks to force a function to be compiled
         /// just-in-time (JIT). Otherwise, the profiler should use a lazy strategy for gathering function information.
         /// </remarks>
-        public virtual HRESULT JITCachedFunctionSearchFinished(FunctionID functionId, COR_PRF_JIT_CACHE result)
+        public virtual HRESULT JITCachedFunctionSearchFinished(
+            FunctionID functionId,
+            COR_PRF_JIT_CACHE result)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -417,7 +454,8 @@ namespace ClrDebug
         /// is currently not used and will not be received by the profiler. The value of functionId is not valid until the
         /// function is recompiled. When the function is recompiled, the same functionId value will be used.
         /// </remarks>
-        public virtual HRESULT JITFunctionPitched(FunctionID functionId)
+        public virtual HRESULT JITFunctionPitched(
+            FunctionID functionId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -436,7 +474,10 @@ namespace ClrDebug
         /// to false will affect performance, because inline insertion typically increases speed and reduces the number of
         /// separate JIT compilation events for the inserted method.
         /// </remarks>
-        public virtual HRESULT JITInlining(FunctionID callerId, FunctionID calleeId, out bool pfShouldInline)
+        public virtual HRESULT JITInlining(
+            FunctionID callerId,
+            FunctionID calleeId,
+            out bool pfShouldInline)
         {
             pfShouldInline = default(bool);
 
@@ -450,7 +491,8 @@ namespace ClrDebug
         /// <remarks>
         /// The threadId value is immediately valid.
         /// </remarks>
-        public virtual HRESULT ThreadCreated(ThreadID threadId)
+        public virtual HRESULT ThreadCreated(
+            ThreadID threadId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -462,7 +504,8 @@ namespace ClrDebug
         /// <remarks>
         /// The threadId value is no longer valid at the time of this call.
         /// </remarks>
-        public virtual HRESULT ThreadDestroyed(ThreadID threadId)
+        public virtual HRESULT ThreadDestroyed(
+            ThreadID threadId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -476,7 +519,9 @@ namespace ClrDebug
         /// The ThreadAssignedToOSThread callback exists so that the profiler can maintain an accurate mapping across fibers
         /// of operating system threads to managed threads.
         /// </remarks>
-        public virtual HRESULT ThreadAssignedToOSThread(ThreadID managedThreadId, int osThreadId)
+        public virtual HRESULT ThreadAssignedToOSThread(
+            ThreadID managedThreadId,
+            int osThreadId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -598,7 +643,9 @@ namespace ClrDebug
         /// have some basic information associated with them, such as a name and some metadata. If the value of reason is COR_PRF_TRANSITION_CALL,
         /// it may be possible that the called function (that is, the managed function) has not yet been JIT-compiled.
         /// </remarks>
-        public virtual HRESULT UnmanagedToManagedTransition(FunctionID functionId, COR_PRF_TRANSITION_REASON reason)
+        public virtual HRESULT UnmanagedToManagedTransition(
+            FunctionID functionId,
+            COR_PRF_TRANSITION_REASON reason)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -615,7 +662,9 @@ namespace ClrDebug
         /// (PInvoke), the runtime cannot determine the destination of the call and the value of functionId will be null. For
         /// more information on implicit PInvoke, see Using C.
         /// </remarks>
-        public virtual HRESULT ManagedToUnmanagedTransition(FunctionID functionId, COR_PRF_TRANSITION_REASON reason)
+        public virtual HRESULT ManagedToUnmanagedTransition(
+            FunctionID functionId,
+            COR_PRF_TRANSITION_REASON reason)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -630,7 +679,8 @@ namespace ClrDebug
         /// the runtime. All threads in the runtime are either suspended immediately if they are already in interruptible code,
         /// or they are asked to suspend when they reach interruptible code.
         /// </remarks>
-        public virtual HRESULT RuntimeSuspendStarted(COR_PRF_SUSPEND_REASON suspendReason)
+        public virtual HRESULT RuntimeSuspendStarted(
+            COR_PRF_SUSPEND_REASON suspendReason)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -696,7 +746,8 @@ namespace ClrDebug
         /// thread (the thread that called this callback) is the one that is being suspended, this callback will occur just
         /// before the thread is suspended.
         /// </remarks>
-        public virtual HRESULT RuntimeThreadSuspended(ThreadID threadId)
+        public virtual HRESULT RuntimeThreadSuspended(
+            ThreadID threadId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -705,7 +756,8 @@ namespace ClrDebug
         /// Notifies the profiler that the specified thread has resumed after being suspended.
         /// </summary>
         /// <param name="threadId">[in] The ID of the thread that has been resumed.</param>
-        public virtual HRESULT RuntimeThreadResumed(ThreadID threadId)
+        public virtual HRESULT RuntimeThreadResumed(
+            ThreadID threadId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -731,7 +783,11 @@ namespace ClrDebug
         /// during a MovedReferences call. A <see cref="ICorProfilerCallback2.GarbageCollectionFinished"/> callback indicates
         /// that all objects have been moved to their new locations and inspection can be performed.
         /// </remarks>
-        public virtual HRESULT MovedReferences(int cMovedObjectIDRanges, ObjectID[] oldObjectIDRangeStart, ObjectID[] newObjectIDRangeStart, int[] cObjectIDRangeLength)
+        public virtual HRESULT MovedReferences(
+            int cMovedObjectIDRanges,
+            ObjectID[] oldObjectIDRangeStart,
+            ObjectID[] newObjectIDRangeStart,
+            int[] cObjectIDRangeLength)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -746,7 +802,9 @@ namespace ClrDebug
         /// parameter can refer to a class in managed code that has not been loaded yet. The profiler will receive a class
         /// load callback for that class immediately after the ObjectAllocated callback.
         /// </remarks>
-        public virtual HRESULT ObjectAllocated(ObjectID objectId, ClassID classId)
+        public virtual HRESULT ObjectAllocated(
+            ObjectID objectId,
+            ClassID classId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -764,7 +822,10 @@ namespace ClrDebug
         /// by ObjectsAllocatedByClass are only estimates. For exact counts, use <see cref="ObjectAllocated"/>. The classIds
         /// array may contain one or more null entries if the corresponding cObjects array has types that are unloading.
         /// </remarks>
-        public virtual HRESULT ObjectsAllocatedByClass(int cClassCount, ClassID[] classIds, int[] cObjects)
+        public virtual HRESULT ObjectsAllocatedByClass(
+            int cClassCount,
+            ClassID[] classIds,
+            int[] cObjects)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -787,7 +848,11 @@ namespace ClrDebug
         /// is called, the garbage collection is complete and inspection can be safely done. A null ClassId indicates that
         /// objectId has a type that is unloading.
         /// </remarks>
-        public virtual HRESULT ObjectReferences(ObjectID objectId, ClassID classId, int cObjectRefs, ObjectID[] objectRefIds)
+        public virtual HRESULT ObjectReferences(
+            ObjectID objectId,
+            ClassID classId,
+            int cObjectRefs,
+            ObjectID[] objectRefIds)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -807,7 +872,9 @@ namespace ClrDebug
         /// profilers must not attempt to inspect objects during a RootReferences call. When <see cref="ICorProfilerCallback2.GarbageCollectionFinished"/>
         /// is called, all objects have been moved to their new locations and can be safely inspected.
         /// </remarks>
-        public virtual HRESULT RootReferences(int cRootRefs, ObjectID[] rootRefIds)
+        public virtual HRESULT RootReferences(
+            int cRootRefs,
+            ObjectID[] rootRefIds)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -822,7 +889,8 @@ namespace ClrDebug
         /// here and garbage collection is attempted, the runtime will block until this callback returns. The profiler's implementation
         /// of this method should not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
-        public virtual HRESULT ExceptionThrown(ObjectID thrownObjectId)
+        public virtual HRESULT ExceptionThrown(
+            ObjectID thrownObjectId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -831,7 +899,8 @@ namespace ClrDebug
         /// Notifies the profiler that the search phase of exception handling has begun searching a function to find a handler for the current exception.
         /// </summary>
         /// <param name="functionId">[in] The ID of the function that has been entered.</param>
-        public virtual HRESULT ExceptionSearchFunctionEnter(FunctionID functionId)
+        public virtual HRESULT ExceptionSearchFunctionEnter(
+            FunctionID functionId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -848,7 +917,8 @@ namespace ClrDebug
         /// Notifies the profiler that the search phase of exception handling has begun executing a user-defined exception filter.
         /// </summary>
         /// <param name="functionId">[in] The ID of the function that contains the filter.</param>
-        public virtual HRESULT ExceptionSearchFilterEnter(FunctionID functionId)
+        public virtual HRESULT ExceptionSearchFilterEnter(
+            FunctionID functionId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -865,7 +935,8 @@ namespace ClrDebug
         /// Notifies the profiler that the search phase of exception handling has located a handler for the exception that was thrown.
         /// </summary>
         /// <param name="functionId">[in] The ID of the function that contains the exception handler.</param>
-        public virtual HRESULT ExceptionSearchCatcherFound(FunctionID functionId)
+        public virtual HRESULT ExceptionSearchCatcherFound(
+            FunctionID functionId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -873,7 +944,8 @@ namespace ClrDebug
         /// <summary>
         /// Not implemented. A profiler that needs unmanaged exception information must obtain this information through other means.
         /// </summary>
-        public virtual HRESULT ExceptionOSHandlerEnter(IntPtr __unused)
+        public virtual HRESULT ExceptionOSHandlerEnter(
+            IntPtr __unused)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -881,7 +953,8 @@ namespace ClrDebug
         /// <summary>
         /// Not implemented. A profiler that needs unmanaged exception information must obtain this information through other means.
         /// </summary>
-        public virtual HRESULT ExceptionOSHandlerLeave(IntPtr __unused)
+        public virtual HRESULT ExceptionOSHandlerLeave(
+            IntPtr __unused)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -896,7 +969,8 @@ namespace ClrDebug
         /// here and garbage collection is attempted, the runtime will block until this callback returns. The profiler's implementation
         /// of this method should not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
-        public virtual HRESULT ExceptionUnwindFunctionEnter(FunctionID functionId)
+        public virtual HRESULT ExceptionUnwindFunctionEnter(
+            FunctionID functionId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -926,7 +1000,8 @@ namespace ClrDebug
         /// here and garbage collection is attempted, the runtime will block until this callback returns. The profiler's implementation
         /// of this method should not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
-        public virtual HRESULT ExceptionUnwindFinallyEnter(FunctionID functionId)
+        public virtual HRESULT ExceptionUnwindFinallyEnter(
+            FunctionID functionId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -960,7 +1035,9 @@ namespace ClrDebug
         /// The profiler's implementation of this method should not call into managed code or in any way cause a managed-memory
         /// allocation.
         /// </remarks>
-        public virtual HRESULT ExceptionCatcherEnter(FunctionID functionId, ObjectID objectId)
+        public virtual HRESULT ExceptionCatcherEnter(
+            FunctionID functionId,
+            ObjectID objectId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1052,7 +1129,10 @@ namespace ClrDebug
         /// <param name="threadId">[in] The ID of the thread.</param>
         /// <param name="cchName">[in] The length of the new name of the thread.</param>
         /// <param name="name">[in] The new name of the thread. The name is not null-terminated.</param>
-        public virtual HRESULT ThreadNameChanged(ThreadID threadId, int cchName, string name)
+        public virtual HRESULT ThreadNameChanged(
+            ThreadID threadId,
+            int cchName,
+            string name)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1072,7 +1152,10 @@ namespace ClrDebug
         /// the profiler has returned from this callback, the profiler should consider all object IDs to be invalid until it
         /// receives a ICorProfilerCallback2::GarbageCollectionFinished callback.
         /// </remarks>
-        public virtual HRESULT GarbageCollectionStarted(int cGenerations, bool[] generationCollected, COR_PRF_GC_REASON reason)
+        public virtual HRESULT GarbageCollectionStarted(
+            int cGenerations,
+            bool[] generationCollected,
+            COR_PRF_GC_REASON reason)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1101,7 +1184,10 @@ namespace ClrDebug
         /// during a garbage collection, the information is cumulative — all references that are reported in any SurvivingReferences
         /// callback survive the garbage collection.
         /// </remarks>
-        public virtual HRESULT SurvivingReferences(int cSurvivingObjectIDRanges, ObjectID[] objectIDRangeStart, int[] cObjectIDRangeLength)
+        public virtual HRESULT SurvivingReferences(
+            int cSurvivingObjectIDRanges,
+            ObjectID[] objectIDRangeStart,
+            int[] cObjectIDRangeLength)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1123,7 +1209,9 @@ namespace ClrDebug
         /// </summary>
         /// <param name="finalizerFlags">[in] A value of the COR_PRF_FINALIZER_FLAGS enumeration that describes aspects of the finalizer.</param>
         /// <param name="objectID">[in] The ID of the object that has been queued.</param>
-        public virtual HRESULT FinalizeableObjectQueued(COR_PRF_FINALIZER_FLAGS finalizerFlags, ObjectID objectID)
+        public virtual HRESULT FinalizeableObjectQueued(
+            COR_PRF_FINALIZER_FLAGS finalizerFlags,
+            ObjectID objectID)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1149,7 +1237,12 @@ namespace ClrDebug
         /// should not attempt to inspect objects during a RootReferences2 call. When <see cref="GarbageCollectionFinished"/>
         /// is called, all objects have been moved to their new locations and can be safely inspected.
         /// </remarks>
-        public virtual HRESULT RootReferences2(int cRootRefs, ObjectID[] rootRefIds, COR_PRF_GC_ROOT_KIND[] rootKinds, COR_PRF_GC_ROOT_FLAGS[] rootFlags, IntPtr[] rootIds)
+        public virtual HRESULT RootReferences2(
+            int cRootRefs,
+            ObjectID[] rootRefIds,
+            COR_PRF_GC_ROOT_KIND[] rootKinds,
+            COR_PRF_GC_ROOT_FLAGS[] rootFlags,
+            IntPtr[] rootIds)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1159,7 +1252,9 @@ namespace ClrDebug
         /// </summary>
         /// <param name="handleId">[in] The ID of the handle for the garbage collection.</param>
         /// <param name="initialObjectId">[in] The ID of the object for which the garbage collection handle was created.</param>
-        public virtual HRESULT HandleCreated(GCHandleID handleId, ObjectID initialObjectId)
+        public virtual HRESULT HandleCreated(
+            GCHandleID handleId,
+            ObjectID initialObjectId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1168,7 +1263,8 @@ namespace ClrDebug
         /// Notifies the code profiler that a garbage collection handle has been destroyed.
         /// </summary>
         /// <param name="handleId">[in] The ID of the handle for the garbage collection.</param>
-        public virtual HRESULT HandleDestroyed(GCHandleID handleId)
+        public virtual HRESULT HandleDestroyed(
+            GCHandleID handleId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1186,7 +1282,10 @@ namespace ClrDebug
         /// <remarks>
         /// The CLR calls InitializeForAttach to give the profiler an opportunity to request callbacks.
         /// </remarks>
-        public virtual HRESULT InitializeForAttach(object pCorProfilerInfoUnk, IntPtr pvClientData, int cbClientData)
+        public virtual HRESULT InitializeForAttach(
+            object pCorProfilerInfoUnk,
+            IntPtr pvClientData,
+            int cbClientData)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1245,7 +1344,10 @@ namespace ClrDebug
         /// callback for thread A. It might appear that the function ID should not yet be valid because a call to <see cref="ReJITCompilationFinished"/>
         /// had not yet been received by the profiler. However, in this case, the function ID is valid.
         /// </remarks>
-        public virtual HRESULT ReJITCompilationStarted(FunctionID functionId, ReJITID reJitId, bool fIsSafeToBlock)
+        public virtual HRESULT ReJITCompilationStarted(
+            FunctionID functionId,
+            ReJITID reJitId,
+            bool fIsSafeToBlock)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1261,7 +1363,10 @@ namespace ClrDebug
         /// given method. The GetReJITParameters callback is issued only once per function; the parameters supplied by the
         /// profiler apply to all instances of that function.
         /// </remarks>
-        public virtual HRESULT GetReJITParameters(ModuleID moduleId, mdMethodDef methodId, ICorProfilerFunctionControl pFunctionControl)
+        public virtual HRESULT GetReJITParameters(
+            ModuleID moduleId,
+            mdMethodDef methodId,
+            ICorProfilerFunctionControl pFunctionControl)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1274,7 +1379,11 @@ namespace ClrDebug
         /// <param name="hrStatus">[in] A value that indicates whether the JIT recompilation was successful.</param>
         /// <param name="fIsSafeToBlock">[in] true to indicate that blocking may cause the runtime to wait for the calling thread to return from this callback; false to indicate that blocking will not affect the operation of the runtime.<para/>
         /// A value of true does not harm the runtime, but can affect the profiling results.</param>
-        public virtual HRESULT ReJITCompilationFinished(FunctionID functionId, ReJITID reJitId, HRESULT hrStatus, bool fIsSafeToBlock)
+        public virtual HRESULT ReJITCompilationFinished(
+            FunctionID functionId,
+            ReJITID reJitId,
+            HRESULT hrStatus,
+            bool fIsSafeToBlock)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1287,7 +1396,11 @@ namespace ClrDebug
         /// <param name="functionId">[in] The function instance that is being recompiled or marked for recompilation. This value may be NULL if the failure occurred on a per-method basis instead of a per-instantiation basis (for example, if the profiler specified an invalid metadata token for the method to be recompiled).</param>
         /// <param name="hrStatus">[in] An HRESULT that indicates the nature of the failure. See the Status HRESULTS section for a list of values.</param>
         /// <returns>Return values from this callback are ignored.</returns>
-        public virtual HRESULT ReJITError(ModuleID moduleId, mdMethodDef methodId, FunctionID functionId, HRESULT hrStatus)
+        public virtual HRESULT ReJITError(
+            ModuleID moduleId,
+            mdMethodDef methodId,
+            FunctionID functionId,
+            HRESULT hrStatus)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1318,7 +1431,11 @@ namespace ClrDebug
         /// method returns successfully. Profilers can return an HRESULT that indicates failure from the MovedReferences2 method,
         /// to avoid calling the second method.
         /// </remarks>
-        public virtual HRESULT MovedReferences2(int cMovedObjectIDRanges, ObjectID[] oldObjectIDRangeStart, ObjectID[] newObjectIDRangeStart, IntPtr[] cObjectIDRangeLength)
+        public virtual HRESULT MovedReferences2(
+            int cMovedObjectIDRanges,
+            ObjectID[] oldObjectIDRangeStart,
+            ObjectID[] newObjectIDRangeStart,
+            IntPtr[] cObjectIDRangeLength)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1351,7 +1468,10 @@ namespace ClrDebug
         /// method, but only if SurvivingReferences2 returns successfully. Profilers can return an HRESULT that indicates failure
         /// from the SurvivingReferences2 method to avoid calling the second method.
         /// </remarks>
-        public virtual HRESULT SurvivingReferences2(int cSurvivingObjectIDRanges, ObjectID[] objectIDRangeStart, IntPtr[] cObjectIDRangeLength)
+        public virtual HRESULT SurvivingReferences2(
+            int cSurvivingObjectIDRanges,
+            ObjectID[] objectIDRangeStart,
+            IntPtr[] cObjectIDRangeLength)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1374,7 +1494,11 @@ namespace ClrDebug
         /// dependencies and the member field references specified by the <see cref="ICorProfilerCallback.ObjectReferences"/>
         /// method enable a managed profiler to generate the full object graph of live objects.
         /// </remarks>
-        public virtual HRESULT ConditionalWeakTableElementReferences(int cRootRefs, ObjectID[] keyRefIds, ObjectID[] valueRefIds, GCHandleID[] rootIds)
+        public virtual HRESULT ConditionalWeakTableElementReferences(
+            int cRootRefs,
+            ObjectID[] keyRefIds,
+            ObjectID[] valueRefIds,
+            GCHandleID[] rootIds)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1412,7 +1536,9 @@ namespace ClrDebug
         /// to this callback for the same assembly, and should respond identically for each such duplicate call (by making
         /// the same set of <see cref="ICorProfilerAssemblyReferenceProvider.AddAssemblyReference"/> calls).
         /// </remarks>
-        public virtual HRESULT GetAssemblyReferences(string wszAssemblyPath, ICorProfilerAssemblyReferenceProvider pAsmRefProvider)
+        public virtual HRESULT GetAssemblyReferences(
+            string wszAssemblyPath,
+            ICorProfilerAssemblyReferenceProvider pAsmRefProvider)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1432,7 +1558,8 @@ namespace ClrDebug
         /// the module until after the <see cref="ICorProfilerCallback.ModuleLoadFinished"/> callback has occurred. This event
         /// provides a later opportunity to collect symbols for such modules.
         /// </remarks>
-        public virtual HRESULT ModuleInMemorySymbolsUpdated(ModuleID moduleId)
+        public virtual HRESULT ModuleInMemorySymbolsUpdated(
+            ModuleID moduleId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1452,7 +1579,11 @@ namespace ClrDebug
         /// Its goal is to provide profiler writers with enough information to identify the compiled method to users. The pILHeader
         /// pointer is only valid during the callback.
         /// </remarks>
-        public virtual HRESULT DynamicMethodJITCompilationStarted(FunctionID functionId, bool fIsSafeToBlock, IntPtr pILHeader, int cbILHeader)
+        public virtual HRESULT DynamicMethodJITCompilationStarted(
+            FunctionID functionId,
+            bool fIsSafeToBlock,
+            IntPtr pILHeader,
+            int cbILHeader)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1468,7 +1599,10 @@ namespace ClrDebug
         /// stubs and LCG methods. Its goal is to provide profiler writers with enough information to identify the compiled
         /// method to users.
         /// </remarks>
-        public virtual HRESULT DynamicMethodJITCompilationFinished(FunctionID functionId, HRESULT hrStatus, bool fIsSafeToBlock)
+        public virtual HRESULT DynamicMethodJITCompilationFinished(
+            FunctionID functionId,
+            HRESULT hrStatus,
+            bool fIsSafeToBlock)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1480,7 +1614,8 @@ namespace ClrDebug
         /// [Supported in the .NET Framework 4.7.2 and later versions] Notifies the profiler whenever a dynamic method is garbage collected and subsequently unloaded.
         /// </summary>
         /// <param name="functionId">[in] The identifier of the in-memory function that has been garbage collected and unloaded.</param>
-        public virtual HRESULT DynamicMethodUnloaded(FunctionID functionId)
+        public virtual HRESULT DynamicMethodUnloaded(
+            FunctionID functionId)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1530,7 +1665,8 @@ namespace ClrDebug
         /// Notifies the profiler whenever an EventPipe provider is created.
         /// </summary>
         /// <param name="provider">[in] The provider that was created.</param>
-        public virtual HRESULT EventPipeProviderCreated(EVENTPIPE_PROVIDER provider)
+        public virtual HRESULT EventPipeProviderCreated(
+            EVENTPIPE_PROVIDER provider)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1538,7 +1674,8 @@ namespace ClrDebug
         #endregion
         #region ICorProfilerCallback11
 
-        public virtual HRESULT LoadAsNotficationOnly(out bool pbNotificationOnly)
+        public virtual HRESULT LoadAsNotficationOnly(
+            out bool pbNotificationOnly)
         {
             pbNotificationOnly = default(bool);
 

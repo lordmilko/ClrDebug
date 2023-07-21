@@ -551,9 +551,9 @@ namespace ClrDebug.TypeLib
         public HRESULT TryCreateInstance(object pUnkOuter, Guid riid, out object ppvObj)
         {
             /*HRESULT CreateInstance(
-            [In] object pUnkOuter,
+            [In, MarshalAs(UnmanagedType.Interface)] object pUnkOuter,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out] out object ppvObj);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppvObj);*/
             return Raw.CreateInstance(pUnkOuter, riid, out ppvObj);
         }
 
