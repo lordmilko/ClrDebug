@@ -14,7 +14,7 @@
     <NoWarn>1701;1702;CS1591</NoWarn>
     <IsPackable>true</IsPackable>
     <AssemblyTitle>Managed wrappers around the .NET Unmanaged API</AssemblyTitle>
-    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
   <!-- T4 Templates -->

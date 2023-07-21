@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace ClrDebug.Tests.DbgEng
+namespace ClrDebug.Tests
 {
     [UnmanagedFunctionPointer(CallingConvention.StdCall)]
     public delegate bool SymSetSearchPathDelegate(IntPtr hProcess, [MarshalAs(UnmanagedType.LPStr)] string SearchPath);

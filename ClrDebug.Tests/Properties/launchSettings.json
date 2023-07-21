@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ClrDebug.Tests": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}
