@@ -3,10 +3,12 @@
   <Import Project="..\NuGet.props" />
 
   <PropertyGroup>
-    <IsGeneratedMarshalling Condition="$(TargetFramework) != 'netstandard2.0'">true</IsGeneratedMarshalling>
+    <IsGeneratedMarshalling Condition="'$(TargetFramework)' != 'netstandard2.0'">true</IsGeneratedMarshalling>
     <IsGeneratedMarshalling Condition="'$(IsGeneratedMarshalling)' == ''">false</IsGeneratedMarshalling>
+    <IsLegacyVisualStudio Condition="'$(VisualStudioVersion)' == '15.0' Or '$(VisualStudioVersion)' == '16.0'">true</IsLegacyVisualStudio>
+    <IsLegacyVisualStudio Condition="'$(IsLegacyVisualStudio)' == ''">false</IsLegacyVisualStudio>
     
-    <TargetFrameworks Condition="'$(VisualStudioVersion)' == '15.0'">netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IsLegacyVisualStudio)'">netstandard2.0</TargetFrameworks>
     <TargetFrameworks Condition="'$(TargetFrameworks)' == ''">netstandard2.0;net8.0</TargetFrameworks>
     <DefineConstants Condition="'$(IsGeneratedMarshalling)'">$(DefineConstants);GENERATED_MARSHALLING</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

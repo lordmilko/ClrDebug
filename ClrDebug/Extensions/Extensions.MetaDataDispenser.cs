@@ -1,14 +1,15 @@
 ﻿using System;
-using ClrDebug.CoClass;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
     public partial class MetaDataDispenserEx
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MetaDataDispenserEx"/> class from a new <see cref="CorMetaDataDispenser"/>.
+        /// Initializes a new instance of the <see cref="MetaDataDispenserEx"/> class from the "MetaDataGetDispenser" export of the CLR in the current process.<para/>
+        /// This constructor cannot be used in NativeAOT.
         /// </summary>
-        public MetaDataDispenserEx() : this((IMetaDataDispenserEx) new CorMetaDataDispenser())
+        public MetaDataDispenserEx() : this(MetaDataGetDispenser())
         {
         }
     }

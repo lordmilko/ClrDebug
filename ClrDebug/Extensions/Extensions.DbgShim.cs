@@ -829,11 +829,7 @@ namespace ClrDebug
 
         protected virtual T GetDelegate<T>(string procName)
         {
-#if !GENERATED_MARSHALLING
-            var proc = NativeMethods.GetProcAddress(hModule, procName);
-#else
-            var proc = NativeLibrary.GetExport(hModule, procName);
-#endif
+            var proc = GetExport(hModule, procName);
 
             if (proc == IntPtr.Zero)
                 throw new InvalidOperationException($"Failed to get address of procedure '{procName}': {(HRESULT)Marshal.GetHRForLastWin32Error()}");

@@ -1,54 +1,51 @@
-﻿using System;
+﻿#if !GENERATED_MARSHALLING
+
+using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-#if GENERATED_MARSHALLING
-using System.Runtime.InteropServices.Marshalling;
-#endif
 
 namespace ClrDebug.CoClass
 {
     [Guid("0AE2DEB0-F901-478B-BB9F-881EE8066788")]
     [ClassInterface(ClassInterfaceType.None)]
-#if !GENERATED_MARSHALLING
     [ComImport]
-#else
-    [GeneratedComClass]
-#endif
     public partial class CorSymWriter_SxSClass : ISymUnmanagedWriter, CorSymWriter_SxS
     {
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineDocument(
             [In, MarshalAs(UnmanagedType.LPWStr)] string url,
-#if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid language,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid languageVendor,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid documentType,
-#else
-            [MarshalUsing(typeof(GuidMarshaller))] in Guid language,
-            [MarshalUsing(typeof(GuidMarshaller))] in Guid languageVendor,
-            [MarshalUsing(typeof(GuidMarshaller))] in Guid documentType,
-#endif
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedDocumentWriter pRetVal);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT SetUserEntryPoint([In] int entryMethod);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT OpenMethod([In] int method);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT CloseMethod();
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT OpenScope([In] int startOffset, [Out] out int pRetVal);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT CloseScope([In] int endOffset);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT SetScopeRange([In] int scopeID, [In] int startOffset, [In] int endOffset);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineLocalVariable(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
@@ -62,6 +59,7 @@ namespace ClrDebug.CoClass
             [In] int endOffset);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineParameter(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
@@ -72,6 +70,7 @@ namespace ClrDebug.CoClass
             [In] int addr3);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineField(
             [In] int parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
@@ -84,6 +83,7 @@ namespace ClrDebug.CoClass
             [In] int addr3);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineGlobalVariable(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
@@ -95,9 +95,11 @@ namespace ClrDebug.CoClass
             [In] int addr3);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Close();
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT SetSymAttribute(
             [In] int parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
@@ -105,15 +107,19 @@ namespace ClrDebug.CoClass
             [In] IntPtr data);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT OpenNamespace([In, MarshalAs(UnmanagedType.LPWStr)] string name);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT CloseNamespace();
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT UsingNamespace([In, MarshalAs(UnmanagedType.LPWStr)] string fullName);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT SetMethodSourceRange(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter startDoc,
@@ -125,6 +131,7 @@ namespace ClrDebug.CoClass
             [In] int endColumn);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Initialize(
             [MarshalAs(UnmanagedType.Interface), In]
             object emitter,
@@ -134,6 +141,7 @@ namespace ClrDebug.CoClass
             [In, MarshalAs(UnmanagedType.Bool)] bool fFullBuild);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetDebugInfo(
             [In, Out] ref IntPtr pIDD,
             [In] int cData,
@@ -141,6 +149,7 @@ namespace ClrDebug.CoClass
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineSequencePoints(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter document,
             [In] int spCount,
@@ -151,9 +160,11 @@ namespace ClrDebug.CoClass
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] endColumns);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT RemapToken([In] mdToken oldToken, [In] mdToken newToken);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Initialize2(
             [MarshalAs(UnmanagedType.Interface), In]
             object emitter,
@@ -164,6 +175,7 @@ namespace ClrDebug.CoClass
             [In, MarshalAs(UnmanagedType.LPWStr)] string finalfilename);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineConstant(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [MarshalAs(UnmanagedType.Struct), In] object value,
@@ -171,6 +183,9 @@ namespace ClrDebug.CoClass
             [In] IntPtr signature);
 
         [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Abort();
     }
 }
+
+#endif

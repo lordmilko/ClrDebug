@@ -3,9 +3,11 @@
   <PropertyGroup>
     <IsGeneratedMarshalling Condition="$(TargetFramework) == 'net8.0'">true</IsGeneratedMarshalling>
     <IsGeneratedMarshalling Condition="'$(IsGeneratedMarshalling)' == ''">false</IsGeneratedMarshalling>
+    <IsLegacyVisualStudio Condition="'$(VisualStudioVersion)' == '15.0' Or '$(VisualStudioVersion)' == '16.0'">true</IsLegacyVisualStudio>
+    <IsLegacyVisualStudio Condition="'$(IsLegacyVisualStudio)' == ''">false</IsLegacyVisualStudio>
 
     <OutputType>Exe</OutputType>
-    <TargetFrameworks Condition="'$(VisualStudioVersion)' == '15.0'">netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks Condition="$(IsLegacyVisualStudio)">netcoreapp2.1</TargetFrameworks>
     <TargetFrameworks Condition="'$(TargetFrameworks)' == ''">netcoreapp2.1;net8.0</TargetFrameworks>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <NoWarn>NETSDK1138;NU1901;NU1902</NoWarn>

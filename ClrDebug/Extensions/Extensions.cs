@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -20,6 +22,11 @@ namespace ClrDebug
         [In, MarshalAs(UnmanagedType.LPStruct)] Guid iid,
         [In, MarshalAs(UnmanagedType.Interface)] ICLRDataTarget target,
         [MarshalAs(UnmanagedType.Interface), Out] out object iface);
+
+    public delegate HRESULT MetaDataGetDispenserDelegate(
+        [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
+        [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+        [MarshalAs(UnmanagedType.Interface), Out] out object ppv);
 
     public static partial class Extensions
     {
@@ -50,10 +57,33 @@ namespace ClrDebug
         public static readonly Guid CLSID_CorRuntimeHost = new Guid("CB2F6723-AB3A-11d2-9C40-00C04FA30A3E");
         public static readonly Guid CLSID_TypeNameFactory = new Guid("B81FF171-20F3-11d2-8DCC-00A0C9B00525");
 
+        private const string ClrLibDesktop = "clr.dll";
+        private const string ClrLibWinCore = "coreclr.dll";
+        private const string ClrLibLinuxCore = "libcoreclr.so";
+        private const string ClrLibMacCore = "libcoreclr.dylib";
+
         private const string DacLibDesktop = "mscordacwks.dll";
         private const string DacLibWinCore = "mscordaccore.dll";
         private const string DacLibLinuxCore = "libmscordaccore.so";
         private const string DacLibMacCore = "libmscordaccore.dylib";
+
+        internal static IntPtr LoadLibrary(string path)
+        {
+#if !GENERATED_MARSHALLING
+            return NativeMethods.LoadLibrary(path);
+#else
+            return NativeLibrary.Load(path);
+#endif
+        }
+
+        internal static IntPtr GetExport(IntPtr handle, string name)
+        {
+#if !GENERATED_MARSHALLING
+            return NativeMethods.GetProcAddress(handle, name);
+#else
+            return NativeLibrary.GetExport(handle, name);
+#endif
+        }
 
         #region CLRCreateInstance
 
@@ -101,23 +131,15 @@ namespace ClrDebug
         {
             if (dacLib == IntPtr.Zero)
             {
-                var dacPath = Path.Combine(RuntimeEnvironment.GetRuntimeDirectory(), GetDacDll());
+                var dacPath = Path.Combine(RuntimeEnvironment.GetRuntimeDirectory(), GetDacLibPath());
 
-#if !GENERATED_MARSHALLING
-                dacLib = NativeMethods.LoadLibrary(dacPath);
-#else
-                dacLib = NativeLibrary.Load(dacPath);
-#endif
+                dacLib = LoadLibrary(dacPath);
 
                 if (dacLib == IntPtr.Zero)
                     throw new InvalidOperationException($"Failed to load library '{dacPath}': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
             }
 
-#if !GENERATED_MARSHALLING
-            var clrDataCreateInstancePtr = NativeMethods.GetProcAddress(dacLib, "CLRDataCreateInstance");
-#else
-            var clrDataCreateInstancePtr = NativeLibrary.GetExport(dacLib, "CLRDataCreateInstance");
-#endif
+            var clrDataCreateInstancePtr = GetExport(dacLib, "CLRDataCreateInstance");
 
             if (clrDataCreateInstancePtr == IntPtr.Zero)
                 throw new InvalidOperationException($"Failed to find function 'CLRDataCreateInstance': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
@@ -127,27 +149,27 @@ namespace ClrDebug
             return CLRDataCreateInstance(clrDataCreateInstance, target);
         }
 
-        private static string GetDacDll()
+        private static string GetDacLibPath()
         {
-            string dacDll;
+            string dacLib;
 
 #if !GENERATED_MARSHALLING
                 if (RuntimeInformation.FrameworkDescription == null || RuntimeInformation.FrameworkDescription.StartsWith(".NET Framework"))
-                    dacDll = DacLibDesktop;
+                    dacLib = DacLibDesktop;
                 else
-                    dacDll = DacLibWinCore;
+                    dacLib = DacLibWinCore;
 #else
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                dacDll = DacLibWinCore;
+                dacLib = DacLibWinCore;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                dacDll = DacLibLinuxCore;
+                dacLib = DacLibLinuxCore;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                dacDll = DacLibMacCore;
+                dacLib = DacLibMacCore;
             else
-                throw new NotSupportedException($"Could not determine DAC DLL to use for operating system '{RuntimeInformation.OSDescription}'.");
+                throw new NotSupportedException($"Could not determine DAC library to use for operating system '{RuntimeInformation.OSDescription}'.");
 #endif
 
-            return dacDll;
+            return dacLib;
         }
 
         /// <summary>
@@ -158,6 +180,56 @@ namespace ClrDebug
         /// <returns>The common interfaces that can be retrieved from a <see cref="CLRDataCreateInstanceDelegate"/>.</returns>
         public static CLRDataCreateInstanceInterfaces CLRDataCreateInstance(CLRDataCreateInstanceDelegate clrDataCreateInstance, ICLRDataTarget target) =>
             new CLRDataCreateInstanceInterfaces(clrDataCreateInstance, target);
+
+        #endregion
+        #region MetaDataGetDispenser
+
+        internal static IMetaDataDispenserEx MetaDataGetDispenser()
+        {
+            var hModule = GetClrModuleHandle();
+
+            var pMetaDataGetDispenser = GetExport(hModule, "MetaDataGetDispenser");
+            var metaDataGetDispenser = Marshal.GetDelegateForFunctionPointer<MetaDataGetDispenserDelegate>(proc);
+
+            metaDataGetDispenser(CLSID_CorMetaDataDispenser, typeof(IMetaDataDispenserEx).GUID, out var ppv).ThrowOnNotOK();
+
+            return (IMetaDataDispenserEx) ppv;
+        }
+
+        private static IntPtr GetClrModuleHandle()
+        {
+#if GENERATED_MARSHALLING
+            string clrDll;
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                clrDll = ClrLibWinCore;
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                clrDll = ClrLibLinuxCore;
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                clrDll = ClrLibMacCore;
+            else
+                throw new NotSupportedException($"Could not determine CLR library to use for operating system '{RuntimeInformation.OSDescription}'.");
+
+            var modules = Process.GetCurrentProcess().Modules;
+
+            var match = modules.Cast<ProcessModule>().FirstOrDefault(m => clrDll.Equals(m.ModuleName, StringComparison.OrdinalIgnoreCase));
+
+            if (match != null)
+                return match.BaseAddress;
+#else
+            IntPtr hModule;
+            var result = NativeMethods.GetModuleHandleExW(GetModuleHandleExFlag.UnchangedRefCount, ClrLibDesktop, out hModule);
+
+            if (result)
+                return hModule;
+
+            result = NativeMethods.GetModuleHandleExW(GetModuleHandleExFlag.UnchangedRefCount, ClrLibWinCore, out hModule);
+
+            if (result)
+                return hModule;
+#endif
+            throw new InvalidOperationException("Failed to locate CLR module within current process.");
+        }
 
         #endregion
 
