@@ -68,46 +68,46 @@ namespace ClrDebug.Tests
             test = (IVariantTest) ppvObject;
         }
 
-        #region Get
+        #region Get Variant
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_Empty() => TestGet<object>(test.GetEmpty(), null);
+        public void Marshal_Variant_FromUnmanaged_Empty() => TestGet<object>(test.GetEmpty(), null);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_Null() => TestGet<DBNull>(test.GetNull(), DBNull.Value);
+        public void Marshal_Variant_FromUnmanaged_Null() => TestGet<DBNull>(test.GetNull(), DBNull.Value);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_U1() => TestGet<byte>(test.GetU1(), (byte)8);
+        public void Marshal_Variant_FromUnmanaged_U1() => TestGet<byte>(test.GetU1(), (byte)8);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_U2() => TestGet<ushort>(test.GetU2(), (ushort)32000);
+        public void Marshal_Variant_FromUnmanaged_U2() => TestGet<ushort>(test.GetU2(), (ushort)32000);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_U4() => TestGet<uint>(test.GetU4(), (uint)123456789);
+        public void Marshal_Variant_FromUnmanaged_U4() => TestGet<uint>(test.GetU4(), (uint)123456789);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_U8() => TestGet<ulong>(test.GetU8(), (ulong)1234567812345678);
+        public void Marshal_Variant_FromUnmanaged_U8() => TestGet<ulong>(test.GetU8(), (ulong)1234567812345678);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_I1() => TestGet<sbyte>(test.GetI1(), (sbyte)-8);
+        public void Marshal_Variant_FromUnmanaged_I1() => TestGet<sbyte>(test.GetI1(), (sbyte)-8);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_I2() => TestGet<short>(test.GetI2(), (short)-32000);
+        public void Marshal_Variant_FromUnmanaged_I2() => TestGet<short>(test.GetI2(), (short)-32000);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_I4() => TestGet<int>(test.GetI4(), -123456789);
+        public void Marshal_Variant_FromUnmanaged_I4() => TestGet<int>(test.GetI4(), -123456789);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_I8() => TestGet<long>(test.GetI8(), (long) -1234567812345678);
+        public void Marshal_Variant_FromUnmanaged_I8() => TestGet<long>(test.GetI8(), (long) -1234567812345678);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_BStr() => TestGet<string>(test.GetBStr(), "hello");
+        public void Marshal_Variant_FromUnmanaged_BStr() => TestGet<string>(test.GetBStr(), "hello");
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_Bool() => TestGet<bool>(test.GetBool(), true);
+        public void Marshal_Variant_FromUnmanaged_Bool() => TestGet<bool>(test.GetBool(), true);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_Unknown()
+        public void Marshal_Variant_FromUnmanaged_Unknown()
         {
             var actual = (IVariantTest) test.GetUnknown();
 
@@ -123,65 +123,65 @@ namespace ClrDebug.Tests
 
         //Void cashes the CLR to crash
         //[TestMethod]
-        //public void Marshal_FromUnmanaged_Void() => Test<object>(test.GetVoid(), (byte)8);
+        //public void Marshal_Variant_FromUnmanaged_Void() => Test<object>(test.GetVoid(), (byte)8);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_Float() => TestGet<float>(test.GetFloat(), 1.2f);
+        public void Marshal_Variant_FromUnmanaged_Float() => TestGet<float>(test.GetFloat(), 1.2f);
 
         [TestMethod]
-        public void Marshal_FromUnmanaged_Double() => TestGet<double>(test.GetDouble(), 1.23456789);
+        public void Marshal_Variant_FromUnmanaged_Double() => TestGet<double>(test.GetDouble(), 1.23456789);
 
 #endregion
-        #region Set
+        #region Set Variant
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_Empty() => TestSet(test.SetEmpty(null));
+        public void Marshal_Variant_ToUnmanaged_Empty() => TestSet(test.SetEmpty(null));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_Null() => TestSet(test.SetNull(DBNull.Value));
+        public void Marshal_Variant_ToUnmanaged_Null() => TestSet(test.SetNull(DBNull.Value));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_U1() => TestSet(test.SetU1((byte)8));
+        public void Marshal_Variant_ToUnmanaged_U1() => TestSet(test.SetU1((byte)8));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_U2() => TestSet(test.SetU2((ushort)32000));
+        public void Marshal_Variant_ToUnmanaged_U2() => TestSet(test.SetU2((ushort)32000));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_U4() => TestSet(test.SetU4((uint)123456789));
+        public void Marshal_Variant_ToUnmanaged_U4() => TestSet(test.SetU4((uint)123456789));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_U8() => TestSet(test.SetU8((ulong)1234567812345678));
+        public void Marshal_Variant_ToUnmanaged_U8() => TestSet(test.SetU8((ulong)1234567812345678));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_I1() => TestSet(test.SetI1((sbyte)-8));
+        public void Marshal_Variant_ToUnmanaged_I1() => TestSet(test.SetI1((sbyte)-8));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_I2() => TestSet(test.SetI2((short)-32000));
+        public void Marshal_Variant_ToUnmanaged_I2() => TestSet(test.SetI2((short)-32000));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_I4() => TestSet(test.SetI4(-123456789));
+        public void Marshal_Variant_ToUnmanaged_I4() => TestSet(test.SetI4(-123456789));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_I8() => TestSet(test.SetI8((long)-1234567812345678));
+        public void Marshal_Variant_ToUnmanaged_I8() => TestSet(test.SetI8((long)-1234567812345678));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_BStr() => TestSet(test.SetBStr("hello"));
+        public void Marshal_Variant_ToUnmanaged_BStr() => TestSet(test.SetBStr("hello"));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_Bool() => TestSet(test.SetBool(true));
+        public void Marshal_Variant_ToUnmanaged_Bool() => TestSet(test.SetBool(true));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_Unknown() => TestSet(test.SetUnknown(test));
+        public void Marshal_Variant_ToUnmanaged_Unknown() => TestSet(test.SetUnknown(test));
 
         //Void cashes the CLR to crash
         //[TestMethod]
-        //public void Marshal_ToUnmanaged_Void() => Test<object>(test.SetVoid((byte))8);
+        //public void Marshal_Variant_ToUnmanaged_Void() => Test<object>(test.SetVoid((byte))8);
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_Float() => TestSet(test.SetFloat(1.2f));
+        public void Marshal_Variant_ToUnmanaged_Float() => TestSet(test.SetFloat(1.2f));
 
         [TestMethod]
-        public void Marshal_ToUnmanaged_Double() => TestSet(test.SetDouble(1.23456789));
+        public void Marshal_Variant_ToUnmanaged_Double() => TestSet(test.SetDouble(1.23456789));
 
         #endregion
 
