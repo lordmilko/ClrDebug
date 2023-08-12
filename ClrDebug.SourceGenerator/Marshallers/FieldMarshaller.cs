@@ -21,11 +21,11 @@ namespace ClrDebug.SourceGenerator
             UnmanagedType = unmanagedType;
         }
 
-        public virtual ExpressionSyntax ToUnmanaged(MemberAccessExpressionSyntax managedField) => managedField;
+        public virtual ExpressionSyntax ToUnmanaged(ExpressionSyntax managedField) => managedField;
 
-        public virtual ExpressionSyntax ToManaged(MemberAccessExpressionSyntax unmanagedField) => unmanagedField;
+        public virtual ExpressionSyntax ToManaged(ExpressionSyntax unmanagedField) => unmanagedField;
 
-        public virtual StatementSyntax Free(MemberAccessExpressionSyntax unmanagedMember)
+        public virtual StatementSyntax Free(ExpressionSyntax unmanagedMember)
         {
             return null;
         }

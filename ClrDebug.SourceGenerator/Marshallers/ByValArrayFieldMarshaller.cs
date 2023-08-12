@@ -18,10 +18,10 @@ namespace ClrDebug.SourceGenerator
             SizeConst = sizeConst;
         }
 
-        public override ExpressionSyntax ToUnmanaged(MemberAccessExpressionSyntax managedField) =>
+        public override ExpressionSyntax ToUnmanaged(ExpressionSyntax managedField) =>
             InvokeMarshalMethod("AllocateContainerForUnmanagedElements", managedField, Argument(IdentifierName("_")).WithRefKindKeyword(Token(SyntaxKind.OutKeyword)));
 
-        public override ExpressionSyntax ToManaged(MemberAccessExpressionSyntax unmanagedField) =>
+        public override ExpressionSyntax ToManaged(ExpressionSyntax unmanagedField) =>
             InvokeMarshalMethod("AllocateContainerForManagedElements", unmanagedField, SizeConst);
 
         protected override NameSyntax GetMarshallerName =>

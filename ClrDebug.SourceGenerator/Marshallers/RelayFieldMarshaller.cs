@@ -11,13 +11,13 @@ namespace ClrDebug.SourceGenerator
         {
         }
 
-        public override ExpressionSyntax ToUnmanaged(MemberAccessExpressionSyntax managedField) =>
+        public override ExpressionSyntax ToUnmanaged(ExpressionSyntax managedField) =>
             InvokeMarshalMethod("ConvertToUnmanaged", managedField);
 
-        public override ExpressionSyntax ToManaged(MemberAccessExpressionSyntax unmanagedField) =>
+        public override ExpressionSyntax ToManaged(ExpressionSyntax unmanagedField) =>
             InvokeMarshalMethod("ConvertToManaged", unmanagedField);
 
-        public override StatementSyntax Free(MemberAccessExpressionSyntax unmanagedMember) =>
+        public override StatementSyntax Free(ExpressionSyntax unmanagedMember) =>
             ExpressionStatement(InvokeMarshalMethod("Free", unmanagedMember));
 
         protected ExpressionSyntax InvokeMarshalMethod(string methodName, params CSharpSyntaxNode[] arguments)
