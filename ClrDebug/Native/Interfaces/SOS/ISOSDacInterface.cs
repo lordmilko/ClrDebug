@@ -20,13 +20,13 @@ namespace ClrDebug
     public delegate void VISITHEAP(
         CLRDATA_ADDRESS blockData,
         long blockSize,
-        bool blockIsCurrentBlock);
+        [MarshalAs(UnmanagedType.Bool)] bool blockIsCurrentBlock);
 
     public delegate void VISITRCWFORCLEANUP(
         CLRDATA_ADDRESS RCW,
         CLRDATA_ADDRESS Context,
         CLRDATA_ADDRESS Thread,
-        bool bIsFreeThreaded,
+        [MarshalAs(UnmanagedType.Bool)] bool bIsFreeThreaded,
         IntPtr token);
 
     /// <summary>

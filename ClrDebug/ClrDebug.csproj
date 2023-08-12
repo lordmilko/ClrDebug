@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Extensions\DelegateProvider.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DelegateProvider.cs</LastGenOutput>
+    </None>
     <None Update="Extensions\Pointers.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Pointers.cs</LastGenOutput>
@@ -41,6 +45,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Extensions\DelegateProvider.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DelegateProvider.tt</DependentUpon>
+    </Compile>
     <Compile Update="Extensions\Pointers.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

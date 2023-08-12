@@ -31,7 +31,7 @@ namespace ClrDebug
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
     public delegate IntPtr FunctionIDMapper(
         [In] FunctionID funcId,
-        [Out] out bool pbHookFunction);
+        [Out, MarshalAs(UnmanagedType.Bool)] out bool pbHookFunction);
 
     /// <summary>
     /// Provides methods for use by code profilers to communicate with the common language runtime (CLR) to control event monitoring and request information.

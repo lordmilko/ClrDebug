@@ -114,7 +114,7 @@ namespace ClrDebug
     /// <returns>A HRESULT that indicates success or failure.</returns>
     public delegate HRESULT CreateProcessForLaunchDelegate(
         [MarshalAs(UnmanagedType.LPWStr), In] string lpCommandLine,
-        [In] bool bSuspendProcess,
+        [In, MarshalAs(UnmanagedType.Bool)] bool bSuspendProcess,
         [In] IntPtr lpEnvironment,
         [MarshalAs(UnmanagedType.LPWStr), In] string lpCurrentDirectory,
         [Out] out int pProcessId,
@@ -227,7 +227,7 @@ namespace ClrDebug
 #if !GENERATED_MARSHALLING
     /// <summary>
     /// Provides facilities for interacting with the .NET Core DbgShim library.<para/>
-    /// The .NET Standard version of this type (that you are using) only supports Windows. To support additional platforms, subclass this type and override <see cref="GetDelegate{T}(string)"/>.
+    /// The .NET Standard version of this type (that you are using) only supports Windows.
     /// </summary>
 #else
     /// <summary>
@@ -242,7 +242,12 @@ namespace ClrDebug
         private PSTARTUP_CALLBACK lastRegisterForRuntimeStartupExCallback;
         private PSTARTUP_CALLBACK lastRegisterForRuntimeStartup3Callback;
 
+        /// <summary>
+        /// Gets the DbgShim module handle this instance encapsulates.
+        /// </summary>
         public IntPtr hModule { get; }
+
+        private DelegateProvider delegateProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DbgShim"/> class.
@@ -250,7 +255,11 @@ namespace ClrDebug
         /// <param name="hModule">A handle to a DbgShim library that has been loaded into the process.</param>
         public DbgShim(IntPtr hModule)
         {
+            if (hModule == IntPtr.Zero)
+                throw new ArgumentNullException(nameof(hModule));
+
             this.hModule = hModule;
+            delegateProvider = new DelegateProvider(hModule);
         }
 
         #region CLRCreateInstance
@@ -265,7 +274,7 @@ namespace ClrDebug
 
         public HRESULT TryCLRCreateInstance(Guid clsid, Guid riid, out object ppInterface)
         {
-            var @delegate = GetDelegate<CLRCreateInstanceDelegate>(nameof(CLRCreateInstance));
+            var @delegate = delegateProvider.CLRCreateInstance;
 
             return @delegate(clsid, riid, out ppInterface);
         }
@@ -318,7 +327,7 @@ namespace ClrDebug
         /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryCloseCLREnumeration(IntPtr pHandleArray, IntPtr pStringArray, int dwArrayLength)
         {
-            var @delegate = GetDelegate<CloseCLREnumerationDelegate>(nameof(CloseCLREnumeration));
+            var @delegate = delegateProvider.CloseCLREnumeration;
 
             return @delegate(pHandleArray, pStringArray, dwArrayLength);
         }
@@ -342,7 +351,7 @@ namespace ClrDebug
         /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryCloseResumeHandle(IntPtr hResumeHandle)
         {
-            var @delegate = GetDelegate<CloseResumeHandleDelegate>(nameof(CloseResumeHandle));
+            var @delegate = delegateProvider.CloseResumeHandle;
 
             return @delegate(hResumeHandle);
         }
@@ -375,7 +384,7 @@ namespace ClrDebug
             string szModuleName,
             out string version)
         {
-            var @delegate = GetDelegate<CreateVersionStringFromModuleDelegate>(nameof(CreateVersionStringFromModule));
+            var @delegate = delegateProvider.CreateVersionStringFromModule;
 
             var hr = @delegate(pidDebuggee, szModuleName, null, 0, out var pdwLength);
 
@@ -419,7 +428,7 @@ namespace ClrDebug
         /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryCreateDebuggingInterfaceFromVersion(string szDebuggeeVersion, out CorDebug ppCordb)
         {
-            var @delegate = GetDelegate<CreateDebuggingInterfaceFromVersionDelegate>(nameof(CreateDebuggingInterfaceFromVersion));
+            var @delegate = delegateProvider.CreateDebuggingInterfaceFromVersion;
 
             var hr = @delegate(szDebuggeeVersion, out var raw);
 
@@ -458,7 +467,7 @@ namespace ClrDebug
             string szDebuggeeVersion,
             out CorDebug ppCordb)
         {
-            var @delegate = GetDelegate<CreateDebuggingInterfaceFromVersionExDelegate>(nameof(CreateDebuggingInterfaceFromVersionEx));
+            var @delegate = delegateProvider.CreateDebuggingInterfaceFromVersionEx;
 
             var hr = @delegate(iDebuggerVersion, szDebuggeeVersion, out var raw);
 
@@ -500,7 +509,7 @@ namespace ClrDebug
             string szApplicationGroupId,
             out CorDebug ppCordb)
         {
-            var @delegate = GetDelegate<CreateDebuggingInterfaceFromVersion2Delegate>(nameof(CreateDebuggingInterfaceFromVersion2));
+            var @delegate = delegateProvider.CreateDebuggingInterfaceFromVersion2;
 
             var hr = @delegate(iDebuggerVersion, szDebuggeeVersion, szApplicationGroupId, out var raw);
 
@@ -549,7 +558,7 @@ namespace ClrDebug
             ICLRDebuggingLibraryProvider3 pLibraryProvider,
             out CorDebug ppCordb)
         {
-            var @delegate = GetDelegate<CreateDebuggingInterfaceFromVersion3Delegate>(nameof(CreateDebuggingInterfaceFromVersion3));
+            var @delegate = delegateProvider.CreateDebuggingInterfaceFromVersion3;
 
             var hr = @delegate(iDebuggerVersion, szDebuggeeVersion, szApplicationGroupId, pLibraryProvider, out var raw);
 
@@ -581,7 +590,7 @@ namespace ClrDebug
             string lpCurrentDirectory,
             out CreateProcessForLaunchResult result)
         {
-            var @delegate = GetDelegate<CreateProcessForLaunchDelegate>(nameof(CreateProcessForLaunch));
+            var @delegate = delegateProvider.CreateProcessForLaunch;
 
             var hr = @delegate(lpCommandLine, bSuspendProcess, lpEnvironment, lpCurrentDirectory, out var pProcessId, out var pResumeHandle);
 
@@ -606,7 +615,7 @@ namespace ClrDebug
             int debuggeePID,
             out EnumerateCLRsResult result)
         {
-            var @delegate = GetDelegate<EnumerateCLRsDelegate>(nameof(EnumerateCLRs));
+            var @delegate = delegateProvider.EnumerateCLRs;
 
             var hr = @delegate(debuggeePID, out var ppHandleArrayOut, out var ppStringArrayOut, out var pdwArrayLengthOut);
 
@@ -640,7 +649,7 @@ namespace ClrDebug
         /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryGetStartupNotificationEvent(int debuggeePID, out IntPtr phStartupEvent)
         {
-            var @delegate = GetDelegate<GetStartupNotificationEventDelegate>(nameof(GetStartupNotificationEvent));
+            var @delegate = delegateProvider.GetStartupNotificationEvent;
 
             return @delegate(debuggeePID, out phStartupEvent);
         }
@@ -680,7 +689,7 @@ namespace ClrDebug
         {
             lastRegisterForRuntimeStartupCallback = pfnCallback;
 
-            var @delegate = GetDelegate<RegisterForRuntimeStartupDelegate>(nameof(RegisterForRuntimeStartup));
+            var @delegate = delegateProvider.RegisterForRuntimeStartup;
 
             return @delegate(dwProcessId, pfnCallback, parameter, out ppUnregisterToken);
         }
@@ -724,7 +733,7 @@ namespace ClrDebug
         {
             lastRegisterForRuntimeStartupExCallback = pfnCallback;
 
-            var @delegate = GetDelegate<RegisterForRuntimeStartupExDelegate>(nameof(RegisterForRuntimeStartupEx));
+            var @delegate = delegateProvider.RegisterForRuntimeStartupEx;
 
             return @delegate(dwProcessId, lpApplicationGroupId, pfnCallback, parameter, out ppUnregisterToken);
         }
@@ -772,7 +781,7 @@ namespace ClrDebug
         {
             lastRegisterForRuntimeStartup3Callback = pfnCallback;
 
-            var @delegate = GetDelegate<RegisterForRuntimeStartup3Delegate>(nameof(RegisterForRuntimeStartup3));
+            var @delegate = delegateProvider.RegisterForRuntimeStartup3;
 
             return @delegate(dwProcessId, lpApplicationGroupId, pLibraryProvider, pfnCallback, parameter, out ppUnregisterToken);
         }
@@ -796,7 +805,7 @@ namespace ClrDebug
         /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryResumeProcess(IntPtr hResumeHandle)
         {
-            var @delegate = GetDelegate<ResumeProcessDelegate>(nameof(ResumeProcess));
+            var @delegate = delegateProvider.ResumeProcess;
 
             return @delegate(hResumeHandle);
         }
@@ -820,22 +829,12 @@ namespace ClrDebug
         /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryUnregisterForRuntimeStartup(IntPtr pUnregisterToken)
         {
-            var @delegate = GetDelegate<UnregisterForRuntimeStartupDelegate>(nameof(UnregisterForRuntimeStartup));
+            var @delegate = delegateProvider.UnregisterForRuntimeStartup;
 
             return @delegate(pUnregisterToken);
         }
 
         #endregion
-
-        protected virtual T GetDelegate<T>(string procName)
-        {
-            var proc = GetExport(hModule, procName);
-
-            if (proc == IntPtr.Zero)
-                throw new InvalidOperationException($"Failed to get address of procedure '{procName}': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
-
-            return Marshal.GetDelegateForFunctionPointer<T>(proc);
-        }
     }
 
     /// <summary>

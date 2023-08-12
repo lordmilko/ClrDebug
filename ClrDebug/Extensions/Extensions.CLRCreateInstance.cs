@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using static ClrDebug.NativeMethods;
 
 namespace ClrDebug
 {
@@ -14,6 +13,10 @@ namespace ClrDebug
         /// </summary>
         public class CLRCreateInstanceInterfaces
         {
+#if GENERATED_MARSHALLING
+            private static IntPtr mscoreeLib;
+#endif
+
             /// <summary>
             /// Provides methods that return a specific version of the common language runtime (CLR) based on its version number,<para/>
             /// list all installed CLRs, list all runtimes that are loaded in a specified process, discover the CLR version used to compile an assembly,<para/>
@@ -22,7 +25,7 @@ namespace ClrDebug
             public CLRMetaHost CLRMetaHost => new CLRMetaHost(CreateInstance<ICLRMetaHost>(CLSID_CLRMetaHost));
 
             /// <summary>
-            /// Provides the <see cref="ClrDebug.CLRMetaHostPolicy.GetRequestedRuntime"/> method, which returns a pointer to a common language runtime (CLR) interface based on a policy criteria, managed assembly, version and configuration file.
+            /// Provides the <see cref="CLRMetaHostPolicy.GetRequestedRuntime"/> method, which returns a pointer to a common language runtime (CLR) interface based on a policy criteria, managed assembly, version and configuration file.
             /// </summary>
             public CLRMetaHostPolicy CLRMetaHostPolicy => new CLRMetaHostPolicy(CreateInstance<ICLRMetaHostPolicy>(CLSID_CLRMetaHostPolicy));
 
@@ -35,7 +38,21 @@ namespace ClrDebug
             {
                 var riid = typeof(T).GUID;
                 object ppInterface;
+#if GENERATED_MARSHALLING
+                if (mscoreeLib == IntPtr.Zero)
+                {
+                    if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        throw new InvalidOperationException($"{nameof(CLRCreateInstance)} is only supported on Windows. Consider using {nameof(DbgShim)}.{nameof(DbgShim.CLRCreateInstance)} instead.");
+
+                    mscoreeLib = LoadLibrary(mscoree);
+                }
+
+                var @delegate = new DelegateProvider(mscoreeLib).CLRCreateInstance;
+
+                var hr = @delegate(clsid, riid, out ppInterface);
+#else
                 var hr = CLRCreateInstance(clsid, riid, out ppInterface);
+#endif
                 hr.ThrowOnNotOK();
 
                 return (T)ppInterface;

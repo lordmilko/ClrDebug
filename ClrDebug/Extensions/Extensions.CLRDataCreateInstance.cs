@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     public static partial class Extensions
     {

@@ -7,30 +7,30 @@ using System.Runtime.InteropServices.Marshalling;
 namespace ClrDebug
 {
     public delegate long CDSTranslateAddrCB(
-        IXCLRDisassemblySupport a,
+        [MarshalAs(UnmanagedType.Interface)] IXCLRDisassemblySupport a,
         CLRDATA_ADDRESS b,
-        string c,
+        [MarshalAs(UnmanagedType.LPWStr)] string c,
         long d);
 
     public delegate long CDSTranslateFixupCB(
-        IXCLRDisassemblySupport a,
+        [MarshalAs(UnmanagedType.Interface)] IXCLRDisassemblySupport a,
         CLRDATA_ADDRESS b,
         long c,
-        string d,
+        [MarshalAs(UnmanagedType.LPWStr)] string d,
         long e,
         long f);
 
     public delegate long CDSTranslateConstCB(
-        IXCLRDisassemblySupport a,
+        [MarshalAs(UnmanagedType.Interface)] IXCLRDisassemblySupport a,
         int b,
-        string c,
+        [MarshalAs(UnmanagedType.LPWStr)] string c,
         long d);
 
     public delegate long CDSTranslateRegrelCB(
-        IXCLRDisassemblySupport a,
+        [MarshalAs(UnmanagedType.Interface)] IXCLRDisassemblySupport a,
         int b,
         CLRDATA_ADDRESS c,
-        string d,
+        [MarshalAs(UnmanagedType.LPWStr)] string d,
         long e);
 
     [Guid("1F0F7134-D3F3-47DE-8E9B-C2FD358A2936")]

@@ -33,7 +33,7 @@ namespace ClrDebug
     public delegate IntPtr FunctionIDMapper2(
         [In] FunctionID funcId,
         [In] IntPtr clientData,
-        [Out] out bool pbHookFunction);
+        [Out, MarshalAs(UnmanagedType.Bool)] out bool pbHookFunction);
 
     /// <summary>
     /// Provides methods that code profilers use to communicate with the common language runtime (CLR) to control event monitoring and to request information.<para/>

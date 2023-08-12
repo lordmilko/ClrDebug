@@ -3,6 +3,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using System.Threading;
 
 namespace ClrDebug
@@ -67,19 +70,54 @@ namespace ClrDebug
         private const string DacLibLinuxCore = "libmscordaccore.so";
         private const string DacLibMacCore = "libmscordaccore.dylib";
 
+        /// <summary>
+        /// Loads a native library.<para/>
+        /// This method is compatible with both .NET Framework and .NET Core.
+        /// </summary>
+        /// <param name="path">The name of the native library to be loaded.</param>
+        /// <returns>The handle for the loaded native library.</returns>
+        /// <exception cref="ArgumentNullException">If libraryPath is null</exception>
+        /// <exception cref="DllNotFoundException ">If the library can't be found.</exception>
+        /// <exception cref="BadImageFormatException">If the library is not valid.</exception>
         internal static IntPtr LoadLibrary(string path)
         {
 #if !GENERATED_MARSHALLING
-            return NativeMethods.LoadLibrary(path);
+            var hModule = NativeMethods.LoadLibrary(path);
+
+            if (hModule != IntPtr.Zero)
+                return hModule;
+
+            var hr = (HRESULT) Marshal.GetHRForLastWin32Error();
+
+            if (hr == HRESULT.ERROR_BAD_EXE_FORMAT)
+                throw new BadImageFormatException($"Failed to load module '{path}'. Module may target an architecture different from the current process.");
+
+            var ex = Marshal.GetExceptionForHR((int) hr);
+
+            throw new DllNotFoundException($"Unable to load DLL '{path}' or one of its dependencies: {ex.Message}");
 #else
             return NativeLibrary.Load(path);
 #endif
         }
 
+        /// <summary>
+        /// Gets the address of an exported symbol.<para/>
+        /// This method is compatible with both .NET Framework and .NET Core.
+        /// </summary>
+        /// <param name="handle">The native library handle.</param>
+        /// <param name="name">The name of the exported symbol.</param>
+        /// <returns>The address of the symbol.</returns>
+        /// <exception cref="ArgumentNullException">If handle or name is null</exception>
+        /// <exception cref="EntryPointNotFoundException">If the symbol is not found</exception>
         internal static IntPtr GetExport(IntPtr handle, string name)
         {
 #if !GENERATED_MARSHALLING
-            return NativeMethods.GetProcAddress(handle, name);
+            var result = NativeMethods.GetProcAddress(handle, name);
+
+            if (result != IntPtr.Zero)
+                return result;
+
+            throw new EntryPointNotFoundException($"Unable to find entry point named '{name}' in DLL: {(HRESULT)Marshal.GetHRForLastWin32Error()}");
 #else
             return NativeLibrary.GetExport(handle, name);
 #endif
@@ -103,18 +141,10 @@ namespace ClrDebug
 
         /// <summary>
         /// Provides facilities for retrieving interfaces that are commonly retrieved from <see cref="CLRCreateInstance(Guid, Guid, out object)"/>.<para/>
-        /// If this method is called from an STA thread, an <see cref="InvalidOperationException"/> will be thrown, as the ICorDebug API does not support being used from STA threads.<para/>
-        /// If you wish to bypass this check, please use the <see cref="CLRCreateInstance(Guid, Guid, out object)"/> method instead.
+        /// This method is only supported on Windows.
         /// </summary>
         /// <returns>The common interfaces that can be retrieved from <see cref="CLRCreateInstance(Guid, Guid, out object)"/>.</returns>
-        /// <exception cref="InvalidOperationException">The current thread is a STA thread.</exception>
-        public static CLRCreateInstanceInterfaces CLRCreateInstance()
-        {
-            if (Thread.CurrentThread.GetApartmentState() == ApartmentState.STA)
-                throw new InvalidOperationException($"The ICorDebug API cannot be used from an STA thread. Please create a new thread and initialize ICorDebug from there. For more information, please see https://web.archive.org/web/20140422174916/http://blogs.msdn.com/b/jmstall/archive/2005/09/15/icordebug-mta-sta.aspx");
-
-            return new CLRCreateInstanceInterfaces();
-        }
+        public static CLRCreateInstanceInterfaces CLRCreateInstance() => new CLRCreateInstanceInterfaces();
 
         #endregion
         #region CLRDataCreateInstance
@@ -134,17 +164,9 @@ namespace ClrDebug
                 var dacPath = Path.Combine(RuntimeEnvironment.GetRuntimeDirectory(), GetDacLibPath());
 
                 dacLib = LoadLibrary(dacPath);
-
-                if (dacLib == IntPtr.Zero)
-                    throw new InvalidOperationException($"Failed to load library '{dacPath}': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
             }
 
-            var clrDataCreateInstancePtr = GetExport(dacLib, "CLRDataCreateInstance");
-
-            if (clrDataCreateInstancePtr == IntPtr.Zero)
-                throw new InvalidOperationException($"Failed to find function 'CLRDataCreateInstance': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
-
-            var clrDataCreateInstance = Marshal.GetDelegateForFunctionPointer<CLRDataCreateInstanceDelegate>(clrDataCreateInstancePtr);
+            var clrDataCreateInstance = new DelegateProvider(dacLib).CLRDataCreateInstance;
 
             return CLRDataCreateInstance(clrDataCreateInstance, target);
         }
@@ -188,12 +210,16 @@ namespace ClrDebug
         {
             var hModule = GetClrModuleHandle();
 
-            var pMetaDataGetDispenser = GetExport(hModule, "MetaDataGetDispenser");
-            var metaDataGetDispenser = Marshal.GetDelegateForFunctionPointer<MetaDataGetDispenserDelegate>(proc);
+            return MetaDataGetDispenser(hModule);
+        }
 
-            metaDataGetDispenser(CLSID_CorMetaDataDispenser, typeof(IMetaDataDispenserEx).GUID, out var ppv).ThrowOnNotOK();
+        internal static IMetaDataDispenserEx MetaDataGetDispenser(IntPtr hModule)
+        {
+            var @delegate = new DelegateProvider(hModule).MetaDataGetDispenser;
 
-            return (IMetaDataDispenserEx) ppv;
+            @delegate(CLSID_CorMetaDataDispenser, typeof(IMetaDataDispenserEx).GUID, out var ppv).ThrowOnNotOK();
+
+            return (IMetaDataDispenserEx)ppv;
         }
 
         private static IntPtr GetClrModuleHandle()
@@ -228,7 +254,7 @@ namespace ClrDebug
             if (result)
                 return hModule;
 #endif
-            throw new InvalidOperationException("Failed to locate CLR module within current process.");
+            throw new InvalidOperationException("Failed to locate a CLR module within current process.");
         }
 
         #endregion
@@ -316,31 +342,42 @@ namespace ClrDebug
         }
 
         /// <summary>
-        /// Retrieves an RCW for a given COM interface pointer.<para/>
+        /// Retrieves an RCW for a given COM interface pointer cast to a specific interface type.<para/>
         /// When a targeting a framework where source generated COM is being used, this method creates an RCW via a StrategyBasedComWrappers instance.
         /// Otherwise, retrieves an RCW via the CLR's built in COM interop marshaller.
         /// </summary>
         /// <typeparam name="T">The type of interface to retrieve.</typeparam>
         /// <param name="pUnk">The COM interface pointer to retrieve an RCW for.</param>
-        /// <returns>A COM interface pointer casted to interface type <typeparamref name="T"/>.</returns>
-        public static T GetObjectForIUnknown<T>(IntPtr pUnk)
+        /// <returns>A COM interface pointer cast to interface type <typeparamref name="T"/>.</returns>
+        public static T GetObjectForIUnknown<T>(IntPtr pUnk) => (T) GetObjectForIUnknown(pUnk);
+
+        /// <summary>
+        /// Retrieves an RCW for a given COM interface pointer.<para/>
+        /// When a targeting a framework where source generated COM is being used, this method creates an RCW via a StrategyBasedComWrappers instance.
+        /// Otherwise, retrieves an RCW via the CLR's built in COM interop marshaller.
+        /// </summary>
+        /// <param name="pUnk">The COM interface pointer to retrieve an RCW for.</param>
+        /// <returns>An RCW that encapsulates the specified interface pointer.</returns>
+        public static object GetObjectForIUnknown(IntPtr pUnk)
         {
 #if GENERATED_MARSHALLING
-            return (T) DefaultMarshallingInstance.GetOrCreateObjectForComInstance(pUnk, CreateObjectFlags.None);
+            return DefaultMarshallingInstance.GetOrCreateObjectForComInstance(pUnk, CreateObjectFlags.None);
 #else
-            return (T) Marshal.GetObjectForIUnknown(pUnk);
+            return Marshal.GetObjectForIUnknown(pUnk);
 #endif
         }
 
         /// <summary>
-        /// Retrieves a CCW for a given managed object.<para/>
-        /// When a targeting a framework where source generated COM is being used, this method creates a CCW via a StrategyBasedComWrappers instance.
-        /// Otherwise, retrieves a CCW via the CLR's built in COM interop marshaller.<para/>
+        /// Retrieves an IUnknown CCW for a given managed object.<para/>
+        /// When a targeting a framework where source generated COM is being used, this method creates an IUnknown CCW via a StrategyBasedComWrappers instance.
+        /// Otherwise, retrieves an IUnknown CCW via the CLR's built in COM interop marshaller.<para/>
         /// Note that when source generated COM is being used, if the type of <paramref name="o"/> is a <see langword="class"/>,
-        /// the class MUST be decorated with GeneratedComClassAttribute, otherwise ComWrappers won't know what interfaces the type implements.
+        /// the class MUST be decorated with GeneratedComClassAttribute, otherwise ComWrappers won't know what interfaces the type implements.<para/>
+        /// If an IUnknown pointer is passed to an unmanaged method expecting an interface type other than IUnknown, that method may fail if it does not
+        /// defensively QueryInterface your pointer to the interface type it was expecting. To retrieve a pointer for a specific interface type, see <see cref="GetInterfaceForObject{T}(object)"/>.
         /// </summary>
         /// <param name="o">The managed object to retrieve a CCW for.</param>
-        /// <returns>A COM interface pointer for the managed object that can be passed to unmanaged code.</returns>
+        /// <returns>An IUnknown interface pointer for the managed object that can be passed to unmanaged code.</returns>
         public static IntPtr GetIUnknownForObject(object o)
         {
 #if GENERATED_MARSHALLING
@@ -348,6 +385,39 @@ namespace ClrDebug
 #else
             return Marshal.GetIUnknownForObject(o);
 #endif
+        }
+
+        /// <summary>
+        /// Retrieves a CCW of a specific interface type for a given managed object.
+        /// </summary>
+        /// <typeparam name="T">The type of CCW to create.</typeparam>
+        /// <param name="o">The managed object to retrieve a CCW for.</param>
+        /// <returns>An interface pointer of the specified type that can be passed to unmanaged code.</returns>
+        public static IntPtr GetInterfaceForObject<T>(object o)
+        {
+            var pUnk = GetIUnknownForObject(o);
+
+            //The CLR's ComInterfaceMarshaller will call Release if the QueryInterface fails. I don't understand this;
+            //QueryInterface will only increment the reference count on success!
+            //https://github.com/dotnet/runtime/blob/main/src/libraries/System.Runtime.InteropServices/src/System/Runtime/InteropServices/Marshalling/ComInterfaceMarshaller.cs#L72C33-L72C33
+
+            var iid = typeof(T).GUID;
+            var hr = (HRESULT) Marshal.QueryInterface(pUnk, ref iid, out var ppv);
+
+#if GENERATED_MARSHALLING
+            if (hr == HRESULT.E_NOINTERFACE && !(o is ComObject))
+                throw new DebugException($"Failed to query interface type '{typeof(T).FullName}' from type '{o.GetType().FullName}'. Confirm that the implementing class both derives from the interface and is decorated with '{nameof(GeneratedComClassAttribute)}'", hr);
+#endif
+            hr.ThrowOnNotOK();
+
+            /* QueryInterface will increment the reference count. Because we're returning a pointer from this method,
+             * there isn't going to be an RCW to decrement the reference count we increased - we must be the one to do it.
+             * The purpose of this method is merely to "cast" to the desired interface vtable. The caller already has a reference
+             * to the COM object, and must continue to maintain it after they've done what they need to with the pointer returned
+             * from this method */
+            Marshal.Release(pUnk);
+
+            return ppv;
         }
     }
 }

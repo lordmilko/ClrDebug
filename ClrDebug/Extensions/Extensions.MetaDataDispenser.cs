@@ -12,6 +12,14 @@ namespace ClrDebug
         public MetaDataDispenserEx() : this(MetaDataGetDispenser())
         {
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MetaDataDispenserEx"/> class from the "MetaDataGetDispenser" export of the specified CLR module.
+        /// </summary>
+        /// <param name="hModule">A handle to a CLR module (e.g. clr.dll, coreclr.dll, libcoreclr.so, libcoreclr.dylib) to create a <see cref="IMetaDataDispenserEx"/> from.</param>
+        public MetaDataDispenserEx(IntPtr hModule) : this(MetaDataGetDispenser(hModule))
+        {
+        }
     }
 
     public static partial class Extensions

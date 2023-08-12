@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug
@@ -9,10 +10,12 @@ namespace ClrDebug
         /// <summary>
         /// Initializes a new instance of the <see cref="CorDebug"/> class from mscoree for the common language runtime version that is running in the current process, and automatically
         /// calls the <see cref="Initialize"/> method.<para/>
-        /// This constructor simplifies the typical pattern of calling CLRCreateInstance, retrieving a target runtime, followed by retrieving and initializing an ICorDebug interface.<para/>
+        /// This constructor is only supported on Windows, and simplifies the typical pattern of calling CLRCreateInstance, retrieving a target runtime, followed by retrieving and initializing an ICorDebug interface.<para/>
+        /// If this method is called from an STA thread, an <see cref="InvalidOperationException"/> will be thrown, as the ICorDebug API does not support being used from STA threads.<para/>
         /// For greater control over the initialization of the <see cref="CorDebug"/> class,
         /// please see the <see cref="CorDebug(ICorDebug)"/> constructor.
         /// </summary>
+        /// <exception cref="InvalidOperationException">The current thread is an STA thread.</exception>
         public CorDebug() : base(Init())
         {
             Initialize();
@@ -20,6 +23,9 @@ namespace ClrDebug
 
         private static ICorDebug Init()
         {
+            if (Thread.CurrentThread.GetApartmentState() == ApartmentState.STA)
+                throw new InvalidOperationException($"The ICorDebug API cannot be used from an STA thread. Please create a new thread and initialize ICorDebug from there. For more information, please see https://web.archive.org/web/20140422174916/http://blogs.msdn.com/b/jmstall/archive/2005/09/15/icordebug-mta-sta.aspx");
+
             var metaHost = CLRCreateInstance().CLRMetaHost;
             var runtime = metaHost.GetRuntime();
 
