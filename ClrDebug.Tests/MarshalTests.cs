@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,6 +16,8 @@ namespace ClrDebug.Tests
     public class MarshalTests
     {
         private static IVariantTest test;
+        private static string appPath;
+        private static string nativeAppPath;
 
         private static Guid CLSID_Test = new Guid("326A6F4B-040F-4248-B0CD-95C80764784A");
         private static Guid IID_Test = new Guid("BB5760D0-1345-494E-A92D-D36E753693A3");
@@ -45,15 +48,44 @@ namespace ClrDebug.Tests
             if (!File.Exists(lib))
                 throw new FileNotFoundException($"Could not find '{lib}'", lib);
 
-            var hLib = NativeMethods.LoadLibrary(lib);
+            var appRoot = Path.Combine(
+                solution,
+                "TestApp",
+                "bin",
+                configuration,
+                "net8.0",
+                "win-x64"
+            );
 
-            if (hLib == IntPtr.Zero)
-                throw new InvalidOperationException("Failed to load TestLib: " + (HRESULT) Marshal.GetHRForLastWin32Error() + ". Please build TestLib.sln");
+            appPath = Path.Combine(
+                appRoot,
+                "TestApp.exe"
+            );
 
-            var proc = NativeMethods.GetProcAddress(hLib, "DllGetClassObject");
+            if (!File.Exists(appPath))
+                throw new FileNotFoundException($"Could not find '{appPath}'", appPath);
 
-            if (proc == IntPtr.Zero)
-                throw new InvalidOperationException("Failed to find DllGetClassObject: " + (HRESULT)Marshal.GetHRForLastWin32Error());
+            nativeAppPath = Path.Combine(
+                appRoot,
+                "native",
+                "TestApp.exe"
+            );
+
+            if (!File.Exists(appPath))
+                throw new FileNotFoundException($"Could not find '{nativeAppPath}'", nativeAppPath);
+
+            IntPtr hLib;
+
+            try
+            {
+                hLib = MarshalTestImpl.LoadLibrary(lib);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Failed to load TestLib: " + (HRESULT) ex.HResult + ". Please build TestLib.sln", ex);
+            }
+
+            var proc = MarshalTestImpl.GetExport(hLib, "DllGetClassObject");
 
             var dllGetClassObject = Marshal.GetDelegateForFunctionPointer<DllGetClassObject>(proc);
 
@@ -184,6 +216,64 @@ namespace ClrDebug.Tests
         public void Marshal_Variant_ToUnmanaged_Double() => TestSet(test.SetDouble(1.23456789));
 
         #endregion
+
+        [MarshalTestMethod]
+        public void Marshal_Delegate_Call(bool nativeAOT) =>
+            TestMarshal(nameof(Marshal_Delegate_Call), nativeAOT);
+
+        [MarshalTestMethod]
+        public void Marshal_Delegate_Call_WithOutInterface(bool nativeAOT) =>
+            TestMarshal(nameof(Marshal_Delegate_Call_WithOutInterface), nativeAOT);
+
+        [MarshalTestMethod]
+        public void Marshal_Delegate_Call_WithInInterface(bool nativeAOT) =>
+            TestMarshal(nameof(Marshal_Delegate_Call_WithInInterface), nativeAOT);
+
+#if !NET8_0_OR_GREATER
+        [TestMethod]
+        public void Marshal_CoClass_Call() =>
+            MarshalTestImpl.Marshal_CoClass_Call();
+#endif
+
+        [MarshalTestMethod]
+        public void Marshal_MetaDataDispenser_Call(bool nativeAOT) =>
+            TestMarshal(nameof(Marshal_MetaDataDispenser_Call), nativeAOT);
+
+        private void TestMarshal(string name, bool nativeAOT)
+        {
+            if (nativeAOT)
+            {
+                var psi = new ProcessStartInfo(nativeAppPath, name);
+                psi.UseShellExecute = true;
+                var process = Process.Start(psi);
+                process.WaitForExit();
+                Assert.AreEqual(0, process.ExitCode);
+            }
+            else
+            {
+                switch (name)
+                {
+                    case nameof(Marshal_Delegate_Call):
+                        Assert.IsTrue(MarshalTestImpl.Marshal_Delegate_Call(Process.GetCurrentProcess()));
+                        break;
+
+                    case nameof(Marshal_Delegate_Call_WithOutInterface):
+                        Assert.IsTrue(MarshalTestImpl.Marshal_Delegate_Call_WithOutInterface());
+                        break;
+
+                    case nameof(Marshal_Delegate_Call_WithInInterface):
+                        Assert.IsTrue(MarshalTestImpl.Marshal_Delegate_Call_WithInInterface(appPath));
+                        break;
+
+                    case nameof(Marshal_MetaDataDispenser_Call):
+                        Assert.IsTrue(MarshalTestImpl.Marshal_MetaDataDispenser_Call(typeof(MarshalTestImpl).Assembly.Location));
+                        break;
+
+                    default:
+                        throw new NotImplementedException($"Don't know how to handle test '{name}'");
+                }
+            }            
+        }
 
         private void TestGet<T>(object actual, object expected)
         {

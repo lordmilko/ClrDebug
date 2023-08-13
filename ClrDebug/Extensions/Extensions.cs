@@ -171,6 +171,22 @@ namespace ClrDebug
             return CLRDataCreateInstance(clrDataCreateInstance, target);
         }
 
+        /// <summary>
+        /// Provides facilities for retrieving interfaces that are commonly retrieved from a <see cref="CLRDataCreateInstanceDelegate"/>.<para/>
+        /// This method will automatically attempt to load your runtime's DAC library and retrieve the CLRDataCreateInstance function from it.<para/>
+        /// If this method is unable to locate the DAC library for your target runtime, you must retrieve a <see cref="CLRDataCreateInstanceDelegate"/> from the DAC
+        /// yourself to be passed to the <see cref="CLRDataCreateInstance(CLRDataCreateInstanceDelegate, ICLRDataTarget)"/> method.
+        /// </summary>
+        /// <param name="hModule">A handle to the DAC library that has been loaded into the current process.</param>
+        /// <param name="target">A pointer to a user-implemented <see cref="ICLRDataTarget"/> object that represents the target item for which to create the interface object.</param>
+        /// <returns>The common interfaces that can be retrieved from a <see cref="CLRDataCreateInstanceDelegate"/>.</returns>
+        public static CLRDataCreateInstanceInterfaces CLRDataCreateInstance(IntPtr hModule, ICLRDataTarget target)
+        {
+            var clrDataCreateInstance = new DelegateProvider(hModule).CLRDataCreateInstance;
+
+            return CLRDataCreateInstance(clrDataCreateInstance, target);
+        }
+
         private static string GetDacLibPath()
         {
             string dacLib;
@@ -254,7 +270,7 @@ namespace ClrDebug
             if (result)
                 return hModule;
 #endif
-            throw new InvalidOperationException("Failed to locate a CLR module within current process.");
+            throw new InvalidOperationException("Failed to locate a CLR module within the current process.");
         }
 
         #endregion

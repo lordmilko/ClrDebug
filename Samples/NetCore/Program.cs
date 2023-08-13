@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
 using ClrDebug;
+using static ClrDebug.Extensions;
 
 #if NET8_0_OR_GREATER
 using System.Runtime.InteropServices.Marshalling;
@@ -27,7 +28,7 @@ namespace NetCore
 
             //Try and find a dbgshim.dll to use under C:\Program Files\dotnet
             //In a real application you should probably ship dbgshim with your program (see README.md for further details)
-            var dbgShimPath = FindDbgShim();
+            var dbgShimPath = DbgShimResolver.Resolve();
 
             var dbgshim = new DbgShim(
 #if NET8_0_OR_GREATER
@@ -56,24 +57,6 @@ namespace NetCore
                  * sure the handle is closed */
                 dbgshim.CloseResumeHandle(process.ResumeHandle);
             }
-        }
-
-        private static string FindDbgShim()
-        {
-            var root = "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App";
-
-            if (!Directory.Exists(root))
-                throw new InvalidOperationException($"Cannot find dbgshim.dll: '{root}' does not exist");
-
-            foreach (var dir in Directory.EnumerateDirectories(root).Reverse())
-            {
-                var dbgshim = Directory.EnumerateFiles(dir, "dbgshim.dll").FirstOrDefault();
-
-                if (dbgshim != null)
-                    return dbgshim;
-            }
-
-            throw new InvalidOperationException($"Failed to find a runtime containing dbgshim.dll under '{root}'");
         }
 
         private static void Manual(DbgShim dbgshim, int pid, IntPtr resumeHandle)

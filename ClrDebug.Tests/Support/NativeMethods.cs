@@ -14,6 +14,11 @@ namespace ClrDebug.Tests
         internal const string DbgHelp = "dbghelp.dll";
         private const string kernel32 = "kernel32.dll";
 
+        [DllImport(kernel32, SetLastError = true)]
+        public static extern bool IsWow64Process(
+            [In] IntPtr hProcess,
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool Wow64Process);
+
         [DllImport(DbgHelp, SetLastError = true)]
         internal static extern bool SymInitializeW(IntPtr hProcess, string UserSearchPath, bool fInvadeProcess);
 
@@ -31,5 +36,16 @@ namespace ClrDebug.Tests
 
         [DllImport(kernel32, CharSet = CharSet.Unicode, SetLastError = true, EntryPoint = "LoadLibraryW")]
         public static extern IntPtr LoadLibrary(string lpLibFileName);
+
+        [DllImport(kernel32, SetLastError = true)]
+        public static extern bool ReadProcessMemory(
+            IntPtr hProcess,
+            IntPtr lpBaseAddress,
+            [Out] IntPtr lpBuffer,
+            int dwSize,
+            out int lpNumberOfBytesRead);
+
+        [DllImport(kernel32, SetLastError = true)]
+        public static extern uint WaitForSingleObject([In] IntPtr hHandle, [In] int dwMilliseconds);
     }
 }

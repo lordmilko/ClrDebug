@@ -10,13 +10,34 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <LangVersion Condition="'$(VisualStudioVersion)' == '15.0'">7.3</LangVersion>
+
+    <DbgShimVersion>7.0.430602</DbgShimVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Samples\NetCore\DbgShimResolver.cs" Link="Support\DbgShimResolver.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Diagnostics.DbgShim" Version="$(DbgShimVersion)" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
     <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
   </ItemGroup>
+  
+  <!-- In order for the runtimes directory containing DbgShim to be copied to the output directory, firstly,
+       DbgShim must not be listed in PlatformManifest.txt. In .NET Core 3.0 and above, compiling on Windows will cause
+       the runtimes directory to be created (but only with Windows runtimes). in .NET 5 and above, all possible runtimes
+       are copied to the output directory (assuming no specific runtime is specified). In .NET Framework, compiling
+       with a specific RID causes the appropriate runtime library to be copied to your output directory. This
+       does not appear to be the case in .NET Core 2.2 and below. If you don't want to target a specific RID,
+       or are not using a high enough .NET Core version, you can manually copy the desired files to your output directory
+       as follows -->
+
+  <Target Name="CopyRuntimes" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net461'">
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Diagnostics.DbgShim.win-x86\$(DbgShimVersion)\runtimes\win-x86\native\dbgshim.dll" DestinationFiles="$(OutDir)runtimes\win-x86\dbgshim.dll" />
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Diagnostics.DbgShim.win-x64\$(DbgShimVersion)\runtimes\win-x64\native\dbgshim.dll" DestinationFiles="$(OutDir)runtimes\win-x64\dbgshim.dll" />
+  </Target>
 
   <ItemGroup>
     <ProjectReference Include="..\ClrDebug\ClrDebug.csproj" />

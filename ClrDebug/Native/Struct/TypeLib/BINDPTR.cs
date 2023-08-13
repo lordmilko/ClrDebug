@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug.TypeLib
@@ -26,6 +27,6 @@ namespace ClrDebug.TypeLib
         /// Represents a pointer to an <see cref="ITypeComp"/> interface.
         /// </summary>
         [FieldOffset(0)]
-        public ITypeComp lptcomp;
+        public IntPtr lptcomp; //This field cannot be ITypeComp as its a managed type and is overlapped by other non-managed fields
     }
 }

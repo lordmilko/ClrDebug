@@ -7,12 +7,14 @@
     <IsLegacyVisualStudio Condition="'$(IsLegacyVisualStudio)' == ''">false</IsLegacyVisualStudio>
 
     <OutputType>Exe</OutputType>
-    <TargetFrameworks Condition="$(IsLegacyVisualStudio)">netcoreapp2.1</TargetFrameworks>
-    <TargetFrameworks Condition="'$(TargetFrameworks)' == ''">netcoreapp2.1;net8.0</TargetFrameworks>
+    <TargetFrameworks Condition="$(IsLegacyVisualStudio)">net472</TargetFrameworks>
+    <TargetFrameworks Condition="'$(TargetFrameworks)' == ''">net472;net8.0</TargetFrameworks>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <NoWarn>NETSDK1138;NU1901;NU1902</NoWarn>
+    <NoWarn>NETSDK1138;NU1901;NU1902;NU1903</NoWarn>
     <RuntimeIdentifier Condition="'$(IsGeneratedMarshalling)'">win-x64</RuntimeIdentifier>
     <PublishAot Condition="'$(IsGeneratedMarshalling)'">true</PublishAot>
+
+    <DbgShimVersion>7.0.430602</DbgShimVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +26,23 @@
     <Exec Command="dotnet publish --no-build -c $(Configuration) -f net8.0" />
   </Target>
 
+  <!-- .NET Framework is very wacky. In order for runtimes to be copied to the output directory, $(RuntimeIdentifier)
+       must have a value. For library projects, by default this is null (which means we get neither a single runtime
+       not the runtimes directory), but for executable projects, by default this is win7-x86, even if your program is actually AnyCPU.
+       As such, MSBuild will copy a win-x86 dbgshim.dll to the output directory. Yet when you actually run the program,
+       since it wasn't actually compiled as 32-bit it may actually run as x64, where we'll then trip over the dbgshim.dll
+       that was copied to the output directory with the wrong architecture.
+       
+       We solve both of the above problems by removing the dbgshim.dll that was copied by MSBuild, and manually
+       copying over the dbgshim assemblies from the NuGet package cache -->
+  <Target Name="CopyRuntimes" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net472'">
+    <Delete Files="$(OutDir)\dbgshim.dll" />
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Diagnostics.DbgShim.win-x86\$(DbgShimVersion)\runtimes\win-x86\native\dbgshim.dll" DestinationFiles="$(OutDir)runtimes\win-x86\dbgshim.dll" />
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Diagnostics.DbgShim.win-x64\$(DbgShimVersion)\runtimes\win-x64\native\dbgshim.dll" DestinationFiles="$(OutDir)runtimes\win-x64\dbgshim.dll" />
+  </Target>
+
   <ItemGroup>
+    <PackageReference Include="Microsoft.Diagnostics.DbgShim" Version="$(DbgShimVersion)" />
     <ProjectReference Include="..\..\ClrDebug\ClrDebug.csproj" />
   </ItemGroup>
 
