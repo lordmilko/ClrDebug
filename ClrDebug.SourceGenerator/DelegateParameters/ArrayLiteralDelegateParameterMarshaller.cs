@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Runtime.InteropServices;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -7,7 +7,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace ClrDebug.SourceGenerator
 {
-    internal class ArrayDelegateParameterMarshaller : DelegateParameterMarshaller
+    internal class ArrayLiteralDelegateParameterMarshaller : DelegateParameterMarshaller
     {
         public override TypeSyntax UnmanagedType { get; }
 
@@ -15,16 +15,23 @@ namespace ClrDebug.SourceGenerator
 
         public override bool IsUnmanagedByRef => false;
 
-        public ArrayDelegateParameterMarshaller(IParameterSymbol parameter) : base(parameter)
+        private string rawType;
+
+        private bool canPin;
+
+        public ArrayLiteralDelegateParameterMarshaller(IParameterSymbol parameter, UnmanagedType subType) : base(parameter)
         {
-            var (marshalAs, _) = GetMarshalAs();
-
-            var subType = (System.Runtime.InteropServices.UnmanagedType) marshalAs.NamedArguments.Single(a => a.Key == "ArraySubType").Value.Value;
-
             switch (subType)
             {
                 case System.Runtime.InteropServices.UnmanagedType.U2:
                     UnmanagedType = IdentifierName("void*");
+                    rawType = "char";
+                    canPin = true;
+                    break;
+                case System.Runtime.InteropServices.UnmanagedType.SysInt:
+                    UnmanagedType = IdentifierName("void*");
+                    rawType = "IntPtr";
+                    canPin = true;
                     break;
 
                 default:
@@ -34,7 +41,10 @@ namespace ClrDebug.SourceGenerator
 
         public override VariableDeclarationSyntax GetPinnableReference()
         {
-            var marshaller = GenericName("ArrayMarshaller").AddTypeArgumentListArguments(IdentifierName("char"), IdentifierName("char"));
+            if (!canPin)
+                return null;
+
+            var marshaller = GenericName("ArrayMarshaller").AddTypeArgumentListArguments(IdentifierName(rawType), IdentifierName(rawType));
 
             var innerMarshaller = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, marshaller, IdentifierName("ManagedToUnmanagedIn"));
 

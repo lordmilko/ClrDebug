@@ -9,6 +9,9 @@ namespace ClrDebug.SourceGenerator
             if (type is IPointerTypeSymbol p)
                 return p.PointedAtType.ToNiceString() + "*";
 
+            if (type is IArrayTypeSymbol t)
+                return t.ElementType.ToNiceString() + "[]";
+
             if (type.SpecialType != SpecialType.None)
                 return type.ToString();
 

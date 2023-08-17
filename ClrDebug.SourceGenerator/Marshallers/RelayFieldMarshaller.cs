@@ -22,7 +22,7 @@ namespace ClrDebug.SourceGenerator
 
         protected ExpressionSyntax InvokeMarshalMethod(string methodName, params CSharpSyntaxNode[] arguments)
         {
-            var marshaller = GetMarshallerName;
+            var marshaller = MarshallerName;
 
             var method = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, marshaller, IdentifierName(methodName));
 
@@ -37,6 +37,6 @@ namespace ClrDebug.SourceGenerator
             return call;
         }
 
-        protected abstract NameSyntax GetMarshallerName { get; }
+        internal abstract NameSyntax MarshallerName { get; }
     }
 }

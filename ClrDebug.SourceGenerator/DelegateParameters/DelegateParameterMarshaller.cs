@@ -8,9 +8,16 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace ClrDebug.SourceGenerator
 {
+    struct MarshalAsInfo
+    {
+        public AttributeData Attribute;
+        public UnmanagedType UnmanagedType;
+        public object SubType;
+    }
+
     abstract class DelegateParameterMarshaller
     {
-        public TypeSyntax ManagedType { get; }
+        public TypeSyntax ManagedType { get; protected set; }
         public NameSyntax ManagedName { get; }
 
         public abstract TypeSyntax UnmanagedType { get; }
@@ -19,7 +26,7 @@ namespace ClrDebug.SourceGenerator
             get
             {
                 if (NeedUnmanagedTemporary)
-                    return IdentifierName($"__{ManagedName}_native");
+                    return IdentifierName($"__{ManagedName.ToString().TrimStart('@')}_native");
 
                 return ManagedName;
             }
@@ -31,7 +38,9 @@ namespace ClrDebug.SourceGenerator
 
         public bool IsManagedRef { get; }
 
-        public bool IsManagedOut { get; }
+        public bool IsManagedOut { get; protected set; }
+
+        public virtual bool IsPinnable { get; }
 
         public TypeSyntax UnmanagedArgumentType
         {
@@ -48,7 +57,7 @@ namespace ClrDebug.SourceGenerator
         {
             get
             {
-                if (IsUnmanagedByRef)
+                if (IsUnmanagedByRef && !IsPinnable)
                 {
                     return PrefixUnaryExpression(SyntaxKind.AddressOfExpression, UnmanagedName);
                 }
@@ -61,7 +70,11 @@ namespace ClrDebug.SourceGenerator
 
         public virtual StatementSyntax[] ConvertToUnmanaged { get; }
 
+        public virtual StatementSyntax[] InnerStatements { get; }
+
         public virtual VariableDeclarationSyntax GetPinnableReference() => null;
+
+        public virtual StatementSyntax[] GetInsideFixedStatements() => null;
 
         public virtual StatementSyntax[] Free { get; }
 
@@ -72,7 +85,13 @@ namespace ClrDebug.SourceGenerator
             this.parameter = parameter;
 
             ManagedType = IdentifierName(parameter.Type.ToNiceString());
-            ManagedName = IdentifierName(parameter.Name);
+
+            var name = parameter.Name;
+
+            if (name == "delegate")
+                name = "@delegate";
+
+            ManagedName = IdentifierName(name);
 
             IsManagedOut = parameter.RefKind == RefKind.Out;
             IsManagedRef = parameter.RefKind == RefKind.Ref;
@@ -100,18 +119,25 @@ namespace ClrDebug.SourceGenerator
             );
         }
 
-        protected (AttributeData marshalAs, UnmanagedType unmanagedType) GetMarshalAs()
+        internal static MarshalAsInfo GetMarshalAs(IParameterSymbol parameter)
         {
             var attribs = parameter.GetAttributes();
 
             var marshalAs = attribs.FirstOrDefault(a => a.AttributeClass.Name == "MarshalAsAttribute");
 
             if (marshalAs == null)
-                throw new NotImplementedException();
+                throw new NotImplementedException($"Parameter {parameter.ContainingType.Name}.{parameter.Name} is missing a MarshalAsAttribute");
 
             var arg = (UnmanagedType)marshalAs.ConstructorArguments.First(a => a.Type.Name == "UnmanagedType").Value;
 
-            return (marshalAs, arg);
+            var subType = marshalAs.NamedArguments.SingleOrDefault(a => a.Key == "ArraySubType").Value.Value;
+
+            return new MarshalAsInfo
+            {
+                Attribute = marshalAs,
+                UnmanagedType = arg,
+                SubType = subType
+            };
         }
     }
 }

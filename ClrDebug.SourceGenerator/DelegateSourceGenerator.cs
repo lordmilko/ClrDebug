@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -11,6 +12,15 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace ClrDebug.SourceGenerator
 {
+    class DelegateReturnTypeInfo
+    {
+        public string ManagedName { get; set; }
+        public string ManagedType { get; set; }
+        public string UnmanagedName { get; set; }
+        public string UnmanagedType { get; set; }
+        public ExpressionSyntax Expression { get; set; }
+    }
+
     [Generator]
     public class DelegateSourceGenerator : IIncrementalGenerator
     {
@@ -36,7 +46,8 @@ namespace ClrDebug.SourceGenerator
             //All delegates are assumed to be stdcall. If this is not the case,
             //this generator should be modified accordingly
             "Extensions.cs",
-            "Extensions.DbgShim.cs"
+            "Extensions.DbgShim.cs",
+            "Extensions.HostFxr.cs"
         };
 
         public void Initialize(IncrementalGeneratorInitializationContext context)
@@ -47,7 +58,6 @@ namespace ClrDebug.SourceGenerator
                 //Debugger.Launch();
             }
 #endif
-
             var classDeclarations = context.SyntaxProvider.CreateSyntaxProvider(
                 predicate: (s, _) => s is DelegateDeclarationSyntax,
                 transform: (ctx, _) => TransformSyntax(ctx)
@@ -101,21 +111,23 @@ namespace ClrDebug.SourceGenerator
 
             var parameters = delegateMethod.Parameters.Select(p => ((ParameterSyntax) p.DeclaringSyntaxReferences[0].GetSyntax()).WithAttributeLists(List<AttributeListSyntax>())).ToList();
 
-            var method = MethodDeclaration(IdentifierName(delegateMethod.ReturnType.ToNiceString()), @delegate.Name.Replace("Delegate", string.Empty))
+            var method = MethodDeclaration(IdentifierName(delegateMethod.ReturnType.ToNiceString()), CleanDelegateName(@delegate.Name))
                 .WithParameterList(ParameterList(SeparatedList(parameters)))
                 .AddModifiers(Token(SyntaxKind.InternalKeyword));
 
             var callingConv = FunctionPointerCallingConvention(
                     Token(SyntaxKind.UnmanagedKeyword),
                     FunctionPointerUnmanagedCallingConventionList()
-                    .AddCallingConventions(FunctionPointerUnmanagedCallingConvention(Identifier("Stdcall"))));
+                    .AddCallingConventions(FunctionPointerUnmanagedCallingConvention(Identifier(GetCallingConvention(@delegate)))));
 
             var fnPtrParameterTypes = new List<FunctionPointerParameterSyntax>();
             var fnPtrArgs = new List<ExpressionSyntax>();
             var preInvokeStatements = new List<StatementSyntax>();
+            var extraInnerStatements = new List<StatementSyntax>();
             var postInvokeStatements = new List<StatementSyntax>();
             var finallyStatements = new List<StatementSyntax>();
             var pinnableReferences = new List<VariableDeclarationSyntax>();
+            var insideFixedStatements = new List<StatementSyntax>();
 
             foreach (var parameter in delegateMethod.Parameters)
             {
@@ -125,12 +137,17 @@ namespace ClrDebug.SourceGenerator
                 fnPtrArgs.Add(info.UnmanagedArgument);
 
                 var inputStatements = info.ConvertToUnmanaged;
+                var inner = info.InnerStatements;
                 var outputStatements = info.ConvertToManaged;
                 var freeStatements = info.Free;
                 var pinnable = info.GetPinnableReference();
+                var insideFixed = info.GetInsideFixedStatements();
 
                 if (inputStatements != null)
                     preInvokeStatements.AddRange(inputStatements);
+
+                if (inner != null)
+                    extraInnerStatements.AddRange(inner);
 
                 if (outputStatements != null)
                     postInvokeStatements.AddRange(outputStatements);
@@ -140,13 +157,18 @@ namespace ClrDebug.SourceGenerator
 
                 if (pinnable != null)
                     pinnableReferences.Add(pinnable);
+
+                if (insideFixed != null)
+                    insideFixedStatements.AddRange(insideFixed);
             }
+
+            var returnTypeInfo = GetDelegateReturnTypeInfo(delegateMethod);
 
             var ptrType = FunctionPointerType(
                 callingConv,
                 FunctionPointerParameterList()
                 .AddParameters(fnPtrParameterTypes.ToArray())
-                .AddParameters(FunctionPointerParameter(IdentifierName(delegateMethod.ReturnType.ToNiceString())))
+                .AddParameters(FunctionPointerParameter(IdentifierName(returnTypeInfo.UnmanagedType)))
             );
 
             var proc = IdentifierName("proc");
@@ -174,13 +196,18 @@ namespace ClrDebug.SourceGenerator
             {
                 var innerStatements = new List<StatementSyntax>();
 
-                var returnType = delegateMethod.ReturnType.ToNiceString();
-                var returnName = "__retVal";
+                innerStatements.AddRange(extraInnerStatements);
 
                 if (delegateMethod.ReturnType.SpecialType != SpecialType.System_Void)
                 {
-                    var variable = SimpleVariable(IdentifierName(delegateMethod.ReturnType.ToNiceString()), returnName);
+                    var variable = SimpleVariable(IdentifierName(returnTypeInfo.ManagedType), returnTypeInfo.ManagedName);
                     statements.Add(variable);
+
+                    if (returnTypeInfo.ManagedName != returnTypeInfo.UnmanagedName)
+                    {
+                        var nativeVariable = SimpleVariable(IdentifierName(returnTypeInfo.UnmanagedType), returnTypeInfo.UnmanagedName);
+                        statements.Add(nativeVariable);
+                    }
                 }
 
                 StatementSyntax innerStatement;
@@ -190,13 +217,17 @@ namespace ClrDebug.SourceGenerator
                 else
                 {
                     var expr = ExpressionStatement(
-                        AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, IdentifierName(returnName), invocation)
+                        AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, IdentifierName(returnTypeInfo.UnmanagedName), invocation)
                     );
 
                     if (pinnableReferences.Count == 0)
                         innerStatement = expr;
                     else
-                        innerStatement = Block().AddStatements(expr);
+                    {
+                        innerStatement = Block()
+                            .AddStatements(insideFixedStatements.ToArray())
+                            .AddStatements(expr);
+                    }
                 }
 
                 if (pinnableReferences.Count == 0)
@@ -227,12 +258,102 @@ namespace ClrDebug.SourceGenerator
                 }
 
                 if (delegateMethod.ReturnType.SpecialType != SpecialType.System_Void)
-                    statements.Add(ReturnStatement(IdentifierName(returnName)));
+                {
+                    if (returnTypeInfo.Expression != null)
+                        statements.Add(ExpressionStatement(returnTypeInfo.Expression));
+
+                    statements.Add(ReturnStatement(IdentifierName(returnTypeInfo.ManagedName)));
+                }
             }
 
             method = method.AddBodyStatements(statements.ToArray());
 
             return method;
+        }
+
+        private static string CleanDelegateName(string type)
+        {
+            return type.Replace("Delegate", string.Empty).Replace("_fn", string.Empty);
+        }
+
+        private static DelegateReturnTypeInfo GetDelegateReturnTypeInfo(IMethodSymbol delegateMethod)
+        {
+            var managedName = "__retVal";
+            var managedType = delegateMethod.ReturnType.ToNiceString();
+            string unmanagedName = managedName;
+            string unmanagedType = managedType;
+            ExpressionSyntax expr = null;
+
+            var returnAttribs = delegateMethod.GetReturnTypeAttributes();
+
+            if (returnAttribs.Any(a => a.AttributeClass.Name == "MarshalAsAttribute"))
+            {
+                var marshalAs = returnAttribs.First(a => a.AttributeClass.Name == "MarshalAsAttribute");
+
+                var arg = (UnmanagedType)marshalAs.ConstructorArguments.First(a => a.Type.Name == "UnmanagedType").Value;
+
+                if (arg != UnmanagedType.FunctionPtr)
+                    throw new NotImplementedException();
+
+                unmanagedName = "__retVal_native";
+                unmanagedType = "IntPtr";
+
+                expr = AssignmentExpression(
+                    SyntaxKind.SimpleAssignmentExpression,
+                    IdentifierName(managedName),
+                    ConditionalExpression(
+                        BinaryExpression(
+                            SyntaxKind.NotEqualsExpression,
+                            IdentifierName(unmanagedName),
+                            LiteralExpression(SyntaxKind.DefaultLiteralExpression)
+                        ),
+                        MemberAccessExpression(
+                            SyntaxKind.SimpleMemberAccessExpression,
+                            ObjectCreationExpression(IdentifierName("DelegateHolder")).AddArgumentListArguments(Argument(IdentifierName(unmanagedName))),
+                            IdentifierName(CleanDelegateName(delegateMethod.ReturnType.ToNiceString()))
+                        ),
+                        LiteralExpression(SyntaxKind.NullLiteralExpression)
+                    )
+                );
+            }
+
+            return new DelegateReturnTypeInfo
+            {
+                ManagedName = managedName,
+                ManagedType = managedType,
+                UnmanagedName = unmanagedName,
+                UnmanagedType = unmanagedType,
+                Expression = expr
+            };
+        }
+
+        private static string GetCallingConvention(INamedTypeSymbol @delegate)
+        {
+            var attribs = @delegate.GetAttributes();
+
+            if (attribs.Length > 0)
+            {
+                var attrib = attribs.FirstOrDefault(a => a.AttributeClass.Name == "UnmanagedFunctionPointerAttribute");
+
+                if (attrib != null)
+                {
+                    var conv = (CallingConvention)attrib.ConstructorArguments[0].Value;
+
+                    switch (conv)
+                    {
+                        case CallingConvention.StdCall:
+                            return "Stdcall";
+
+                        case CallingConvention.Cdecl:
+                            return "Cdecl";
+
+                        default:
+                            throw new NotImplementedException($"Don't know how to handle calling convention '{conv}' for delegate '{@delegate.Name}'");
+                    }
+                }
+            }
+
+            return "Stdcall";
         }
 
         private static DelegateParameterMarshaller GetDelegateParameterInfo(IParameterSymbol parameter)
@@ -245,11 +366,31 @@ namespace ClrDebug.SourceGenerator
             if (specialTypes.Contains(type.SpecialType) || type.TypeKind == TypeKind.Enum || numericWrappers.Contains(type.Name) || type.TypeKind == TypeKind.Pointer)
                 return new LiteralDelegateParameterMarshaller(parameter);
 
+            if (type.Name == "hostfxr_dotnet_environment_info")
+                return new LiteralDelegateParameterMarshaller(parameter);
+
             if (type.SpecialType == SpecialType.System_String || type.SpecialType == SpecialType.System_Boolean)
                 return new RelayDelegateParameterMarshaller(parameter);
 
             if (type.TypeKind == TypeKind.Array)
-                return new ArrayDelegateParameterMarshaller(parameter);
+            {
+                var info = DelegateParameterMarshaller.GetMarshalAs(parameter);
+
+                if (info.SubType == null)
+                {
+                    if (info.UnmanagedType == UnmanagedType.LPTStr)
+                        return new RelayDelegateParameterMarshaller(parameter);
+
+                    throw new InvalidOperationException($"Parameter {parameter.ContainingType.Name}.{parameter.Name} is missing an ArraySubType");
+                }
+
+                var subType = (UnmanagedType)info.SubType;
+
+                if (subType == UnmanagedType.LPTStr)
+                    return new ArrayElementDelegateParameterMarshaller(parameter, new CrossPlatformStringMarshaller(parameter.Name, parameter.Type.ToNiceString()));
+
+                return new ArrayLiteralDelegateParameterMarshaller(parameter, subType);
+            }
 
             if (type.TypeKind == TypeKind.Interface || type.SpecialType == SpecialType.System_Object)
                 return new RelayDelegateParameterMarshaller(parameter);
@@ -281,7 +422,15 @@ namespace ClrDebug.SourceGenerator
 
             var node = (DelegateDeclarationSyntax) context.Node;
 
-            if (node.Identifier.Text == "RuntimeStartupCallback")
+            var ignored = new[]
+            {
+                "RuntimeStartupCallback",
+                "HostFxrGetAvailableSDKsDelegate",
+                "HostFxrResolveSdk2Delegate",
+                "HostFxrErrorWriterDelegate"
+            };
+
+            if (ignored.Contains(node.Identifier.Text))
                 return null;
 
             var ns = node.SyntaxTree.GetCompilationUnitRoot().DescendantNodes().OfType<NamespaceDeclarationSyntax>().First();

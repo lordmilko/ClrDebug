@@ -11,7 +11,7 @@ namespace ClrDebug.SourceGenerator
         {
         }
 
-        protected override NameSyntax GetMarshallerName =>
+        internal override NameSyntax MarshallerName =>
             GenericName(Identifier("ComInterfaceMarshaller")).AddTypeArgumentListArguments(IdentifierName(ManagedType));
     }
 }

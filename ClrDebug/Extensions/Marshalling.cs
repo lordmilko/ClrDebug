@@ -1,7 +1,7 @@
-﻿#if GENERATED_MARSHALLING
-
-using System;
+﻿using System;
+#if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
+#endif
 using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
@@ -9,6 +9,7 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
+#if GENERATED_MARSHALLING
     public static partial class Extensions
     {
         internal static readonly StrategyBasedComWrappers DefaultMarshallingInstance = new StrategyBasedComWrappers();
@@ -60,7 +61,43 @@ namespace ClrDebug
         public static Guid ConvertToManaged(GuidNative unmanaged) => *(Guid*)&unmanaged;
     }
 
-#endregion
+    #endregion
+    #region CrossPlatformString
+
+    public static unsafe class CrossPlatformStringMarshaller
+    {
+        public static byte* ConvertToUnmanaged(string managed)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return (byte*) Utf16StringMarshaller.ConvertToUnmanaged(managed);
+
+            return Utf8StringMarshaller.ConvertToUnmanaged(managed);
+        }
+
+        public static string ConvertToManaged(IntPtr unmanaged) =>
+            ConvertToManaged((byte*) unmanaged);
+
+        public static string ConvertToManaged(byte* unmanaged)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return Utf16StringMarshaller.ConvertToManaged((ushort*) unmanaged);
+
+            return Utf8StringMarshaller.ConvertToManaged(unmanaged);
+        }
+
+        public static void Free(IntPtr unmanaged) =>
+            Free((IntPtr) unmanaged);
+
+        public static void Free(byte* unmanaged)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                Utf16StringMarshaller.Free((ushort*) unmanaged);
+
+            Utf8StringMarshaller.Free(unmanaged);
+        }
+    }
+
+    #endregion
     #region VARIANT
 
     [CustomMarshaller(typeof(object), MarshalMode.Default, typeof(VariantMarshaller))]
@@ -285,7 +322,18 @@ namespace ClrDebug
         }
     }
 
-#endregion
-}
+    #endregion
+#else
+    public static unsafe class CrossPlatformStringMarshaller
+    {
+        public static string ConvertToManaged(IntPtr unmanaged) =>
+            Marshal.PtrToStringUni(unmanaged);
 
+        public static IntPtr ConvertToUnmanaged(string managed) =>
+            Marshal.StringToHGlobalUni(managed);
+
+        public static void Free(IntPtr unmanaged) =>
+            Marshal.FreeCoTaskMem(unmanaged);
+    }
 #endif
+}

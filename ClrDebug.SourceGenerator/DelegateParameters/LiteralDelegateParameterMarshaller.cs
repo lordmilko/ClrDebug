@@ -11,45 +11,23 @@ namespace ClrDebug.SourceGenerator
 
         public override bool IsUnmanagedByRef => IsManagedOut || IsManagedRef;
 
-        public override bool NeedUnmanagedTemporary => IsManagedOut;
+        public override bool NeedUnmanagedTemporary => IsUnmanagedByRef;
+
+        public override bool IsPinnable => IsUnmanagedByRef;
 
         public LiteralDelegateParameterMarshaller(IParameterSymbol parameter) : base(parameter)
         {
         }
 
-        public override StatementSyntax[] ConvertToManaged
+        public override VariableDeclarationSyntax GetPinnableReference()
         {
-            get
+            if (IsPinnable)
             {
-                if (IsManagedOut)
-                {
-                    return new[]
-                    {
-                        //Assign the previously declared IntPtr variable to our real out parameter
-                        ExpressionStatement(
-                            AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, ManagedName, UnmanagedName)
-                        )
-                    };
-                }
-
-                return null;
+                return VariableDeclaration(PointerType(ManagedType)).AddVariables(VariableDeclarator(UnmanagedName.ToString()).WithInitializer(
+                    EqualsValueClause(PrefixUnaryExpression(SyntaxKind.AddressOfExpression, ManagedName))));
             }
-        }
 
-        public override StatementSyntax[] ConvertToUnmanaged
-        {
-            get
-            {
-                if (IsManagedOut)
-                {
-                    return new[]
-                    {
-                        SimpleVariable(UnmanagedType, UnmanagedName.ToString())
-                    };
-                }
-
-                return null;
-            }
+            return null;
         }
     }
 }

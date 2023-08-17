@@ -43,6 +43,8 @@ namespace ClrDebug.SourceGenerator
                     Marshaller = new UTF16FieldMarshaller(Name, Type, "ushort*");
                 else if (unmanagedType == UnmanagedType.BStr)
                     Marshaller = new BStrFieldMarshaller(Name, Type, "ushort*");
+                else if (unmanagedType == UnmanagedType.LPTStr)
+                    Marshaller = new CrossPlatformStringMarshaller(Name, Type);
                 else
                     throw new NotImplementedException($"Don't know how to handle string with UnmanagedType.{unmanagedType}");
             }

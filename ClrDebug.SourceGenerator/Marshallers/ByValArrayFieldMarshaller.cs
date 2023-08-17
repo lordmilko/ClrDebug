@@ -24,7 +24,7 @@ namespace ClrDebug.SourceGenerator
         public override ExpressionSyntax ToManaged(ExpressionSyntax unmanagedField) =>
             InvokeMarshalMethod("AllocateContainerForManagedElements", unmanagedField, SizeConst);
 
-        protected override NameSyntax GetMarshallerName =>
+        internal override NameSyntax MarshallerName =>
             GenericName(Identifier("ArrayMarshaller")).AddTypeArgumentListArguments(IdentifierName(ElementType), IdentifierName(ElementType));
 
         public StatementSyntax[] GetAdditionalToUnmanagedStatements(MemberAccessExpressionSyntax managedField, MemberAccessExpressionSyntax unmanagedField)

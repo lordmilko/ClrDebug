@@ -9,6 +9,13 @@ namespace ClrDebug
 {
     #region Delegates
 
+    /// <summary>
+    /// Provides the <see cref="ICLRDebugging"/> interface.
+    /// </summary>
+    /// <param name="clsid">[in] Supports only the CLSID_CLRDebugging class identifier.</param>
+    /// <param name="riid">[in] Supports only the IID_ICLRDebugging interface identifiers.</param>
+    /// <param name="ppInterface">[out] A <see cref="ICLRDebugging"/> instance.</param>
+    /// <returns>A HRESULT that indicates success or failure.</returns>
     public delegate HRESULT CLRCreateInstanceDelegate(
         [In, MarshalAs(UnmanagedType.LPStruct)] Guid clsid,
         [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
@@ -124,7 +131,9 @@ namespace ClrDebug
     /// Provides a mechanism for enumerating the CLRs in a process.
     /// </summary>
     /// <param name="debuggeePID">[in] Process identifier of the process from which loaded CLRs will be enumerated.</param>
-    /// <param name="ppHandleArrayOut">[out] Pointer to an array containing event handles that are used to continue a CLR startup. Each handle in the array is not guaranteed to be valid. If valid, the handle is to be used as the continue-startup event for the corresponding runtime located in the s</param>
+    /// <param name="ppHandleArrayOut">[out] Pointer to an array containing event handles that are used to continue a CLR startup.
+    /// Each handle in the array is not guaranteed to be valid. If valid, the handle is to be used as the continue-startup event for the corresponding
+    /// runtime located in the same index of <paramref name="ppStringArrayOut"/>.</param>
     /// <param name="ppStringArrayOut">[out] Pointer to an array of strings that specify full paths to CLRs loaded in the process.</param>
     /// <param name="pdwArrayLengthOut">[out] Pointer to a DWORD that contains the length of the equally sized ppHandleArrayOut and pdwArrayLengthOut.</param>
     /// <returns>A HRESULT that indicates success or failure.</returns>
@@ -241,12 +250,6 @@ namespace ClrDebug
         private PSTARTUP_CALLBACK lastRegisterForRuntimeStartupCallback;
         private PSTARTUP_CALLBACK lastRegisterForRuntimeStartupExCallback;
         private PSTARTUP_CALLBACK lastRegisterForRuntimeStartup3Callback;
-
-        /// <summary>
-        /// Gets the DbgShim module handle this instance encapsulates.
-        /// </summary>
-        public IntPtr hModule { get; }
-
         private DelegateProvider delegateProvider;
 
         /// <summary>
@@ -258,20 +261,36 @@ namespace ClrDebug
             if (hModule == IntPtr.Zero)
                 throw new ArgumentNullException(nameof(hModule));
 
-            this.hModule = hModule;
             delegateProvider = new DelegateProvider(hModule);
         }
 
         #region CLRCreateInstance
 
+        /// <summary>
+        /// Provides the <see cref="ICLRDebugging"/> interface.
+        /// </summary>
+        /// <param name="clsid">[in] Supports only the CLSID_CLRDebugging class identifier.</param>
+        /// <param name="riid">[in] Supports only the IID_ICLRDebugging interface identifiers.</param>
+        /// <returns>A <see cref="ICLRDebugging"/> instance.</returns>
         public object CLRCreateInstance(Guid clsid, Guid riid)
         {
             TryCLRCreateInstance(clsid, riid, out var ppInterface).ThrowOnNotOK();
             return ppInterface;
         }
 
+        /// <summary>
+        /// Provides facilities for retrieving interfaces that are commonly retrieved from <see cref="CLRCreateInstance(Guid, Guid)"/>.
+        /// </summary>
+        /// <returns>The common interfaces that can be retrieved from <see cref="CLRCreateInstance(Guid, Guid)"/>.</returns>
         public CLRCreateInstanceInterfaces CLRCreateInstance() => new CLRCreateInstanceInterfaces(this);
 
+        /// <summary>
+        /// Tries to provide the <see cref="ICLRDebugging"/> interface.
+        /// </summary>
+        /// <param name="clsid">[in] Supports only the CLSID_CLRDebugging class identifier.</param>
+        /// <param name="riid">[in] Supports only the IID_ICLRDebugging interface identifiers.</param>
+        /// <param name="ppInterface">[out] A <see cref="ICLRDebugging"/> instance.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryCLRCreateInstance(Guid clsid, Guid riid, out object ppInterface)
         {
             var @delegate = delegateProvider.CLRCreateInstance;
@@ -302,6 +321,12 @@ namespace ClrDebug
         #endregion
         #region CloseCLREnumeration
 
+        /// <summary>
+        /// Closes any valid common language runtime (CLR) continue-startup events located in an array of handles returned by the EnumerateCLRs function,
+        /// and frees the memory for the handle and string path arrays.
+        /// </summary>
+        /// <param name="result">[in] The data structure that was returned from <see cref="EnumerateCLRs(int)"/> containing the enumerator
+        /// details that should be closed.</param>
         public void CloseCLREnumeration(EnumerateCLRsResult result) => TryCloseCLREnumeration(result).ThrowOnNotOK();
 
         /// <summary>
@@ -315,6 +340,12 @@ namespace ClrDebug
             TryCloseCLREnumeration(pHandleArray, pStringArray, dwArrayLength).ThrowOnNotOK();
         }
 
+        /// <summary>
+        /// Tries to close any valid common language runtime (CLR) continue-startup events located in an array of handles returned by the EnumerateCLRs function, and frees the memory for the handle and string path arrays.
+        /// </summary>
+        /// <param name="result">[in] The data structure that was returned from <see cref="EnumerateCLRs(int)"/> containing the enumerator
+        /// details that should be closed.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryCloseCLREnumeration(EnumerateCLRsResult result) =>
             TryCloseCLREnumeration(result.HandleArrayOut, result.StringArrayOut, result.ArrayLengthOut);
 
@@ -573,6 +604,14 @@ namespace ClrDebug
         #endregion
         #region CreateProcessForLaunch
 
+        /// <summary>
+        /// A subset of the Windows CreateProcess that can be supported cross-platform.
+        /// </summary>
+        /// <param name="lpCommandLine">[in] The command line to be executed.</param>
+        /// <param name="bSuspendProcess">[in] If this parameter is TRUE, suspend the process for launch.</param>
+        /// <param name="lpEnvironment">[in, optional] A pointer to the environment block for the new process. If this parameter is NULL, the new process uses the environment of the calling process.</param>
+        /// <param name="lpCurrentDirectory">[in, optional] The full path to the current directory for the process. If this parameter is NULL, the new process will have the same current drive and directory as the calling process.</param>
+        /// <returns>A struct that encapsulates the process ID and resume handle.</returns>
         public CreateProcessForLaunchResult CreateProcessForLaunch(
             string lpCommandLine,
             bool bSuspendProcess,
@@ -583,6 +622,15 @@ namespace ClrDebug
             return result;
         }
 
+        /// <summary>
+        /// A subset of the Windows CreateProcess that can be supported cross-platform.
+        /// </summary>
+        /// <param name="lpCommandLine">[in] The command line to be executed.</param>
+        /// <param name="bSuspendProcess">[in] If this parameter is TRUE, suspend the process for launch.</param>
+        /// <param name="lpEnvironment">[in, optional] A pointer to the environment block for the new process. If this parameter is NULL, the new process uses the environment of the calling process.</param>
+        /// <param name="lpCurrentDirectory">[in, optional] The full path to the current directory for the process. If this parameter is NULL, the new process will have the same current drive and directory as the calling process.</param>
+        /// <param name="result">A struct that encapsulates the process ID and resume handle.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryCreateProcessForLaunch(
             string lpCommandLine,
             bool bSuspendProcess,
@@ -605,12 +653,23 @@ namespace ClrDebug
         #endregion
         #region EnumerateCLRs
 
+        /// <summary>
+        /// Provides a mechanism for enumerating the CLRs in a process.
+        /// </summary>
+        /// <param name="debuggeePID">[in] Process identifier of the process from which loaded CLRs will be enumerated.</param>
+        /// <returns>A struct that encapsulates the outputs of the function.</returns>
         public EnumerateCLRsResult EnumerateCLRs(int debuggeePID)
         {
             TryEnumerateCLRs(debuggeePID, out var result).ThrowOnNotOK();
             return result;
         }
 
+        /// <summary>
+        /// Provides a mechanism for enumerating the CLRs in a process.
+        /// </summary>
+        /// <param name="debuggeePID">[in] Process identifier of the process from which loaded CLRs will be enumerated.</param>
+        /// <param name="result">A struct that encapsulates the outputs of the function.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryEnumerateCLRs(
             int debuggeePID,
             out EnumerateCLRsResult result)
@@ -619,6 +678,8 @@ namespace ClrDebug
 
             var hr = @delegate(debuggeePID, out var ppHandleArrayOut, out var ppStringArrayOut, out var pdwArrayLengthOut);
 
+            //We have to return the raw pointers wrapped in a struct - not just the desired EnumerateCLRsResultItem items - because
+            //those pointers will later need to be closed by passing this data structure into CloseCLREnumeration()
             if (hr == HRESULT.S_OK)
                 result = new EnumerateCLRsResult(ppHandleArrayOut, ppStringArrayOut, pdwArrayLengthOut);
             else

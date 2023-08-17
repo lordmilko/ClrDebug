@@ -292,5 +292,257 @@ namespace ClrDebug
 #endif
             }
         }
+
+        public get_hostfxr_path_fn get_hostfxr_path
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(get_hostfxr_path));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).get_hostfxr_path;
+#else
+                return Marshal.GetDelegateForFunctionPointer<get_hostfxr_path_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_close_fn hostfxr_close
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_close));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_close;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_close_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_get_available_sdks_fn hostfxr_get_available_sdks
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_get_available_sdks));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_get_available_sdks;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_get_available_sdks_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_get_dotnet_environment_info_fn hostfxr_get_dotnet_environment_info
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_get_dotnet_environment_info));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_get_dotnet_environment_info;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_get_dotnet_environment_info_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_get_native_search_directories_fn hostfxr_get_native_search_directories
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_get_native_search_directories));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_get_native_search_directories;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_get_native_search_directories_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_get_runtime_delegate_fn hostfxr_get_runtime_delegate
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_get_runtime_delegate));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_get_runtime_delegate;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_get_runtime_delegate_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_get_runtime_properties_fn hostfxr_get_runtime_properties
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_get_runtime_properties));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_get_runtime_properties;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_get_runtime_properties_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_get_runtime_property_value_fn hostfxr_get_runtime_property_value
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_get_runtime_property_value));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_get_runtime_property_value;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_get_runtime_property_value_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_initialize_for_dotnet_command_line_fn hostfxr_initialize_for_dotnet_command_line
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_initialize_for_dotnet_command_line));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_initialize_for_dotnet_command_line;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_initialize_for_dotnet_command_line_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_initialize_for_runtime_config_fn hostfxr_initialize_for_runtime_config
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_initialize_for_runtime_config));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_initialize_for_runtime_config;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_initialize_for_runtime_config_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_main_fn hostfxr_main
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_main));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_main;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_main_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_main_bundle_startupinfo_fn hostfxr_main_bundle_startupinfo
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_main_bundle_startupinfo));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_main_bundle_startupinfo;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_main_bundle_startupinfo_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_main_startupinfo_fn hostfxr_main_startupinfo
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_main_startupinfo));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_main_startupinfo;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_main_startupinfo_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_resolve_sdk_fn hostfxr_resolve_sdk
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_resolve_sdk));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_resolve_sdk;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_resolve_sdk_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_resolve_sdk2_fn hostfxr_resolve_sdk2
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_resolve_sdk2));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_resolve_sdk2;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_resolve_sdk2_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_run_app_fn hostfxr_run_app
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_run_app));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_run_app;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_run_app_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_set_error_writer_fn hostfxr_set_error_writer
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_set_error_writer));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_set_error_writer;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_set_error_writer_fn>(export);
+#endif
+            }
+        }
+
+        public hostfxr_set_runtime_property_value_fn hostfxr_set_runtime_property_value
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(hostfxr_set_runtime_property_value));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).hostfxr_set_runtime_property_value;
+#else
+                return Marshal.GetDelegateForFunctionPointer<hostfxr_set_runtime_property_value_fn>(export);
+#endif
+            }
+        }
     }
 }

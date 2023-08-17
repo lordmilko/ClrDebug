@@ -4,7 +4,7 @@
     <IsGeneratedMarshalling Condition="$(TargetFramework) == 'net8.0'">true</IsGeneratedMarshalling>
     <IsGeneratedMarshalling Condition="'$(IsGeneratedMarshalling)' == ''">false</IsGeneratedMarshalling>
 
-    <TargetFrameworks Condition="'$(VisualStudioVersion)' == '15.0'">net461</TargetFrameworks>
+    <TargetFrameworks Condition="'$(VisualStudioVersion)' == '15.0' Or '$(VisualStudioVersion)' == '16.0'">net461</TargetFrameworks>
     <TargetFrameworks Condition="'$(TargetFrameworks)' == ''">net461;net8.0</TargetFrameworks>
     <DefineConstants Condition="'$(IsGeneratedMarshalling)'">$(DefineConstants);GENERATED_MARSHALLING</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

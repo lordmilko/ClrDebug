@@ -21,9 +21,9 @@ namespace ClrDebug.SourceGenerator
 
         public RelayDelegateParameterMarshaller(IParameterSymbol parameter) : base(parameter)
         {
-            var (_, arg) = GetMarshalAs();
+            var info = GetMarshalAs(parameter);
 
-            switch (arg)
+            switch (info.UnmanagedType)
             {
                 case System.Runtime.InteropServices.UnmanagedType.LPWStr:
                     marshaller = new UTF16FieldMarshaller(string.Empty, parameter.Type.ToNiceString(), "ushort*");
@@ -48,8 +48,24 @@ namespace ClrDebug.SourceGenerator
                     marshaller = new InterfaceFieldMarshaller(string.Empty, parameter.Type.ToNiceString(), "void*");
                     break;
 
+                case System.Runtime.InteropServices.UnmanagedType.LPTStr:
+                    if (parameter.Type is IArrayTypeSymbol)
+                    {
+                        marshaller = new CrossPlatformCharBufferMarshaller(string.Empty, parameter.Type.ToNiceString());
+                        UnmanagedType = IdentifierName("void*");
+                        IsManagedOut = true;
+                    }
+                    else
+                    {
+                        marshaller = new CrossPlatformStringMarshaller(string.Empty, parameter.Type.ToNiceString());
+
+                        UnmanagedType = IdentifierName("byte*");
+                    }
+
+                    break;
+
                 default:
-                    throw new NotImplementedException($"Don't know how to handle unmanaged type {arg}");
+                    throw new NotImplementedException($"Don't know how to handle unmanaged type {info.UnmanagedType}");
             }
         }
 
@@ -122,10 +138,12 @@ namespace ClrDebug.SourceGenerator
             if (!canPin)
                 return null;
 
-            if (ManagedType.ToString() != "string")
+            if (ManagedType.ToString() != "string" || !(marshaller is RelayFieldMarshaller))
                 throw new NotImplementedException();
 
-            var method = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName("Utf16StringMarshaller"), IdentifierName("GetPinnableReference"));
+            var relay = (RelayFieldMarshaller) marshaller;
+
+            var method = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, relay.MarshallerName, IdentifierName("GetPinnableReference"));
 
             var invocation = InvocationExpression(method).AddArgumentListArguments(Argument(ManagedName));
 

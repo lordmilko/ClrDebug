@@ -28,5 +28,32 @@
 
             throw new DebugException(hr);
         }
+
+        /// <summary>
+        /// Throws an exception when a <see cref="HostStatusCode"/> is not exactly <see cref="HostStatusCode.Success"/> or contains an error value.
+        /// </summary>
+        /// <param name="status">The <see cref="HostStatusCode"/> to process.</param>
+        /// <exception cref="HostingException">The <see cref="HostStatusCode"/> is not <see cref="HostStatusCode.Success"/> or contains an error value.</exception>
+        public static void ThrowOnNotOK(this HostStatusCode status)
+        {
+            if (status > 0)
+                throw new HostingException(status);
+
+            ThrowOnFailed(status);
+        }
+
+        /// <summary>
+        /// Throws an exception when a <see cref="HostStatusCode"/> contains an error value.
+        /// </summary>
+        /// <param name="status">The <see cref="HostStatusCode"/> to process.</param>
+        /// <returns>The original <see cref="HostStatusCode"/> that was passed to this method.</returns>
+        /// <exception cref="HostingException">The <see cref="HostStatusCode"/> contains an error value.</exception>
+        public static HostStatusCode ThrowOnFailed(this HostStatusCode status)
+        {
+            if ((int) status >= 0)
+                return status;
+
+            throw new HostingException(status);
+        }
     }
 }

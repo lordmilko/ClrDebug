@@ -20,7 +20,7 @@ namespace ClrDebug
         }
     }
 
-    internal class DelegateProvider
+    internal struct DelegateProvider
     {
         private IntPtr hModule;
 
@@ -51,12 +51,32 @@ var types = new[]
     "UnregisterForRuntimeStartupDelegate",
 
     "CLRDataCreateInstanceDelegate",
-    "MetaDataGetDispenserDelegate"
+    "MetaDataGetDispenserDelegate",
+
+    "get_hostfxr_path_fn",
+
+    "hostfxr_close_fn",
+    "hostfxr_get_available_sdks_fn",
+    "hostfxr_get_dotnet_environment_info_fn",
+    "hostfxr_get_native_search_directories_fn",
+    "hostfxr_get_runtime_delegate_fn",
+    "hostfxr_get_runtime_properties_fn",
+    "hostfxr_get_runtime_property_value_fn",
+    "hostfxr_initialize_for_dotnet_command_line_fn",
+    "hostfxr_initialize_for_runtime_config_fn",
+    "hostfxr_main_fn",
+    "hostfxr_main_bundle_startupinfo_fn",
+    "hostfxr_main_startupinfo_fn",
+    "hostfxr_resolve_sdk_fn",
+    "hostfxr_resolve_sdk2_fn",
+    "hostfxr_run_app_fn",
+    "hostfxr_set_error_writer_fn",
+    "hostfxr_set_runtime_property_value_fn"
 };
 
 for(var i = 0; i < types.Length; i++)
 {
-    var name = types[i].Replace("Delegate", string.Empty);
+    var name = types[i].Replace("Delegate", string.Empty).Replace("_fn", string.Empty);
 #>
         public <#= types[i] #> <#= name #>
         {

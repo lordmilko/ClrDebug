@@ -11,6 +11,6 @@ namespace ClrDebug.SourceGenerator
         {
         }
 
-        protected override NameSyntax GetMarshallerName => IdentifierName("AnsiStringMarshaller");
+        internal override NameSyntax MarshallerName => IdentifierName("AnsiStringMarshaller");
     }
 }

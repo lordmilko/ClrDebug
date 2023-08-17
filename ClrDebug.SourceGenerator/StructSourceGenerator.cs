@@ -25,7 +25,17 @@ namespace ClrDebug.SourceGenerator
 
             var syntaxTrees = GetSyntaxTrees();
 
-            var structs = syntaxTrees.SelectMany(s => s.GetCompilationUnitRoot().DescendantNodes().OfType<StructDeclarationSyntax>()).ToArray();
+            var ignore = new[]
+            {
+                "HostFxrDotnetEnvironmentInfo",
+                "HostFxrDotnetEnvironmentSdkInfo",
+                "HostFxrDotnetEnvironmentFrameworkInfo"
+            };
+
+            var structs = syntaxTrees
+                .SelectMany(s => s.GetCompilationUnitRoot().DescendantNodes().OfType<StructDeclarationSyntax>())
+                .Where(v => !ignore.Contains(v.Identifier.Text))
+                .ToArray();
 
             var structsToMonitor = new List<string>();
 
