@@ -4,19 +4,19 @@ configuration: Release
 install:
   - ps: |
       Invoke-WebRequest -Uri 'https://dot.net/v1/dotnet-install.ps1' -UseBasicParsing -OutFile "$env:temp\dotnet-install.ps1"
-      & "$env:temp\dotnet-install.ps1" -Version 8.0.100-preview.7.23364.32
-      dotnet new nugetconfig
-      dotnet nuget add source -n dotnet8 https://dnceng.pkgs.visualstudio.com/public/_packaging/dotnet8/nuget/v3/index.json
+      & "$env:temp\dotnet-install.ps1" -Version 8.0.100-preview.7.23376.3 -InstallDir "C:\Program Files (x86)\dotnet"
 before_build:
 - dotnet restore
 - dotnet restore -r win-x64
 build_script:
 - dotnet build
+- dotnet build TestApp/TestApp.sln
+- msbuild TestLib/TestLib.sln /verbosity:minimal
 test_script:
 - vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net461\ClrDebug.Tests.dll /platform:x86 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
 - vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net461\ClrDebug.Tests.dll /platform:x64 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
-#- vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net8.0\ClrDebug.Tests.dll /platform:x86 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
-#- vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net8.0\ClrDebug.Tests.dll /platform:x64 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
+- vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net8.0\ClrDebug.Tests.dll /platform:x86 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
+- vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net8.0\ClrDebug.Tests.dll /platform:x64 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
 after_test:
 - dotnet pack ClrDebug\ClrDebug.csproj
 - 7z a ClrDebug.zip .\ClrDebug\bin\%CONFIGURATION%\* -xr!*.json

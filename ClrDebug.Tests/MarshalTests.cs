@@ -262,6 +262,9 @@ namespace ClrDebug.Tests
                         break;
 
                     case nameof(Marshal_Delegate_Call_WithInInterface):
+                        if (IntPtr.Size == 4)
+                            Assert.Inconclusive("Test is only supported in x64"); //target app is x64, so if we're x86 dbgshim won't able to read its memory
+
                         Assert.IsTrue(MarshalTestImpl.Marshal_Delegate_Call_WithInInterface(appPath));
                         break;
 
