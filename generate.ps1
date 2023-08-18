@@ -13,7 +13,7 @@ $normalArgs = @{
     MaxPathArray = "ixclrdata*.getfilename"
     MaxLongPathArray = "ISymNGenWriter*.QueryPDBNameExW"
     SkipFolder = "DbgEng"
-    NotAbstract = "ICorDebugReferenceValue","IMetaDataDispenser"
+    NotAbstract = "ICorDebugReferenceValue","IMetaDataDispenser","IInspectable"
 
     # Indicates that the string is not null terminated and that we should convert to a string by specifying the specific number of characters to read
     NonNullString = "IMetaDataImport.GetUserString"

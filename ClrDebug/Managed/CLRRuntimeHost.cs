@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace ClrDebug
@@ -446,6 +447,179 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzArgument,
             [Out] out int pReturnValue);*/
             return Raw.ExecuteInDefaultAppDomain(pwzAssemblyPath, pwzTypeName, pwzMethodName, pwzArgument, out pReturnValue);
+        }
+
+        #endregion
+        #endregion
+        #region ICLRRuntimeHost2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ICLRRuntimeHost2 Raw2 => (ICLRRuntimeHost2) Raw;
+
+        #region CreateAppDomainWithManager
+
+        public int CreateAppDomainWithManager(string wszFriendlyName, APPDOMAIN_SECURITY_FLAGS dwFlags, string wszAppDomainManagerAssemblyName, string wszAppDomainManagerTypeName, int nProperties, string[] pPropertyNames, string[] pPropertyValues)
+        {
+            int pAooDomainID;
+            TryCreateAppDomainWithManager(wszFriendlyName, dwFlags, wszAppDomainManagerAssemblyName, wszAppDomainManagerTypeName, nProperties, pPropertyNames, pPropertyValues, out pAooDomainID).ThrowOnNotOK();
+
+            return pAooDomainID;
+        }
+
+        public HRESULT TryCreateAppDomainWithManager(string wszFriendlyName, APPDOMAIN_SECURITY_FLAGS dwFlags, string wszAppDomainManagerAssemblyName, string wszAppDomainManagerTypeName, int nProperties, string[] pPropertyNames, string[] pPropertyValues, out int pAooDomainID)
+        {
+            /*HRESULT CreateAppDomainWithManager(
+            [MarshalAs(UnmanagedType.LPWStr), In] string wszFriendlyName,
+            [In] APPDOMAIN_SECURITY_FLAGS dwFlags,
+            [MarshalAs(UnmanagedType.LPWStr), In] string wszAppDomainManagerAssemblyName,
+            [MarshalAs(UnmanagedType.LPWStr), In] string wszAppDomainManagerTypeName,
+            [In] int nProperties,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 4), In] string[] pPropertyNames,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 4), In] string[] pPropertyValues,
+            [Out] out int pAooDomainID);*/
+            return Raw2.CreateAppDomainWithManager(wszFriendlyName, dwFlags, wszAppDomainManagerAssemblyName, wszAppDomainManagerTypeName, nProperties, pPropertyNames, pPropertyValues, out pAooDomainID);
+        }
+
+        #endregion
+        #region CreateDelegate
+
+        public IntPtr CreateDelegate(int appDomainID, string wszAssemblyName, string wszClassName, string wszMethodName)
+        {
+            IntPtr fnPtr;
+            TryCreateDelegate(appDomainID, wszAssemblyName, wszClassName, wszMethodName, out fnPtr).ThrowOnNotOK();
+
+            return fnPtr;
+        }
+
+        public HRESULT TryCreateDelegate(int appDomainID, string wszAssemblyName, string wszClassName, string wszMethodName, out IntPtr fnPtr)
+        {
+            /*HRESULT CreateDelegate(
+            [In] int appDomainID,
+            [MarshalAs(UnmanagedType.LPWStr), In] string wszAssemblyName,
+            [MarshalAs(UnmanagedType.LPWStr), In] string wszClassName,
+            [MarshalAs(UnmanagedType.LPWStr), In] string wszMethodName,
+            [Out] out IntPtr fnPtr);*/
+            return Raw2.CreateDelegate(appDomainID, wszAssemblyName, wszClassName, wszMethodName, out fnPtr);
+        }
+
+        #endregion
+        #region Authenticate
+
+        public void Authenticate(long authKey)
+        {
+            TryAuthenticate(authKey).ThrowOnNotOK();
+        }
+
+        public HRESULT TryAuthenticate(long authKey)
+        {
+            /*HRESULT Authenticate(
+            [In] long authKey);*/
+            return Raw2.Authenticate(authKey);
+        }
+
+        #endregion
+        #region RegisterMacEHPort
+
+        public void RegisterMacEHPort()
+        {
+            TryRegisterMacEHPort().ThrowOnNotOK();
+        }
+
+        public HRESULT TryRegisterMacEHPort()
+        {
+            /*HRESULT RegisterMacEHPort();*/
+            return Raw2.RegisterMacEHPort();
+        }
+
+        #endregion
+        #region SetStartupFlags
+
+        public void SetStartupFlags(STARTUP_FLAGS dwFlags)
+        {
+            TrySetStartupFlags(dwFlags).ThrowOnNotOK();
+        }
+
+        public HRESULT TrySetStartupFlags(STARTUP_FLAGS dwFlags)
+        {
+            /*HRESULT SetStartupFlags(
+            STARTUP_FLAGS dwFlags);*/
+            return Raw2.SetStartupFlags(dwFlags);
+        }
+
+        #endregion
+        #region DllGetActivationFactory
+
+        public ActivationFactory DllGetActivationFactory(int appDomainID, string wszTypeName)
+        {
+            ActivationFactory factoryResult;
+            TryDllGetActivationFactory(appDomainID, wszTypeName, out factoryResult).ThrowOnNotOK();
+
+            return factoryResult;
+        }
+
+        public HRESULT TryDllGetActivationFactory(int appDomainID, string wszTypeName, out ActivationFactory factoryResult)
+        {
+            /*HRESULT DllGetActivationFactory(
+            int appDomainID,
+            [MarshalAs(UnmanagedType.LPWStr), In] string wszTypeName,
+            [Out] out IActivationFactory factory);*/
+            IActivationFactory factory;
+            HRESULT hr = Raw2.DllGetActivationFactory(appDomainID, wszTypeName, out factory);
+
+            if (hr == HRESULT.S_OK)
+                factoryResult = new ActivationFactory(factory);
+            else
+                factoryResult = default(ActivationFactory);
+
+            return hr;
+        }
+
+        #endregion
+        #region ExecuteAssembly
+
+        public int ExecuteAssembly(int dwAppDomainId, string pwzAssemblyPath, int argc, string[] argv)
+        {
+            int pReturnValue;
+            TryExecuteAssembly(dwAppDomainId, pwzAssemblyPath, argc, argv, out pReturnValue).ThrowOnNotOK();
+
+            return pReturnValue;
+        }
+
+        public HRESULT TryExecuteAssembly(int dwAppDomainId, string pwzAssemblyPath, int argc, string[] argv, out int pReturnValue)
+        {
+            /*HRESULT ExecuteAssembly(
+            [In] int dwAppDomainId,
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzAssemblyPath,
+            [In] int argc,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 2), In] string[] argv,
+            [Out] out int pReturnValue);*/
+            return Raw2.ExecuteAssembly(dwAppDomainId, pwzAssemblyPath, argc, argv, out pReturnValue);
+        }
+
+        #endregion
+        #endregion
+        #region ICLRRuntimeHost4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ICLRRuntimeHost4 Raw4 => (ICLRRuntimeHost4) Raw;
+
+        #region UnloadAppDomain2
+
+        public int UnloadAppDomain2(int dwAppDomainId, bool fWaitUntilDone)
+        {
+            int pLatchedExitCode;
+            TryUnloadAppDomain2(dwAppDomainId, fWaitUntilDone, out pLatchedExitCode).ThrowOnNotOK();
+
+            return pLatchedExitCode;
+        }
+
+        public HRESULT TryUnloadAppDomain2(int dwAppDomainId, bool fWaitUntilDone, out int pLatchedExitCode)
+        {
+            /*HRESULT UnloadAppDomain2(
+            [In] int dwAppDomainId,
+            [MarshalAs(UnmanagedType.Bool), In] bool fWaitUntilDone,
+            [Out] out int pLatchedExitCode);*/
+            return Raw4.UnloadAppDomain2(dwAppDomainId, fWaitUntilDone, out pLatchedExitCode);
         }
 
         #endregion

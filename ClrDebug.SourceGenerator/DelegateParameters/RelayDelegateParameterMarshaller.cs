@@ -38,6 +38,12 @@ namespace ClrDebug.SourceGenerator
 
                     break;
 
+                case System.Runtime.InteropServices.UnmanagedType.LPStr:
+                    //AnsiStringMarshaller does not allow pinning, since byte* is incompatible with UTF16
+                    marshaller = new AnsiFieldMarshaller(string.Empty, parameter.Type.ToNiceString(), "byte*");
+                    UnmanagedType = IdentifierName("byte*");
+                    break;
+
                 case System.Runtime.InteropServices.UnmanagedType.Bool:
                     UnmanagedType = IdentifierName("int");
                     marshaller = new BoolFieldMarshaller(string.Empty, parameter.Type.ToNiceString(), "int");

@@ -99,7 +99,7 @@ namespace ClrDebug
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Auto)]
     public delegate HostStatusCode hostfxr_get_native_search_directories_fn(
         [In] int argc,
-        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPTStr), In] string[] argv,
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPTStr, SizeParamIndex = 0), In] string[] argv,
         [In] IntPtr buffer,
         [In] int buffer_size,
         [Out] out int required_buffer_size);
@@ -149,8 +149,8 @@ namespace ClrDebug
     public delegate HostStatusCode hostfxr_get_runtime_properties_fn(
         [In, Optional] IntPtr host_context_handle,
         [In, Out] ref IntPtr count,
-        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.SysInt), In] IntPtr[] keys,
-        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.SysInt), In] IntPtr[] values);
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.SysInt, SizeParamIndex = 1), In] IntPtr[] keys,
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.SysInt, SizeParamIndex = 1), In] IntPtr[] values);
 
     /// <summary>
     /// Gets the runtime property value for an initialized host context
@@ -203,7 +203,7 @@ namespace ClrDebug
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Auto)]
     public delegate HostStatusCode hostfxr_initialize_for_dotnet_command_line_fn(
         [In] int argc,
-        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPTStr), In] string[] argv,
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPTStr, SizeParamIndex = 0), In] string[] argv,
         [In, Optional] IntPtr parameters,
         [Out] out IntPtr host_context_handle);
 
@@ -239,13 +239,13 @@ namespace ClrDebug
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Auto)]
     public delegate HostStatusCode hostfxr_main_fn(
         [In] int argc,
-        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPTStr), In] string[] argv);
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPTStr, SizeParamIndex = 0), In] string[] argv);
 
     //No documentation in dotnet/runtime
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Auto)]
     public delegate HostStatusCode hostfxr_main_bundle_startupinfo_fn(
         [In] int argc,
-        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPTStr), In] string[] argv,
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPTStr, SizeParamIndex = 0), In] string[] argv,
         [MarshalAs(UnmanagedType.LPTStr), In, Optional] string host_path,
         [MarshalAs(UnmanagedType.LPTStr), In, Optional] string dotnet_root,
         [MarshalAs(UnmanagedType.LPTStr), In, Optional] string app_path,
@@ -270,7 +270,7 @@ namespace ClrDebug
     [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Auto)]
     public delegate HostStatusCode hostfxr_main_startupinfo_fn(
         [In] int argc,
-        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPTStr), In] string[] argv,
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPTStr, SizeParamIndex = 0), In] string[] argv,
         [MarshalAs(UnmanagedType.LPTStr), In, Optional] string host_path,
         [MarshalAs(UnmanagedType.LPTStr), In, Optional] string dotnet_root,
         [MarshalAs(UnmanagedType.LPTStr), In, Optional] string app_path);
@@ -420,6 +420,10 @@ namespace ClrDebug
     {
         private DelegateProvider delegateProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NetHost"/> class.
+        /// </summary>
+        /// <param name="hModule">A handle to the nethost library that has been loaded into the process.</param>
         public NetHost(IntPtr hModule)
         {
             if (hModule == IntPtr.Zero)

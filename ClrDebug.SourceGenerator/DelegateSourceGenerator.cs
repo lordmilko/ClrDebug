@@ -46,6 +46,7 @@ namespace ClrDebug.SourceGenerator
             //All delegates are assumed to be stdcall. If this is not the case,
             //this generator should be modified accordingly
             "Extensions.cs",
+            "Extensions.CoreCLR.cs",
             "Extensions.DbgShim.cs",
             "Extensions.HostFxr.cs"
         };
@@ -389,6 +390,9 @@ namespace ClrDebug.SourceGenerator
                 if (subType == UnmanagedType.LPTStr)
                     return new ArrayElementDelegateParameterMarshaller(parameter, new CrossPlatformStringMarshaller(parameter.Name, parameter.Type.ToNiceString()));
 
+                if (subType == UnmanagedType.LPStr)
+                    return new ArrayElementDelegateParameterMarshaller(parameter, new AnsiFieldMarshaller(parameter.Name, parameter.Type.ToNiceString(), "byte*"));
+
                 return new ArrayLiteralDelegateParameterMarshaller(parameter, subType);
             }
 
@@ -425,9 +429,11 @@ namespace ClrDebug.SourceGenerator
             var ignored = new[]
             {
                 "RuntimeStartupCallback",
-                "HostFxrGetAvailableSDKsDelegate",
-                "HostFxrResolveSdk2Delegate",
-                "HostFxrErrorWriterDelegate"
+                "HostFxrGetAvailableSDKsResultDelegate",
+                "HostFxrDotnetEnvironmentInfoResultDelegate",
+                "HostFxrResolveSdk2ResultDelegate",
+                "HostFxrErrorWriterDelegate",
+                "CoreCLRErrorWriterCallbackDelegate"
             };
 
             if (ignored.Contains(node.Identifier.Text))

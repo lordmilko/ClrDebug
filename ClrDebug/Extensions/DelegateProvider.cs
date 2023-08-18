@@ -544,5 +544,103 @@ namespace ClrDebug
 #endif
             }
         }
+
+        public coreclr_create_delegate_fn coreclr_create_delegate
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(coreclr_create_delegate));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).coreclr_create_delegate;
+#else
+                return Marshal.GetDelegateForFunctionPointer<coreclr_create_delegate_fn>(export);
+#endif
+            }
+        }
+
+        public coreclr_execute_assembly_fn coreclr_execute_assembly
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(coreclr_execute_assembly));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).coreclr_execute_assembly;
+#else
+                return Marshal.GetDelegateForFunctionPointer<coreclr_execute_assembly_fn>(export);
+#endif
+            }
+        }
+
+        public coreclr_initialize_fn coreclr_initialize
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(coreclr_initialize));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).coreclr_initialize;
+#else
+                return Marshal.GetDelegateForFunctionPointer<coreclr_initialize_fn>(export);
+#endif
+            }
+        }
+
+        public coreclr_set_error_writer_fn coreclr_set_error_writer
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(coreclr_set_error_writer));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).coreclr_set_error_writer;
+#else
+                return Marshal.GetDelegateForFunctionPointer<coreclr_set_error_writer_fn>(export);
+#endif
+            }
+        }
+
+        public coreclr_shutdown_fn coreclr_shutdown
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(coreclr_shutdown));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).coreclr_shutdown;
+#else
+                return Marshal.GetDelegateForFunctionPointer<coreclr_shutdown_fn>(export);
+#endif
+            }
+        }
+
+        public coreclr_shutdown_2_fn coreclr_shutdown_2
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(coreclr_shutdown_2));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).coreclr_shutdown_2;
+#else
+                return Marshal.GetDelegateForFunctionPointer<coreclr_shutdown_2_fn>(export);
+#endif
+            }
+        }
+
+        public GetCLRRuntimeHostDelegate GetCLRRuntimeHost
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(GetCLRRuntimeHost));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).GetCLRRuntimeHost;
+#else
+                return Marshal.GetDelegateForFunctionPointer<GetCLRRuntimeHostDelegate>(export);
+#endif
+            }
+        }
     }
 }

@@ -71,7 +71,15 @@ var types = new[]
     "hostfxr_resolve_sdk2_fn",
     "hostfxr_run_app_fn",
     "hostfxr_set_error_writer_fn",
-    "hostfxr_set_runtime_property_value_fn"
+    "hostfxr_set_runtime_property_value_fn",
+
+    "coreclr_create_delegate_fn",
+    "coreclr_execute_assembly_fn",
+    "coreclr_initialize_fn",
+    "coreclr_set_error_writer_fn",
+    "coreclr_shutdown_fn",
+    "coreclr_shutdown_2_fn",
+    "GetCLRRuntimeHostDelegate"
 };
 
 for(var i = 0; i < types.Length; i++)
