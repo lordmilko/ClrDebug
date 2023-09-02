@@ -440,7 +440,7 @@ namespace ClrDebug
         /// <param name="parameters">Optional. Parameters that modify the behaviour for locating the hostfxr library.
         /// If not specified, hostfxr is located using the environment variable or global registration.</param>
         /// <returns>The path to the hostfxr library</returns>
-        public string GetHostFxrPath(get_hostfxr_parameters parameters = default)
+        public string GetHostFxrPath(get_hostfxr_parameters parameters = default(get_hostfxr_parameters))
         {
             TryGetHostFxrPath(parameters, out var result).ThrowOnNotOK();
             return result;
@@ -759,7 +759,7 @@ namespace ClrDebug
             {
                 nativeCallback = (info, context) =>
                 {
-                    var managed = (IntPtr)info == IntPtr.Zero ? default : info->ToManaged();
+                    var managed = (IntPtr)info == IntPtr.Zero ? default(HostFxrDotnetEnvironmentInfo) : info->ToManaged();
 
                     callback(managed, context);
                 };
@@ -900,7 +900,7 @@ namespace ClrDebug
         /// <returns>A collection of key/value pairs containing the runtime properties</returns>
         /// <remarks>If host_context_handle is nullptr and an active host context exists, this function will get the
         /// properties for the active host context.</remarks>
-        public GetRuntimePropertiesItem[] GetRuntimeProperties(IntPtr hostContextHandle = default)
+        public GetRuntimePropertiesItem[] GetRuntimeProperties(IntPtr hostContextHandle = default(IntPtr))
         {
             TryGetRuntimeProperties(hostContextHandle, out var result).ThrowOnNotOK();
             return result;
@@ -947,7 +947,7 @@ namespace ClrDebug
                 result = array;
             }
             else
-                result = default;
+                result = null;
 
             return status;
         }
@@ -1016,7 +1016,7 @@ namespace ClrDebug
         /// For example 'app.dll app_argument_1 app_argument_2`.</param>
         /// <returns>An opaque value representing the initialized host context</returns>
         public IntPtr InitializeForDotnetCommandLine(params string[] argv) =>
-            InitializeForDotnetCommandLine(argv, default);
+            InitializeForDotnetCommandLine(argv, default(hostfxr_initialize_parameters));
 
         /// <summary>
         /// Initializes the hosting components for a dotnet command line running an application
@@ -1046,7 +1046,7 @@ namespace ClrDebug
         public HostStatusCode TryInitializeForDotnetCommandLine(
             string[] argv,
             out IntPtr hostContextHandle) =>
-            TryInitializeForDotnetCommandLine(argv, default, out hostContextHandle);
+            TryInitializeForDotnetCommandLine(argv, default(hostfxr_initialize_parameters), out hostContextHandle);
 
         /// <summary>
         /// Tries to initialize the hosting components for a dotnet command line running an application
@@ -1094,7 +1094,7 @@ namespace ClrDebug
         /// <returns>An opaque value representing the initialized host context</returns>
         public IntPtr InitializeForRuntimeConfig(
             string runtimeConfigPath,
-            hostfxr_initialize_parameters parameters = default)
+            hostfxr_initialize_parameters parameters = default(hostfxr_initialize_parameters))
         {
             TryInitializeForRuntimeConfig(runtimeConfigPath, parameters, out var hostContextHandle).ThrowOnNotOK();
             return hostContextHandle;
@@ -1114,7 +1114,7 @@ namespace ClrDebug
         public HostStatusCode TryInitializeForRuntimeConfig(
             string runtimeConfigPath,
             out IntPtr hostContextHandle) =>
-            TryInitializeForRuntimeConfig(runtimeConfigPath, default, out hostContextHandle);
+            TryInitializeForRuntimeConfig(runtimeConfigPath, default(hostfxr_initialize_parameters), out hostContextHandle);
 
         /// <summary>
         /// Tries to initialize the hosting components using a .runtimeconfig.json file

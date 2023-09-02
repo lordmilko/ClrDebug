@@ -258,7 +258,7 @@ namespace ClrDebug
             if (hr == HRESULT.S_OK)
                 result = new CoreCLRInitializeResult(hostHandle, domainId);
             else
-                result = default;
+                result = default(CoreCLRInitializeResult);
 
             return hr;
         }

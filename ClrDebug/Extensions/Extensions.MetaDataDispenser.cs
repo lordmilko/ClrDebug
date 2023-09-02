@@ -7,7 +7,7 @@ namespace ClrDebug
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MetaDataDispenserEx"/> class from the "MetaDataGetDispenser" export of the CLR in the current process.<para/>
-        /// This constructor cannot be used in NativeAOT.
+        /// This constructor cannot be used in NativeAOT unless a CLR has already been manually loaded into the current process.
         /// </summary>
         public MetaDataDispenserEx() : this(MetaDataGetDispenser())
         {

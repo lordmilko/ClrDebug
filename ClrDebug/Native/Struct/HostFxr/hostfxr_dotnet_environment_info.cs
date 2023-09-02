@@ -27,10 +27,10 @@ namespace ClrDebug
 
                 sdk_count = sdk_count,
 
-                sdks = (IntPtr) sdks != IntPtr.Zero ? sdks->ToManaged() : default,
+                sdks = (IntPtr) sdks != IntPtr.Zero ? sdks->ToManaged() : default(HostFxrDotnetEnvironmentSdkInfo),
 
                 framework_count = framework_count,
-                frameworks = (IntPtr) frameworks != IntPtr.Zero ? frameworks->ToManaged() : default
+                frameworks = (IntPtr) frameworks != IntPtr.Zero ? frameworks->ToManaged() : default(HostFxrDotnetEnvironmentFrameworkInfo)
             };
         }
     }

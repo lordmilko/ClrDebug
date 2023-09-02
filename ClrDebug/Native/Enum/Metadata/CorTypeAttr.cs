@@ -76,7 +76,7 @@ namespace ClrDebug
         /// <summary>
         /// Gets semantic information about the type.
         /// </summary>
-        tdClassSemanticsMask    =   0x00000020,
+        tdClassSemanticsMask    =   0x00000020, //This has the same value as tdInterface, and will always be shown in the debugger as its alphabetically first
 
         /// <summary>
         /// Specifies that the type is a class.

@@ -2,7 +2,11 @@
 
 namespace ClrDebug.DbgEng
 {
-    //This is an enum but INSIDE_WAIT and WAIT_TIMEOUT are structs
+    /* This is an enum but INSIDE_WAIT and WAIT_TIMEOUT are long instead of int.
+     * Could we simply use an enum backed by ulong? The new .NET shell for WinDbg has DEBUG_STATUS defined as
+     * an enum backed by ulong, however it's entirely possible they've changed the size of the parameter that
+     * is passed to IDebugControl::SetExecutionStatus(). When I try and define DEBUG_STATUS as an enum backed
+     * by ulong and pass in a value like DEBUG_STATUS.GO, the CLR says I've just corrupted the stack. */
     [DebuggerDisplay("{ToString(),nq}")]
     public struct DEBUG_STATUS
     {
@@ -82,7 +86,7 @@ namespace ClrDebug.DbgEng
                 case 4: return nameof(STEP_OVER);
                 case 5: return nameof(STEP_INTO);
                 case 6: return nameof(BREAK);
-                case 7: return nameof(STEP_INTO);
+                case 7: return nameof(NO_DEBUGGEE);
                 case 8: return nameof(STEP_BRANCH);
                 case 9: return nameof(IGNORE_EVENT);
                 case 10: return nameof(RESTART_REQUESTED);
