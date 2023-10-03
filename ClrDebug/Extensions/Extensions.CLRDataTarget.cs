@@ -14,7 +14,7 @@ namespace ClrDebug
         /// <param name="dataTarget">The <see cref="CLRDataTarget"/> whose memory should be read.</param>
         /// <param name="address">A CLRDATA_ADDRESS that stores the virtual memory address.</param>
         /// <returns>The value that was read.</returns>
-        public static T ReadVirtual<T>(this ICLRDataTarget dataTarget, CORDB_ADDRESS address) where T : struct
+        public static T ReadVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address) where T : struct
         {
             T value;
             TryReadVirtual(dataTarget, address, out value).ThrowOnNotOK();
@@ -29,7 +29,7 @@ namespace ClrDebug
         /// <param name="address">A CLRDATA_ADDRESS that stores the virtual memory address.</param>
         /// <param name="value">The value that was read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadVirtual<T>(this ICLRDataTarget dataTarget, CORDB_ADDRESS address, out T value) where T : struct
+        public static HRESULT TryReadVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, out T value) where T : struct
         {
             var size = Marshal.SizeOf<T>();
             var buffer = Marshal.AllocHGlobal(size);
@@ -62,7 +62,7 @@ namespace ClrDebug
         /// <param name="address">A CLRDATA_ADDRESS that stores the virtual memory address.</param>
         /// <param name="size">The number of bytes to get from the target address.</param>
         /// <returns>The bytes that were read. The number of bytes successfully read may be less than <paramref name="size"/>.</returns>
-        public static byte[] ReadVirtual(this ICLRDataTarget dataTarget, CORDB_ADDRESS address, int size)
+        public static byte[] ReadVirtual(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, int size)
         {
             byte[] value;
             TryReadVirtual(dataTarget, address, size, out value).ThrowOnNotOK();
@@ -77,7 +77,7 @@ namespace ClrDebug
         /// <param name="size">The number of bytes to get from the target address.</param>
         /// <param name="value">The bytes that were read. The number of bytes successfully read may be less than <paramref name="size"/>.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadVirtual(this ICLRDataTarget dataTarget, CORDB_ADDRESS address, int size, out byte[] value)
+        public static HRESULT TryReadVirtual(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, int size, out byte[] value)
         {
             var buffer = Marshal.AllocHGlobal(size);
 
@@ -113,7 +113,7 @@ namespace ClrDebug
         /// <param name="address">The address at which to write the specified value.</param>
         /// <param name="value">The value to be written.</param>
         /// <returns>The actual number of bytes that were written.</returns>
-        public static int WriteVirtual<T>(this ICLRDataTarget dataTarget, CORDB_ADDRESS address, T value) where T : struct
+        public static int WriteVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, T value) where T : struct
         {
             int bytesWritten;
             TryWriteVirtual(dataTarget, address, value, out bytesWritten).ThrowOnNotOK();
@@ -129,7 +129,7 @@ namespace ClrDebug
         /// <param name="value">The value to be written.</param>
         /// <param name="bytesWritten">The actual number of bytes that were written.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWriteVirtual<T>(this ICLRDataTarget dataTarget, CORDB_ADDRESS address, T value, out int bytesWritten) where T : struct
+        public static HRESULT TryWriteVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, T value, out int bytesWritten) where T : struct
         {
             var size = Marshal.SizeOf<T>();
             var buffer = Marshal.AllocHGlobal(size);
@@ -160,7 +160,7 @@ namespace ClrDebug
         /// <param name="address">The address at which to write the specified value.</param>
         /// <param name="value">The value to be written.</param>
         /// <returns>The actual number of bytes that were written.</returns>
-        public static int WriteVirtual(this ICLRDataTarget dataTarget, CORDB_ADDRESS address, byte[] value)
+        public static int WriteVirtual(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, byte[] value)
         {
             int bytesWritten;
             TryWriteVirtual(dataTarget, address, value, out bytesWritten).ThrowOnNotOK();
@@ -175,7 +175,7 @@ namespace ClrDebug
         /// <param name="value">The value to be written.</param>
         /// <param name="bytesWritten">The actual number of bytes that were written.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWriteVirtual(this ICLRDataTarget dataTarget, CORDB_ADDRESS address, byte[] value, out int bytesWritten)
+        public static HRESULT TryWriteVirtual(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, byte[] value, out int bytesWritten)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
