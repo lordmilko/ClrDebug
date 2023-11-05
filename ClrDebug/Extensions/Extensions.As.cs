@@ -180,6 +180,62 @@ namespace ClrDebug
         }
 
         #endregion
+        #region CorDebugValue
+
+        //Visio diagram showing the relationships between the ICorDebugValue interfaces and their implementing types:
+        //https://github.com/dotnet/runtime/blob/764d3e0cfab629bb6e594f3399c9ba7362a621c3/src/coreclr/debug/di/ICorDebugValueTypes.vsd
+
+        /// <summary>
+        /// Creates a <see cref="ComObject{T}"/> around an interface supported by an object that derives from the mscordbi!CordbValue type.<para/>
+        /// Supported conversions for a given object are shown in the debugger display of the object.<para/>
+        /// Possible conversions include <see cref="CorDebugArrayValue"/>, <see cref="CorDebugBoxValue"/>,
+        /// <see cref="CorDebugComObjectValue"/>, <see cref="CorDebugDelegateObjectValue"/>, <see cref="CorDebugGenericValue"/>,
+        /// <see cref="CorDebugHandleValue"/>, <see cref="CorDebugHeapValue"/>, <see cref="CorDebugObjectValue"/>,
+        /// <see cref="CorDebugReferenceValue"/>, <see cref="CorDebugStringValue"/> and <see cref="CorDebugValue"/>.
+        /// </summary>
+        /// <typeparam name="T">A type that wraps one of the interfaces a type derived from CordbValue supports.</typeparam>
+        /// <param name="corDebugValue">The existing wrapper to create the new wrapper from.</param>
+        /// <returns>A wrapper of type <typeparamref name="T"/>.</returns>
+        public static T As<T>(this CorDebugValue corDebugValue)
+        {
+            var t = typeof(T);
+            object result;
+
+            var raw = corDebugValue.Raw;
+
+            //ICorDebugContext implements ICorDebugObjectValue, but derives from CordbBase,
+            //not CordbValue. Not that it matters, because ICorDebugContext doesn't define any methods
+            //and is never instantiated
+
+            if (t == typeof(CorDebugArrayValue))
+                result = new CorDebugArrayValue((ICorDebugArrayValue) raw);
+            else if (t == typeof(CorDebugBoxValue))
+                result = new CorDebugBoxValue((ICorDebugBoxValue) raw);
+            else if (t == typeof(CorDebugComObjectValue))
+                result = new CorDebugComObjectValue((ICorDebugComObjectValue) raw);
+            else if (t == typeof(CorDebugDelegateObjectValue))
+                result = new CorDebugDelegateObjectValue((ICorDebugDelegateObjectValue) raw);
+            else if (t == typeof(CorDebugGenericValue))
+                result = new CorDebugGenericValue((ICorDebugGenericValue) raw);
+            else if (t == typeof(CorDebugHandleValue))
+                result = new CorDebugHandleValue((ICorDebugHandleValue) raw);
+            else if (t == typeof(CorDebugHeapValue))
+                result = CorDebugHeapValue.New((ICorDebugHeapValue) raw);
+            else if (t == typeof(CorDebugObjectValue))
+                result = new CorDebugObjectValue((ICorDebugObjectValue) raw);
+            else if (t == typeof(CorDebugReferenceValue))
+                result = new CorDebugReferenceValue((ICorDebugReferenceValue) raw);
+            else if (t == typeof(CorDebugStringValue))
+                result = new CorDebugStringValue((ICorDebugStringValue) raw);
+            else if (t == typeof(CorDebugValue))
+                result = CorDebugValue.New(corDebugValue.Raw);
+            else
+                throw GetAsNotSupportedException<T, ICorDebugValue>();
+
+            return (T) result;
+        }
+
+        #endregion
 
         internal static NotSupportedException GetAsNotSupportedException<TResult, TRaw>()
         {

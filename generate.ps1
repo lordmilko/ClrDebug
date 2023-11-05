@@ -6,14 +6,14 @@ $normalArgs = @{
     Path = "$PSScriptRoot\ClrDebug"
     NumberAsValueOnSimpleInvocation = $true
     Namespace = "ClrDebug"
-    Partial = "cordebug","CLRMetaHost","CLRMetaHostPolicy","CLRDebugging","metadatadispenserex"
+    Partial = "CorDebug","CLRMetaHost","CLRMetaHostPolicy","CLRDebugging","MetaDataDispenserEx","CorDebugValue"
     FancyExceptions = $true
     Skip = "*CorDebugManagedCallbackEventArgs","ClassFactory"
     ManualArray = "isosdacinterface.getappdomainlist","ICorDebugCode.GetCode","ITypeInfo.GetNames","ITypeLib.FindName"
     MaxPathArray = "ixclrdata*.getfilename"
     MaxLongPathArray = "ISymNGenWriter*.QueryPDBNameExW"
     SkipFolder = "DbgEng"
-    NotAbstract = "ICorDebugReferenceValue","IMetaDataDispenser","IInspectable"
+    NotAbstract = "ICorDebugReferenceValue","ICorDebugObjectValue*","IMetaDataDispenser","IInspectable"
 
     # Indicates that the string is not null terminated and that we should convert to a string by specifying the specific number of characters to read
     NonNullString = "IMetaDataImport.GetUserString"

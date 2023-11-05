@@ -9,21 +9,13 @@ namespace ClrDebug
     /// <remarks>
     /// An <see cref="ICorDebugObjectValue"/> remains valid until the process being debugged is continued.
     /// </remarks>
-    public abstract class CorDebugObjectValue : CorDebugValue
+    public class CorDebugObjectValue : CorDebugValue
     {
-        public static CorDebugObjectValue New(ICorDebugObjectValue value)
-        {
-            if (value is ICorDebugContext)
-                return new CorDebugContext((ICorDebugContext) value);
-
-            throw new NotImplementedException("Encountered an 'ICorDebugObjectValue' interface of an unknown type. Cannot create wrapper type.");
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CorDebugObjectValue"/> class.
         /// </summary>
         /// <param name="raw">The raw COM interface that should be contained in this object.</param>
-        protected CorDebugObjectValue(ICorDebugObjectValue raw) : base(raw)
+        public CorDebugObjectValue(ICorDebugObjectValue raw) : base(raw)
         {
         }
 

@@ -12,7 +12,7 @@ namespace ClrDebug
     /// the value may not remain valid after the process is resumed. So, in general, the value shouldn't be held across
     /// a call of the <see cref="CorDebugController.Continue"/> method.
     /// </remarks>
-    public abstract class CorDebugValue : ComObject<ICorDebugValue>
+    public abstract partial class CorDebugValue : ComObject<ICorDebugValue>
     {
         public static CorDebugValue New(ICorDebugValue value)
         {
@@ -30,6 +30,9 @@ namespace ClrDebug
 
             if (value is ICorDebugContext)
                 return new CorDebugContext((ICorDebugContext) value);
+
+            if (value is ICorDebugObjectValue)
+                return new CorDebugObjectValue((ICorDebugObjectValue) value);
 
             if (value is ICorDebugHandleValue)
                 return new CorDebugHandleValue((ICorDebugHandleValue) value);

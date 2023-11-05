@@ -1257,7 +1257,7 @@ namespace ClrDebug
             HRESULT hr = Raw5.GetObject(addr, out pObject);
 
             if (hr == HRESULT.S_OK)
-                pObjectResult = CorDebugObjectValue.New(pObject);
+                pObjectResult = new CorDebugObjectValue(pObject);
             else
                 pObjectResult = default(CorDebugObjectValue);
 
