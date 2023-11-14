@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -15,8 +18,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("79F1BB5F-B66E-48E5-B6A9-1545C323CA3D")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaDataSource
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaDataSource
     {
         /// <summary>
         /// Retrieves the file name for the last load error.
@@ -59,7 +66,12 @@ namespace ClrDebug.DIA
         [PreserveSig]
         HRESULT loadAndValidateDataFromPdb(
             [MarshalAs(UnmanagedType.LPWStr), In] string pdbPath,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid pcsig70,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid pcsig70,
             [In] int sig,
             [In] int age);
 

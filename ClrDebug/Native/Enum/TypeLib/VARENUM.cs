@@ -213,6 +213,11 @@ namespace ClrDebug.TypeLib
         VT_CLSID = 72, // 0x00000048
 
         /// <summary>
+        /// A stream with a GUID version.
+        /// </summary>
+        VT_VERSIONED_STREAM = 73,
+
+        /// <summary>
         /// Indicates a simple, counted array.
         /// </summary>
         VT_VECTOR = 4096, // 0x00001000

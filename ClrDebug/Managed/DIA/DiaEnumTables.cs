@@ -121,7 +121,7 @@ namespace ClrDebug.DIA
         public HRESULT TryItem(object index, out DiaTable tableResult)
         {
             /*HRESULT Item(
-            [MarshalAs(UnmanagedType.Struct), In] object index,
+            [In, MarshalAs(UnmanagedType.Struct)] object index,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaTable table);*/
             IDiaTable table;
             HRESULT hr = Raw.Item(index, out table);

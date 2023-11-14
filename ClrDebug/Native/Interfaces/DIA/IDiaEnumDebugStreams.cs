@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -11,8 +14,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("08CBB41E-47A6-4F87-92F1-1C9C87CED044")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaEnumDebugStreams
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaEnumDebugStreams
     {
         /// <summary>
         /// Retrieves the <see cref="IEnumVARIANT"/> version of this enumerator.
@@ -40,7 +47,12 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT Item(
-            [MarshalAs(UnmanagedType.Struct), In] object index,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.Struct)]
+#else
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            object index,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumDebugStreamData stream);
 
         /// <summary>

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -13,8 +16,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("587A461C-B80B-4F54-9194-5032589A6319")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaReadExeAtOffsetCallback
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaReadExeAtOffsetCallback
     {
         /// <summary>
         /// Reads the specified number of bytes starting at the specified offset from an executable file.

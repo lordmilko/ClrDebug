@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -12,8 +15,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("21F81B1B-C5BB-42A3-BC4F-CCBAA75B9F19")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaStackWalkHelper
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaStackWalkHelper
     {
         [PreserveSig]
         HRESULT get_registerValue(

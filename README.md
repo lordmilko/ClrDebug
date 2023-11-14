@@ -3,10 +3,10 @@
 [![Appveyor status](https://ci.appveyor.com/api/projects/status/exeyd1rc7147vbki?svg=true)](https://ci.appveyor.com/project/lordmilko/clrdebug)
 [![NuGet](https://img.shields.io/nuget/v/ClrDebug.svg)](https://www.nuget.org/packages/ClrDebug/)
 
-ClrDebug provides a collection of easy to use, managed wrappers around the .NET Unmanaged API.
+ClrDebug provides a collection of easy to use, cross platform, managed wrappers around the .NET Unmanaged API.
 
-Rather than mess around with building layers on top of ugly COM interfaces, ClrDebug provides an automatically generated
-wrappers - via the awesome [ComWrapper](https://github.com/lordmilko/ComWrapper) library - around *every single method* of every single interface it knows about, giving you confidence that
+Rather than mess around with building layers on top of ugly COM interfaces yourself, ClrDebug provides an automatically generated
+wrappers around *every single method* of every single interface it knows about, giving you confidence that
 no underlying functionality is being hidden from you from using these wrappers.
 
 ClrDebug aims to be a complete wrapper around all of the essential APIs you may need when developing diagnostic applications, including:

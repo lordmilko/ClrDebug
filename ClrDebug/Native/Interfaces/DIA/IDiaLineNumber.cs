@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -10,8 +13,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("B388EB14-BE4D-421D-A8A1-6CF7AB057086")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaLineNumber
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaLineNumber
     {
         /// <summary>
         /// Retrieves a reference to the symbol for the compiland that contributed the bytes of image text.
@@ -143,7 +150,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_statement(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a unique identifier for the compiland that contributed this line.

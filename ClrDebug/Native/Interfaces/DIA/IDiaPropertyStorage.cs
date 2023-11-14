@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -15,8 +18,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("9D416F9C-E184-45B2-A4F0-CE517F719E9B")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaPropertyStorage
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaPropertyStorage
     {
         /// <summary>
         /// Reads specified properties from the current property set.
@@ -103,7 +110,7 @@ namespace ClrDebug.DIA
         [PreserveSig]
         HRESULT ReadBOOL(
             [In] int id,
-            [Out] out bool pValue);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pValue);
 
         /// <summary>
         /// Reads ULONGLONG values in a property set.

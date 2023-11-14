@@ -18,8 +18,10 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(IsGeneratedMarshalling)'">
+    <Exec Command="dotnet restore -r win-x64" />
     <Exec Command="dotnet publish --no-build -c $(Configuration) -f net8.0" />
   </Target>
+  
   <!-- .NET Framework is very wacky. In order for runtimes to be copied to the output directory, $(RuntimeIdentifier)
        must have a value. For library projects, by default this is null (which means we get neither a single runtime
        not the runtimes directory), but for executable projects, by default this is win7-x86, even if your program is actually AnyCPU.

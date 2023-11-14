@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
     [Guid("1E45BD02-BE45-4D71-BA32-0E576CFCD59F")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaEnumSymbolsByAddr2 : IDiaEnumSymbolsByAddr
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaEnumSymbolsByAddr2 : IDiaEnumSymbolsByAddr
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Positions the enumerator by performing a lookup by image section number and offset.
         /// </summary>
@@ -82,36 +90,37 @@ namespace ClrDebug.DIA
         [PreserveSig]
         new HRESULT Clone(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbolsByAddr ppenum);
+#endif
 
         [PreserveSig]
         HRESULT symbolByAddrEx(
-            [In] bool fPromoteBlockSym,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPromoteBlockSym,
             [In] int isect,
             [In] int offset,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol ppSymbol);
 
         [PreserveSig]
         HRESULT symbolByRVAEx(
-            [In] bool fPromoteBlockSym,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPromoteBlockSym,
             [In] int relativeVirtualAddress,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol ppSymbol);
 
         [PreserveSig]
         HRESULT symbolByVAEx(
-            [In] bool fPromoteBlockSym,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPromoteBlockSym,
             [In] long virtualAddress,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol ppSymbol);
 
         [PreserveSig]
         HRESULT NextEx(
-            [In] bool fPromoteBlockSym,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPromoteBlockSym,
             [In] int celt,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol rgelt,
             [Out] out int pceltFetched);
 
         [PreserveSig]
         HRESULT PrevEx(
-            [In] bool fPromoteBlockSym,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPromoteBlockSym,
             [In] int celt,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol rgelt,
             [Out] out int pceltFetched);

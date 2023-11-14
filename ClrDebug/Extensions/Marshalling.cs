@@ -3,6 +3,7 @@
 using System.Runtime.InteropServices.Marshalling;
 #endif
 using System.Runtime.InteropServices;
+using ClrDebug.TypeLib;
 using static ClrDebug.Extensions;
 
 //Facilities for enabling COM generated marshalling in .NET 8.0+ builds of ClrDebug

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -15,8 +18,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("B62A2E7A-067A-4EA3-B598-04C09717502C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaAddressMap
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaAddressMap
     {
         /// <summary>
         /// Indicates whether an address map has been established for a particular session.
@@ -32,7 +39,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_addressMapEnabled(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Specifies whether the address map should be used to translate symbol addresses.
@@ -49,7 +56,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT put_addressMapEnabled(
-            [In] bool NewVal);
+            [In, MarshalAs(UnmanagedType.Bool)] bool NewVal);
 
         /// <summary>
         /// Indicates whether the calculation and use of relative virtual addresses (RVA) is enabled.
@@ -64,7 +71,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_relativeVirtualAddressEnabled(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Allows the client to enable or disable the calculation and use of relative virtual addresses (RVA).
@@ -79,7 +86,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT put_relativeVirtualAddressEnabled(
-            [In] bool NewVal);
+            [In, MarshalAs(UnmanagedType.Bool)] bool NewVal);
 
         /// <summary>
         /// Retrieves the current image alignment.
@@ -130,7 +137,7 @@ namespace ClrDebug.DIA
         HRESULT set_imageHeaders(
             [In] int cbData,
             [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pbData,
-            [In] bool originalHeaders);
+            [In, MarshalAs(UnmanagedType.Bool)] bool originalHeaders);
 
         /// <summary>
         /// Provides an address map to support image layout translations.
@@ -150,6 +157,6 @@ namespace ClrDebug.DIA
         HRESULT set_addressMap(
             [In] int cData,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DiaAddressMapEntry[] pData,
-            [In] bool imageToSymbols);
+            [In, MarshalAs(UnmanagedType.Bool)] bool imageToSymbols);
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -14,8 +17,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("C8E40ED2-A1D9-4221-8692-3CE661184B44")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaImageData
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaImageData
     {
         /// <summary>
         /// Retrieves the location in virtual memory of the module relative to the application.

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !GENERATED_MARSHALLING
+
+using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using ClrDebug.DIA;
@@ -64,3 +66,5 @@ namespace ClrDebug.CoClass
             [MarshalAs(UnmanagedType.Interface), In] object pCallback);
     }
 }
+
+#endif

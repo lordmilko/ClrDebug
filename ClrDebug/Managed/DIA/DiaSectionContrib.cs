@@ -223,7 +223,7 @@
         public HRESULT TryGetNotPaged(out bool pRetVal)
         {
             /*HRESULT get_notPaged(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_notPaged(out pRetVal);
         }
 
@@ -252,7 +252,7 @@
         public HRESULT TryGetCode(out bool pRetVal)
         {
             /*HRESULT get_code(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_code(out pRetVal);
         }
 
@@ -281,7 +281,7 @@
         public HRESULT TryGetInitializedData(out bool pRetVal)
         {
             /*HRESULT get_initializedData(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_initializedData(out pRetVal);
         }
 
@@ -310,7 +310,7 @@
         public HRESULT TryGetUninitializedData(out bool pRetVal)
         {
             /*HRESULT get_uninitializedData(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_uninitializedData(out pRetVal);
         }
 
@@ -339,7 +339,7 @@
         public HRESULT TryGetRemove(out bool pRetVal)
         {
             /*HRESULT get_remove(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_remove(out pRetVal);
         }
 
@@ -371,7 +371,7 @@
         public HRESULT TryGetComdat(out bool pRetVal)
         {
             /*HRESULT get_comdat(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_comdat(out pRetVal);
         }
 
@@ -400,7 +400,7 @@
         public HRESULT TryGetDiscardable(out bool pRetVal)
         {
             /*HRESULT get_discardable(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_discardable(out pRetVal);
         }
 
@@ -429,7 +429,7 @@
         public HRESULT TryGetNotCached(out bool pRetVal)
         {
             /*HRESULT get_notCached(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_notCached(out pRetVal);
         }
 
@@ -458,7 +458,7 @@
         public HRESULT TryGetShare(out bool pRetVal)
         {
             /*HRESULT get_share(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_share(out pRetVal);
         }
 
@@ -487,7 +487,7 @@
         public HRESULT TryGetExecute(out bool pRetVal)
         {
             /*HRESULT get_execute(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_execute(out pRetVal);
         }
 
@@ -516,7 +516,7 @@
         public HRESULT TryGetRead(out bool pRetVal)
         {
             /*HRESULT get_read(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_read(out pRetVal);
         }
 
@@ -545,7 +545,7 @@
         public HRESULT TryGetWrite(out bool pRetVal)
         {
             /*HRESULT get_write(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_write(out pRetVal);
         }
 
@@ -665,7 +665,7 @@
         public HRESULT TryGetCode16bit(out bool pRetVal)
         {
             /*HRESULT get_code16bit(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_code16bit(out pRetVal);
         }
 

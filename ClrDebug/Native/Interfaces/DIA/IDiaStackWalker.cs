@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -13,8 +16,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5485216B-A54C-469F-9670-52B24D5229BB")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaStackWalker
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaStackWalker
     {
         [PreserveSig]
         HRESULT getEnumFrames(

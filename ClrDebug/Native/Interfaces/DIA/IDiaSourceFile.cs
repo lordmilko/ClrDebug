@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -10,8 +13,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("A2EF5353-F5A8-4EB3-90D2-CB526ACB3CDD")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaSourceFile
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaSourceFile
     {
         /// <summary>
         /// Retrieves a simple integer key value that is unique for this image.

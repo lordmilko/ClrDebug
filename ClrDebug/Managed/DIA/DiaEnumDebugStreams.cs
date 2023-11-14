@@ -114,7 +114,7 @@ namespace ClrDebug.DIA
         public HRESULT TryItem(object index, out DiaEnumDebugStreamData streamResult)
         {
             /*HRESULT Item(
-            [MarshalAs(UnmanagedType.Struct), In] object index,
+            [In, MarshalAs(UnmanagedType.Struct)] object index,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumDebugStreamData stream);*/
             IDiaEnumDebugStreamData stream;
             HRESULT hr = Raw.Item(index, out stream);

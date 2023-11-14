@@ -215,7 +215,7 @@ namespace ClrDebug.DIA
             [In] int wFlags,
             [In, Out] IntPtr pvData,
             [MarshalAs(UnmanagedType.LPWStr), In] string szFieldName,
-            [MarshalAs(UnmanagedType.Struct), In] ref object pvarField);*/
+            [In, MarshalAs(UnmanagedType.Struct)] ref object pvarField);*/
             return Raw.PutField(wFlags, pvData, szFieldName, ref pvarField);
         }
 
@@ -233,7 +233,7 @@ namespace ClrDebug.DIA
             [In] int wFlags,
             [In, Out] IntPtr pvData,
             [MarshalAs(UnmanagedType.LPWStr), In] string szFieldName,
-            [MarshalAs(UnmanagedType.Struct), In] ref object pvarField);*/
+            [In, MarshalAs(UnmanagedType.Struct)] ref object pvarField);*/
             return Raw.PutFieldNoCopy(wFlags, pvData, szFieldName, ref pvarField);
         }
 

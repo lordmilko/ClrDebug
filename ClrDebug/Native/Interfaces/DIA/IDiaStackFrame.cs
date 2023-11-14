@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -11,8 +14,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("5EDBC96D-CDD6-4792-AFBE-CC89007D9610")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaStackFrame
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaStackFrame
     {
         /// <summary>
         /// Retrieves the frame type.
@@ -106,7 +113,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_systemExceptionHandling(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates if C++ exception handling is in effect.
@@ -119,7 +126,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_cplusplusExceptionHandling(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the block contains the entry point of a function.
@@ -128,7 +135,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_functionStart(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the base pointer is allocated for code in this address range.
@@ -137,7 +144,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_allocatesBasePointer(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves the maximum number of bytes pushed on the stack in the frame.

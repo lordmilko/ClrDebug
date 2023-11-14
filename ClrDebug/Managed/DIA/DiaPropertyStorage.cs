@@ -257,7 +257,7 @@ namespace ClrDebug.DIA
         {
             /*HRESULT ReadBOOL(
             [In] int id,
-            [Out] out bool pValue);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pValue);*/
             return Raw.ReadBOOL(id, out pValue);
         }
 

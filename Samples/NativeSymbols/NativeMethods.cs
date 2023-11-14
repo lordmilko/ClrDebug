@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using ClrDebug.DbgEng;
+using ClrDebug.DIA;
 
 namespace NativeSymbols
 {
@@ -72,7 +72,7 @@ namespace NativeSymbols
             [In] IntPtr hProcess,
             [In] ulong BaseOfDll,
             [In] int Index,
-            [In] SymTag SymTag,
+            [In] SymTagEnum SymTag,
             [In, MarshalAs(UnmanagedType.LPStr)] string Mask,
             [In] ulong Address,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] PSYM_ENUMERATESYMBOLS_CALLBACK EnumSymbolsCallback,

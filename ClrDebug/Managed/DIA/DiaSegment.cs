@@ -130,7 +130,7 @@
         public HRESULT TryGetRead(out bool pRetVal)
         {
             /*HRESULT get_read(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_read(out pRetVal);
         }
 
@@ -159,7 +159,7 @@
         public HRESULT TryGetWrite(out bool pRetVal)
         {
             /*HRESULT get_write(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_write(out pRetVal);
         }
 
@@ -188,7 +188,7 @@
         public HRESULT TryGetExecute(out bool pRetVal)
         {
             /*HRESULT get_execute(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_execute(out pRetVal);
         }
 

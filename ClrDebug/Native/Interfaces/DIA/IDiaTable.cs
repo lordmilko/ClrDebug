@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -17,9 +20,14 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("4A59FB77-ABAC-469B-A30B-9ECC85BFEF14")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaTable : IEnumUnknown
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaTable : IEnumUnknown
     {
+#if !GENERATED_MARSHALLING
         [PreserveSig]
         new HRESULT Next(
             [In] int celt,
@@ -36,6 +44,7 @@ namespace ClrDebug.DIA
         [PreserveSig]
         new HRESULT Clone(
             [Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppenum);
+#endif
 
         /// <summary>
         /// Retrieves the <see cref="IEnumVARIANT"/> version of this enumerator.

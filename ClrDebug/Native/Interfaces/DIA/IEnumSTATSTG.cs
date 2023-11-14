@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0000000D-0000-0000-C000-000000000046")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IEnumSTATSTG
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IEnumSTATSTG
     {
         [PreserveSig]
         HRESULT Next(

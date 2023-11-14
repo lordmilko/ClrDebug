@@ -284,7 +284,7 @@ namespace ClrDebug.DIA
         public HRESULT TrySymbolByAddrEx(bool fPromoteBlockSym, int isect, int offset, out DiaSymbol ppSymbolResult)
         {
             /*HRESULT symbolByAddrEx(
-            [In] bool fPromoteBlockSym,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPromoteBlockSym,
             [In] int isect,
             [In] int offset,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol ppSymbol);*/
@@ -313,7 +313,7 @@ namespace ClrDebug.DIA
         public HRESULT TrySymbolByRVAEx(bool fPromoteBlockSym, int relativeVirtualAddress, out DiaSymbol ppSymbolResult)
         {
             /*HRESULT symbolByRVAEx(
-            [In] bool fPromoteBlockSym,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPromoteBlockSym,
             [In] int relativeVirtualAddress,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol ppSymbol);*/
             IDiaSymbol ppSymbol;
@@ -341,7 +341,7 @@ namespace ClrDebug.DIA
         public HRESULT TrySymbolByVAEx(bool fPromoteBlockSym, long virtualAddress, out DiaSymbol ppSymbolResult)
         {
             /*HRESULT symbolByVAEx(
-            [In] bool fPromoteBlockSym,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPromoteBlockSym,
             [In] long virtualAddress,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol ppSymbol);*/
             IDiaSymbol ppSymbol;
@@ -369,7 +369,7 @@ namespace ClrDebug.DIA
         public HRESULT TryNextEx(bool fPromoteBlockSym, int celt, out NextExResult result)
         {
             /*HRESULT NextEx(
-            [In] bool fPromoteBlockSym,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPromoteBlockSym,
             [In] int celt,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol rgelt,
             [Out] out int pceltFetched);*/
@@ -399,7 +399,7 @@ namespace ClrDebug.DIA
         public HRESULT TryPrevEx(bool fPromoteBlockSym, int celt, out PrevExResult result)
         {
             /*HRESULT PrevEx(
-            [In] bool fPromoteBlockSym,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPromoteBlockSym,
             [In] int celt,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol rgelt,
             [Out] out int pceltFetched);*/

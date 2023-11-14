@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -12,8 +15,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("C32ADB82-73F4-421B-95D5-A4706EDF5DBE")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaLoadCallback
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaLoadCallback
     {
         /// <summary>
         /// Called when a debug directory was found in the .exe file.
@@ -32,7 +39,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT NotifyDebugDir(
-            [In] bool fExecutable,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fExecutable,
             [In] int cbData,
             [In] IntPtr pbData); //According to the DIA2Dump sample, this value is in fact an IMAGE_DEBUG_DIRECTORY*
 

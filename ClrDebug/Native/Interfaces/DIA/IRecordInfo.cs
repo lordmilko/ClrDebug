@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using ClrDebug.TypeLib;
 
 namespace ClrDebug.DIA
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0000002F-0000-0000-C000-000000000046")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IRecordInfo
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IRecordInfo
     {
         [PreserveSig]
         HRESULT RecordInit(
@@ -24,7 +31,11 @@ namespace ClrDebug.DIA
 
         [PreserveSig]
         HRESULT GetGuid(
-            [Out] out Guid pguid);
+            [Out]
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(GuidMarshaller))]
+#endif
+            out Guid pguid);
 
         [PreserveSig]
         HRESULT GetName(
@@ -42,13 +53,23 @@ namespace ClrDebug.DIA
         HRESULT GetField(
             [In] IntPtr pvData,
             [MarshalAs(UnmanagedType.LPWStr), In] string szFieldName,
-            [Out, MarshalAs(UnmanagedType.Struct)] out object pvarField);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.Struct)]
+#else
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            out object pvarField);
 
         [PreserveSig]
         HRESULT GetFieldNoCopy(
             [In] IntPtr pvData,
             [MarshalAs(UnmanagedType.LPWStr), In] string szFieldName,
-            [Out, MarshalAs(UnmanagedType.Struct)] out object pvarField,
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.Struct)]
+#else
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            out object pvarField,
             [Out] out IntPtr ppvDataCArray);
 
         [PreserveSig]
@@ -56,14 +77,24 @@ namespace ClrDebug.DIA
             [In] int wFlags,
             [In, Out] IntPtr pvData,
             [MarshalAs(UnmanagedType.LPWStr), In] string szFieldName,
-            [MarshalAs(UnmanagedType.Struct), In] ref object pvarField);
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.Struct)]
+#else
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            ref object pvarField);
 
         [PreserveSig]
         HRESULT PutFieldNoCopy(
             [In] int wFlags,
             [In, Out] IntPtr pvData,
             [MarshalAs(UnmanagedType.LPWStr), In] string szFieldName,
-            [MarshalAs(UnmanagedType.Struct), In] ref object pvarField);
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.Struct)]
+#else
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            ref object pvarField);
 
         [PreserveSig]
         HRESULT GetFieldNames(

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -10,8 +13,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("EC9D461D-CE74-4711-A020-7D8F9A1DD255")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaEnumStackFrames
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaEnumStackFrames
     {
         /// <summary>
         /// Retrieves a specified number of stack frame elements from the enumeration sequence.

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -12,8 +15,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("0775B784-C75B-4449-848B-B7BD3159545B")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaSegment
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaSegment
     {
         /// <summary>
         /// Retrieves the segment number.
@@ -49,7 +56,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_read(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the segment can be modified.
@@ -58,7 +65,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_write(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the segment is executable.
@@ -67,7 +74,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_execute(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves the section number that maps to this segment.

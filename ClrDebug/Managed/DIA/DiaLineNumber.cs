@@ -420,7 +420,7 @@
         public HRESULT TryGetStatement(out bool pRetVal)
         {
             /*HRESULT get_statement(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_statement(out pRetVal);
         }
 

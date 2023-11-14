@@ -4,7 +4,8 @@ configuration: Release
 install:
   - ps: |
       Invoke-WebRequest -Uri 'https://dot.net/v1/dotnet-install.ps1' -UseBasicParsing -OutFile "$env:temp\dotnet-install.ps1"
-      & "$env:temp\dotnet-install.ps1" -Version 8.0.100-preview.7.23376.3 -InstallDir "C:\Program Files (x86)\dotnet"
+      & "$env:temp\dotnet-install.ps1" -Version 8.0.100 -InstallDir "C:\Program Files\dotnet" -Architecture x64 -NoPath
+      & "$env:temp\dotnet-install.ps1" -Version 8.0.100 -InstallDir "C:\Program Files (x86)\dotnet" -Architecture x86 -NoPath
 before_build:
 - dotnet restore
 - dotnet restore -r win-x64
@@ -19,7 +20,7 @@ test_script:
 - vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net8.0\ClrDebug.Tests.dll /platform:x64 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
 after_test:
 - dotnet pack ClrDebug\ClrDebug.csproj
-- 7z a ClrDebug.zip .\ClrDebug\bin\%CONFIGURATION%\* -xr!*.json
+- 7z a ClrDebug.zip .\ClrDebug\bin\%CONFIGURATION%\* -xr!*.json -xr!*.nupkg -xr!publish
 #on_finish:
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 artifacts:

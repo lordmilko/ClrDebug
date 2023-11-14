@@ -57,7 +57,7 @@
         public HRESULT TryGetAddressMapEnabled(out bool pRetVal)
         {
             /*HRESULT get_addressMapEnabled(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_addressMapEnabled(out pRetVal);
         }
 
@@ -77,7 +77,7 @@
         public HRESULT TryPutAddressMapEnabled(bool newVal)
         {
             /*HRESULT put_addressMapEnabled(
-            [In] bool NewVal);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool NewVal);*/
             return Raw.put_addressMapEnabled(newVal);
         }
 
@@ -116,7 +116,7 @@
         public HRESULT TryGetRelativeVirtualAddressEnabled(out bool pRetVal)
         {
             /*HRESULT get_relativeVirtualAddressEnabled(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_relativeVirtualAddressEnabled(out pRetVal);
         }
 
@@ -134,7 +134,7 @@
         public HRESULT TryPutRelativeVirtualAddressEnabled(bool newVal)
         {
             /*HRESULT put_relativeVirtualAddressEnabled(
-            [In] bool NewVal);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool NewVal);*/
             return Raw.put_relativeVirtualAddressEnabled(newVal);
         }
 
@@ -238,7 +238,7 @@
             /*HRESULT set_imageHeaders(
             [In] int cbData,
             [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pbData,
-            [In] bool originalHeaders);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool originalHeaders);*/
             return Raw.set_imageHeaders(cbData, pbData, originalHeaders);
         }
 
@@ -282,7 +282,7 @@
             /*HRESULT set_addressMap(
             [In] int cData,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DiaAddressMapEntry[] pData,
-            [In] bool imageToSymbols);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool imageToSymbols);*/
             return Raw.set_addressMap(cData, pData, imageToSymbols);
         }
 

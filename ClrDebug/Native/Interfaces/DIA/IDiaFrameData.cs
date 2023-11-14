@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -12,8 +15,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("A39184B7-6A36-42DE-8EEC-7DF9F3F59F33")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaFrameData
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaFrameData
     {
         /// <summary>
         /// Retrieves the section part of the code address for the frame.
@@ -155,7 +162,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_systemExceptionHandling(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether C++ exception handling is in effect.
@@ -168,7 +175,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_cplusplusExceptionHandling(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the block contains the entry point of a function.
@@ -181,7 +188,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_functionStart(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the base pointer is allocated for code in this address range. This method is deprecated.
@@ -195,7 +202,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_allocatesBasePointer(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves the compiler-specific frame type.

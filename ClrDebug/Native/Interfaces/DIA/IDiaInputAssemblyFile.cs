@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3BFE56B0-390C-4863-9430-1F3D083B7684")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaInputAssemblyFile
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaInputAssemblyFile
     {
         [PreserveSig]
         HRESULT get_uniqueId(
@@ -21,7 +28,7 @@ namespace ClrDebug.DIA
 
         [PreserveSig]
         HRESULT get_pdbAvailableAtILMerge(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         [PreserveSig]
         HRESULT get_fileName(

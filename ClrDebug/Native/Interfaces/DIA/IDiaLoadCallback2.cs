@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -12,9 +15,14 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("4688A074-5A4D-4486-AEA8-7B90711D9F7C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaLoadCallback2 : IDiaLoadCallback
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaLoadCallback2 : IDiaLoadCallback
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called when a debug directory was found in the .exe file.
         /// </summary>
@@ -32,7 +40,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         new HRESULT NotifyDebugDir(
-            [In] bool fExecutable,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fExecutable,
             [In] int cbData,
             [In] IntPtr pbData); //According to the DIA2Dump sample, this value is in fact an IMAGE_DEBUG_DIRECTORY*
 
@@ -77,6 +85,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         new HRESULT RestrictSymbolServerAccess();
+#endif
 
         /// <summary>
         /// Determines if it is okay to look for a .pdb file in the original debug directory.

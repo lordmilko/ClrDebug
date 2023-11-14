@@ -9,11 +9,11 @@ namespace NetCore
 
 #if NET8_0_OR_GREATER
         [LibraryImport(kernel32, SetLastError = true)]
-        public static partial uint WaitForSingleObject([In] IntPtr hHandle, [In] int dwMilliseconds);
+        public static partial uint WaitForSingleObject(IntPtr hHandle, int dwMilliseconds);
 
         [LibraryImport(kernel32, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static partial bool SetEvent([In] IntPtr hEvent);
+        public static partial bool SetEvent(IntPtr hEvent);
 #else
         [DllImport(kernel32, SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);

@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
     [Guid("1C7FF653-51F7-457E-8419-B20F57EF7E4D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaEnumInputAssemblyFiles
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaEnumInputAssemblyFiles
     {
         [PreserveSig]
         HRESULT NewEnum(

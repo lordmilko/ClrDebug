@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -12,8 +15,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("AE605CDC-8105-4A23-B710-3259F1E26112")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaInjectedSource
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaInjectedSource
     {
         /// <summary>
         /// Retrieves a cyclic redundancy check (CRC) calculated from the bytes of the source code.

@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
     [Guid("8222C490-507B-4BEF-B3BD-41DCA7B5934C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaStackWalkHelper2 : IDiaStackWalkHelper
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaStackWalkHelper2 : IDiaStackWalkHelper
     {
+#if !GENERATED_MARSHALLING
         [PreserveSig]
         new HRESULT get_registerValue(
             [In] int index,
@@ -96,6 +104,7 @@ namespace ClrDebug.DIA
             [In] int cFragments,
             [Out] out long pVaFragment,
             [Out] out int pLenFragment);
+#endif
 
         [PreserveSig]
         HRESULT GetPointerAuthenticationMask(

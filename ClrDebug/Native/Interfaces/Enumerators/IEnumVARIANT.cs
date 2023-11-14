@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("00020404-0000-0000-C000-000000000046")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IEnumVARIANT
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IEnumVARIANT
     {
         /// <summary>
         /// Retrieves the specified items in the enumeration sequence.
@@ -29,7 +36,12 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT Next(
             [In] int celt,
-            [Out, MarshalAs(UnmanagedType.Struct)] out object rgVar,
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.Struct)]
+#else
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            out object rgVar,
             [Out] out int pCeltFetched);
 
         /// <summary>

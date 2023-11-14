@@ -579,7 +579,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetVolatileType(out bool pRetVal)
         {
             /*HRESULT get_volatileType(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_volatileType(out pRetVal);
         }
 
@@ -608,7 +608,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetConstType(out bool pRetVal)
         {
             /*HRESULT get_constType(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_constType(out pRetVal);
         }
 
@@ -637,7 +637,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetUnalignedType(out bool pRetVal)
         {
             /*HRESULT get_unalignedType(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_unalignedType(out pRetVal);
         }
 
@@ -782,7 +782,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetEditAndContinueEnabled(out bool pRetVal)
         {
             /*HRESULT get_editAndContinueEnabled(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_editAndContinueEnabled(out pRetVal);
         }
 
@@ -1178,7 +1178,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetVirtual(out bool pRetVal)
         {
             /*HRESULT get_virtual(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_virtual(out pRetVal);
         }
 
@@ -1207,7 +1207,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIntro(out bool pRetVal)
         {
             /*HRESULT get_intro(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_intro(out pRetVal);
         }
 
@@ -1236,7 +1236,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetPure(out bool pRetVal)
         {
             /*HRESULT get_pure(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_pure(out pRetVal);
         }
 
@@ -1479,7 +1479,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetReference(out bool pRetVal)
         {
             /*HRESULT get_reference(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_reference(out pRetVal);
         }
 
@@ -1611,7 +1611,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetPacked(out bool pRetVal)
         {
             /*HRESULT get_packed(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_packed(out pRetVal);
         }
 
@@ -1640,7 +1640,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetConstructor(out bool pRetVal)
         {
             /*HRESULT get_constructor(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_constructor(out pRetVal);
         }
 
@@ -1669,7 +1669,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetOverloadedOperator(out bool pRetVal)
         {
             /*HRESULT get_overloadedOperator(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_overloadedOperator(out pRetVal);
         }
 
@@ -1698,7 +1698,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetNested(out bool pRetVal)
         {
             /*HRESULT get_nested(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_nested(out pRetVal);
         }
 
@@ -1727,7 +1727,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasNestedTypes(out bool pRetVal)
         {
             /*HRESULT get_hasNestedTypes(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasNestedTypes(out pRetVal);
         }
 
@@ -1756,7 +1756,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasAssignmentOperator(out bool pRetVal)
         {
             /*HRESULT get_hasAssignmentOperator(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasAssignmentOperator(out pRetVal);
         }
 
@@ -1785,7 +1785,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasCastOperator(out bool pRetVal)
         {
             /*HRESULT get_hasCastOperator(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasCastOperator(out pRetVal);
         }
 
@@ -1814,7 +1814,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetScoped(out bool pRetVal)
         {
             /*HRESULT get_scoped(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_scoped(out pRetVal);
         }
 
@@ -1843,7 +1843,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetVirtualBaseClass(out bool pRetVal)
         {
             /*HRESULT get_virtualBaseClass(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_virtualBaseClass(out pRetVal);
         }
 
@@ -1872,7 +1872,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIndirectVirtualBaseClass(out bool pRetVal)
         {
             /*HRESULT get_indirectVirtualBaseClass(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_indirectVirtualBaseClass(out pRetVal);
         }
 
@@ -2127,7 +2127,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetCode(out bool pRetVal)
         {
             /*HRESULT get_code(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_code(out pRetVal);
         }
 
@@ -2185,7 +2185,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetManaged(out bool pRetVal)
         {
             /*HRESULT get_managed(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_managed(out pRetVal);
         }
 
@@ -2214,7 +2214,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetMsil(out bool pRetVal)
         {
             /*HRESULT get_msil(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_msil(out pRetVal);
         }
 
@@ -2363,7 +2363,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetCompilerGenerated(out bool pRetVal)
         {
             /*HRESULT get_compilerGenerated(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_compilerGenerated(out pRetVal);
         }
 
@@ -2392,7 +2392,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetAddressTaken(out bool pRetVal)
         {
             /*HRESULT get_addressTaken(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_addressTaken(out pRetVal);
         }
 
@@ -2910,7 +2910,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_typeIds(
             [In] int cTypeIds,
             [Out] out int pcTypeIds,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U4, SizeParamIndex = 0)] int[] pdwTypeIds);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pdwTypeIds);*/
             int cTypeIds = 0;
             int pcTypeIds;
             pdwTypeIds = null;
@@ -3020,7 +3020,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetNoReturn(out bool pRetVal)
         {
             /*HRESULT get_noReturn(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_noReturn(out pRetVal);
         }
 
@@ -3049,7 +3049,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetCustomCallingConvention(out bool pRetVal)
         {
             /*HRESULT get_customCallingConvention(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_customCallingConvention(out pRetVal);
         }
 
@@ -3078,7 +3078,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetNoInline(out bool pRetVal)
         {
             /*HRESULT get_noInline(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_noInline(out pRetVal);
         }
 
@@ -3107,7 +3107,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetOptimizedCodeDebugInfo(out bool pRetVal)
         {
             /*HRESULT get_optimizedCodeDebugInfo(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_optimizedCodeDebugInfo(out pRetVal);
         }
 
@@ -3136,7 +3136,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetNotReached(out bool pRetVal)
         {
             /*HRESULT get_notReached(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_notReached(out pRetVal);
         }
 
@@ -3165,7 +3165,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetInterruptReturn(out bool pRetVal)
         {
             /*HRESULT get_interruptReturn(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_interruptReturn(out pRetVal);
         }
 
@@ -3194,7 +3194,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetFarReturn(out bool pRetVal)
         {
             /*HRESULT get_farReturn(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_farReturn(out pRetVal);
         }
 
@@ -3223,7 +3223,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsStatic(out bool pRetVal)
         {
             /*HRESULT get_isStatic(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isStatic(out pRetVal);
         }
 
@@ -3252,7 +3252,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasDebugInfo(out bool pRetVal)
         {
             /*HRESULT get_hasDebugInfo(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasDebugInfo(out pRetVal);
         }
 
@@ -3283,7 +3283,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsLTCG(out bool pRetVal)
         {
             /*HRESULT get_isLTCG(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isLTCG(out pRetVal);
         }
 
@@ -3316,7 +3316,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsDataAligned(out bool pRetVal)
         {
             /*HRESULT get_isDataAligned(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isDataAligned(out pRetVal);
         }
 
@@ -3345,7 +3345,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasSecurityChecks(out bool pRetVal)
         {
             /*HRESULT get_hasSecurityChecks(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasSecurityChecks(out pRetVal);
         }
 
@@ -3403,7 +3403,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasAlloca(out bool pRetVal)
         {
             /*HRESULT get_hasAlloca(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasAlloca(out pRetVal);
         }
 
@@ -3432,7 +3432,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasSetJump(out bool pRetVal)
         {
             /*HRESULT get_hasSetJump(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasSetJump(out pRetVal);
         }
 
@@ -3461,7 +3461,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasLongJump(out bool pRetVal)
         {
             /*HRESULT get_hasLongJump(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasLongJump(out pRetVal);
         }
 
@@ -3490,7 +3490,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasInlAsm(out bool pRetVal)
         {
             /*HRESULT get_hasInlAsm(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasInlAsm(out pRetVal);
         }
 
@@ -3519,7 +3519,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasEH(out bool pRetVal)
         {
             /*HRESULT get_hasEH(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasEH(out pRetVal);
         }
 
@@ -3548,7 +3548,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasSEH(out bool pRetVal)
         {
             /*HRESULT get_hasSEH(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasSEH(out pRetVal);
         }
 
@@ -3581,7 +3581,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasEHa(out bool pRetVal)
         {
             /*HRESULT get_hasEHa(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasEHa(out pRetVal);
         }
 
@@ -3610,7 +3610,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsNaked(out bool pRetVal)
         {
             /*HRESULT get_isNaked(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isNaked(out pRetVal);
         }
 
@@ -3642,7 +3642,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsAggregated(out bool pRetVal)
         {
             /*HRESULT get_isAggregated(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isAggregated(out pRetVal);
         }
 
@@ -3674,7 +3674,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsSplitted(out bool pRetVal)
         {
             /*HRESULT get_isSplitted(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isSplitted(out pRetVal);
         }
 
@@ -3740,7 +3740,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetInlSpec(out bool pRetVal)
         {
             /*HRESULT get_inlSpec(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_inlSpec(out pRetVal);
         }
 
@@ -3769,7 +3769,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetNoStackOrdering(out bool pRetVal)
         {
             /*HRESULT get_noStackOrdering(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_noStackOrdering(out pRetVal);
         }
 
@@ -3842,7 +3842,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasManagedCode(out bool pRetVal)
         {
             /*HRESULT get_hasManagedCode(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasManagedCode(out pRetVal);
         }
 
@@ -3874,7 +3874,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsHotpatchable(out bool pRetVal)
         {
             /*HRESULT get_isHotpatchable(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isHotpatchable(out pRetVal);
         }
 
@@ -3906,7 +3906,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsCVTCIL(out bool pRetVal)
         {
             /*HRESULT get_isCVTCIL(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isCVTCIL(out pRetVal);
         }
 
@@ -3938,7 +3938,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsMSILNetmodule(out bool pRetVal)
         {
             /*HRESULT get_isMSILNetmodule(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isMSILNetmodule(out pRetVal);
         }
 
@@ -3970,7 +3970,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsCTypes(out bool pRetVal)
         {
             /*HRESULT get_isCTypes(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isCTypes(out pRetVal);
         }
 
@@ -4002,7 +4002,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsStripped(out bool pRetVal)
         {
             /*HRESULT get_isStripped(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isStripped(out pRetVal);
         }
 
@@ -4065,7 +4065,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetWasInlined(out bool pRetVal)
         {
             /*HRESULT get_wasInlined(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_wasInlined(out pRetVal);
         }
 
@@ -4086,7 +4086,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetStrictGSCheck(out bool pRetVal)
         {
             /*HRESULT get_strictGSCheck(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_strictGSCheck(out pRetVal);
         }
 
@@ -4107,7 +4107,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsCxxReturnUdt(out bool pRetVal)
         {
             /*HRESULT get_isCxxReturnUdt(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isCxxReturnUdt(out pRetVal);
         }
 
@@ -4128,7 +4128,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsConstructorVirtualBase(out bool pRetVal)
         {
             /*HRESULT get_isConstructorVirtualBase(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isConstructorVirtualBase(out pRetVal);
         }
 
@@ -4157,7 +4157,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetRValueReference(out bool pRetVal)
         {
             /*HRESULT get_RValueReference(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_RValueReference(out pRetVal);
         }
 
@@ -4228,7 +4228,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetFramePointerPresent(out bool pRetVal)
         {
             /*HRESULT get_framePointerPresent(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_framePointerPresent(out pRetVal);
         }
 
@@ -4257,7 +4257,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsSafeBuffers(out bool pRetVal)
         {
             /*HRESULT get_isSafeBuffers(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isSafeBuffers(out pRetVal);
         }
 
@@ -4286,7 +4286,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIntrinsic(out bool pRetVal)
         {
             /*HRESULT get_intrinsic(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_intrinsic(out pRetVal);
         }
 
@@ -4318,7 +4318,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetSealed(out bool pRetVal)
         {
             /*HRESULT get_sealed(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_sealed(out pRetVal);
         }
 
@@ -4347,7 +4347,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHfaFloat(out bool pRetVal)
         {
             /*HRESULT get_hfaFloat(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hfaFloat(out pRetVal);
         }
 
@@ -4376,7 +4376,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHfaDouble(out bool pRetVal)
         {
             /*HRESULT get_hfaDouble(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hfaDouble(out pRetVal);
         }
 
@@ -4640,7 +4640,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsLocationControlFlowDependent(out bool pRetVal)
         {
             /*HRESULT get_isLocationControlFlowDependent(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isLocationControlFlowDependent(out pRetVal);
         }
 
@@ -4756,7 +4756,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsMatrixRowMajor(out bool pRetVal)
         {
             /*HRESULT get_isMatrixRowMajor(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isMatrixRowMajor(out pRetVal);
         }
 
@@ -4779,7 +4779,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_numericProperties(
             [In] int cnt,
             [Out] out int pcnt,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U4, SizeParamIndex = 0)] int[] pProperties);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pProperties);*/
             int cnt = 0;
             int pcnt;
             pProperties = null;
@@ -4798,23 +4798,23 @@ namespace ClrDebug.DIA
         #endregion
         #region ModifierValues
 
-        public int[] ModifierValues
+        public short[] ModifierValues
         {
             get
             {
-                int[] pModifiers;
+                short[] pModifiers;
                 TryGetModifierValues(out pModifiers).ThrowOnNotOK();
 
                 return pModifiers;
             }
         }
 
-        public HRESULT TryGetModifierValues(out int[] pModifiers)
+        public HRESULT TryGetModifierValues(out short[] pModifiers)
         {
             /*HRESULT get_modifierValues(
             [In] int cnt,
             [Out] out int pcnt,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] int[] pModifiers);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] short[] pModifiers);*/
             int cnt = 0;
             int pcnt;
             pModifiers = null;
@@ -4824,7 +4824,7 @@ namespace ClrDebug.DIA
                 goto fail;
 
             cnt = pcnt;
-            pModifiers = new int[cnt];
+            pModifiers = new short[cnt];
             hr = Raw.get_modifierValues(cnt, out pcnt, pModifiers);
             fail:
             return hr;
@@ -4855,7 +4855,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsReturnValue(out bool pRetVal)
         {
             /*HRESULT get_isReturnValue(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isReturnValue(out pRetVal);
         }
 
@@ -4884,7 +4884,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsOptimizedAway(out bool pRetVal)
         {
             /*HRESULT get_isOptimizedAway(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isOptimizedAway(out pRetVal);
         }
 
@@ -5327,7 +5327,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsHLSLData(out bool pRetVal)
         {
             /*HRESULT get_isHLSLData(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isHLSLData(out pRetVal);
         }
 
@@ -5356,7 +5356,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsPointerToDataMember(out bool pRetVal)
         {
             /*HRESULT get_isPointerToDataMember(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isPointerToDataMember(out pRetVal);
         }
 
@@ -5385,7 +5385,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsPointerToMemberFunction(out bool pRetVal)
         {
             /*HRESULT get_isPointerToMemberFunction(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isPointerToMemberFunction(out pRetVal);
         }
 
@@ -5414,7 +5414,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsSingleInheritance(out bool pRetVal)
         {
             /*HRESULT get_isSingleInheritance(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isSingleInheritance(out pRetVal);
         }
 
@@ -5443,7 +5443,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsMultipleInheritance(out bool pRetVal)
         {
             /*HRESULT get_isMultipleInheritance(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isMultipleInheritance(out pRetVal);
         }
 
@@ -5472,7 +5472,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsVirtualInheritance(out bool pRetVal)
         {
             /*HRESULT get_isVirtualInheritance(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isVirtualInheritance(out pRetVal);
         }
 
@@ -5501,7 +5501,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetRestrictedType(out bool pRetVal)
         {
             /*HRESULT get_restrictedType(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_restrictedType(out pRetVal);
         }
 
@@ -5530,7 +5530,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsPointerBasedOnSymbolValue(out bool pRetVal)
         {
             /*HRESULT get_isPointerBasedOnSymbolValue(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isPointerBasedOnSymbolValue(out pRetVal);
         }
 
@@ -5655,7 +5655,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsAcceleratorGroupSharedLocal(out bool pRetVal)
         {
             /*HRESULT get_isAcceleratorGroupSharedLocal(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isAcceleratorGroupSharedLocal(out pRetVal);
         }
 
@@ -5686,7 +5686,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsAcceleratorPointerTagLiveRange(out bool pRetVal)
         {
             /*HRESULT get_isAcceleratorPointerTagLiveRange(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isAcceleratorPointerTagLiveRange(out pRetVal);
         }
 
@@ -5715,7 +5715,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsAcceleratorStubFunction(out bool pRetVal)
         {
             /*HRESULT get_isAcceleratorStubFunction(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isAcceleratorStubFunction(out pRetVal);
         }
 
@@ -5776,7 +5776,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsSdl(out bool pRetVal)
         {
             /*HRESULT get_isSdl(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isSdl(out pRetVal);
         }
 
@@ -5797,7 +5797,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsWinRTPointer(out bool pRetVal)
         {
             /*HRESULT get_isWinRTPointer(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isWinRTPointer(out pRetVal);
         }
 
@@ -5818,7 +5818,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsRefUdt(out bool pRetVal)
         {
             /*HRESULT get_isRefUdt(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isRefUdt(out pRetVal);
         }
 
@@ -5839,7 +5839,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsValueUdt(out bool pRetVal)
         {
             /*HRESULT get_isValueUdt(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isValueUdt(out pRetVal);
         }
 
@@ -5860,7 +5860,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsInterfaceUdt(out bool pRetVal)
         {
             /*HRESULT get_isInterfaceUdt(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isInterfaceUdt(out pRetVal);
         }
 
@@ -5894,7 +5894,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_acceleratorPointerTags(
             [In] int cnt,
             [Out] out int pcnt,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U4, SizeParamIndex = 0)] int[] pPointerTags);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pPointerTags);*/
             int cnt = 0;
             int pcnt;
             pPointerTags = null;
@@ -5964,7 +5964,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsPGO(out bool pRetVal)
         {
             /*HRESULT get_isPGO(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isPGO(out pRetVal);
         }
 
@@ -5985,7 +5985,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasValidPGOCounts(out bool pRetVal)
         {
             /*HRESULT get_hasValidPGOCounts(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasValidPGOCounts(out pRetVal);
         }
 
@@ -6006,7 +6006,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsOptimizedForSpeed(out bool pRetVal)
         {
             /*HRESULT get_isOptimizedForSpeed(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_isOptimizedForSpeed(out pRetVal);
         }
 
@@ -6153,7 +6153,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasControlFlowCheck(out bool pRetVal)
         {
             /*HRESULT get_hasControlFlowCheck(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_hasControlFlowCheck(out pRetVal);
         }
 
@@ -6174,7 +6174,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetConstantExport(out bool pRetVal)
         {
             /*HRESULT get_constantExport(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_constantExport(out pRetVal);
         }
 
@@ -6195,7 +6195,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetDataExport(out bool pRetVal)
         {
             /*HRESULT get_dataExport(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_dataExport(out pRetVal);
         }
 
@@ -6216,7 +6216,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetPrivateExport(out bool pRetVal)
         {
             /*HRESULT get_privateExport(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_privateExport(out pRetVal);
         }
 
@@ -6258,7 +6258,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetExportHasExplicitlyAssignedOrdinal(out bool pRetVal)
         {
             /*HRESULT get_exportHasExplicitlyAssignedOrdinal(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_exportHasExplicitlyAssignedOrdinal(out pRetVal);
         }
 
@@ -6279,7 +6279,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetExportIsForwarder(out bool pRetVal)
         {
             /*HRESULT get_exportIsForwarder(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_exportIsForwarder(out pRetVal);
         }
 
@@ -7226,7 +7226,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsObjCClass(out bool pRetVal)
         {
             /*HRESULT get_isObjCClass(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw2.get_isObjCClass(out pRetVal);
         }
 
@@ -7247,7 +7247,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsObjCCategory(out bool pRetVal)
         {
             /*HRESULT get_isObjCCategory(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw2.get_isObjCCategory(out pRetVal);
         }
 
@@ -7268,7 +7268,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsObjCProtocol(out bool pRetVal)
         {
             /*HRESULT get_isObjCProtocol(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw2.get_isObjCProtocol(out pRetVal);
         }
 
@@ -7351,7 +7351,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetNoexcept(out bool pRetVal)
         {
             /*HRESULT get_noexcept(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw4.get_noexcept(out pRetVal);
         }
 
@@ -7378,7 +7378,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetHasAbsoluteAddress(out bool pRetVal)
         {
             /*HRESULT get_hasAbsoluteAddress(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw5.get_hasAbsoluteAddress(out pRetVal);
         }
 
@@ -7405,7 +7405,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsStaticMemberFunc(out bool pRetVal)
         {
             /*HRESULT get_isStaticMemberFunc(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw6.get_isStaticMemberFunc(out pRetVal);
         }
 
@@ -7432,7 +7432,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsSignRet(out bool pRetVal)
         {
             /*HRESULT get_isSignRet(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw7.get_isSignRet(out pRetVal);
         }
 
@@ -7633,7 +7633,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetIsRTCs(out bool pRetVal)
         {
             /*HRESULT get_isRTCs(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw9.get_isRTCs(out pRetVal);
         }
 
@@ -7662,7 +7662,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_sourceLink(
             [In] int cb,
             [Out] out int pcb,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pb);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] pb);*/
             int cb = 0;
             int pcb;
             pb = null;

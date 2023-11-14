@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -13,8 +16,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("07C590C1-438D-4F47-BDCD-4397BC81AD75")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaStackWalkFrame
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaStackWalkFrame
     {
         /// <summary>
         /// Retrieves the value of a register.

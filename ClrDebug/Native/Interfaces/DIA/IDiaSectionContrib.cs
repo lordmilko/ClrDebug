@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -11,8 +14,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0CF4B60E-35B1-4C6C-BDD8-854B9C8E3857")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaSectionContrib
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaSectionContrib
     {
         /// <summary>
         /// Retrieves a reference to the compiland symbol that contributed this section.
@@ -74,7 +81,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_notPaged(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the section contains executable code.
@@ -83,7 +90,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_code(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the section contains initialized data.
@@ -92,7 +99,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_initializedData(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the section contains uninitialized data.
@@ -101,7 +108,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_uninitializedData(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the section is removed before it is made part of the in-memory image.
@@ -110,7 +117,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_remove(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the section is a COMDAT record.
@@ -122,7 +129,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_comdat(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the section can be discarded.
@@ -131,7 +138,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_discardable(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the section cannot be cached.
@@ -140,7 +147,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_notCached(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the section can be shared in memory.
@@ -149,7 +156,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_share(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the section is executable as code.
@@ -158,7 +165,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_execute(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the section can be read.
@@ -167,7 +174,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_read(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the section can be modified.
@@ -176,7 +183,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_write(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves the cyclic redundancy check (CRC) of the data in the section.
@@ -216,6 +223,6 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_code16bit(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
     }
 }

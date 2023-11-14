@@ -90,7 +90,7 @@
         public HRESULT TryGetPdbAvailableAtILMerge(out bool pRetVal)
         {
             /*HRESULT get_pdbAvailableAtILMerge(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_pdbAvailableAtILMerge(out pRetVal);
         }
 

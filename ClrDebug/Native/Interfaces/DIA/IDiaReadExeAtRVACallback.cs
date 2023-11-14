@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -13,8 +16,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("8E3F80CA-7517-432A-BA07-285134AAEA8E")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaReadExeAtRVACallback
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaReadExeAtRVACallback
     {
         /// <summary>
         /// Reads the specified number of bytes starting at the specified relative virtual address (RVA) from the executable file.

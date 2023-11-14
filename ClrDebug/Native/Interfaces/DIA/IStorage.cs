@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0000000B-0000-0000-C000-000000000046")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IStorage
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IStorage
     {
         [PreserveSig]
         HRESULT CreateStream(
@@ -44,7 +51,12 @@ namespace ClrDebug.DIA
         [PreserveSig]
         HRESULT CopyTo(
             [In] int ciidExclude,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid rgiidExclude,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid rgiidExclude,
             [In] IntPtr snbExclude,
             [MarshalAs(UnmanagedType.Interface), In] IStorage pstgDest);
 
@@ -87,7 +99,12 @@ namespace ClrDebug.DIA
 
         [PreserveSig]
         HRESULT SetClass(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid clsid);
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid clsid);
 
         [PreserveSig]
         HRESULT SetStateBits(

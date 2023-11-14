@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿#if !GENERATED_MARSHALLING
+
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using ClrDebug.DIA;
 
@@ -23,3 +25,5 @@ namespace ClrDebug.CoClass
             [MarshalAs(UnmanagedType.Interface)] out IDiaEnumStackFrames ppenum);
     }
 }
+
+#endif

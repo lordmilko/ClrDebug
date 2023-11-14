@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -13,8 +16,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2F609EE1-D1C8-4E24-8288-3326BADCD211")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaSession
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaSession
     {
         /// <summary>
         /// Retrieves the load address for the executable file that corresponds to the symbols in this symbol store.

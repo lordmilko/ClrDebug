@@ -307,7 +307,7 @@
         public HRESULT TryGetSystemExceptionHandling(out bool pRetVal)
         {
             /*HRESULT get_systemExceptionHandling(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_systemExceptionHandling(out pRetVal);
         }
 
@@ -340,7 +340,7 @@
         public HRESULT TryGetCplusplusExceptionHandling(out bool pRetVal)
         {
             /*HRESULT get_cplusplusExceptionHandling(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_cplusplusExceptionHandling(out pRetVal);
         }
 
@@ -369,7 +369,7 @@
         public HRESULT TryGetFunctionStart(out bool pRetVal)
         {
             /*HRESULT get_functionStart(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_functionStart(out pRetVal);
         }
 
@@ -398,7 +398,7 @@
         public HRESULT TryGetAllocatesBasePointer(out bool pRetVal)
         {
             /*HRESULT get_allocatesBasePointer(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_allocatesBasePointer(out pRetVal);
         }
 

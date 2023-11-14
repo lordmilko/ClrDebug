@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DIA
 {
@@ -12,8 +15,12 @@ namespace ClrDebug.DIA
     /// </remarks>
     [Guid("624B7D9C-24EA-4421-9D06-3B577471C1FA")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDiaEnumSymbolsByAddr
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDiaEnumSymbolsByAddr
     {
         /// <summary>
         /// Positions the enumerator by performing a lookup by image section number and offset.
