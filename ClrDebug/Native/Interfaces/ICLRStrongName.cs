@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
@@ -15,7 +14,6 @@ namespace ClrDebug
     /// using CLSID_CLRStrongName and IID_ICLRStrongName as parameters.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [ComConversionLoss]
 #if !GENERATED_MARSHALLING
     [ComImport]
 #else

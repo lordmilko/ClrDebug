@@ -16,6 +16,7 @@ ClrDebug aims to be a complete wrapper around all of the essential APIs you may 
 * Diagnostics Symbol Store (`ISym*`)
 * `IXCLR*`/`ISOS*`/DAC
 * DbgEng (`IDebug*`)
+* DIA
 * and more
 
 ## Getting Started

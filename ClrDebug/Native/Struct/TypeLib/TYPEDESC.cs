@@ -17,7 +17,8 @@ namespace ClrDebug.TypeLib
         /// <summary>
         /// Indicates the variant type for the item described by this TYPEDESC.
         /// </summary>
-        public VarEnum vt;
+        public VARENUM vt;
+
         [DebuggerDisplay("lptdesc = {lptdesc}, lpadesc = {lpadesc}, hreftype = {hreftype}")]
         [StructLayout(LayoutKind.Explicit)]
         public struct DESCUNION

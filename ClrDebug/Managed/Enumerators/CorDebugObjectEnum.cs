@@ -8,33 +8,33 @@ namespace ClrDebug
     /// </summary>
     public class CorDebugObjectEnum : IEnumerable<CORDB_ADDRESS>, IEnumerator<CORDB_ADDRESS>
     {
-        private ICorDebugObjectEnum rawEnumerator;
+        public ICorDebugObjectEnum Raw { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CorDebugObjectEnum"/> class.
         /// </summary>
-        /// <param name="rawEnumerator">The raw COM interface that should be contained in this object.</param>
-        public CorDebugObjectEnum(ICorDebugObjectEnum rawEnumerator)
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
+        public CorDebugObjectEnum(ICorDebugObjectEnum raw)
         {
-            this.rawEnumerator = rawEnumerator;
+            Raw = raw;
         }
 
         public void Reset()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return;
 
-            rawEnumerator.Reset();
+            Raw.Reset();
             Current = default(CORDB_ADDRESS);
         }
 
         public CorDebugObjectEnum Clone()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return this;
 
             ICorDebugEnum clone;
-            rawEnumerator.Clone(out clone);
+            Raw.Clone(out clone);
 
             return new CorDebugObjectEnum((ICorDebugObjectEnum) clone);
         }
@@ -54,12 +54,12 @@ namespace ClrDebug
 
         public bool MoveNext()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return false;
 
             int fetched;
             CORDB_ADDRESS result;
-            var hr = rawEnumerator.Next(1, out result, out fetched);
+            var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
                 Current = result;

@@ -39,6 +39,6 @@ namespace ClrDebug
             [In] int ilOffset,
             [In] int bufferSize,
             [Out] out int pFetched,
-            [Out] int pOffsets);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pOffsets); //The docs say that bufferSize describes bytes, but the actual code in dotnet/runtime contradicts that
     }
 }

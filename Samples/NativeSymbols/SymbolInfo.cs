@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using ClrDebug.DbgEng;
+using ClrDebug.DIA;
 
 namespace NativeSymbols
 {
@@ -18,7 +18,7 @@ namespace NativeSymbols
         public readonly ulong Address;
         public readonly int Register;    // register holding value or pointer to value
         public readonly int Scope;       // scope of the symbol
-        public readonly SymTag Tag;         // pdb classification
+        public readonly SymTagEnum Tag;         // pdb classification
         public readonly string Name;
 
         public readonly string ModuleName;

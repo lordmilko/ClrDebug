@@ -11,7 +11,6 @@ namespace ClrDebug
     /// method to indicate the configuration for the provider being added to the session.
     /// </remarks>
     [DebuggerDisplay("providerName = {providerName}, keywords = {keywords.ToString(),nq}, loggingLevel = {loggingLevel.ToString(),nq}, filterData = {filterData}")]
-    [ComConversionLoss]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public partial struct COR_PRF_EVENTPIPE_PROVIDER_CONFIG
     {

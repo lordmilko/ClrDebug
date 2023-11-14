@@ -52,7 +52,6 @@
     <Compile Include="..\DbgEngConsole\OutputCallbacks.cs">
       <Link>OutputCallbacks.cs</Link>
     </Compile>
-    <Compile Include="Custom\BasicType.cs" />
     <Compile Include="Custom\DbgComplexField.cs" />
     <Compile Include="Custom\DbgComplexFieldDebugView.cs" />
     <Compile Include="Custom\DbgField.cs" />

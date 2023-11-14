@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
@@ -35,7 +34,7 @@ namespace ClrDebug
         /// an address greater than the base address of the module, it returns NULL. The Alloc method should be used in conjunction
         /// with the <see cref="ICorProfilerInfo.SetILFunctionBody"/> method.
         /// </remarks>
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
+        [PreserveSig]
         IntPtr Alloc(
             [In] int cb);
     }

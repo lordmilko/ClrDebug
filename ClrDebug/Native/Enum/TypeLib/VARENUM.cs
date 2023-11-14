@@ -5,7 +5,7 @@ namespace ClrDebug.TypeLib
     /// <summary>
     /// Indicates how to marshal the array elements when an array is marshaled from managed to unmanaged code as a <see cref="UnmanagedType.SafeArray"/>.
     /// </summary>
-    public enum VarEnum : short
+    public enum VARENUM : short
     {
         /// <summary>
         /// Indicates that a value was not specified.

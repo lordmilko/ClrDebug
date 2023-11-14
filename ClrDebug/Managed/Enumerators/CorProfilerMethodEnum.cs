@@ -5,33 +5,55 @@ namespace ClrDebug
 {
     public class CorProfilerMethodEnum : IEnumerable<COR_PRF_METHOD>, IEnumerator<COR_PRF_METHOD>
     {
-        private ICorProfilerMethodEnum rawEnumerator;
+        public ICorProfilerMethodEnum Raw { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CorProfilerMethodEnum"/> class.
         /// </summary>
-        /// <param name="rawEnumerator">The raw COM interface that should be contained in this object.</param>
-        public CorProfilerMethodEnum(ICorProfilerMethodEnum rawEnumerator)
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
+        public CorProfilerMethodEnum(ICorProfilerMethodEnum raw)
         {
-            this.rawEnumerator = rawEnumerator;
+            Raw = raw;
         }
+
+        #region Count
+
+        public int Count
+        {
+            get
+            {
+                int pcelt;
+                TryGetCount(out pcelt).ThrowOnNotOK();
+
+                return pcelt;
+            }
+        }
+
+        public HRESULT TryGetCount(out int pcelt)
+        {
+            /*HRESULT GetCount(
+            [Out] out int pcelt);*/
+            return Raw.GetCount(out pcelt);
+        }
+
+        #endregion
 
         public void Reset()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return;
 
-            rawEnumerator.Reset();
+            Raw.Reset();
             Current = default(COR_PRF_METHOD);
         }
 
         public CorProfilerMethodEnum Clone()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return this;
 
             ICorProfilerMethodEnum clone;
-            rawEnumerator.Clone(out clone);
+            Raw.Clone(out clone);
 
             return new CorProfilerMethodEnum(clone);
         }
@@ -51,12 +73,12 @@ namespace ClrDebug
 
         public bool MoveNext()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return false;
 
             int fetched;
             COR_PRF_METHOD result;
-            var hr = rawEnumerator.Next(1, out result, out fetched);
+            var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
                 Current = result;

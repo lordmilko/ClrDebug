@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using ClrDebug.DbgEng;
+using ClrDebug.DIA;
 using DbgEngConsole;
 
 namespace DbgEngTypedData.Custom
@@ -30,10 +31,10 @@ namespace DbgEngTypedData.Custom
                 if (Name.StartsWith("void*"))
                     return Name;
 
-                if (BasicType == Custom.BasicType.WChar)
+                if (BasicType == ClrDebug.DIA.BasicType.btWChar)
                     return "WCHAR";
 
-                if (Tag == SymTag.PointerType && BaseType?.BasicType == Custom.BasicType.WChar)
+                if (Tag == SymTagEnum.PointerType && BaseType?.BasicType == ClrDebug.DIA.BasicType.btWChar)
                     return "WCHAR*";
 
                 return FullName;
@@ -50,7 +51,7 @@ namespace DbgEngTypedData.Custom
         /// </summary>
         public int TypeId { get; }
 
-        public SymTag Tag { get; }
+        public SymTagEnum Tag { get; }
 
         /// <summary>
         /// Gets the base symbol type of the current type, e.g. if the current
@@ -101,13 +102,13 @@ namespace DbgEngTypedData.Custom
 
             //All struct fields (items of type Data) will have a base entry which is the original type. We don't need to store the fact it's a field
             //(if it is a field this type will be contained in a DbgField)
-            if (tag == SymTag.Data && baseType != null)
+            if (tag == SymTagEnum.Data && baseType != null)
                 return baseType;
 
             return new DbgType(moduleBase, typeId, tag, baseType, state);
         }
 
-        private static SymTag GetSymTag(long moduleBase, int typeId, DbgState state)
+        private static SymTagEnum GetSymTag(long moduleBase, int typeId, DbgState state)
         {
             var result = NativeMethods.SymGetTypeInfo(
                 state.ProcessHandle,
@@ -120,7 +121,7 @@ namespace DbgEngTypedData.Custom
             if (!result)
                 throw new InvalidOperationException($"Failed to get tag from module {moduleBase} type {typeId}");
 
-            var tag = (SymTag)info.ToInt32();
+            var tag = (SymTagEnum)info.ToInt32();
 
             return tag;
         }
@@ -141,7 +142,7 @@ namespace DbgEngTypedData.Custom
             return info.ToInt32();
         }
 
-        protected DbgType(long moduleBase, int typeId, SymTag tag, DbgType baseType, DbgState state)
+        protected DbgType(long moduleBase, int typeId, SymTagEnum tag, DbgType baseType, DbgState state)
         {
             TypeId = typeId;
             Module = new DbgModule(moduleBase, state);
@@ -151,7 +152,7 @@ namespace DbgEngTypedData.Custom
 
             Name = client.Symbols.GetTypeNameWide(moduleBase, typeId);
 
-            if (tag == SymTag.BaseType)
+            if (tag == SymTagEnum.BaseType)
             {
                 if (TryGetTypeInfo(typeId, IMAGEHLP_SYMBOL_TYPE_INFO.TI_GET_BASETYPE, out var basicType))
                     BasicType = (BasicType) basicType;

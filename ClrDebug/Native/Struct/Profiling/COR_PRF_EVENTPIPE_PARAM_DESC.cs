@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug
@@ -12,7 +11,6 @@ namespace ClrDebug
     /// method to define the parameter types of the event being defined.
     /// </remarks>
     [DebuggerDisplay("type = {type.ToString(),nq}, elementType = {elementType.ToString(),nq}, name = {name}")]
-    [ComConversionLoss]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public partial struct COR_PRF_EVENTPIPE_PARAM_DESC
     {

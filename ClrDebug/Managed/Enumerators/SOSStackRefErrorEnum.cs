@@ -5,23 +5,23 @@ namespace ClrDebug
 {
     public class SOSStackRefErrorEnum : IEnumerable<SOSStackRefError>, IEnumerator<SOSStackRefError>
     {
-        private ISOSStackRefErrorEnum rawEnumerator;
+        public ISOSStackRefErrorEnum Raw { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SOSStackRefErrorEnum"/> class.
         /// </summary>
-        /// <param name="rawEnumerator">The raw COM interface that should be contained in this object.</param>
-        public SOSStackRefErrorEnum(ISOSStackRefErrorEnum rawEnumerator)
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
+        public SOSStackRefErrorEnum(ISOSStackRefErrorEnum raw)
         {
-            this.rawEnumerator = rawEnumerator;
+            Raw = raw;
         }
 
         public void Reset()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return;
 
-            rawEnumerator.Reset();
+            Raw.Reset();
             Current = default(SOSStackRefError);
         }
 
@@ -40,12 +40,12 @@ namespace ClrDebug
 
         public bool MoveNext()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return false;
 
             int fetched;
             SOSStackRefError result;
-            var hr = rawEnumerator.Next(1, out result, out fetched);
+            var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
                 Current = result;

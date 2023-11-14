@@ -1,9 +1,9 @@
-﻿namespace ClrDebug.DbgEng
+﻿namespace ClrDebug.DIA
 {
     /// <summary>
     /// Specifies the type of a symbol.
     /// </summary>
-    public enum SymTag : uint
+    public enum SymTagEnum : uint
     {
         /// <summary>
         /// Indicates that the symbol has no type.
@@ -201,6 +201,9 @@
         Export,              // 39
         HeapAllocationSite,  // 40
         CoffGroup,           // 41
+
+        Inlinee,             // 42
+        TaggedUnionCase,     // 43
 
         SymTagMax,
     }

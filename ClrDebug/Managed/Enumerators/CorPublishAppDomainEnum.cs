@@ -11,33 +11,33 @@ namespace ClrDebug
     /// </remarks>
     public class CorPublishAppDomainEnum : IEnumerable<CorPublishAppDomain>, IEnumerator<CorPublishAppDomain>
     {
-        private ICorPublishAppDomainEnum rawEnumerator;
+        public ICorPublishAppDomainEnum Raw { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CorPublishAppDomainEnum"/> class.
         /// </summary>
-        /// <param name="rawEnumerator">The raw COM interface that should be contained in this object.</param>
-        public CorPublishAppDomainEnum(ICorPublishAppDomainEnum rawEnumerator)
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
+        public CorPublishAppDomainEnum(ICorPublishAppDomainEnum raw)
         {
-            this.rawEnumerator = rawEnumerator;
+            Raw = raw;
         }
 
         public void Reset()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return;
 
-            rawEnumerator.Reset();
+            Raw.Reset();
             Current = default(CorPublishAppDomain);
         }
 
         public CorPublishAppDomainEnum Clone()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return this;
 
             ICorPublishEnum clone;
-            rawEnumerator.Clone(out clone);
+            Raw.Clone(out clone);
 
             return new CorPublishAppDomainEnum((ICorPublishAppDomainEnum) clone);
         }
@@ -57,12 +57,12 @@ namespace ClrDebug
 
         public bool MoveNext()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return false;
 
             int fetched;
             ICorPublishAppDomain result;
-            var hr = rawEnumerator.Next(1, out result, out fetched);
+            var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
                 Current = new CorPublishAppDomain(result);

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
+    [DebuggerDisplay("size = {size.ToString(),nq}, hostfxr_version = {hostfxr_version}, hostfxr_commit_hash = {hostfxr_commit_hash}, sdk_count = {sdk_count.ToString(),nq}, sdks = {sdks.ToString(),nq}, framework_count = {framework_count.ToString(),nq}, frameworks = {frameworks.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public unsafe struct hostfxr_dotnet_environment_info
     {
@@ -35,6 +37,7 @@ namespace ClrDebug
         }
     }
 
+    [DebuggerDisplay("size = {size.ToString(),nq}, hostfxr_version = {hostfxr_version}, hostfxr_commit_hash = {hostfxr_commit_hash}, sdk_count = {sdk_count.ToString(),nq}, sdks = {sdks.ToString(),nq}, framework_count = {framework_count.ToString(),nq}, frameworks = {frameworks.ToString(),nq}")]
     public struct HostFxrDotnetEnvironmentInfo
     {
         public IntPtr size;

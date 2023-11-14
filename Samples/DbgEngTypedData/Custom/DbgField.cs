@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using ClrDebug.DbgEng;
+using ClrDebug.DIA;
 
 namespace DbgEngTypedData.Custom
 {
@@ -25,7 +26,7 @@ namespace DbgEngTypedData.Custom
 
         public static DbgField New(long address, DbgFieldInfo info, DbgObject parent)
         {
-            if (info.Type.Tag == SymTag.BaseType)
+            if (info.Type.Tag == SymTagEnum.BaseType)
                 return new DbgField(address, info, parent, GetSimpleValue(address, info));
             else
             {

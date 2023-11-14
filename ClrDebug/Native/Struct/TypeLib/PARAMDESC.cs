@@ -10,9 +10,10 @@ namespace ClrDebug.TypeLib
     public unsafe struct PARAMDESC
     {
         /// <summary>
-        /// The default value for the parameter, if <see cref="PARAMFLAG.PARAMFLAG_FHASDEFAULT"/> is specified in wParamFlags.
+        /// The default value for the parameter, if <see cref="PARAMFLAG.PARAMFLAG_FHASDEFAULT"/> is specified in wParamFlags.<para/>
+        /// This value is a pointer to a <see cref="PARAMDESCEX"/>.
         /// </summary>
-        public IntPtr pparamdescex; //PARAMDESCEX
+        public IntPtr pparamdescex; //Can't be PARAMDESCEX as it contains an "object" field for the VARIANTARG
 
         /// <summary>
         /// Represents bitmask values that describe the structure element, parameter, or return value.

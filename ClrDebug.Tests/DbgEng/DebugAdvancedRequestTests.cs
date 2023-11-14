@@ -1,5 +1,6 @@
 ﻿using System;
 using ClrDebug.DbgEng;
+using ClrDebug.DIA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ClrDebug.Tests.DbgEng
@@ -47,7 +48,7 @@ namespace ClrDebug.Tests.DbgEng
 
             var result = Requests.ExtTypedDataAnsi().SetFromExpr("(ntdll!_PEB*)@$peb");
 
-            Assert.AreEqual(SymTag.PointerType, result.Tag);
+            Assert.AreEqual(SymTagEnum.PointerType, result.Tag);
         }
     }
 }

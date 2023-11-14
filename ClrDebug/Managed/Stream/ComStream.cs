@@ -144,18 +144,18 @@
         #endregion
         #region Stat
 
-        public tagSTATSTG Stat(STATFLAG grfStatFlag)
+        public STATSTG Stat(STATFLAG grfStatFlag)
         {
-            tagSTATSTG pstatstg;
+            STATSTG pstatstg;
             TryStat(out pstatstg, grfStatFlag).ThrowOnNotOK();
 
             return pstatstg;
         }
 
-        public HRESULT TryStat(out tagSTATSTG pstatstg, STATFLAG grfStatFlag)
+        public HRESULT TryStat(out STATSTG pstatstg, STATFLAG grfStatFlag)
         {
             /*HRESULT Stat(
-            [Out] out tagSTATSTG pstatstg,
+            [Out] out STATSTG pstatstg,
             [In] STATFLAG grfStatFlag);*/
             return Raw.Stat(out pstatstg, grfStatFlag);
         }

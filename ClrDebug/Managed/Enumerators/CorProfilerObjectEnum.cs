@@ -14,33 +14,62 @@ namespace ClrDebug
     /// </remarks>
     public class CorProfilerObjectEnum : IEnumerable<ObjectID>, IEnumerator<ObjectID>
     {
-        private ICorProfilerObjectEnum rawEnumerator;
+        public ICorProfilerObjectEnum Raw { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CorProfilerObjectEnum"/> class.
         /// </summary>
-        /// <param name="rawEnumerator">The raw COM interface that should be contained in this object.</param>
-        public CorProfilerObjectEnum(ICorProfilerObjectEnum rawEnumerator)
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
+        public CorProfilerObjectEnum(ICorProfilerObjectEnum raw)
         {
-            this.rawEnumerator = rawEnumerator;
+            Raw = raw;
         }
+
+        #region Count
+
+        /// <summary>
+        /// Gets the total number of frozen objects in the collection.
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                int pcelt;
+                TryGetCount(out pcelt).ThrowOnNotOK();
+
+                return pcelt;
+            }
+        }
+
+        /// <summary>
+        /// Gets the total number of frozen objects in the collection.
+        /// </summary>
+        /// <param name="pcelt">[out] A pointer to the number of frozen objects in the collection. This method will always return zero in the .NET Framework version 3.5 Service Pack 1 (SP1) and later versions.</param>
+        public HRESULT TryGetCount(out int pcelt)
+        {
+            /*HRESULT GetCount(
+            [Out] out int pcelt);*/
+            return Raw.GetCount(out pcelt);
+        }
+
+        #endregion
 
         public void Reset()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return;
 
-            rawEnumerator.Reset();
+            Raw.Reset();
             Current = default(ObjectID);
         }
 
         public CorProfilerObjectEnum Clone()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return this;
 
             ICorProfilerObjectEnum clone;
-            rawEnumerator.Clone(out clone);
+            Raw.Clone(out clone);
 
             return new CorProfilerObjectEnum(clone);
         }
@@ -60,12 +89,12 @@ namespace ClrDebug
 
         public bool MoveNext()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return false;
 
             int fetched;
             ObjectID result;
-            var hr = rawEnumerator.Next(1, out result, out fetched);
+            var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
                 Current = result;

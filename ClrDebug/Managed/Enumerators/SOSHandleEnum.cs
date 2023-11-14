@@ -5,23 +5,23 @@ namespace ClrDebug
 {
     public class SOSHandleEnum : IEnumerable<SOSHandleData>, IEnumerator<SOSHandleData>
     {
-        private ISOSHandleEnum rawEnumerator;
+        public ISOSHandleEnum Raw { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SOSHandleEnum"/> class.
         /// </summary>
-        /// <param name="rawEnumerator">The raw COM interface that should be contained in this object.</param>
-        public SOSHandleEnum(ISOSHandleEnum rawEnumerator)
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
+        public SOSHandleEnum(ISOSHandleEnum raw)
         {
-            this.rawEnumerator = rawEnumerator;
+            Raw = raw;
         }
 
         public void Reset()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return;
 
-            rawEnumerator.Reset();
+            Raw.Reset();
             Current = default(SOSHandleData);
         }
 
@@ -40,12 +40,12 @@ namespace ClrDebug
 
         public bool MoveNext()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return false;
 
             int fetched;
             SOSHandleData result;
-            var hr = rawEnumerator.Next(1, out result, out fetched);
+            var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
                 Current = result;

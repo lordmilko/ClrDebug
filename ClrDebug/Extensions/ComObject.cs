@@ -5,6 +5,9 @@ namespace ClrDebug
 {
     public class ComObject<T> : IEquatable<ComObject<T>>
     {
+        /// <summary>
+        /// Gets the RCW that this object encapsulates.
+        /// </summary>
         public T Raw { get; }
 
         protected ComObject(T raw)

@@ -68,7 +68,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT Stat(
-            [Out] out tagSTATSTG pstatstg,
+            [Out] out STATSTG pstatstg,
             [In] STATFLAG grfStatFlag);
 
         [PreserveSig]

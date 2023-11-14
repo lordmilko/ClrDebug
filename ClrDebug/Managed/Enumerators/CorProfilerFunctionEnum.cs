@@ -15,33 +15,62 @@ namespace ClrDebug
     /// </remarks>
     public class CorProfilerFunctionEnum : IEnumerable<COR_PRF_FUNCTION>, IEnumerator<COR_PRF_FUNCTION>
     {
-        private ICorProfilerFunctionEnum rawEnumerator;
+        public ICorProfilerFunctionEnum Raw { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CorProfilerFunctionEnum"/> class.
         /// </summary>
-        /// <param name="rawEnumerator">The raw COM interface that should be contained in this object.</param>
-        public CorProfilerFunctionEnum(ICorProfilerFunctionEnum rawEnumerator)
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
+        public CorProfilerFunctionEnum(ICorProfilerFunctionEnum raw)
         {
-            this.rawEnumerator = rawEnumerator;
+            Raw = raw;
         }
+
+        #region Count
+
+        /// <summary>
+        /// Gets the number of functions that were loaded by the application or forcibly loaded by the profiler.
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                int pcelt;
+                TryGetCount(out pcelt).ThrowOnNotOK();
+
+                return pcelt;
+            }
+        }
+
+        /// <summary>
+        /// Gets the number of functions that were loaded by the application or forcibly loaded by the profiler.
+        /// </summary>
+        /// <param name="pcelt">[out] The number of functions that were loaded.</param>
+        public HRESULT TryGetCount(out int pcelt)
+        {
+            /*HRESULT GetCount(
+            [Out] out int pcelt);*/
+            return Raw.GetCount(out pcelt);
+        }
+
+        #endregion
 
         public void Reset()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return;
 
-            rawEnumerator.Reset();
+            Raw.Reset();
             Current = default(COR_PRF_FUNCTION);
         }
 
         public CorProfilerFunctionEnum Clone()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return this;
 
             ICorProfilerFunctionEnum clone;
-            rawEnumerator.Clone(out clone);
+            Raw.Clone(out clone);
 
             return new CorProfilerFunctionEnum(clone);
         }
@@ -61,12 +90,12 @@ namespace ClrDebug
 
         public bool MoveNext()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return false;
 
             int fetched;
             COR_PRF_FUNCTION result;
-            var hr = rawEnumerator.Next(1, out result, out fetched);
+            var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
                 Current = result;

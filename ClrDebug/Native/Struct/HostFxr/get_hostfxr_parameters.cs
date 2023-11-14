@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug
@@ -6,6 +7,7 @@ namespace ClrDebug
     /// <summary>
     /// Parameters for <see cref="get_hostfxr_path_fn"/> 
     /// </summary>
+    [DebuggerDisplay("size = {size.ToString(),nq}, assembly_path = {assembly_path}, dotnet_root = {dotnet_root}")]
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public partial struct get_hostfxr_parameters
     {

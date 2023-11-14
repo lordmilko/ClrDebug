@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using ClrDebug.DIA;
 
 namespace ClrDebug.DbgEng
 {
@@ -59,7 +60,7 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The symbol tag for the type of the symbol. This is a value from the SymTagEnum enumeration.
         /// </summary>
-        public SymTag Tag;
+        public SymTagEnum Tag;
 
         /// <summary>
         /// The interpretation of Arg32 depends on the type of the symbol. Currently, the value of Arg32 is the register that holds the value or a pointer to the value of the symbol.<para/>

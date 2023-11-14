@@ -13,33 +13,62 @@ namespace ClrDebug
     /// </remarks>
     public class CorProfilerThreadEnum : IEnumerable<ThreadID>, IEnumerator<ThreadID>
     {
-        private ICorProfilerThreadEnum rawEnumerator;
+        public ICorProfilerThreadEnum Raw { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CorProfilerThreadEnum"/> class.
         /// </summary>
-        /// <param name="rawEnumerator">The raw COM interface that should be contained in this object.</param>
-        public CorProfilerThreadEnum(ICorProfilerThreadEnum rawEnumerator)
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
+        public CorProfilerThreadEnum(ICorProfilerThreadEnum raw)
         {
-            this.rawEnumerator = rawEnumerator;
+            Raw = raw;
         }
+
+        #region Count
+
+        /// <summary>
+        /// Gets the number of threads that are used by the application.
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                int pcelt;
+                TryGetCount(out pcelt).ThrowOnNotOK();
+
+                return pcelt;
+            }
+        }
+
+        /// <summary>
+        /// Gets the number of threads that are used by the application.
+        /// </summary>
+        /// <param name="pcelt">[out] The number of threads used by the application.</param>
+        public HRESULT TryGetCount(out int pcelt)
+        {
+            /*HRESULT GetCount(
+            [Out] out int pcelt);*/
+            return Raw.GetCount(out pcelt);
+        }
+
+        #endregion
 
         public void Reset()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return;
 
-            rawEnumerator.Reset();
+            Raw.Reset();
             Current = default(ThreadID);
         }
 
         public CorProfilerThreadEnum Clone()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return this;
 
             ICorProfilerThreadEnum clone;
-            rawEnumerator.Clone(out clone);
+            Raw.Clone(out clone);
 
             return new CorProfilerThreadEnum(clone);
         }
@@ -59,12 +88,12 @@ namespace ClrDebug
 
         public bool MoveNext()
         {
-            if (rawEnumerator == null)
+            if (Raw == null)
                 return false;
 
             int fetched;
             ThreadID result;
-            var hr = rawEnumerator.Next(1, out result, out fetched);
+            var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
                 Current = result;

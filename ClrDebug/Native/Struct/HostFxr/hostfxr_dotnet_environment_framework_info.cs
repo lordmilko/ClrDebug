@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
+    [DebuggerDisplay("size = {size.ToString(),nq}, name = {name}, version = {version}, path = {path}")]
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public struct hostfxr_dotnet_environment_framework_info
     {
@@ -25,6 +27,7 @@ namespace ClrDebug
         }
     }
 
+    [DebuggerDisplay("size = {size.ToString(),nq}, name = {name}, version = {version}, path = {path}")]
     public struct HostFxrDotnetEnvironmentFrameworkInfo
     {
         public IntPtr size;

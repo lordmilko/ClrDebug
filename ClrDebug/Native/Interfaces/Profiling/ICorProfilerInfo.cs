@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
@@ -45,7 +44,6 @@ namespace ClrDebug
     /// interface to get information about managed code being executed under the control of the CLR.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [ComConversionLoss]
     [Guid("28B5557D-3F3F-48B4-90B2-5F9EEA2F6C48")]
 #if !GENERATED_MARSHALLING
     [ComImport]

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
@@ -28,7 +27,6 @@ namespace ClrDebug
     /// call methods of the ICorProfilerInfo2 interface to get information about managed code being executed under the
     /// control of the CLR.
     /// </remarks>
-    [ComConversionLoss]
     [Guid("CC0935CD-A518-487D-B0BB-A93214E65478")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 #if !GENERATED_MARSHALLING

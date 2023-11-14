@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
@@ -12,7 +11,6 @@ namespace ClrDebug
     /// A subclass of <see cref="ICorProfilerInfo7"/> that provides methods to query information about dynamic methods.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [ComConversionLoss]
     [Guid("C5AC80A6-782E-4716-8044-39598C60CFBF")]
 #if !GENERATED_MARSHALLING
     [ComImport]

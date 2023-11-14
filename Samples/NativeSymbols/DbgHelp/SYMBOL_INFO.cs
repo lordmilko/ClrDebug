@@ -1,5 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-using ClrDebug.DbgEng;
+using ClrDebug.DIA;
 
 namespace NativeSymbols
 {
@@ -17,7 +17,7 @@ namespace NativeSymbols
         public ulong Address;         // Address of symbol including base address of module
         public int Register;        // register holding value or pointer to value
         public int Scope;           // scope of the symbol
-        public SymTag Tag;             // pdb classification
+        public SymTagEnum Tag;             // pdb classification
         public int NameLen;         // Actual length of name
         public int MaxNameLen;
         public fixed byte Name[1];       // Name of symbol

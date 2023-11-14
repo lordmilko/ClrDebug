@@ -458,8 +458,7 @@ namespace ClrDebug
         /// For a specified IL offset, gets the native offsets where a breakpoint should be placed so that the debugger can obtain the return value from a function.
         /// </summary>
         /// <param name="ilOffset">The IL offset. It must be a function call site or the function call will fail.</param>
-        /// <param name="bufferSize">The number of bytes available to store pOffsets.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <returns>An array of native offsets. Typically, pOffsets contains a single offset, although a single IL instruction can map to multiple map to multiple CALL assembly instructions.</returns>
         /// <remarks>
         /// This method is used along with the <see cref="CorDebugILFrame.GetReturnValueForILOffset"/> method to get the
         /// return value of a method that returns a reference type. Passing an IL offset to a function call site to this method
@@ -469,20 +468,19 @@ namespace ClrDebug
         /// then clear all the breakpoints that it set. The function returns the <see cref="HRESULT"/> values shown in the following table.
         /// The <see cref="GetReturnValueLiveOffset"/> method is available only on x86-based and AMD64 systems.
         /// </remarks>
-        public GetReturnValueLiveOffsetResult GetReturnValueLiveOffset(int ilOffset, int bufferSize)
+        public int[] GetReturnValueLiveOffset(int ilOffset)
         {
-            GetReturnValueLiveOffsetResult result;
-            TryGetReturnValueLiveOffset(ilOffset, bufferSize, out result).ThrowOnNotOK();
+            int[] pOffsets;
+            TryGetReturnValueLiveOffset(ilOffset, out pOffsets).ThrowOnNotOK();
 
-            return result;
+            return pOffsets;
         }
 
         /// <summary>
         /// For a specified IL offset, gets the native offsets where a breakpoint should be placed so that the debugger can obtain the return value from a function.
         /// </summary>
         /// <param name="ilOffset">The IL offset. It must be a function call site or the function call will fail.</param>
-        /// <param name="bufferSize">The number of bytes available to store pOffsets.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="pOffsets">An array of native offsets. Typically, pOffsets contains a single offset, although a single IL instruction can map to multiple map to multiple CALL assembly instructions.</param>
         /// <remarks>
         /// This method is used along with the <see cref="CorDebugILFrame.GetReturnValueForILOffset"/> method to get the
         /// return value of a method that returns a reference type. Passing an IL offset to a function call site to this method
@@ -492,22 +490,25 @@ namespace ClrDebug
         /// then clear all the breakpoints that it set. The function returns the <see cref="HRESULT"/> values shown in the following table.
         /// The <see cref="GetReturnValueLiveOffset"/> method is available only on x86-based and AMD64 systems.
         /// </remarks>
-        public HRESULT TryGetReturnValueLiveOffset(int ilOffset, int bufferSize, out GetReturnValueLiveOffsetResult result)
+        public HRESULT TryGetReturnValueLiveOffset(int ilOffset, out int[] pOffsets)
         {
             /*HRESULT GetReturnValueLiveOffset(
             [In] int ilOffset,
             [In] int bufferSize,
             [Out] out int pFetched,
-            [Out] int pOffsets);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pOffsets);*/
+            int bufferSize = 0;
             int pFetched;
-            int pOffsets = default(int);
-            HRESULT hr = Raw3.GetReturnValueLiveOffset(ilOffset, bufferSize, out pFetched, pOffsets);
+            pOffsets = null;
+            HRESULT hr = Raw3.GetReturnValueLiveOffset(ilOffset, bufferSize, out pFetched, null);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetReturnValueLiveOffsetResult(pFetched, pOffsets);
-            else
-                result = default(GetReturnValueLiveOffsetResult);
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
 
+            bufferSize = pFetched;
+            pOffsets = new int[bufferSize];
+            hr = Raw3.GetReturnValueLiveOffset(ilOffset, bufferSize, out pFetched, pOffsets);
+            fail:
             return hr;
         }
 
