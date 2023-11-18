@@ -2,13 +2,33 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Per-dump-format control flags.
+    /// </summary>
     [Flags]
     public enum DEBUG_FORMAT : uint
     {
         DEFAULT = 0x00000000,
+
+        /// <summary>
+        /// When creating a CAB with secondary images do searches for all image files, regardless
+        /// of whether they're needed for the current session or not.
+        /// </summary>
         CAB_SECONDARY_ALL_IMAGES = 0x10000000,
+
+        /// <summary>
+        /// Write dump to a temporary file, then package it into a CAB file and delete the temporary file.
+        /// </summary>
         WRITE_CAB = 0x20000000,
+
+        /// <summary>
+        /// When creating a CAB add secondary files such as current symbols and mapped images.
+        /// </summary>
         CAB_SECONDARY_FILES = 0x40000000,
+
+        /// <summary>
+        /// Don't overwrite existing files.
+        /// </summary>
         NO_OVERWRITE = 0x80000000,
 
         USER_SMALL_FULL_MEMORY = 0x00000001,

@@ -2,6 +2,9 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Log file flags.
+    /// </summary>
     [Flags]
     public enum DEBUG_LOG : uint
     {

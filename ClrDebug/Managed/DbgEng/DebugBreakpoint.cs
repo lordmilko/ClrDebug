@@ -453,7 +453,7 @@ namespace ClrDebug.DbgEng
         /// <returns>This method can also return other error values. For more information, see Return Values.</returns>
         /// <remarks>
         /// If you have set a thread for the breakpoint, the breakpoint can be triggered only if that thread hits the breakpoint.
-        /// If you have not set a thread , any thread can trigger the breakpoint and Id receives NULL. The <see cref="Parameters"/>
+        /// If you have not set a thread, any thread can trigger the breakpoint and Id receives NULL. The <see cref="Parameters"/>
         /// property also returns the engine thread ID of the thread that can trigger the breakpoint. For more information about
         /// breakpoint properties, see Controlling Breakpoint Flags and Parameters.
         /// </remarks>

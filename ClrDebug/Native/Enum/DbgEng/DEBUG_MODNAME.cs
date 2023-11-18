@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// GetModuleNameString strings.
+    /// </summary>
     public enum DEBUG_MODNAME : uint
     {
         IMAGE = 0x00000000, //the full path to the file

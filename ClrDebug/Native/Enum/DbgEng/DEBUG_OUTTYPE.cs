@@ -2,6 +2,9 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Typed data output control flags.
+    /// </summary>
     [Flags]
     public enum DEBUG_OUTTYPE
     {

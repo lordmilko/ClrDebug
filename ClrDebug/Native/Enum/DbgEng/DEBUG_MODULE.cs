@@ -2,6 +2,9 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Information about a module.
+    /// </summary>
     [Flags]
     public enum DEBUG_MODULE : uint
     {

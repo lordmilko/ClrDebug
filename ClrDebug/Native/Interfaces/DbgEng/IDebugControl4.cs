@@ -2910,7 +2910,7 @@ namespace ClrDebug.DbgEng
             [Out] out int ExtraInformationUsed);
 
         /// <summary>
-        /// Provides feedback on the engine'suse of the runtime debugging APIs provided by the common language runtime (CLR).
+        /// Provides feedback on the engine's use of the runtime debugging APIs provided by the common language runtime (CLR).
         /// </summary>
         /// <param name="Flags">[out, optional] A pointer to flags from the debugging APIs.</param>
         /// <param name="WhichString">[in] A value that controls which string to use.</param>
@@ -2927,7 +2927,7 @@ namespace ClrDebug.DbgEng
             [Out] out int StringNeeded);
 
         /// <summary>
-        /// Provides feedback as a Unicode character string on the engine'suse of the runtime debugging APIs provided by the common language runtime (CLR).
+        /// Provides feedback as a Unicode character string on the engine's use of the runtime debugging APIs provided by the common language runtime (CLR).
         /// </summary>
         /// <param name="Flags">[out, optional] A pointer to flags from the debugging APIs.</param>
         /// <param name="WhichString">[in] A value that controls which string to use.</param>

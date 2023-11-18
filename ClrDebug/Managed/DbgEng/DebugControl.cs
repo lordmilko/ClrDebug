@@ -7519,7 +7519,7 @@ namespace ClrDebug.DbgEng
         #region GetManagedStatus
 
         /// <summary>
-        /// Provides feedback on the engine'suse of the runtime debugging APIs provided by the common language runtime (CLR).
+        /// Provides feedback on the engine's use of the runtime debugging APIs provided by the common language runtime (CLR).
         /// </summary>
         /// <param name="whichString">[in] A value that controls which string to use.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
@@ -7532,7 +7532,7 @@ namespace ClrDebug.DbgEng
         }
 
         /// <summary>
-        /// Provides feedback on the engine'suse of the runtime debugging APIs provided by the common language runtime (CLR).
+        /// Provides feedback on the engine's use of the runtime debugging APIs provided by the common language runtime (CLR).
         /// </summary>
         /// <param name="whichString">[in] A value that controls which string to use.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
@@ -7576,7 +7576,7 @@ namespace ClrDebug.DbgEng
         #region GetManagedStatusWide
 
         /// <summary>
-        /// Provides feedback as a Unicode character string on the engine'suse of the runtime debugging APIs provided by the common language runtime (CLR).
+        /// Provides feedback as a Unicode character string on the engine's use of the runtime debugging APIs provided by the common language runtime (CLR).
         /// </summary>
         /// <param name="whichString">[in] A value that controls which string to use.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
@@ -7589,7 +7589,7 @@ namespace ClrDebug.DbgEng
         }
 
         /// <summary>
-        /// Provides feedback as a Unicode character string on the engine'suse of the runtime debugging APIs provided by the common language runtime (CLR).
+        /// Provides feedback as a Unicode character string on the engine's use of the runtime debugging APIs provided by the common language runtime (CLR).
         /// </summary>
         /// <param name="whichString">[in] A value that controls which string to use.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>

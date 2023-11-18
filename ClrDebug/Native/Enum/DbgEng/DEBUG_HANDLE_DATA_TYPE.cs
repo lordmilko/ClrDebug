@@ -15,5 +15,8 @@
         ALL_HANDLE_OPERATIONS = 10,
         MINI_PROCESS_1 = 11,
         MINI_PROCESS_2 = 12,
+        MINI_EVENT_1 = 13,
+        MINI_SECTION_1 = 14,
+        MINI_SEMAPHORE_1 = 15
     }
 }

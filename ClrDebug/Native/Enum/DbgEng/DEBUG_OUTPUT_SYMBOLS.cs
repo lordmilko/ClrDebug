@@ -2,6 +2,10 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// OutputSymbols flags.
+    /// Default output contains &lt;Name&gt;**NAME**&lt;Offset&gt;**OFF**&lt;Value&gt;**VALUE**&lt;Type&gt;**TYPE**
+    /// </summary>
     [Flags]
     public enum DEBUG_OUTPUT_SYMBOLS
     {

@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Data space indices for callbacks and other methods.
+    /// </summary>
     public enum DEBUG_DATA_SPACE : uint
     {
         VIRTUAL = 0,

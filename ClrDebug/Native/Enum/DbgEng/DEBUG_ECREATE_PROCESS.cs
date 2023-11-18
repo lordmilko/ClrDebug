@@ -2,6 +2,9 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Process creation flags specific to the debugger engine.
+    /// </summary>
     [Flags]
     public enum DEBUG_ECREATE_PROCESS : uint
     {
