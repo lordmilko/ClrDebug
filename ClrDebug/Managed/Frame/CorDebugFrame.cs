@@ -9,6 +9,9 @@ namespace ClrDebug
     {
         public static CorDebugFrame New(ICorDebugFrame value)
         {
+            if (value == null)
+                return null;
+
             if (value is ICorDebugILFrame)
                 return new CorDebugILFrame((ICorDebugILFrame) value);
 

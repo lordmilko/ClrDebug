@@ -15,6 +15,9 @@ namespace ClrDebug
     {
         public static CorDebugController New(ICorDebugController value)
         {
+            if (value == null)
+                return null;
+
             if (value is ICorDebugAppDomain)
                 return new CorDebugAppDomain((ICorDebugAppDomain) value);
 

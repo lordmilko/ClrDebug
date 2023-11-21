@@ -34,6 +34,10 @@ namespace ClrDebug
             rawController = controller;
         }
 
+        /// <summary>
+        /// Gets or sets whether <see cref="CorDebugController.Continue(bool)"/> should be called at the end of processing this event. By default this value is <see langword="true"/>.<para/>
+        /// This property is merely provided for the convenience of your event handler. It is your responsibility to ultimately hook up the call to <see cref="CorDebugController.Continue(bool)"/>.
+        /// </summary>
         public bool Continue { get; set; } = true;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug
@@ -53,6 +54,7 @@ namespace ClrDebug
         }
     }
 
+    [DebuggerDisplay("Handle = {Handle.ToString(),nq}, Path = {Path}")]
     public struct EnumerateCLRsResultItem
     {
         public IntPtr Handle { get; }

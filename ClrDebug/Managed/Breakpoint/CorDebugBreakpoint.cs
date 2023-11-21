@@ -14,6 +14,9 @@ namespace ClrDebug
     {
         public static CorDebugBreakpoint New(ICorDebugBreakpoint value)
         {
+            if (value == null)
+                return null;
+
             if (value is ICorDebugFunctionBreakpoint)
                 return new CorDebugFunctionBreakpoint((ICorDebugFunctionBreakpoint) value);
 

@@ -12,7 +12,7 @@ namespace ClrDebug
         private CorDebugAppDomain appDomain;
 
         /// <summary>
-        /// A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that contains the break instruction.
+        /// A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that this event pertains to.
         /// </summary>
         public CorDebugAppDomain AppDomain
         {
@@ -34,7 +34,7 @@ namespace ClrDebug
         private CorDebugThread thread;
 
         /// <summary>
-        /// A pointer to an <see cref="ICorDebugThread"/> object that represents the thread that contains the break instruction.
+        /// A pointer to an <see cref="ICorDebugThread"/> object that represents the thread that this event pertains to.
         /// </summary>
         public CorDebugThread Thread
         {

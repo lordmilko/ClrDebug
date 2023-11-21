@@ -11,6 +11,9 @@ namespace ClrDebug
     {
         public static CorDebugHeapValue New(ICorDebugHeapValue value)
         {
+            if (value == null)
+                return null;
+
             if (value is ICorDebugArrayValue)
                 return new CorDebugArrayValue((ICorDebugArrayValue) value);
 

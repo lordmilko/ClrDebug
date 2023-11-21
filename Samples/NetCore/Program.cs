@@ -41,7 +41,8 @@ namespace NetCore
             /* The disadvantage of using CreateProcessForLaunch is that you can't specify CreateProcessFlags
              * like CREATE_NEW_CONSOLE. If the process is allowed to fully start before GetStartupNotificationEvent() is called,
              * WaitForSingleObject() will never trigger the event. As such it's a good idea to start the process suspended, and only resume
-             * it after the notification event is in place */
+             * it after the notification event is in place. The values emitted from this function are the dwProcessId
+             * and hThread from the PROCESS_INFORMATION */
             var process = dbgshim.CreateProcessForLaunch(dbgTargetPath, true);
 
             try

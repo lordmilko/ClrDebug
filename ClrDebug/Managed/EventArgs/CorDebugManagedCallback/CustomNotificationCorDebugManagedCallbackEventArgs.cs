@@ -11,6 +11,7 @@ namespace ClrDebug
         /// Gets the type of callback event that occurred.
         /// </summary>
         public override CorDebugManagedCallbackKind Kind => CorDebugManagedCallbackKind.CustomNotification;
+
         /// <summary>
         /// Indicates that a custom debugger notification has been raised.
         /// </summary>

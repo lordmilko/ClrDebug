@@ -47,7 +47,7 @@ namespace ClrDebug.DbgEng
 
         /// <summary>
         /// Engine options have changed.<para/>
-        /// Argument is the new options value.
+        /// Argument is the new <see cref="DEBUG_ENGOPT"/> value.
         /// </summary>
         ENGINE_OPTIONS = 0x20,
 

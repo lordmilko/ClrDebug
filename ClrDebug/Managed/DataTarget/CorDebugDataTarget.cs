@@ -18,6 +18,9 @@ namespace ClrDebug
     {
         public static CorDebugDataTarget New(ICorDebugDataTarget value)
         {
+            if (value == null)
+                return null;
+
             if (value is ICorDebugMutableDataTarget)
                 return new CorDebugMutableDataTarget((ICorDebugMutableDataTarget) value);
 

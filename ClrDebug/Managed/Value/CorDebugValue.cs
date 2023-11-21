@@ -16,6 +16,9 @@ namespace ClrDebug
     {
         public static CorDebugValue New(ICorDebugValue value)
         {
+            if (value == null)
+                return null;
+
             if (value is ICorDebugGenericValue)
                 return new CorDebugGenericValue((ICorDebugGenericValue) value);
 

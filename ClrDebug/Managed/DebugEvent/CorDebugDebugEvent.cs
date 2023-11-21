@@ -12,6 +12,9 @@ namespace ClrDebug
     {
         public static CorDebugDebugEvent New(ICorDebugDebugEvent value)
         {
+            if (value == null)
+                return null;
+
             if (value is ICorDebugExceptionDebugEvent)
                 return new CorDebugExceptionDebugEvent((ICorDebugExceptionDebugEvent) value);
 

@@ -6,6 +6,9 @@ namespace ClrDebug
     {
         public static SequentialStream New(ISequentialStream value)
         {
+            if (value == null)
+                return null;
+
             if (value is IStream)
                 return new ComStream((IStream) value);
 
