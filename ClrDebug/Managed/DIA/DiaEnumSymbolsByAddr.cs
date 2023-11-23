@@ -54,7 +54,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.symbolByAddr(isect, offset, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 
@@ -92,7 +92,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.symbolByRVA(relativeVirtualAddress, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 
@@ -130,7 +130,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.symbolByVA(virtualAddress, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 
@@ -176,7 +176,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.Next(celt, out rgelt, out pceltFetched);
 
             if (hr == HRESULT.S_OK)
-                result = new DiaEnumSymbolsByAddr_NextResult(new DiaSymbol(rgelt), pceltFetched);
+                result = new DiaEnumSymbolsByAddr_NextResult(rgelt == null ? null : new DiaSymbol(rgelt), pceltFetched);
             else
                 result = default(DiaEnumSymbolsByAddr_NextResult);
 
@@ -222,7 +222,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.Prev(celt, out rgelt, out pceltFetched);
 
             if (hr == HRESULT.S_OK)
-                result = new PrevResult(new DiaSymbol(rgelt), pceltFetched);
+                result = new PrevResult(rgelt == null ? null : new DiaSymbol(rgelt), pceltFetched);
             else
                 result = default(PrevResult);
 
@@ -257,7 +257,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.Clone(out ppenum);
 
             if (hr == HRESULT.S_OK)
-                ppenumResult = new DiaEnumSymbolsByAddr(ppenum);
+                ppenumResult = ppenum == null ? null : new DiaEnumSymbolsByAddr(ppenum);
             else
                 ppenumResult = default(DiaEnumSymbolsByAddr);
 
@@ -292,7 +292,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw2.symbolByAddrEx(fPromoteBlockSym, isect, offset, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 
@@ -320,7 +320,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw2.symbolByRVAEx(fPromoteBlockSym, relativeVirtualAddress, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 
@@ -348,7 +348,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw2.symbolByVAEx(fPromoteBlockSym, virtualAddress, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 
@@ -378,7 +378,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw2.NextEx(fPromoteBlockSym, celt, out rgelt, out pceltFetched);
 
             if (hr == HRESULT.S_OK)
-                result = new NextExResult(new DiaSymbol(rgelt), pceltFetched);
+                result = new NextExResult(rgelt == null ? null : new DiaSymbol(rgelt), pceltFetched);
             else
                 result = default(NextExResult);
 
@@ -408,7 +408,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw2.PrevEx(fPromoteBlockSym, celt, out rgelt, out pceltFetched);
 
             if (hr == HRESULT.S_OK)
-                result = new PrevExResult(new DiaSymbol(rgelt), pceltFetched);
+                result = new PrevExResult(rgelt == null ? null : new DiaSymbol(rgelt), pceltFetched);
             else
                 result = default(PrevExResult);
 

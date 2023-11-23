@@ -50,7 +50,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetProcess(out ppProcess);
 
             if (hr == HRESULT.S_OK)
-                ppProcessResult = new CorDebugProcess(ppProcess);
+                ppProcessResult = ppProcess == null ? null : new CorDebugProcess(ppProcess);
             else
                 ppProcessResult = default(CorDebugProcess);
 
@@ -250,7 +250,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateAssemblies(out ppAssemblies);
 
             if (hr == HRESULT.S_OK)
-                ppAssembliesResult = new CorDebugAssemblyEnum(ppAssemblies);
+                ppAssembliesResult = ppAssemblies == null ? null : new CorDebugAssemblyEnum(ppAssemblies);
             else
                 ppAssembliesResult = default(CorDebugAssemblyEnum);
 
@@ -287,7 +287,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetModuleFromMetaDataInterface(pIMetaData, out ppModule);
 
             if (hr == HRESULT.S_OK)
-                ppModuleResult = new CorDebugModule(ppModule);
+                ppModuleResult = ppModule == null ? null : new CorDebugModule(ppModule);
             else
                 ppModuleResult = default(CorDebugModule);
 
@@ -332,7 +332,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateBreakpoints(out ppBreakpoints);
 
             if (hr == HRESULT.S_OK)
-                ppBreakpointsResult = new CorDebugBreakpointEnum(ppBreakpoints);
+                ppBreakpointsResult = ppBreakpoints == null ? null : new CorDebugBreakpointEnum(ppBreakpoints);
             else
                 ppBreakpointsResult = default(CorDebugBreakpointEnum);
 
@@ -371,7 +371,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateSteppers(out ppSteppers);
 
             if (hr == HRESULT.S_OK)
-                ppSteppersResult = new CorDebugStepperEnum(ppSteppers);
+                ppSteppersResult = ppSteppers == null ? null : new CorDebugStepperEnum(ppSteppers);
             else
                 ppSteppersResult = default(CorDebugStepperEnum);
 
@@ -456,7 +456,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetArrayOrPointerType(elementType, nRank, pTypeArg, out ppType);
 
             if (hr == HRESULT.S_OK)
-                ppTypeResult = new CorDebugType(ppType);
+                ppTypeResult = ppType == null ? null : new CorDebugType(ppType);
             else
                 ppTypeResult = default(CorDebugType);
 
@@ -498,7 +498,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetFunctionPointerType(nTypeArgs, ref ppTypeArgs, out ppType);
 
             if (hr == HRESULT.S_OK)
-                ppTypeResult = new CorDebugType(ppType);
+                ppTypeResult = ppType == null ? null : new CorDebugType(ppType);
             else
                 ppTypeResult = default(CorDebugType);
 
@@ -540,7 +540,7 @@ namespace ClrDebug
             HRESULT hr = Raw3.GetCachedWinRTTypes(out ppGuidToTypeEnum);
 
             if (hr == HRESULT.S_OK)
-                ppGuidToTypeEnumResult = new CorDebugGuidToTypeEnum(ppGuidToTypeEnum);
+                ppGuidToTypeEnumResult = ppGuidToTypeEnum == null ? null : new CorDebugGuidToTypeEnum(ppGuidToTypeEnum);
             else
                 ppGuidToTypeEnumResult = default(CorDebugGuidToTypeEnum);
 
@@ -590,7 +590,7 @@ namespace ClrDebug
             HRESULT hr = Raw3.GetCachedWinRTTypesForIIDs(cReqTypes, iidsToResolve, out ppTypesEnum);
 
             if (hr == HRESULT.S_OK)
-                ppTypesEnumResult = new CorDebugTypeEnum(ppTypesEnum);
+                ppTypesEnumResult = ppTypesEnum == null ? null : new CorDebugTypeEnum(ppTypesEnum);
             else
                 ppTypesEnumResult = default(CorDebugTypeEnum);
 

@@ -67,7 +67,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetAppDomain(out appDomain);
 
             if (hr == HRESULT.S_OK)
-                appDomainResult = new XCLRDataAppDomain(appDomain);
+                appDomainResult = appDomain == null ? null : new XCLRDataAppDomain(appDomain);
             else
                 appDomainResult = default(XCLRDataAppDomain);
 
@@ -138,7 +138,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetMethodInstance(out method);
 
             if (hr == HRESULT.S_OK)
-                methodResult = new XCLRDataMethodInstance(method);
+                methodResult = method == null ? null : new XCLRDataMethodInstance(method);
             else
                 methodResult = default(XCLRDataMethodInstance);
 
@@ -221,7 +221,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetArgumentByIndexResult(new XCLRDataValue(arg), CreateString(name, nameLen));
+                result = new GetArgumentByIndexResult(arg == null ? null : new XCLRDataValue(arg), CreateString(name, nameLen));
 
                 return hr;
             }
@@ -266,7 +266,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLocalVariableByIndexResult(new XCLRDataValue(localVariable), CreateString(name, nameLen));
+                result = new GetLocalVariableByIndexResult(localVariable == null ? null : new XCLRDataValue(localVariable), CreateString(name, nameLen));
 
                 return hr;
             }
@@ -359,7 +359,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTypeArgumentByIndex(index, out typeArg);
 
             if (hr == HRESULT.S_OK)
-                typeArgResult = new XCLRDataTypeInstance(typeArg);
+                typeArgResult = typeArg == null ? null : new XCLRDataTypeInstance(typeArg);
             else
                 typeArgResult = default(XCLRDataTypeInstance);
 
@@ -394,7 +394,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetExactGenericArgsToken(out genericToken);
 
             if (hr == HRESULT.S_OK)
-                genericTokenResult = new XCLRDataValue(genericToken);
+                genericTokenResult = genericToken == null ? null : new XCLRDataValue(genericToken);
             else
                 genericTokenResult = default(XCLRDataValue);
 

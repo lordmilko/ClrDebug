@@ -45,7 +45,7 @@
             HRESULT hr = Raw.GetFunction(out ppFunction);
 
             if (hr == HRESULT.S_OK)
-                ppFunctionResult = new CorDebugFunction(ppFunction);
+                ppFunctionResult = ppFunction == null ? null : new CorDebugFunction(ppFunction);
             else
                 ppFunctionResult = default(CorDebugFunction);
 

@@ -46,7 +46,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetProcess(out ppProcess);
 
             if (hr == HRESULT.S_OK)
-                ppProcessResult = new CorDebugProcess(ppProcess);
+                ppProcessResult = ppProcess == null ? null : new CorDebugProcess(ppProcess);
             else
                 ppProcessResult = default(CorDebugProcess);
 
@@ -114,7 +114,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetAssembly(out ppAssembly);
 
             if (hr == HRESULT.S_OK)
-                ppAssemblyResult = new CorDebugAssembly(ppAssembly);
+                ppAssemblyResult = ppAssembly == null ? null : new CorDebugAssembly(ppAssembly);
             else
                 ppAssemblyResult = default(CorDebugAssembly);
 
@@ -205,7 +205,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetEditAndContinueSnapshot(out ppEditAndContinueSnapshot);
 
             if (hr == HRESULT.S_OK)
-                ppEditAndContinueSnapshotResult = new CorDebugEditAndContinueSnapshot(ppEditAndContinueSnapshot);
+                ppEditAndContinueSnapshotResult = ppEditAndContinueSnapshot == null ? null : new CorDebugEditAndContinueSnapshot(ppEditAndContinueSnapshot);
             else
                 ppEditAndContinueSnapshotResult = default(CorDebugEditAndContinueSnapshot);
 
@@ -458,7 +458,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetFunctionFromToken(methodDef, out ppFunction);
 
             if (hr == HRESULT.S_OK)
-                ppFunctionResult = new CorDebugFunction(ppFunction);
+                ppFunctionResult = ppFunction == null ? null : new CorDebugFunction(ppFunction);
             else
                 ppFunctionResult = default(CorDebugFunction);
 
@@ -491,7 +491,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetFunctionFromRVA(rva, out ppFunction);
 
             if (hr == HRESULT.S_OK)
-                ppFunctionResult = new CorDebugFunction(ppFunction);
+                ppFunctionResult = ppFunction == null ? null : new CorDebugFunction(ppFunction);
             else
                 ppFunctionResult = default(CorDebugFunction);
 
@@ -528,7 +528,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetClassFromToken(typeDef, out ppClass);
 
             if (hr == HRESULT.S_OK)
-                ppClassResult = new CorDebugClass(ppClass);
+                ppClassResult = ppClass == null ? null : new CorDebugClass(ppClass);
             else
                 ppClassResult = default(CorDebugClass);
 
@@ -560,7 +560,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CreateBreakpoint(out ppBreakpoint);
 
             if (hr == HRESULT.S_OK)
-                ppBreakpointResult = new CorDebugModuleBreakpoint(ppBreakpoint);
+                ppBreakpointResult = ppBreakpoint == null ? null : new CorDebugModuleBreakpoint(ppBreakpoint);
             else
                 ppBreakpointResult = default(CorDebugModuleBreakpoint);
 
@@ -847,7 +847,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.ResolveAssembly(tkAssemblyRef, out ppAssembly);
 
             if (hr == HRESULT.S_OK)
-                ppAssemblyResult = new CorDebugAssembly(ppAssembly);
+                ppAssemblyResult = ppAssembly == null ? null : new CorDebugAssembly(ppAssembly);
             else
                 ppAssemblyResult = default(CorDebugAssembly);
 

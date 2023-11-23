@@ -103,7 +103,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetRootScope(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedScope(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedScope(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedScope);
 
@@ -152,7 +152,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                paramsResult = @params.Select(v => new SymUnmanagedVariable(v)).ToArray();
+                paramsResult = @params.Select(v => v == null ? null : new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }
@@ -193,7 +193,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetNamespace(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedNamespace(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedNamespace(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedNamespace);
 
@@ -299,7 +299,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetScopeFromOffset(offset, out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedScope(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedScope(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedScope);
 

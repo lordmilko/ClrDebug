@@ -32,7 +32,7 @@
             HRESULT hr = Raw.GetTarget(out ppObject);
 
             if (hr == HRESULT.S_OK)
-                ppObjectResult = new CorDebugReferenceValue(ppObject);
+                ppObjectResult = ppObject == null ? null : new CorDebugReferenceValue(ppObject);
             else
                 ppObjectResult = default(CorDebugReferenceValue);
 
@@ -61,7 +61,7 @@
             HRESULT hr = Raw.GetFunction(out ppFunction);
 
             if (hr == HRESULT.S_OK)
-                ppFunctionResult = new CorDebugFunction(ppFunction);
+                ppFunctionResult = ppFunction == null ? null : new CorDebugFunction(ppFunction);
             else
                 ppFunctionResult = default(CorDebugFunction);
 

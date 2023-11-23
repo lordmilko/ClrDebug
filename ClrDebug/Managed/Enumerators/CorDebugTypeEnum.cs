@@ -62,7 +62,7 @@ namespace ClrDebug
             var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
-                Current = new CorDebugType(result);
+                Current = result == null ? null : new CorDebugType(result);
 
             return fetched == 1;
         }

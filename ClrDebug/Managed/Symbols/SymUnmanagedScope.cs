@@ -46,7 +46,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetMethod(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedMethod(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedMethod(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedMethod);
 
@@ -83,7 +83,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetParent(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedScope(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedScope(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedScope);
 
@@ -132,7 +132,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                childrenResult = children.Select(v => new SymUnmanagedScope(v)).ToArray();
+                childrenResult = children.Select(v => v == null ? null : new SymUnmanagedScope(v)).ToArray();
 
                 return hr;
             }
@@ -272,7 +272,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                localsResult = locals.Select(v => new SymUnmanagedVariable(v)).ToArray();
+                localsResult = locals.Select(v => v == null ? null : new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }
@@ -325,7 +325,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                namespacesResult = namespaces.Select(v => new SymUnmanagedNamespace(v)).ToArray();
+                namespacesResult = namespaces.Select(v => v == null ? null : new SymUnmanagedNamespace(v)).ToArray();
 
                 return hr;
             }
@@ -413,7 +413,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                constantsResult = constants.Select(v => new SymUnmanagedConstant(v)).ToArray();
+                constantsResult = constants.Select(v => v == null ? null : new SymUnmanagedConstant(v)).ToArray();
 
                 return hr;
             }

@@ -100,7 +100,7 @@
             HRESULT hr = Raw.get_globalScope(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -137,7 +137,7 @@
             HRESULT hr = Raw.getEnumTables(out ppEnumTables);
 
             if (hr == HRESULT.S_OK)
-                ppEnumTablesResult = new DiaEnumTables(ppEnumTables);
+                ppEnumTablesResult = ppEnumTables == null ? null : new DiaEnumTables(ppEnumTables);
             else
                 ppEnumTablesResult = default(DiaEnumTables);
 
@@ -174,7 +174,7 @@
             HRESULT hr = Raw.getSymbolsByAddr(out ppEnumbyAddr);
 
             if (hr == HRESULT.S_OK)
-                ppEnumbyAddrResult = new DiaEnumSymbolsByAddr(ppEnumbyAddr);
+                ppEnumbyAddrResult = ppEnumbyAddr == null ? null : new DiaEnumSymbolsByAddr(ppEnumbyAddr);
             else
                 ppEnumbyAddrResult = default(DiaEnumSymbolsByAddr);
 
@@ -211,7 +211,7 @@
             HRESULT hr = Raw.getEnumDebugStreams(out ppEnumDebugStreams);
 
             if (hr == HRESULT.S_OK)
-                ppEnumDebugStreamsResult = new DiaEnumDebugStreams(ppEnumDebugStreams);
+                ppEnumDebugStreamsResult = ppEnumDebugStreams == null ? null : new DiaEnumDebugStreams(ppEnumDebugStreams);
             else
                 ppEnumDebugStreamsResult = default(DiaEnumDebugStreams);
 
@@ -352,7 +352,7 @@
             HRESULT hr = Raw.getExports(out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -381,7 +381,7 @@
             HRESULT hr = Raw.getHeapAllocationSites(out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -432,7 +432,7 @@
             HRESULT hr = Raw.findChildren(parent, symTag, name, compareFlags, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -462,7 +462,7 @@
             HRESULT hr = Raw.findChildrenEx(parent, symTag, name, compareFlags, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -494,7 +494,7 @@
             HRESULT hr = Raw.findChildrenExByAddr(parent, symTag, name, compareFlags, isect, offset, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -525,7 +525,7 @@
             HRESULT hr = Raw.findChildrenExByVA(parent, symTag, name, compareFlags, va, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -556,7 +556,7 @@
             HRESULT hr = Raw.findChildrenExByRVA(parent, symTag, name, compareFlags, rva, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -600,7 +600,7 @@
             HRESULT hr = Raw.findSymbolByAddr(isect, offset, symTag, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 
@@ -641,7 +641,7 @@
             HRESULT hr = Raw.findSymbolByRVA(rva, symTag, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 
@@ -682,7 +682,7 @@
             HRESULT hr = Raw.findSymbolByVA(va, symTag, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 
@@ -723,7 +723,7 @@
             HRESULT hr = Raw.findSymbolByToken(token, symTag, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 
@@ -796,7 +796,7 @@
             HRESULT hr = Raw.symbolById(id, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 
@@ -839,7 +839,7 @@
             HRESULT hr = Raw.findSymbolByRVAEx(rva, symTag, out ppSymbol, out displacement);
 
             if (hr == HRESULT.S_OK)
-                result = new FindSymbolByRVAExResult(new DiaSymbol(ppSymbol), displacement);
+                result = new FindSymbolByRVAExResult(ppSymbol == null ? null : new DiaSymbol(ppSymbol), displacement);
             else
                 result = default(FindSymbolByRVAExResult);
 
@@ -882,7 +882,7 @@
             HRESULT hr = Raw.findSymbolByVAEx(va, symTag, out ppSymbol, out displacement);
 
             if (hr == HRESULT.S_OK)
-                result = new FindSymbolByVAExResult(new DiaSymbol(ppSymbol), displacement);
+                result = new FindSymbolByVAExResult(ppSymbol == null ? null : new DiaSymbol(ppSymbol), displacement);
             else
                 result = default(FindSymbolByVAExResult);
 
@@ -926,7 +926,7 @@
             HRESULT hr = Raw.findFile(pCompiland, name, compareFlags, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSourceFiles(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSourceFiles(ppResult);
             else
                 ppResultResult = default(DiaEnumSourceFiles);
 
@@ -972,7 +972,7 @@
             HRESULT hr = Raw.findFileById(uniqueId, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaSourceFile(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaSourceFile(ppResult);
             else
                 ppResultResult = default(DiaSourceFile);
 
@@ -1013,7 +1013,7 @@
             HRESULT hr = Raw.findLines(compiland, file, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1057,7 +1057,7 @@
             HRESULT hr = Raw.findLinesByAddr(seg, offset, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1098,7 +1098,7 @@
             HRESULT hr = Raw.findLinesByRVA(rva, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1138,7 +1138,7 @@
             HRESULT hr = Raw.findLinesByVA(va, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1185,7 +1185,7 @@
             HRESULT hr = Raw.findLinesByLinenum(compiland, file, linenum, column, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1223,7 +1223,7 @@
             HRESULT hr = Raw.findInjectedSource(srcFile, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumInjectedSources(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumInjectedSources(ppResult);
             else
                 ppResultResult = default(DiaEnumInjectedSources);
 
@@ -1267,7 +1267,7 @@
             HRESULT hr = Raw.findInlineFramesByAddr(parent, isect, offset, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -1308,7 +1308,7 @@
             HRESULT hr = Raw.findInlineFramesByRVA(parent, rva, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -1349,7 +1349,7 @@
             HRESULT hr = Raw.findInlineFramesByVA(parent, va, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -1387,7 +1387,7 @@
             HRESULT hr = Raw.findInlineeLines(parent, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1434,7 +1434,7 @@
             HRESULT hr = Raw.findInlineeLinesByAddr(parent, isect, offset, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1478,7 +1478,7 @@
             HRESULT hr = Raw.findInlineeLinesByRVA(parent, rva, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1522,7 +1522,7 @@
             HRESULT hr = Raw.findInlineeLinesByVA(parent, va, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1569,7 +1569,7 @@
             HRESULT hr = Raw.findInlineeLinesByLinenum(compiland, file, linenum, column, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1610,7 +1610,7 @@
             HRESULT hr = Raw.findInlineesByName(name, option, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -1640,7 +1640,7 @@
             HRESULT hr = Raw.findAcceleratorInlineeLinesByLinenum(parent, file, linenum, column, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1681,7 +1681,7 @@
             HRESULT hr = Raw.findSymbolsForAcceleratorPointerTag(parent, tagValue, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -1731,7 +1731,7 @@
             HRESULT hr = Raw.findSymbolsByRVAForAcceleratorPointerTag(parent, tagValue, rva, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -1778,7 +1778,7 @@
             HRESULT hr = Raw.findAcceleratorInlineesByName(name, option, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -1865,7 +1865,7 @@
             HRESULT hr = Raw.findILOffsetsByAddr(isect, offset, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1893,7 +1893,7 @@
             HRESULT hr = Raw.findILOffsetsByRVA(rva, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1921,7 +1921,7 @@
             HRESULT hr = Raw.findILOffsetsByVA(va, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -1947,7 +1947,7 @@
             HRESULT hr = Raw.findInputAssemblyFiles(out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumInputAssemblyFiles(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumInputAssemblyFiles(ppResult);
             else
                 ppResultResult = default(DiaEnumInputAssemblyFiles);
 
@@ -1974,7 +1974,7 @@
             HRESULT hr = Raw.findInputAssembly(index, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaInputAssemblyFile(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaInputAssemblyFile(ppResult);
             else
                 ppResultResult = default(DiaInputAssemblyFile);
 
@@ -2001,7 +2001,7 @@
             HRESULT hr = Raw.findInputAssemblyById(uniqueId, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaInputAssemblyFile(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaInputAssemblyFile(ppResult);
             else
                 ppResultResult = default(DiaInputAssemblyFile);
 
@@ -2130,7 +2130,7 @@
             HRESULT hr = Raw.findInputAssemblyFile(pSymbol, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaInputAssemblyFile(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaInputAssemblyFile(ppResult);
             else
                 ppResultResult = default(DiaInputAssemblyFile);
 

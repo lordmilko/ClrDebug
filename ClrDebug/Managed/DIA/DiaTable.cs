@@ -58,7 +58,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get__NewEnum(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new EnumVARIANT(pRetVal);
+                pRetValResult = pRetVal == null ? null : new EnumVARIANT(pRetVal);
             else
                 pRetValResult = default(EnumVARIANT);
 

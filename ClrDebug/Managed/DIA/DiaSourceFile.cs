@@ -142,7 +142,7 @@
             HRESULT hr = Raw.get_compilands(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaEnumSymbols(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaEnumSymbols(pRetVal);
             else
                 pRetValResult = default(DiaEnumSymbols);
 

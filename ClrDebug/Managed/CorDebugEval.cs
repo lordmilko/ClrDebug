@@ -129,7 +129,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetThread(out ppThread);
 
             if (hr == HRESULT.S_OK)
-                ppThreadResult = new CorDebugThread(ppThread);
+                ppThreadResult = ppThread == null ? null : new CorDebugThread(ppThread);
             else
                 ppThreadResult = default(CorDebugThread);
 

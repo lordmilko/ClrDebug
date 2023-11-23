@@ -67,7 +67,7 @@
             HRESULT hr = Raw.Capture(out ppClonedContext);
 
             if (hr == HRESULT.S_OK)
-                ppClonedContextResult = new HostSecurityContext(ppClonedContext);
+                ppClonedContextResult = ppClonedContext == null ? null : new HostSecurityContext(ppClonedContext);
             else
                 ppClonedContextResult = default(HostSecurityContext);
 

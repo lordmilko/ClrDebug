@@ -98,7 +98,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetType(out typeInstance);
 
             if (hr == HRESULT.S_OK)
-                typeInstanceResult = new XCLRDataTypeInstance(typeInstance);
+                typeInstanceResult = typeInstance == null ? null : new XCLRDataTypeInstance(typeInstance);
             else
                 typeInstanceResult = default(XCLRDataTypeInstance);
 
@@ -148,7 +148,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetAssociatedValue(out assocValue);
 
             if (hr == HRESULT.S_OK)
-                assocValueResult = new XCLRDataValue(assocValue);
+                assocValueResult = assocValue == null ? null : new XCLRDataValue(assocValue);
             else
                 assocValueResult = default(XCLRDataValue);
 
@@ -177,7 +177,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetAssociatedType(out assocType);
 
             if (hr == HRESULT.S_OK)
-                assocTypeResult = new XCLRDataTypeInstance(assocType);
+                assocTypeResult = assocType == null ? null : new XCLRDataTypeInstance(assocType);
             else
                 assocTypeResult = default(XCLRDataTypeInstance);
 
@@ -335,7 +335,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetFieldByIndexResult(new XCLRDataValue(field), CreateString(nameBuf, nameLen), token);
+                result = new GetFieldByIndexResult(field == null ? null : new XCLRDataValue(field), CreateString(nameBuf, nameLen), token);
 
                 return hr;
             }
@@ -441,7 +441,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new XCLRDataValue_EnumFieldResult(new XCLRDataValue(field), CreateString(nameBuf, nameLen), token);
+                result = new XCLRDataValue_EnumFieldResult(field == null ? null : new XCLRDataValue(field), CreateString(nameBuf, nameLen), token);
 
                 return hr;
             }
@@ -511,7 +511,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumFieldByName(ref handle, out field, out token);
 
             if (hr == HRESULT.S_OK)
-                result = new XCLRDataValue_EnumFieldByNameResult(new XCLRDataValue(field), token);
+                result = new XCLRDataValue_EnumFieldByNameResult(field == null ? null : new XCLRDataValue(field), token);
             else
                 result = default(XCLRDataValue_EnumFieldByNameResult);
 
@@ -567,7 +567,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new XCLRDataValue_GetFieldByTokenResult(new XCLRDataValue(field), CreateString(nameBuf, nameLen));
+                result = new XCLRDataValue_GetFieldByTokenResult(field == null ? null : new XCLRDataValue(field), CreateString(nameBuf, nameLen));
 
                 return hr;
             }
@@ -633,7 +633,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetArrayElement(numInd, indices, out value);
 
             if (hr == HRESULT.S_OK)
-                valueResult = new XCLRDataValue(value);
+                valueResult = value == null ? null : new XCLRDataValue(value);
             else
                 valueResult = default(XCLRDataValue);
 
@@ -678,7 +678,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new XCLRDataValue_EnumField2Result(new XCLRDataValue(field), CreateString(nameBuf, nameLen), new XCLRDataModule(tokenScope), token);
+                result = new XCLRDataValue_EnumField2Result(field == null ? null : new XCLRDataValue(field), CreateString(nameBuf, nameLen), tokenScope == null ? null : new XCLRDataModule(tokenScope), token);
 
                 return hr;
             }
@@ -713,7 +713,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumFieldByName2(ref handle, out field, out tokenScope, out token);
 
             if (hr == HRESULT.S_OK)
-                result = new XCLRDataValue_EnumFieldByName2Result(new XCLRDataValue(field), new XCLRDataModule(tokenScope), token);
+                result = new XCLRDataValue_EnumFieldByName2Result(field == null ? null : new XCLRDataValue(field), tokenScope == null ? null : new XCLRDataModule(tokenScope), token);
             else
                 result = default(XCLRDataValue_EnumFieldByName2Result);
 
@@ -755,7 +755,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new XCLRDataValue_GetFieldByToken2Result(new XCLRDataValue(field), CreateString(nameBuf, nameLen));
+                result = new XCLRDataValue_GetFieldByToken2Result(field == null ? null : new XCLRDataValue(field), CreateString(nameBuf, nameLen));
 
                 return hr;
             }

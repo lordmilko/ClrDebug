@@ -42,7 +42,7 @@
             HRESULT hr = Raw.GetCode(out ppCode);
 
             if (hr == HRESULT.S_OK)
-                ppCodeResult = new CorDebugCode(ppCode);
+                ppCodeResult = ppCode == null ? null : new CorDebugCode(ppCode);
             else
                 ppCodeResult = default(CorDebugCode);
 

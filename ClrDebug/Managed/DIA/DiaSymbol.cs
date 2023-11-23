@@ -146,7 +146,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_lexicalParent(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -186,7 +186,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_classParent(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -228,7 +228,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_type(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -1575,7 +1575,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_arrayIndexType(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -1935,7 +1935,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_virtualTableShape(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -2460,7 +2460,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_lowerBound(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -2497,7 +2497,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_upperBound(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -2872,7 +2872,7 @@ namespace ClrDebug.DIA
 
             if (hr == HRESULT.S_OK)
             {
-                pTypesResult = pTypes.Select(v => new DiaSymbol(v)).ToArray();
+                pTypesResult = pTypes.Select(v => v == null ? null : new DiaSymbol(v)).ToArray();
 
                 return hr;
             }
@@ -2959,7 +2959,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_objectPointerType(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -3708,7 +3708,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_container(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -3807,7 +3807,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_virtualBaseTableType(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -4196,7 +4196,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_unmodifiedType(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -5237,7 +5237,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_subType(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -5564,7 +5564,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_baseSymbol(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -5940,7 +5940,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.getSrcLineOnTypeDefn(out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaLineNumber(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaLineNumber(ppResult);
             else
                 ppResultResult = default(DiaLineNumber);
 
@@ -6452,7 +6452,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get_coffGroup(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -6565,7 +6565,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findChildren(symTag, name, compareFlags, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -6615,7 +6615,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findChildrenEx(symTag, name, compareFlags, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -6668,7 +6668,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findChildrenExByAddr(symtag, name, compareFlags, address, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -6721,7 +6721,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findChildrenExByVA(symTag, name, compareFlags, va, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -6774,7 +6774,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findChildrenExByRVA(symTag, name, compareFlags, rva, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -6848,7 +6848,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findInlineFramesByAddr(isect, offset, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -6886,7 +6886,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findInlineFramesByRVA(rva, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -6924,7 +6924,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findInlineFramesByVA(va, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -6959,7 +6959,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findInlineeLines(out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -7003,7 +7003,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findInlineeLinesByAddr(isect, offset, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -7044,7 +7044,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findInlineeLinesByRVA(rva, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -7085,7 +7085,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findInlineeLinesByVA(va, length, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumLineNumbers(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumLineNumbers(ppResult);
             else
                 ppResultResult = default(DiaEnumLineNumbers);
 
@@ -7123,7 +7123,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findSymbolsForAcceleratorPointerTag(tagValue, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -7170,7 +7170,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findSymbolsByRVAForAcceleratorPointerTag(tagValue, rva, out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaEnumSymbols(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaEnumSymbols(ppResult);
             else
                 ppResultResult = default(DiaEnumSymbols);
 
@@ -7196,7 +7196,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.findInputAssemblyFile(out ppResult);
 
             if (hr == HRESULT.S_OK)
-                ppResultResult = new DiaInputAssemblyFile(ppResult);
+                ppResultResult = ppResult == null ? null : new DiaInputAssemblyFile(ppResult);
             else
                 ppResultResult = default(DiaInputAssemblyFile);
 
@@ -7300,7 +7300,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw3.get_inlinee(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -7710,7 +7710,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw11.get_discriminatedUnionTag(out ppTagType, out pTagOffset, out pTagMask);
 
             if (hr == HRESULT.S_OK)
-                result = new GetDiscriminatedUnionTagResult(new DiaSymbol(ppTagType), pTagOffset, pTagMask);
+                result = new GetDiscriminatedUnionTagResult(ppTagType == null ? null : new DiaSymbol(ppTagType), pTagOffset, pTagMask);
             else
                 result = default(GetDiscriminatedUnionTagResult);
 

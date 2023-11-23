@@ -2958,7 +2958,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = getBreakpointByIndex(Raw, index, out bp);
 
             if (hr == HRESULT.S_OK)
-                bpResult = new DebugBreakpoint(bp);
+                bpResult = bp == IntPtr.Zero ? null : new DebugBreakpoint(bp);
             else
                 bpResult = default(DebugBreakpoint);
 
@@ -3003,7 +3003,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = getBreakpointById(Raw, id, out bp);
 
             if (hr == HRESULT.S_OK)
-                bpResult = new DebugBreakpoint(bp);
+                bpResult = bp == IntPtr.Zero ? null : new DebugBreakpoint(bp);
             else
                 bpResult = default(DebugBreakpoint);
 
@@ -3109,7 +3109,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = addBreakpoint(Raw, type, desiredId, out bp);
 
             if (hr == HRESULT.S_OK)
-                bpResult = new DebugBreakpoint(bp);
+                bpResult = bp == IntPtr.Zero ? null : new DebugBreakpoint(bp);
             else
                 bpResult = default(DebugBreakpoint);
 
@@ -6158,7 +6158,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = getBreakpointByIndex2(Raw, index, out bp);
 
             if (hr == HRESULT.S_OK)
-                bpResult = new DebugBreakpoint(bp);
+                bpResult = bp == IntPtr.Zero ? null : new DebugBreakpoint(bp);
             else
                 bpResult = default(DebugBreakpoint);
 
@@ -6203,7 +6203,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = getBreakpointById2(Raw, id, out bp);
 
             if (hr == HRESULT.S_OK)
-                bpResult = new DebugBreakpoint(bp);
+                bpResult = bp == IntPtr.Zero ? null : new DebugBreakpoint(bp);
             else
                 bpResult = default(DebugBreakpoint);
 
@@ -6255,7 +6255,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = addBreakpoint2(Raw, type, desiredId, out bp);
 
             if (hr == HRESULT.S_OK)
-                bpResult = new DebugBreakpoint(bp);
+                bpResult = bp == IntPtr.Zero ? null : new DebugBreakpoint(bp);
             else
                 bpResult = default(DebugBreakpoint);
 
@@ -7908,7 +7908,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = getBreakpointByGuid(Raw, guid, out bp);
 
             if (hr == HRESULT.S_OK)
-                bpResult = new DebugBreakpoint(bp);
+                bpResult = bp == IntPtr.Zero ? null : new DebugBreakpoint(bp);
             else
                 bpResult = default(DebugBreakpoint);
 

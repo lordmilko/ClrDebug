@@ -161,7 +161,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.frameForVA(va, out ppFrame);
 
             if (hr == HRESULT.S_OK)
-                ppFrameResult = new DiaFrameData(ppFrame);
+                ppFrameResult = ppFrame == null ? null : new DiaFrameData(ppFrame);
             else
                 ppFrameResult = default(DiaFrameData);
 
@@ -199,7 +199,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.symbolForVA(va, out ppSymbol);
 
             if (hr == HRESULT.S_OK)
-                ppSymbolResult = new DiaSymbol(ppSymbol);
+                ppSymbolResult = ppSymbol == null ? null : new DiaSymbol(ppSymbol);
             else
                 ppSymbolResult = default(DiaSymbol);
 

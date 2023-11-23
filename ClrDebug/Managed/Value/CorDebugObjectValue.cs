@@ -55,7 +55,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetClass(out ppClass);
 
             if (hr == HRESULT.S_OK)
-                ppClassResult = new CorDebugClass(ppClass);
+                ppClassResult = ppClass == null ? null : new CorDebugClass(ppClass);
             else
                 ppClassResult = default(CorDebugClass);
 
@@ -90,7 +90,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetContext(out ppContext);
 
             if (hr == HRESULT.S_OK)
-                ppContextResult = new CorDebugContext(ppContext);
+                ppContextResult = ppContext == null ? null : new CorDebugContext(ppContext);
             else
                 ppContextResult = default(CorDebugContext);
 
@@ -234,7 +234,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetVirtualMethod(memberRef, out ppFunction);
 
             if (hr == HRESULT.S_OK)
-                ppFunctionResult = new CorDebugFunction(ppFunction);
+                ppFunctionResult = ppFunction == null ? null : new CorDebugFunction(ppFunction);
             else
                 ppFunctionResult = default(CorDebugFunction);
 
@@ -306,7 +306,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetVirtualMethodAndType(memberRef, out ppFunction, out ppType);
 
             if (hr == HRESULT.S_OK)
-                result = new GetVirtualMethodAndTypeResult(new CorDebugFunction(ppFunction), new CorDebugType(ppType));
+                result = new GetVirtualMethodAndTypeResult(ppFunction == null ? null : new CorDebugFunction(ppFunction), ppType == null ? null : new CorDebugType(ppType));
             else
                 result = default(GetVirtualMethodAndTypeResult);
 

@@ -35,7 +35,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetProcess(out process);
 
             if (hr == HRESULT.S_OK)
-                processResult = new XCLRDataProcess(process);
+                processResult = process == null ? null : new XCLRDataProcess(process);
             else
                 processResult = default(XCLRDataProcess);
 
@@ -151,7 +151,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetManagedObject(out value);
 
             if (hr == HRESULT.S_OK)
-                valueResult = new XCLRDataValue(value);
+                valueResult = value == null ? null : new XCLRDataValue(value);
             else
                 valueResult = default(XCLRDataValue);
 

@@ -94,7 +94,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CreateProcessEx(pRemoteTarget, lpApplicationName, lpCommandLine, ref lpProcessAttributes, ref lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, ref lpStartupInfo, ref lpProcessInformation, debuggingFlags, out ppProcess);
 
             if (hr == HRESULT.S_OK)
-                ppProcessResult = new CorDebugProcess(ppProcess);
+                ppProcessResult = ppProcess == null ? null : new CorDebugProcess(ppProcess);
             else
                 ppProcessResult = default(CorDebugProcess);
 
@@ -147,7 +147,7 @@ namespace ClrDebug
             HRESULT hr = Raw.DebugActiveProcessEx(pRemoteTarget, dwProcessId, fWin32Attach, out ppProcess);
 
             if (hr == HRESULT.S_OK)
-                ppProcessResult = new CorDebugProcess(ppProcess);
+                ppProcessResult = ppProcess == null ? null : new CorDebugProcess(ppProcess);
             else
                 ppProcessResult = default(CorDebugProcess);
 

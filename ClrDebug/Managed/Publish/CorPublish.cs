@@ -59,7 +59,7 @@
             HRESULT hr = Raw.EnumProcesses(type, out ppIEnum);
 
             if (hr == HRESULT.S_OK)
-                ppIEnumResult = new CorPublishProcessEnum(ppIEnum);
+                ppIEnumResult = ppIEnum == null ? null : new CorPublishProcessEnum(ppIEnum);
             else
                 ppIEnumResult = default(CorPublishProcessEnum);
 
@@ -102,7 +102,7 @@
             HRESULT hr = Raw.GetProcess(pid, out ppProcess);
 
             if (hr == HRESULT.S_OK)
-                ppProcessResult = new CorPublishProcess(ppProcess);
+                ppProcessResult = ppProcess == null ? null : new CorPublishProcess(ppProcess);
             else
                 ppProcessResult = default(CorPublishProcess);
 

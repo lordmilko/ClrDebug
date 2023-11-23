@@ -82,7 +82,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetFunction(out ppFunction);
 
             if (hr == HRESULT.S_OK)
-                ppFunctionResult = new CorDebugFunction(ppFunction);
+                ppFunctionResult = ppFunction == null ? null : new CorDebugFunction(ppFunction);
             else
                 ppFunctionResult = default(CorDebugFunction);
 
@@ -304,7 +304,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CreateBreakpoint(offset, out ppBreakpoint);
 
             if (hr == HRESULT.S_OK)
-                ppBreakpointResult = new CorDebugFunctionBreakpoint(ppBreakpoint);
+                ppBreakpointResult = ppBreakpoint == null ? null : new CorDebugFunctionBreakpoint(ppBreakpoint);
             else
                 ppBreakpointResult = default(CorDebugFunctionBreakpoint);
 
@@ -562,7 +562,7 @@ namespace ClrDebug
             HRESULT hr = Raw4.EnumerateVariableHomes(out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                ppEnumResult = new CorDebugVariableHomeEnum(ppEnum);
+                ppEnumResult = ppEnum == null ? null : new CorDebugVariableHomeEnum(ppEnum);
             else
                 ppEnumResult = default(CorDebugVariableHomeEnum);
 

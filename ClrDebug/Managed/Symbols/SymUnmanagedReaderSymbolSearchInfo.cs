@@ -75,7 +75,7 @@
             HRESULT hr = Raw.GetSymbolSearchInfo(cSearchInfo, out pcSearchInfo, out rgpSearchInfo);
 
             if (hr == HRESULT.S_OK)
-                result = new GetSymbolSearchInfoResult(pcSearchInfo, new SymUnmanagedSymbolSearchInfo(rgpSearchInfo));
+                result = new GetSymbolSearchInfoResult(pcSearchInfo, rgpSearchInfo == null ? null : new SymUnmanagedSymbolSearchInfo(rgpSearchInfo));
             else
                 result = default(GetSymbolSearchInfoResult);
 

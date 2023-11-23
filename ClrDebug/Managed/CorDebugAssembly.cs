@@ -46,7 +46,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetProcess(out ppProcess);
 
             if (hr == HRESULT.S_OK)
-                ppProcessResult = new CorDebugProcess(ppProcess);
+                ppProcessResult = ppProcess == null ? null : new CorDebugProcess(ppProcess);
             else
                 ppProcessResult = default(CorDebugProcess);
 
@@ -85,7 +85,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetAppDomain(out ppAppDomain);
 
             if (hr == HRESULT.S_OK)
-                ppAppDomainResult = new CorDebugAppDomain(ppAppDomain);
+                ppAppDomainResult = ppAppDomain == null ? null : new CorDebugAppDomain(ppAppDomain);
             else
                 ppAppDomainResult = default(CorDebugAppDomain);
 
@@ -230,7 +230,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateModules(out ppModules);
 
             if (hr == HRESULT.S_OK)
-                ppModulesResult = new CorDebugModuleEnum(ppModules);
+                ppModulesResult = ppModules == null ? null : new CorDebugModuleEnum(ppModules);
             else
                 ppModulesResult = default(CorDebugModuleEnum);
 
@@ -316,7 +316,7 @@ namespace ClrDebug
             HRESULT hr = Raw3.GetContainerAssembly(out ppAssembly);
 
             if (hr == HRESULT.S_OK)
-                ppAssemblyResult = new CorDebugAssembly(ppAssembly);
+                ppAssemblyResult = ppAssembly == null ? null : new CorDebugAssembly(ppAssembly);
             else
                 ppAssemblyResult = default(CorDebugAssembly);
 
@@ -364,7 +364,7 @@ namespace ClrDebug
             HRESULT hr = Raw3.EnumerateContainedAssemblies(out ppAssemblies);
 
             if (hr == HRESULT.S_OK)
-                ppAssembliesResult = new CorDebugAssemblyEnum(ppAssemblies);
+                ppAssembliesResult = ppAssemblies == null ? null : new CorDebugAssemblyEnum(ppAssemblies);
             else
                 ppAssembliesResult = default(CorDebugAssemblyEnum);
 

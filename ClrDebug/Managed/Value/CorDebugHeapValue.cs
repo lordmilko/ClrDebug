@@ -95,7 +95,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CreateRelocBreakpoint(out ppBreakpoint);
 
             if (hr == HRESULT.S_OK)
-                ppBreakpointResult = new CorDebugValueBreakpoint(ppBreakpoint);
+                ppBreakpointResult = ppBreakpoint == null ? null : new CorDebugValueBreakpoint(ppBreakpoint);
             else
                 ppBreakpointResult = default(CorDebugValueBreakpoint);
 
@@ -150,7 +150,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.CreateHandle(type, out ppHandle);
 
             if (hr == HRESULT.S_OK)
-                ppHandleResult = new CorDebugHandleValue(ppHandle);
+                ppHandleResult = ppHandle == null ? null : new CorDebugHandleValue(ppHandle);
             else
                 ppHandleResult = default(CorDebugHandleValue);
 
@@ -208,7 +208,7 @@ namespace ClrDebug
             HRESULT hr = Raw3.GetThreadOwningMonitorLock(out ppThread, out pAcquisitionCount);
 
             if (hr == HRESULT.S_OK)
-                result = new GetThreadOwningMonitorLockResult(new CorDebugThread(ppThread), pAcquisitionCount);
+                result = new GetThreadOwningMonitorLockResult(ppThread == null ? null : new CorDebugThread(ppThread), pAcquisitionCount);
             else
                 result = default(GetThreadOwningMonitorLockResult);
 
@@ -261,7 +261,7 @@ namespace ClrDebug
             HRESULT hr = Raw3.GetMonitorEventWaitList(out ppThreadEnum);
 
             if (hr == HRESULT.S_OK)
-                ppThreadEnumResult = new CorDebugThreadEnum(ppThreadEnum);
+                ppThreadEnumResult = ppThreadEnum == null ? null : new CorDebugThreadEnum(ppThreadEnum);
             else
                 ppThreadEnumResult = default(CorDebugThreadEnum);
 

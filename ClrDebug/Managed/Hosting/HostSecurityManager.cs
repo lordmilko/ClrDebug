@@ -265,7 +265,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetSecurityContext(eContextType, out ppSecurityContext);
 
             if (hr == HRESULT.S_OK)
-                ppSecurityContextResult = new HostSecurityContext(ppSecurityContext);
+                ppSecurityContextResult = ppSecurityContext == null ? null : new HostSecurityContext(ppSecurityContext);
             else
                 ppSecurityContextResult = default(HostSecurityContext);
 

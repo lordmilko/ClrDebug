@@ -87,7 +87,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                documentsResult = documents.Select(v => new SymUnmanagedDocument(v)).ToArray();
+                documentsResult = documents.Select(v => v == null ? null : new SymUnmanagedDocument(v)).ToArray();
 
                 return hr;
             }

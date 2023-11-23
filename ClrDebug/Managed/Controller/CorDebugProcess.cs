@@ -184,7 +184,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetThread(dwThreadId, out ppThread);
 
             if (hr == HRESULT.S_OK)
-                ppThreadResult = new CorDebugThread(ppThread);
+                ppThreadResult = ppThread == null ? null : new CorDebugThread(ppThread);
             else
                 ppThreadResult = default(CorDebugThread);
 
@@ -221,7 +221,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateObjects(out ppObjects);
 
             if (hr == HRESULT.S_OK)
-                ppObjectsResult = new CorDebugObjectEnum(ppObjects);
+                ppObjectsResult = ppObjects == null ? null : new CorDebugObjectEnum(ppObjects);
             else
                 ppObjectsResult = default(CorDebugObjectEnum);
 
@@ -628,7 +628,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateAppDomains(out ppAppDomains);
 
             if (hr == HRESULT.S_OK)
-                ppAppDomainsResult = new CorDebugAppDomainEnum(ppAppDomains);
+                ppAppDomainsResult = ppAppDomains == null ? null : new CorDebugAppDomainEnum(ppAppDomains);
             else
                 ppAppDomainsResult = default(CorDebugAppDomainEnum);
 
@@ -661,7 +661,7 @@ namespace ClrDebug
             HRESULT hr = Raw.ThreadForFiberCookie(fiberCookie, out ppThread);
 
             if (hr == HRESULT.S_OK)
-                ppThreadResult = new CorDebugThread(ppThread);
+                ppThreadResult = ppThread == null ? null : new CorDebugThread(ppThread);
             else
                 ppThreadResult = default(CorDebugThread);
 
@@ -800,7 +800,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetThreadForTaskID(taskid, out ppThread);
 
             if (hr == HRESULT.S_OK)
-                ppThreadResult = new CorDebugThread((ICorDebugThread) ppThread);
+                ppThreadResult = ppThread == null ? null : new CorDebugThread((ICorDebugThread) ppThread);
             else
                 ppThreadResult = default(CorDebugThread);
 
@@ -933,7 +933,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetReferenceValueFromGCHandle(handle, out pOutValue);
 
             if (hr == HRESULT.S_OK)
-                pOutValueResult = new CorDebugReferenceValue(pOutValue);
+                pOutValueResult = pOutValue == null ? null : new CorDebugReferenceValue(pOutValue);
             else
                 pOutValueResult = default(CorDebugReferenceValue);
 
@@ -1151,7 +1151,7 @@ namespace ClrDebug
             HRESULT hr = Raw5.EnumerateHeap(out ppObjects);
 
             if (hr == HRESULT.S_OK)
-                ppObjectsResult = new CorDebugHeapEnum(ppObjects);
+                ppObjectsResult = ppObjects == null ? null : new CorDebugHeapEnum(ppObjects);
             else
                 ppObjectsResult = default(CorDebugHeapEnum);
 
@@ -1214,7 +1214,7 @@ namespace ClrDebug
             HRESULT hr = Raw5.EnumerateHeapRegions(out ppRegions);
 
             if (hr == HRESULT.S_OK)
-                ppRegionsResult = new CorDebugHeapSegmentEnum(ppRegions);
+                ppRegionsResult = ppRegions == null ? null : new CorDebugHeapSegmentEnum(ppRegions);
             else
                 ppRegionsResult = default(CorDebugHeapSegmentEnum);
 
@@ -1257,7 +1257,7 @@ namespace ClrDebug
             HRESULT hr = Raw5.GetObject(addr, out pObject);
 
             if (hr == HRESULT.S_OK)
-                pObjectResult = new CorDebugObjectValue(pObject);
+                pObjectResult = pObject == null ? null : new CorDebugObjectValue(pObject);
             else
                 pObjectResult = default(CorDebugObjectValue);
 
@@ -1304,7 +1304,7 @@ namespace ClrDebug
             HRESULT hr = Raw5.EnumerateGCReferences(enumerateWeakReferences, out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                ppEnumResult = new CorDebugGCReferenceEnum(ppEnum);
+                ppEnumResult = ppEnum == null ? null : new CorDebugGCReferenceEnum(ppEnum);
             else
                 ppEnumResult = default(CorDebugGCReferenceEnum);
 
@@ -1355,7 +1355,7 @@ namespace ClrDebug
             HRESULT hr = Raw5.EnumerateHandles(types, out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                ppEnumResult = new CorDebugGCReferenceEnum(ppEnum);
+                ppEnumResult = ppEnum == null ? null : new CorDebugGCReferenceEnum(ppEnum);
             else
                 ppEnumResult = default(CorDebugGCReferenceEnum);
 
@@ -1429,7 +1429,7 @@ namespace ClrDebug
             HRESULT hr = Raw5.GetTypeForTypeID(id, out ppType);
 
             if (hr == HRESULT.S_OK)
-                ppTypeResult = new CorDebugType(ppType);
+                ppTypeResult = ppType == null ? null : new CorDebugType(ppType);
             else
                 ppTypeResult = default(CorDebugType);
 
@@ -1679,7 +1679,7 @@ namespace ClrDebug
             HRESULT hr = Raw6.GetCode(codeAddress, out ppCode);
 
             if (hr == HRESULT.S_OK)
-                ppCodeResult = new CorDebugCode(ppCode);
+                ppCodeResult = ppCode == null ? null : new CorDebugCode(ppCode);
             else
                 ppCodeResult = default(CorDebugCode);
 
@@ -1941,7 +1941,7 @@ namespace ClrDebug
             HRESULT hr = Raw11.EnumerateLoaderHeapMemoryRegions(out ppRanges);
 
             if (hr == HRESULT.S_OK)
-                ppRangesResult = new CorDebugMemoryRangeEnum(ppRanges);
+                ppRangesResult = ppRanges == null ? null : new CorDebugMemoryRangeEnum(ppRanges);
             else
                 ppRangesResult = default(CorDebugMemoryRangeEnum);
 

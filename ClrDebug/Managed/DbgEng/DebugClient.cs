@@ -1614,7 +1614,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = createClient(Raw, out client);
 
             if (hr == HRESULT.S_OK)
-                clientResult = new DebugClient(client);
+                clientResult = client == IntPtr.Zero ? null : new DebugClient(client);
             else
                 clientResult = default(DebugClient);
 

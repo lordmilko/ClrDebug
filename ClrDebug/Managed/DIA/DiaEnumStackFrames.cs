@@ -49,7 +49,7 @@
             HRESULT hr = Raw.Next(celt, out rgelt, out pceltFetched);
 
             if (hr == HRESULT.S_OK)
-                result = new NextResult(new DiaStackFrame(rgelt), pceltFetched);
+                result = new NextResult(rgelt == null ? null : new DiaStackFrame(rgelt), pceltFetched);
             else
                 result = default(NextResult);
 

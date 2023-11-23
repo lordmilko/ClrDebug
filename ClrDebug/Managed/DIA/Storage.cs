@@ -36,7 +36,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.CreateStream(pwcsName, grfMode, reserved1, reserved2, out ppstm);
 
             if (hr == HRESULT.S_OK)
-                ppstmResult = new ComStream(ppstm);
+                ppstmResult = ppstm == null ? null : new ComStream(ppstm);
             else
                 ppstmResult = default(ComStream);
 
@@ -66,7 +66,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.OpenStream(pwcsName, reserved1, grfMode, reserved2, out ppstm);
 
             if (hr == HRESULT.S_OK)
-                ppstmResult = new ComStream(ppstm);
+                ppstmResult = ppstm == null ? null : new ComStream(ppstm);
             else
                 ppstmResult = default(ComStream);
 
@@ -96,7 +96,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.CreateStorage(pwcsName, grfMode, reserved1, reserved2, out ppstg);
 
             if (hr == HRESULT.S_OK)
-                ppstgResult = new Storage(ppstg);
+                ppstgResult = ppstg == null ? null : new Storage(ppstg);
             else
                 ppstgResult = default(Storage);
 
@@ -127,7 +127,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.OpenStorage(pwcsName, pstgPriority, grfMode, snbExclude, reserved, out ppstg);
 
             if (hr == HRESULT.S_OK)
-                ppstgResult = new Storage(ppstg);
+                ppstgResult = ppstg == null ? null : new Storage(ppstg);
             else
                 ppstgResult = default(Storage);
 
@@ -221,7 +221,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.EnumElements(reserved1, reserved2, reserved3, out ppenum);
 
             if (hr == HRESULT.S_OK)
-                ppenumResult = new EnumSTATSTG(ppenum);
+                ppenumResult = ppenum == null ? null : new EnumSTATSTG(ppenum);
             else
                 ppenumResult = default(EnumSTATSTG);
 

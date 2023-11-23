@@ -50,7 +50,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetConfiguration(out pConfiguration);
 
             if (hr == HRESULT.S_OK)
-                pConfigurationResult = new CorConfiguration(pConfiguration);
+                pConfigurationResult = pConfiguration == null ? null : new CorConfiguration(pConfiguration);
             else
                 pConfigurationResult = default(CorConfiguration);
 

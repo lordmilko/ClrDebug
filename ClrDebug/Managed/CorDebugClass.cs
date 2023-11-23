@@ -52,7 +52,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetModule(out pModule);
 
             if (hr == HRESULT.S_OK)
-                pModuleResult = new CorDebugModule(pModule);
+                pModuleResult = pModule == null ? null : new CorDebugModule(pModule);
             else
                 pModuleResult = default(CorDebugModule);
 
@@ -197,7 +197,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetParameterizedType(elementType, nTypeArgs, ref ppTypeArgs, out ppType);
 
             if (hr == HRESULT.S_OK)
-                ppTypeResult = new CorDebugType(ppType);
+                ppTypeResult = ppType == null ? null : new CorDebugType(ppType);
             else
                 ppTypeResult = default(CorDebugType);
 

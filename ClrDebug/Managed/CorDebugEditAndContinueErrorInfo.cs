@@ -46,7 +46,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetModule(out ppModule);
 
             if (hr == HRESULT.S_OK)
-                ppModuleResult = new CorDebugModule(ppModule);
+                ppModuleResult = ppModule == null ? null : new CorDebugModule(ppModule);
             else
                 ppModuleResult = default(CorDebugModule);
 

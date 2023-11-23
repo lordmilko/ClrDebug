@@ -51,7 +51,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetModule(out ppModule);
 
             if (hr == HRESULT.S_OK)
-                ppModuleResult = new CorDebugModule(ppModule);
+                ppModuleResult = ppModule == null ? null : new CorDebugModule(ppModule);
             else
                 ppModuleResult = default(CorDebugModule);
 
@@ -87,7 +87,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetClass(out ppClass);
 
             if (hr == HRESULT.S_OK)
-                ppClassResult = new CorDebugClass(ppClass);
+                ppClassResult = ppClass == null ? null : new CorDebugClass(ppClass);
             else
                 ppClassResult = default(CorDebugClass);
 
@@ -155,7 +155,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetILCode(out ppCode);
 
             if (hr == HRESULT.S_OK)
-                ppCodeResult = new CorDebugCode(ppCode);
+                ppCodeResult = ppCode == null ? null : new CorDebugCode(ppCode);
             else
                 ppCodeResult = default(CorDebugCode);
 
@@ -195,7 +195,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetNativeCode(out ppCode);
 
             if (hr == HRESULT.S_OK)
-                ppCodeResult = new CorDebugCode(ppCode);
+                ppCodeResult = ppCode == null ? null : new CorDebugCode(ppCode);
             else
                 ppCodeResult = default(CorDebugCode);
 
@@ -290,7 +290,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CreateBreakpoint(out ppBreakpoint);
 
             if (hr == HRESULT.S_OK)
-                ppBreakpointResult = new CorDebugFunctionBreakpoint(ppBreakpoint);
+                ppBreakpointResult = ppBreakpoint == null ? null : new CorDebugFunctionBreakpoint(ppBreakpoint);
             else
                 ppBreakpointResult = default(CorDebugFunctionBreakpoint);
 
@@ -428,7 +428,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.EnumerateNativeCode(out ppCodeEnum);
 
             if (hr == HRESULT.S_OK)
-                ppCodeEnumResult = new CorDebugCodeEnum(ppCodeEnum);
+                ppCodeEnumResult = ppCodeEnum == null ? null : new CorDebugCodeEnum(ppCodeEnum);
             else
                 ppCodeEnumResult = default(CorDebugCodeEnum);
 
@@ -478,7 +478,7 @@ namespace ClrDebug
             HRESULT hr = Raw3.GetActiveReJitRequestILCode(out ppReJitedILCode);
 
             if (hr == HRESULT.S_OK)
-                ppReJitedILCodeResult = new CorDebugILCode(ppReJitedILCode);
+                ppReJitedILCodeResult = ppReJitedILCode == null ? null : new CorDebugILCode(ppReJitedILCode);
             else
                 ppReJitedILCodeResult = default(CorDebugILCode);
 
@@ -510,7 +510,7 @@ namespace ClrDebug
             HRESULT hr = Raw4.CreateNativeBreakpoint(out ppBreakpoint);
 
             if (hr == HRESULT.S_OK)
-                ppBreakpointResult = new CorDebugFunctionBreakpoint(ppBreakpoint);
+                ppBreakpointResult = ppBreakpoint == null ? null : new CorDebugFunctionBreakpoint(ppBreakpoint);
             else
                 ppBreakpointResult = default(CorDebugFunctionBreakpoint);
 

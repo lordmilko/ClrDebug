@@ -86,7 +86,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetFrame(out frame);
 
             if (hr == HRESULT.S_OK)
-                frameResult = new XCLRDataFrame(frame);
+                frameResult = frame == null ? null : new XCLRDataFrame(frame);
             else
                 frameResult = default(XCLRDataFrame);
 

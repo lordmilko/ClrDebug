@@ -56,7 +56,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetReaderForFile(importer, fileName, searchPath, out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedReader(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedReader(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedReader);
 
@@ -97,7 +97,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetReaderFromStream(importer, pstream, out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedReader(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedReader(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedReader);
 
@@ -166,7 +166,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetReaderForFile2(importer, fileName, searchPath, searchPolicy, out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedReader(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedReader(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedReader);
 
@@ -222,7 +222,7 @@ namespace ClrDebug
             HRESULT hr = Raw3.GetReaderFromCallback(importer, fileName, searchPath, searchPolicy, callback, out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedReader(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedReader(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedReader);
 

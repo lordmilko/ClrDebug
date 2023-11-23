@@ -64,7 +64,7 @@
             HRESULT hr = Raw.GetCurrentTask(out pTask);
 
             if (hr == HRESULT.S_OK)
-                pTaskResult = new CLRTask(pTask);
+                pTaskResult = pTask == null ? null : new CLRTask(pTask);
             else
                 pTaskResult = default(CLRTask);
 
@@ -149,7 +149,7 @@
             HRESULT hr = Raw.CreateTask(out pTask);
 
             if (hr == HRESULT.S_OK)
-                pTaskResult = new CLRTask(pTask);
+                pTaskResult = pTask == null ? null : new CLRTask(pTask);
             else
                 pTaskResult = default(CLRTask);
 

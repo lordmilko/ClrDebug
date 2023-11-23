@@ -52,7 +52,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get__NewEnum(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new EnumVARIANT(pRetVal);
+                pRetValResult = pRetVal == null ? null : new EnumVARIANT(pRetVal);
             else
                 pRetValResult = default(EnumVARIANT);
 
@@ -119,7 +119,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.Item(index, out lineNumber);
 
             if (hr == HRESULT.S_OK)
-                lineNumberResult = new DiaLineNumber(lineNumber);
+                lineNumberResult = lineNumber == null ? null : new DiaLineNumber(lineNumber);
             else
                 lineNumberResult = default(DiaLineNumber);
 
@@ -171,7 +171,7 @@ namespace ClrDebug.DIA
             var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
-                Current = new DiaLineNumber(result);
+                Current = result == null ? null : new DiaLineNumber(result);
 
             return fetched == 1;
         }

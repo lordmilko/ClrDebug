@@ -68,7 +68,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetCLRControl(out pCLRControl);
 
             if (hr == HRESULT.S_OK)
-                pCLRControlResult = new CLRControl(pCLRControl);
+                pCLRControlResult = pCLRControl == null ? null : new CLRControl(pCLRControl);
             else
                 pCLRControlResult = default(CLRControl);
 
@@ -567,7 +567,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.DllGetActivationFactory(appDomainID, wszTypeName, out factory);
 
             if (hr == HRESULT.S_OK)
-                factoryResult = new ActivationFactory(factory);
+                factoryResult = factory == null ? null : new ActivationFactory(factory);
             else
                 factoryResult = default(ActivationFactory);
 

@@ -98,7 +98,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.GetTypeInfo(out ppTypeInfo);
 
             if (hr == HRESULT.S_OK)
-                ppTypeInfoResult = new TypeInfo(ppTypeInfo);
+                ppTypeInfoResult = ppTypeInfo == null ? null : new TypeInfo(ppTypeInfo);
             else
                 ppTypeInfoResult = default(TypeInfo);
 

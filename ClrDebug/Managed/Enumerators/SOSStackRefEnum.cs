@@ -37,7 +37,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateErrors(out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                ppEnumResult = new SOSStackRefErrorEnum(ppEnum);
+                ppEnumResult = ppEnum == null ? null : new SOSStackRefErrorEnum(ppEnum);
             else
                 ppEnumResult = default(SOSStackRefErrorEnum);
 

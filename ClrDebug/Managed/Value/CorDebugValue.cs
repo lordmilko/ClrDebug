@@ -178,7 +178,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CreateBreakpoint(out ppBreakpoint);
 
             if (hr == HRESULT.S_OK)
-                ppBreakpointResult = new CorDebugValueBreakpoint(ppBreakpoint);
+                ppBreakpointResult = ppBreakpoint == null ? null : new CorDebugValueBreakpoint(ppBreakpoint);
             else
                 ppBreakpointResult = default(CorDebugValueBreakpoint);
 
@@ -225,7 +225,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetExactType(out ppType);
 
             if (hr == HRESULT.S_OK)
-                ppTypeResult = new CorDebugType(ppType);
+                ppTypeResult = ppType == null ? null : new CorDebugType(ppType);
             else
                 ppTypeResult = default(CorDebugType);
 

@@ -46,7 +46,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetMetaDataFromTypeInfo(pITI, out ppMDI);
 
             if (hr == HRESULT.S_OK)
-                ppMDIResult = new MetaDataImport(ppMDI);
+                ppMDIResult = ppMDI == null ? null : new MetaDataImport(ppMDI);
             else
                 ppMDIResult = default(MetaDataImport);
 
@@ -83,7 +83,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetMetaDataFromTypeLib(pITL, out ppMDI);
 
             if (hr == HRESULT.S_OK)
-                ppMDIResult = new MetaDataImport(ppMDI);
+                ppMDIResult = ppMDI == null ? null : new MetaDataImport(ppMDI);
             else
                 ppMDIResult = default(MetaDataImport);
 
@@ -123,7 +123,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTypeLibFromMetaData(strModule, strTlbName, out ppITL);
 
             if (hr == HRESULT.S_OK)
-                ppITLResult = new ComTypeLib(ppITL);
+                ppITLResult = ppITL == null ? null : new ComTypeLib(ppITL);
             else
                 ppITLResult = default(ComTypeLib);
 

@@ -120,7 +120,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CreateTask(dwStackSize, pStartAddress, pParameter, out ppTask);
 
             if (hr == HRESULT.S_OK)
-                ppTaskResult = new HostTaskManager(ppTask);
+                ppTaskResult = ppTask == null ? null : new HostTaskManager(ppTask);
             else
                 ppTaskResult = default(HostTaskManager);
 
@@ -732,7 +732,7 @@ namespace ClrDebug
             HRESULT hr = Raw.SetCLRTaskManager(out ppManager);
 
             if (hr == HRESULT.S_OK)
-                ppManagerResult = new CLRTaskManager(ppManager);
+                ppManagerResult = ppManager == null ? null : new CLRTaskManager(ppManager);
             else
                 ppManagerResult = default(CLRTaskManager);
 

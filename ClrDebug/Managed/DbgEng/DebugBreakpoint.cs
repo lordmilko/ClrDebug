@@ -148,7 +148,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = getAdder(Raw, out adder);
 
             if (hr == HRESULT.S_OK)
-                adderResult = new DebugClient(adder);
+                adderResult = adder == IntPtr.Zero ? null : new DebugClient(adder);
             else
                 adderResult = default(DebugClient);
 

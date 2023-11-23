@@ -41,7 +41,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.getEnumFrames(pHelper, out ppenum);
 
             if (hr == HRESULT.S_OK)
-                ppenumResult = new DiaEnumStackFrames(ppenum);
+                ppenumResult = ppenum == null ? null : new DiaEnumStackFrames(ppenum);
             else
                 ppenumResult = default(DiaEnumStackFrames);
 
@@ -69,7 +69,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.getEnumFrames2(cpuid, pHelper, out ppenum);
 
             if (hr == HRESULT.S_OK)
-                ppenumResult = new DiaEnumStackFrames(ppenum);
+                ppenumResult = ppenum == null ? null : new DiaEnumStackFrames(ppenum);
             else
                 ppenumResult = default(DiaEnumStackFrames);
 

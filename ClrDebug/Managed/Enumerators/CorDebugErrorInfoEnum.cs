@@ -64,7 +64,7 @@ namespace ClrDebug
             var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
-                Current = new CorDebugEditAndContinueErrorInfo(result);
+                Current = result == null ? null : new CorDebugEditAndContinueErrorInfo(result);
 
             return fetched == 1;
         }

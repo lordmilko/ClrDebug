@@ -183,7 +183,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateInstalledRuntimes(out ppEnumerator);
 
             if (hr == HRESULT.S_OK)
-                ppEnumeratorResult = new EnumUnknown(ppEnumerator);
+                ppEnumeratorResult = ppEnumerator == null ? null : new EnumUnknown(ppEnumerator);
             else
                 ppEnumeratorResult = default(EnumUnknown);
 
@@ -236,7 +236,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateLoadedRuntimes(hndProcess, out ppEnumerator);
 
             if (hr == HRESULT.S_OK)
-                ppEnumeratorResult = new EnumUnknown(ppEnumerator);
+                ppEnumeratorResult = ppEnumerator == null ? null : new EnumUnknown(ppEnumerator);
             else
                 ppEnumeratorResult = default(EnumUnknown);
 

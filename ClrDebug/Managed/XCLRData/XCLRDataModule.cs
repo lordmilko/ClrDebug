@@ -195,7 +195,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumAssembly(ref handle, out assembly);
 
             if (hr == HRESULT.S_OK)
-                assemblyResult = new XCLRDataAssembly(assembly);
+                assemblyResult = assembly == null ? null : new XCLRDataAssembly(assembly);
             else
                 assemblyResult = default(XCLRDataAssembly);
 
@@ -255,7 +255,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumTypeDefinition(ref handle, out typeDefinition);
 
             if (hr == HRESULT.S_OK)
-                typeDefinitionResult = new XCLRDataTypeDefinition(typeDefinition);
+                typeDefinitionResult = typeDefinition == null ? null : new XCLRDataTypeDefinition(typeDefinition);
             else
                 typeDefinitionResult = default(XCLRDataTypeDefinition);
 
@@ -316,7 +316,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumTypeInstance(ref handle, out typeInstance);
 
             if (hr == HRESULT.S_OK)
-                typeInstanceResult = new XCLRDataTypeInstance(typeInstance);
+                typeInstanceResult = typeInstance == null ? null : new XCLRDataTypeInstance(typeInstance);
             else
                 typeInstanceResult = default(XCLRDataTypeInstance);
 
@@ -378,7 +378,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumTypeDefinitionByName(ref handle, out type);
 
             if (hr == HRESULT.S_OK)
-                typeResult = new XCLRDataTypeDefinition(type);
+                typeResult = type == null ? null : new XCLRDataTypeDefinition(type);
             else
                 typeResult = default(XCLRDataTypeDefinition);
 
@@ -441,7 +441,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumTypeInstanceByName(ref handle, out type);
 
             if (hr == HRESULT.S_OK)
-                typeResult = new XCLRDataTypeInstance(type);
+                typeResult = type == null ? null : new XCLRDataTypeInstance(type);
             else
                 typeResult = default(XCLRDataTypeInstance);
 
@@ -483,7 +483,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTypeDefinitionByToken(token, out typeDefinition);
 
             if (hr == HRESULT.S_OK)
-                typeDefinitionResult = new XCLRDataTypeDefinition(typeDefinition);
+                typeDefinitionResult = typeDefinition == null ? null : new XCLRDataTypeDefinition(typeDefinition);
             else
                 typeDefinitionResult = default(XCLRDataTypeDefinition);
 
@@ -530,7 +530,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumMethodDefinitionByName(ref handle, out method);
 
             if (hr == HRESULT.S_OK)
-                methodResult = new XCLRDataMethodDefinition(method);
+                methodResult = method == null ? null : new XCLRDataMethodDefinition(method);
             else
                 methodResult = default(XCLRDataMethodDefinition);
 
@@ -593,7 +593,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumMethodInstanceByName(ref handle, out method);
 
             if (hr == HRESULT.S_OK)
-                methodResult = new XCLRDataMethodInstance(method);
+                methodResult = method == null ? null : new XCLRDataMethodInstance(method);
             else
                 methodResult = default(XCLRDataMethodInstance);
 
@@ -653,7 +653,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetMethodDefinitionByToken(token, out methodDefinition);
 
             if (hr == HRESULT.S_OK)
-                methodDefinitionResult = new XCLRDataMethodDefinition(methodDefinition);
+                methodDefinitionResult = methodDefinition == null ? null : new XCLRDataMethodDefinition(methodDefinition);
             else
                 methodDefinitionResult = default(XCLRDataMethodDefinition);
 
@@ -702,7 +702,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumDataByName(ref handle, out value);
 
             if (hr == HRESULT.S_OK)
-                valueResult = new XCLRDataValue(value);
+                valueResult = value == null ? null : new XCLRDataValue(value);
             else
                 valueResult = default(XCLRDataValue);
 
@@ -875,7 +875,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumAppDomain(ref handle, out appDomain);
 
             if (hr == HRESULT.S_OK)
-                appDomainResult = new XCLRDataAppDomain(appDomain);
+                appDomainResult = appDomain == null ? null : new XCLRDataAppDomain(appDomain);
             else
                 appDomainResult = default(XCLRDataAppDomain);
 

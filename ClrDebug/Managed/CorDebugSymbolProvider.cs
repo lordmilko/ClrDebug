@@ -58,7 +58,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pRecordsResult = pRecords.Select(v => new CorDebugMergedAssemblyRecord(v)).ToArray();
+                pRecordsResult = pRecords.Select(v => v == null ? null : new CorDebugMergedAssemblyRecord(v)).ToArray();
 
                 return hr;
             }
@@ -98,7 +98,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetAssemblyImageMetadata(out ppMemoryBuffer);
 
             if (hr == HRESULT.S_OK)
-                ppMemoryBufferResult = new CorDebugMemoryBuffer(ppMemoryBuffer);
+                ppMemoryBufferResult = ppMemoryBuffer == null ? null : new CorDebugMemoryBuffer(ppMemoryBuffer);
             else
                 ppMemoryBufferResult = default(CorDebugMemoryBuffer);
 
@@ -150,7 +150,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pSymbolsResult = pSymbols.Select(v => new CorDebugStaticFieldSymbol(v)).ToArray();
+                pSymbolsResult = pSymbols.Select(v => v == null ? null : new CorDebugStaticFieldSymbol(v)).ToArray();
 
                 return hr;
             }
@@ -206,7 +206,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pSymbolsResult = pSymbols.Select(v => new CorDebugInstanceFieldSymbol(v)).ToArray();
+                pSymbolsResult = pSymbols.Select(v => v == null ? null : new CorDebugInstanceFieldSymbol(v)).ToArray();
 
                 return hr;
             }
@@ -259,7 +259,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pSymbolsResult = pSymbols.Select(v => new CorDebugVariableSymbol(v)).ToArray();
+                pSymbolsResult = pSymbols.Select(v => v == null ? null : new CorDebugVariableSymbol(v)).ToArray();
 
                 return hr;
             }
@@ -312,7 +312,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pSymbolsResult = pSymbols.Select(v => new CorDebugVariableSymbol(v)).ToArray();
+                pSymbolsResult = pSymbols.Select(v => v == null ? null : new CorDebugVariableSymbol(v)).ToArray();
 
                 return hr;
             }
@@ -511,7 +511,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetAssemblyImageBytes(rva, length, out ppMemoryBuffer);
 
             if (hr == HRESULT.S_OK)
-                ppMemoryBufferResult = new CorDebugMemoryBuffer(ppMemoryBuffer);
+                ppMemoryBufferResult = ppMemoryBuffer == null ? null : new CorDebugMemoryBuffer(ppMemoryBuffer);
             else
                 ppMemoryBufferResult = default(CorDebugMemoryBuffer);
 
@@ -589,7 +589,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetGenericDictionaryInfo(out ppMemoryBuffer);
 
             if (hr == HRESULT.S_OK)
-                ppMemoryBufferResult = new CorDebugMemoryBuffer(ppMemoryBuffer);
+                ppMemoryBufferResult = ppMemoryBuffer == null ? null : new CorDebugMemoryBuffer(ppMemoryBuffer);
             else
                 ppMemoryBufferResult = default(CorDebugMemoryBuffer);
 

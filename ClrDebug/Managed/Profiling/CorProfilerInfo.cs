@@ -959,7 +959,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetILFunctionBodyAllocator(moduleId, out ppMalloc);
 
             if (hr == HRESULT.S_OK)
-                ppMallocResult = new MethodMalloc(ppMalloc);
+                ppMallocResult = ppMalloc == null ? null : new MethodMalloc(ppMalloc);
             else
                 ppMallocResult = default(MethodMalloc);
 
@@ -2141,7 +2141,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.EnumModuleFrozenObjects(moduleId, out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                ppEnumResult = new CorProfilerObjectEnum(ppEnum);
+                ppEnumResult = ppEnum == null ? null : new CorProfilerObjectEnum(ppEnum);
             else
                 ppEnumResult = default(CorProfilerObjectEnum);
 
@@ -2693,7 +2693,7 @@ namespace ClrDebug
             HRESULT hr = Raw3.EnumJITedFunctions(out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                ppEnumResult = new CorProfilerFunctionEnum(ppEnum);
+                ppEnumResult = ppEnum == null ? null : new CorProfilerFunctionEnum(ppEnum);
             else
                 ppEnumResult = default(CorProfilerFunctionEnum);
 
@@ -3076,7 +3076,7 @@ namespace ClrDebug
             HRESULT hr = Raw3.EnumModules(out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                ppEnumResult = new CorProfilerModuleEnum(ppEnum);
+                ppEnumResult = ppEnum == null ? null : new CorProfilerModuleEnum(ppEnum);
             else
                 ppEnumResult = default(CorProfilerModuleEnum);
 
@@ -3305,7 +3305,7 @@ namespace ClrDebug
             HRESULT hr = Raw4.EnumThreads(out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                ppEnumResult = new CorProfilerThreadEnum(ppEnum);
+                ppEnumResult = ppEnum == null ? null : new CorProfilerThreadEnum(ppEnum);
             else
                 ppEnumResult = default(CorProfilerThreadEnum);
 
@@ -3758,7 +3758,7 @@ namespace ClrDebug
             HRESULT hr = Raw4.EnumJITedFunctions2(out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                ppEnumResult = new CorProfilerFunctionEnum(ppEnum);
+                ppEnumResult = ppEnum == null ? null : new CorProfilerFunctionEnum(ppEnum);
             else
                 ppEnumResult = default(CorProfilerFunctionEnum);
 
@@ -3974,7 +3974,7 @@ namespace ClrDebug
             HRESULT hr = Raw6.EnumNgenModuleMethodsInliningThisMethod(inlinersModuleId, inlineeModuleId, inlineeMethodId, out incompleteData, out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumNgenModuleMethodsInliningThisMethodResult(incompleteData, new CorProfilerMethodEnum(ppEnum));
+                result = new EnumNgenModuleMethodsInliningThisMethodResult(incompleteData, ppEnum == null ? null : new CorProfilerMethodEnum(ppEnum));
             else
                 result = default(EnumNgenModuleMethodsInliningThisMethodResult);
 

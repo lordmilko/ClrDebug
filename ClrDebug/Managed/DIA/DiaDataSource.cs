@@ -263,7 +263,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.openSession(out ppSession);
 
             if (hr == HRESULT.S_OK)
-                ppSessionResult = new DiaSession(ppSession);
+                ppSessionResult = ppSession == null ? null : new DiaSession(ppSession);
             else
                 ppSessionResult = default(DiaSession);
 

@@ -559,7 +559,7 @@
             HRESULT hr = Raw.get_functionParent(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaFrameData(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaFrameData(pRetVal);
             else
                 pRetValResult = default(DiaFrameData);
 

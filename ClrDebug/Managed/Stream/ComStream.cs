@@ -179,7 +179,7 @@
             HRESULT hr = Raw.Clone(out ppstm);
 
             if (hr == HRESULT.S_OK)
-                ppstmResult = new ComStream(ppstm);
+                ppstmResult = ppstm == null ? null : new ComStream(ppstm);
             else
                 ppstmResult = default(ComStream);
 

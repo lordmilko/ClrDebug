@@ -120,7 +120,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                rgLocalsResult = rgLocals.Select(v => new SymUnmanagedVariable(v)).ToArray();
+                rgLocalsResult = rgLocals.Select(v => v == null ? null : new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }

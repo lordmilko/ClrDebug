@@ -111,7 +111,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                namespacesResult = namespaces.Select(v => new SymUnmanagedNamespace(v)).ToArray();
+                namespacesResult = namespaces.Select(v => v == null ? null : new SymUnmanagedNamespace(v)).ToArray();
 
                 return hr;
             }
@@ -164,7 +164,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pVarsResult = pVars.Select(v => new SymUnmanagedVariable(v)).ToArray();
+                pVarsResult = pVars.Select(v => v == null ? null : new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }

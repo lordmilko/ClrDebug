@@ -178,7 +178,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateLocalVariables(out ppValueEnum);
 
             if (hr == HRESULT.S_OK)
-                ppValueEnumResult = new CorDebugValueEnum(ppValueEnum);
+                ppValueEnumResult = ppValueEnum == null ? null : new CorDebugValueEnum(ppValueEnum);
             else
                 ppValueEnumResult = default(CorDebugValueEnum);
 
@@ -270,7 +270,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateArguments(out ppValueEnum);
 
             if (hr == HRESULT.S_OK)
-                ppValueEnumResult = new CorDebugValueEnum(ppValueEnum);
+                ppValueEnumResult = ppValueEnum == null ? null : new CorDebugValueEnum(ppValueEnum);
             else
                 ppValueEnumResult = default(CorDebugValueEnum);
 
@@ -467,7 +467,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.EnumerateTypeParameters(out ppTyParEnum);
 
             if (hr == HRESULT.S_OK)
-                ppTyParEnumResult = new CorDebugTypeEnum(ppTyParEnum);
+                ppTyParEnumResult = ppTyParEnum == null ? null : new CorDebugTypeEnum(ppTyParEnum);
             else
                 ppTyParEnumResult = default(CorDebugTypeEnum);
 
@@ -605,7 +605,7 @@ namespace ClrDebug
             HRESULT hr = Raw4.EnumerateLocalVariablesEx(flags, out ppValueEnum);
 
             if (hr == HRESULT.S_OK)
-                ppValueEnumResult = new CorDebugValueEnum(ppValueEnum);
+                ppValueEnumResult = ppValueEnum == null ? null : new CorDebugValueEnum(ppValueEnum);
             else
                 ppValueEnumResult = default(CorDebugValueEnum);
 
@@ -710,7 +710,7 @@ namespace ClrDebug
             HRESULT hr = Raw4.GetCodeEx(flags, out ppCode);
 
             if (hr == HRESULT.S_OK)
-                ppCodeResult = new CorDebugCode(ppCode);
+                ppCodeResult = ppCode == null ? null : new CorDebugCode(ppCode);
             else
                 ppCodeResult = default(CorDebugCode);
 

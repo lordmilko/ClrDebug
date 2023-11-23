@@ -47,7 +47,7 @@
             HRESULT hr = Raw.GetCachedInterfaceTypes(bIInspectableOnly, out ppInterfacesEnum);
 
             if (hr == HRESULT.S_OK)
-                ppInterfacesEnumResult = new CorDebugTypeEnum(ppInterfacesEnum);
+                ppInterfacesEnumResult = ppInterfacesEnum == null ? null : new CorDebugTypeEnum(ppInterfacesEnum);
             else
                 ppInterfacesEnumResult = default(CorDebugTypeEnum);
 

@@ -46,7 +46,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetProcess(out ppProcess);
 
             if (hr == HRESULT.S_OK)
-                ppProcessResult = new CorDebugProcess(ppProcess);
+                ppProcessResult = ppProcess == null ? null : new CorDebugProcess(ppProcess);
             else
                 ppProcessResult = default(CorDebugProcess);
 
@@ -146,7 +146,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetAppDomain(out ppAppDomain);
 
             if (hr == HRESULT.S_OK)
-                ppAppDomainResult = new CorDebugAppDomain(ppAppDomain);
+                ppAppDomainResult = ppAppDomain == null ? null : new CorDebugAppDomain(ppAppDomain);
             else
                 ppAppDomainResult = default(CorDebugAppDomain);
 
@@ -321,7 +321,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetActiveChain(out ppChain);
 
             if (hr == HRESULT.S_OK)
-                ppChainResult = new CorDebugChain(ppChain);
+                ppChainResult = ppChain == null ? null : new CorDebugChain(ppChain);
             else
                 ppChainResult = default(CorDebugChain);
 
@@ -396,7 +396,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetRegisterSet(out ppRegisters);
 
             if (hr == HRESULT.S_OK)
-                ppRegistersResult = new CorDebugRegisterSet(ppRegisters);
+                ppRegistersResult = ppRegisters == null ? null : new CorDebugRegisterSet(ppRegisters);
             else
                 ppRegistersResult = default(CorDebugRegisterSet);
 
@@ -492,7 +492,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CreateStepper(out ppStepper);
 
             if (hr == HRESULT.S_OK)
-                ppStepperResult = new CorDebugStepper(ppStepper);
+                ppStepperResult = ppStepper == null ? null : new CorDebugStepper(ppStepper);
             else
                 ppStepperResult = default(CorDebugStepper);
 
@@ -545,7 +545,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateChains(out ppChains);
 
             if (hr == HRESULT.S_OK)
-                ppChainsResult = new CorDebugChainEnum(ppChains);
+                ppChainsResult = ppChains == null ? null : new CorDebugChainEnum(ppChains);
             else
                 ppChainsResult = default(CorDebugChainEnum);
 
@@ -587,7 +587,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CreateEval(out ppEval);
 
             if (hr == HRESULT.S_OK)
-                ppEvalResult = new CorDebugEval(ppEval);
+                ppEvalResult = ppEval == null ? null : new CorDebugEval(ppEval);
             else
                 ppEvalResult = default(CorDebugEval);
 
@@ -837,7 +837,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                ppInternalFramesResult = ppInternalFrames.Select(v => new CorDebugInternalFrame((ICorDebugInternalFrame) v)).ToArray();
+                ppInternalFramesResult = ppInternalFrames.Select(v => v == null ? null : new CorDebugInternalFrame((ICorDebugInternalFrame) v)).ToArray();
 
                 return hr;
             }
@@ -891,7 +891,7 @@ namespace ClrDebug
             HRESULT hr = Raw3.CreateStackWalk(out ppStackWalk);
 
             if (hr == HRESULT.S_OK)
-                ppStackWalkResult = new CorDebugStackWalk(ppStackWalk);
+                ppStackWalkResult = ppStackWalk == null ? null : new CorDebugStackWalk(ppStackWalk);
             else
                 ppStackWalkResult = default(CorDebugStackWalk);
 
@@ -941,7 +941,7 @@ namespace ClrDebug
             HRESULT hr = Raw4.GetBlockingObjects(out ppBlockingObjectEnum);
 
             if (hr == HRESULT.S_OK)
-                ppBlockingObjectEnumResult = new CorDebugBlockingObjectEnum(ppBlockingObjectEnum);
+                ppBlockingObjectEnumResult = ppBlockingObjectEnum == null ? null : new CorDebugBlockingObjectEnum(ppBlockingObjectEnum);
             else
                 ppBlockingObjectEnumResult = default(CorDebugBlockingObjectEnum);
 

@@ -77,7 +77,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetModule(out mod);
 
             if (hr == HRESULT.S_OK)
-                modResult = new XCLRDataModule(mod);
+                modResult = mod == null ? null : new XCLRDataModule(mod);
             else
                 modResult = default(XCLRDataModule);
 
@@ -106,7 +106,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetDefinition(out typeDefinition);
 
             if (hr == HRESULT.S_OK)
-                typeDefinitionResult = new XCLRDataTypeDefinition(typeDefinition);
+                typeDefinitionResult = typeDefinition == null ? null : new XCLRDataTypeDefinition(typeDefinition);
             else
                 typeDefinitionResult = default(XCLRDataTypeDefinition);
 
@@ -156,7 +156,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetBase(out _base);
 
             if (hr == HRESULT.S_OK)
-                _baseResult = new XCLRDataTypeInstance(_base);
+                _baseResult = _base == null ? null : new XCLRDataTypeInstance(_base);
             else
                 _baseResult = default(XCLRDataTypeInstance);
 
@@ -201,7 +201,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumMethodInstance(ref handle, out methodInstance);
 
             if (hr == HRESULT.S_OK)
-                methodInstanceResult = new XCLRDataMethodInstance(methodInstance);
+                methodInstanceResult = methodInstance == null ? null : new XCLRDataMethodInstance(methodInstance);
             else
                 methodInstanceResult = default(XCLRDataMethodInstance);
 
@@ -263,7 +263,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumMethodInstanceByName(ref handle, out method);
 
             if (hr == HRESULT.S_OK)
-                methodResult = new XCLRDataMethodInstance(method);
+                methodResult = method == null ? null : new XCLRDataMethodInstance(method);
             else
                 methodResult = default(XCLRDataMethodInstance);
 
@@ -322,7 +322,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetStaticFieldByIndexResult(new XCLRDataValue(field), CreateString(nameBuf, nameLen), token);
+                result = new GetStaticFieldByIndexResult(field == null ? null : new XCLRDataValue(field), CreateString(nameBuf, nameLen), token);
 
                 return hr;
             }
@@ -374,7 +374,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumStaticFieldByName(ref handle, out value);
 
             if (hr == HRESULT.S_OK)
-                valueResult = new XCLRDataValue(value);
+                valueResult = value == null ? null : new XCLRDataValue(value);
             else
                 valueResult = default(XCLRDataValue);
 
@@ -416,7 +416,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTypeArgumentByIndex(index, out typeArg);
 
             if (hr == HRESULT.S_OK)
-                typeArgResult = new XCLRDataTypeInstance(typeArg);
+                typeArgResult = typeArg == null ? null : new XCLRDataTypeInstance(typeArg);
             else
                 typeArgResult = default(XCLRDataTypeInstance);
 
@@ -562,7 +562,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumStaticField(ref handle, out value);
 
             if (hr == HRESULT.S_OK)
-                valueResult = new XCLRDataValue(value);
+                valueResult = value == null ? null : new XCLRDataValue(value);
             else
                 valueResult = default(XCLRDataValue);
 
@@ -626,7 +626,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumStaticFieldByName2(ref handle, out value);
 
             if (hr == HRESULT.S_OK)
-                valueResult = new XCLRDataValue(value);
+                valueResult = value == null ? null : new XCLRDataValue(value);
             else
                 valueResult = default(XCLRDataValue);
 
@@ -683,7 +683,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetStaticFieldByTokenResult(new XCLRDataValue(field), CreateString(nameBuf, nameLen));
+                result = new GetStaticFieldByTokenResult(field == null ? null : new XCLRDataValue(field), CreateString(nameBuf, nameLen));
 
                 return hr;
             }
@@ -732,7 +732,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new EnumStaticField2Result(new XCLRDataValue(value), CreateString(nameBuf, nameLen), new XCLRDataModule(tokenScope), token);
+                result = new EnumStaticField2Result(value == null ? null : new XCLRDataValue(value), CreateString(nameBuf, nameLen), tokenScope == null ? null : new XCLRDataModule(tokenScope), token);
 
                 return hr;
             }
@@ -767,7 +767,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumStaticFieldByName3(ref handle, out value, out tokenScope, out token);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumStaticFieldByName3Result(new XCLRDataValue(value), new XCLRDataModule(tokenScope), token);
+                result = new EnumStaticFieldByName3Result(value == null ? null : new XCLRDataValue(value), tokenScope == null ? null : new XCLRDataModule(tokenScope), token);
             else
                 result = default(EnumStaticFieldByName3Result);
 
@@ -810,7 +810,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetStaticFieldByToken2Result(new XCLRDataValue(field), CreateString(nameBuf, nameLen));
+                result = new GetStaticFieldByToken2Result(field == null ? null : new XCLRDataValue(field), CreateString(nameBuf, nameLen));
 
                 return hr;
             }

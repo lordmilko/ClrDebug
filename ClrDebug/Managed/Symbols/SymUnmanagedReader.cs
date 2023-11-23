@@ -60,7 +60,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pDocsResult = pDocs.Select(v => new SymUnmanagedDocument(v)).ToArray();
+                pDocsResult = pDocs.Select(v => v == null ? null : new SymUnmanagedDocument(v)).ToArray();
 
                 return hr;
             }
@@ -142,7 +142,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pVarsResult = pVars.Select(v => new SymUnmanagedVariable(v)).ToArray();
+                pVarsResult = pVars.Select(v => v == null ? null : new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }
@@ -195,7 +195,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                namespacesResult = namespaces.Select(v => new SymUnmanagedNamespace(v)).ToArray();
+                namespacesResult = namespaces.Select(v => v == null ? null : new SymUnmanagedNamespace(v)).ToArray();
 
                 return hr;
             }
@@ -299,7 +299,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetDocument(url, language, languageVendor, documentType, out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedDocument(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedDocument(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedDocument);
 
@@ -337,7 +337,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetMethod(token, out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedMethod(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedMethod(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedMethod);
 
@@ -378,7 +378,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetMethodByVersion(token, version, out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedMethod(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedMethod(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedMethod);
 
@@ -428,7 +428,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pVarsResult = pVars.Select(v => new SymUnmanagedVariable(v)).ToArray();
+                pVarsResult = pVars.Select(v => v == null ? null : new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }
@@ -476,7 +476,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetMethodFromDocumentPosition(document, line, column, out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedMethod(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedMethod(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedMethod);
 
@@ -666,7 +666,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pRetValResult = pRetVal.Select(v => new SymUnmanagedMethod(v)).ToArray();
+                pRetValResult = pRetVal.Select(v => v == null ? null : new SymUnmanagedMethod(v)).ToArray();
 
                 return hr;
             }
@@ -789,7 +789,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetMethodByVersionPreRemap(token, version, out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedMethod(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedMethod(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedMethod);
 
@@ -878,7 +878,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pRetValResult = pRetVal.Select(v => new SymUnmanagedMethod(v)).ToArray();
+                pRetValResult = pRetVal.Select(v => v == null ? null : new SymUnmanagedMethod(v)).ToArray();
 
                 return hr;
             }

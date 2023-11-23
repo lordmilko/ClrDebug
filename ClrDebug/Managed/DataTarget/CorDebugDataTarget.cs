@@ -285,7 +285,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetSymbolProviderForImage(imageBaseAddress, out ppSymProvider);
 
             if (hr == HRESULT.S_OK)
-                ppSymProviderResult = new CorDebugSymbolProvider(ppSymProvider);
+                ppSymProviderResult = ppSymProvider == null ? null : new CorDebugSymbolProvider(ppSymProvider);
             else
                 ppSymProviderResult = default(CorDebugSymbolProvider);
 
@@ -372,7 +372,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.CreateVirtualUnwinder(nativeThreadID, contextFlags, cbContext, initialContext, out ppUnwinder);
 
             if (hr == HRESULT.S_OK)
-                ppUnwinderResult = new CorDebugVirtualUnwinder(ppUnwinder);
+                ppUnwinderResult = ppUnwinder == null ? null : new CorDebugVirtualUnwinder(ppUnwinder);
             else
                 ppUnwinderResult = default(CorDebugVirtualUnwinder);
 
@@ -426,7 +426,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pLoadedModulesResult = pLoadedModules.Select(v => new CorDebugLoadedModule(v)).ToArray();
+                pLoadedModulesResult = pLoadedModules.Select(v => v == null ? null : new CorDebugLoadedModule(v)).ToArray();
 
                 return hr;
             }

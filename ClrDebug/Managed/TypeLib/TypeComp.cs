@@ -53,7 +53,7 @@
             HRESULT hr = Raw.Bind(szName, lHashVal, wFlags, out ppTInfo, out pDescKind, out pBindPtr);
 
             if (hr == HRESULT.S_OK)
-                result = new BindResult(new TypeInfo(ppTInfo), pDescKind, pBindPtr);
+                result = new BindResult(ppTInfo == null ? null : new TypeInfo(ppTInfo), pDescKind, pBindPtr);
             else
                 result = default(BindResult);
 
@@ -95,7 +95,7 @@
             HRESULT hr = Raw.BindType(szName, lHashVal, out ppTInfo, out ppTComp);
 
             if (hr == HRESULT.S_OK)
-                result = new BindTypeResult(new TypeInfo(ppTInfo), new TypeComp(ppTComp));
+                result = new BindTypeResult(ppTInfo == null ? null : new TypeInfo(ppTInfo), ppTComp == null ? null : new TypeComp(ppTComp));
             else
                 result = default(BindTypeResult);
 

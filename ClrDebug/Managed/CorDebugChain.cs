@@ -48,7 +48,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetThread(out ppThread);
 
             if (hr == HRESULT.S_OK)
-                ppThreadResult = new CorDebugThread(ppThread);
+                ppThreadResult = ppThread == null ? null : new CorDebugThread(ppThread);
             else
                 ppThreadResult = default(CorDebugThread);
 
@@ -125,7 +125,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetContext(out ppContext);
 
             if (hr == HRESULT.S_OK)
-                ppContextResult = new CorDebugContext(ppContext);
+                ppContextResult = ppContext == null ? null : new CorDebugContext(ppContext);
             else
                 ppContextResult = default(CorDebugContext);
 
@@ -164,7 +164,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetCaller(out ppChain);
 
             if (hr == HRESULT.S_OK)
-                ppChainResult = new CorDebugChain(ppChain);
+                ppChainResult = ppChain == null ? null : new CorDebugChain(ppChain);
             else
                 ppChainResult = default(CorDebugChain);
 
@@ -204,7 +204,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetCallee(out ppChain);
 
             if (hr == HRESULT.S_OK)
-                ppChainResult = new CorDebugChain(ppChain);
+                ppChainResult = ppChain == null ? null : new CorDebugChain(ppChain);
             else
                 ppChainResult = default(CorDebugChain);
 
@@ -241,7 +241,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetPrevious(out ppChain);
 
             if (hr == HRESULT.S_OK)
-                ppChainResult = new CorDebugChain(ppChain);
+                ppChainResult = ppChain == null ? null : new CorDebugChain(ppChain);
             else
                 ppChainResult = default(CorDebugChain);
 
@@ -278,7 +278,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetNext(out ppChain);
 
             if (hr == HRESULT.S_OK)
-                ppChainResult = new CorDebugChain(ppChain);
+                ppChainResult = ppChain == null ? null : new CorDebugChain(ppChain);
             else
                 ppChainResult = default(CorDebugChain);
 
@@ -391,7 +391,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetRegisterSet(out ppRegisters);
 
             if (hr == HRESULT.S_OK)
-                ppRegistersResult = new CorDebugRegisterSet(ppRegisters);
+                ppRegistersResult = ppRegisters == null ? null : new CorDebugRegisterSet(ppRegisters);
             else
                 ppRegistersResult = default(CorDebugRegisterSet);
 
@@ -468,7 +468,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateFrames(out ppFrames);
 
             if (hr == HRESULT.S_OK)
-                ppFramesResult = new CorDebugFrameEnum(ppFrames);
+                ppFramesResult = ppFrames == null ? null : new CorDebugFrameEnum(ppFrames);
             else
                 ppFramesResult = default(CorDebugFrameEnum);
 

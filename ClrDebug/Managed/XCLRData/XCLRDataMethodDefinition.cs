@@ -43,7 +43,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTypeDefinition(out typeDefinition);
 
             if (hr == HRESULT.S_OK)
-                typeDefinitionResult = new XCLRDataTypeDefinition(typeDefinition);
+                typeDefinitionResult = typeDefinition == null ? null : new XCLRDataTypeDefinition(typeDefinition);
             else
                 typeDefinitionResult = default(XCLRDataTypeDefinition);
 
@@ -74,7 +74,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTokenAndScope(out token, out mod);
 
             if (hr == HRESULT.S_OK)
-                result = new GetTokenAndScopeResult(token, new XCLRDataModule(mod));
+                result = new GetTokenAndScopeResult(token, mod == null ? null : new XCLRDataModule(mod));
             else
                 result = default(GetTokenAndScopeResult);
 
@@ -251,7 +251,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumInstance(ref handle, out instance);
 
             if (hr == HRESULT.S_OK)
-                instanceResult = new XCLRDataMethodInstance(instance);
+                instanceResult = instance == null ? null : new XCLRDataMethodInstance(instance);
             else
                 instanceResult = default(XCLRDataMethodInstance);
 

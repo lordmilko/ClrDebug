@@ -1876,7 +1876,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = getScopeSymbolGroup(Raw, flags, update, out symbols);
 
             if (hr == HRESULT.S_OK)
-                symbolsResult = new DebugSymbolGroup(symbols);
+                symbolsResult = symbols == IntPtr.Zero ? null : new DebugSymbolGroup(symbols);
             else
                 symbolsResult = default(DebugSymbolGroup);
 
@@ -1926,7 +1926,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = createSymbolGroup(Raw, out group);
 
             if (hr == HRESULT.S_OK)
-                groupResult = new DebugSymbolGroup(group);
+                groupResult = group == IntPtr.Zero ? null : new DebugSymbolGroup(group);
             else
                 groupResult = default(DebugSymbolGroup);
 
@@ -3762,7 +3762,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = getScopeSymbolGroup2(Raw, flags, update, out symbols);
 
             if (hr == HRESULT.S_OK)
-                symbolsResult = new DebugSymbolGroup(symbols);
+                symbolsResult = symbols == IntPtr.Zero ? null : new DebugSymbolGroup(symbols);
             else
                 symbolsResult = default(DebugSymbolGroup);
 
@@ -3812,7 +3812,7 @@ namespace ClrDebug.DbgEng
             HRESULT hr = createSymbolGroup2(Raw, out group);
 
             if (hr == HRESULT.S_OK)
-                groupResult = new DebugSymbolGroup(group);
+                groupResult = group == IntPtr.Zero ? null : new DebugSymbolGroup(group);
             else
                 groupResult = default(DebugSymbolGroup);
 

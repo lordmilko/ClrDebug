@@ -46,7 +46,7 @@
             HRESULT hr = Raw.get_compiland(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSymbol(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSymbol(pRetVal);
             else
                 pRetValResult = default(DiaSymbol);
 
@@ -83,7 +83,7 @@
             HRESULT hr = Raw.get_sourceFile(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new DiaSourceFile(pRetVal);
+                pRetValResult = pRetVal == null ? null : new DiaSourceFile(pRetVal);
             else
                 pRetValResult = default(DiaSourceFile);
 

@@ -65,7 +65,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetManagedObject(out value);
 
             if (hr == HRESULT.S_OK)
-                valueResult = new XCLRDataValue(value);
+                valueResult = value == null ? null : new XCLRDataValue(value);
             else
                 valueResult = default(XCLRDataValue);
 
@@ -188,7 +188,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumTask(ref handle, out task);
 
             if (hr == HRESULT.S_OK)
-                taskResult = new XCLRDataTask(task);
+                taskResult = task == null ? null : new XCLRDataTask(task);
             else
                 taskResult = default(XCLRDataTask);
 
@@ -230,7 +230,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTaskByOSThreadID(osThreadID, out task);
 
             if (hr == HRESULT.S_OK)
-                taskResult = new XCLRDataTask(task);
+                taskResult = task == null ? null : new XCLRDataTask(task);
             else
                 taskResult = default(XCLRDataTask);
 
@@ -257,7 +257,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTaskByUniqueID(taskID, out task);
 
             if (hr == HRESULT.S_OK)
-                taskResult = new XCLRDataTask(task);
+                taskResult = task == null ? null : new XCLRDataTask(task);
             else
                 taskResult = default(XCLRDataTask);
 
@@ -405,7 +405,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumAppDomain(ref handle, out appDomain);
 
             if (hr == HRESULT.S_OK)
-                appDomainResult = new XCLRDataAppDomain(appDomain);
+                appDomainResult = appDomain == null ? null : new XCLRDataAppDomain(appDomain);
             else
                 appDomainResult = default(XCLRDataAppDomain);
 
@@ -465,7 +465,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetAppDomainByUniqueID(id, out appDomain);
 
             if (hr == HRESULT.S_OK)
-                appDomainResult = new XCLRDataAppDomain(appDomain);
+                appDomainResult = appDomain == null ? null : new XCLRDataAppDomain(appDomain);
             else
                 appDomainResult = default(XCLRDataAppDomain);
 
@@ -510,7 +510,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumAssembly(ref handle, out assembly);
 
             if (hr == HRESULT.S_OK)
-                assemblyResult = new XCLRDataAssembly(assembly);
+                assemblyResult = assembly == null ? null : new XCLRDataAssembly(assembly);
             else
                 assemblyResult = default(XCLRDataAssembly);
 
@@ -604,7 +604,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumModule(ref handle, out mod);
 
             if (hr == HRESULT.S_OK)
-                modResult = new XCLRDataModule(mod);
+                modResult = mod == null ? null : new XCLRDataModule(mod);
             else
                 modResult = default(XCLRDataModule);
 
@@ -662,7 +662,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetModuleByAddress(address, out mod);
 
             if (hr == HRESULT.S_OK)
-                modResult = new XCLRDataModule(mod);
+                modResult = mod == null ? null : new XCLRDataModule(mod);
             else
                 modResult = default(XCLRDataModule);
 
@@ -747,7 +747,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumMethodInstanceByAddress(ref handle, out method);
 
             if (hr == HRESULT.S_OK)
-                methodResult = new XCLRDataMethodInstance(method);
+                methodResult = method == null ? null : new XCLRDataMethodInstance(method);
             else
                 methodResult = default(XCLRDataMethodInstance);
 
@@ -824,7 +824,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetDataByAddressResult(CreateString(nameBuf, nameLen), new XCLRDataValue(value), displacement);
+                result = new GetDataByAddressResult(CreateString(nameBuf, nameLen), value == null ? null : new XCLRDataValue(value), displacement);
 
                 return hr;
             }
@@ -855,7 +855,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetExceptionStateByExceptionRecord(ref record, out exState);
 
             if (hr == HRESULT.S_OK)
-                exStateResult = new XCLRDataExceptionState(exState);
+                exStateResult = exState == null ? null : new XCLRDataExceptionState(exState);
             else
                 exStateResult = default(XCLRDataExceptionState);
 
@@ -920,7 +920,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CreateMemoryValue(appDomain, tlsTask, type, addr, out value);
 
             if (hr == HRESULT.S_OK)
-                valueResult = new XCLRDataValue(value);
+                valueResult = value == null ? null : new XCLRDataValue(value);
             else
                 valueResult = default(XCLRDataValue);
 
@@ -1088,7 +1088,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumMethodDefinitionByAddress(ref handle, out method);
 
             if (hr == HRESULT.S_OK)
-                methodResult = new XCLRDataMethodDefinition(method);
+                methodResult = method == null ? null : new XCLRDataMethodDefinition(method);
             else
                 methodResult = default(XCLRDataMethodDefinition);
 

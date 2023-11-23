@@ -238,7 +238,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateThreads(out ppThreads);
 
             if (hr == HRESULT.S_OK)
-                ppThreadsResult = new CorDebugThreadEnum(ppThreads);
+                ppThreadsResult = ppThreads == null ? null : new CorDebugThreadEnum(ppThreads);
             else
                 ppThreadsResult = default(CorDebugThreadEnum);
 
@@ -375,7 +375,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CanCommitChanges(cSnapshots, ref pSnapshots, out pError);
 
             if (hr == HRESULT.S_OK)
-                pErrorResult = new CorDebugErrorInfoEnum(pError);
+                pErrorResult = pError == null ? null : new CorDebugErrorInfoEnum(pError);
             else
                 pErrorResult = default(CorDebugErrorInfoEnum);
 
@@ -411,7 +411,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CommitChanges(cSnapshots, ref pSnapshots, out pError);
 
             if (hr == HRESULT.S_OK)
-                pErrorResult = new CorDebugErrorInfoEnum(pError);
+                pErrorResult = pError == null ? null : new CorDebugErrorInfoEnum(pError);
             else
                 pErrorResult = default(CorDebugErrorInfoEnum);
 

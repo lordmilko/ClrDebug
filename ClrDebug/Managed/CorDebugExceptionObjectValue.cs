@@ -63,7 +63,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateExceptionCallStack(out ppCallStackEnum);
 
             if (hr == HRESULT.S_OK)
-                ppCallStackEnumResult = new CorDebugExceptionObjectCallStackEnum(ppCallStackEnum);
+                ppCallStackEnumResult = ppCallStackEnum == null ? null : new CorDebugExceptionObjectCallStackEnum(ppCallStackEnum);
             else
                 ppCallStackEnumResult = default(CorDebugExceptionObjectCallStackEnum);
 

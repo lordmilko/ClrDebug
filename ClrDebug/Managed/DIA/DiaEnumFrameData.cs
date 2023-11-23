@@ -52,7 +52,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get__NewEnum(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new EnumVARIANT(pRetVal);
+                pRetValResult = pRetVal == null ? null : new EnumVARIANT(pRetVal);
             else
                 pRetValResult = default(EnumVARIANT);
 
@@ -119,7 +119,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.Item(index, out frame);
 
             if (hr == HRESULT.S_OK)
-                frameResult = new DiaFrameData(frame);
+                frameResult = frame == null ? null : new DiaFrameData(frame);
             else
                 frameResult = default(DiaFrameData);
 
@@ -157,7 +157,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.frameByRVA(relativeVirtualAddress, out frame);
 
             if (hr == HRESULT.S_OK)
-                frameResult = new DiaFrameData(frame);
+                frameResult = frame == null ? null : new DiaFrameData(frame);
             else
                 frameResult = default(DiaFrameData);
 
@@ -195,7 +195,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.frameByVA(virtualAddress, out frame);
 
             if (hr == HRESULT.S_OK)
-                frameResult = new DiaFrameData(frame);
+                frameResult = frame == null ? null : new DiaFrameData(frame);
             else
                 frameResult = default(DiaFrameData);
 
@@ -247,7 +247,7 @@ namespace ClrDebug.DIA
             var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
-                Current = new DiaFrameData(result);
+                Current = result == null ? null : new DiaFrameData(result);
 
             return fetched == 1;
         }

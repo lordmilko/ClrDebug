@@ -65,7 +65,7 @@ namespace ClrDebug
             var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
-                Current = new CorPublishAppDomain(result);
+                Current = result == null ? null : new CorPublishAppDomain(result);
 
             return fetched == 1;
         }

@@ -105,7 +105,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetRegisterSet(out ppRegisters);
 
             if (hr == HRESULT.S_OK)
-                ppRegistersResult = new CorDebugRegisterSet(ppRegisters);
+                ppRegistersResult = ppRegisters == null ? null : new CorDebugRegisterSet(ppRegisters);
             else
                 ppRegistersResult = default(CorDebugRegisterSet);
 

@@ -43,7 +43,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTypeInstance(out typeInstance);
 
             if (hr == HRESULT.S_OK)
-                typeInstanceResult = new XCLRDataTypeInstance(typeInstance);
+                typeInstanceResult = typeInstance == null ? null : new XCLRDataTypeInstance(typeInstance);
             else
                 typeInstanceResult = default(XCLRDataTypeInstance);
 
@@ -72,7 +72,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetDefinition(out methodDefinition);
 
             if (hr == HRESULT.S_OK)
-                methodDefinitionResult = new XCLRDataMethodDefinition(methodDefinition);
+                methodDefinitionResult = methodDefinition == null ? null : new XCLRDataMethodDefinition(methodDefinition);
             else
                 methodDefinitionResult = default(XCLRDataMethodDefinition);
 
@@ -103,7 +103,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTokenAndScope(out token, out mod);
 
             if (hr == HRESULT.S_OK)
-                result = new GetTokenAndScopeResult(token, new XCLRDataModule(mod));
+                result = new GetTokenAndScopeResult(token, mod == null ? null : new XCLRDataModule(mod));
             else
                 result = default(GetTokenAndScopeResult);
 
@@ -332,7 +332,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTypeArgumentByIndex(index, out typeArg);
 
             if (hr == HRESULT.S_OK)
-                typeArgResult = new XCLRDataTypeInstance(typeArg);
+                typeArgResult = typeArg == null ? null : new XCLRDataTypeInstance(typeArg);
             else
                 typeArgResult = default(XCLRDataTypeInstance);
 

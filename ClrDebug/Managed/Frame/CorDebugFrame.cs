@@ -64,7 +64,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetChain(out ppChain);
 
             if (hr == HRESULT.S_OK)
-                ppChainResult = new CorDebugChain(ppChain);
+                ppChainResult = ppChain == null ? null : new CorDebugChain(ppChain);
             else
                 ppChainResult = default(CorDebugChain);
 
@@ -100,7 +100,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetCode(out ppCode);
 
             if (hr == HRESULT.S_OK)
-                ppCodeResult = new CorDebugCode(ppCode);
+                ppCodeResult = ppCode == null ? null : new CorDebugCode(ppCode);
             else
                 ppCodeResult = default(CorDebugCode);
 
@@ -139,7 +139,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetFunction(out ppFunction);
 
             if (hr == HRESULT.S_OK)
-                ppFunctionResult = new CorDebugFunction(ppFunction);
+                ppFunctionResult = ppFunction == null ? null : new CorDebugFunction(ppFunction);
             else
                 ppFunctionResult = default(CorDebugFunction);
 
@@ -322,7 +322,7 @@ namespace ClrDebug
             HRESULT hr = Raw.CreateStepper(out ppStepper);
 
             if (hr == HRESULT.S_OK)
-                ppStepperResult = new CorDebugStepper(ppStepper);
+                ppStepperResult = ppStepper == null ? null : new CorDebugStepper(ppStepper);
             else
                 ppStepperResult = default(CorDebugStepper);
 

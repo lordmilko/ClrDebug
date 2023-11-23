@@ -32,7 +32,7 @@
             HRESULT hr = Raw.ActivateInstance(out instance);
 
             if (hr == HRESULT.S_OK)
-                instanceResult = new Inspectable(instance);
+                instanceResult = instance == null ? null : new Inspectable(instance);
             else
                 instanceResult = default(Inspectable);
 

@@ -89,7 +89,7 @@ namespace ClrDebug.TypeLib
             HRESULT hr = Raw.GetTypeComp(out ppTComp);
 
             if (hr == HRESULT.S_OK)
-                ppTCompResult = new TypeComp(ppTComp);
+                ppTCompResult = ppTComp == null ? null : new TypeComp(ppTComp);
             else
                 ppTCompResult = default(TypeComp);
 
@@ -126,7 +126,7 @@ namespace ClrDebug.TypeLib
             HRESULT hr = Raw.GetTypeInfo(index, out ppTI);
 
             if (hr == HRESULT.S_OK)
-                ppTIResult = new TypeInfo(ppTI);
+                ppTIResult = ppTI == null ? null : new TypeInfo(ppTI);
             else
                 ppTIResult = default(TypeInfo);
 
@@ -192,7 +192,7 @@ namespace ClrDebug.TypeLib
             HRESULT hr = Raw.GetTypeInfoOfGuid(guid, out ppTInfo);
 
             if (hr == HRESULT.S_OK)
-                ppTInfoResult = new TypeInfo(ppTInfo);
+                ppTInfoResult = ppTInfo == null ? null : new TypeInfo(ppTInfo);
             else
                 ppTInfoResult = default(TypeInfo);
 
@@ -321,7 +321,7 @@ namespace ClrDebug.TypeLib
                 if (rgMemId.Length != pcFound)
                     Array.Resize(ref rgMemId, (int) pcFound);
 
-                result = new FindNameResult(ppTInfo.Select(v => new TypeInfo(v)).ToArray(), rgMemId);
+                result = new FindNameResult(ppTInfo.Select(v => v == null ? null : new TypeInfo(v)).ToArray(), rgMemId);
             }
             else
                 result = default(FindNameResult);

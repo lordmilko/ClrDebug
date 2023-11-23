@@ -45,7 +45,7 @@
             HRESULT hr = Raw.GetObject(out ppObject);
 
             if (hr == HRESULT.S_OK)
-                ppObjectResult = new CorDebugObjectValue(ppObject);
+                ppObjectResult = ppObject == null ? null : new CorDebugObjectValue(ppObject);
             else
                 ppObjectResult = default(CorDebugObjectValue);
 

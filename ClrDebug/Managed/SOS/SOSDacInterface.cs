@@ -261,7 +261,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetHandleEnum(out ppHandleEnum);
 
             if (hr == HRESULT.S_OK)
-                ppHandleEnumResult = new SOSHandleEnum(ppHandleEnum);
+                ppHandleEnumResult = ppHandleEnum == null ? null : new SOSHandleEnum(ppHandleEnum);
             else
                 ppHandleEnumResult = default(SOSHandleEnum);
 
@@ -587,7 +587,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetModule(addr, out mod);
 
             if (hr == HRESULT.S_OK)
-                modResult = new XCLRDataModule(mod);
+                modResult = mod == null ? null : new XCLRDataModule(mod);
             else
                 modResult = default(XCLRDataModule);
 
@@ -1685,7 +1685,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetHandleEnumForTypes(types, count, out ppHandleEnum);
 
             if (hr == HRESULT.S_OK)
-                ppHandleEnumResult = new SOSHandleEnum(ppHandleEnum);
+                ppHandleEnumResult = ppHandleEnum == null ? null : new SOSHandleEnum(ppHandleEnum);
             else
                 ppHandleEnumResult = default(SOSHandleEnum);
 
@@ -1712,7 +1712,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetHandleEnumForGC(gen, out ppHandleEnum);
 
             if (hr == HRESULT.S_OK)
-                ppHandleEnumResult = new SOSHandleEnum(ppHandleEnum);
+                ppHandleEnumResult = ppHandleEnum == null ? null : new SOSHandleEnum(ppHandleEnum);
             else
                 ppHandleEnumResult = default(SOSHandleEnum);
 
@@ -1988,7 +1988,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetStackReferences(osThreadID, out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                ppEnumResult = new SOSStackRefEnum(ppEnum);
+                ppEnumResult = ppEnum == null ? null : new SOSStackRefEnum(ppEnum);
             else
                 ppEnumResult = default(SOSStackRefEnum);
 

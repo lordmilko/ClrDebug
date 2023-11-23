@@ -172,7 +172,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumAppDomains(out ppEnum);
 
             if (hr == HRESULT.S_OK)
-                ppEnumResult = new CorPublishAppDomainEnum(ppEnum);
+                ppEnumResult = ppEnum == null ? null : new CorPublishAppDomainEnum(ppEnum);
             else
                 ppEnumResult = default(CorPublishAppDomainEnum);
 

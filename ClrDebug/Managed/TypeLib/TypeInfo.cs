@@ -75,7 +75,7 @@ namespace ClrDebug.TypeLib
             HRESULT hr = Raw.GetTypeComp(out ppTComp);
 
             if (hr == HRESULT.S_OK)
-                ppTCompResult = new TypeComp(ppTComp);
+                ppTCompResult = ppTComp == null ? null : new TypeComp(ppTComp);
             else
                 ppTCompResult = default(TypeComp);
 
@@ -113,7 +113,7 @@ namespace ClrDebug.TypeLib
             HRESULT hr = Raw.GetContainingTypeLib(out ppTLB, out pIndex);
 
             if (hr == HRESULT.S_OK)
-                result = new GetContainingTypeLibResult(new ComTypeLib(ppTLB), pIndex);
+                result = new GetContainingTypeLibResult(ppTLB == null ? null : new ComTypeLib(ppTLB), pIndex);
             else
                 result = default(GetContainingTypeLibResult);
 
@@ -486,7 +486,7 @@ namespace ClrDebug.TypeLib
             HRESULT hr = Raw.GetRefTypeInfo(hRef, out ppTI);
 
             if (hr == HRESULT.S_OK)
-                ppTIResult = new TypeInfo(ppTI);
+                ppTIResult = ppTI == null ? null : new TypeInfo(ppTI);
             else
                 ppTIResult = default(TypeInfo);
 

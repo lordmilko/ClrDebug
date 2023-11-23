@@ -146,7 +146,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.Enum(out ppenum);
 
             if (hr == HRESULT.S_OK)
-                ppenumResult = new EnumSTATPROPSTG(ppenum);
+                ppenumResult = ppenum == null ? null : new EnumSTATPROPSTG(ppenum);
             else
                 ppenumResult = default(EnumSTATPROPSTG);
 

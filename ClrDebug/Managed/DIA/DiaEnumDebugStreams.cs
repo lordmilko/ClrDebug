@@ -53,7 +53,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.get__NewEnum(out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new EnumVARIANT(pRetVal);
+                pRetValResult = pRetVal == null ? null : new EnumVARIANT(pRetVal);
             else
                 pRetValResult = default(EnumVARIANT);
 
@@ -120,7 +120,7 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.Item(index, out stream);
 
             if (hr == HRESULT.S_OK)
-                streamResult = new DiaEnumDebugStreamData(stream);
+                streamResult = stream == null ? null : new DiaEnumDebugStreamData(stream);
             else
                 streamResult = default(DiaEnumDebugStreamData);
 
@@ -172,7 +172,7 @@ namespace ClrDebug.DIA
             var hr = Raw.Next(1, out result, out fetched);
 
             if (fetched == 1)
-                Current = new DiaEnumDebugStreamData(result);
+                Current = result == null ? null : new DiaEnumDebugStreamData(result);
 
             return fetched == 1;
         }

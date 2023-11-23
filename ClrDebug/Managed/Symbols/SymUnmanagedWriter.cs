@@ -56,7 +56,7 @@ namespace ClrDebug
             HRESULT hr = Raw.DefineDocument(url, language, languageVendor, documentType, out pRetVal);
 
             if (hr == HRESULT.S_OK)
-                pRetValResult = new SymUnmanagedDocumentWriter(pRetVal);
+                pRetValResult = pRetVal == null ? null : new SymUnmanagedDocumentWriter(pRetVal);
             else
                 pRetValResult = default(SymUnmanagedDocumentWriter);
 

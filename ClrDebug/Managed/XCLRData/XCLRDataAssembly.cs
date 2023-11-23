@@ -199,7 +199,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumModule(ref handle, out mod);
 
             if (hr == HRESULT.S_OK)
-                modResult = new XCLRDataModule(mod);
+                modResult = mod == null ? null : new XCLRDataModule(mod);
             else
                 modResult = default(XCLRDataModule);
 
@@ -296,7 +296,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumAppDomain(ref handle, out appDomain);
 
             if (hr == HRESULT.S_OK)
-                appDomainResult = new XCLRDataAppDomain(appDomain);
+                appDomainResult = appDomain == null ? null : new XCLRDataAppDomain(appDomain);
             else
                 appDomainResult = default(XCLRDataAppDomain);
 

@@ -56,7 +56,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetPrevious(out exState);
 
             if (hr == HRESULT.S_OK)
-                exStateResult = new XCLRDataExceptionState(exState);
+                exStateResult = exState == null ? null : new XCLRDataExceptionState(exState);
             else
                 exStateResult = default(XCLRDataExceptionState);
 
@@ -85,7 +85,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetManagedObject(out value);
 
             if (hr == HRESULT.S_OK)
-                valueResult = new XCLRDataValue(value);
+                valueResult = value == null ? null : new XCLRDataValue(value);
             else
                 valueResult = default(XCLRDataValue);
 
@@ -201,7 +201,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetTask(out task);
 
             if (hr == HRESULT.S_OK)
-                taskResult = new XCLRDataTask(task);
+                taskResult = task == null ? null : new XCLRDataTask(task);
             else
                 taskResult = default(XCLRDataTask);
 

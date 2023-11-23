@@ -90,7 +90,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetClass(out ppClass);
 
             if (hr == HRESULT.S_OK)
-                ppClassResult = new CorDebugClass(ppClass);
+                ppClassResult = ppClass == null ? null : new CorDebugClass(ppClass);
             else
                 ppClassResult = default(CorDebugClass);
 
@@ -131,7 +131,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetFirstTypeParameter(out value);
 
             if (hr == HRESULT.S_OK)
-                valueResult = new CorDebugType(value);
+                valueResult = value == null ? null : new CorDebugType(value);
             else
                 valueResult = default(CorDebugType);
 
@@ -171,7 +171,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetBase(out pBase);
 
             if (hr == HRESULT.S_OK)
-                pBaseResult = new CorDebugType(pBase);
+                pBaseResult = pBase == null ? null : new CorDebugType(pBase);
             else
                 pBaseResult = default(CorDebugType);
 
@@ -248,7 +248,7 @@ namespace ClrDebug
             HRESULT hr = Raw.EnumerateTypeParameters(out ppTyParEnum);
 
             if (hr == HRESULT.S_OK)
-                ppTyParEnumResult = new CorDebugTypeEnum(ppTyParEnum);
+                ppTyParEnumResult = ppTyParEnum == null ? null : new CorDebugTypeEnum(ppTyParEnum);
             else
                 ppTyParEnumResult = default(CorDebugTypeEnum);
 
