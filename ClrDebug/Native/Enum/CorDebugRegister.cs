@@ -1,4 +1,6 @@
-﻿namespace ClrDebug
+﻿using System;
+
+namespace ClrDebug
 {
     /// <summary>
     /// Specifies the registers associated with a given processor architecture.
@@ -8,6 +10,7 @@
     /// only values REGISTER_IA64_R0 and REGISTER_IA64_F0 are provided. The other values can be determined as follows:
     /// For example, if you need to specify the #83 data register on the IA-64 processor, use REGISTER_IA64_R0 + 83.
     /// </remarks>
+    [Flags]
     public enum CorDebugRegister : long
     {
         /// <summary>

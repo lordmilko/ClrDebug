@@ -30,7 +30,7 @@ namespace ClrDebug
         public HRESULT TryGetModule(out XCLRDataModule modResult)
         {
             /*HRESULT GetModule(
-            [Out] out IXCLRDataModule mod);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);*/
             IXCLRDataModule mod;
             HRESULT hr = Raw.GetModule(out mod);
 
@@ -60,7 +60,7 @@ namespace ClrDebug
         {
             /*HRESULT GetTokenAndScope(
             [Out] out mdTypeDef token,
-            [Out] out IXCLRDataModule mod);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);*/
             mdTypeDef token;
             IXCLRDataModule mod;
             HRESULT hr = Raw.GetTokenAndScope(out token, out mod);
@@ -153,7 +153,7 @@ namespace ClrDebug
         public HRESULT TryGetBase(out XCLRDataTypeDefinition _baseResult)
         {
             /*HRESULT GetBase(
-            [Out] out IXCLRDataTypeDefinition _base);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition _base);*/
             IXCLRDataTypeDefinition _base;
             HRESULT hr = Raw.GetBase(out _base);
 
@@ -230,7 +230,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumMethodDefinition(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataMethodDefinition methodDefinition);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodDefinition methodDefinition);*/
             IXCLRDataMethodDefinition methodDefinition;
             HRESULT hr = Raw.EnumMethodDefinition(ref handle, out methodDefinition);
 
@@ -292,7 +292,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumMethodDefinitionByName(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataMethodDefinition method);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodDefinition method);*/
             IXCLRDataMethodDefinition method;
             HRESULT hr = Raw.EnumMethodDefinitionByName(ref handle, out method);
 
@@ -334,7 +334,7 @@ namespace ClrDebug
         {
             /*HRESULT GetMethodDefinitionByToken(
             [In] mdMethodDef token,
-            [Out] out IXCLRDataMethodDefinition methodDefinition);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodDefinition methodDefinition);*/
             IXCLRDataMethodDefinition methodDefinition;
             HRESULT hr = Raw.GetMethodDefinitionByToken(token, out methodDefinition);
 
@@ -360,7 +360,7 @@ namespace ClrDebug
         public HRESULT TryStartEnumInstances(IXCLRDataAppDomain appDomain, out IntPtr handle)
         {
             /*HRESULT StartEnumInstances(
-            [In] IXCLRDataAppDomain appDomain,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumInstances(appDomain, out handle);
         }
@@ -380,7 +380,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumInstance(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataTypeInstance instance);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance instance);*/
             IXCLRDataTypeInstance instance;
             HRESULT hr = Raw.EnumInstance(ref handle, out instance);
 
@@ -464,7 +464,7 @@ namespace ClrDebug
         public HRESULT TryIsSameObject(IXCLRDataTypeDefinition type)
         {
             /*HRESULT IsSameObject(
-            [In] IXCLRDataTypeDefinition type);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTypeDefinition type);*/
             return Raw.IsSameObject(type);
         }
 
@@ -543,7 +543,7 @@ namespace ClrDebug
             [In] int nameBufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
-            [Out] out IXCLRDataTypeDefinition type,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataFieldFlag flags,
             [Out] out mdFieldDef token);*/
             int nameBufLen = 0;
@@ -625,7 +625,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumFieldByName(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataTypeDefinition type,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataFieldFlag flags,
             [Out] out mdFieldDef token);*/
             IXCLRDataTypeDefinition type;
@@ -674,7 +674,7 @@ namespace ClrDebug
             [In] int nameBufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
-            [Out] out IXCLRDataTypeDefinition type,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataValueFlag flags);*/
             int nameBufLen = 0;
             int nameLen;
@@ -721,9 +721,9 @@ namespace ClrDebug
             [In] int nameBufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
-            [Out] out IXCLRDataTypeDefinition type,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataFieldFlag flags,
-            [Out] out IXCLRDataModule tokenScope,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);*/
             int nameBufLen = 0;
             int nameLen;
@@ -769,9 +769,9 @@ namespace ClrDebug
         {
             /*HRESULT EnumFieldByName2(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataTypeDefinition type,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataFieldFlag flags,
-            [Out] out IXCLRDataModule tokenScope,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);*/
             IXCLRDataTypeDefinition type;
             CLRDataFieldFlag flags;
@@ -801,12 +801,12 @@ namespace ClrDebug
         public HRESULT TryGetFieldByToken2(IXCLRDataModule tokenScope, mdFieldDef token, out GetFieldByToken2Result result)
         {
             /*HRESULT GetFieldByToken2(
-            [In] IXCLRDataModule tokenScope,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule tokenScope,
             [In] mdFieldDef token,
             [In] int nameBufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
-            [Out] out IXCLRDataTypeDefinition type,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataValueFlag flags);*/
             int nameBufLen = 0;
             int nameLen;

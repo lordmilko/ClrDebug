@@ -194,7 +194,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumModule(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataModule mod);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);*/
             IXCLRDataModule mod;
             HRESULT hr = Raw.EnumModule(ref handle, out mod);
 
@@ -235,7 +235,7 @@ namespace ClrDebug
         public HRESULT TryIsSameObject(IXCLRDataAssembly assembly)
         {
             /*HRESULT IsSameObject(
-            [In] IXCLRDataAssembly assembly);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAssembly assembly);*/
             return Raw.IsSameObject(assembly);
         }
 
@@ -291,7 +291,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumAppDomain(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataAppDomain appDomain);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataAppDomain appDomain);*/
             IXCLRDataAppDomain appDomain;
             HRESULT hr = Raw.EnumAppDomain(ref handle, out appDomain);
 

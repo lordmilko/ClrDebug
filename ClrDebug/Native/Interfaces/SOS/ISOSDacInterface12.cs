@@ -5,17 +5,18 @@ using System.Runtime.InteropServices.Marshalling;
 
 namespace ClrDebug
 {
-    [Guid("1C4D9A4B-702D-4CF6-B290-1DB6F43050D0")]
+    [Guid("1B93BACC-8CA4-432D-943A-3E6E7EC0B0A3")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 #if !GENERATED_MARSHALLING
     [ComImport]
 #else
     [GeneratedComInterface]
 #endif
-    public partial interface IXCLRDataFrame2
+    public partial interface ISOSDacInterface12
     {
         [PreserveSig]
-        HRESULT GetExactGenericArgsToken(
-            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue genericToken);
+        HRESULT GetGlobalAllocationContext(
+            [Out] out CLRDATA_ADDRESS allocPtr,
+            [Out] out CLRDATA_ADDRESS allocLimit);
     }
 }

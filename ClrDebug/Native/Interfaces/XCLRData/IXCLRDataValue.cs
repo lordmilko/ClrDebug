@@ -41,7 +41,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetType(
-            [Out] out IXCLRDataTypeInstance typeInstance);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance typeInstance);
 
         [PreserveSig]
         HRESULT GetNumFields(
@@ -50,7 +50,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetFieldByIndex(
             [In] int index,
-            [Out] out IXCLRDataValue field,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
@@ -67,19 +67,19 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetNumFields2(
             [In] CLRDataFieldFlag flags,
-            [In] IXCLRDataTypeInstance fromType,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTypeInstance fromType,
             [Out] out int numFields);
 
         [PreserveSig]
         HRESULT StartEnumFields(
             [In] CLRDataFieldFlag flags,
-            [In] IXCLRDataTypeInstance fromType,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTypeInstance fromType,
             [Out] out IntPtr handle);
 
         [PreserveSig]
         HRESULT EnumField(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataValue field,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
@@ -94,13 +94,13 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] CLRDataByNameFlag nameFlags,
             [In] CLRDataFieldFlag fieldFlags,
-            [In] IXCLRDataTypeInstance fromType,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTypeInstance fromType,
             [Out] out IntPtr handle);
 
         [PreserveSig]
         HRESULT EnumFieldByName(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataValue field,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
@@ -110,18 +110,18 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetFieldByToken(
             [In] mdFieldDef token,
-            [Out] out IXCLRDataValue field,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf);
 
         [PreserveSig]
         HRESULT GetAssociatedValue(
-            [Out] out IXCLRDataValue assocValue);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue assocValue);
 
         [PreserveSig]
         HRESULT GetAssociatedType(
-            [Out] out IXCLRDataTypeInstance assocType);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance assocType);
 
         [PreserveSig]
         HRESULT GetString(
@@ -142,30 +142,30 @@ namespace ClrDebug
         HRESULT GetArrayElement(
             [In] int numInd,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] indices,
-            [Out] out IXCLRDataValue value);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);
 
         [PreserveSig]
         HRESULT EnumField2(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataValue field,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
-            [Out] out IXCLRDataModule tokenScope,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
         HRESULT EnumFieldByName2(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataValue field,
-            [Out] out IXCLRDataModule tokenScope,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
         HRESULT GetFieldByToken2(
-            [In] IXCLRDataModule tokenScope,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule tokenScope,
             [In] mdFieldDef token,
-            [Out] out IXCLRDataValue field,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] nameBuf);

@@ -33,7 +33,7 @@ namespace ClrDebug.TypeLib
         /// <param name="ppTComp">When this method returns, contains a reference to the ITypeComp interface of the containing type library. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetTypeComp(
-            [Out] out ITypeComp ppTComp);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeComp ppTComp);
 
         /// <summary>
         /// Retrieves the <see cref="FUNCDESC"/> structure that contains information about a specified function.<para/>
@@ -99,7 +99,7 @@ namespace ClrDebug.TypeLib
         /// <param name="pMemId">When this method returns, contains a reference to an array in which name mappings are placed. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetIDsOfNames(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 1)] string[] rgszNames,
+            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 1)] string[] rgszNames,
             [In] int cNames,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pMemId);
 
@@ -163,7 +163,7 @@ namespace ClrDebug.TypeLib
         [PreserveSig]
         HRESULT GetRefTypeInfo(
             [In] int hRef,
-            [Out] out ITypeInfo ppTI);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeInfo ppTI);
 
         /// <summary>
         /// Retrieves the addresses of static functions or variables, such as those defined in a DLL.
@@ -211,7 +211,7 @@ namespace ClrDebug.TypeLib
         /// <param name="pIndex">When this method returns, contains a reference to the index of the type description within the containing type library. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetContainingTypeLib(
-            [Out] out ITypeLib ppTLB,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeLib ppTLB,
             [Out] out int pIndex);
 
         /// <summary>

@@ -62,7 +62,7 @@ namespace ClrDebug
         public HRESULT TryGetAppDomain(out XCLRDataAppDomain appDomainResult)
         {
             /*HRESULT GetAppDomain(
-            [Out] out IXCLRDataAppDomain appDomain);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataAppDomain appDomain);*/
             IXCLRDataAppDomain appDomain;
             HRESULT hr = Raw.GetAppDomain(out appDomain);
 
@@ -133,7 +133,7 @@ namespace ClrDebug
         public HRESULT TryGetMethodInstance(out XCLRDataMethodInstance methodResult)
         {
             /*HRESULT GetMethodInstance(
-            [Out] out IXCLRDataMethodInstance method);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodInstance method);*/
             IXCLRDataMethodInstance method;
             HRESULT hr = Raw.GetMethodInstance(out method);
 
@@ -202,14 +202,14 @@ namespace ClrDebug
         {
             /*HRESULT GetArgumentByIndex(
             [In] int index,
-            [Out] out IXCLRDataValue arg,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue arg,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);*/
             IXCLRDataValue arg;
             int bufLen = 0;
             int nameLen;
-            char[] name;
+            char[] name = Array.Empty<char>();
             HRESULT hr = Raw.GetArgumentByIndex(index, out arg, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -247,7 +247,7 @@ namespace ClrDebug
         {
             /*HRESULT GetLocalVariableByIndex(
             [In] int index,
-            [Out] out IXCLRDataValue localVariable,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue localVariable,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);*/
@@ -354,7 +354,7 @@ namespace ClrDebug
         {
             /*HRESULT GetTypeArgumentByIndex(
             [In] int index,
-            [Out] out IXCLRDataTypeInstance typeArg);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance typeArg);*/
             IXCLRDataTypeInstance typeArg;
             HRESULT hr = Raw.GetTypeArgumentByIndex(index, out typeArg);
 
@@ -389,7 +389,7 @@ namespace ClrDebug
         public HRESULT TryGetExactGenericArgsToken(out XCLRDataValue genericTokenResult)
         {
             /*HRESULT GetExactGenericArgsToken(
-            [Out] out IXCLRDataValue genericToken);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue genericToken);*/
             IXCLRDataValue genericToken;
             HRESULT hr = Raw2.GetExactGenericArgsToken(out genericToken);
 

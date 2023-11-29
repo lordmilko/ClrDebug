@@ -524,8 +524,8 @@ namespace ClrDebug.DbgEng
         /// <param name="InstructionOffset">[in] Specifies the location of the instruction of interest for the function that is represented by the stack frame at the top of the stack.<para/>
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
         /// <param name="Frames">[out] Receives the stack frames. The number of elements this array holds is FrameSize.</param>
-        /// <param name="FramesFilled">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
         /// <param name="FrameSize">[in] Specifies the number of items in the Frames array.</param>
+        /// <param name="FramesFilled">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
         /// <returns>This method may also return other error values. See Return Values for more details.</returns>
         /// <remarks>
         /// The stack trace returned to Frames can be printed using <see cref="OutputStackTrace"/>.
@@ -2964,8 +2964,8 @@ namespace ClrDebug.DbgEng
         /// <param name="InstructionOffset">[in] Specifies the location of the instruction of interest for the function that is represented by the stack frame at the top of the stack.<para/>
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
         /// <param name="Frames">[out] Receives the stack frames. The number of elements this array holds is FrameSize.</param>
-        /// <param name="FramesFilled">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
         /// <param name="FramesSize">[in] Specifies the number of items in the Frames array.</param>
+        /// <param name="FramesFilled">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
         /// <returns>This method may also return other error values. See Return Values for more details.</returns>
         [PreserveSig]
         HRESULT GetStackTraceEx(

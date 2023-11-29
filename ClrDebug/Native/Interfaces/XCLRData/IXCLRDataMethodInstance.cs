@@ -25,16 +25,16 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT GetTypeInstance(
-            [Out] out IXCLRDataTypeInstance typeInstance);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance typeInstance);
 
         [PreserveSig]
         HRESULT GetDefinition(
-            [Out] out IXCLRDataMethodDefinition methodDefinition);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodDefinition methodDefinition);
 
         [PreserveSig]
         HRESULT GetTokenAndScope(
             [Out] out mdMethodDef token,
-            [Out] out IXCLRDataModule mod);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);
 
         [PreserveSig]
         HRESULT GetName(
@@ -49,7 +49,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT IsSameObject(
-            [In] IXCLRDataMethodInstance method);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodInstance method);
 
         [PreserveSig]
         HRESULT GetEnCVersion(
@@ -62,7 +62,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetTypeArgumentByIndex(
             [In] int index,
-            [Out] out IXCLRDataTypeInstance typeArg);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance typeArg);
 
         [PreserveSig]
         HRESULT GetILOffsetsByAddress(

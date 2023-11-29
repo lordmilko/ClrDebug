@@ -32,7 +32,7 @@ namespace ClrDebug
         public HRESULT TryEnumerateErrors(out SOSStackRefErrorEnum ppEnumResult)
         {
             /*HRESULT EnumerateErrors(
-            [Out] out ISOSStackRefErrorEnum ppEnum);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSStackRefErrorEnum ppEnum);*/
             ISOSStackRefErrorEnum ppEnum;
             HRESULT hr = Raw.EnumerateErrors(out ppEnum);
 

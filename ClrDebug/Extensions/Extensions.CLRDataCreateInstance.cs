@@ -1,4 +1,6 @@
-﻿namespace ClrDebug
+﻿using System;
+
+namespace ClrDebug
 {
     public static partial class Extensions
     {
@@ -12,6 +14,12 @@
 
             internal CLRDataCreateInstanceInterfaces(CLRDataCreateInstanceDelegate clrDataCreateInstance, ICLRDataTarget target)
             {
+                if (clrDataCreateInstance == null)
+                    throw new ArgumentNullException(nameof(clrDataCreateInstance));
+
+                if (target == null)
+                    throw new ArgumentNullException(nameof(target));
+
                 this.clrDataCreateInstance = clrDataCreateInstance;
                 this.target = target;
             }

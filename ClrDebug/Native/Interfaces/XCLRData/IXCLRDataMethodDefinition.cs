@@ -25,7 +25,7 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT GetTypeDefinition(
-            [Out] out IXCLRDataTypeDefinition typeDefinition);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition typeDefinition);
 
         /// <summary>
         /// Provides a handle for the enumeration of method instances for a given IXCLRDataAppDomain.
@@ -38,7 +38,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT StartEnumInstances(
-            [In] IXCLRDataAppDomain appDomain,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumInstance(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataMethodInstance instance);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodInstance instance);
 
         /// <summary>
         /// Releases the resources used by internal iterators used during instance enumeration.
@@ -77,7 +77,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetTokenAndScope(
             [Out] out mdMethodDef token,
-            [Out] out IXCLRDataModule mod);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);
 
         [PreserveSig]
         HRESULT GetFlags(
@@ -85,7 +85,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT IsSameObject(
-            [In] IXCLRDataMethodDefinition method);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodDefinition method);
 
         [PreserveSig]
         HRESULT GetLatestEnCVersion(

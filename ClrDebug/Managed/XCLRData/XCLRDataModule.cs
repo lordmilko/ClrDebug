@@ -190,7 +190,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumAssembly(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataAssembly assembly);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataAssembly assembly);*/
             IXCLRDataAssembly assembly;
             HRESULT hr = Raw.EnumAssembly(ref handle, out assembly);
 
@@ -250,7 +250,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumTypeDefinition(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataTypeDefinition typeDefinition);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition typeDefinition);*/
             IXCLRDataTypeDefinition typeDefinition;
             HRESULT hr = Raw.EnumTypeDefinition(ref handle, out typeDefinition);
 
@@ -291,7 +291,7 @@ namespace ClrDebug
         public HRESULT TryStartEnumTypeInstances(IXCLRDataAppDomain appDomain, out IntPtr handle)
         {
             /*HRESULT StartEnumTypeInstances(
-            [In] IXCLRDataAppDomain appDomain,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumTypeInstances(appDomain, out handle);
         }
@@ -311,7 +311,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumTypeInstance(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataTypeInstance typeInstance);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance typeInstance);*/
             IXCLRDataTypeInstance typeInstance;
             HRESULT hr = Raw.EnumTypeInstance(ref handle, out typeInstance);
 
@@ -373,7 +373,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumTypeDefinitionByName(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataTypeDefinition type);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition type);*/
             IXCLRDataTypeDefinition type;
             HRESULT hr = Raw.EnumTypeDefinitionByName(ref handle, out type);
 
@@ -416,7 +416,7 @@ namespace ClrDebug
             /*HRESULT StartEnumTypeInstancesByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] CLRDataByNameFlag flags,
-            [In] IXCLRDataAppDomain appDomain,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumTypeInstancesByName(name, flags, appDomain, out handle);
         }
@@ -436,7 +436,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumTypeInstanceByName(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataTypeInstance type);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance type);*/
             IXCLRDataTypeInstance type;
             HRESULT hr = Raw.EnumTypeInstanceByName(ref handle, out type);
 
@@ -478,7 +478,7 @@ namespace ClrDebug
         {
             /*HRESULT GetTypeDefinitionByToken(
             [In] mdTypeDef token,
-            [Out] out IXCLRDataTypeDefinition typeDefinition);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition typeDefinition);*/
             IXCLRDataTypeDefinition typeDefinition;
             HRESULT hr = Raw.GetTypeDefinitionByToken(token, out typeDefinition);
 
@@ -525,7 +525,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumMethodDefinitionByName(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataMethodDefinition method);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodDefinition method);*/
             IXCLRDataMethodDefinition method;
             HRESULT hr = Raw.EnumMethodDefinitionByName(ref handle, out method);
 
@@ -568,7 +568,7 @@ namespace ClrDebug
             /*HRESULT StartEnumMethodInstancesByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] CLRDataByNameFlag flags,
-            [In] IXCLRDataAppDomain appDomain,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumMethodInstancesByName(name, flags, appDomain, out handle);
         }
@@ -588,7 +588,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumMethodInstanceByName(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataMethodInstance method);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodInstance method);*/
             IXCLRDataMethodInstance method;
             HRESULT hr = Raw.EnumMethodInstanceByName(ref handle, out method);
 
@@ -648,7 +648,7 @@ namespace ClrDebug
         {
             /*HRESULT GetMethodDefinitionByToken(
             [In] mdMethodDef token,
-            [Out] out IXCLRDataMethodDefinition methodDefinition);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodDefinition methodDefinition);*/
             IXCLRDataMethodDefinition methodDefinition;
             HRESULT hr = Raw.GetMethodDefinitionByToken(token, out methodDefinition);
 
@@ -676,8 +676,8 @@ namespace ClrDebug
             /*HRESULT StartEnumDataByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] CLRDataByNameFlag flags,
-            [In] IXCLRDataAppDomain appDomain,
-            [In] IXCLRDataTask tlsTask,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask tlsTask,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumDataByName(name, flags, appDomain, tlsTask, out handle);
         }
@@ -697,7 +697,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumDataByName(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataValue value);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);*/
             IXCLRDataValue value;
             HRESULT hr = Raw.EnumDataByName(ref handle, out value);
 
@@ -738,7 +738,7 @@ namespace ClrDebug
         public HRESULT TryIsSameObject(IXCLRDataModule mod)
         {
             /*HRESULT IsSameObject(
-            [In] IXCLRDataModule mod);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule mod);*/
             return Raw.IsSameObject(mod);
         }
 
@@ -870,7 +870,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumAppDomain(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataAppDomain appDomain);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataAppDomain appDomain);*/
             IXCLRDataAppDomain appDomain;
             HRESULT hr = Raw.EnumAppDomain(ref handle, out appDomain);
 

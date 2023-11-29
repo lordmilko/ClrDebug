@@ -354,7 +354,16 @@ namespace ClrDebug
             if (length > charArray.Length)
                 return CreateString(charArray);
 
-            return new string(charArray, 0, length - 1);
+            //In ClrDataAccess::GetFrameName on .NET Framework, it erroneously reports that "needed" amount as being -1 than what was truly needed,
+            //resulting in a "length" here already ignoring the trailing null terminator. While .NET Core uses wcslen in this method instead, the
+            //bottom line is we can't trust whether the length means "with or without the null terminator", so we must check this ourselves
+            return new string(
+                charArray,
+                0,
+                length < charArray.Length && charArray[length - 1] != '\0'
+                    ? length     //The length already precludes a null terminator
+                    : length - 1 //We're expecting the last character should be a null terminator
+                );
         }
 
         /// <summary>

@@ -2149,7 +2149,7 @@ namespace ClrDebug.DbgEng
         /// <param name="stackOffset">[in] Specifies the location of the current stack. If StackOffset is set to zero, the current stack pointer is used instead.</param>
         /// <param name="instructionOffset">[in] Specifies the location of the instruction of interest for the function that is represented by the stack frame at the top of the stack.<para/>
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
-        /// <param name="frameSize">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
+        /// <param name="frameSize">[in] Specifies the number of items in the Frames array.</param>
         /// <returns>[out] Receives the stack frames. The number of elements this array holds is FrameSize.</returns>
         /// <remarks>
         /// The stack trace returned to Frames can be printed using <see cref="OutputStackTrace"/>.
@@ -2170,7 +2170,7 @@ namespace ClrDebug.DbgEng
         /// <param name="instructionOffset">[in] Specifies the location of the instruction of interest for the function that is represented by the stack frame at the top of the stack.<para/>
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
         /// <param name="frames">[out] Receives the stack frames. The number of elements this array holds is FrameSize.</param>
-        /// <param name="frameSize">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
+        /// <param name="frameSize">[in] Specifies the number of items in the Frames array.</param>
         /// <returns>This method may also return other error values. See Return Values for more details.</returns>
         /// <remarks>
         /// The stack trace returned to Frames can be printed using <see cref="OutputStackTrace"/>.
@@ -7668,7 +7668,7 @@ namespace ClrDebug.DbgEng
         /// <param name="stackOffset">[in] Specifies the location of the current stack. If StackOffset is set to zero, the current stack pointer is used instead.</param>
         /// <param name="instructionOffset">[in] Specifies the location of the instruction of interest for the function that is represented by the stack frame at the top of the stack.<para/>
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
-        /// <param name="framesSize">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
+        /// <param name="framesSize">[in] Specifies the number of items in the Frames array.</param>
         /// <returns>[out] Receives the stack frames. The number of elements this array holds is FrameSize.</returns>
         public DEBUG_STACK_FRAME_EX[] GetStackTraceEx(long frameOffset, long stackOffset, long instructionOffset, int framesSize)
         {
@@ -7687,7 +7687,7 @@ namespace ClrDebug.DbgEng
         /// <param name="instructionOffset">[in] Specifies the location of the instruction of interest for the function that is represented by the stack frame at the top of the stack.<para/>
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
         /// <param name="frames">[out] Receives the stack frames. The number of elements this array holds is FrameSize.</param>
-        /// <param name="framesSize">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
+        /// <param name="framesSize">[in] Specifies the number of items in the Frames array.</param>
         /// <returns>This method may also return other error values. See Return Values for more details.</returns>
         public HRESULT TryGetStackTraceEx(long frameOffset, long stackOffset, long instructionOffset, int framesSize, out DEBUG_STACK_FRAME_EX[] frames)
         {

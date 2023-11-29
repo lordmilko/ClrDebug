@@ -277,7 +277,7 @@ namespace ClrDebug
         new HRESULT DllGetActivationFactory(
             int appDomainID,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszTypeName,
-            [Out] out IActivationFactory factory);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IActivationFactory factory);
 
         [PreserveSig]
         new HRESULT ExecuteAssembly(

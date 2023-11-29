@@ -29,16 +29,20 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetAppDomain(
-            [Out] out IXCLRDataAppDomain appDomain);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataAppDomain appDomain);
 
         [PreserveSig]
         HRESULT GetNumArguments(
             [Out] out int numArgs);
 
+        //ClrDataFrame::GetArgumentByIndex contains a bug wherein it has an if statement that is entered
+        //if ((bufLen && name) || nameLen), however it then goes ahead and sets name[0] = 0 when
+        //m_methodDesc->IsNoMetadata() returns true. In normal debugging, it will catch this exception for you,
+        //but in mixed mode debugging, you will see this access violation
         [PreserveSig]
         HRESULT GetArgumentByIndex(
             [In] int index,
-            [Out] out IXCLRDataValue arg,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue arg,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);
@@ -50,7 +54,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetLocalVariableByIndex(
             [In] int index,
-            [Out] out IXCLRDataValue localVariable,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue localVariable,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);
@@ -64,7 +68,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetMethodInstance(
-            [Out] out IXCLRDataMethodInstance method);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodInstance method);
 
         [PreserveSig]
         HRESULT Request(
@@ -81,6 +85,6 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetTypeArgumentByIndex(
             [In] int index,
-            [Out] out IXCLRDataTypeInstance typeArg);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance typeArg);
     }
 }

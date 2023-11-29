@@ -5,14 +5,14 @@ using System.Runtime.InteropServices.Marshalling;
 
 namespace ClrDebug
 {
-    [Guid("8FA642BD-9F10-4799-9AA3-512AE78C77EE")]
+    [Guid("E4B860EC-337A-40C0-A591-F09A9680690F")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 #if !GENERATED_MARSHALLING
     [ComImport]
 #else
     [GeneratedComInterface]
 #endif
-    public partial interface ISOSStackRefEnum : ISOSEnum
+    public partial interface ISOSMemoryEnum : ISOSEnum
     {
 #if !GENERATED_MARSHALLING
         [PreserveSig]
@@ -30,11 +30,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT Next(
             [In] int count,
-            [Out] out SOSStackRefData _ref,
-            [Out] out int pFetched);
-
-        [PreserveSig]
-        HRESULT EnumerateErrors(
-            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSStackRefErrorEnum ppEnum);
+            [Out] out SOSMemoryRegion handles,
+            [Out] out int pNeeded);
     }
 }

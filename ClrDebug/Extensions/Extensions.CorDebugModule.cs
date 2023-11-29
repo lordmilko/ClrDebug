@@ -62,9 +62,32 @@ namespace ClrDebug
         /// <summary>
         /// Gets a metadata interface object that can be used to examine the metadata for the module.
         /// </summary>
-        /// <typeparam name="T">The type of interface to retrieve.</typeparam>
+        /// <typeparam name="T">The type of interface to retrieve. This may either be a raw interface or a supported wrapper type.</typeparam>
         /// <param name="module">The <see cref="CorDebugModule"/> object to use to retrieve the interface.</param>
         /// <returns>A pointer to the address of an IUnknown object that is one of the metadata interfaces.</returns>
-        public static T GetMetaDataInterface<T>(this CorDebugModule module) => (T)module.GetMetaDataInterface(typeof(T).GUID);
+        public static T GetMetaDataInterface<T>(this CorDebugModule module)
+        {
+            var t = typeof(T);
+            object result;
+
+            if (t == typeof(MetaDataImport))
+                result = new MetaDataImport((IMetaDataImport) module.GetMetaDataInterface(typeof(IMetaDataImport).GUID));
+            else if (t == typeof(MetaDataAssemblyImport))
+                result = new MetaDataAssemblyImport((IMetaDataAssemblyImport) module.GetMetaDataInterface(typeof(IMetaDataAssemblyImport).GUID));
+            else if (t == typeof(MetaDataTables))
+                result = new MetaDataTables((IMetaDataTables) module.GetMetaDataInterface(typeof(IMetaDataTables).GUID));
+            else if (t == typeof(MetaDataInfo))
+                result = new MetaDataInfo((IMetaDataInfo) module.GetMetaDataInterface(typeof(IMetaDataInfo).GUID));
+            else if (t == typeof(MetaDataEmit))
+                result = new MetaDataEmit((IMetaDataEmit) module.GetMetaDataInterface(typeof(IMetaDataEmit).GUID));
+            else if (t == typeof(MetaDataAssemblyEmit))
+                result = new MetaDataAssemblyEmit((IMetaDataAssemblyEmit) module.GetMetaDataInterface(typeof(IMetaDataAssemblyEmit).GUID));
+            else if (t == typeof(MetaDataFilter))
+                result = new MetaDataFilter((IMetaDataFilter) module.GetMetaDataInterface(typeof(IMetaDataFilter).GUID));
+            else
+                result = module.GetMetaDataInterface(typeof(T).GUID);
+
+            return (T) result;
+        }
     }
 }

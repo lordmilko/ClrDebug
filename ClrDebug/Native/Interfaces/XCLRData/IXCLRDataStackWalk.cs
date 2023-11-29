@@ -41,7 +41,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetFrame(
-            [Out] out IXCLRDataFrame frame);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataFrame frame);
 
         [PreserveSig]
         HRESULT Request(

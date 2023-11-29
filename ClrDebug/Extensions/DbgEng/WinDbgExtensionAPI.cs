@@ -66,30 +66,30 @@ namespace ClrDebug.DbgEng
 
     public class WinDbgExtensionAPI
     {
-        WINDBG_EXTENSION_APIS apis;
+        public WINDBG_EXTENSION_APIS Raw { get; }
 
         public WinDbgExtensionAPI(WINDBG_EXTENSION_APIS apis)
         {
-            this.apis = apis;
+            Raw = apis;
         }
 
         public void Output(string lpFormat)
         {
-            InitDelegate(ref output, apis.lpOutputRoutine);
+            InitDelegate(ref output, Raw.lpOutputRoutine);
 
             output(lpFormat);
         }
 
         public IntPtr GetExpression(string lpExpression)
         {
-            InitDelegate(ref getExpression, apis.lpGetExpressionRoutine);
+            InitDelegate(ref getExpression, Raw.lpGetExpressionRoutine);
 
             return getExpression(lpExpression);
         }
 
         public GetSymbolResult GetSymbol(IntPtr offset)
         {
-            InitDelegate(ref getSymbol, apis.lpGetSymbolRoutine);
+            InitDelegate(ref getSymbol, Raw.lpGetSymbolRoutine);
 
             var buffer = new char[256];
             IntPtr displacement = IntPtr.Zero;
@@ -101,7 +101,7 @@ namespace ClrDebug.DbgEng
 
         public bool Disasm(ref IntPtr lpOffset, bool fShowEffectiveAddress)
         {
-            InitDelegate(ref disasm, apis.lpDisasmRoutine);
+            InitDelegate(ref disasm, Raw.lpDisasmRoutine);
 
             var buffer = new char[256];
 
@@ -110,49 +110,49 @@ namespace ClrDebug.DbgEng
 
         public bool CheckControlC()
         {
-            InitDelegate(ref checkControlC, apis.lpCheckControlCRoutine);
+            InitDelegate(ref checkControlC, Raw.lpCheckControlCRoutine);
 
             return checkControlC();
         }
 
         public bool ReadProcessMemory(IntPtr offset, IntPtr lpBuffer, int cb, out int lpcbBytesRead)
         {
-            InitDelegate(ref readProcessMemory, apis.lpReadProcessMemoryRoutine);
+            InitDelegate(ref readProcessMemory, Raw.lpReadProcessMemoryRoutine);
 
             return readProcessMemory(offset, lpBuffer, cb, out lpcbBytesRead);
         }
 
         public bool WriteProcessMemory(IntPtr offset, IntPtr lpBuffer, int cb, out int lpcbBytesWritten)
         {
-            InitDelegate(ref writeProcessMemory, apis.lpWriteProcessMemoryRoutine);
+            InitDelegate(ref writeProcessMemory, Raw.lpWriteProcessMemoryRoutine);
 
             return writeProcessMemory(offset, lpBuffer, cb, out lpcbBytesWritten);
         }
 
         public bool GetThreadContext(int Target, IntPtr lpContext, int cbSizeOfContext)
         {
-            InitDelegate(ref getThreadContext, apis.lpGetThreadContextRoutine);
+            InitDelegate(ref getThreadContext, Raw.lpGetThreadContextRoutine);
 
             return getThreadContext(Target, lpContext, cbSizeOfContext);
         }
 
         public bool SetThreadContext(int Target, IntPtr lpContext, int cbSizeOfContext)
         {
-            InitDelegate(ref setThreadContext, apis.lpSetThreadContextRoutine);
+            InitDelegate(ref setThreadContext, Raw.lpSetThreadContextRoutine);
 
             return setThreadContext(Target, lpContext, cbSizeOfContext);
         }
 
         public int Ioctl(IG IoctlType, IntPtr lpvData, int cbSize)
         {
-            InitDelegate(ref ioctl, apis.lpIoctlRoutine);
+            InitDelegate(ref ioctl, Raw.lpIoctlRoutine);
 
             return ioctl(IoctlType, lpvData, cbSize);
         }
 
         public EXTSTACKTRACE[] StackTrace(IntPtr FramePointer, [In] IntPtr StackPointer, IntPtr ProgramCounter)
         {
-            InitDelegate(ref stackTrace, apis.lpStackTraceRoutine);
+            InitDelegate(ref stackTrace, Raw.lpStackTraceRoutine);
 
             var frames = new EXTSTACKTRACE[50];
 

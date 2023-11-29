@@ -16,11 +16,11 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT OnCodeGenerated(
-            [In] IXCLRDataMethodInstance method);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodInstance method);
 
         [PreserveSig]
         HRESULT OnCodeDiscarded(
-            [In] IXCLRDataMethodInstance method);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodInstance method);
 
         [PreserveSig]
         HRESULT OnProcessExecution(
@@ -28,23 +28,23 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT OnTaskExecution(
-            [In] IXCLRDataTask task,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask task,
             [In] int state);
 
         [PreserveSig]
         HRESULT OnModuleLoaded(
-            [In] IXCLRDataModule mod);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule mod);
 
         [PreserveSig]
         HRESULT OnModuleUnloaded(
-            [In] IXCLRDataModule mod);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule mod);
 
         [PreserveSig]
         HRESULT OnTypeLoaded(
-            [In] IXCLRDataTypeInstance typeInst);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTypeInstance typeInst);
 
         [PreserveSig]
         HRESULT OnTypeUnloaded(
-            [In] IXCLRDataTypeInstance typeInst);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTypeInstance typeInst);
     }
 }

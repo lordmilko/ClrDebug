@@ -38,7 +38,7 @@ namespace ClrDebug
         public HRESULT TryGetTypeDefinition(out XCLRDataTypeDefinition typeDefinitionResult)
         {
             /*HRESULT GetTypeDefinition(
-            [Out] out IXCLRDataTypeDefinition typeDefinition);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition typeDefinition);*/
             IXCLRDataTypeDefinition typeDefinition;
             HRESULT hr = Raw.GetTypeDefinition(out typeDefinition);
 
@@ -68,7 +68,7 @@ namespace ClrDebug
         {
             /*HRESULT GetTokenAndScope(
             [Out] out mdMethodDef token,
-            [Out] out IXCLRDataModule mod);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);*/
             mdMethodDef token;
             IXCLRDataModule mod;
             HRESULT hr = Raw.GetTokenAndScope(out token, out mod);
@@ -208,7 +208,7 @@ namespace ClrDebug
         public HRESULT TryStartEnumInstances(IXCLRDataAppDomain appDomain, out IntPtr handle)
         {
             /*HRESULT StartEnumInstances(
-            [In] IXCLRDataAppDomain appDomain,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumInstances(appDomain, out handle);
         }
@@ -246,7 +246,7 @@ namespace ClrDebug
         {
             /*HRESULT EnumInstance(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataMethodInstance instance);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodInstance instance);*/
             IXCLRDataMethodInstance instance;
             HRESULT hr = Raw.EnumInstance(ref handle, out instance);
 
@@ -346,7 +346,7 @@ namespace ClrDebug
         public HRESULT TryIsSameObject(IXCLRDataMethodDefinition method)
         {
             /*HRESULT IsSameObject(
-            [In] IXCLRDataMethodDefinition method);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodDefinition method);*/
             return Raw.IsSameObject(method);
         }
 

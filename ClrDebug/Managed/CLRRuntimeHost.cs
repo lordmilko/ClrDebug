@@ -562,7 +562,7 @@ namespace ClrDebug
             /*HRESULT DllGetActivationFactory(
             int appDomainID,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszTypeName,
-            [Out] out IActivationFactory factory);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IActivationFactory factory);*/
             IActivationFactory factory;
             HRESULT hr = Raw2.DllGetActivationFactory(appDomainID, wszTypeName, out factory);
 

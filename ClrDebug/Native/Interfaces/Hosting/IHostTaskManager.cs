@@ -52,7 +52,7 @@ namespace ClrDebug
             [In] int dwStackSize,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] LPTHREAD_START_ROUTINE pStartAddress,
             [In] IntPtr pParameter,
-            [Out] out IHostTaskManager ppTask);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IHostTaskManager ppTask);
 
         /// <summary>
         /// Notifies the host that the current task is going to sleep.
@@ -389,6 +389,6 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetCLRTaskManager(
-            [Out] out ICLRTaskManager ppManager);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICLRTaskManager ppManager);
     }
 }

@@ -51,7 +51,7 @@ namespace ClrDebug
         public HRESULT TryGetPrevious(out XCLRDataExceptionState exStateResult)
         {
             /*HRESULT GetPrevious(
-            [Out] out IXCLRDataExceptionState exState);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataExceptionState exState);*/
             IXCLRDataExceptionState exState;
             HRESULT hr = Raw.GetPrevious(out exState);
 
@@ -80,7 +80,7 @@ namespace ClrDebug
         public HRESULT TryGetManagedObject(out XCLRDataValue valueResult)
         {
             /*HRESULT GetManagedObject(
-            [Out] out IXCLRDataValue value);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);*/
             IXCLRDataValue value;
             HRESULT hr = Raw.GetManagedObject(out value);
 
@@ -196,7 +196,7 @@ namespace ClrDebug
         public HRESULT TryGetTask(out XCLRDataTask taskResult)
         {
             /*HRESULT GetTask(
-            [Out] out IXCLRDataTask task);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTask task);*/
             IXCLRDataTask task;
             HRESULT hr = Raw.GetTask(out task);
 

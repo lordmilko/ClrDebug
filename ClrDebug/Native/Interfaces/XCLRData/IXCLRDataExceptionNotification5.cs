@@ -16,7 +16,7 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT OnCodeGenerated2(
-            [In] IXCLRDataMethodInstance method,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodInstance method,
             [In] CLRDATA_ADDRESS nativeCodeLocation);
     }
 }

@@ -17,11 +17,11 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT GetProcess(
-            [Out] out IXCLRDataProcess process);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataProcess process);
 
         [PreserveSig]
         HRESULT GetCurrentAppDomain(
-            [Out] out IXCLRDataAppDomain appDomain);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataAppDomain appDomain);
 
         [PreserveSig]
         HRESULT GetUniqueID(
@@ -33,11 +33,11 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT IsSameObject(
-            [In] IXCLRDataTask task);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask task);
 
         [PreserveSig]
         HRESULT GetManagedObject(
-            [Out] out IXCLRDataValue value);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);
 
         [PreserveSig]
         HRESULT GetDesiredExecutionState(
@@ -50,7 +50,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT CreateStackWalk(
             [In] CLRDataSimpleFrameType flags,
-            [Out] out IXCLRDataStackWalk stackWalk);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataStackWalk stackWalk);
 
         [PreserveSig]
         HRESULT GetOSThreadID(
@@ -70,7 +70,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetCurrentExceptionState(
-            [Out] out IXCLRDataExceptionState exception);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataExceptionState exception);
 
         [PreserveSig]
         HRESULT Request(
@@ -88,6 +88,6 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetLastExceptionState(
-            [Out] out IXCLRDataExceptionState exception);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataExceptionState exception);
     }
 }

@@ -22,7 +22,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumMethodInstance(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataMethodInstance methodInstance);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodInstance methodInstance);
 
         [PreserveSig]
         HRESULT EndEnumMethodInstances(
@@ -37,7 +37,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumMethodInstanceByName(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataMethodInstance method);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodInstance method);
 
         [PreserveSig]
         HRESULT EndEnumMethodInstancesByName(
@@ -50,8 +50,8 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetStaticFieldByIndex(
             [In] int index,
-            [In] IXCLRDataTask tlsTask,
-            [Out] out IXCLRDataValue field,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask tlsTask,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] nameBuf,
@@ -61,13 +61,13 @@ namespace ClrDebug
         HRESULT StartEnumStaticFieldsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] CLRDataByNameFlag flags,
-            [In] IXCLRDataTask tlsTask,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask tlsTask,
             [Out] out IntPtr handle);
 
         [PreserveSig]
         HRESULT EnumStaticFieldByName(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataValue value);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);
 
         [PreserveSig]
         HRESULT EndEnumStaticFieldsByName(
@@ -80,7 +80,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetTypeArgumentByIndex(
             [In] int index,
-            [Out] out IXCLRDataTypeInstance typeArg);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance typeArg);
 
         [PreserveSig]
         HRESULT GetName(
@@ -91,11 +91,11 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetModule(
-            [Out] out IXCLRDataModule mod);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);
 
         [PreserveSig]
         HRESULT GetDefinition(
-            [Out] out IXCLRDataTypeDefinition typeDefinition);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition typeDefinition);
 
         [PreserveSig]
         HRESULT GetFlags(
@@ -103,7 +103,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT IsSameObject(
-            [In] IXCLRDataTypeInstance type);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTypeInstance type);
 
         [PreserveSig]
         HRESULT Request(
@@ -121,13 +121,13 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT StartEnumStaticFields(
             [In] CLRDataFieldFlag flags,
-            [In] IXCLRDataTask tlsTask,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask tlsTask,
             [Out] out IntPtr handle);
 
         [PreserveSig]
         HRESULT EnumStaticField(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataValue value);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);
 
         [PreserveSig]
         HRESULT EndEnumStaticFields(
@@ -138,13 +138,13 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] CLRDataByNameFlag nameFlags,
             [In] CLRDataFieldFlag fieldFlags,
-            [In] IXCLRDataTask tlsTask,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask tlsTask,
             [Out] out IntPtr handle);
 
         [PreserveSig]
         HRESULT EnumStaticFieldByName2(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataValue value);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);
 
         [PreserveSig]
         HRESULT EndEnumStaticFieldsByName2(
@@ -153,39 +153,39 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetStaticFieldByToken(
             [In] mdFieldDef token,
-            [In] IXCLRDataTask tlsTask,
-            [Out] out IXCLRDataValue field,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask tlsTask,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] nameBuf);
 
         [PreserveSig]
         HRESULT GetBase(
-            [Out] out IXCLRDataTypeInstance _base);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance _base);
 
         [PreserveSig]
         HRESULT EnumStaticField2(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataValue value,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
-            [Out] out IXCLRDataModule tokenScope,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
         HRESULT EnumStaticFieldByName3(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataValue value,
-            [Out] out IXCLRDataModule tokenScope,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
         HRESULT GetStaticFieldByToken2(
-            [In] IXCLRDataModule tokenScope,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule tokenScope,
             [In] mdFieldDef token,
-            [In] IXCLRDataTask tlsTask,
-            [Out] out IXCLRDataValue field,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask tlsTask,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] nameBuf);

@@ -38,7 +38,7 @@ namespace ClrDebug
         public HRESULT TryGetTypeInstance(out XCLRDataTypeInstance typeInstanceResult)
         {
             /*HRESULT GetTypeInstance(
-            [Out] out IXCLRDataTypeInstance typeInstance);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance typeInstance);*/
             IXCLRDataTypeInstance typeInstance;
             HRESULT hr = Raw.GetTypeInstance(out typeInstance);
 
@@ -67,7 +67,7 @@ namespace ClrDebug
         public HRESULT TryGetDefinition(out XCLRDataMethodDefinition methodDefinitionResult)
         {
             /*HRESULT GetDefinition(
-            [Out] out IXCLRDataMethodDefinition methodDefinition);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodDefinition methodDefinition);*/
             IXCLRDataMethodDefinition methodDefinition;
             HRESULT hr = Raw.GetDefinition(out methodDefinition);
 
@@ -97,7 +97,7 @@ namespace ClrDebug
         {
             /*HRESULT GetTokenAndScope(
             [Out] out mdMethodDef token,
-            [Out] out IXCLRDataModule mod);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);*/
             mdMethodDef token;
             IXCLRDataModule mod;
             HRESULT hr = Raw.GetTokenAndScope(out token, out mod);
@@ -308,7 +308,7 @@ namespace ClrDebug
         public HRESULT TryIsSameObject(IXCLRDataMethodInstance method)
         {
             /*HRESULT IsSameObject(
-            [In] IXCLRDataMethodInstance method);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodInstance method);*/
             return Raw.IsSameObject(method);
         }
 
@@ -327,7 +327,7 @@ namespace ClrDebug
         {
             /*HRESULT GetTypeArgumentByIndex(
             [In] int index,
-            [Out] out IXCLRDataTypeInstance typeArg);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeInstance typeArg);*/
             IXCLRDataTypeInstance typeArg;
             HRESULT hr = Raw.GetTypeArgumentByIndex(index, out typeArg);
 

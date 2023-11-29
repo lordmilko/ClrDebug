@@ -30,7 +30,7 @@ namespace ClrDebug
         public HRESULT TryGetProcess(out XCLRDataProcess processResult)
         {
             /*HRESULT GetProcess(
-            [Out] out IXCLRDataProcess process);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataProcess process);*/
             IXCLRDataProcess process;
             HRESULT hr = Raw.GetProcess(out process);
 
@@ -146,7 +146,7 @@ namespace ClrDebug
         public HRESULT TryGetManagedObject(out XCLRDataValue valueResult)
         {
             /*HRESULT GetManagedObject(
-            [Out] out IXCLRDataValue value);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);*/
             IXCLRDataValue value;
             HRESULT hr = Raw.GetManagedObject(out value);
 
@@ -172,7 +172,7 @@ namespace ClrDebug
         public HRESULT TryIsSameObject(IXCLRDataAppDomain appDomain)
         {
             /*HRESULT IsSameObject(
-            [In] IXCLRDataAppDomain appDomain);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain);*/
             return Raw.IsSameObject(appDomain);
         }
 

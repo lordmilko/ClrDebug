@@ -22,7 +22,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumModule(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataModule mod);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);
 
         [PreserveSig]
         HRESULT EndEnumModules(
@@ -46,7 +46,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT IsSameObject(
-            [In] IXCLRDataAssembly assembly);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAssembly assembly);
 
         [PreserveSig]
         HRESULT Request(
@@ -63,7 +63,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumAppDomain(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataAppDomain appDomain);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataAppDomain appDomain);
 
         [PreserveSig]
         HRESULT EndEnumAppDomains(

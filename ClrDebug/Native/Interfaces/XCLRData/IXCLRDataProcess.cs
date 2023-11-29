@@ -33,7 +33,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumTask(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataTask task);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTask task);
 
         [PreserveSig]
         HRESULT EndEnumTasks(
@@ -42,12 +42,12 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetTaskByOSThreadID(
             [In] int osThreadID,
-            [Out] out IXCLRDataTask task);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTask task);
 
         [PreserveSig]
         HRESULT GetTaskByUniqueID(
             [In] long taskID,
-            [Out] out IXCLRDataTask task);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTask task);
 
         [PreserveSig]
         HRESULT GetFlags(
@@ -55,11 +55,11 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT IsSameObject(
-            [In] IXCLRDataProcess process);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataProcess process);
 
         [PreserveSig]
         HRESULT GetManagedObject(
-            [Out] out IXCLRDataValue value);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);
 
         [PreserveSig]
         HRESULT GetDesiredExecutionState(
@@ -103,7 +103,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumAppDomain(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataAppDomain appDomain);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataAppDomain appDomain);
 
         [PreserveSig]
         HRESULT EndEnumAppDomains(
@@ -121,7 +121,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetAppDomainByUniqueID(
             [In] long id,
-            [Out] out IXCLRDataAppDomain appDomain);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataAppDomain appDomain);
 
         [PreserveSig]
         HRESULT StartEnumAssemblies(
@@ -130,7 +130,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumAssembly(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataAssembly assembly);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataAssembly assembly);
 
         [PreserveSig]
         HRESULT EndEnumAssemblies(
@@ -160,7 +160,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumModule(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataModule mod);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);
 
         /// <summary>
         /// Releases the resources used by internal iterators used during module enumeration.
@@ -177,7 +177,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetModuleByAddress(
             [In] CLRDATA_ADDRESS address,
-            [Out] out IXCLRDataModule mod);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);
 
         /// <summary>
         /// Provides a handle to enumerate the method instances of AppDomain starting at a given address.
@@ -192,7 +192,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT StartEnumMethodInstancesByAddress(
             [In] CLRDATA_ADDRESS address,
-            [In] IXCLRDataAppDomain appDomain,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);
 
         /// <summary>
@@ -207,7 +207,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumMethodInstanceByAddress(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataMethodInstance method);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodInstance method);
 
         /// <summary>
         /// Releases the resources used by internal iterators used during instance enumeration.
@@ -225,23 +225,23 @@ namespace ClrDebug
         HRESULT GetDataByAddress(
             [In] CLRDATA_ADDRESS address,
             [In] int flags, //Unused, must be 0
-            [In] IXCLRDataAppDomain appDomain,
-            [In] IXCLRDataTask tlsTask,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask tlsTask,
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] nameBuf,
-            [Out] out IXCLRDataValue value,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value,
             [Out] out CLRDATA_ADDRESS displacement);
 
         [PreserveSig]
         HRESULT GetExceptionStateByExceptionRecord(
             [In] ref EXCEPTION_RECORD64 record,
-            [Out] out IXCLRDataExceptionState exState);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataExceptionState exState);
 
         [PreserveSig]
         HRESULT TranslateExceptionRecordToNotification(
             [In] ref EXCEPTION_RECORD64 record,
-            [In] IXCLRDataExceptionNotification notify);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataExceptionNotification notify);
 
         [PreserveSig]
         HRESULT Request(
@@ -253,27 +253,27 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT CreateMemoryValue(
-            [In] IXCLRDataAppDomain appDomain,
-            [In] IXCLRDataTask tlsTask,
-            [In] IXCLRDataTypeInstance type,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask tlsTask,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTypeInstance type,
             [In] CLRDATA_ADDRESS addr,
-            [Out] out IXCLRDataValue value);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);
 
         [PreserveSig]
         HRESULT SetAllTypeNotifications(
-            [In] IXCLRDataModule mod,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule mod,
             [In] int flags);
 
         [PreserveSig]
         HRESULT SetAllCodeNotifications(
-            [In] IXCLRDataModule mod,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule mod,
             [In] CLRDataMethodCodeNotification flags);
 
         [PreserveSig]
         HRESULT GetTypeNotifications(
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IXCLRDataModule[] mods,
-            [In] IXCLRDataModule singleMod,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule singleMod,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdTypeDef[] tokens,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] flags);
 
@@ -281,7 +281,7 @@ namespace ClrDebug
         HRESULT SetTypeNotifications(
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IXCLRDataModule[] mods,
-            [In] IXCLRDataModule singleMod,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule singleMod,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdTypeDef[] tokens,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] flags,
             [In] int singleFlags);
@@ -290,7 +290,7 @@ namespace ClrDebug
         HRESULT GetCodeNotifications(
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IXCLRDataModule[] mods,
-            [In] IXCLRDataModule singleMod,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule singleMod,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdMethodDef[] tokens,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDataMethodCodeNotification[] flags);
 
@@ -298,7 +298,7 @@ namespace ClrDebug
         HRESULT SetCodeNotifications(
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IXCLRDataModule[] mods,
-            [In] IXCLRDataModule singleMod,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule singleMod,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdMethodDef[] tokens,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDataMethodCodeNotification[] flags,
             [In] CLRDataMethodCodeNotification singleFlags);
@@ -319,7 +319,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumMethodDefinitionByAddress(
             [In, Out] ref IntPtr handle,
-            [Out] out IXCLRDataMethodDefinition method);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataMethodDefinition method);
 
         [PreserveSig]
         HRESULT EndEnumMethodDefinitionsByAddress(
@@ -336,7 +336,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT FollowStub2(
-            [In] IXCLRDataTask task,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask task,
             [In] CLRDataFollowStubInFlag inFlags,
             [In] CLRDATA_ADDRESS inAddr,
             [In] ref CLRDATA_FOLLOW_STUB_BUFFER inBuffer,
@@ -348,8 +348,8 @@ namespace ClrDebug
         HRESULT DumpNativeImage(
             [In] CLRDATA_ADDRESS loadedBase,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] IXCLRDataDisplay display,
-            [In] IXCLRLibrarySupport libSupport,
-            [In] IXCLRDisassemblySupport dis);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataDisplay display,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRLibrarySupport libSupport,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDisassemblySupport dis);
     }
 }

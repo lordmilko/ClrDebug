@@ -47,7 +47,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT CreateTask(
-            [Out] out ICLRTask pTask);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICLRTask pTask);
 
         /// <summary>
         /// Gets the <see cref="ICLRTask"/> instance that is currently running on the operating system thread from which the method call originated.
@@ -70,7 +70,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentTask(
-            [Out] out ICLRTask pTask);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICLRTask pTask);
 
         /// <summary>
         /// Notifies the common language runtime (CLR) that the host has modified the user interface (UI) locale, or culture, on the currently executing task.

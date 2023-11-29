@@ -16,7 +16,7 @@ namespace ClrDebug
         /// Initializes a new instance of the <see cref="DebugException"/> class.
         /// </summary>
         /// <param name="hr">The <see cref="HRESULT"/> that is the cause of the exception.</param>
-        public DebugException(HRESULT hr) : base($"Error HRESULT {hr} has been returned from a call to a COM component.", (int) hr)
+        public DebugException(HRESULT hr) : base($"Error HRESULT {(Enum.IsDefined(typeof(HRESULT), hr) ? hr.ToString() : "0x" + ((int)hr).ToString("X"))} has been returned from a call to a COM component.", (int) hr)
         {
         }
 

@@ -23,7 +23,7 @@ $normalArgs = @{
     BaseCallbackTypes = "ICorProfilerCallback*"
 
     CharArrayHandler = "ClrDebug.Extensions.CreateString"
-
+    EmptyArrayInit = "IXCLRDataFrame.GetArgumentByIndex"
     GeneratedMarshalling = "GENERATED_MARSHALLING"
 
     SFalseBool = "IDia*"

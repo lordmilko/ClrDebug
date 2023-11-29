@@ -107,7 +107,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetModule(
             [In] CLRDATA_ADDRESS addr,
-            [Out] out IXCLRDataModule mod);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);
 
         /// <summary>
         /// Fetches the data corresponding to the module loaded at a given address.
@@ -409,18 +409,18 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetHandleEnum(
-            [Out] out ISOSHandleEnum ppHandleEnum);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSHandleEnum ppHandleEnum);
 
         [PreserveSig]
         HRESULT GetHandleEnumForTypes(
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] types,
             [In] int count,
-            [Out] out ISOSHandleEnum ppHandleEnum);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSHandleEnum ppHandleEnum);
 
         [PreserveSig]
         HRESULT GetHandleEnumForGC(
             [In] int gen,
-            [Out] out ISOSHandleEnum ppHandleEnum);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSHandleEnum ppHandleEnum);
 
         [PreserveSig]
         HRESULT TraverseEHInfo(
@@ -506,7 +506,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetStackReferences(
             [In] int osThreadID,
-            [Out] out ISOSStackRefEnum ppEnum);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSStackRefEnum ppEnum);
 
         [PreserveSig]
         HRESULT GetRegisterName(

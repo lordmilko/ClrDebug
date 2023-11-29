@@ -70,7 +70,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetTypeComp(out TypeComp ppTCompResult)
         {
             /*HRESULT GetTypeComp(
-            [Out] out ITypeComp ppTComp);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeComp ppTComp);*/
             ITypeComp ppTComp;
             HRESULT hr = Raw.GetTypeComp(out ppTComp);
 
@@ -106,7 +106,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetContainingTypeLib(out GetContainingTypeLibResult result)
         {
             /*HRESULT GetContainingTypeLib(
-            [Out] out ITypeLib ppTLB,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeLib ppTLB,
             [Out] out int pIndex);*/
             ITypeLib ppTLB;
             int pIndex;
@@ -286,35 +286,31 @@ namespace ClrDebug.TypeLib
         /// <summary>
         /// Maps between member names and member IDs, and parameter names and parameter IDs.
         /// </summary>
+        /// <param name="rgszNames">An array of names to map.</param>
         /// <param name="cNames">The count of names to map.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetIDsOfNamesResult GetIDsOfNames(int cNames)
+        /// <returns>When this method returns, contains a reference to an array in which name mappings are placed. This parameter is passed uninitialized.</returns>
+        public int[] GetIDsOfNames(string[] rgszNames, int cNames)
         {
-            GetIDsOfNamesResult result;
-            TryGetIDsOfNames(cNames, out result).ThrowOnNotOK();
+            int[] pMemId;
+            TryGetIDsOfNames(rgszNames, cNames, out pMemId).ThrowOnNotOK();
 
-            return result;
+            return pMemId;
         }
 
         /// <summary>
         /// Maps between member names and member IDs, and parameter names and parameter IDs.
         /// </summary>
+        /// <param name="rgszNames">An array of names to map.</param>
         /// <param name="cNames">The count of names to map.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetIDsOfNames(int cNames, out GetIDsOfNamesResult result)
+        /// <param name="pMemId">When this method returns, contains a reference to an array in which name mappings are placed. This parameter is passed uninitialized.</param>
+        public HRESULT TryGetIDsOfNames(string[] rgszNames, int cNames, out int[] pMemId)
         {
             /*HRESULT GetIDsOfNames(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 1)] string[] rgszNames,
+            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 1)] string[] rgszNames,
             [In] int cNames,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pMemId);*/
-            string[] rgszNames = new string[cNames];
-            int[] pMemId = new int[cNames];
+            pMemId = new int[cNames];
             HRESULT hr = Raw.GetIDsOfNames(rgszNames, cNames, pMemId);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetIDsOfNamesResult(rgszNames, pMemId);
-            else
-                result = default(GetIDsOfNamesResult);
 
             return hr;
         }
@@ -481,7 +477,7 @@ namespace ClrDebug.TypeLib
         {
             /*HRESULT GetRefTypeInfo(
             [In] int hRef,
-            [Out] out ITypeInfo ppTI);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeInfo ppTI);*/
             ITypeInfo ppTI;
             HRESULT hr = Raw.GetRefTypeInfo(hRef, out ppTI);
 

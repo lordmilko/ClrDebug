@@ -23,7 +23,7 @@ namespace ClrDebug
         public HRESULT TryOnCodeGenerated(IXCLRDataMethodInstance method)
         {
             /*HRESULT OnCodeGenerated(
-            [In] IXCLRDataMethodInstance method);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodInstance method);*/
             return Raw.OnCodeGenerated(method);
         }
 
@@ -38,7 +38,7 @@ namespace ClrDebug
         public HRESULT TryOnCodeDiscarded(IXCLRDataMethodInstance method)
         {
             /*HRESULT OnCodeDiscarded(
-            [In] IXCLRDataMethodInstance method);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodInstance method);*/
             return Raw.OnCodeDiscarded(method);
         }
 
@@ -68,7 +68,7 @@ namespace ClrDebug
         public HRESULT TryOnTaskExecution(IXCLRDataTask task, int state)
         {
             /*HRESULT OnTaskExecution(
-            [In] IXCLRDataTask task,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask task,
             [In] int state);*/
             return Raw.OnTaskExecution(task, state);
         }
@@ -84,7 +84,7 @@ namespace ClrDebug
         public HRESULT TryOnModuleLoaded(IXCLRDataModule mod)
         {
             /*HRESULT OnModuleLoaded(
-            [In] IXCLRDataModule mod);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule mod);*/
             return Raw.OnModuleLoaded(mod);
         }
 
@@ -99,7 +99,7 @@ namespace ClrDebug
         public HRESULT TryOnModuleUnloaded(IXCLRDataModule mod)
         {
             /*HRESULT OnModuleUnloaded(
-            [In] IXCLRDataModule mod);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule mod);*/
             return Raw.OnModuleUnloaded(mod);
         }
 
@@ -114,7 +114,7 @@ namespace ClrDebug
         public HRESULT TryOnTypeLoaded(IXCLRDataTypeInstance typeInst)
         {
             /*HRESULT OnTypeLoaded(
-            [In] IXCLRDataTypeInstance typeInst);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTypeInstance typeInst);*/
             return Raw.OnTypeLoaded(typeInst);
         }
 
@@ -129,7 +129,7 @@ namespace ClrDebug
         public HRESULT TryOnTypeUnloaded(IXCLRDataTypeInstance typeInst)
         {
             /*HRESULT OnTypeUnloaded(
-            [In] IXCLRDataTypeInstance typeInst);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTypeInstance typeInst);*/
             return Raw.OnTypeUnloaded(typeInst);
         }
 
@@ -150,7 +150,7 @@ namespace ClrDebug
         public HRESULT TryOnAppDomainLoaded(IXCLRDataAppDomain domain)
         {
             /*HRESULT OnAppDomainLoaded(
-            [In] IXCLRDataAppDomain domain);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain domain);*/
             return Raw2.OnAppDomainLoaded(domain);
         }
 
@@ -165,7 +165,7 @@ namespace ClrDebug
         public HRESULT TryOnAppDomainUnloaded(IXCLRDataAppDomain domain)
         {
             /*HRESULT OnAppDomainUnloaded(
-            [In] IXCLRDataAppDomain domain);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain domain);*/
             return Raw2.OnAppDomainUnloaded(domain);
         }
 
@@ -180,7 +180,7 @@ namespace ClrDebug
         public HRESULT TryOnException(IXCLRDataExceptionState exception)
         {
             /*HRESULT OnException(
-            [In] IXCLRDataExceptionState exception);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataExceptionState exception);*/
             return Raw2.OnException(exception);
         }
 
@@ -222,7 +222,7 @@ namespace ClrDebug
         public HRESULT TryExceptionCatcherEnter(IXCLRDataMethodInstance catchingMethod, int catcherNativeOffset)
         {
             /*HRESULT ExceptionCatcherEnter(
-            [In] IXCLRDataMethodInstance catchingMethod,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodInstance catchingMethod,
             [In] int catcherNativeOffset);*/
             return Raw4.ExceptionCatcherEnter(catchingMethod, catcherNativeOffset);
         }
@@ -244,7 +244,7 @@ namespace ClrDebug
         public HRESULT TryOnCodeGenerated2(IXCLRDataMethodInstance method, CLRDATA_ADDRESS nativeCodeLocation)
         {
             /*HRESULT OnCodeGenerated2(
-            [In] IXCLRDataMethodInstance method,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodInstance method,
             [In] CLRDATA_ADDRESS nativeCodeLocation);*/
             return Raw5.OnCodeGenerated2(method, nativeCodeLocation);
         }

@@ -256,7 +256,7 @@ namespace ClrDebug
         public HRESULT TryGetHandleEnum(out SOSHandleEnum ppHandleEnumResult)
         {
             /*HRESULT GetHandleEnum(
-            [Out] out ISOSHandleEnum ppHandleEnum);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSHandleEnum ppHandleEnum);*/
             ISOSHandleEnum ppHandleEnum;
             HRESULT hr = Raw.GetHandleEnum(out ppHandleEnum);
 
@@ -582,7 +582,7 @@ namespace ClrDebug
         {
             /*HRESULT GetModule(
             [In] CLRDATA_ADDRESS addr,
-            [Out] out IXCLRDataModule mod);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule mod);*/
             IXCLRDataModule mod;
             HRESULT hr = Raw.GetModule(addr, out mod);
 
@@ -1680,7 +1680,7 @@ namespace ClrDebug
             /*HRESULT GetHandleEnumForTypes(
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] types,
             [In] int count,
-            [Out] out ISOSHandleEnum ppHandleEnum);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSHandleEnum ppHandleEnum);*/
             ISOSHandleEnum ppHandleEnum;
             HRESULT hr = Raw.GetHandleEnumForTypes(types, count, out ppHandleEnum);
 
@@ -1707,7 +1707,7 @@ namespace ClrDebug
         {
             /*HRESULT GetHandleEnumForGC(
             [In] int gen,
-            [Out] out ISOSHandleEnum ppHandleEnum);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSHandleEnum ppHandleEnum);*/
             ISOSHandleEnum ppHandleEnum;
             HRESULT hr = Raw.GetHandleEnumForGC(gen, out ppHandleEnum);
 
@@ -1983,7 +1983,7 @@ namespace ClrDebug
         {
             /*HRESULT GetStackReferences(
             [In] int osThreadID,
-            [Out] out ISOSStackRefEnum ppEnum);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSStackRefEnum ppEnum);*/
             ISOSStackRefEnum ppEnum;
             HRESULT hr = Raw.GetStackReferences(osThreadID, out ppEnum);
 
@@ -3122,6 +3122,267 @@ namespace ClrDebug
                 result = default(GetTaggedMemoryResult);
 
             return hr;
+        }
+
+        #endregion
+        #endregion
+        #region ISOSDacInterface12
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ISOSDacInterface12 Raw12 => (ISOSDacInterface12) Raw;
+
+        #region GlobalAllocationContext
+
+        public GetGlobalAllocationContextResult GlobalAllocationContext
+        {
+            get
+            {
+                GetGlobalAllocationContextResult result;
+                TryGetGlobalAllocationContext(out result).ThrowOnNotOK();
+
+                return result;
+            }
+        }
+
+        public HRESULT TryGetGlobalAllocationContext(out GetGlobalAllocationContextResult result)
+        {
+            /*HRESULT GetGlobalAllocationContext(
+            [Out] out CLRDATA_ADDRESS allocPtr,
+            [Out] out CLRDATA_ADDRESS allocLimit);*/
+            CLRDATA_ADDRESS allocPtr;
+            CLRDATA_ADDRESS allocLimit;
+            HRESULT hr = Raw12.GetGlobalAllocationContext(out allocPtr, out allocLimit);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetGlobalAllocationContextResult(allocPtr, allocLimit);
+            else
+                result = default(GetGlobalAllocationContextResult);
+
+            return hr;
+        }
+
+        #endregion
+        #endregion
+        #region ISOSDacInterface13
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ISOSDacInterface13 Raw13 => (ISOSDacInterface13) Raw;
+
+        #region LoaderAllocatorHeapNames
+
+        public string[] LoaderAllocatorHeapNames
+        {
+            get
+            {
+                string[] ppNames;
+                TryGetLoaderAllocatorHeapNames(out ppNames).ThrowOnNotOK();
+
+                return ppNames;
+            }
+        }
+
+        public HRESULT TryGetLoaderAllocatorHeapNames(out string[] ppNames)
+        {
+            /*HRESULT GetLoaderAllocatorHeapNames(
+            [In] int count,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr, SizeParamIndex = 0)] string[] ppNames,
+            [Out] out int pNeeded);*/
+            int count = 0;
+            ppNames = null;
+            int pNeeded;
+            HRESULT hr = Raw13.GetLoaderAllocatorHeapNames(count, null, out pNeeded);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            count = pNeeded;
+            ppNames = new string[count];
+            hr = Raw13.GetLoaderAllocatorHeapNames(count, ppNames, out pNeeded);
+            fail:
+            return hr;
+        }
+
+        #endregion
+        #region HandleTableMemoryRegions
+
+        public SOSMemoryEnum HandleTableMemoryRegions
+        {
+            get
+            {
+                SOSMemoryEnum ppEnumResult;
+                TryGetHandleTableMemoryRegions(out ppEnumResult).ThrowOnNotOK();
+
+                return ppEnumResult;
+            }
+        }
+
+        public HRESULT TryGetHandleTableMemoryRegions(out SOSMemoryEnum ppEnumResult)
+        {
+            /*HRESULT GetHandleTableMemoryRegions(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSMemoryEnum ppEnum);*/
+            ISOSMemoryEnum ppEnum;
+            HRESULT hr = Raw13.GetHandleTableMemoryRegions(out ppEnum);
+
+            if (hr == HRESULT.S_OK)
+                ppEnumResult = ppEnum == null ? null : new SOSMemoryEnum(ppEnum);
+            else
+                ppEnumResult = default(SOSMemoryEnum);
+
+            return hr;
+        }
+
+        #endregion
+        #region GCBookkeepingMemoryRegions
+
+        public SOSMemoryEnum GCBookkeepingMemoryRegions
+        {
+            get
+            {
+                SOSMemoryEnum ppEnumResult;
+                TryGetGCBookkeepingMemoryRegions(out ppEnumResult).ThrowOnNotOK();
+
+                return ppEnumResult;
+            }
+        }
+
+        public HRESULT TryGetGCBookkeepingMemoryRegions(out SOSMemoryEnum ppEnumResult)
+        {
+            /*HRESULT GetGCBookkeepingMemoryRegions(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSMemoryEnum ppEnum);*/
+            ISOSMemoryEnum ppEnum;
+            HRESULT hr = Raw13.GetGCBookkeepingMemoryRegions(out ppEnum);
+
+            if (hr == HRESULT.S_OK)
+                ppEnumResult = ppEnum == null ? null : new SOSMemoryEnum(ppEnum);
+            else
+                ppEnumResult = default(SOSMemoryEnum);
+
+            return hr;
+        }
+
+        #endregion
+        #region GCFreeRegions
+
+        public SOSMemoryEnum GCFreeRegions
+        {
+            get
+            {
+                SOSMemoryEnum ppEnumResult;
+                TryGetGCFreeRegions(out ppEnumResult).ThrowOnNotOK();
+
+                return ppEnumResult;
+            }
+        }
+
+        public HRESULT TryGetGCFreeRegions(out SOSMemoryEnum ppEnumResult)
+        {
+            /*HRESULT GetGCFreeRegions(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISOSMemoryEnum ppEnum);*/
+            ISOSMemoryEnum ppEnum;
+            HRESULT hr = Raw13.GetGCFreeRegions(out ppEnum);
+
+            if (hr == HRESULT.S_OK)
+                ppEnumResult = ppEnum == null ? null : new SOSMemoryEnum(ppEnum);
+            else
+                ppEnumResult = default(SOSMemoryEnum);
+
+            return hr;
+        }
+
+        #endregion
+        #region TraverseLoaderHeap
+
+        public void TraverseLoaderHeap(CLRDATA_ADDRESS loaderHeapAddr, LoaderHeapKind kind, VISITHEAP pCallback)
+        {
+            TryTraverseLoaderHeap(loaderHeapAddr, kind, pCallback).ThrowOnNotOK();
+        }
+
+        public HRESULT TryTraverseLoaderHeap(CLRDATA_ADDRESS loaderHeapAddr, LoaderHeapKind kind, VISITHEAP pCallback)
+        {
+            /*HRESULT TraverseLoaderHeap(
+            [In] CLRDATA_ADDRESS loaderHeapAddr,
+            [In] LoaderHeapKind kind,
+            [In, MarshalAs(UnmanagedType.FunctionPtr)] VISITHEAP pCallback);*/
+            return Raw13.TraverseLoaderHeap(loaderHeapAddr, kind, pCallback);
+        }
+
+        #endregion
+        #region GetDomainLoaderAllocator
+
+        public CLRDATA_ADDRESS GetDomainLoaderAllocator(CLRDATA_ADDRESS domainAddress)
+        {
+            CLRDATA_ADDRESS pLoaderAllocator;
+            TryGetDomainLoaderAllocator(domainAddress, out pLoaderAllocator).ThrowOnNotOK();
+
+            return pLoaderAllocator;
+        }
+
+        public HRESULT TryGetDomainLoaderAllocator(CLRDATA_ADDRESS domainAddress, out CLRDATA_ADDRESS pLoaderAllocator)
+        {
+            /*HRESULT GetDomainLoaderAllocator(
+            [In] CLRDATA_ADDRESS domainAddress,
+            [Out] out CLRDATA_ADDRESS pLoaderAllocator);*/
+            return Raw13.GetDomainLoaderAllocator(domainAddress, out pLoaderAllocator);
+        }
+
+        #endregion
+        #region GetLoaderAllocatorHeaps
+
+        public GetLoaderAllocatorHeapsResult GetLoaderAllocatorHeaps(CLRDATA_ADDRESS loaderAllocator)
+        {
+            GetLoaderAllocatorHeapsResult result;
+            TryGetLoaderAllocatorHeaps(loaderAllocator, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        public HRESULT TryGetLoaderAllocatorHeaps(CLRDATA_ADDRESS loaderAllocator, out GetLoaderAllocatorHeapsResult result)
+        {
+            /*HRESULT GetLoaderAllocatorHeaps(
+            [In] CLRDATA_ADDRESS loaderAllocator,
+            [In] int count,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] pLoaderHeaps,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] LoaderHeapKind[] pKinds,
+            [Out] int pNeeded);*/
+            int count = 0;
+            CLRDATA_ADDRESS[] pLoaderHeaps;
+            LoaderHeapKind[] pKinds;
+            int pNeeded = default(int);
+            HRESULT hr = Raw13.GetLoaderAllocatorHeaps(loaderAllocator, count, null, null, pNeeded);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            count = pNeeded;
+            pLoaderHeaps = new CLRDATA_ADDRESS[count];
+            pKinds = new LoaderHeapKind[count];
+            hr = Raw13.GetLoaderAllocatorHeaps(loaderAllocator, count, pLoaderHeaps, pKinds, pNeeded);
+
+            if (hr == HRESULT.S_OK)
+            {
+                result = new GetLoaderAllocatorHeapsResult(pLoaderHeaps, pKinds);
+
+                return hr;
+            }
+
+            fail:
+            result = default(GetLoaderAllocatorHeapsResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region LockedFlush
+
+        public void LockedFlush()
+        {
+            TryLockedFlush().ThrowOnNotOK();
+        }
+
+        public HRESULT TryLockedFlush()
+        {
+            /*HRESULT LockedFlush();*/
+            return Raw13.LockedFlush();
         }
 
         #endregion

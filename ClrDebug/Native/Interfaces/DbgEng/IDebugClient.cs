@@ -517,7 +517,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetOutputCallbacks(
-            [Out] out IDebugOutputCallbacks Callbacks); //Due to conversions to and from wide types, we can't assume the IDebugOutputCallbacks we get back is the one we put in
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugOutputCallbacks Callbacks); //Due to conversions to and from wide types, we can't assume the IDebugOutputCallbacks we get back is the one we put in
 
         /// <summary>
         /// The SetOutputCallbacks method registers an output callbacks object with this client.
@@ -682,7 +682,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetEventCallbacks(
-            [Out] out IDebugEventCallbacks Callbacks);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacks Callbacks);
 
         /// <summary>
         /// The SetEventCallbacks method registers an event callbacks object with this client.

@@ -84,7 +84,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetTypeComp(out TypeComp ppTCompResult)
         {
             /*HRESULT GetTypeComp(
-            [Out] out ITypeComp ppTComp);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeComp ppTComp);*/
             ITypeComp ppTComp;
             HRESULT hr = Raw.GetTypeComp(out ppTComp);
 
@@ -121,7 +121,7 @@ namespace ClrDebug.TypeLib
         {
             /*HRESULT GetTypeInfo(
             [In] int index,
-            [Out] out ITypeInfo ppTI);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeInfo ppTI);*/
             ITypeInfo ppTI;
             HRESULT hr = Raw.GetTypeInfo(index, out ppTI);
 
@@ -187,7 +187,7 @@ namespace ClrDebug.TypeLib
         {
             /*HRESULT GetTypeInfoOfGuid(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
-            [Out] out ITypeInfo ppTInfo);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeInfo ppTInfo);*/
             ITypeInfo ppTInfo;
             HRESULT hr = Raw.GetTypeInfoOfGuid(guid, out ppTInfo);
 

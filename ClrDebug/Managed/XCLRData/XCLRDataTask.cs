@@ -30,7 +30,7 @@ namespace ClrDebug
         public HRESULT TryGetProcess(out XCLRDataProcess processResult)
         {
             /*HRESULT GetProcess(
-            [Out] out IXCLRDataProcess process);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataProcess process);*/
             IXCLRDataProcess process;
             HRESULT hr = Raw.GetProcess(out process);
 
@@ -59,7 +59,7 @@ namespace ClrDebug
         public HRESULT TryGetCurrentAppDomain(out XCLRDataAppDomain appDomainResult)
         {
             /*HRESULT GetCurrentAppDomain(
-            [Out] out IXCLRDataAppDomain appDomain);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataAppDomain appDomain);*/
             IXCLRDataAppDomain appDomain;
             HRESULT hr = Raw.GetCurrentAppDomain(out appDomain);
 
@@ -130,7 +130,7 @@ namespace ClrDebug
         public HRESULT TryGetManagedObject(out XCLRDataValue valueResult)
         {
             /*HRESULT GetManagedObject(
-            [Out] out IXCLRDataValue value);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);*/
             IXCLRDataValue value;
             HRESULT hr = Raw.GetManagedObject(out value);
 
@@ -212,7 +212,7 @@ namespace ClrDebug
         public HRESULT TryGetCurrentExceptionState(out XCLRDataExceptionState exceptionResult)
         {
             /*HRESULT GetCurrentExceptionState(
-            [Out] out IXCLRDataExceptionState exception);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataExceptionState exception);*/
             IXCLRDataExceptionState exception;
             HRESULT hr = Raw.GetCurrentExceptionState(out exception);
 
@@ -286,7 +286,7 @@ namespace ClrDebug
         public HRESULT TryGetLastExceptionState(out XCLRDataExceptionState exceptionResult)
         {
             /*HRESULT GetLastExceptionState(
-            [Out] out IXCLRDataExceptionState exception);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataExceptionState exception);*/
             IXCLRDataExceptionState exception;
             HRESULT hr = Raw.GetLastExceptionState(out exception);
 
@@ -312,7 +312,7 @@ namespace ClrDebug
         public HRESULT TryIsSameObject(IXCLRDataTask task)
         {
             /*HRESULT IsSameObject(
-            [In] IXCLRDataTask task);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask task);*/
             return Raw.IsSameObject(task);
         }
 
@@ -331,7 +331,7 @@ namespace ClrDebug
         {
             /*HRESULT CreateStackWalk(
             [In] CLRDataSimpleFrameType flags,
-            [Out] out IXCLRDataStackWalk stackWalk);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataStackWalk stackWalk);*/
             IXCLRDataStackWalk stackWalk;
             HRESULT hr = Raw.CreateStackWalk(flags, out stackWalk);
 

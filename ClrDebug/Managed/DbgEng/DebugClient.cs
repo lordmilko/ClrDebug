@@ -315,7 +315,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getOutputCallbacks, Vtbl->GetOutputCallbacks);
 
             /*HRESULT GetOutputCallbacks(
-            [Out] out IDebugOutputCallbacks Callbacks);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugOutputCallbacks Callbacks);*/
             return getOutputCallbacks(Raw, out callbacks);
         }
 
@@ -616,7 +616,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getEventCallbacks, Vtbl->GetEventCallbacks);
 
             /*HRESULT GetEventCallbacks(
-            [Out] out IDebugEventCallbacks Callbacks);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacks Callbacks);*/
             return getEventCallbacks(Raw, out callbacks);
         }
 
@@ -2719,7 +2719,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getOutputCallbacksWide, Vtbl5->GetOutputCallbacksWide);
 
             /*HRESULT GetOutputCallbacksWide(
-            [Out] out IDebugOutputCallbacksWide Callbacks);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugOutputCallbacksWide Callbacks);*/
             return getOutputCallbacksWide(Raw, out callbacks);
         }
 
@@ -2913,7 +2913,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getEventCallbacksWide, Vtbl5->GetEventCallbacksWide);
 
             /*HRESULT GetEventCallbacksWide(
-            [Out] out IDebugEventCallbacksWide Callbacks);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacksWide Callbacks);*/
             return getEventCallbacksWide(Raw, out callbacks);
         }
 
@@ -4016,7 +4016,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetExitCodeDelegate(IntPtr self, [Out] out int Code);
         private delegate HRESULT GetInputCallbacksDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugInputCallbacks Callbacks);
         private delegate HRESULT SetInputCallbacksDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.Interface)] IDebugInputCallbacks Callbacks);
-        private delegate HRESULT GetOutputCallbacksDelegate(IntPtr self, [Out] out IDebugOutputCallbacks Callbacks);
+        private delegate HRESULT GetOutputCallbacksDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugOutputCallbacks Callbacks);
         private delegate HRESULT SetOutputCallbacksDelegate(IntPtr self, [In] IDebugOutputCallbacks Callbacks);
         private delegate HRESULT GetOutputMaskDelegate(IntPtr self, [Out] out DEBUG_OUTPUT Mask);
         private delegate HRESULT SetOutputMaskDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask);
@@ -4025,7 +4025,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetOutputLinePrefixDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int PrefixSize);
         private delegate HRESULT SetOutputLinePrefixDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Prefix);
         private delegate HRESULT GetIdentityDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int IdentitySize);
-        private delegate HRESULT GetEventCallbacksDelegate(IntPtr self, [Out] out IDebugEventCallbacks Callbacks);
+        private delegate HRESULT GetEventCallbacksDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacks Callbacks);
         private delegate HRESULT SetEventCallbacksDelegate(IntPtr self, [In] IDebugEventCallbacks Callbacks);
         private delegate HRESULT AttachKernelDelegate(IntPtr self, [In] DEBUG_ATTACH Flags, [In, MarshalAs(UnmanagedType.LPStr)] string ConnectOptions);
         private delegate HRESULT StartProcessServerDelegate(IntPtr self, [In] DEBUG_CLASS Flags, [In, MarshalAs(UnmanagedType.LPStr)] string Options, [In] IntPtr Reserved);
@@ -4090,12 +4090,12 @@ namespace ClrDebug.DbgEng
 
         private delegate HRESULT GetKernelConnectionOptionsWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int OptionsSize);
         private delegate HRESULT SetKernelConnectionOptionsWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Options);
-        private delegate HRESULT GetOutputCallbacksWideDelegate(IntPtr self, [Out] out IDebugOutputCallbacksWide Callbacks);
+        private delegate HRESULT GetOutputCallbacksWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugOutputCallbacksWide Callbacks);
         private delegate HRESULT SetOutputCallbacksWideDelegate(IntPtr self, [In] IDebugOutputCallbacksWide Callbacks);
         private delegate HRESULT GetOutputLinePrefixWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int PrefixSize);
         private delegate HRESULT SetOutputLinePrefixWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Prefix);
         private delegate HRESULT GetIdentityWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int IdentitySize);
-        private delegate HRESULT GetEventCallbacksWideDelegate(IntPtr self, [Out] out IDebugEventCallbacksWide Callbacks);
+        private delegate HRESULT GetEventCallbacksWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacksWide Callbacks);
         private delegate HRESULT SetEventCallbacksWideDelegate(IntPtr self, [In] IDebugEventCallbacksWide Callbacks);
         private delegate HRESULT GetNumberInputCallbacksDelegate(IntPtr self, [Out] out int Count);
         private delegate HRESULT GetNumberOutputCallbacksDelegate(IntPtr self, [Out] out int Count);

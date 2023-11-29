@@ -16,7 +16,7 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT ExceptionCatcherEnter(
-            [In] IXCLRDataMethodInstance catchingMethod,
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataMethodInstance catchingMethod,
             [In] int catcherNativeOffset);
     }
 }

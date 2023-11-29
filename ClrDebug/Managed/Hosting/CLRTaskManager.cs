@@ -59,7 +59,7 @@
         public HRESULT TryGetCurrentTask(out CLRTask pTaskResult)
         {
             /*HRESULT GetCurrentTask(
-            [Out] out ICLRTask pTask);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICLRTask pTask);*/
             ICLRTask pTask;
             HRESULT hr = Raw.GetCurrentTask(out pTask);
 
@@ -144,7 +144,7 @@
         public HRESULT TryCreateTask(out CLRTask pTaskResult)
         {
             /*HRESULT CreateTask(
-            [Out] out ICLRTask pTask);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICLRTask pTask);*/
             ICLRTask pTask;
             HRESULT hr = Raw.CreateTask(out pTask);
 

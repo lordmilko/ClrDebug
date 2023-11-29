@@ -31,7 +31,7 @@ namespace ClrDebug.TypeLib
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int lHashVal,
             [In] short wFlags,
-            [Out] out ITypeInfo ppTInfo,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeInfo ppTInfo,
             [Out] out DESCKIND pDescKind,
             [Out] out BINDPTR pBindPtr);
 
@@ -46,7 +46,7 @@ namespace ClrDebug.TypeLib
         HRESULT BindType(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int lHashVal,
-            [Out] out ITypeInfo ppTInfo,
-            [Out] out ITypeComp ppTComp);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeInfo ppTInfo,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeComp ppTComp);
     }
 }

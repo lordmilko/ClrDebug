@@ -33,7 +33,7 @@ namespace ClrDebug.TypeLib
         [PreserveSig]
         HRESULT GetTypeInfo(
             [In] int index,
-            [Out] out ITypeInfo ppTI);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeInfo ppTI);
 
         /// <summary>
         /// Retrieves the type of a type description.
@@ -58,7 +58,7 @@ namespace ClrDebug.TypeLib
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid guid,
-            [Out] out ITypeInfo ppTInfo);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeInfo ppTInfo);
 
         /// <summary>
         /// Retrieves the structure that contains the library's attributes.
@@ -74,7 +74,7 @@ namespace ClrDebug.TypeLib
         /// <param name="ppTComp">When this method returns, contains an instance of a <see cref="ITypeComp"/> instance for this <see cref="ITypeLib"/>. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetTypeComp(
-            [Out] out ITypeComp ppTComp);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ITypeComp ppTComp);
 
         /// <summary>
         /// Retrieves the library's documentation string, the complete Help file name and path, and the context identifier for the library Help topic in the Help file.

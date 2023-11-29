@@ -21,11 +21,11 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetPrevious(
-            [Out] out IXCLRDataExceptionState exState);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataExceptionState exState);
 
         [PreserveSig]
         HRESULT GetManagedObject(
-            [Out] out IXCLRDataValue value);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);
 
         [PreserveSig]
         HRESULT GetBaseType(
@@ -64,6 +64,6 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetTask(
-            [Out] out IXCLRDataTask task);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTask task);
     }
 }

@@ -39,7 +39,7 @@ namespace ClrDebug
         public CLRDATA_ADDRESS MemberRefToDescMap;
         public CLRDATA_ADDRESS FileReferencesMap;
         public CLRDATA_ADDRESS ManifestModuleReferencesMap;
-        public CLRDATA_ADDRESS pLookupTableHeap;
+        public CLRDATA_ADDRESS pLookupTableHeap; //Also used for storing the LoaderAllocator address
         public CLRDATA_ADDRESS pThunkHeap;
         public long dwModuleIndex;
 

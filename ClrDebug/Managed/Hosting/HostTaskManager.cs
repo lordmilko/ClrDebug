@@ -115,7 +115,7 @@ namespace ClrDebug
             [In] int dwStackSize,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] LPTHREAD_START_ROUTINE pStartAddress,
             [In] IntPtr pParameter,
-            [Out] out IHostTaskManager ppTask);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out IHostTaskManager ppTask);*/
             IHostTaskManager ppTask;
             HRESULT hr = Raw.CreateTask(dwStackSize, pStartAddress, pParameter, out ppTask);
 
@@ -727,7 +727,7 @@ namespace ClrDebug
         public HRESULT TrySetCLRTaskManager(out CLRTaskManager ppManagerResult)
         {
             /*HRESULT SetCLRTaskManager(
-            [Out] out ICLRTaskManager ppManager);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICLRTaskManager ppManager);*/
             ICLRTaskManager ppManager;
             HRESULT hr = Raw.SetCLRTaskManager(out ppManager);
 

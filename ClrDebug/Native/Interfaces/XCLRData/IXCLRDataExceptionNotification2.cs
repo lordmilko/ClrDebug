@@ -16,14 +16,14 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT OnAppDomainLoaded(
-            [In] IXCLRDataAppDomain domain);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain domain);
 
         [PreserveSig]
         HRESULT OnAppDomainUnloaded(
-            [In] IXCLRDataAppDomain domain);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain domain);
 
         [PreserveSig]
         HRESULT OnException(
-            [In] IXCLRDataExceptionState exception);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataExceptionState exception);
     }
 }

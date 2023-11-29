@@ -17,7 +17,7 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT GetProcess(
-            [Out] out IXCLRDataProcess process);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataProcess process);
 
         [PreserveSig]
         HRESULT GetName(
@@ -35,11 +35,11 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT IsSameObject(
-            [In] IXCLRDataAppDomain appDomain);
+            [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataAppDomain appDomain);
 
         [PreserveSig]
         HRESULT GetManagedObject(
-            [Out] out IXCLRDataValue value);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value);
 
         [PreserveSig]
         HRESULT Request(
