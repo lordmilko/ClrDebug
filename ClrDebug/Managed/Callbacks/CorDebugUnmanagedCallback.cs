@@ -18,7 +18,7 @@ namespace ClrDebug
         /// <summary>
         /// Notifies the debugger that a native event has been fired.
         /// </summary>
-        public EventHandler<DebugEventCorDebugUnmanagedCallbackEventArgs> OnDebugEvent;
+        public event EventHandler<DebugEventCorDebugUnmanagedCallbackEventArgs> OnDebugEvent;
 
         #endregion
         #region ICorDebugUnmanagedCallback Methods

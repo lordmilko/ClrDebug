@@ -23,139 +23,139 @@ namespace ClrDebug
 #endif
     public partial class CorDebugManagedCallback : ICorDebugManagedCallback, ICorDebugManagedCallback2, ICorDebugManagedCallback3, ICorDebugManagedCallback4
     {
-        public EventHandler<CorDebugManagedCallbackEventArgs> OnAnyEvent;
+        public event EventHandler<CorDebugManagedCallbackEventArgs> OnAnyEvent;
 
         #region ICorDebugManagedCallback EventHandlers
 
         /// <summary>
         /// Notifies the debugger when a breakpoint is encountered.
         /// </summary>
-        public EventHandler<BreakpointCorDebugManagedCallbackEventArgs> OnBreakpoint;
+        public event EventHandler<BreakpointCorDebugManagedCallbackEventArgs> OnBreakpoint;
 
         /// <summary>
         /// Notifies the debugger that a step has completed.
         /// </summary>
-        public EventHandler<StepCompleteCorDebugManagedCallbackEventArgs> OnStepComplete;
+        public event EventHandler<StepCompleteCorDebugManagedCallbackEventArgs> OnStepComplete;
 
         /// <summary>
         /// Notifies the debugger when a <see cref="OpCodes.Break"/> instruction in the code stream is executed.
         /// </summary>
-        public EventHandler<BreakCorDebugManagedCallbackEventArgs> OnBreak;
+        public event EventHandler<BreakCorDebugManagedCallbackEventArgs> OnBreak;
 
         /// <summary>
         /// Notifies the debugger that an exception has been thrown from managed code.
         /// </summary>
-        public EventHandler<ExceptionCorDebugManagedCallbackEventArgs> OnException;
+        public event EventHandler<ExceptionCorDebugManagedCallbackEventArgs> OnException;
 
         /// <summary>
         /// Notifies the debugger that an evaluation has been completed.
         /// </summary>
-        public EventHandler<EvalCompleteCorDebugManagedCallbackEventArgs> OnEvalComplete;
+        public event EventHandler<EvalCompleteCorDebugManagedCallbackEventArgs> OnEvalComplete;
 
         /// <summary>
         /// Notifies the debugger that an evaluation has terminated with an unhandled exception.
         /// </summary>
-        public EventHandler<EvalExceptionCorDebugManagedCallbackEventArgs> OnEvalException;
+        public event EventHandler<EvalExceptionCorDebugManagedCallbackEventArgs> OnEvalException;
 
         /// <summary>
         /// Notifies the debugger when a process has been attached or started for the first time.
         /// </summary>
-        public EventHandler<CreateProcessCorDebugManagedCallbackEventArgs> OnCreateProcess;
+        public event EventHandler<CreateProcessCorDebugManagedCallbackEventArgs> OnCreateProcess;
 
         /// <summary>
         /// Notifies the debugger that a process has exited.
         /// </summary>
-        public EventHandler<ExitProcessCorDebugManagedCallbackEventArgs> OnExitProcess;
+        public event EventHandler<ExitProcessCorDebugManagedCallbackEventArgs> OnExitProcess;
 
         /// <summary>
         /// Notifies the debugger that a thread has started executing managed code.
         /// </summary>
-        public EventHandler<CreateThreadCorDebugManagedCallbackEventArgs> OnCreateThread;
+        public event EventHandler<CreateThreadCorDebugManagedCallbackEventArgs> OnCreateThread;
 
         /// <summary>
         /// Notifies the debugger that a thread that was executing managed code has exited.
         /// </summary>
-        public EventHandler<ExitThreadCorDebugManagedCallbackEventArgs> OnExitThread;
+        public event EventHandler<ExitThreadCorDebugManagedCallbackEventArgs> OnExitThread;
 
         /// <summary>
         /// Notifies the debugger that a common language runtime (CLR) module has been successfully loaded.
         /// </summary>
-        public EventHandler<LoadModuleCorDebugManagedCallbackEventArgs> OnLoadModule;
+        public event EventHandler<LoadModuleCorDebugManagedCallbackEventArgs> OnLoadModule;
 
         /// <summary>
         /// Notifies the debugger that a common language runtime module (DLL) has been unloaded.
         /// </summary>
-        public EventHandler<UnloadModuleCorDebugManagedCallbackEventArgs> OnUnloadModule;
+        public event EventHandler<UnloadModuleCorDebugManagedCallbackEventArgs> OnUnloadModule;
 
         /// <summary>
         /// Notifies the debugger that a class has been loaded.
         /// </summary>
-        public EventHandler<LoadClassCorDebugManagedCallbackEventArgs> OnLoadClass;
+        public event EventHandler<LoadClassCorDebugManagedCallbackEventArgs> OnLoadClass;
 
         /// <summary>
         /// Notifies the debugger that a class is being unloaded.
         /// </summary>
-        public EventHandler<UnloadClassCorDebugManagedCallbackEventArgs> OnUnloadClass;
+        public event EventHandler<UnloadClassCorDebugManagedCallbackEventArgs> OnUnloadClass;
 
         /// <summary>
         /// Notifies the debugger that an error has occurred while attempting to handle an event from the common language runtime (CLR).
         /// </summary>
-        public EventHandler<DebuggerErrorCorDebugManagedCallbackEventArgs> OnDebuggerError;
+        public event EventHandler<DebuggerErrorCorDebugManagedCallbackEventArgs> OnDebuggerError;
 
         /// <summary>
         /// Notifies the debugger that a common language runtime (CLR) managed thread has called a method in the System.Diagnostics.EventLog class to log an event.
         /// </summary>
-        public EventHandler<LogMessageCorDebugManagedCallbackEventArgs> OnLogMessage;
+        public event EventHandler<LogMessageCorDebugManagedCallbackEventArgs> OnLogMessage;
 
         /// <summary>
         /// Notifies the debugger that a common language runtime (CLR) managed thread has called a method in the <see cref="Switch"/> class to create, modify, or delete a debugging/tracing switch.
         /// </summary>
-        public EventHandler<LogSwitchCorDebugManagedCallbackEventArgs> OnLogSwitch;
+        public event EventHandler<LogSwitchCorDebugManagedCallbackEventArgs> OnLogSwitch;
 
         /// <summary>
         /// Notifies the debugger that an application domain has been created.
         /// </summary>
-        public EventHandler<CreateAppDomainCorDebugManagedCallbackEventArgs> OnCreateAppDomain;
+        public event EventHandler<CreateAppDomainCorDebugManagedCallbackEventArgs> OnCreateAppDomain;
 
         /// <summary>
         /// Notifies the debugger that an application domain has exited.
         /// </summary>
-        public EventHandler<ExitAppDomainCorDebugManagedCallbackEventArgs> OnExitAppDomain;
+        public event EventHandler<ExitAppDomainCorDebugManagedCallbackEventArgs> OnExitAppDomain;
 
         /// <summary>
         /// Notifies the debugger that a common language runtime (CLR) assembly has been successfully loaded.
         /// </summary>
-        public EventHandler<LoadAssemblyCorDebugManagedCallbackEventArgs> OnLoadAssembly;
+        public event EventHandler<LoadAssemblyCorDebugManagedCallbackEventArgs> OnLoadAssembly;
 
         /// <summary>
         /// Notifies the debugger that a common language runtime assembly has been unloaded.
         /// </summary>
-        public EventHandler<UnloadAssemblyCorDebugManagedCallbackEventArgs> OnUnloadAssembly;
+        public event EventHandler<UnloadAssemblyCorDebugManagedCallbackEventArgs> OnUnloadAssembly;
 
         /// <summary>
         /// Notifies the debugger that a CTRL+C is trapped in the process that is being debugged.
         /// </summary>
-        public EventHandler<ControlCTrapCorDebugManagedCallbackEventArgs> OnControlCTrap;
+        public event EventHandler<ControlCTrapCorDebugManagedCallbackEventArgs> OnControlCTrap;
 
         /// <summary>
         /// Notifies the debugger that the name of either an application domain or a thread has changed.
         /// </summary>
-        public EventHandler<NameChangeCorDebugManagedCallbackEventArgs> OnNameChange;
+        public event EventHandler<NameChangeCorDebugManagedCallbackEventArgs> OnNameChange;
 
         /// <summary>
         /// Notifies the debugger that the symbols for a common language runtime module have changed.
         /// </summary>
-        public EventHandler<UpdateModuleSymbolsCorDebugManagedCallbackEventArgs> OnUpdateModuleSymbols;
+        public event EventHandler<UpdateModuleSymbolsCorDebugManagedCallbackEventArgs> OnUpdateModuleSymbols;
 
         /// <summary>
         /// This method has been deprecated. It notifies the debugger that a remap event has been sent to the integrated development environment (IDE).
         /// </summary>
-        public EventHandler<EditAndContinueRemapCorDebugManagedCallbackEventArgs> OnEditAndContinueRemap;
+        public event EventHandler<EditAndContinueRemapCorDebugManagedCallbackEventArgs> OnEditAndContinueRemap;
 
         /// <summary>
         /// Notifies the debugger that the common language runtime was unable to accurately bind a breakpoint that was set before a function was just-in-time (JIT) compiled.
         /// </summary>
-        public EventHandler<BreakpointSetErrorCorDebugManagedCallbackEventArgs> OnBreakpointSetError;
+        public event EventHandler<BreakpointSetErrorCorDebugManagedCallbackEventArgs> OnBreakpointSetError;
 
         #endregion
         #region ICorDebugManagedCallback2 EventHandlers
@@ -163,42 +163,42 @@ namespace ClrDebug
         /// <summary>
         /// Notifies the debugger that code execution has reached a sequence point in an older version of an edited function.
         /// </summary>
-        public EventHandler<FunctionRemapOpportunityCorDebugManagedCallbackEventArgs> OnFunctionRemapOpportunity;
+        public event EventHandler<FunctionRemapOpportunityCorDebugManagedCallbackEventArgs> OnFunctionRemapOpportunity;
 
         /// <summary>
         /// Notifies the debugger that a new connection has been created.
         /// </summary>
-        public EventHandler<CreateConnectionCorDebugManagedCallbackEventArgs> OnCreateConnection;
+        public event EventHandler<CreateConnectionCorDebugManagedCallbackEventArgs> OnCreateConnection;
 
         /// <summary>
         /// Notifies the debugger that the set of tasks associated with the specified connection has changed.
         /// </summary>
-        public EventHandler<ChangeConnectionCorDebugManagedCallbackEventArgs> OnChangeConnection;
+        public event EventHandler<ChangeConnectionCorDebugManagedCallbackEventArgs> OnChangeConnection;
 
         /// <summary>
         /// Notifies the debugger that the specified connection has been terminated.
         /// </summary>
-        public EventHandler<DestroyConnectionCorDebugManagedCallbackEventArgs> OnDestroyConnection;
+        public event EventHandler<DestroyConnectionCorDebugManagedCallbackEventArgs> OnDestroyConnection;
 
         /// <summary>
         /// Notifies the debugger that a search for an exception handler has started.
         /// </summary>
-        public EventHandler<Exception2CorDebugManagedCallbackEventArgs> OnException2;
+        public event EventHandler<Exception2CorDebugManagedCallbackEventArgs> OnException2;
 
         /// <summary>
         /// Provides a status notification during the exception unwinding process.
         /// </summary>
-        public EventHandler<ExceptionUnwindCorDebugManagedCallbackEventArgs> OnExceptionUnwind;
+        public event EventHandler<ExceptionUnwindCorDebugManagedCallbackEventArgs> OnExceptionUnwind;
 
         /// <summary>
         /// Notifies the debugger that code execution has switched to a new version of an edited function.
         /// </summary>
-        public EventHandler<FunctionRemapCompleteCorDebugManagedCallbackEventArgs> OnFunctionRemapComplete;
+        public event EventHandler<FunctionRemapCompleteCorDebugManagedCallbackEventArgs> OnFunctionRemapComplete;
 
         /// <summary>
         /// Provides notification that code execution has encountered a managed debugging assistant (MDA) in the application that is being debugged.
         /// </summary>
-        public EventHandler<MDANotificationCorDebugManagedCallbackEventArgs> OnMDANotification;
+        public event EventHandler<MDANotificationCorDebugManagedCallbackEventArgs> OnMDANotification;
 
         #endregion
         #region ICorDebugManagedCallback3 EventHandlers
@@ -206,14 +206,14 @@ namespace ClrDebug
         /// <summary>
         /// Indicates that a custom debugger notification has been raised.
         /// </summary>
-        public EventHandler<CustomNotificationCorDebugManagedCallbackEventArgs> OnCustomNotification;
+        public event EventHandler<CustomNotificationCorDebugManagedCallbackEventArgs> OnCustomNotification;
 
         #endregion
         #region ICorDebugManagedCallback4 EventHandlers
 
-        public EventHandler<BeforeGarbageCollectionCorDebugManagedCallbackEventArgs> OnBeforeGarbageCollection;
-        public EventHandler<AfterGarbageCollectionCorDebugManagedCallbackEventArgs> OnAfterGarbageCollection;
-        public EventHandler<DataBreakpointCorDebugManagedCallbackEventArgs> OnDataBreakpoint;
+        public event EventHandler<BeforeGarbageCollectionCorDebugManagedCallbackEventArgs> OnBeforeGarbageCollection;
+        public event EventHandler<AfterGarbageCollectionCorDebugManagedCallbackEventArgs> OnAfterGarbageCollection;
+        public event EventHandler<DataBreakpointCorDebugManagedCallbackEventArgs> OnDataBreakpoint;
 
         #endregion
         #region ICorDebugManagedCallback Methods

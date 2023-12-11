@@ -13,19 +13,19 @@ namespace ClrDebug
 #endif
     public partial class CLRDataEnumMemoryRegionsCallback : ICLRDataEnumMemoryRegionsCallback, ICLRDataEnumMemoryRegionsCallback2
     {
-        public EventHandler<CLRDataEnumMemoryRegionsCallbackEventArgs> OnAnyEvent;
+        public event EventHandler<CLRDataEnumMemoryRegionsCallbackEventArgs> OnAnyEvent;
 
         #region ICLRDataEnumMemoryRegionsCallback EventHandlers
 
         /// <summary>
         /// Called by <see cref="ICLRDataEnumMemoryRegions.EnumMemoryRegions"/> to report to the debugger the result of an attempt to enumerate a specified region of memory.
         /// </summary>
-        public EventHandler<EnumMemoryRegionCLRDataEnumMemoryRegionsCallbackEventArgs> OnEnumMemoryRegion;
+        public event EventHandler<EnumMemoryRegionCLRDataEnumMemoryRegionsCallbackEventArgs> OnEnumMemoryRegion;
 
         #endregion
         #region ICLRDataEnumMemoryRegionsCallback2 EventHandlers
 
-        public EventHandler<UpdateMemoryRegionCLRDataEnumMemoryRegionsCallbackEventArgs> OnUpdateMemoryRegion;
+        public event EventHandler<UpdateMemoryRegionCLRDataEnumMemoryRegionsCallbackEventArgs> OnUpdateMemoryRegion;
 
         #endregion
         #region ICLRDataEnumMemoryRegionsCallback Methods
