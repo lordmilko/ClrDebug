@@ -49,7 +49,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         HRESULT get_name(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal); //Note: the DIA implementation inside DbgHelp seems to double null terminate its BSTRs. Visual Studio's DIA does not
 
         /// <summary>
         /// Retrieves a reference to the lexical parent of the symbol.

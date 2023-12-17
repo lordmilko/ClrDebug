@@ -23,7 +23,10 @@
         /// <exception cref="DebugException">The <see cref="HRESULT"/> contains an error value.</exception>
         public static HRESULT ThrowOnFailed(this HRESULT hr)
         {
-            if (hr == HRESULT.S_OK || hr == HRESULT.S_FALSE)
+            //We explicitly only allow these values. There are a number of "warning" HRESULT codes
+            //that function in the same vein as S_FALSE. These signify there's something you need
+            //to be aware of, and so unlike SUCCEEDED(), we treat them as errors.
+            if (hr == HRESULT.S_OK || hr == HRESULT.S_FALSE || hr == HRESULT.STATUS_SUCCESS)
                 return hr;
 
             throw new DebugException(hr);

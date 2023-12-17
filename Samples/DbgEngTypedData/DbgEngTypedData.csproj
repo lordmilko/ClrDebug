@@ -58,7 +58,7 @@
     <Compile Include="Custom\DbgFieldCollection.cs" />
     <Compile Include="Custom\DbgFieldCollectionDebugView.cs" />
     <Compile Include="Custom\DbgFieldInfo.cs" />
-    <Compile Include="Custom\DbgListEntry.cs" />
+    <Compile Include="Custom\DbgListEntryHead.cs" />
     <Compile Include="Custom\DbgModule.cs" />
     <Compile Include="Custom\DbgObject.cs" />
     <Compile Include="Custom\DbgState.cs" />

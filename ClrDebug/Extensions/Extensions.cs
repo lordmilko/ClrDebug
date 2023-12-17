@@ -70,6 +70,9 @@ namespace ClrDebug
         private const string DacLibLinuxCore = "libmscordaccore.so";
         private const string DacLibMacCore = "libmscordaccore.dylib";
 
+
+        internal const int FACILITY_NT_BIT = 0x10000000;
+
         /// <summary>
         /// Loads a native library.<para/>
         /// This method is compatible with both .NET Framework and .NET Core.

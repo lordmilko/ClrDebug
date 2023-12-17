@@ -7,19 +7,11 @@
         DBG_EXCEPTION_HANDLED = 0x00010001,
         DBG_CONTINUE = 0x00010002,
 
-        STATUS_INFO_LENGTH_MISMATCH = 0xC0000004,
-
         /// <summary>
         /// The operation that was requested is pending completion.<para/>
         /// This value is also known as STILL_ACTIVE.
         /// </summary>
         STATUS_PENDING = 0x00000103,
-
-        /// <summary>
-        /// The instruction at 0x%p referenced memory at 0x%p. The memory could not be %s.<para/>
-        /// This value is also known as EXCEPTION_ACCESS_VIOLATION.
-        /// </summary>
-        STATUS_ACCESS_VIOLATION = 0xC0000005,
 
         /// <summary>
         /// This value is also known as EXCEPTION_GUARD_PAGE.
@@ -49,6 +41,14 @@
         /// </summary>
         STATUS_BUFFER_OVERFLOW = 0x80000005,
 
+        STATUS_INFO_LENGTH_MISMATCH = 0xC0000004,
+
+        /// <summary>
+        /// The instruction at 0x%p referenced memory at 0x%p. The memory could not be %s.<para/>
+        /// This value is also known as EXCEPTION_ACCESS_VIOLATION.
+        /// </summary>
+        STATUS_ACCESS_VIOLATION = 0xC0000005,
+
         /// <summary>
         /// The instruction at 0x%p referenced memory at 0x%p. The required data was not placed into memory because of an I/O error status of 0x%x.<para/>
         /// This value is also known as EXCEPTION_IN_PAGE_ERROR.
@@ -60,6 +60,8 @@
         /// This value is also known as EXCEPTION_INVALID_HANDLE.
         /// </summary>
         STATUS_INVALID_HANDLE = 0xC0000008,
+
+        STATUS_INVALID_PARAMETER = 0xC000000D,
 
         /// <summary>
         /// Array bounds exceeded.<para/>
@@ -133,6 +135,8 @@
         /// </summary>
         STATUS_ILLEGAL_INSTRUCTION = 0xC000001D,
 
+        STATUS_OBJECT_TYPE_MISMATCH = 0xC0000024,
+
         /// <summary>
         /// Windows cannot continue from this exception.<para/>
         /// This value is also known as EXCEPTION_NONCONTINUABLE_EXCEPTION.
@@ -150,6 +154,11 @@
         /// This value is also known as EXCEPTION_INVALID_DISPOSITION.
         /// </summary>
         STATUS_INVALID_DISPOSITION = 0xC0000026,
+
+        /// <summary>
+        /// The request is not supported.
+        /// </summary>
+        STATUS_NOT_SUPPORTED = 0xC00000BB,
 
         /// <summary>
         /// The application terminated as a result of a CTRL+C.<para/>

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using ClrDebug.DbgEng;
 
 namespace NativeSymbols
 {
