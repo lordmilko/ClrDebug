@@ -112,7 +112,10 @@ namespace ClrDebug
                 public static void Free(IntPtr unmanaged)
                 {
                     if (unmanaged != IntPtr.Zero)
+                    {
+                        Marshal.DestroyStructure<DEBUG_EVENT>(unmanaged);
                         Marshal.FreeCoTaskMem(unmanaged);
+                    }
                 }
             }
         }

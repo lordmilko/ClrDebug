@@ -70,9 +70,6 @@ namespace ClrDebug.DbgEng
             if (hr == HRESULT.E_NOTIMPL)
                 throw new DbgEngNotImplementedException("DbgEng reported that the specified operation is not supported on the specified target.");
 
-            //On AttachProcess, if there's an architecture mismatch, for some reason it OR's the NTSTATUS with the ImageBase, resulting
-            //in an error of 0xD00000BB (which is meant to be 0xC00000BB (STATUS_NOT_SUPPORTED)
-
             throw new DebugException(hr);
         }
     }

@@ -16,6 +16,18 @@
         }
 
         /// <summary>
+        /// Throws an exception when a n<see cref="NTSTATUS"/> is not <see cref="NTSTATUS.STATUS_SUCCESS"/>.
+        /// </summary>
+        /// <param name="status">The <see cref="NTSTATUS"/> to process.</param>
+        public static void ThrowOnNotOK(this NTSTATUS status)
+        {
+            if (status == NTSTATUS.STATUS_SUCCESS)
+                return;
+
+            ThrowOnFailed((HRESULT) ((int) status | FACILITY_NT_BIT));
+        }
+
+        /// <summary>
         /// Throws an exception when a <see cref="HRESULT"/> contains an error value.
         /// </summary>
         /// <param name="hr">The <see cref="HRESULT"/> to process.</param>

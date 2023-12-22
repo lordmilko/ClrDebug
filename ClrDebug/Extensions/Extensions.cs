@@ -278,7 +278,7 @@ namespace ClrDebug
 
         #endregion
 
-        private static IntPtr AllocAndInitContext<T>(int size, ContextFlags contextFlags)
+        internal static unsafe IntPtr AllocAndInitContext<T>(int size, ContextFlags contextFlags)
         {
             var buffer = Marshal.AllocHGlobal(size);
 
@@ -286,24 +286,11 @@ namespace ClrDebug
             //AMD64 however has a bunch of home members in front
             if (typeof(T) == typeof(CROSS_PLATFORM_CONTEXT) && contextFlags >= ContextFlags.AMD64Context && contextFlags <= ContextFlags.AMD64ContextAll)
             {
-                var ctx = new CROSS_PLATFORM_CONTEXT
-                {
-                    Amd64Context = new AMD64_CONTEXT
-                    {
-                        ContextFlags = contextFlags
-                    }
-                };
-
-                Marshal.StructureToPtr(ctx, buffer, false);
+                ((CROSS_PLATFORM_CONTEXT*) buffer)->Amd64Context.ContextFlags = contextFlags;
             }
             else if (typeof(T) == typeof(AMD64_CONTEXT))
             {
-                var ctx = new AMD64_CONTEXT
-                {
-                    ContextFlags = contextFlags
-                };
-
-                Marshal.StructureToPtr(ctx, buffer, false);
+                ((AMD64_CONTEXT*) buffer)->ContextFlags = contextFlags;
             }
             else
             {

@@ -492,7 +492,10 @@ namespace ClrDebug
                     Marshal.FreeHGlobal(pathBuffer);
 
                 if (parametersBuffer != IntPtr.Zero)
+                {
+                    Marshal.DestroyStructure<get_hostfxr_parameters>(parametersBuffer);
                     Marshal.FreeHGlobal(parametersBuffer);
+                }
             }
         }
 

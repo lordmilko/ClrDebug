@@ -7,6 +7,91 @@ namespace ClrDebug.DbgEng
     {
         public static DebugAdvancedRequests Request(this DebugAdvanced advanced) => new DebugAdvancedRequests(advanced);
 
+        #region GetThreadContext<T>
+
+        /// <summary>
+        /// The GetThreadContext method returns the current thread context.
+        /// </summary>
+        /// <typeparam name="T">The type of a processor specific CONTEXT structure that stores the thread context.</typeparam>
+        /// <param name="advanced">The <see cref="DebugAdvanced"/> whose current context should be retrieved.</param>
+        /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
+        /// <returns>The thread context that was read.</returns>
+        public static T GetThreadContext<T>(this DebugAdvanced advanced, ContextFlags contextFlags)
+        {
+            T context;
+            TryGetThreadContext(advanced, contextFlags, out context).ThrowDbgEngNotOK();
+            return context;
+        }
+
+        /// <summary>
+        /// Tries to return the current thread context.
+        /// </summary>
+        /// <typeparam name="T">The type of a processor specific CONTEXT structure that stores the thread context.</typeparam>
+        /// <param name="advanced">The <see cref="DebugAdvanced"/> whose current context should be retrieved.</param>
+        /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
+        /// <param name="context">The thread context that was read.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
+        public static HRESULT TryGetThreadContext<T>(this DebugAdvanced advanced, ContextFlags contextFlags, out T context)
+        {
+            var size = Marshal.SizeOf<T>();
+
+            var buffer = Extensions.AllocAndInitContext<T>(size, contextFlags);
+
+            try
+            {
+                var hr = advanced.TryGetThreadContext(buffer, size);
+
+                if (hr == HRESULT.S_OK)
+                    context = Marshal.PtrToStructure<T>(buffer);
+                else
+                    context = default(T);
+
+                return hr;
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(buffer);
+            }
+        }
+
+        /// <summary>
+        /// The SetThreadContext method sets the current thread context.
+        /// </summary>
+        /// <typeparam name="T">The type of a processor specific CONTEXT structure that stores the thread context.</typeparam>
+        /// <param name="advanced">The <see cref="DebugAdvanced"/> whose current context should be modified.</param>
+        /// <param name="context">Specifies the thread context. The type of the thread context is the CONTEXT structure for the target's effective processor.</param>
+        public static void SetThreadContext<T>(this DebugAdvanced advanced, T context) =>
+            TrySetThreadContext(advanced, context).ThrowDbgEngNotOK();
+
+        /// <summary>
+        /// Tries to set the current thread context.
+        /// </summary>
+        /// <typeparam name="T">The type of a processor specific CONTEXT structure that stores the thread context.</typeparam>
+        /// <param name="advanced">The <see cref="DebugAdvanced"/> whose current context should be modified.</param>
+        /// <param name="context">Specifies the thread context. The type of the thread context is the CONTEXT structure for the target's effective processor.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
+        public static HRESULT TrySetThreadContext<T>(this DebugAdvanced advanced, T context)
+        {
+            var size = Marshal.SizeOf<T>();
+            var buffer = Marshal.AllocHGlobal(size);
+
+            try
+            {
+                Marshal.StructureToPtr(context, buffer, false);
+
+                return advanced.TrySetThreadContext(buffer, size);
+            }
+            finally
+            {
+                Marshal.DestroyStructure<T>(buffer);
+                Marshal.FreeHGlobal(buffer);
+            }
+        }
+
+        #endregion
+        #region SetThreadContext<T>
+
+        #endregion
         #region Request [in]
 
         public static void Request<T>(this DebugAdvanced advanced, DEBUG_REQUEST request, T value) where T : struct =>
@@ -32,6 +117,7 @@ namespace ClrDebug.DbgEng
             }
             finally
             {
+                Marshal.DestroyStructure<T>(buffer);
                 Marshal.FreeHGlobal(buffer);
             }
         }

@@ -145,7 +145,6 @@ namespace ClrDebug
             finally
             {
                 Marshal.DestroyStructure<T>(buffer);
-
                 Marshal.FreeHGlobal(buffer);
             }
         }
@@ -205,7 +204,9 @@ namespace ClrDebug
         #region GetThreadContext<T>
 
         /// <summary>
-        /// Gets the current execution context for the given thread in the target process. This method is called by the common language runtime data access services.
+        /// Gets the current execution context for the given thread in the target process. This method is called by the common language runtime data access services.<para/>
+        /// This function does not set the <see cref="ContextFlags"/> on the context structure requested from this method. It is the responsibility of the <see cref="ICLRDataTarget"/> to
+        /// set these flags so that the context is correctly retrieved even when this extension method is not used.
         /// </summary>
         /// <typeparam name="T">The type of a processor specific CONTEXT structure that stores the thread context.</typeparam>
         /// <param name="dataTarget">The <see cref="ICLRDataTarget"/> containing the thread whose context should be retrieved.</param>
@@ -220,7 +221,9 @@ namespace ClrDebug
         }
 
         /// <summary>
-        /// Tries to get the current execution context for the given thread in the target process. This method is called by the common language runtime data access services.
+        /// Tries to get the current execution context for the given thread in the target process. This method is called by the common language runtime data access services.<para/>
+        /// This function does not set the <see cref="ContextFlags"/> on the context structure requested from this method. It is the responsibility of the <see cref="ICLRDataTarget"/> to
+        /// set these flags so that the context is correctly retrieved even when this extension method is not used.
         /// </summary>
         /// <typeparam name="T">The type of a processor specific CONTEXT structure that stores the thread context.</typeparam>
         /// <param name="dataTarget">The <see cref="ICLRDataTarget"/> containing the thread whose context should be retrieved.</param>
@@ -286,6 +289,7 @@ namespace ClrDebug
             }
             finally
             {
+                Marshal.DestroyStructure<T>(buffer);
                 Marshal.FreeHGlobal(buffer);
             }
         }

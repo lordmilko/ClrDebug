@@ -6,7 +6,7 @@
 ClrDebug provides a collection of easy to use, cross platform, managed wrappers around the .NET Unmanaged API.
 
 Rather than mess around with building layers on top of ugly COM interfaces yourself, ClrDebug provides an automatically generated
-wrappers around *every single method* of every single interface it knows about, giving you confidence that
+set of wrappers around *every single method* of every single interface it knows about, giving you confidence that
 no underlying functionality is being hidden from you from using these wrappers.
 
 ClrDebug aims to be a complete wrapper around all of the essential APIs you may need when developing diagnostic applications, including:

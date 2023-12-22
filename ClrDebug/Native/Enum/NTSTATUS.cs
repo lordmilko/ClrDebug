@@ -4,6 +4,8 @@
     {
         STATUS_SUCCESS = 0,
 
+        STATUS_MORE_ENTRIES = 0x00000105,
+
         DBG_EXCEPTION_HANDLED = 0x00010001,
         DBG_CONTINUE = 0x00010002,
 
@@ -62,6 +64,9 @@
         STATUS_INVALID_HANDLE = 0xC0000008,
 
         STATUS_INVALID_PARAMETER = 0xC000000D,
+        STATUS_NO_MORE_ENTRIES = 0x8000001A,
+        STATUS_OBJECT_NAME_INVALID = 0xC0000033,
+        STATUS_OBJECT_NAME_NOT_FOUND = 0xC0000034,
 
         /// <summary>
         /// Array bounds exceeded.<para/>

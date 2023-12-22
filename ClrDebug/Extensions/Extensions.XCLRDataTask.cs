@@ -56,6 +56,7 @@ namespace ClrDebug
             }
             finally
             {
+                Marshal.DestroyStructure<T>(buffer);
                 Marshal.FreeHGlobal(buffer);
             }
         }
