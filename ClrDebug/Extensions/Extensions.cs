@@ -492,6 +492,9 @@ namespace ClrDebug
         /// <returns>A managed <see cref="string"/> that encapsulates the value pointed to by <paramref name="pString"/>.</returns>
         internal static string DiaStringToManaged(IntPtr pString)
         {
+            if (pString == IntPtr.Zero)
+                return null;
+
             if (DiaStringsUseComHeap)
                 return Marshal.PtrToStringBSTR(pString);
 

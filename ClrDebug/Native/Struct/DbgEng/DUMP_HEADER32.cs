@@ -58,8 +58,7 @@ namespace ClrDebug.DbgEng
         public int BugCheckParameter4;
 
         [FieldOffset(60)]
-        [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.LPStr, SizeConst = 32)]
-        public char[] VersionUser;
+        public fixed byte VersionUser[32];
 
         [FieldOffset(92)]
         public byte PaeEnabled;
@@ -83,8 +82,7 @@ namespace ClrDebug.DbgEng
         public EXCEPTION_RECORD32 Exception;
 
         [FieldOffset(2080)]
-        [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.LPStr, SizeConst = DMP_HEADER_COMMENT_SIZE)]
-        public char[] Comment;
+        public fixed byte Comment[DMP_HEADER_COMMENT_SIZE];
 
         [FieldOffset(2208)]
         public fixed byte _reserved0[DMP_RESERVED_0_SIZE_32];

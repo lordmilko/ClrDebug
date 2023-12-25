@@ -1,18 +1,29 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using ClrDebug.DIA;
-using NetCore;
 using static ClrDebug.Extensions;
+using DbgShimResolver = NetCore.DbgShimResolver;
 
 namespace ClrDebug.Tests
 {
     class MarshalTestImpl
     {
-        private static SymbolClient symbolClient = new SymbolClient();
+        private static SymbolClient symbolClient;
+
+        static MarshalTestImpl()
+        {
+            var localStore = Path.Combine(Environment.GetEnvironmentVariable("temp"), "symbols");
+            var ntSymbolPath = $"srv*{localStore}*http://msdl.microsoft.com/download/symbols";
+            Environment.SetEnvironmentVariable("_NT_SYMBOL_PATH", ntSymbolPath);
+            symbolClient = new SymbolClient();
+        }
+
+        private static ConcurrentDictionary<string, IntPtr> moduleCache = new ConcurrentDictionary<string, IntPtr>();
 
         /// <summary>
         /// Loads a native library.<para/>
@@ -166,18 +177,22 @@ namespace ClrDebug.Tests
 
         #region DIA
 
-        internal static bool Marshal_Dia_String_DiaSource(string dll) => TestDIA(CLSID_DiaSource, true, dll);
+        internal static bool Marshal_Dia_String_DiaSource(string dll) => TestDIA(CLSID_DiaSource, comHeap: true, array: false, dll);
 
-        internal static bool Marshal_Dia_String_DiaSourceAlt(string dll) => TestDIA(CLSID_DiaSourceAlt, false, dll);
+        internal static bool Marshal_Dia_String_DiaSourceAlt(string dll) => TestDIA(CLSID_DiaSourceAlt, comHeap: false, array: false, dll);
 
-        internal static bool Marshal_Dia_String_DbgHelp(string dll) => TestDIA(null, false, dll);
+        internal static bool Marshal_Dia_String_DbgHelp(string dll) => TestDIA(null, comHeap: false, array: false, dll);
 
-        internal static unsafe bool TestDIA(Guid? clsid, bool? comHeap, string dll)
+        internal static bool Marshal_Dia_StringArray_DiaSource(string dll) => TestDIA(CLSID_DiaSource, comHeap: true, array: true, dll);
+
+        internal static bool Marshal_Dia_StringArray_DiaSourceAlt(string dll) => TestDIA(CLSID_DiaSourceAlt, comHeap: false, array: true, dll);
+
+        internal static bool Marshal_Dia_StringArray_DbgHelp(string dll) => TestDIA(null, comHeap: false, array: true, dll);
+
+        internal static unsafe bool TestDIA(Guid? clsid, bool? comHeap, bool array, string dll)
         {
             if (comHeap != null)
                 DiaStringsUseComHeap = comHeap.Value;
-
-            var pdb = symbolClient.GetPdb("C:\\Windows\\system32\\ntdll.dll");
 
             bool isDbgHelp = clsid == null;
 
@@ -199,83 +214,22 @@ namespace ClrDebug.Tests
             if (dll == null)
                 dll = LocateDll(fileName);
 
-            if (NativeMethods.GetModuleHandleW(fileName) != IntPtr.Zero)
-                throw new InvalidOperationException($"Module {fileName} was already loaded");
+            var hModule = moduleCache.GetOrAdd(dll, v =>
+            {
+                if (NativeMethods.GetModuleHandleW(fileName) != IntPtr.Zero)
+                    throw new InvalidOperationException($"Module {fileName} was already loaded");
 
-            var hModule = LoadLibrary(dll);
+                return LoadLibrary(v);
+            });
 
             var expectedName = IntPtr.Size == 4 ? "wntdll" : "ntdll";
 
             try
             {
                 if (isDbgHelp)
-                {
-                    var hProcess = Process.GetCurrentProcess().Handle;
-
-                    try
-                    {
-                        if (!NativeMethods.SymInitializeW(hProcess, null, false))
-                            throw new NotImplementedException();
-
-                        var ntdll = Process.GetCurrentProcess().Modules.Cast<ProcessModule>().Single(m => m.ModuleName == "ntdll.dll");
-
-                        if (NativeMethods.SymLoadModuleExW(hProcess, ImageName: ntdll.ModuleName, BaseOfDll: (ulong) (void*) ntdll.BaseAddress) == 0)
-                            throw new NotImplementedException();
-
-                        //This is a big gotcha: you MUST create any interfaces you want to use with source generated COM via a StrategyBasedComWrappers instance.
-                        //If you let the CLR try and do default marshalling on a PInvoke, you're going to get a regular old System.__ComObject which won't utilize
-                        //our source generated COM interfaces (unless of course you globally register a ComWrappers instance)
-
-                        if (!NativeMethods.SymGetDiaSession(hProcess, (long) (void*) ntdll.BaseAddress, out var rawSession))
-                            throw new NotImplementedException();
-
-                        var diaSession = new DiaSession(GetObjectForIUnknown<IDiaSession>(rawSession));
-                        var globalScope = diaSession.GlobalScope;
-
-                        return expectedName == globalScope.Name;
-                    }
-                    finally
-                    {
-                        NativeMethods.SymCleanup(hProcess);
-                    }
-                }
+                    return TestDiaDbgHelp(array, expectedName);
                 else
-                {
-                    bool DoDIA()
-                    {
-                        var pDllGetClassObject = GetExport(hModule, "DllGetClassObject");
-
-                        IntPtr pClassFactory = IntPtr.Zero;
-#if NET8_0_OR_GREATER
-                        var fn = (delegate* unmanaged<GuidMarshaller.GuidNative*, GuidMarshaller.GuidNative*, IntPtr*, HRESULT>) pDllGetClassObject;
-
-                        var localClsid = GuidMarshaller.ConvertToUnmanaged(clsid.Value);
-                        var localRiid = GuidMarshaller.ConvertToUnmanaged(typeof(IClassFactory).GUID);
-
-                        //todo: evidently this is wrong, because its crashing our normal .net 8 test
-                        fn(&localClsid, &localRiid, &pClassFactory).ThrowOnNotOK();
-#else
-                        var dllGetClassObject = Marshal.GetDelegateForFunctionPointer<DllGetClassObjectDelegate>(pDllGetClassObject);
-
-                        dllGetClassObject(clsid.Value, typeof(IClassFactory).GUID, out var ppv);
-#endif
-                        var classFactory = GetObjectForIUnknown<IClassFactory>(pClassFactory);
-                        classFactory.CreateInstance(null, typeof(IDiaDataSource).GUID, out var ppvObject).ThrowOnNotOK();
-
-                        var dataSource = new DiaDataSource((IDiaDataSource) ppvObject);
-
-                        dataSource.LoadDataFromPdb(pdb);
-
-                        var session = dataSource.OpenSession();
-                        var globalScope = session.GlobalScope;
-
-                        var name = globalScope.Name;
-
-                        return expectedName == name;
-                    }
-
-                    return DoDIA();
-                }
+                    return TestDiaNormal(hModule, clsid, array, expectedName);
             }
             finally
             {
@@ -284,11 +238,109 @@ namespace ClrDebug.Tests
                 //next thing we know on our thread here we're calling LocalFree on some unknown object and throwing
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
-
-                FreeLibrary(hModule);
             }
         }
 
-#endregion
+        private static unsafe bool TestDiaDbgHelp(bool array, string expectedName)
+        {
+            var hProcess = Process.GetCurrentProcess().Handle;
+
+            try
+            {
+                if (!NativeMethods.SymInitializeW(hProcess, null, false))
+                    throw new InvalidOperationException($"SymInitialize failed: {(HRESULT) Marshal.GetHRForLastWin32Error()}");
+
+                var ntdll = Process.GetCurrentProcess().Modules.Cast<ProcessModule>().Single(m => m.ModuleName == "ntdll.dll");
+
+                if (NativeMethods.SymLoadModuleExW(hProcess, ImageName: ntdll.FileName, BaseOfDll: (ulong) (void*) ntdll.BaseAddress) == 0)
+                    throw new InvalidOperationException($"SymLoadModuleExW failed: {(HRESULT) Marshal.GetHRForLastWin32Error()}");
+
+                //This is a big gotcha: you MUST create any interfaces you want to use with source generated COM via a StrategyBasedComWrappers instance.
+                //If you let the CLR try and do default marshalling on a PInvoke, you're going to get a regular old System.__ComObject which won't utilize
+                //our source generated COM interfaces (unless of course you globally register a ComWrappers instance)
+
+                if (!NativeMethods.SymGetDiaSession(hProcess, (long) (void*) ntdll.BaseAddress, out var rawSession))
+                    throw new InvalidOperationException($"SymGetDiaSession failed: {(HRESULT) Marshal.GetHRForLastWin32Error()}");
+
+                var diaSession = new DiaSession(GetObjectForIUnknown<IDiaSession>(rawSession));
+                var globalScope = diaSession.GlobalScope;
+
+                if (array)
+                    return TestDiaArray(globalScope);
+                else
+                    return expectedName == globalScope.Name;
+            }
+            finally
+            {
+                NativeMethods.SymCleanup(hProcess);
+            }
+        }
+
+        private static unsafe bool TestDiaNormal(IntPtr hModule, Guid? clsid, bool array, string expectedName)
+        {
+            var pdb = symbolClient.GetPdb("C:\\Windows\\system32\\ntdll.dll");
+
+            var pDllGetClassObject = GetExport(hModule, "DllGetClassObject");
+
+            IntPtr pClassFactory = IntPtr.Zero;
+#if NET8_0_OR_GREATER
+            var fn = (delegate* unmanaged<GuidMarshaller.GuidNative*, GuidMarshaller.GuidNative*, IntPtr*, HRESULT>) pDllGetClassObject;
+
+            var localClsid = GuidMarshaller.ConvertToUnmanaged(clsid.Value);
+            var localRiid = GuidMarshaller.ConvertToUnmanaged(typeof(IClassFactory).GUID);
+
+            //todo: evidently this is wrong, because its crashing our normal .net 8 test
+            fn(&localClsid, &localRiid, &pClassFactory).ThrowOnNotOK();
+#else
+            var dllGetClassObject = Marshal.GetDelegateForFunctionPointer<DllGetClassObjectDelegate>(pDllGetClassObject);
+
+            dllGetClassObject(clsid.Value, typeof(IClassFactory).GUID, out pClassFactory);
+#endif
+            var classFactory = GetObjectForIUnknown<IClassFactory>(pClassFactory);
+            classFactory.CreateInstance(null, typeof(IDiaDataSource).GUID, out var ppvObject).ThrowOnNotOK();
+
+            var dataSource = new DiaDataSource((IDiaDataSource) ppvObject);
+
+            dataSource.LoadDataFromPdb(pdb);
+
+            var session = dataSource.OpenSession();
+            var globalScope = session.GlobalScope;
+
+            var name = globalScope.Name;
+
+            if (array)
+                return TestDiaArray(globalScope);
+            else
+                return expectedName == name;
+        }
+
+        private static bool TestDiaArray(DiaSymbol globalScope)
+        {
+            var properties = globalScope.As<DiaPropertyStorage>();
+
+            //STATPROPSTG also has issues, so we need to test this too
+            var items = properties.Items.Take(3).ToArray();
+
+            var names = properties.ReadPropertyNames(0, 1);
+
+            for (var i = 0; i < names.Length; i++)
+            {
+                if (items[i].lpwstrName != names[i])
+                    return false;
+            }
+
+            //Do it again to make sure we reset all state in our custom marshaller
+            names = properties.ReadPropertyNames(0, 1, 2);
+
+            for (var i = 0; i < names.Length; i++)
+            {
+                if (items[i].lpwstrName != names[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        #endregion
     }
 }

@@ -44,6 +44,8 @@ namespace TestApp
                 case nameof(Marshal_MetaDataDispenser_Call):
                     return Marshal_MetaDataDispenser_Call(GetDebugTargetPath(), GetCLRModule());
 
+                //DIA
+
                 case nameof(Marshal_Dia_String_DiaSource):
                     return Marshal_Dia_String_DiaSource(GetDiaPath());
 
@@ -52,6 +54,17 @@ namespace TestApp
 
                 case nameof(Marshal_Dia_String_DbgHelp):
                     return Marshal_Dia_String_DbgHelp(GetDbgHelpPath());
+
+                //DIA Array
+
+                case nameof(Marshal_Dia_StringArray_DiaSource):
+                    return Marshal_Dia_StringArray_DiaSource(GetDiaPath());
+
+                case nameof(Marshal_Dia_StringArray_DiaSourceAlt):
+                    return Marshal_Dia_StringArray_DiaSourceAlt(GetDiaPath());
+
+                case nameof(Marshal_Dia_StringArray_DbgHelp):
+                    return Marshal_Dia_StringArray_DbgHelp(GetDbgHelpPath());
 
                 default:
                     throw new NotImplementedException($"Don't know how to handle test {name}");

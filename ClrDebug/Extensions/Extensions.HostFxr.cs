@@ -773,8 +773,6 @@ namespace ClrDebug
             GC.KeepAlive(nativeCallback);
 
             return result;
-
-            throw new NotImplementedException(); //todo: and my delegate and these 4 methods all need xmldocs
         }
 
         #endregion

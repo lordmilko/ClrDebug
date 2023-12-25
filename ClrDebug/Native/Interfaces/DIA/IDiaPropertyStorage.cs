@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -15,13 +16,15 @@ namespace ClrDebug.DIA
     /// the IDiaPropertyStorage interface (note, however, that even though the property may be accessible, it does not
     /// mean the property is valid for a particular IDiaSymbol object). Obtain this interface by calling the QueryInterface
     /// method on another interface. The following interfaces can be queried for the IDiaPropertyStorage interface:
+    /// <see cref="IDiaSectionContrib"/>, <see cref="IDiaSegment"/>, <see cref="IDiaInjectedSource"/>, <see cref="IDiaFrameData"/>,
+    /// <see cref="IDiaSymbol"/>, <see cref="IDiaSourceFile"/>, <see cref="IDiaLineNumber"/>.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("9D416F9C-E184-45B2-A4F0-CE517F719E9B")]
 #if !GENERATED_MARSHALLING
     [ComImport]
 #else
-    [GeneratedComInterface]
+    [GeneratedComInterface(StringMarshalling = StringMarshalling.Custom, StringMarshallingCustomType = typeof(DiaStringMarshaller))]
 #endif
     public partial interface IDiaPropertyStorage
     {
@@ -59,7 +62,12 @@ namespace ClrDebug.DIA
         HRESULT ReadPropertyNames(
             [In] int cpropid,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] rgpropid,
-            [In, Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.BStr, SizeParamIndex = 0)] string[] rglpwstrName);
+#if !GENERATED_MARSHALLING
+            [In, Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller), SizeParamIndex = 0)]
+#else
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] //When no string ArraySubType is specified, our StringMarshallingCustomType will be used
+#endif
+            string[] rglpwstrName);
 
         /// <summary>
         /// Gets an enumerator for properties within this set.
@@ -138,6 +146,11 @@ namespace ClrDebug.DIA
         [PreserveSig]
         HRESULT ReadBSTR(
             [In] int id,
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pValue);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pValue);
     }
 }

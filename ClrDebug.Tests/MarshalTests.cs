@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -232,6 +234,40 @@ namespace ClrDebug.Tests
         [TestMethod]
         public void Marshal_CoClass_Call() =>
             MarshalTestImpl.Marshal_CoClass_Call();
+#else
+        [TestMethod]
+        public void Marshal_Array_OutAttribute()
+        {
+            /* In source generated COM, you're not allowed to decorate your parameters with [In] and [Out], since Microsoft thinks these attributes are now meaningless. So,
+             * ClrDebug defines fake [In] and [Out] attributes to make our interface definitions backwards compatible. But then Microsoft realized that actually arrays
+             * do need to have [In] and [Out] (https://github.com/dotnet/runtime/pull/91094) or else arrays that are meant to be [Out] won't marshal their native results
+             * back to managed. Thus, we need a unit test that asserts that any parameters that are arrays DO have System.Runtime.InteropServices.OutAttribute and not
+             * ClrDebug.OutAttribute */
+
+            var parameters = typeof(HRESULT).Assembly.GetTypes()
+                .Where(t => t.IsInterface)
+                .SelectMany(i => i.GetMethods())
+                .SelectMany(m => m.GetParameters())
+                .Where(p => p.ParameterType.IsArray)
+                .ToArray();
+
+            var bad = new List<ParameterInfo>();
+
+            foreach (var parameter in parameters)
+            {
+                var attrib = parameter.GetCustomAttributes().SingleOrDefault(a => a.GetType().FullName == "ClrDebug.OutAttribute");
+
+                if (attrib != null)
+                    bad.Add(parameter);
+            }
+
+            if (bad.Count > 0)
+            {
+                var str = string.Join(Environment.NewLine, bad.Select(v => $"{v.Member.DeclaringType.Name}.{v.Member.Name} -> {v.Name}"));
+
+                Assert.Fail($"Arrays must be declared as SRI.Out:{Environment.NewLine}{str}");
+            }
+        }
 #endif
 
         #region DIA
@@ -258,6 +294,18 @@ namespace ClrDebug.Tests
         public void Marshal_Dia_String_DbgHelp(bool nativeAOT) => TestMarshal(nativeAOT);
 
         [DoNotParallelize]
+        [MarshalTestMethod]
+        public void Marshal_Dia_StringArray_DiaSource(bool nativeAOT) => TestMarshal(nativeAOT);
+
+        [DoNotParallelize]
+        [MarshalTestMethod]
+        public void Marshal_Dia_StringArray_DiaSourceAlt(bool nativeAOT) => TestMarshal(nativeAOT);
+
+        [DoNotParallelize]
+        [MarshalTestMethod]
+        public void Marshal_Dia_StringArray_DbgHelp(bool nativeAOT) => TestMarshal(nativeAOT);
+
+        [DoNotParallelize]
         [TestMethod]
         public void Marshal_Dia_String_ComModeNotSet_Throws()
         {
@@ -268,7 +316,7 @@ namespace ClrDebug.Tests
             field.SetValue(null, null);
 
             Assert.ThrowsException<InvalidOperationException>(
-                () => MarshalTestImpl.TestDIA(CLSID_DiaSource, null, null),
+                () => MarshalTestImpl.TestDIA(CLSID_DiaSource, null, array: false, dll: null),
                 "Cannot create DIA string: property 'ClrDebug.Extensions.DiaStringsUseComHeap' must be globally set. When using CLSID_DiaSource or DiaSourceClass, 'DiaStringsUseComHeap' should be true. Otherwise, when using CLSID_DiaSourceAlt, DiaSourceAltClass or the version of DIA statically linked into DbgHelp, 'DiaStringsUseComHeap' should be false."
             );
         }
@@ -323,6 +371,20 @@ namespace ClrDebug.Tests
 
                     case nameof(Marshal_Dia_String_DbgHelp):
                         Assert.IsTrue(MarshalTestImpl.Marshal_Dia_String_DbgHelp(null));
+                        break;
+
+                    //DIA Array
+
+                    case nameof(Marshal_Dia_StringArray_DiaSource):
+                        Assert.IsTrue(MarshalTestImpl.Marshal_Dia_StringArray_DiaSource(null));
+                        break;
+
+                    case nameof(Marshal_Dia_StringArray_DiaSourceAlt):
+                        Assert.IsTrue(MarshalTestImpl.Marshal_Dia_StringArray_DiaSource(null));
+                        break;
+
+                    case nameof(Marshal_Dia_StringArray_DbgHelp):
+                        Assert.IsTrue(MarshalTestImpl.Marshal_Dia_StringArray_DbgHelp(null));
                         break;
 
                     default:

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -53,7 +54,7 @@ namespace ClrDebug
     public delegate HRESULT CreateVersionStringFromModuleDelegate(
         [In] int pidDebuggee,
         [MarshalAs(UnmanagedType.LPWStr), In] string szModuleName,
-        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] pBuffer,
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), SRI.Out] char[] pBuffer,
         [In] int cchBuffer,
         [Out] out int pdwLength);
 

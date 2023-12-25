@@ -1,11 +1,6 @@
 version: 'Build #{build}'
 image: Visual Studio 2022
 configuration: Release
-install:
-  - ps: |
-      Invoke-WebRequest -Uri 'https://dot.net/v1/dotnet-install.ps1' -UseBasicParsing -OutFile "$env:temp\dotnet-install.ps1"
-      & "$env:temp\dotnet-install.ps1" -Version 8.0.100 -InstallDir "C:\Program Files\dotnet" -Architecture x64 -NoPath
-      & "$env:temp\dotnet-install.ps1" -Version 8.0.100 -InstallDir "C:\Program Files (x86)\dotnet" -Architecture x86 -NoPath
 before_build:
 - dotnet restore
 - dotnet restore -r win-x64

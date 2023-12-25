@@ -23,11 +23,11 @@ namespace ClrDebug.Tests
         [DllImport(dbghelp, SetLastError = true)]
         internal static extern bool SymInitializeW(IntPtr hProcess, string UserSearchPath, bool fInvadeProcess);
 
-        [DllImport(dbghelp)]
+        [DllImport(dbghelp, SetLastError = true)]
         internal static extern bool SymCleanup(
             [In] IntPtr hProcess);
 
-        [DllImport(dbghelp)]
+        [DllImport(dbghelp, SetLastError = true)]
         public static extern bool SymGetDiaSession(IntPtr hProcess, long modBase, out IntPtr session);
 
         [DllImport(dbghelp, SetLastError = true)]

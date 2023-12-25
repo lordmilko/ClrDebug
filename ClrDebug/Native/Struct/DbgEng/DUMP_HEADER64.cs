@@ -59,8 +59,7 @@ namespace ClrDebug.DbgEng
         public long BugCheckParameter4;
 
         [FieldOffset(96)]
-        [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.LPStr, SizeConst = 32)]
-        public char[] VersionUser;
+        public fixed byte VersionUser[32];
 
         [FieldOffset(128)]
         public long KdDebuggerDataBlock;
@@ -93,8 +92,7 @@ namespace ClrDebug.DbgEng
         public DateTime SystemDateTime => DateTime.FromFileTime(SystemTime.QuadPart);
 
         [FieldOffset(4016)]
-        [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.LPStr, SizeConst = DbgEngExtensions.DMP_HEADER_COMMENT_SIZE)]
-        public char[] Comment;
+        public fixed byte Comment[DbgEngExtensions.DMP_HEADER_COMMENT_SIZE];
 
         [FieldOffset(4144)]
         public LARGE_INTEGER SystemUpTime;
