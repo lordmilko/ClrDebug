@@ -3,7 +3,7 @@
 using System.Runtime.InteropServices.Marshalling;
 #endif
 
-namespace ClrDebug.DIA
+namespace ClrDebug
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0000000D-0000-0000-C000-000000000046")]

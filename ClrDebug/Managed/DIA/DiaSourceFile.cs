@@ -73,7 +73,7 @@
         public HRESULT TryGetFileName(out string pRetVal)
         {
             /*HRESULT get_fileName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_fileName(out pRetVal);
         }
 

@@ -44,7 +44,12 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         new HRESULT get_name(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves a reference to the lexical parent of the symbol.
@@ -249,7 +254,12 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         new HRESULT get_libraryName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves the platform type for which the compiland was compiled.
@@ -387,11 +397,21 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         new HRESULT get_sourceFileName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         [PreserveSig]
         new HRESULT get_unused(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves the thunk type of a function.
@@ -536,7 +556,12 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         new HRESULT get_symbolsFileName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves a flag that specifies whether a pointer type is a reference.
@@ -802,7 +827,12 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         new HRESULT get_undecoratedName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves the age value of a .pdb file.
@@ -1146,8 +1176,13 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         new HRESULT get_undecoratedNameEx(
-            [In] int undecorateOptions,
-            [In, MarshalAs(UnmanagedType.BStr)] string name);
+            [In] UNDNAME undecorateOptions,
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string name);
 
         /// <summary>
         /// Retrieves a flag that specifies whether the function has been marked as never returning with the noreturn attribute.
@@ -1269,7 +1304,12 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         new HRESULT get_compilerName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves a flag that specifies whether the function contains a call to alloca (which is used to allocate memory on the stack).
@@ -1963,7 +2003,12 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         new HRESULT get_objectFileName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether the symbol corresponds to a group shared local variable in code compiled for a C++ AMP Accelerator.
@@ -2202,7 +2247,12 @@ namespace ClrDebug.DIA
 
         [PreserveSig]
         new HRESULT get_phaseName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         [PreserveSig]
         new HRESULT get_hasControlFlowCheck(

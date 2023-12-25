@@ -51,7 +51,12 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_fileName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves the object file name to which the source was compiled.
@@ -60,7 +65,12 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_objectFileName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves the name given to non-file source code; that is, code that was injected.
@@ -69,7 +79,12 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_virtualFilename(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves the indicator of the source compression used.

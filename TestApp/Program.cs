@@ -44,8 +44,17 @@ namespace TestApp
                 case nameof(Marshal_MetaDataDispenser_Call):
                     return Marshal_MetaDataDispenser_Call(GetDebugTargetPath(), GetCLRModule());
 
+                case nameof(Marshal_Dia_String_DiaSource):
+                    return Marshal_Dia_String_DiaSource(GetDiaPath());
+
+                case nameof(Marshal_Dia_String_DiaSourceAlt):
+                    return Marshal_Dia_String_DiaSourceAlt(GetDiaPath());
+
+                case nameof(Marshal_Dia_String_DbgHelp):
+                    return Marshal_Dia_String_DbgHelp(GetDbgHelpPath());
+
                 default:
-                    throw new NotImplementedException();
+                    throw new NotImplementedException($"Don't know how to handle test {name}");
             }
         }
 
@@ -73,6 +82,8 @@ namespace TestApp
         }
 
         private static string GetDbgShimPath() => GetManagedBuildFile("dbgshim.dll");
+        private static string GetDiaPath() => GetManagedBuildFile("msdia140.dll");
+        private static string GetDbgHelpPath() => GetManagedBuildFile("dbghelp.dll");
         private static IntPtr? GetCLRModule() => NativeLibrary.Load(GetManagedBuildFile("coreclr.dll"));
         private static IntPtr? GetDACModule() => NativeLibrary.Load(GetManagedBuildFile("mscordaccore.dll"));
 

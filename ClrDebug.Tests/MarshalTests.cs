@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.Tests
 {
-    public delegate HRESULT DllGetClassObject(
+    public delegate HRESULT DllGetClassObjectDelegate(
         [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
         [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
         [Out] out IntPtr ppv);
@@ -87,7 +89,7 @@ namespace ClrDebug.Tests
 
             var proc = MarshalTestImpl.GetExport(hLib, "DllGetClassObject");
 
-            var dllGetClassObject = Marshal.GetDelegateForFunctionPointer<DllGetClassObject>(proc);
+            var dllGetClassObject = Marshal.GetDelegateForFunctionPointer<DllGetClassObjectDelegate>(proc);
 
             dllGetClassObject(CLSID_Test, typeof(IClassFactory).GUID, out var ppv).ThrowOnNotOK();
 
@@ -218,16 +220,13 @@ namespace ClrDebug.Tests
         #endregion
 
         [MarshalTestMethod]
-        public void Marshal_Delegate_Call(bool nativeAOT) =>
-            TestMarshal(nameof(Marshal_Delegate_Call), nativeAOT);
+        public void Marshal_Delegate_Call(bool nativeAOT) => TestMarshal(nativeAOT);
 
         [MarshalTestMethod]
-        public void Marshal_Delegate_Call_WithOutInterface(bool nativeAOT) =>
-            TestMarshal(nameof(Marshal_Delegate_Call_WithOutInterface), nativeAOT);
+        public void Marshal_Delegate_Call_WithOutInterface(bool nativeAOT) => TestMarshal(nativeAOT);
 
         [MarshalTestMethod]
-        public void Marshal_Delegate_Call_WithInInterface(bool nativeAOT) =>
-            TestMarshal(nameof(Marshal_Delegate_Call_WithInInterface), nativeAOT);
+        public void Marshal_Delegate_Call_WithInInterface(bool nativeAOT) => TestMarshal(nativeAOT);
 
 #if !NET8_0_OR_GREATER
         [TestMethod]
@@ -235,11 +234,51 @@ namespace ClrDebug.Tests
             MarshalTestImpl.Marshal_CoClass_Call();
 #endif
 
-        [MarshalTestMethod]
-        public void Marshal_MetaDataDispenser_Call(bool nativeAOT) =>
-            TestMarshal(nameof(Marshal_MetaDataDispenser_Call), nativeAOT);
+        #region DIA
 
-        private void TestMarshal(string name, bool nativeAOT)
+        /* DIA has very complex string marshalling logic. The documented API contact for all DIA interfaces is that all strings are BSTRs, however in reality
+         * DIA methods may either return BSTR or LPCOLESTR (a glorified wchar_t*). DIA strings are allocated via DiaAllocString/DiaFreeString, which has
+         * different behavior based on whether CLSID_DiaSource (COM) or CLSID_DiaSourceAlt (non-COM) was requested from msdia!DllGetClassObject.
+         * When it comes to DbgHelp, it exclusively uses non-COM (the COM logic has been #ifdef'd out). When DIA emits BSTRs, they must be freed
+         * via SysFreeString, but when it emits LPCOLESTRs they must be freed using LocalFree(). Thus, we are forced to manually take control of the DIA
+         * string marshalling process, forcing users to specify a flag based on the type of DIA marshalling they'll be anticipating. */
+
+        private static object objLock = new object();
+
+        [DoNotParallelize]
+        [MarshalTestMethod]
+        public void Marshal_Dia_String_DiaSource(bool nativeAOT) => TestMarshal(nativeAOT);
+
+        [DoNotParallelize]
+        [MarshalTestMethod]
+        public void Marshal_Dia_String_DiaSourceAlt(bool nativeAOT) => TestMarshal(nativeAOT);
+
+        [DoNotParallelize]
+        [MarshalTestMethod]
+        public void Marshal_Dia_String_DbgHelp(bool nativeAOT) => TestMarshal(nativeAOT);
+
+        [DoNotParallelize]
+        [TestMethod]
+        public void Marshal_Dia_String_ComModeNotSet_Throws()
+        {
+            var field = typeof(Extensions).GetField("diaStringsUseComHeap", BindingFlags.Static | BindingFlags.NonPublic);
+
+            Assert.IsNotNull(field);
+
+            field.SetValue(null, null);
+
+            Assert.ThrowsException<InvalidOperationException>(
+                () => MarshalTestImpl.TestDIA(CLSID_DiaSource, null, null),
+                "Cannot create DIA string: property 'ClrDebug.Extensions.DiaStringsUseComHeap' must be globally set. When using CLSID_DiaSource or DiaSourceClass, 'DiaStringsUseComHeap' should be true. Otherwise, when using CLSID_DiaSourceAlt, DiaSourceAltClass or the version of DIA statically linked into DbgHelp, 'DiaStringsUseComHeap' should be false."
+            );
+        }
+
+        #endregion
+
+        [MarshalTestMethod]
+        public void Marshal_MetaDataDispenser_Call(bool nativeAOT) => TestMarshal(nativeAOT);
+
+        private void TestMarshal(bool nativeAOT, [CallerMemberName] string name = null)
         {
             if (nativeAOT)
             {
@@ -270,6 +309,20 @@ namespace ClrDebug.Tests
 
                     case nameof(Marshal_MetaDataDispenser_Call):
                         Assert.IsTrue(MarshalTestImpl.Marshal_MetaDataDispenser_Call(typeof(MarshalTestImpl).Assembly.Location));
+                        break;
+
+                    //DIA
+
+                    case nameof(Marshal_Dia_String_DiaSource):
+                        Assert.IsTrue(MarshalTestImpl.Marshal_Dia_String_DiaSource(null));
+                        break;
+
+                    case nameof(Marshal_Dia_String_DiaSourceAlt):
+                        Assert.IsTrue(MarshalTestImpl.Marshal_Dia_String_DiaSource(null));
+                        break;
+
+                    case nameof(Marshal_Dia_String_DbgHelp):
+                        Assert.IsTrue(MarshalTestImpl.Marshal_Dia_String_DbgHelp(null));
                         break;
 
                     default:

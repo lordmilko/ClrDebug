@@ -62,7 +62,12 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_name(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves the number of items in the table.

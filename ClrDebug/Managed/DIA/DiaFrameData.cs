@@ -363,7 +363,7 @@
         public HRESULT TryGetProgram(out string pRetVal)
         {
             /*HRESULT get_program(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_program(out pRetVal);
         }
 

@@ -115,7 +115,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetName(out string pRetVal)
         {
             /*HRESULT get_name(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_name(out pRetVal);
         }
 

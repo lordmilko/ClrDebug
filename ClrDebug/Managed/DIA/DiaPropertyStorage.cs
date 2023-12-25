@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ClrDebug;
 
 namespace ClrDebug.DIA
 {
@@ -13,6 +14,8 @@ namespace ClrDebug.DIA
     /// the IDiaPropertyStorage interface (note, however, that even though the property may be accessible, it does not
     /// mean the property is valid for a particular IDiaSymbol object). Obtain this interface by calling the QueryInterface
     /// method on another interface. The following interfaces can be queried for the IDiaPropertyStorage interface:
+    /// <see cref="IDiaSectionContrib"/>, <see cref="IDiaSegment"/>, <see cref="IDiaInjectedSource"/>, <see cref="IDiaFrameData"/>,
+    /// <see cref="IDiaSymbol"/>, <see cref="IDiaSourceFile"/>, <see cref="IDiaLineNumber"/>.
     /// </remarks>
     public class DiaPropertyStorage : ComObject<IDiaPropertyStorage>
     {
@@ -329,7 +332,7 @@ namespace ClrDebug.DIA
         {
             /*HRESULT ReadBSTR(
             [In] int id,
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pValue);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pValue);*/
             return Raw.ReadBSTR(id, out pValue);
         }
 

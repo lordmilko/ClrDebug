@@ -105,7 +105,7 @@
         public HRESULT TryGetFileName(out string pRetVal)
         {
             /*HRESULT get_fileName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_fileName(out pRetVal);
         }
 
@@ -134,7 +134,7 @@
         public HRESULT TryGetObjectFileName(out string pRetVal)
         {
             /*HRESULT get_objectFileName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_objectFileName(out pRetVal);
         }
 
@@ -163,7 +163,7 @@
         public HRESULT TryGetVirtualFilename(out string pRetVal)
         {
             /*HRESULT get_virtualFilename(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_virtualFilename(out pRetVal);
         }
 

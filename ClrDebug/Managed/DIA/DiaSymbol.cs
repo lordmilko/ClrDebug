@@ -106,7 +106,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetName(out string pRetVal)
         {
             /*HRESULT get_name(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_name(out pRetVal);
         }
 
@@ -695,7 +695,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetLibraryName(out string pRetVal)
         {
             /*HRESULT get_libraryName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_libraryName(out pRetVal);
         }
 
@@ -1033,7 +1033,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetSourceFileName(out string pRetVal)
         {
             /*HRESULT get_sourceFileName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_sourceFileName(out pRetVal);
         }
 
@@ -1054,7 +1054,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetUnused(out string pRetVal)
         {
             /*HRESULT get_unused(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_unused(out pRetVal);
         }
 
@@ -1450,7 +1450,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetSymbolsFileName(out string pRetVal)
         {
             /*HRESULT get_symbolsFileName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_symbolsFileName(out pRetVal);
         }
 
@@ -2272,7 +2272,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetUndecoratedName(out string pRetVal)
         {
             /*HRESULT get_undecoratedName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_undecoratedName(out pRetVal);
         }
 
@@ -3374,7 +3374,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetCompilerName(out string pRetVal)
         {
             /*HRESULT get_compilerName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_compilerName(out pRetVal);
         }
 
@@ -5625,7 +5625,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetObjectFileName(out string pRetVal)
         {
             /*HRESULT get_objectFileName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_objectFileName(out pRetVal);
         }
 
@@ -6132,7 +6132,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetPhaseName(out string pRetVal)
         {
             /*HRESULT get_phaseName(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_phaseName(out pRetVal);
         }
 
@@ -6788,13 +6788,16 @@ namespace ClrDebug.DIA
         /// Retrieves part or all of an undecorated name for a C++ decorated (linkage) name.
         /// </summary>
         /// <param name="undecorateOptions">[in] Specifies a combination of flags that control what is returned. See the Remarks section for the specific values and what they do.</param>
-        /// <param name="name">[out] Returns the undecorated name for a C++ decorated name.</param>
+        /// <returns>[out] Returns the undecorated name for a C++ decorated name.</returns>
         /// <remarks>
         /// The undecorateOptions can be a combination of the following flags.
         /// </remarks>
-        public void GetUndecoratedNameEx(int undecorateOptions, string name)
+        public string GetUndecoratedNameEx(UNDNAME undecorateOptions)
         {
-            TryGetUndecoratedNameEx(undecorateOptions, name).ThrowOnNotOK();
+            string name;
+            TryGetUndecoratedNameEx(undecorateOptions, out name).ThrowOnNotOK();
+
+            return name;
         }
 
         /// <summary>
@@ -6806,12 +6809,12 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// The undecorateOptions can be a combination of the following flags.
         /// </remarks>
-        public HRESULT TryGetUndecoratedNameEx(int undecorateOptions, string name)
+        public HRESULT TryGetUndecoratedNameEx(UNDNAME undecorateOptions, out string name)
         {
             /*HRESULT get_undecoratedNameEx(
-            [In] int undecorateOptions,
-            [In, MarshalAs(UnmanagedType.BStr)] string name);*/
-            return Raw.get_undecoratedNameEx(undecorateOptions, name);
+            [In] UNDNAME undecorateOptions,
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string name);*/
+            return Raw.get_undecoratedNameEx(undecorateOptions, out name);
         }
 
         #endregion

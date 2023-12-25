@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace ClrDebug.DIA
+namespace ClrDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="RecordInfo.GetFieldNoCopy"/> method.

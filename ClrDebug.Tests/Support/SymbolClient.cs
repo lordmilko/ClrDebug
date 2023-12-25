@@ -115,7 +115,7 @@ namespace ClrDebug.Tests
             }
             else
             {
-                //We need to download the file somewhere, 
+                //We need to download the file somewhere, so we'll download it to %temp%\symbols
                 store = new CacheSymbolStore(
                     tracer,
                     //As mentioned above, it's very important the URI has a trailing slash, or HttpSymbolStore will build the wrong URL to download the file

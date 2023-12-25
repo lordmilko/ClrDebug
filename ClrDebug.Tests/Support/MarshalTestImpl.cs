@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using ClrDebug.DIA;
 using NetCore;
 using static ClrDebug.Extensions;
 
@@ -11,6 +12,8 @@ namespace ClrDebug.Tests
 {
     class MarshalTestImpl
     {
+        private static SymbolClient symbolClient = new SymbolClient();
+
         /// <summary>
         /// Loads a native library.<para/>
         /// This method is compatible with both .NET Framework and .NET Core.
@@ -38,6 +41,15 @@ namespace ClrDebug.Tests
             throw new DllNotFoundException($"Unable to load DLL '{path}' or one of its dependencies: {ex.Message}");
 #else
             return NativeLibrary.Load(path);
+#endif
+        }
+
+        internal static void FreeLibrary(IntPtr hModule)
+        {
+#if !NET8_0_OR_GREATER
+            NativeMethods.FreeLibrary(hModule);
+#else
+            NativeLibrary.Free(hModule);
 #endif
         }
 
@@ -151,5 +163,132 @@ namespace ClrDebug.Tests
 
             return types.Length > 0;
         }
+
+        #region DIA
+
+        internal static bool Marshal_Dia_String_DiaSource(string dll) => TestDIA(CLSID_DiaSource, true, dll);
+
+        internal static bool Marshal_Dia_String_DiaSourceAlt(string dll) => TestDIA(CLSID_DiaSourceAlt, false, dll);
+
+        internal static bool Marshal_Dia_String_DbgHelp(string dll) => TestDIA(null, false, dll);
+
+        internal static unsafe bool TestDIA(Guid? clsid, bool? comHeap, string dll)
+        {
+            if (comHeap != null)
+                DiaStringsUseComHeap = comHeap.Value;
+
+            var pdb = symbolClient.GetPdb("C:\\Windows\\system32\\ntdll.dll");
+
+            bool isDbgHelp = clsid == null;
+
+            var fileName = isDbgHelp ? "dbghelp.dll" : "msdia140.dll";
+
+            string LocateDll(string name)
+            {
+                var appDir = AppContext.BaseDirectory;
+
+                //TestApp (non-NativeAOT) will have the file in the output directory
+                var runtimeDll = Path.Combine(appDir, name);
+
+                if (File.Exists(runtimeDll))
+                    return runtimeDll;
+
+                return Path.Combine(AppContext.BaseDirectory, "runtimes", IntPtr.Size == 4 ? "win-x86" : "win-x64", "native", name);
+            }
+
+            if (dll == null)
+                dll = LocateDll(fileName);
+
+            if (NativeMethods.GetModuleHandleW(fileName) != IntPtr.Zero)
+                throw new InvalidOperationException($"Module {fileName} was already loaded");
+
+            var hModule = LoadLibrary(dll);
+
+            var expectedName = IntPtr.Size == 4 ? "wntdll" : "ntdll";
+
+            try
+            {
+                if (isDbgHelp)
+                {
+                    var hProcess = Process.GetCurrentProcess().Handle;
+
+                    try
+                    {
+                        if (!NativeMethods.SymInitializeW(hProcess, null, false))
+                            throw new NotImplementedException();
+
+                        var ntdll = Process.GetCurrentProcess().Modules.Cast<ProcessModule>().Single(m => m.ModuleName == "ntdll.dll");
+
+                        if (NativeMethods.SymLoadModuleExW(hProcess, ImageName: ntdll.ModuleName, BaseOfDll: (ulong) (void*) ntdll.BaseAddress) == 0)
+                            throw new NotImplementedException();
+
+                        //This is a big gotcha: you MUST create any interfaces you want to use with source generated COM via a StrategyBasedComWrappers instance.
+                        //If you let the CLR try and do default marshalling on a PInvoke, you're going to get a regular old System.__ComObject which won't utilize
+                        //our source generated COM interfaces (unless of course you globally register a ComWrappers instance)
+
+                        if (!NativeMethods.SymGetDiaSession(hProcess, (long) (void*) ntdll.BaseAddress, out var rawSession))
+                            throw new NotImplementedException();
+
+                        var diaSession = new DiaSession(GetObjectForIUnknown<IDiaSession>(rawSession));
+                        var globalScope = diaSession.GlobalScope;
+
+                        return expectedName == globalScope.Name;
+                    }
+                    finally
+                    {
+                        NativeMethods.SymCleanup(hProcess);
+                    }
+                }
+                else
+                {
+                    bool DoDIA()
+                    {
+                        var pDllGetClassObject = GetExport(hModule, "DllGetClassObject");
+
+                        IntPtr pClassFactory = IntPtr.Zero;
+#if NET8_0_OR_GREATER
+                        var fn = (delegate* unmanaged<GuidMarshaller.GuidNative*, GuidMarshaller.GuidNative*, IntPtr*, HRESULT>) pDllGetClassObject;
+
+                        var localClsid = GuidMarshaller.ConvertToUnmanaged(clsid.Value);
+                        var localRiid = GuidMarshaller.ConvertToUnmanaged(typeof(IClassFactory).GUID);
+
+                        //todo: evidently this is wrong, because its crashing our normal .net 8 test
+                        fn(&localClsid, &localRiid, &pClassFactory).ThrowOnNotOK();
+#else
+                        var dllGetClassObject = Marshal.GetDelegateForFunctionPointer<DllGetClassObjectDelegate>(pDllGetClassObject);
+
+                        dllGetClassObject(clsid.Value, typeof(IClassFactory).GUID, out var ppv);
+#endif
+                        var classFactory = GetObjectForIUnknown<IClassFactory>(pClassFactory);
+                        classFactory.CreateInstance(null, typeof(IDiaDataSource).GUID, out var ppvObject).ThrowOnNotOK();
+
+                        var dataSource = new DiaDataSource((IDiaDataSource) ppvObject);
+
+                        dataSource.LoadDataFromPdb(pdb);
+
+                        var session = dataSource.OpenSession();
+                        var globalScope = session.GlobalScope;
+
+                        var name = globalScope.Name;
+
+                        return expectedName == name;
+                    }
+
+                    return DoDIA();
+                }
+            }
+            finally
+            {
+                //All of the DIA objects should now be out of scope. Force a GC. We observed that without wrapping all the DIA objects up in an inner function, we'd sometimes crash while waiting for pending finalizers
+                //clr!RCWCleanupList::ReleaseRCWListInCorrectCtx results in some RPC calls being made in the finalizer thread, and then
+                //next thing we know on our thread here we're calling LocalFree on some unknown object and throwing
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+                FreeLibrary(hModule);
+            }
+        }
+
+#endregion
     }
 }

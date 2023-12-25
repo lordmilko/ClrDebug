@@ -32,7 +32,12 @@ namespace ClrDebug.DIA
         /// <returns>Returns the last error code caused by a load operation. Returns E_INVALIDARG if the pRetVal parameter is NULL.</returns>
         [PreserveSig]
         HRESULT get_lastError(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Opens and prepares a program database (.pdb) file as a debug data source.

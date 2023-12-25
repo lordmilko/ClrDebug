@@ -1,7 +1,7 @@
 ﻿using System;
 using ClrDebug.TypeLib;
 
-namespace ClrDebug.DIA
+namespace ClrDebug
 {
     public class RecordInfo : ComObject<IRecordInfo>
     {

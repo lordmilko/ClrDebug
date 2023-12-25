@@ -149,7 +149,12 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_program(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))]
+#else
+            [MarshalUsing(typeof(DiaStringMarshaller))]
+#endif
+            out string pRetVal);
 
         /// <summary>
         /// Retrieves a flag that indicates whether system exception handling is in effect.

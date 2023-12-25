@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
-using System.Threading;
+using ClrDebug.DIA;
 
 namespace ClrDebug
 {
@@ -59,6 +59,10 @@ namespace ClrDebug
         public static readonly Guid CLSID_CorMetaDataRuntime = CLSID_CLR_v2_MetaData;
         public static readonly Guid CLSID_CorRuntimeHost = new Guid("CB2F6723-AB3A-11d2-9C40-00C04FA30A3E");
         public static readonly Guid CLSID_TypeNameFactory = new Guid("B81FF171-20F3-11d2-8DCC-00A0C9B00525");
+
+        public static readonly Guid CLSID_DiaSource = new Guid("E6756135-1E65-4D17-8576-610761398C3C");
+        public static readonly Guid CLSID_DiaSourceAlt = new Guid("91904831-49CA-4766-B95C-25397E2DD6DC");
+        public static readonly Guid CLSID_DiaStackWalker = new Guid("CE4A85DB-5768-475B-A4E1-C0BCA2112A6B");
 
         private const string ClrLibDesktop = "clr.dll";
         private const string ClrLibWinCore = "coreclr.dll";
@@ -434,5 +438,66 @@ namespace ClrDebug
 
             return ppv;
         }
+
+        #region DIA
+
+        private static bool? diaStringsUseComHeap;
+
+        /// <summary>
+        /// Specifies whether strings returned from DIA are allocated on the COM heap (via SysAllocString) or on the local heap (via LocalAlloc).<para/>
+        /// When creating an <see cref="IDiaDataSource"/> via CLSID_DiaSource or DiaSourceClass this value should be <see langword="true"/>.<para/>
+        /// When creating an <see cref="IDiaDataSource"/> via CLSID_DiaSourceAlt, DiaSourceAltClass or using the version of DIA statically linked into DbgHelp, this value should be <see langword="false"/>.<para/>
+        /// DIA dictates that a process may either make DiaSource objects or DiaSourceAlt objects, but not both.
+        /// </summary>
+        public static bool DiaStringsUseComHeap
+        {
+            get
+            {
+                if (diaStringsUseComHeap == null)
+                    throw new InvalidOperationException($"Cannot create DIA string: property '{typeof(Extensions).FullName}.{nameof(DiaStringsUseComHeap)}' must be globally set. When using CLSID_DiaSource or DiaSourceClass, 'DiaStringsUseComHeap' should be true. Otherwise, when using CLSID_DiaSourceAlt, DiaSourceAltClass or the version of DIA statically linked into DbgHelp, 'DiaStringsUseComHeap' should be false.");
+
+                return diaStringsUseComHeap.Value;
+            }
+            set => diaStringsUseComHeap = value;
+        }
+
+        /// <summary>
+        /// Frees a string that was natively allocated by DiaAllocString using the correct free mechanism, as identified by the user based on the way they are consuming DIA.<para/>
+        /// If the wrong mechanism was identified by the user, the process will immediately crash.
+        /// </summary>
+        /// <param name="pString">The string allocated by DiaStringAlloc that should be freed.</param>
+        internal static void DiaFreeString(IntPtr pString)
+        {
+            if (pString == IntPtr.Zero)
+                return;
+
+            if (DiaStringsUseComHeap)
+            {
+                //It's a true BSTR
+                Marshal.FreeBSTR(pString);
+            }
+            else
+            {
+                //It's a fake BSTR. Rewind 4 bytes (-2 u16's) over the fake BSTR length
+                //FreeHGlobal is equivalent to LocalFree and this will not change https://github.com/dotnet/runtime/issues/29051
+                Marshal.FreeHGlobal(pString - 4);
+            }
+        }
+
+        /// <summary>
+        /// Creates a <see cref="string"/> from a pointer representing a string that was natively allocated by DiaAllocString, using the correct mechanism
+        /// based on whether the string is in fact a BSTR or wchar_t*
+        /// </summary>
+        /// <param name="pString">A pointer to the string to create a managed <see cref="string"/> from.</param>
+        /// <returns>A managed <see cref="string"/> that encapsulates the value pointed to by <paramref name="pString"/>.</returns>
+        internal static string DiaStringToManaged(IntPtr pString)
+        {
+            if (DiaStringsUseComHeap)
+                return Marshal.PtrToStringBSTR(pString);
+
+            return Marshal.PtrToStringUni(pString);
+        }
+
+        #endregion
     }
 }

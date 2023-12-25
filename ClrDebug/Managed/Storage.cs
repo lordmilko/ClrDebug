@@ -1,7 +1,6 @@
 ﻿using System;
-using ClrDebug;
 
-namespace ClrDebug.DIA
+namespace ClrDebug
 {
     public class Storage : ComObject<IStorage>
     {

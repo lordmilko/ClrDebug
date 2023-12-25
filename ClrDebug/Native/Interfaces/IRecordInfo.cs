@@ -5,7 +5,7 @@ using System.Runtime.InteropServices.Marshalling;
 #endif
 using ClrDebug.TypeLib;
 
-namespace ClrDebug.DIA
+namespace ClrDebug
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0000002F-0000-0000-C000-000000000046")]

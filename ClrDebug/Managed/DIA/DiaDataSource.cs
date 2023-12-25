@@ -48,7 +48,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetLastError(out string pRetVal)
         {
             /*HRESULT get_lastError(
-            [Out, MarshalAs(UnmanagedType.BStr)] out string pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(DiaStringMarshaller))] out string pRetVal);*/
             return Raw.get_lastError(out pRetVal);
         }
 

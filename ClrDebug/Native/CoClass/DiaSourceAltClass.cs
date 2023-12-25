@@ -7,6 +7,14 @@ using ClrDebug.DIA;
 
 namespace ClrDebug.CoClass
 {
+    /// <summary>
+    /// An <see cref="IDiaDataSource"/> that does not use the system (COM) heap for allocating strings.<para/>
+    ///
+    /// A process may either make DiaSourceAlt objects or DiaSource objects, but not both.
+    /// When using DiaSourceAlt all returned BSTR's are really LPCOLESTR and should not be
+    /// used with other BSTR management routines, in particular they must be released using
+    /// LocalFree( bstr )
+    /// </summary>
     [Guid("91904831-49CA-4766-B95C-25397E2DD6DC")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]

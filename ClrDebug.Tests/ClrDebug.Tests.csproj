@@ -12,6 +12,8 @@
     <LangVersion Condition="'$(VisualStudioVersion)' == '15.0'">7.3</LangVersion>
 
     <DbgShimVersion>7.0.430602</DbgShimVersion>
+    <DbgEngVersion>20230731.1609.0</DbgEngVersion>
+    <TraceEventSupportFilesVersion>1.0.23</TraceEventSupportFilesVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +25,13 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
     <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
+
+    <!-- DbgHelp -->
+    <PackageReference Include="Microsoft.Debugging.Platform.DbgEng" Version="$(DbgEngVersion)" />
+    <PackageReference Include="Microsoft.Debugging.Platform.SymSrv" Version="$(DbgEngVersion)" />
+
+    <!-- DIA -->
+    <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent.SupportFiles" Version="$(TraceEventSupportFilesVersion)" />
   </ItemGroup>
   
   <!-- In order for the runtimes directory containing DbgShim to be copied to the output directory, firstly,
@@ -34,9 +43,21 @@
        or are not using a high enough .NET Core version, you can manually copy the desired files to your output directory
        as follows -->
 
-  <Target Name="CopyRuntimes" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net461'">
-    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Diagnostics.DbgShim.win-x86\$(DbgShimVersion)\runtimes\win-x86\native\dbgshim.dll" DestinationFiles="$(OutDir)runtimes\win-x86\dbgshim.dll" />
-    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Diagnostics.DbgShim.win-x64\$(DbgShimVersion)\runtimes\win-x64\native\dbgshim.dll" DestinationFiles="$(OutDir)runtimes\win-x64\dbgshim.dll" />
+  <Target Name="CopyRuntimes" AfterTargets="Build" Condition="'$(TargetFramework)' != ''">
+    <Copy Condition="'$(TargetFramework)' == 'net461'" SourceFiles="$(NuGetPackageRoot)Microsoft.Diagnostics.DbgShim.win-x86\$(DbgShimVersion)\runtimes\win-x86\native\dbgshim.dll" DestinationFiles="$(OutputPath)runtimes\win-x86\native\dbgshim.dll" />
+    <Copy Condition="'$(TargetFramework)' == 'net461'" SourceFiles="$(NuGetPackageRoot)Microsoft.Diagnostics.DbgShim.win-x64\$(DbgShimVersion)\runtimes\win-x64\native\dbgshim.dll" DestinationFiles="$(OutputPath)runtimes\win-x64\native\dbgshim.dll" />
+    
+    <!-- We can't use the magic variables defined in each package's props file, because you need props to be in a buildTransitive folder in
+         order to work when multi targeting -->
+    
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Debugging.Platform.DbgEng\$(DbgEngVersion)\content\x86\dbghelp.dll" DestinationFiles="$(OutputPath)runtimes\win-x86\native\dbghelp.dll" />
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Debugging.Platform.DbgEng\$(DbgEngVersion)\content\amd64\dbghelp.dll" DestinationFiles="$(OutputPath)runtimes\win-x64\native\dbghelp.dll" />
+
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Debugging.Platform.SymSrv\$(DbgEngVersion)\content\x86\symsrv.dll" DestinationFiles="$(OutputPath)runtimes\win-x86\native\symsrv.dll" />
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Debugging.Platform.SymSrv\$(DbgEngVersion)\content\amd64\symsrv.dll" DestinationFiles="$(OutputPath)runtimes\win-x64\native\symsrv.dll" />
+
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Diagnostics.Tracing.TraceEvent.SupportFiles\$(TraceEventSupportFilesVersion)\lib\native\x86\msdia140.dll" DestinationFiles="$(OutputPath)runtimes\win-x86\native\msdia140.dll" />
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Diagnostics.Tracing.TraceEvent.SupportFiles\$(TraceEventSupportFilesVersion)\lib\native\amd64\msdia140.dll" DestinationFiles="$(OutputPath)runtimes\win-x64\native\msdia140.dll" />
   </Target>
 
   <ItemGroup>

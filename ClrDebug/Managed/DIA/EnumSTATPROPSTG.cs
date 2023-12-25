@@ -55,8 +55,9 @@ namespace ClrDebug.DIA
                 return false;
 
             int fetched;
-            STATPROPSTG result;
-            var hr = Raw.Next(1, out result, out fetched);
+            STATPROPSTG.Native rawResult;
+            var hr = Raw.Next(1, out rawResult, out fetched);
+            var result = rawResult.Marshal();
 
             if (fetched == 1)
                 Current = result;

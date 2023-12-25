@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using ClrDebug.DIA;
 
 namespace ClrDebug.Tests
 {
@@ -11,7 +12,7 @@ namespace ClrDebug.Tests
 
     internal static class NativeMethods
     {
-        internal const string DbgHelp = "dbghelp.dll";
+        internal const string dbghelp = "dbghelp.dll";
         private const string kernel32 = "kernel32.dll";
 
         [DllImport(kernel32, SetLastError = true)]
@@ -19,20 +20,45 @@ namespace ClrDebug.Tests
             [In] IntPtr hProcess,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Wow64Process);
 
-        [DllImport(DbgHelp, SetLastError = true)]
+        [DllImport(dbghelp, SetLastError = true)]
         internal static extern bool SymInitializeW(IntPtr hProcess, string UserSearchPath, bool fInvadeProcess);
 
-        [DllImport(DbgHelp, SetLastError = true)]
+        [DllImport(dbghelp)]
+        internal static extern bool SymCleanup(
+            [In] IntPtr hProcess);
+
+        [DllImport(dbghelp)]
+        public static extern bool SymGetDiaSession(IntPtr hProcess, long modBase, out IntPtr session);
+
+        [DllImport(dbghelp, SetLastError = true)]
+        internal static extern ulong SymLoadModuleExW(
+            [In] IntPtr hProcess,
+            [In, Optional] IntPtr hFile,
+            [In, Optional, MarshalAs(UnmanagedType.LPWStr)] string ImageName,
+            [In, Optional, MarshalAs(UnmanagedType.LPWStr)] string ModuleName,
+            [In, Optional] ulong BaseOfDll,
+            [In, Optional] int DllSize,
+            [In, Optional] IntPtr Data,
+            [In, Optional] int Flags);
+
+        [DllImport(dbghelp, SetLastError = true)]
         internal static extern bool SymSetSearchPath(IntPtr hProcess, [MarshalAs(UnmanagedType.LPStr)] string SearchPath);
 
-        [DllImport(DbgHelp, SetLastError = true)]
+        [DllImport(dbghelp, SetLastError = true)]
         internal static extern bool SymSetSearchPathW(IntPtr hProcess, [MarshalAs(UnmanagedType.LPWStr)] string SearchPath);
 
-        [DllImport(DbgHelp, SetLastError = true)]
+        [DllImport(dbghelp, SetLastError = true)]
         internal static extern bool SymGetSearchPath(IntPtr hProcess, IntPtr SearchPath, [In] int SearchPathLength);
 
         [DllImport(kernel32, SetLastError = true)]
+        public static extern IntPtr GetModuleHandleW(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string lpModuleName);
+
+        [DllImport(kernel32, SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
+
+        [DllImport(kernel32, SetLastError = true)]
+        public static extern bool FreeLibrary(IntPtr hLibModule);
 
         [DllImport(kernel32, CharSet = CharSet.Unicode, SetLastError = true, EntryPoint = "LoadLibraryW")]
         public static extern IntPtr LoadLibrary(string lpLibFileName);

@@ -17,7 +17,7 @@ namespace ClrDebug.DIA
         [PreserveSig]
         HRESULT Next(
             [In] int celt,
-            [Out] out STATPROPSTG rgelt,
+            [Out] out STATPROPSTG.Native rgelt,
             [Out] out int pceltFetched);
 
         [PreserveSig]

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace ClrDebug.DIA
+namespace ClrDebug
 {
     public class EnumSTATSTG : IEnumerable<STATSTG>, IEnumerator<STATSTG>
     {

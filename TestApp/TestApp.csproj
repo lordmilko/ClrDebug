@@ -11,6 +11,10 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <InvariantGlobalization>true</InvariantGlobalization>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <DbgShimVersion>7.0.430602</DbgShimVersion>
+    <DbgEngVersion>20230731.1609.0</DbgEngVersion>
+    <TraceEventSupportFilesVersion>1.0.23</TraceEventSupportFilesVersion>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
@@ -21,15 +25,34 @@
     <Compile Include="..\ClrDebug.Tests\DataTarget.cs" Link="DataTarget.cs" />
     <Compile Include="..\ClrDebug.Tests\LibraryProvider.cs" Link="LibraryProvider.cs" />
     <Compile Include="..\ClrDebug.Tests\Support\MarshalTestImpl.cs" Link="MarshalTestImpl.cs" />
+    <Compile Include="..\ClrDebug.Tests\Support\SymbolClient.cs" Link="SymbolClient.cs" />
+    <Compile Include="..\ClrDebug.Tests\Support\Tracer.cs" Link="Tracer.cs" />
     <Compile Include="..\Samples\NetCore\DbgShimResolver.cs" Link="DbgShimResolver.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Diagnostics.DbgShim" Version="7.0.430602" />
+
+    <!-- DbgHelp -->
+    <PackageReference Include="Microsoft.Debugging.Platform.DbgEng" Version="$(DbgEngVersion)" />
+    <PackageReference Include="Microsoft.Debugging.Platform.SymSrv" Version="$(DbgEngVersion)" />
+
+    <!-- DIA -->
+    <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent.SupportFiles" Version="$(TraceEventSupportFilesVersion)" />
   </ItemGroup>
+
+  <Target Name="CopyRuntimes" AfterTargets="Build">
+    <!-- We can't use the magic variables defined in each package's props file, because you need props to be in a buildTransitive folder in
+         order to work when multi targeting -->
+
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Debugging.Platform.DbgEng\$(DbgEngVersion)\content\amd64\dbghelp.dll" DestinationFiles="$(OutDir)dbghelp.dll" />
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Debugging.Platform.SymSrv\$(DbgEngVersion)\content\amd64\symsrv.dll" DestinationFiles="$(OutDir)symsrv.dll" />
+    <Copy SourceFiles="$(NuGetPackageRoot)Microsoft.Diagnostics.Tracing.TraceEvent.SupportFiles\$(TraceEventSupportFilesVersion)\lib\native\amd64\msdia140.dll" DestinationFiles="$(OutDir)msdia140.dll" />
+  </Target>
 
   <ItemGroup>
     <ProjectReference Include="..\ClrDebug\ClrDebug.csproj" />
+    <ProjectReference Include="..\Samples\SymbolStore\SymbolStore.csproj" />
   </ItemGroup>
 
 </Project>
