@@ -209,7 +209,7 @@ namespace ClrDebug.TypeLib
         {
             /*HRESULT GetNames(
             [In] int memid,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.BStr, SizeParamIndex = 2)] string[] rgBstrNames,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.BStr, SizeParamIndex = 2)] string[] rgBstrNames,
             [In] int cMaxNames,
             [Out] out int pcNames);*/
             rgBstrNames = new string[cMaxNames];
@@ -308,7 +308,7 @@ namespace ClrDebug.TypeLib
             /*HRESULT GetIDsOfNames(
             [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 1)] string[] rgszNames,
             [In] int cNames,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pMemId);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pMemId);*/
             pMemId = new int[cNames];
             HRESULT hr = Raw.GetIDsOfNames(rgszNames, cNames, pMemId);
 

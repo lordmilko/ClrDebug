@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -30,7 +31,7 @@ namespace ClrDebug
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);
 
         /// <summary>
         /// Gets the children of this namespace.
@@ -43,7 +44,7 @@ namespace ClrDebug
         HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedNamespace[] namespaces);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] ISymUnmanagedNamespace[] namespaces);
 
         /// <summary>
         /// Returns all variables defined at global scope within this namespace.
@@ -56,6 +57,6 @@ namespace ClrDebug
         HRESULT GetVariables(
             [In] int cVars,
             [Out] out int pcVars,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] pVars);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] pVars);
     }
 }

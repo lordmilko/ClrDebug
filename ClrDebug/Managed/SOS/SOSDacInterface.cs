@@ -82,7 +82,7 @@ namespace ClrDebug
         {
             /*HRESULT GetJitManagerList(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DacpJitManagerInfo[] managers,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DacpJitManagerInfo[] managers,
             [Out] out int pNeeded);*/
             int count = 0;
             managers = null;
@@ -159,7 +159,7 @@ namespace ClrDebug
         {
             /*HRESULT GetGCHeapList(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_ADDRESS[] heaps,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_ADDRESS[] heaps,
             [Out] out int pNeeded);*/
             int count = 0;
             heaps = null;
@@ -378,7 +378,7 @@ namespace ClrDebug
         {
             /*HRESULT GetAppDomainList(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_ADDRESS[] values,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);*/
             values = new CLRDATA_ADDRESS[count];
             int pNeeded;
@@ -425,7 +425,7 @@ namespace ClrDebug
             /*HRESULT GetAppDomainName(
             [In] CLRDATA_ADDRESS addr,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] name;
@@ -487,7 +487,7 @@ namespace ClrDebug
             /*HRESULT GetAssemblyList(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] values,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);*/
             int count = 0;
             values = null;
@@ -540,7 +540,7 @@ namespace ClrDebug
             /*HRESULT GetAssemblyName(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] name;
@@ -665,7 +665,7 @@ namespace ClrDebug
             /*HRESULT GetAssemblyModuleList(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] modules,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] modules,
             [Out] out int pNeeded);*/
             int count = 0;
             modules = null;
@@ -809,7 +809,7 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS ip,
             [Out] out DacpMethodDescData data,
             [In] int cRevertedRejitVersions,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DacpReJitData[] rgRevertedRejitData,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DacpReJitData[] rgRevertedRejitData,
             [Out] out int pcNeededRevertedRejitData);*/
             DacpMethodDescData data;
             int cRevertedRejitVersions = 0;
@@ -890,7 +890,7 @@ namespace ClrDebug
             /*HRESULT GetMethodDescName(
             [In] CLRDATA_ADDRESS methodDesc,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] name;
@@ -1010,7 +1010,7 @@ namespace ClrDebug
             /*HRESULT GetJitHelperFunctionName(
             [In] CLRDATA_ADDRESS ip,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] name;
@@ -1139,7 +1139,7 @@ namespace ClrDebug
             /*HRESULT GetObjectStringData(
             [In] CLRDATA_ADDRESS obj,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] stringData,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] stringData,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] stringData;
@@ -1182,7 +1182,7 @@ namespace ClrDebug
             /*HRESULT GetObjectClassName(
             [In] CLRDATA_ADDRESS obj,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] className,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] className,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] className;
@@ -1225,7 +1225,7 @@ namespace ClrDebug
             /*HRESULT GetMethodTableName(
             [In] CLRDATA_ADDRESS mt,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] mtName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] mtName,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] mtName;
@@ -1383,7 +1383,7 @@ namespace ClrDebug
             /*HRESULT GetFrameName(
             [In] CLRDATA_ADDRESS vtable,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] frameName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] frameName,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] frameName;
@@ -1445,7 +1445,7 @@ namespace ClrDebug
             /*HRESULT GetPEFileName(
             [In] CLRDATA_ADDRESS addr,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] fileName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] fileName,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] fileName;
@@ -1797,7 +1797,7 @@ namespace ClrDebug
             /*HRESULT GetCodeHeapList(
             [In] CLRDATA_ADDRESS jitManager,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpJitCodeHeapInfo[] codeHeaps,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpJitCodeHeapInfo[] codeHeaps,
             [Out] out int pNeeded);*/
             int count = 0;
             codeHeaps = null;
@@ -1882,7 +1882,7 @@ namespace ClrDebug
             /*HRESULT GetRCWInterfaces(
             [In] CLRDATA_ADDRESS rcw,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpCOMInterfacePointerData[] interfaces,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpCOMInterfacePointerData[] interfaces,
             [Out] out int pNeeded);*/
             int count = 0;
             interfaces = null;
@@ -1934,7 +1934,7 @@ namespace ClrDebug
             /*HRESULT GetCCWInterfaces(
             [In] CLRDATA_ADDRESS ccw,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpCOMInterfacePointerData[] interfaces,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpCOMInterfacePointerData[] interfaces,
             [Out] out int pNeeded);*/
             int count = 0;
             interfaces = null;
@@ -2011,7 +2011,7 @@ namespace ClrDebug
             /*HRESULT GetRegisterName(
             [In] int regName,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] buffer,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] buffer;
@@ -2102,7 +2102,7 @@ namespace ClrDebug
             /*HRESULT GetFailedAssemblyList(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] values,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);*/
             int count = 0;
             values = null;
@@ -2135,7 +2135,7 @@ namespace ClrDebug
             /*HRESULT GetPrivateBinPaths(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] paths,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] paths,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] paths;
@@ -2178,7 +2178,7 @@ namespace ClrDebug
             /*HRESULT GetAssemblyLocation(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] location,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] location,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] location;
@@ -2221,7 +2221,7 @@ namespace ClrDebug
             /*HRESULT GetAppDomainConfigFile(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] configFile,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] configFile,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] configFile;
@@ -2264,7 +2264,7 @@ namespace ClrDebug
             /*HRESULT GetApplicationBase(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] _base,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] _base,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] _base;
@@ -2336,7 +2336,7 @@ namespace ClrDebug
             /*HRESULT GetFailedAssemblyLocation(
             [In] CLRDATA_ADDRESS assesmbly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] location,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] location,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] location;
@@ -2379,7 +2379,7 @@ namespace ClrDebug
             /*HRESULT GetFailedAssemblyDisplayName(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
             [Out] out int pNeeded);*/
             int count = 0;
             char[] name;
@@ -2534,7 +2534,7 @@ namespace ClrDebug
         public HRESULT TryGetClrNotification(out CLRDATA_ADDRESS[] arguments)
         {
             /*HRESULT GetClrNotification(
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] arguments,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] arguments,
             [In] int count,
             [Out] out int pNeeded);*/
             arguments = null;
@@ -2574,7 +2574,7 @@ namespace ClrDebug
             /*HRESULT GetTieredVersions(
             [In] CLRDATA_ADDRESS methodDesc,
             [In] int rejitId,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DacpTieredVersionData[] nativeCodeAddrs,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DacpTieredVersionData[] nativeCodeAddrs,
             [In] int cNativeCodeAddrs,
             [Out] out int pcNativeCodeAddrs);*/
             nativeCodeAddrs = null;
@@ -2696,7 +2696,7 @@ namespace ClrDebug
         {
             /*HRESULT GetMethodsWithProfilerModifiedIL(
             [In] CLRDATA_ADDRESS mod,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] methodDescs,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] methodDescs,
             [In] int cMethodDescs,
             [Out] out int pcMethodDescs);*/
             methodDescs = null;
@@ -2759,7 +2759,7 @@ namespace ClrDebug
         {
             /*HRESULT GetGenerationTable(
             [In] int cGenerations,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DacpGenerationData[] pGenerationData,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DacpGenerationData[] pGenerationData,
             [Out] out int pNeeded);*/
             int cGenerations = 0;
             pGenerationData = null;
@@ -2794,7 +2794,7 @@ namespace ClrDebug
         {
             /*HRESULT GetFinalizationFillPointers(
             [In] int cFillPointers,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
             [Out] out int pNeeded);*/
             int cFillPointers = 0;
             pFinalizationFillPointers = null;
@@ -2827,7 +2827,7 @@ namespace ClrDebug
             /*HRESULT GetGenerationTableSvr(
             [In] CLRDATA_ADDRESS heapAddr,
             [In] int cGenerations,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpGenerationData[] pGenerationData,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpGenerationData[] pGenerationData,
             [Out] out int pNeeded);*/
             int cGenerations = 0;
             pGenerationData = null;
@@ -2860,7 +2860,7 @@ namespace ClrDebug
             /*HRESULT GetFinalizationFillPointersSvr(
             [In] CLRDATA_ADDRESS heapAddr,
             [In] int cFillPointers,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
             [Out] out int pNeeded);*/
             int cFillPointers = 0;
             pFinalizationFillPointers = null;
@@ -2946,7 +2946,7 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS objAddr,
             [Out] out CLRDATA_ADDRESS rcw,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] mowList,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] mowList,
             [Out] out int pNeeded);*/
             CLRDATA_ADDRESS rcw;
             int count = 0;
@@ -3185,7 +3185,7 @@ namespace ClrDebug
         {
             /*HRESULT GetLoaderAllocatorHeapNames(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr, SizeParamIndex = 0)] string[] ppNames,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr, SizeParamIndex = 0)] string[] ppNames,
             [Out] out int pNeeded);*/
             int count = 0;
             ppNames = null;
@@ -3341,8 +3341,8 @@ namespace ClrDebug
             /*HRESULT GetLoaderAllocatorHeaps(
             [In] CLRDATA_ADDRESS loaderAllocator,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] pLoaderHeaps,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] LoaderHeapKind[] pKinds,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] pLoaderHeaps,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] LoaderHeapKind[] pKinds,
             [Out] int pNeeded);*/
             int count = 0;
             CLRDATA_ADDRESS[] pLoaderHeaps;

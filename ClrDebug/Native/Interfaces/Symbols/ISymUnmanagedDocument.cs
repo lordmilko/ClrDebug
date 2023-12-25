@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -31,7 +32,7 @@ namespace ClrDebug
         HRESULT GetURL(
             [In] int cchUrl,
             [Out] out int pcchUrl,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szUrl);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szUrl);
 
         /// <summary>
         /// Gets the document type of this document.
@@ -96,7 +97,7 @@ namespace ClrDebug
         HRESULT GetCheckSum(
             [In] int cData,
             [Out] out int pcData,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] data);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] byte[] data);
 
         /// <summary>
         /// Returns the closest line that is a sequence point, given a line in this document that may or may not be a sequence point.
@@ -146,6 +147,6 @@ namespace ClrDebug
             [In] int endColumn,
             [In] int cSourceBytes,
             [Out] out int pcSourceBytes,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] byte[] source);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), SRI.Out] byte[] source);
     }
 }

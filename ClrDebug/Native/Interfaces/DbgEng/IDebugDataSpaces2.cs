@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -134,7 +135,7 @@ namespace ClrDebug.DbgEng
         new HRESULT ReadPointersVirtual(
             [In] int Count,
             [In] long Offset,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
 
         /// <summary>
         /// The WritePointersVirtual method is a convenience method for writing pointers to the target's virtual address space.
@@ -459,7 +460,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetVirtualTranslationPhysicalOffsets(
             [In] long Virtual,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets,
             [In] int OffsetsSize,
             [Out] out int Levels);
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -940,7 +941,7 @@ namespace ClrDebug.DIA
         new HRESULT get_dataBytes(
             [In] int cbData,
             [Out] out int pcbData,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] data);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] data);
 
         /// <summary>
         /// Retrieves the children of the symbol.
@@ -1129,7 +1130,7 @@ namespace ClrDebug.DIA
         new HRESULT get_types(
             [In] int cTypes,
             [Out] out int pcTypes,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IDiaSymbol[] pTypes);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IDiaSymbol[] pTypes);
 
         /// <summary>
         /// Retrieves an array of compiler-specific type identifier values for this symbol.
@@ -1142,7 +1143,7 @@ namespace ClrDebug.DIA
         new HRESULT get_typeIds(
             [In] int cTypeIds,
             [Out] out int pcTypeIds,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pdwTypeIds);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pdwTypeIds);
 
         /// <summary>
         /// Retrieves the type of the object pointer for a class method.
@@ -1754,13 +1755,13 @@ namespace ClrDebug.DIA
         new HRESULT get_numericProperties(
             [In] int cnt,
             [Out] out int pcnt,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pProperties);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pProperties);
 
         [PreserveSig]
         new HRESULT get_modifierValues(
             [In] int cnt,
             [Out] out int pcnt,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] short[] pModifiers);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] short[] pModifiers);
 
         /// <summary>
         /// Specifies whether the variable carries a return value.
@@ -2202,7 +2203,7 @@ namespace ClrDebug.DIA
         new HRESULT get_acceleratorPointerTags(
             [In] int cnt,
             [Out] out int pcnt,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pPointerTags);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pPointerTags);
 
         /// <summary>
         /// Retrieves the source file and line number that indicate where a specified user-defined type is defined.

@@ -73,7 +73,7 @@ namespace ClrDebug.DIA
             [In] long va,
             [In] int cbData,
             [Out] out int pcbData,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] pbData);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] pbData);*/
             int cbData = 0;
             int pcbData;
             pbData = null;
@@ -223,7 +223,7 @@ namespace ClrDebug.DIA
             [In] long va,
             [In] int cbData,
             [Out] out int pcbData,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] pbData);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] pbData);*/
             int cbData = 0;
             int pcbData;
             pbData = null;

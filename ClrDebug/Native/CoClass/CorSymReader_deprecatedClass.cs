@@ -3,6 +3,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 
 namespace ClrDebug.CoClass
 {
@@ -23,7 +24,7 @@ namespace ClrDebug.CoClass
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetDocuments([In] int cDocs, [Out] out int pcDocs,
-            [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedDocument[] pDocs);
+            [MarshalAs(UnmanagedType.LPArray), SRI.Out] ISymUnmanagedDocument[] pDocs);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -46,14 +47,14 @@ namespace ClrDebug.CoClass
             [In] int parent,
             [In] int cVars,
             [Out] out int pcVars,
-            [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedVariable[] pVars);
+            [MarshalAs(UnmanagedType.LPArray), SRI.Out] ISymUnmanagedVariable[] pVars);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetGlobalVariables(
             [In] int cVars,
             [Out] out int pcVars,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -78,7 +79,7 @@ namespace ClrDebug.CoClass
         public virtual extern HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -104,7 +105,7 @@ namespace ClrDebug.CoClass
         public virtual extern HRESULT GetSymbolStoreFileName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] szName);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] szName);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -115,7 +116,7 @@ namespace ClrDebug.CoClass
             [In] int column,
             [In] int cMethod,
             [Out] out int pcMethod,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedMethod[] pRetVal);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedMethod[] pRetVal);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

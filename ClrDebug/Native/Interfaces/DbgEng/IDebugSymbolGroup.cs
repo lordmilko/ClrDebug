@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -72,7 +73,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolName(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -91,7 +92,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSymbolParameters(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SYMBOL_PARAMETERS[] Params);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SYMBOL_PARAMETERS[] Params);
 
         /// <summary>
         /// The ExpandSymbol method adds or removes the children of a symbol from a symbol group.

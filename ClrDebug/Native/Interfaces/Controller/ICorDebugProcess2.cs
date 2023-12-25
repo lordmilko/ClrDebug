@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -58,7 +59,7 @@ namespace ClrDebug
         HRESULT SetUnmanagedBreakpoint(
             [In] CORDB_ADDRESS address,
             [In] int bufsize,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] buffer,
             [Out] out int bufLen);
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -183,7 +184,7 @@ namespace ClrDebug
         HRESULT GetTypeFields(
             [In] COR_TYPEID id,
             [In] int celt,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_FIELD[] fields,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_FIELD[] fields,
             [Out] out int pceltNeeded);
 
         /// <summary>

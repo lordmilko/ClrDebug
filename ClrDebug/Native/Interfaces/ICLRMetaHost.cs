@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -86,7 +87,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetVersionFromFile(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), SRI.Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);
 
         /// <summary>

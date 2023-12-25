@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -38,7 +39,7 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         HRESULT GetVersionString(
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), SRI.Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         HRESULT GetRuntimeDirectory(
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), SRI.Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);
 
         /// <summary>
@@ -104,7 +105,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT LoadErrorString(
             [In] HRESULT iResourceID,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), SRI.Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer,
             [In] int iLocaleID);
 
@@ -257,7 +258,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetDefaultStartupFlags(
             [Out] out STARTUP_FLAGS pdwStartupFlags,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzHostConfigFile,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), SRI.Out] char[] pwzHostConfigFile,
             [In, Out] ref int pcchHostConfigFile);
 
         /// <summary>

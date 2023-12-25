@@ -151,7 +151,7 @@ namespace ClrDebug
             /*HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0), Out] char[] szName);*/
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0), SRI.Out] char[] szName);*/
             int cchName = 0;
             int pcchName;
             char[] szName;

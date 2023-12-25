@@ -45,7 +45,7 @@ namespace ClrDebug
             /*HRESULT GetDocuments(
             [In] int cDocs,
             [Out] out int pcDocs,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] pDocs);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] pDocs);*/
             int cDocs = 0;
             int pcDocs;
             ISymUnmanagedDocument[] pDocs;
@@ -127,7 +127,7 @@ namespace ClrDebug
             /*HRESULT GetGlobalVariables(
             [In] int cVars,
             [Out] out int pcVars,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] pVars);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] pVars);*/
             int cVars = 0;
             int pcVars;
             ISymUnmanagedVariable[] pVars;
@@ -180,7 +180,7 @@ namespace ClrDebug
             /*HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);*/
             int cNameSpaces = 0;
             int pcNameSpaces;
             ISymUnmanagedNamespace[] namespaces;
@@ -233,7 +233,7 @@ namespace ClrDebug
             /*HRESULT GetSymbolStoreFileName(
             [In] int cchName,
             [Out] out int pcchName,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0), Out] char[] szName);*/
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0), SRI.Out] char[] szName);*/
             int cchName = 0;
             int pcchName;
             char[] szName;
@@ -413,7 +413,7 @@ namespace ClrDebug
             [In] int parent,
             [In] int cVars,
             [Out] out int pcVars,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] pVars);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] pVars);*/
             int cVars = 0;
             int pcVars;
             ISymUnmanagedVariable[] pVars;
@@ -651,7 +651,7 @@ namespace ClrDebug
             [In] int column,
             [In] int cMethod,
             [Out] out int pcMethod,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] ISymUnmanagedMethod[] pRetVal);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] ISymUnmanagedMethod[] pRetVal);*/
             int cMethod = 0;
             int pcMethod;
             ISymUnmanagedMethod[] pRetVal;
@@ -863,7 +863,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] int cMethod,
             [Out] out int pcMethod,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] ISymUnmanagedMethod[] pRetVal);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] ISymUnmanagedMethod[] pRetVal);*/
             int cMethod = 0;
             int pcMethod;
             ISymUnmanagedMethod[] pRetVal;

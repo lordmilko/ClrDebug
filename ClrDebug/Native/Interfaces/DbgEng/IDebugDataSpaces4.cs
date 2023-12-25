@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -134,7 +135,7 @@ namespace ClrDebug.DbgEng
         new HRESULT ReadPointersVirtual(
             [In] int Count,
             [In] long Offset,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
 
         /// <summary>
         /// The WritePointersVirtual method is a convenience method for writing pointers to the target's virtual address space.
@@ -459,7 +460,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetVirtualTranslationPhysicalOffsets(
             [In] long Virtual,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets,
             [In] int OffsetsSize,
             [Out] out int Levels);
 
@@ -734,7 +735,7 @@ namespace ClrDebug.DbgEng
         HRESULT ReadMultiByteStringVirtual(
             [In] long Offset,
             [In] int MaxBytes,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);
 
@@ -761,7 +762,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);
 
@@ -785,7 +786,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);
 
@@ -806,7 +807,7 @@ namespace ClrDebug.DbgEng
         HRESULT ReadUnicodeStringVirtualWide(
             [In] long Offset,
             [In] int MaxBytes,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);
 

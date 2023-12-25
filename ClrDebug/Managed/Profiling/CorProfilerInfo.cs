@@ -787,7 +787,7 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [Out] out AssemblyID pAssemblyId);*/
             IntPtr ppBaseLoadAddress;
             int cchName = 0;
@@ -1050,7 +1050,7 @@ namespace ClrDebug
             [In] AppDomainID appDomainId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
             [Out] out ProcessID pProcessId);*/
             int cchName = 0;
             int pcchName;
@@ -1121,7 +1121,7 @@ namespace ClrDebug
             [In] AssemblyID assemblyId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
             [Out] out AppDomainID pAppDomainId,
             [Out] out ModuleID pModuleId);*/
             int cchName = 0;
@@ -1414,7 +1414,7 @@ namespace ClrDebug
             [In] FunctionID functionId,
             [In] int cMap,
             [Out] out int pcMap,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
             int cMap = 0;
             int pcMap;
             map = null;
@@ -1519,7 +1519,7 @@ namespace ClrDebug
             /*HRESULT GetGenerationBounds(
             [In] int cObjectRanges,
             [Out] out int pcObjectRanges,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] COR_PRF_GC_GENERATION_RANGE[] ranges);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] COR_PRF_GC_GENERATION_RANGE[] ranges);*/
             int cObjectRanges = 0;
             int pcObjectRanges;
             ranges = null;
@@ -1742,7 +1742,7 @@ namespace ClrDebug
             [Out] out mdToken pToken,
             [In] int cTypeArgs,
             [Out] out int pcTypeArgs,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] ClassID[] typeArgs);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] ClassID[] typeArgs);*/
             ClassID pClassId;
             ModuleID pModuleId;
             mdToken pToken;
@@ -1820,7 +1820,7 @@ namespace ClrDebug
         {
             /*HRESULT GetClassLayout(
             [In] ClassID classId,
-            [In, Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_FIELD_OFFSET[] rFieldOffset,
+            [In, SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_FIELD_OFFSET[] rFieldOffset,
             [In] int cFieldOffset,
             [Out] out int pcFieldOffset,
             [Out] out int pulClassSize);*/
@@ -1904,7 +1904,7 @@ namespace ClrDebug
             [Out] out ClassID pParentClassId,
             [In] int cNumTypeArgs,
             [Out] out int pcNumTypeArgs,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ClassID[] typeArgs);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ClassID[] typeArgs);*/
             ModuleID pModuleId;
             mdTypeDef pTypeDefToken;
             ClassID pParentClassId;
@@ -1978,7 +1978,7 @@ namespace ClrDebug
             [In] FunctionID functionId,
             [In] int cCodeInfos,
             [Out] out int pcCodeInfos,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] COR_PRF_CODE_INFO[] codeInfos);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] COR_PRF_CODE_INFO[] codeInfos);*/
             int cCodeInfos = 0;
             int pcCodeInfos;
             codeInfos = null;
@@ -2182,7 +2182,7 @@ namespace ClrDebug
             /*HRESULT GetArrayObjectInfo(
             [In] ObjectID objectId,
             [In] int cDimensions,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pDimensionSizes,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pDimensionSizes,
             [Out] out int pDimensionLowerBounds,
             [Out] out IntPtr ppData);*/
             int cDimensions = 0;
@@ -2619,7 +2619,7 @@ namespace ClrDebug
             [Out] out ushort pQFEVersion,
             [In] int cchVersionString,
             [Out] out int pcchVersionString,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6)] char[] szVersionString);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6)] char[] szVersionString);*/
             ushort pClrInstanceId;
             COR_PRF_RUNTIME_TYPE pRuntimeType;
             ushort pMajorVersion;
@@ -3166,7 +3166,7 @@ namespace ClrDebug
             [In] ModuleID moduleId,
             [In] int cAppDomainIds,
             [Out] out int pcAppDomainIds,
-            [MarshalAs(UnmanagedType.LPArray), Out] AppDomainID[] appDomainIds);*/
+            [MarshalAs(UnmanagedType.LPArray), SRI.Out] AppDomainID[] appDomainIds);*/
             int cAppDomainIds = 0;
             int pcAppDomainIds;
             appDomainIds = null;
@@ -3236,7 +3236,7 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [Out] out AssemblyID pAssemblyId,
             [Out] out COR_PRF_MODULE_FLAGS pdwModuleFlags);*/
             IntPtr ppBaseLoadAddress;
@@ -3520,7 +3520,7 @@ namespace ClrDebug
             [In] ReJITID reJitId,
             [In] int cCodeInfos,
             [Out] out int pcCodeInfos,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_PRF_CODE_INFO[] codeInfos);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_PRF_CODE_INFO[] codeInfos);*/
             int cCodeInfos = 0;
             int pcCodeInfos;
             codeInfos = null;
@@ -3620,7 +3620,7 @@ namespace ClrDebug
             [In] FunctionID functionId,
             [In] int cReJitIds,
             [Out] out int pcReJitIds,
-            [MarshalAs(UnmanagedType.LPArray), Out] ReJITID[] reJitIds);*/
+            [MarshalAs(UnmanagedType.LPArray), SRI.Out] ReJITID[] reJitIds);*/
             int cReJitIds = 0;
             int pcReJitIds;
             reJitIds = null;
@@ -3692,7 +3692,7 @@ namespace ClrDebug
             [In] ReJITID reJitId,
             [In] int cMap,
             [Out] out int pcMap,
-            [MarshalAs(UnmanagedType.LPArray), Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
+            [MarshalAs(UnmanagedType.LPArray), SRI.Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
             int cMap = 0;
             int pcMap;
             map = null;
@@ -4214,7 +4214,7 @@ namespace ClrDebug
             [Out] out int pbSig,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] wszName);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] wszName);*/
             ModuleID moduleId;
             IntPtr ppvSig;
             int pbSig;
@@ -4285,7 +4285,7 @@ namespace ClrDebug
             [In] ReJITID reJitId,
             [In] int cCodeStartAddresses,
             [Out] out int pcCodeStartAddresses,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] IntPtr[] codeStartAddresses);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] IntPtr[] codeStartAddresses);*/
             int cCodeStartAddresses = 0;
             int pcCodeStartAddresses;
             codeStartAddresses = null;
@@ -4338,7 +4338,7 @@ namespace ClrDebug
             [In] IntPtr pNativeCodeStartAddress,
             [In] int cMap,
             [Out] out int pcMap,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
             int pcMap;
             COR_DEBUG_IL_TO_NATIVE_MAP[] map = new COR_DEBUG_IL_TO_NATIVE_MAP[cMap];
             HRESULT hr = Raw9.GetILToNativeMapping3(pNativeCodeStartAddress, cMap, out pcMap, map);
@@ -4402,7 +4402,7 @@ namespace ClrDebug
             [In] IntPtr pNativeCodeStartAddress,
             [In] int cCodeInfos,
             [Out] out int pcCodeInfos,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_PRF_CODE_INFO[] codeInfos);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_PRF_CODE_INFO[] codeInfos);*/
             int pcCodeInfos;
             COR_PRF_CODE_INFO[] codeInfos = new COR_PRF_CODE_INFO[cCodeInfos];
             HRESULT hr = Raw9.GetCodeInfo4(pNativeCodeStartAddress, cCodeInfos, out pcCodeInfos, codeInfos);
@@ -4639,7 +4639,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] int cchValue,
             [Out] out int pcchValue,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szValue);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szValue);*/
             int cchValue = 0;
             int pcchValue;
             char[] szValue;
@@ -4839,7 +4839,7 @@ namespace ClrDebug
             [In] EVENTPIPE_PROVIDER provider,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] providerName);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] providerName);*/
             int cchName = 0;
             int pcchName;
             char[] providerName;

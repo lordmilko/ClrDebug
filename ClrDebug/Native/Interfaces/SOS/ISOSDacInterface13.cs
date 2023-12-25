@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -28,15 +29,15 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetLoaderAllocatorHeapNames(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr, SizeParamIndex = 0)] string[] ppNames,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr, SizeParamIndex = 0)] string[] ppNames,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetLoaderAllocatorHeaps(
             [In] CLRDATA_ADDRESS loaderAllocator,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] pLoaderHeaps,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] LoaderHeapKind[] pKinds,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] pLoaderHeaps,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] LoaderHeapKind[] pKinds,
             [Out] int pNeeded);
 
         [PreserveSig]

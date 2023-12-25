@@ -2,6 +2,7 @@
 
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 
 namespace ClrDebug.CoClass
 {
@@ -37,7 +38,7 @@ namespace ClrDebug.CoClass
         public virtual extern HRESULT GetDisplayName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] szName);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] szName);
 
         [PreserveSig]
         public virtual extern HRESULT GetID([Out] out int puId);
@@ -46,7 +47,7 @@ namespace ClrDebug.CoClass
         public virtual extern HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] szName);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] szName);
 
         [PreserveSig]
         public virtual extern HRESULT Skip([In] int celt);

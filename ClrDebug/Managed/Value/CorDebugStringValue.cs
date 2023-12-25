@@ -72,7 +72,7 @@ namespace ClrDebug
             /*HRESULT GetString(
             [In] int cchString,
             [Out] out int pcchString,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szString);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szString);*/
             int cchString = 0;
             int pcchString;
             char[] szString;

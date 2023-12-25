@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -33,7 +34,7 @@ namespace ClrDebug
         HRESULT GetCodeChunks(
             [In] int cbufSize,
             [Out] out int pcnumChunks,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] CodeChunkInfo[] chunks);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] CodeChunkInfo[] chunks);
 
         /// <summary>
         /// Gets the flags that specify the conditions under which this code object was either just-in-time (JIT) compiled or generated using the native image generator (Ngen.exe).

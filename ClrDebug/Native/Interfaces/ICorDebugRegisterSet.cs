@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -53,7 +54,7 @@ namespace ClrDebug
         HRESULT GetRegisters(
             [In] CorDebugRegister mask,
             [In] int regCount,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] CORDB_REGISTER[] regBuffer);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] CORDB_REGISTER[] regBuffer);
 
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.

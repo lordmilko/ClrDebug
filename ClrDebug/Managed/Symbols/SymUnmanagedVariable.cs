@@ -42,7 +42,7 @@ namespace ClrDebug
             /*HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);*/
             int cchName = 0;
             int pcchName;
             char[] szName;
@@ -124,7 +124,7 @@ namespace ClrDebug
             /*HRESULT GetSignature(
             [In] int cSig,
             [Out] out int pcSig,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] sig);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] byte[] sig);*/
             int cSig = 0;
             int pcSig;
             sig = null;

@@ -128,7 +128,7 @@
         {
             /*HRESULT GetDimensions(
             [In] int cdim,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] dims);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] int[] dims);*/
             dims = new int[cdim];
             HRESULT hr = Raw.GetDimensions(cdim, dims);
 
@@ -186,7 +186,7 @@
         {
             /*HRESULT GetBaseIndicies(
             [In] int cdim,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] indicies);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] int[] indicies);*/
             indicies = new int[cdim];
             HRESULT hr = Raw.GetBaseIndicies(cdim, indicies);
 

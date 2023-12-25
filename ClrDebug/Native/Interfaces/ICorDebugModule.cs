@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -61,7 +62,7 @@ namespace ClrDebug
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0), Out] char[] szName);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0), SRI.Out] char[] szName);
 
         /// <summary>
         /// Controls whether the just-in-time (JIT) compiler preserves debugging information for methods within this module.

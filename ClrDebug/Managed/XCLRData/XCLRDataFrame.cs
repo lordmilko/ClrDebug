@@ -205,7 +205,7 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue arg,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);*/
             IXCLRDataValue arg;
             int bufLen = 0;
             int nameLen;
@@ -250,7 +250,7 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue localVariable,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);*/
             IXCLRDataValue localVariable;
             int bufLen = 0;
             int nameLen;
@@ -294,7 +294,7 @@ namespace ClrDebug
             [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);*/
             int bufLen = 0;
             int nameLen;
             char[] nameBuf;

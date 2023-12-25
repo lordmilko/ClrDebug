@@ -43,7 +43,7 @@ namespace ClrDebug
             /*HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);*/
             int cchName = 0;
             int pcchName;
             char[] szName;
@@ -96,7 +96,7 @@ namespace ClrDebug
             /*HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedNamespace[] namespaces);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] ISymUnmanagedNamespace[] namespaces);*/
             int cNameSpaces = 0;
             int pcNameSpaces;
             ISymUnmanagedNamespace[] namespaces;
@@ -149,7 +149,7 @@ namespace ClrDebug
             /*HRESULT GetVariables(
             [In] int cVars,
             [Out] out int pcVars,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] pVars);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] pVars);*/
             int cVars = 0;
             int pcVars;
             ISymUnmanagedVariable[] pVars;

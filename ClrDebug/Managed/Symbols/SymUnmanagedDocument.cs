@@ -44,7 +44,7 @@ namespace ClrDebug
             /*HRESULT GetURL(
             [In] int cchUrl,
             [Out] out int pcchUrl,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szUrl);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szUrl);*/
             int cchUrl = 0;
             int pcchUrl;
             char[] szUrl;
@@ -213,7 +213,7 @@ namespace ClrDebug
             /*HRESULT GetCheckSum(
             [In] int cData,
             [Out] out int pcData,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] data);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] byte[] data);*/
             int cData = 0;
             int pcData;
             data = null;
@@ -352,7 +352,7 @@ namespace ClrDebug
             [In] int endColumn,
             [In] int cSourceBytes,
             [Out] out int pcSourceBytes,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] byte[] source);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), SRI.Out] byte[] source);*/
             int cSourceBytes = 0;
             int pcSourceBytes;
             source = null;

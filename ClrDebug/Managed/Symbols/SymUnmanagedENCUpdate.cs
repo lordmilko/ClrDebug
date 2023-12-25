@@ -104,7 +104,7 @@ namespace ClrDebug
             /*HRESULT GetLocalVariables(
             [In] mdMethodDef mdMethodToken,
             [In] int cLocals,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] rgLocals,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] rgLocals,
             [Out] out int pceltFetched);*/
             int cLocals = 0;
             ISymUnmanagedVariable[] rgLocals;

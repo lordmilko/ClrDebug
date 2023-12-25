@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -69,6 +70,6 @@ namespace ClrDebug
         HRESULT GetActiveInternalFrames(
             [In] int cInternalFrames,
             [Out] out int pcInternalFrames,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ICorDebugInternalFrame2[] ppInternalFrames);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ICorDebugInternalFrame2[] ppInternalFrames);
     }
 }

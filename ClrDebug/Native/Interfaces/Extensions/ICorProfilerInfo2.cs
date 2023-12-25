@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -309,7 +310,7 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [Out] out AssemblyID pAssemblyId);
 
         /// <summary>
@@ -412,7 +413,7 @@ namespace ClrDebug
             [In] AppDomainID appDomainId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
             [Out] out ProcessID pProcessId);
 
         /// <summary>
@@ -437,7 +438,7 @@ namespace ClrDebug
             [In] AssemblyID assemblyId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
             [Out] out AppDomainID pAppDomainId,
             [Out] out ModuleID pModuleId);
 
@@ -577,7 +578,7 @@ namespace ClrDebug
             [In] FunctionID functionId,
             [In] int cMap,
             [Out] out int pcMap,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);
 #endif
 
         /// <summary>
@@ -664,7 +665,7 @@ namespace ClrDebug
             [Out] out mdToken pToken,
             [In] int cTypeArgs,
             [Out] out int pcTypeArgs,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] ClassID[] typeArgs);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] ClassID[] typeArgs);
 
         /// <summary>
         /// Gets information about the layout of a string object. This method is deprecated in the .NET Framework 4, and is superseded by the <see cref="ICorProfilerInfo3.GetStringLayout2"/> method.
@@ -707,7 +708,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetClassLayout(
             [In] ClassID classId,
-            [In, Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_FIELD_OFFSET[] rFieldOffset,
+            [In, SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_FIELD_OFFSET[] rFieldOffset,
             [In] int cFieldOffset,
             [Out] out int pcFieldOffset,
             [Out] out int pulClassSize);
@@ -742,7 +743,7 @@ namespace ClrDebug
             [Out] out ClassID pParentClassId,
             [In] int cNumTypeArgs,
             [Out] out int pcNumTypeArgs,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ClassID[] typeArgs);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ClassID[] typeArgs);
 
         /// <summary>
         /// Gets the extents of native code associated with the specified FunctionID.
@@ -765,7 +766,7 @@ namespace ClrDebug
             [In] FunctionID functionId,
             [In] int cCodeInfos,
             [Out] out int pcCodeInfos,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] COR_PRF_CODE_INFO[] codeInfos);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] COR_PRF_CODE_INFO[] codeInfos);
 
         /// <summary>
         /// Gets the ClassID of a type by using the specified metadata token and the ClassID values of any type arguments.
@@ -846,7 +847,7 @@ namespace ClrDebug
         HRESULT GetArrayObjectInfo(
             [In] ObjectID objectId,
             [In] int cDimensions,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pDimensionSizes,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pDimensionSizes,
             [Out] out int pDimensionLowerBounds,
             [Out] out IntPtr ppData);
 
@@ -988,7 +989,7 @@ namespace ClrDebug
         HRESULT GetGenerationBounds(
             [In] int cObjectRanges,
             [Out] out int pcObjectRanges,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] COR_PRF_GC_GENERATION_RANGE[] ranges);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] COR_PRF_GC_GENERATION_RANGE[] ranges);
 
         /// <summary>
         /// Gets the segment of the heap that contains the specified object.

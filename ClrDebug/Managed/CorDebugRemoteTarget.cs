@@ -55,7 +55,7 @@ namespace ClrDebug
             /*HRESULT GetHostName(
             [In] int cchHostName,
             [Out] out int pcchHostName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szHostName);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szHostName);*/
             int cchHostName = 0;
             int pcchHostName;
             char[] szHostName;

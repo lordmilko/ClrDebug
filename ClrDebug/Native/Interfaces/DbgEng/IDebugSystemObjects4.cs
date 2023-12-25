@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -133,8 +134,8 @@ namespace ClrDebug.DbgEng
         new HRESULT GetThreadIdsByIndex(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
 
         /// <summary>
         /// The GetThreadIdByProcessor method returns the engine thread ID for the kernel-mode virtual thread corresponding to the specified processor.
@@ -296,8 +297,8 @@ namespace ClrDebug.DbgEng
         new HRESULT GetProcessIdsByIndex(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
 
         /// <summary>
         /// The GetCurrentProcessDataOffset method returns the location of the system data structure describing the current process.
@@ -424,7 +425,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCurrentProcessExecutableName(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int ExeSize);
 
@@ -557,7 +558,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetSystemIdsByIndex(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids);
 
         /// <summary>
         /// The GetTotalNumberThreadsAndProcesses method returns the total number of threads and processes in all the targets the engine is attached to, in addition to the largest number of threads and processes in a target.
@@ -606,7 +607,7 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         new HRESULT GetCurrentSystemServerName(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int Size,
             [Out] out int Needed);
 
@@ -627,7 +628,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentProcessExecutableNameWide(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int ExeSize);
 
@@ -640,7 +641,7 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         HRESULT GetCurrentSystemServerNameWide(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 

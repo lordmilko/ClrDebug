@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -90,7 +91,7 @@ namespace ClrDebug
             [In] int column,
             [In] int cRanges,
             [Out] out int pcRanges,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), Out] int[] ranges);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), SRI.Out] int[] ranges);
 
         /// <summary>
         /// Gets the parameters for this method. The parameters are returned in the order in which they are defined within the method's signature.
@@ -103,7 +104,7 @@ namespace ClrDebug
         HRESULT GetParameters(
             [In] int cParams,
             [Out] out int pcParams,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedVariable[] @params);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] ISymUnmanagedVariable[] @params);
 
         /// <summary>
         /// Gets the namespace within which this method is defined.
@@ -145,11 +146,11 @@ namespace ClrDebug
         HRESULT GetSequencePoints(
             [In] int cPoints,
             [Out] out int pcPoints,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] offsets,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] lines,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] columns,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endLines,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endColumns);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] offsets,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] lines,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] columns,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endLines,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endColumns);
     }
 }

@@ -229,7 +229,7 @@ namespace ClrDebug
             [In] CORDB_ADDRESS baseAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName);*/
             int cchName = 0;
             int pcchName;
             char[] szName;
@@ -316,7 +316,7 @@ namespace ClrDebug
             /*HRESULT EnumerateThreadIDs(
             [In] int cThreadIds,
             [Out] out int pcThreadIds,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pThreadIds);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pThreadIds);*/
             int cThreadIds = 0;
             int pcThreadIds;
             pThreadIds = null;
@@ -411,7 +411,7 @@ namespace ClrDebug
             /*HRESULT GetLoadedModules(
             [In] int cRequestedModules,
             [Out] out int pcFetchedModules,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ICorDebugLoadedModule[] pLoadedModules);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ICorDebugLoadedModule[] pLoadedModules);*/
             int cRequestedModules = 0;
             int pcFetchedModules;
             ICorDebugLoadedModule[] pLoadedModules;

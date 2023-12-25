@@ -153,7 +153,7 @@ namespace ClrDebug
             /*HRESULT GetString(
             [In] int bufLen,
             [Out] out int strLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] str);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] str);*/
             int bufLen = 0;
             int strLen;
             char[] str;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -149,7 +150,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);
 
@@ -183,7 +184,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] StringBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] StringBuffer,
             [In] int StringBufferSize,
             [Out] out int StringSize);
 
@@ -285,7 +286,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 8)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 8)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);
 
@@ -319,7 +320,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] StringBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] StringBuffer,
             [In] int StringBufferSize,
             [Out] out int StringSize);
 

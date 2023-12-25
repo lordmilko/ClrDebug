@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -35,7 +36,7 @@ namespace ClrDebug
         HRESULT GetSimpleName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);
 
         /// <summary>
         /// Gets the assembly's version information.
@@ -68,7 +69,7 @@ namespace ClrDebug
         HRESULT GetCulture(
             [In] int cchCulture,
             [Out] out int pcchCulture,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szCulture);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szCulture);
 
         /// <summary>
         /// Gets the assembly's public key.
@@ -80,7 +81,7 @@ namespace ClrDebug
         HRESULT GetPublicKey(
             [In] int cbPublicKey,
             [Out] out int pcbPublicKey,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] pbPublicKey);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] byte[] pbPublicKey);
 
         /// <summary>
         /// Gets the assembly's public key token.
@@ -95,7 +96,7 @@ namespace ClrDebug
         HRESULT GetPublicKeyToken(
             [In] int cbPublicKeyToken,
             [Out] out int pcbPublicKeyToken,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] pbPublicKeyToken);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] byte[] pbPublicKeyToken);
 
         /// <summary>
         /// Gets the assembly's prefix index.

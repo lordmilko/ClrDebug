@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -45,6 +46,6 @@ namespace ClrDebug
         HRESULT GetInstrumentedILMap(
             [In] int cMap,
             [Out] out int pcMap,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] COR_IL_MAP[] map);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] COR_IL_MAP[] map);
     }
 }

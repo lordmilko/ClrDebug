@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -33,7 +34,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetRegistersAvailable(
             [In] int numChunks,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] availableRegChunks);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] availableRegChunks);
 
         /// <summary>
         /// Gets the value of each register (for the platform on which code is currently executing) that is specified by the given bit mask.
@@ -59,7 +60,7 @@ namespace ClrDebug
             [In] int maskCount,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask,
             [In] int regCount,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);
 
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.

@@ -3,6 +3,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 
 namespace ClrDebug.CoClass
 {
@@ -146,7 +147,7 @@ namespace ClrDebug.CoClass
             [In, Out] ref IntPtr pIDD,
             [In] int cData,
             [Out] out int pcData,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
+            [MarshalAs(UnmanagedType.LPArray), SRI.Out] byte[] data);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

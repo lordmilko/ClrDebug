@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -49,7 +50,7 @@ namespace ClrDebug
         new HRESULT GetChildren(
             [In] int cChildren,
             [Out] out int pcChildren,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedScope[] children);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedScope[] children);
 
         /// <summary>
         /// Gets the start offset for this scope.
@@ -89,7 +90,7 @@ namespace ClrDebug
         new HRESULT GetLocals(
             [In] int cLocals,
             [Out] out int pcLocals,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] locals);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] locals);
 
         /// <summary>
         /// Gets the namespaces that are being used within this scope.
@@ -102,7 +103,7 @@ namespace ClrDebug
         new HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);
 #endif
 
         /// <summary>
@@ -125,6 +126,6 @@ namespace ClrDebug
         HRESULT GetConstants(
             [In] int cConstants,
             [Out] out int pcConstants,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedConstant[] constants);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] ISymUnmanagedConstant[] constants);
     }
 }

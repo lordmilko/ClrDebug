@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -73,7 +74,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT EnumTypeDefs(
             [In, Out] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdTypeDef[] typeDefs,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdTypeDef[] typeDefs,
             [In] int cMax,
             [Out] out int pcTypeDefs);
 
@@ -100,7 +101,7 @@ namespace ClrDebug
         new HRESULT EnumInterfaceImpls(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdInterfaceImpl[] rImpls,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdInterfaceImpl[] rImpls,
             [In] int cMax,
             [Out] out int pcImpls);
 
@@ -123,7 +124,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT EnumTypeRefs(
             [In, Out] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdTypeRef[] rTypeRefs,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdTypeRef[] rTypeRefs,
             [In] int cMax,
             [Out] out int pcTypeRefs);
 
@@ -151,7 +152,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         new HRESULT GetScopeProps(
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] szName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), SRI.Out] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out]
@@ -180,7 +181,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT GetTypeDefProps(
             [In] mdTypeDef td,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] szTypeDef,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), SRI.Out] char[] szTypeDef,
             [In] int cchTypeDef,
             [Out] out int pchTypeDef,
             [Out] out CorTypeAttr pdwTypeDefFlags,
@@ -216,7 +217,7 @@ namespace ClrDebug
         new HRESULT GetTypeRefProps(
             [In] mdTypeRef tr,
             [Out] out mdToken ptkResolutionScope,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] szName,
             [In] int cchName,
             [Out] out int pchName);
 
@@ -274,7 +275,7 @@ namespace ClrDebug
         new HRESULT EnumMembers(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdToken[] rMembers,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdToken[] rMembers,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -302,7 +303,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdToken[] rMembers,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdToken[] rMembers,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -324,7 +325,7 @@ namespace ClrDebug
         new HRESULT EnumMethods(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdMethodDef[] rMethods,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdMethodDef[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -352,7 +353,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdMethodDef[] rMethods,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdMethodDef[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -374,7 +375,7 @@ namespace ClrDebug
         new HRESULT EnumFields(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdFieldDef[] rFields,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdFieldDef[] rFields,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -401,7 +402,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdFieldDef[] rFields,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdFieldDef[] rFields,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -423,7 +424,7 @@ namespace ClrDebug
         new HRESULT EnumParams(
             [In, Out] ref IntPtr phEnum,
             [In] mdMethodDef mb,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdParamDef[] rParams,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdParamDef[] rParams,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -445,7 +446,7 @@ namespace ClrDebug
         new HRESULT EnumMemberRefs(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tkParent,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdMemberRef[] rMemberRefs,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdMemberRef[] rMemberRefs,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -468,8 +469,8 @@ namespace ClrDebug
         new HRESULT EnumMethodImpls(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdToken[] rMethodBody,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdToken[] rMethodDecl,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdToken[] rMethodBody,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdToken[] rMethodDecl,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -493,7 +494,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
             [In] CorDeclSecurity dwActions,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdPermission[] rPermission,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdPermission[] rPermission,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -612,7 +613,7 @@ namespace ClrDebug
         new HRESULT GetMethodProps(
             [In] mdMethodDef mb,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szMethod,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), SRI.Out] char[] szMethod,
             [In] int cchMethod,
             [Out] out int pchMethod,
             [Out] out CorMethodAttr pdwAttr,
@@ -635,7 +636,7 @@ namespace ClrDebug
         new HRESULT GetMemberRefProps(
             [In] mdMemberRef mr,
             [Out] out mdToken ptk,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szMember,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), SRI.Out] char[] szMember,
             [In] int cchMember,
             [Out] out int pchMember,
             [Out] out IntPtr ppvSigBlob,
@@ -659,7 +660,7 @@ namespace ClrDebug
         new HRESULT EnumProperties(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdProperty[] rProperties,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdProperty[] rProperties,
             [In] int cMax,
             [Out] out int pcProperties);
 
@@ -681,7 +682,7 @@ namespace ClrDebug
         new HRESULT EnumEvents(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdEvent[] rEvents,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdEvent[] rEvents,
             [In] int cMax,
             [Out] out int pcEvents);
 
@@ -705,7 +706,7 @@ namespace ClrDebug
         new HRESULT GetEventProps(
             [In] mdEvent ev,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szEvent,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), SRI.Out] char[] szEvent,
             [In] int cchEvent,
             [Out] out int pchEvent,
             [Out] out CorEventAttr pdwEventFlags,
@@ -713,7 +714,7 @@ namespace ClrDebug
             [Out] out mdMethodDef pmdAddOn,
             [Out] out mdMethodDef pmdRemoveOn,
             [Out] out mdMethodDef pmdFire,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 11)] mdMethodDef[] rmdOtherMethod,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 11)] mdMethodDef[] rmdOtherMethod,
             [In] int cMax,
             [Out] out int pcOtherMethod);
 
@@ -744,7 +745,7 @@ namespace ClrDebug
         new HRESULT EnumMethodSemantics(
             [In, Out] ref IntPtr phEnum,
             [In] mdMethodDef mb,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdToken[] rEventProp,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdToken[] rEventProp,
             [In] int cMax,
             [Out] out int pcEventProp);
 
@@ -776,7 +777,7 @@ namespace ClrDebug
         new HRESULT GetClassLayout(
             [In] mdTypeDef td,
             [Out] out int pdwPackSize,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), Out] COR_FIELD_OFFSET[] rFieldOffset,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), SRI.Out] COR_FIELD_OFFSET[] rFieldOffset,
             [In] int cMax,
             [Out] out int pcFieldOffset,
             [Out] out int pulClassSize);
@@ -842,7 +843,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT GetModuleRefProps(
             [In] mdModuleRef mur,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] szName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), SRI.Out] char[] szName,
             [In] int cchName,
             [Out] out int pchName);
 
@@ -862,7 +863,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT EnumModuleRefs(
             [In, Out] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdModuleRef[] rModuleRefs,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdModuleRef[] rModuleRefs,
             [In] int cmax,
             [Out] out int pcModuleRefs);
 
@@ -917,7 +918,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT EnumUnresolvedMethods(
             [In, Out] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdToken[] rMethods,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdToken[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -931,7 +932,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT GetUserString(
             [In] mdString stk,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] szString,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), SRI.Out] char[] szString,
             [In] int cchString,
             [Out] out int pchString);
 
@@ -948,7 +949,7 @@ namespace ClrDebug
         new HRESULT GetPinvokeMap(
             [In] mdToken tk,
             [Out] out CorPinvokeMap pdwMappingFlags,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szImportName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), SRI.Out] char[] szImportName,
             [In] int cchImportName,
             [Out] out int pchImportName,
             [Out] out mdModuleRef pmrImportDLL);
@@ -972,7 +973,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT EnumSignatures(
             [In, Out] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdSignature[] rSignatures,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdSignature[] rSignatures,
             [In] int cmax,
             [Out] out int pcSignatures);
 
@@ -995,7 +996,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT EnumTypeSpecs(
             [In, Out] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdTypeSpec[] rTypeSpecs,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdTypeSpec[] rTypeSpecs,
             [In] int cmax,
             [Out] out int pcTypeSpecs);
 
@@ -1019,7 +1020,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT EnumUserStrings(
             [In, Out] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdString[] rStrings,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdString[] rStrings,
             [In] int cmax,
             [Out] out int pcStrings);
 
@@ -1055,7 +1056,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
             [In] mdToken tkType,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdCustomAttribute[] rCustomAttributes,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] mdCustomAttribute[] rCustomAttributes,
             [In] int cMax,
             [Out] out int pcCustomAttributes);
 
@@ -1112,7 +1113,7 @@ namespace ClrDebug
         new HRESULT GetMemberProps(
             [In] mdToken mb,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szMember,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), SRI.Out] char[] szMember,
             [In] int cchMember,
             [Out] out int pchMember,
             [Out] out int pdwAttr,
@@ -1142,7 +1143,7 @@ namespace ClrDebug
         new HRESULT GetFieldProps(
             [In] mdFieldDef mb,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szField,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), SRI.Out] char[] szField,
             [In] int cchField,
             [Out] out int pchField,
             [Out] out CorFieldAttr pdwAttr,
@@ -1176,7 +1177,7 @@ namespace ClrDebug
         new HRESULT GetPropertyProps(
             [In] mdProperty prop,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szProperty,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), SRI.Out] char[] szProperty,
             [In] int cchProperty,
             [Out] out int pchProperty,
             [Out] out CorPropertyAttr pdwPropFlags,
@@ -1187,7 +1188,7 @@ namespace ClrDebug
             [Out] out int pcchDefaultValue,
             [Out] out mdMethodDef pmdSetter,
             [Out] out mdMethodDef pmdGetter,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 14)] mdMethodDef[] rmdOtherMethod,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 14)] mdMethodDef[] rmdOtherMethod,
             [In] int cMax,
             [Out] out int pcOtherMethod);
 
@@ -1212,7 +1213,7 @@ namespace ClrDebug
             [In] mdParamDef tk,
             [Out] out mdMethodDef pmd,
             [Out] out int pulSequence,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4), Out] char[] szName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4), SRI.Out] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out CorParamAttr pdwAttr,
@@ -1299,7 +1300,7 @@ namespace ClrDebug
         HRESULT EnumGenericParams(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdGenericParam[] rGenericParams,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdGenericParam[] rGenericParams,
             [In] int cMax,
             [Out] out int pcGenericParams);
 
@@ -1321,7 +1322,7 @@ namespace ClrDebug
             [Out] out CorGenericParamAttr pdwParamFlags,
             [Out] out mdToken ptOwner,
             [Out] out int reserved,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6)] char[] wzname,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6)] char[] wzname,
             [In] int cchName,
             [Out] out int pchName);
 
@@ -1357,7 +1358,7 @@ namespace ClrDebug
         HRESULT EnumGenericParamConstraints(
             [In, Out] ref IntPtr phEnum,
             [In] mdGenericParam tk,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdGenericParamConstraint[] rGenericParamConstraints,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdGenericParamConstraint[] rGenericParamConstraints,
             [In] int cMax,
             [Out] out int pcGenericParamConstraints);
 
@@ -1398,7 +1399,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetVersionString(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] pwzBuf,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] pwzBuf,
             [In] int ccBufSize,
             [Out] out int pccBufSize);
 
@@ -1420,7 +1421,7 @@ namespace ClrDebug
         HRESULT EnumMethodSpecs(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdMethodSpec[] rMethodSpecs,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] mdMethodSpec[] rMethodSpecs,
             [In] int cMax,
             [Out] out int pcMethodSpecs);
     }

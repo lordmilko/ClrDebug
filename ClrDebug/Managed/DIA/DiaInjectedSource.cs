@@ -227,7 +227,7 @@
             /*HRESULT get_source(
             [In] int cbData,
             [Out] out int pcbData,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pbData);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pbData);*/
             int cbData = 0;
             int pcbData;
             pbData = null;

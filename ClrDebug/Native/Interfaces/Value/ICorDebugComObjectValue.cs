@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -44,6 +45,6 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.Bool)] bool bIInspectableOnly,
             [In] int celt,
             [Out] out int pceltFetched,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CORDB_ADDRESS[] ptrs);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CORDB_ADDRESS[] ptrs);
     }
 }

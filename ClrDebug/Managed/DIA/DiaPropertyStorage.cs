@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using ClrDebug;
 
 namespace ClrDebug.DIA
 {

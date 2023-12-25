@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -68,7 +69,7 @@ namespace ClrDebug.TypeLib
         [PreserveSig]
         new HRESULT GetNames(
             [In] int memid,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.BStr, SizeParamIndex = 2)] string[] rgBstrNames,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.BStr, SizeParamIndex = 2)] string[] rgBstrNames,
             [In] int cMaxNames,
             [Out] out int pcNames);
 
@@ -102,7 +103,7 @@ namespace ClrDebug.TypeLib
         new HRESULT GetIDsOfNames(
             [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 1)] string[] rgszNames,
             [In] int cNames,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pMemId);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pMemId);
 
         /// <summary>
         /// Invokes a method, or accesses a property of an object, that implements the interface described by the type description.

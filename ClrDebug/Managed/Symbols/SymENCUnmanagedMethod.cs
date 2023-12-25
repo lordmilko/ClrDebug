@@ -72,7 +72,7 @@ namespace ClrDebug
             /*HRESULT GetDocumentsForMethod(
             [In] int cDocs,
             [Out] out int pcDocs,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents);*/
             int cDocs = 0;
             int pcDocs;
             ISymUnmanagedDocument[] documents;
@@ -126,7 +126,7 @@ namespace ClrDebug
             [In] int dwOffset,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName);*/
             int cchName = 0;
             int pcchName;
             char[] szName;

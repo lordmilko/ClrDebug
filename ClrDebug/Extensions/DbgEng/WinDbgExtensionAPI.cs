@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
@@ -15,12 +16,12 @@ namespace ClrDebug.DbgEng
 
     public delegate void PWINDBG_GET_SYMBOL(
         [In] IntPtr offset,
-        [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1)] char[] pchBuffer,
+        [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1)] char[] pchBuffer,
         [Out] IntPtr pDisplacement);
 
     public delegate bool PWINDBG_DISASM(
         [In, Out] ref IntPtr lpOffset,
-        [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1)] char[] lpBuffer,
+        [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1)] char[] lpBuffer,
         [In] bool fShowEffectiveAddress);
 
     public delegate bool PWINDBG_CHECK_CONTROL_C();

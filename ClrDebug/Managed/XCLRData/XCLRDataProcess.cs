@@ -339,7 +339,7 @@ namespace ClrDebug
             [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out CLRDATA_ADDRESS displacement);*/
             int bufLen = 0;
             int nameLen;
@@ -805,7 +805,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataTask tlsTask,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] nameBuf,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] nameBuf,
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue value,
             [Out] out CLRDATA_ADDRESS displacement);*/
             int bufLen = 0;
@@ -977,7 +977,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IXCLRDataModule[] mods,
             [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule singleMod,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdTypeDef[] tokens,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] flags);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] flags);*/
             flags = new int[numTokens];
             HRESULT hr = Raw.GetTypeNotifications(numTokens, mods, singleMod, tokens, flags);
 
@@ -1022,7 +1022,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IXCLRDataModule[] mods,
             [In, MarshalAs(UnmanagedType.Interface)] IXCLRDataModule singleMod,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdMethodDef[] tokens,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDataMethodCodeNotification[] flags);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDataMethodCodeNotification[] flags);*/
             flags = new CLRDataMethodCodeNotification[numTokens];
             HRESULT hr = Raw.GetCodeNotifications(numTokens, mods, singleMod, tokens, flags);
 

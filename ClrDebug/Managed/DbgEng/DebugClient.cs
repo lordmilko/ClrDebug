@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 using ClrDebug.DbgEng.Vtbl;
 using static ClrDebug.Extensions;
 
@@ -75,7 +76,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getKernelConnectionOptions, Vtbl->GetKernelConnectionOptions);
             /*HRESULT GetKernelConnectionOptions(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int OptionsSize);*/
             char[] buffer;
@@ -476,7 +477,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getOutputLinePrefix, Vtbl->GetOutputLinePrefix);
             /*HRESULT GetOutputLinePrefix(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int PrefixSize);*/
             char[] buffer;
@@ -550,7 +551,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getIdentity, Vtbl->GetIdentity);
             /*HRESULT GetIdentity(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int IdentitySize);*/
             char[] buffer;
@@ -847,7 +848,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getRunningProcessSystemIds, Vtbl->GetRunningProcessSystemIds);
             /*HRESULT GetRunningProcessSystemIds(
             [In] long Server,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] Ids,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] Ids,
             [In] int Count,
             [Out] out int ActualCount);*/
             ids = null;
@@ -952,10 +953,10 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] ExeName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] ExeName,
             [In] int ExeNameSize,
             [Out] out int ActualExeNameSize,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] Description,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] Description,
             [In] int DescriptionSize,
             [Out] out int ActualDescriptionSize);*/
             char[] exeName;
@@ -2159,10 +2160,10 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] ExeName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] ExeName,
             [In] int ExeNameSize,
             [Out] out int ActualExeNameSize,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] Description,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] Description,
             [In] int DescriptionSize,
             [Out] out int ActualDescriptionSize);*/
             char[] exeName;
@@ -2501,7 +2502,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getDumpFile, Vtbl4->GetDumpFile);
             /*HRESULT GetDumpFile(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize,
             [Out] out long Handle,
@@ -2566,7 +2567,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getDumpFileWide, Vtbl4->GetDumpFileWide);
             /*HRESULT GetDumpFileWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize,
             [Out] out long Handle,
@@ -2635,7 +2636,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getKernelConnectionOptionsWide, Vtbl5->GetKernelConnectionOptionsWide);
             /*HRESULT GetKernelConnectionOptionsWide(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int OptionsSize);*/
             char[] buffer;
@@ -2774,7 +2775,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getOutputLinePrefixWide, Vtbl5->GetOutputLinePrefixWide);
             /*HRESULT GetOutputLinePrefixWide(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int PrefixSize);*/
             char[] buffer;
@@ -2846,7 +2847,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getIdentityWide, Vtbl5->GetIdentityWide);
             /*HRESULT GetIdentityWide(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int IdentitySize);*/
             char[] buffer;
@@ -3042,7 +3043,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getQuitLockString, Vtbl5->GetQuitLockString);
             /*HRESULT GetQuitLockString(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);*/
             char[] buffer;
@@ -3117,7 +3118,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getQuitLockStringWide, Vtbl5->GetQuitLockStringWide);
             /*HRESULT GetQuitLockStringWide(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);*/
             char[] buffer;
@@ -4009,7 +4010,7 @@ namespace ClrDebug.DbgEng
         #region Delegates
         #region IDebugClient
 
-        private delegate HRESULT GetKernelConnectionOptionsDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int OptionsSize);
+        private delegate HRESULT GetKernelConnectionOptionsDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int OptionsSize);
         private delegate HRESULT SetKernelConnectionOptionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Options);
         private delegate HRESULT GetProcessOptionsDelegate(IntPtr self, [Out] out DEBUG_PROCESS Options);
         private delegate HRESULT SetProcessOptionsDelegate(IntPtr self, [In] DEBUG_PROCESS Options);
@@ -4022,18 +4023,18 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetOutputMaskDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask);
         private delegate HRESULT GetOutputWidthDelegate(IntPtr self, [Out] out int Columns);
         private delegate HRESULT SetOutputWidthDelegate(IntPtr self, [In] int Columns);
-        private delegate HRESULT GetOutputLinePrefixDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int PrefixSize);
+        private delegate HRESULT GetOutputLinePrefixDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int PrefixSize);
         private delegate HRESULT SetOutputLinePrefixDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Prefix);
-        private delegate HRESULT GetIdentityDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int IdentitySize);
+        private delegate HRESULT GetIdentityDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int IdentitySize);
         private delegate HRESULT GetEventCallbacksDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacks Callbacks);
         private delegate HRESULT SetEventCallbacksDelegate(IntPtr self, [In] IDebugEventCallbacks Callbacks);
         private delegate HRESULT AttachKernelDelegate(IntPtr self, [In] DEBUG_ATTACH Flags, [In, MarshalAs(UnmanagedType.LPStr)] string ConnectOptions);
         private delegate HRESULT StartProcessServerDelegate(IntPtr self, [In] DEBUG_CLASS Flags, [In, MarshalAs(UnmanagedType.LPStr)] string Options, [In] IntPtr Reserved);
         private delegate HRESULT ConnectProcessServerDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string RemoteOptions, [Out] out long Server);
         private delegate HRESULT DisconnectProcessServerDelegate(IntPtr self, [In] long Server);
-        private delegate HRESULT GetRunningProcessSystemIdsDelegate(IntPtr self, [In] long Server, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] Ids, [In] int Count, [Out] out int ActualCount);
+        private delegate HRESULT GetRunningProcessSystemIdsDelegate(IntPtr self, [In] long Server, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] Ids, [In] int Count, [Out] out int ActualCount);
         private delegate HRESULT GetRunningProcessSystemIdByExecutableNameDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string ExeName, [In] DEBUG_GET_PROC Flags, [Out] out int Id);
-        private delegate HRESULT GetRunningProcessDescriptionDelegate(IntPtr self, [In] long Server, [In] int SystemId, [In] DEBUG_PROC_DESC Flags, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] ExeName, [In] int ExeNameSize, [Out] out int ActualExeNameSize, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] Description, [In] int DescriptionSize, [Out] out int ActualDescriptionSize);
+        private delegate HRESULT GetRunningProcessDescriptionDelegate(IntPtr self, [In] long Server, [In] int SystemId, [In] DEBUG_PROC_DESC Flags, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] ExeName, [In] int ExeNameSize, [Out] out int ActualExeNameSize, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] Description, [In] int DescriptionSize, [Out] out int ActualDescriptionSize);
         private delegate HRESULT AttachProcessDelegate(IntPtr self, [In] long Server, [In] int ProcessID, [In] DEBUG_ATTACH AttachFlags);
         private delegate HRESULT CreateProcessDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS Flags);
         private delegate HRESULT CreateProcessAndAttachDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS Flags, [In] int ProcessId, [In] DEBUG_ATTACH AttachFlags);
@@ -4071,7 +4072,7 @@ namespace ClrDebug.DbgEng
         #region IDebugClient3
 
         private delegate HRESULT GetRunningProcessSystemIdByExecutableNameWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string ExeName, [In] DEBUG_GET_PROC Flags, [Out] out int Id);
-        private delegate HRESULT GetRunningProcessDescriptionWideDelegate(IntPtr self, [In] long Server, [In] int SystemId, [In] DEBUG_PROC_DESC Flags, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] ExeName, [In] int ExeNameSize, [Out] out int ActualExeNameSize, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] Description, [In] int DescriptionSize, [Out] out int ActualDescriptionSize);
+        private delegate HRESULT GetRunningProcessDescriptionWideDelegate(IntPtr self, [In] long Server, [In] int SystemId, [In] DEBUG_PROC_DESC Flags, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] ExeName, [In] int ExeNameSize, [Out] out int ActualExeNameSize, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] Description, [In] int DescriptionSize, [Out] out int ActualDescriptionSize);
         private delegate HRESULT CreateProcessWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS CreateFlags);
         private delegate HRESULT CreateProcessAndAttachWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS CreateFlags, [In] int ProcessId, [In] DEBUG_ATTACH AttachFlags);
 
@@ -4082,26 +4083,26 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT OpenDumpFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string FileName, [In] long FileHandle);
         private delegate HRESULT WriteDumpFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string DumpFile, [In] long FileHandle, [In] DEBUG_DUMP Qualifier, [In] DEBUG_FORMAT FormatFlags, [In, MarshalAs(UnmanagedType.LPWStr)] string Comment);
         private delegate HRESULT AddDumpInformationFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string FileName, [In] long FileHandle, [In] DEBUG_DUMP_FILE Type);
-        private delegate HRESULT GetDumpFileDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize, [Out] out long Handle, [Out] out int Type);
-        private delegate HRESULT GetDumpFileWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize, [Out] out long Handle, [Out] out int Type);
+        private delegate HRESULT GetDumpFileDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize, [Out] out long Handle, [Out] out int Type);
+        private delegate HRESULT GetDumpFileWideDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize, [Out] out long Handle, [Out] out int Type);
 
         #endregion
         #region IDebugClient5
 
-        private delegate HRESULT GetKernelConnectionOptionsWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int OptionsSize);
+        private delegate HRESULT GetKernelConnectionOptionsWideDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int OptionsSize);
         private delegate HRESULT SetKernelConnectionOptionsWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Options);
         private delegate HRESULT GetOutputCallbacksWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugOutputCallbacksWide Callbacks);
         private delegate HRESULT SetOutputCallbacksWideDelegate(IntPtr self, [In] IDebugOutputCallbacksWide Callbacks);
-        private delegate HRESULT GetOutputLinePrefixWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int PrefixSize);
+        private delegate HRESULT GetOutputLinePrefixWideDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int PrefixSize);
         private delegate HRESULT SetOutputLinePrefixWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Prefix);
-        private delegate HRESULT GetIdentityWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int IdentitySize);
+        private delegate HRESULT GetIdentityWideDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int IdentitySize);
         private delegate HRESULT GetEventCallbacksWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacksWide Callbacks);
         private delegate HRESULT SetEventCallbacksWideDelegate(IntPtr self, [In] IDebugEventCallbacksWide Callbacks);
         private delegate HRESULT GetNumberInputCallbacksDelegate(IntPtr self, [Out] out int Count);
         private delegate HRESULT GetNumberOutputCallbacksDelegate(IntPtr self, [Out] out int Count);
-        private delegate HRESULT GetQuitLockStringDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetQuitLockStringDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int StringSize);
         private delegate HRESULT SetQuitLockStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string LockString);
-        private delegate HRESULT GetQuitLockStringWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetQuitLockStringWideDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int StringSize);
         private delegate HRESULT SetQuitLockStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string LockString);
         private delegate HRESULT AttachKernelWideDelegate(IntPtr self, [In] DEBUG_ATTACH Flags, [In, MarshalAs(UnmanagedType.LPWStr)] string ConnectOptions);
         private delegate HRESULT StartProcessServerWideDelegate(IntPtr self, [In] DEBUG_CLASS Flags, [In, MarshalAs(UnmanagedType.LPWStr)] string Options, [In] IntPtr Reserved);

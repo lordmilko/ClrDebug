@@ -695,7 +695,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr pIDD,
             [In] int cData,
             [Out] out int pcData,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] data);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] byte[] data);*/
             int cData = 0;
             int pcData;
             data = null;
@@ -1101,7 +1101,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr pIDD,
             [In] int cData,
             [Out] out int pcData,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] data);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] byte[] data);*/
             int cData = 0;
             int pcData;
             data = null;

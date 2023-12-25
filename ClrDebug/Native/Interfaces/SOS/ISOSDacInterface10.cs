@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -19,7 +20,7 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS objAddr,
             [Out] out CLRDATA_ADDRESS rcw,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] mowList,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] mowList,
             [Out] out int pNeeded);
 
         [PreserveSig]

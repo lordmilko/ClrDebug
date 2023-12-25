@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -29,6 +30,6 @@ namespace ClrDebug
         HRESULT GetLoadedModules(
             [In] int cRequestedModules,
             [Out] out int pcFetchedModules,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ICorDebugLoadedModule[] pLoadedModules);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ICorDebugLoadedModule[] pLoadedModules);
     }
 }

@@ -137,7 +137,7 @@ namespace ClrDebug
             /*HRESULT GetParameters(
             [In] int cParams,
             [Out] out int pcParams,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedVariable[] @params);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] ISymUnmanagedVariable[] @params);*/
             int cParams = 0;
             int pcParams;
             ISymUnmanagedVariable[] @params;
@@ -227,12 +227,12 @@ namespace ClrDebug
             /*HRESULT GetSequencePoints(
             [In] int cPoints,
             [Out] out int pcPoints,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] offsets,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] lines,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] columns,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endLines,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endColumns);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] offsets,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] lines,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] columns,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endLines,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endColumns);*/
             int cPoints = 0;
             int pcPoints;
             int[] offsets;
@@ -378,7 +378,7 @@ namespace ClrDebug
             [In] int column,
             [In] int cRanges,
             [Out] out int pcRanges,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), Out] int[] ranges);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), SRI.Out] int[] ranges);*/
             int cRanges = 0;
             int pcRanges;
             ranges = null;

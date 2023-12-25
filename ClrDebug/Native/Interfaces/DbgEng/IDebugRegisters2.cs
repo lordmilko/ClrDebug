@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -37,7 +38,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetDescription(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
@@ -113,7 +114,7 @@ namespace ClrDebug.DbgEng
             [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
 
         /// <summary>
         /// The SetValues method sets the value of several of the target's registers.
@@ -221,7 +222,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetDescriptionWide(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
@@ -276,7 +277,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetPseudoDescription(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long TypeModule,
@@ -304,7 +305,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetPseudoDescriptionWide(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long TypeModule,
@@ -361,7 +362,7 @@ namespace ClrDebug.DbgEng
             [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
 
         /// <summary>
         /// The SetPseudoValues method sets the value of several pseudo-registers.
@@ -409,7 +410,7 @@ namespace ClrDebug.DbgEng
             [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
 
         /// <summary>
         /// The SetValues2 method sets the value of several of the target's registers.

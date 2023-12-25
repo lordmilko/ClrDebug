@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -31,7 +32,7 @@ namespace ClrDebug
         HRESULT GetBytes(
             [In] int bufLen,
             [Out] out int dataSize,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] buffer);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] buffer);
 
         [PreserveSig]
         HRESULT SetBytes(
@@ -53,7 +54,7 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
@@ -82,7 +83,7 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
@@ -113,7 +114,7 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf);
 
         [PreserveSig]
         HRESULT GetAssociatedValue(
@@ -127,16 +128,16 @@ namespace ClrDebug
         HRESULT GetString(
             [In] int bufLen,
             [Out] out int strLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] str);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] str);
 
         [PreserveSig]
         HRESULT GetArrayProperties(
             [Out] out int rank,
             [Out] out int totalElements,
             [In] int numDim,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] dims,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] dims,
             [In] int numBases,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] int[] bases);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] int[] bases);
 
         [PreserveSig]
         HRESULT GetArrayElement(
@@ -150,7 +151,7 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);
 
@@ -168,7 +169,7 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] nameBuf);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] nameBuf);
 
         [PreserveSig]
         HRESULT GetNumLocations(

@@ -41,7 +41,7 @@ namespace ClrDebug
             /*HRESULT GetName(
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] name);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] name);*/
             int bufLen = 0;
             int nameLen;
             char[] name;
@@ -86,7 +86,7 @@ namespace ClrDebug
             /*HRESULT GetFileName(
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] name);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] name);*/
             int bufLen = 260;
             int nameLen;
             char[] name = new char[bufLen];

@@ -53,7 +53,7 @@ namespace ClrDebug
         public HRESULT TryGetVersionString(out string pwzBufferResult)
         {
             /*HRESULT GetVersionString(
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), SRI.Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);*/
             char[] pwzBuffer;
             int pcchBuffer = default(int);
@@ -110,7 +110,7 @@ namespace ClrDebug
         public HRESULT TryGetRuntimeDirectory(out string pwzBufferResult)
         {
             /*HRESULT GetRuntimeDirectory(
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), SRI.Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);*/
             char[] pwzBuffer;
             int pcchBuffer = default(int);
@@ -215,7 +215,7 @@ namespace ClrDebug
         {
             /*HRESULT GetDefaultStartupFlags(
             [Out] out STARTUP_FLAGS pdwStartupFlags,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzHostConfigFile,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), SRI.Out] char[] pwzHostConfigFile,
             [In, Out] ref int pcchHostConfigFile);*/
             STARTUP_FLAGS pdwStartupFlags;
             char[] pwzHostConfigFile;
@@ -379,7 +379,7 @@ namespace ClrDebug
         {
             /*HRESULT LoadErrorString(
             [In] HRESULT iResourceID,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), SRI.Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer,
             [In] int iLocaleID);*/
             char[] pwzBuffer;

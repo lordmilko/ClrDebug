@@ -43,7 +43,7 @@ namespace ClrDebug
             /*HRESULT GetMergedAssemblyRecords(
             [In] int cRequestedRecords,
             [Out] out int pcFetchedRecords,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ICorDebugMergedAssemblyRecord[] pRecords);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] ICorDebugMergedAssemblyRecord[] pRecords);*/
             int cRequestedRecords = 0;
             int pcFetchedRecords;
             ICorDebugMergedAssemblyRecord[] pRecords;
@@ -135,7 +135,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 0)] IntPtr typeSig,
             [In] int cRequestedSymbols,
             [Out] out int pcFetchedSymbols,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ICorDebugStaticFieldSymbol[] pSymbols);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ICorDebugStaticFieldSymbol[] pSymbols);*/
             int cRequestedSymbols = 0;
             int pcFetchedSymbols;
             ICorDebugStaticFieldSymbol[] pSymbols;
@@ -191,7 +191,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 0)] IntPtr typeSig,
             [In] int cRequestedSymbols,
             [Out] out int pcFetchedSymbols,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ICorDebugInstanceFieldSymbol[] pSymbols);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ICorDebugInstanceFieldSymbol[] pSymbols);*/
             int cRequestedSymbols = 0;
             int pcFetchedSymbols;
             ICorDebugInstanceFieldSymbol[] pSymbols;
@@ -244,7 +244,7 @@ namespace ClrDebug
             [In] int nativeRVA,
             [In] int cRequestedSymbols,
             [Out] out int pcFetchedSymbols,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ICorDebugVariableSymbol[] pSymbols);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ICorDebugVariableSymbol[] pSymbols);*/
             int cRequestedSymbols = 0;
             int pcFetchedSymbols;
             ICorDebugVariableSymbol[] pSymbols;
@@ -297,7 +297,7 @@ namespace ClrDebug
             [In] int nativeRVA,
             [In] int cRequestedSymbols,
             [Out] out int pcFetchedSymbols,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ICorDebugVariableSymbol[] pSymbols);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ICorDebugVariableSymbol[] pSymbols);*/
             int cRequestedSymbols = 0;
             int pcFetchedSymbols;
             ICorDebugVariableSymbol[] pSymbols;
@@ -360,7 +360,7 @@ namespace ClrDebug
             [Out] out int pcGenericParams,
             [In] int cbSignature,
             [Out] out int pcbSignature,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), Out] byte[] signature);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), SRI.Out] byte[] signature);*/
             mdToken pMethodToken;
             int pcGenericParams;
             int cbSignature = 0;
@@ -423,7 +423,7 @@ namespace ClrDebug
             [In] int vtableRva,
             [In] int cbSignature,
             [Out] out int pcbSignature,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] signature);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] byte[] signature);*/
             int cbSignature = 0;
             int pcbSignature;
             signature = null;

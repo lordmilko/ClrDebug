@@ -203,7 +203,7 @@ namespace ClrDebug
             /*HRESULT GetILAddressMap(
             [In] int mapLen,
             [Out] out int mapNeeded,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_IL_ADDRESS_MAP[] maps);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_IL_ADDRESS_MAP[] maps);*/
             int mapLen = 0;
             int mapNeeded;
             maps = null;
@@ -268,7 +268,7 @@ namespace ClrDebug
             [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);*/
             int bufLen = 0;
             int nameLen;
             char[] nameBuf;

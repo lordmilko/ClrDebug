@@ -258,7 +258,7 @@
             /*HRESULT getFuncMDTokenMap(
             [In] int cb,
             [Out] out int pcb,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pb);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pb);*/
             int cb = 0;
             int pcb;
             pb = null;
@@ -314,7 +314,7 @@
             /*HRESULT getTypeMDTokenMap(
             [In] int cb,
             [Out] out int pcb,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pb);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pb);*/
             int cb = 0;
             int pcb;
             pb = null;

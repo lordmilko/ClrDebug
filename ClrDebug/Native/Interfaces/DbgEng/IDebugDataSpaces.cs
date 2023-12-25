@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -132,7 +133,7 @@ namespace ClrDebug.DbgEng
         HRESULT ReadPointersVirtual(
             [In] int Count,
             [In] long Offset,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
 
         /// <summary>
         /// The WritePointersVirtual method is a convenience method for writing pointers to the target's virtual address space.

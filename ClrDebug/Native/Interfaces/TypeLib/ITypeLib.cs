@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -117,8 +118,8 @@ namespace ClrDebug.TypeLib
         HRESULT FindName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
             [In] int lHashVal,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] ITypeInfo[] ppTInfo,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] int[] rgMemId,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), SRI.Out] ITypeInfo[] ppTInfo,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), SRI.Out] int[] rgMemId,
             [In, Out] ref short pcFound);
 
         /// <summary>

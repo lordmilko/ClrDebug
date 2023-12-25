@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -43,7 +44,7 @@ namespace ClrDebug
             [In] CORDB_ADDRESS baseAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName);
 
         /// <summary>
         /// Returns the symbol-provider for a module from the base address of that module.
@@ -65,7 +66,7 @@ namespace ClrDebug
         HRESULT EnumerateThreadIDs(
             [In] int cThreadIds,
             [Out] out int pcThreadIds,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pThreadIds);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pThreadIds);
 
         /// <summary>
         /// Creates a new stack unwinder that starts unwinding from an initial context (which isn't necessarily the leaf of a thread).

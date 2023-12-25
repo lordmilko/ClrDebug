@@ -424,7 +424,7 @@ namespace ClrDebug
             [In] int flags, //Unused, always 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);*/
             int bufLen = 0;
             int nameLen;
             char[] nameBuf;
@@ -542,7 +542,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr handle,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataFieldFlag flags,
             [Out] out mdFieldDef token);*/
@@ -673,7 +673,7 @@ namespace ClrDebug
             [In] mdFieldDef token,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataValueFlag flags);*/
             int nameBufLen = 0;
@@ -720,7 +720,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr handle,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataFieldFlag flags,
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataModule tokenScope,
@@ -805,7 +805,7 @@ namespace ClrDebug
             [In] mdFieldDef token,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out, MarshalAs(UnmanagedType.Interface)] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataValueFlag flags);*/
             int nameBufLen = 0;

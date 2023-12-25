@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -37,7 +38,7 @@ namespace ClrDebug
             [Out] out IntPtr ppbPublicKey,
             [Out] out int pcbPublicKey,
             [Out] out int pulHashAlgId,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 5)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 5)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
@@ -62,7 +63,7 @@ namespace ClrDebug
             [In] mdAssemblyRef mdar,
             [Out] out IntPtr ppbPublicKeyOrToken,
             [Out] out int pcbPublicKeyOrToken,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
@@ -83,7 +84,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetFileProps(
             [In] mdFile mdf,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out IntPtr ppbHashValue,
@@ -103,7 +104,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetExportedTypeProps(
             [In] mdExportedType mdct,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out mdToken ptkImplementation,
@@ -123,7 +124,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetManifestResourceProps(
             [In] mdManifestResource mdmr,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out mdToken ptkImplementation,
@@ -146,7 +147,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumAssemblyRefs(
             [In, Out] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdAssemblyRef[] rAssemblyRefs,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdAssemblyRef[] rAssemblyRefs,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -166,7 +167,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumFiles(
             [In, Out] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdFile[] rFiles,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdFile[] rFiles,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -186,7 +187,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumExportedTypes(
             [In, Out] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdExportedType[] rExportedTypes,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdExportedType[] rExportedTypes,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -206,7 +207,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumManifestResources(
             [In, Out] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdManifestResource[] rManifestResources,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdManifestResource[] rManifestResources,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -287,7 +288,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAppBase,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szPrivateBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 4)] object[] ppIUnk,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 4)] object[] ppIUnk,
             [In] int cMax,
             [Out] out int pcAssemblies);
     }

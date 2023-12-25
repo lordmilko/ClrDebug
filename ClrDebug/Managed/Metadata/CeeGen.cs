@@ -104,7 +104,7 @@ namespace ClrDebug
         {
             /*HRESULT GetString(
             [In] long RVA,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] lpString);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] lpString);*/
             char[] lpString = null;
             HRESULT hr = Raw.GetString(RVA, lpString);
 

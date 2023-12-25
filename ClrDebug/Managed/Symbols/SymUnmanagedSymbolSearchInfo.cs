@@ -71,7 +71,7 @@ namespace ClrDebug
             /*HRESULT GetSearchPath(
             [In] int cchPath,
             [Out] out int pcchPath,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szPath);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szPath);*/
             int cchPath = 0;
             int pcchPath;
             char[] szPath;

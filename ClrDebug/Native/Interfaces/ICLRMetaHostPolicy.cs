@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -67,9 +68,9 @@ namespace ClrDebug
             [In] METAHOST_POLICY_FLAGS dwPolicyFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzBinary,
             [MarshalAs(UnmanagedType.Interface), In] IStream pCfgStream,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4), Out] char[] pwzVersion,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4), SRI.Out] char[] pwzVersion,
             [In, Out] ref int pcchVersion,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6), Out] char[] pwzImageVersion,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6), SRI.Out] char[] pwzImageVersion,
             [In, Out] ref int pcchImageVersion,
             [Out] out METAHOST_CONFIG_FLAGS pdwConfigFlags,
 #if !GENERATED_MARSHALLING

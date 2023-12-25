@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -327,7 +328,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr pIDD,
             [In] int cData,
             [Out] out int pcData,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] data);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] byte[] data);
 
         /// <summary>
         /// Defines a group of sequence points within the current method. Each starting line and starting column define the start of a statement within a method.<para/>

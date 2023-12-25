@@ -48,7 +48,7 @@ namespace ClrDebug
             /*HRESULT GetSimpleName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);*/
             int cchName = 0;
             int pcchName;
             char[] szName;
@@ -149,7 +149,7 @@ namespace ClrDebug
             /*HRESULT GetCulture(
             [In] int cchCulture,
             [Out] out int pcchCulture,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szCulture);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szCulture);*/
             int cchCulture = 0;
             int pcchCulture;
             char[] szCulture;
@@ -201,7 +201,7 @@ namespace ClrDebug
             /*HRESULT GetPublicKey(
             [In] int cbPublicKey,
             [Out] out int pcbPublicKey,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] pbPublicKey);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] byte[] pbPublicKey);*/
             int cbPublicKey = 0;
             int pcbPublicKey;
             pbPublicKey = null;
@@ -246,7 +246,7 @@ namespace ClrDebug
             /*HRESULT GetPublicKeyToken(
             [In] int cbPublicKeyToken,
             [Out] out int pcbPublicKeyToken,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] pbPublicKeyToken);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] byte[] pbPublicKeyToken);*/
             int cbPublicKeyToken = 0;
             int pcbPublicKeyToken;
             pbPublicKeyToken = null;

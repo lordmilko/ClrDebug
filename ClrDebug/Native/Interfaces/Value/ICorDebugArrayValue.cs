@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -121,7 +122,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetDimensions(
             [In] int cdim,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] dims);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] int[] dims);
 
         /// <summary>
         /// Gets a value that indicates whether any dimensions of this array have a base index of non-zero.
@@ -139,7 +140,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetBaseIndicies(
             [In] int cdim,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] indicies);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] int[] indicies);
 
         /// <summary>
         /// Gets the value of the given array element.

@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -35,7 +36,7 @@ namespace ClrDebug
         HRESULT GetActiveFunctions(
             [In] int cFunctions,
             [Out] out int pcFunctions,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), In, SRI.Out] COR_ACTIVE_FUNCTION[] pFunctions);
 
         /// <summary>
         /// Gets the connection identifier for this <see cref="ICorDebugThread2"/> object.

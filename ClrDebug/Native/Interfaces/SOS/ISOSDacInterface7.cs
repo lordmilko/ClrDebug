@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -33,7 +34,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetMethodsWithProfilerModifiedIL(
             [In] CLRDATA_ADDRESS mod,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] methodDescs,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] methodDescs,
             [In] int cMethodDescs,
             [Out] out int pcMethodDescs);
     }

@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -34,6 +35,6 @@ namespace ClrDebug
         HRESULT GetEHClauses(
             [In] int cClauses,
             [Out] out int pcClauses,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] CorDebugEHClause[] clauses);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] CorDebugEHClause[] clauses);
     }
 }

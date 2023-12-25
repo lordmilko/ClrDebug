@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -324,7 +325,7 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [Out] out AssemblyID pAssemblyId);
 
         /// <summary>
@@ -427,7 +428,7 @@ namespace ClrDebug
             [In] AppDomainID appDomainId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
             [Out] out ProcessID pProcessId);
 
         /// <summary>
@@ -452,7 +453,7 @@ namespace ClrDebug
             [In] AssemblyID assemblyId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
             [Out] out AppDomainID pAppDomainId,
             [Out] out ModuleID pModuleId);
 
@@ -592,6 +593,6 @@ namespace ClrDebug
             [In] FunctionID functionId,
             [In] int cMap,
             [Out] out int pcMap,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);
     }
 }

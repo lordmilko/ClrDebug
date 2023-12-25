@@ -95,7 +95,7 @@ namespace ClrDebug
             /*HRESULT GetRegisters(
             [In] CorDebugRegister mask,
             [In] int regCount,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] CORDB_REGISTER[] regBuffer);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] CORDB_REGISTER[] regBuffer);*/
             regBuffer = new CORDB_REGISTER[regCount];
             HRESULT hr = Raw.GetRegisters(mask, regCount, regBuffer);
 
@@ -226,7 +226,7 @@ namespace ClrDebug
         {
             /*HRESULT GetRegistersAvailable(
             [In] int numChunks,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] availableRegChunks);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] availableRegChunks);*/
             availableRegChunks = new byte[numChunks];
             HRESULT hr = Raw2.GetRegistersAvailable(numChunks, availableRegChunks);
 
@@ -288,7 +288,7 @@ namespace ClrDebug
             [In] int maskCount,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask,
             [In] int regCount,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);*/
             regBuffer = new CORDB_REGISTER[regCount];
             HRESULT hr = Raw2.GetRegisters(maskCount, mask, regCount, regBuffer);
 

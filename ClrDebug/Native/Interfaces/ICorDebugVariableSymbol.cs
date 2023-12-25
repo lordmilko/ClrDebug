@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -29,7 +30,7 @@ namespace ClrDebug
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);
 
         /// <summary>
         /// Gets the size of a variable in bytes.
@@ -55,7 +56,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 1)] IntPtr context,
             [In] int cbValue,
             [Out] out int pcbValue,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), Out] byte[] pValue);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), SRI.Out] byte[] pValue);
 
         /// <summary>
         /// Assigns the value of a byte array to a variable.

@@ -142,7 +142,7 @@ namespace ClrDebug
         public HRESULT TryQueryPDBNameExW(out string wszPDBResult)
         {
             /*HRESULT QueryPDBNameExW(
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] wszPDB,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] wszPDB,
             [In] long cchMax);*/
             long cchMax = 1024;
             char[] wszPDB = new char[(int) cchMax];

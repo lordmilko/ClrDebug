@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -18,7 +19,7 @@ namespace ClrDebug
         HRESULT GetTieredVersions(
             [In] CLRDATA_ADDRESS methodDesc,
             [In] int rejitId,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DacpTieredVersionData[] nativeCodeAddrs,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DacpTieredVersionData[] nativeCodeAddrs,
             [In] int cNativeCodeAddrs,
             [Out] out int pcNativeCodeAddrs);
     }

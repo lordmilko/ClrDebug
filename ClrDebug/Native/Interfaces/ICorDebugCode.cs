@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -91,7 +92,7 @@ namespace ClrDebug
             [In] int startOffset,
             [In] int endOffset,
             [In] int cBufferAlloc,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2), Out] byte[] buffer,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2), SRI.Out] byte[] buffer,
             [Out] out int pcBufferSize);
 
         /// <summary>
@@ -120,7 +121,7 @@ namespace ClrDebug
         HRESULT GetILToNativeMapping(
             [In] int cMap,
             [Out] out int pcMap,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.
@@ -129,6 +130,6 @@ namespace ClrDebug
         HRESULT GetEnCRemapSequencePoints(
             [In] int cMap,
             [Out] out int pcMap,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] offsets);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), SRI.Out] int[] offsets);
     }
 }

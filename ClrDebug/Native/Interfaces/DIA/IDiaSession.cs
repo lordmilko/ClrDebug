@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -596,7 +597,7 @@ namespace ClrDebug.DIA
         HRESULT getFuncMDTokenMap(
             [In] int cb,
             [Out] out int pcb,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pb);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pb);
 
         [PreserveSig]
         HRESULT getTypeMDTokenMapSize(
@@ -606,7 +607,7 @@ namespace ClrDebug.DIA
         HRESULT getTypeMDTokenMap(
             [In] int cb,
             [Out] out int pcb,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pb);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pb);
 
         [PreserveSig]
         HRESULT getNumberOfFunctionFragments_VA(

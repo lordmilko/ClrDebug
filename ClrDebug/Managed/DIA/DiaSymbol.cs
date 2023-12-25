@@ -2594,7 +2594,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_dataBytes(
             [In] int cbData,
             [Out] out int pcbData,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] data);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] data);*/
             int cbData = 0;
             int pcbData;
             data = null;
@@ -2857,7 +2857,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_types(
             [In] int cTypes,
             [Out] out int pcTypes,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IDiaSymbol[] pTypes);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IDiaSymbol[] pTypes);*/
             int cTypes = 0;
             int pcTypes;
             IDiaSymbol[] pTypes;
@@ -2910,7 +2910,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_typeIds(
             [In] int cTypeIds,
             [Out] out int pcTypeIds,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pdwTypeIds);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pdwTypeIds);*/
             int cTypeIds = 0;
             int pcTypeIds;
             pdwTypeIds = null;
@@ -4779,7 +4779,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_numericProperties(
             [In] int cnt,
             [Out] out int pcnt,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pProperties);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pProperties);*/
             int cnt = 0;
             int pcnt;
             pProperties = null;
@@ -4814,7 +4814,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_modifierValues(
             [In] int cnt,
             [Out] out int pcnt,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] short[] pModifiers);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] short[] pModifiers);*/
             int cnt = 0;
             int pcnt;
             pModifiers = null;
@@ -5894,7 +5894,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_acceleratorPointerTags(
             [In] int cnt,
             [Out] out int pcnt,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pPointerTags);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pPointerTags);*/
             int cnt = 0;
             int pcnt;
             pPointerTags = null;
@@ -7665,7 +7665,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_sourceLink(
             [In] int cb,
             [Out] out int pcb,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] pb);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] pb);*/
             int cb = 0;
             int pcb;
             pb = null;
@@ -7739,7 +7739,7 @@ namespace ClrDebug.DIA
             /*HRESULT get_tagRanges(
             [In] int count,
             [Out] out int pcRangeValues,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DiaTagValue[] rangeValues);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DiaTagValue[] rangeValues);*/
             int count = 0;
             int pcRangeValues;
             rangeValues = null;

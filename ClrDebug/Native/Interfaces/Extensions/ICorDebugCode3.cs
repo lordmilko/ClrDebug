@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -39,6 +40,6 @@ namespace ClrDebug
             [In] int ilOffset,
             [In] int bufferSize,
             [Out] out int pFetched,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pOffsets); //The docs say that bufferSize describes bytes, but the actual code in dotnet/runtime contradicts that
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pOffsets); //The docs say that bufferSize describes bytes, but the actual code in dotnet/runtime contradicts that
     }
 }

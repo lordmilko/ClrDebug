@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 using ClrDebug.DbgEng.Vtbl;
 using static ClrDebug.Extensions;
 
@@ -204,7 +205,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getDescription, Vtbl->GetDescription);
             /*HRESULT GetDescription(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);*/
@@ -412,7 +413,7 @@ namespace ClrDebug.DbgEng
             [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);*/
             values = new DEBUG_VALUE[count];
             HRESULT hr = getValues(Raw, count, indices, start, values);
 
@@ -590,7 +591,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getDescriptionWide, Vtbl2->GetDescriptionWide);
             /*HRESULT GetDescriptionWide(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);*/
@@ -697,7 +698,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getPseudoDescription, Vtbl2->GetPseudoDescription);
             /*HRESULT GetPseudoDescription(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long TypeModule,
@@ -768,7 +769,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getPseudoDescriptionWide, Vtbl2->GetPseudoDescriptionWide);
             /*HRESULT GetPseudoDescriptionWide(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long TypeModule,
@@ -928,7 +929,7 @@ namespace ClrDebug.DbgEng
             [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
             values = new DEBUG_VALUE[count];
             HRESULT hr = getPseudoValues(Raw, source, count, indices, start, values);
 
@@ -1037,7 +1038,7 @@ namespace ClrDebug.DbgEng
             [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
             values = new DEBUG_VALUE[count];
             HRESULT hr = getValues2(Raw, source, count, indices, start, values);
 
@@ -1335,11 +1336,11 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetInstructionOffsetDelegate(IntPtr self, [Out] out long Offset);
         private delegate HRESULT GetStackOffsetDelegate(IntPtr self, [Out] out long Offset);
         private delegate HRESULT GetFrameOffsetDelegate(IntPtr self, [Out] out long Offset);
-        private delegate HRESULT GetDescriptionDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
+        private delegate HRESULT GetDescriptionDelegate(IntPtr self, [In] int Register, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
         private delegate HRESULT GetIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out int Index);
         private delegate HRESULT GetValueDelegate(IntPtr self, [In] int Register, [Out] out DEBUG_VALUE Value);
         private delegate HRESULT SetValueDelegate(IntPtr self, [In] int Register, [In] ref DEBUG_VALUE Value);
-        private delegate HRESULT GetValuesDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
+        private delegate HRESULT GetValuesDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices, [In] int Start, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
         private delegate HRESULT SetValuesDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices, [In] int Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
         private delegate HRESULT OutputRegistersDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_REGISTERS Flags);
 
@@ -1347,15 +1348,15 @@ namespace ClrDebug.DbgEng
         #region IDebugRegisters2
 
         private delegate HRESULT GetNumberPseudoRegistersDelegate(IntPtr self, [Out] out int Number);
-        private delegate HRESULT GetDescriptionWideDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
+        private delegate HRESULT GetDescriptionWideDelegate(IntPtr self, [In] int Register, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
         private delegate HRESULT GetIndexByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out int Index);
-        private delegate HRESULT GetPseudoDescriptionDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
-        private delegate HRESULT GetPseudoDescriptionWideDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
+        private delegate HRESULT GetPseudoDescriptionDelegate(IntPtr self, [In] int Register, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
+        private delegate HRESULT GetPseudoDescriptionWideDelegate(IntPtr self, [In] int Register, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
         private delegate HRESULT GetPseudoIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out int Index);
         private delegate HRESULT GetPseudoIndexByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out int Index);
-        private delegate HRESULT GetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
+        private delegate HRESULT GetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
         private delegate HRESULT SetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
-        private delegate HRESULT GetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
+        private delegate HRESULT GetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
         private delegate HRESULT SetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
         private delegate HRESULT OutputRegisters2Delegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_REGSRC Source, [In] DEBUG_REGISTERS Flags);
         private delegate HRESULT GetInstructionOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out long Offset);

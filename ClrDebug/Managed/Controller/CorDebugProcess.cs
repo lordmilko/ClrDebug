@@ -841,7 +841,7 @@ namespace ClrDebug
             /*HRESULT SetUnmanagedBreakpoint(
             [In] CORDB_ADDRESS address,
             [In] int bufsize,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] buffer,
             [Out] out int bufLen);*/
             int bufsize = 0;
             buffer = null;
@@ -1538,7 +1538,7 @@ namespace ClrDebug
             /*HRESULT GetTypeFields(
             [In] COR_TYPEID id,
             [In] int celt,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_FIELD[] fields,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_FIELD[] fields,
             [Out] out int pceltNeeded);*/
             int celt = 0;
             fields = null;

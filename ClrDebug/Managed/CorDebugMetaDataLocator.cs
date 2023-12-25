@@ -68,7 +68,7 @@ namespace ClrDebug
             [In] int dwImageSize,
             [In] int cchPathBuffer,
             [Out] out int pcchPathBuffer,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] wszPathBuffer);*/
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), SRI.Out] char[] wszPathBuffer);*/
             int cchPathBuffer = 0;
             int pcchPathBuffer;
             char[] wszPathBuffer;

@@ -42,7 +42,7 @@ namespace ClrDebug
             /*HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);*/
             int cchName = 0;
             int pcchName;
             char[] szName;
@@ -161,7 +161,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 1)] IntPtr context,
             [In] int cbValue,
             [Out] out int pcbValue,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), Out] byte[] pValue);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), SRI.Out] byte[] pValue);*/
             int cbValue = 0;
             int pcbValue;
             pValue = null;

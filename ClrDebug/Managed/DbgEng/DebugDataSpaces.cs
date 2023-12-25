@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using SRI = System.Runtime.InteropServices;
 using ClrDebug.DbgEng.Vtbl;
 using static ClrDebug.Extensions;
 
@@ -328,7 +329,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT ReadPointersVirtual(
             [In] int Count,
             [In] long Offset,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);*/
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);*/
             ptrs = new long[count];
             HRESULT hr = readPointersVirtual(Raw, count, offset, ptrs);
 
@@ -1089,7 +1090,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getVirtualTranslationPhysicalOffsets, Vtbl2->GetVirtualTranslationPhysicalOffsets);
             /*HRESULT GetVirtualTranslationPhysicalOffsets(
             [In] long Virtual,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets,
             [In] int OffsetsSize,
             [Out] out int Levels);*/
             offsets = null;
@@ -1756,7 +1757,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT ReadMultiByteStringVirtual(
             [In] long Offset,
             [In] int MaxBytes,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
             char[] buffer;
@@ -1833,7 +1834,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
             char[] buffer;
@@ -1904,7 +1905,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
             char[] buffer;
@@ -1970,7 +1971,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT ReadUnicodeStringVirtualWide(
             [In] long Offset,
             [In] int MaxBytes,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
             char[] buffer;
@@ -2214,7 +2215,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SearchVirtualDelegate(IntPtr self, [In] long Offset, [In] long Length, [In] IntPtr Pattern, [In] int PatternSize, [In] int PatternGranularity, [Out] out long MatchOffset);
         private delegate HRESULT ReadVirtualUncachedDelegate(IntPtr self, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
         private delegate HRESULT WriteVirtualUncachedDelegate(IntPtr self, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
-        private delegate HRESULT ReadPointersVirtualDelegate(IntPtr self, [In] int Count, [In] long Offset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
+        private delegate HRESULT ReadPointersVirtualDelegate(IntPtr self, [In] int Count, [In] long Offset, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
         private delegate HRESULT WritePointersVirtualDelegate(IntPtr self, [In] int Count, [In] long Offset, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
         private delegate HRESULT ReadPhysicalDelegate(IntPtr self, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
         private delegate HRESULT WritePhysicalDelegate(IntPtr self, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
@@ -2234,7 +2235,7 @@ namespace ClrDebug.DbgEng
         #region IDebugDataSpaces2
 
         private delegate HRESULT VirtualToPhysicalDelegate(IntPtr self, [In] long Virtual, [Out] out long Physical);
-        private delegate HRESULT GetVirtualTranslationPhysicalOffsetsDelegate(IntPtr self, [In] long Virtual, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets, [In] int OffsetsSize, [Out] out int Levels);
+        private delegate HRESULT GetVirtualTranslationPhysicalOffsetsDelegate(IntPtr self, [In] long Virtual, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets, [In] int OffsetsSize, [Out] out int Levels);
         private delegate HRESULT ReadHandleDataDelegate(IntPtr self, [In] long Handle, [In] DEBUG_HANDLE_DATA_TYPE DataType, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int DataSize);
         private delegate HRESULT FillVirtualDelegate(IntPtr self, [In] long Start, [In] int Size, [In] IntPtr Buffer, [In] int PatternSize, [Out] out int Filled);
         private delegate HRESULT FillPhysicalDelegate(IntPtr self, [In] long Start, [In] int Size, [In] IntPtr Buffer, [In] int PatternSize, [Out] out int Filled);
@@ -2256,10 +2257,10 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetNextDifferentlyValidOffsetVirtualDelegate(IntPtr self, [In] long Offset, [Out] out long NextOffset);
         private delegate HRESULT GetValidRegionVirtualDelegate(IntPtr self, [In] long Base, [In] int Size, [Out] out long ValidBase, [Out] out int ValidSize);
         private delegate HRESULT SearchVirtual2Delegate(IntPtr self, [In] long Offset, [In] long Length, [In] DEBUG_VSEARCH Flags, [In] IntPtr Buffer, [In] int PatternSize, [In] int PatternGranularity, [Out] out long MatchOffset);
-        private delegate HRESULT ReadMultiByteStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadMultiByteStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadUnicodeStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadUnicodeStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadMultiByteStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadMultiByteStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadUnicodeStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadUnicodeStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
         private delegate HRESULT ReadPhysical2Delegate(IntPtr self, [In] long Offset, [In] DEBUG_PHYSICAL Flags, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
         private delegate HRESULT WritePhysical2Delegate(IntPtr self, [In] long Offset, [In] DEBUG_PHYSICAL Flags, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
 
