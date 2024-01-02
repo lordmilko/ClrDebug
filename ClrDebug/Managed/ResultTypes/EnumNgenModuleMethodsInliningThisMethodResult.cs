@@ -5,7 +5,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CorProfilerInfo.EnumNgenModuleMethodsInliningThisMethod"/> method.
     /// </summary>
-    [DebuggerDisplay("incompleteData = {incompleteData}, ppEnum = {ppEnum.ToString(),nq}")]
+    [DebuggerDisplay("incompleteData = {incompleteData}, ppEnum = {ppEnum?.ToString(),nq}")]
     public struct EnumNgenModuleMethodsInliningThisMethodResult
     {
         /// <summary>

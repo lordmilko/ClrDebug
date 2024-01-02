@@ -5,7 +5,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedReaderSymbolSearchInfo.GetSymbolSearchInfo"/> method.
     /// </summary>
-    [DebuggerDisplay("pcSearchInfo = {pcSearchInfo}, rgpSearchInfo = {rgpSearchInfo.ToString(),nq}")]
+    [DebuggerDisplay("pcSearchInfo = {pcSearchInfo}, rgpSearchInfo = {rgpSearchInfo?.ToString(),nq}")]
     public struct GetSymbolSearchInfoResult
     {
         /// <summary>

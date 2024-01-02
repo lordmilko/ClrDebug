@@ -5,7 +5,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataProcess.GetDataByAddress"/> method.
     /// </summary>
-    [DebuggerDisplay("nameBuf = {nameBuf}, value = {value.ToString(),nq}, displacement = {displacement.ToString(),nq}")]
+    [DebuggerDisplay("nameBuf = {nameBuf}, value = {value?.ToString(),nq}, displacement = {displacement.ToString(),nq}")]
     public struct GetDataByAddressResult
     {
         public string nameBuf { get; }

@@ -5,7 +5,7 @@ namespace ClrDebug.TypeLib
     /// <summary>
     /// Encapsulates the results of the <see cref="TypeComp.BindType"/> method.
     /// </summary>
-    [DebuggerDisplay("ppTInfo = {ppTInfo.ToString(),nq}, ppTComp = {ppTComp.ToString(),nq}")]
+    [DebuggerDisplay("ppTInfo = {ppTInfo?.ToString(),nq}, ppTComp = {ppTComp?.ToString(),nq}")]
     public struct BindTypeResult
     {
         /// <summary>

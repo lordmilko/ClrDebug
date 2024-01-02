@@ -5,7 +5,7 @@ namespace ClrDebug.TypeLib
     /// <summary>
     /// Encapsulates the results of the <see cref="TypeInfo.ContainingTypeLib"/> property.
     /// </summary>
-    [DebuggerDisplay("ppTLB = {ppTLB.ToString(),nq}, pIndex = {pIndex}")]
+    [DebuggerDisplay("ppTLB = {ppTLB?.ToString(),nq}, pIndex = {pIndex}")]
     public struct GetContainingTypeLibResult
     {
         /// <summary>

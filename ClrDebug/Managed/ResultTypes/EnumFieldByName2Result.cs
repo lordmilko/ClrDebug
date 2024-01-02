@@ -5,7 +5,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataTypeDefinition.EnumFieldByName2"/> method.
     /// </summary>
-    [DebuggerDisplay("type = {type.ToString(),nq}, flags = {flags.ToString(),nq}, tokenScope = {tokenScope.ToString(),nq}, token = {token.ToString(),nq}")]
+    [DebuggerDisplay("type = {type?.ToString(),nq}, flags = {flags.ToString(),nq}, tokenScope = {tokenScope?.ToString(),nq}, token = {token.ToString(),nq}")]
     public struct EnumFieldByName2Result
     {
         public XCLRDataTypeDefinition type { get; }

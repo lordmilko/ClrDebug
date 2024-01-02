@@ -5,7 +5,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataTypeInstance.EnumStaticField2"/> method.
     /// </summary>
-    [DebuggerDisplay("value = {value.ToString(),nq}, nameBuf = {nameBuf}, tokenScope = {tokenScope.ToString(),nq}, token = {token.ToString(),nq}")]
+    [DebuggerDisplay("value = {value?.ToString(),nq}, nameBuf = {nameBuf}, tokenScope = {tokenScope?.ToString(),nq}, token = {token.ToString(),nq}")]
     public struct EnumStaticField2Result
     {
         public XCLRDataValue value { get; }

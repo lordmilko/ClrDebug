@@ -6,7 +6,7 @@ namespace ClrDebug
     /// <summary>
     /// Contains information about the functions that are currently active in a thread's frames. This structure is used by the <see cref="ICorDebugThread2.GetActiveFunctions"/> method.
     /// </summary>
-    [DebuggerDisplay("AppDomain = {AppDomain}, Module = {Module}, Function = {Function}, ilOffset = {ilOffset}, flags = {flags}")]
+    [DebuggerDisplay("AppDomain = {AppDomain?.ToString(),nq}, Module = {Module?.ToString(),nq}, Function = {Function?.ToString(),nq}, ilOffset = {ilOffset}, flags = {flags}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public partial struct COR_ACTIVE_FUNCTION
     {
@@ -41,16 +41,16 @@ namespace ClrDebug
         /// <summary>
         /// Pointer to the application domain owner of the <see cref="ilOffset"/> field.
         /// </summary>
-        public CorDebugAppDomain AppDomain => new CorDebugAppDomain(pAppDomain);
+        public CorDebugAppDomain AppDomain => pAppDomain == null ? null : new CorDebugAppDomain(pAppDomain);
 
         /// <summary>
         /// Pointer to the module owner of the <see cref="ilOffset"/> field.
         /// </summary>
-        public CorDebugModule Module => new CorDebugModule(pModule);
+        public CorDebugModule Module => pModule == null ? null : new CorDebugModule(pModule);
 
         /// <summary>
         /// Pointer to the function owner of the <see cref="ilOffset"/> field.
         /// </summary>
-        public CorDebugFunction Function => new CorDebugFunction((ICorDebugFunction) pFunction);
+        public CorDebugFunction Function => pFunction == null ? null : new CorDebugFunction((ICorDebugFunction) pFunction);
     }
 }

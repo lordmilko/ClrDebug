@@ -5,7 +5,7 @@ namespace ClrDebug.DIA
     /// <summary>
     /// Encapsulates the results of the <see cref="DiaEnumSymbolsByAddr.NextEx"/> method.
     /// </summary>
-    [DebuggerDisplay("rgelt = {rgelt.ToString(),nq}, pceltFetched = {pceltFetched}")]
+    [DebuggerDisplay("rgelt = {rgelt?.ToString(),nq}, pceltFetched = {pceltFetched}")]
     public struct NextExResult
     {
         public DiaSymbol rgelt { get; }

@@ -5,7 +5,7 @@ namespace ClrDebug.DIA
     /// <summary>
     /// Encapsulates the results of the <see cref="DiaSymbol.DiscriminatedUnionTag"/> property.
     /// </summary>
-    [DebuggerDisplay("ppTagType = {ppTagType.ToString(),nq}, pTagOffset = {pTagOffset}, pTagMask = {pTagMask.ToString(),nq}")]
+    [DebuggerDisplay("ppTagType = {ppTagType?.ToString(),nq}, pTagOffset = {pTagOffset}, pTagMask = {pTagMask.ToString(),nq}")]
     public struct GetDiscriminatedUnionTagResult
     {
         public DiaSymbol ppTagType { get; }

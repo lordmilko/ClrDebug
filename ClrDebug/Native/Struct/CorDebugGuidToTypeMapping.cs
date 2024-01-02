@@ -7,7 +7,7 @@ namespace ClrDebug
     /// <summary>
     /// Maps a Windows Runtime GUID to its corresponding <see cref="ICorDebugType"/> object.
     /// </summary>
-    [DebuggerDisplay("iid = {iid.ToString(),nq}, pType = {pType.ToString(),nq}")]
+    [DebuggerDisplay("iid = {iid.ToString(),nq}, pType = {pType?.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public partial struct CorDebugGuidToTypeMapping
     {

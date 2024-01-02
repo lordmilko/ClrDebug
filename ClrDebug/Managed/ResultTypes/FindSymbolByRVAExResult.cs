@@ -5,7 +5,7 @@ namespace ClrDebug.DIA
     /// <summary>
     /// Encapsulates the results of the <see cref="DiaSession.FindSymbolByRVAEx"/> method.
     /// </summary>
-    [DebuggerDisplay("ppSymbol = {ppSymbol.ToString(),nq}, displacement = {displacement}")]
+    [DebuggerDisplay("ppSymbol = {ppSymbol?.ToString(),nq}, displacement = {displacement}")]
     public struct FindSymbolByRVAExResult
     {
         /// <summary>

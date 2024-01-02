@@ -5,7 +5,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataValue.EnumFieldByName2"/> method.
     /// </summary>
-    [DebuggerDisplay("field = {field.ToString(),nq}, tokenScope = {tokenScope.ToString(),nq}, token = {token.ToString(),nq}")]
+    [DebuggerDisplay("field = {field?.ToString(),nq}, tokenScope = {tokenScope?.ToString(),nq}, token = {token.ToString(),nq}")]
     public struct XCLRDataValue_EnumFieldByName2Result
     {
         public XCLRDataValue field { get; }

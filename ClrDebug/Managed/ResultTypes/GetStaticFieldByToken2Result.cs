@@ -5,7 +5,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataTypeInstance.GetStaticFieldByToken2"/> method.
     /// </summary>
-    [DebuggerDisplay("field = {field.ToString(),nq}, nameBuf = {nameBuf}")]
+    [DebuggerDisplay("field = {field?.ToString(),nq}, nameBuf = {nameBuf}")]
     public struct GetStaticFieldByToken2Result
     {
         public XCLRDataValue field { get; }

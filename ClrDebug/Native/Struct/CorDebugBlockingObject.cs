@@ -6,7 +6,7 @@ namespace ClrDebug
     /// <summary>
     /// Defines an object that is blocking a thread and the specific reason that the thread is blocked.
     /// </summary>
-    [DebuggerDisplay("pBlockingObject = {pBlockingObject}, dwTimeout = {dwTimeout}, blockingReason = {blockingReason.ToString(),nq}")]
+    [DebuggerDisplay("pBlockingObject = {pBlockingObject?.ToString(),nq}, dwTimeout = {dwTimeout}, blockingReason = {blockingReason.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public partial struct CorDebugBlockingObject
     {

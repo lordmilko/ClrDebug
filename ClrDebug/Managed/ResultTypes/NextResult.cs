@@ -5,7 +5,7 @@ namespace ClrDebug.DIA
     /// <summary>
     /// Encapsulates the results of the <see cref="DiaEnumStackFrames.Next"/> method.
     /// </summary>
-    [DebuggerDisplay("rgelt = {rgelt.ToString(),nq}, pceltFetched = {pceltFetched}")]
+    [DebuggerDisplay("rgelt = {rgelt?.ToString(),nq}, pceltFetched = {pceltFetched}")]
     public struct NextResult
     {
         /// <summary>

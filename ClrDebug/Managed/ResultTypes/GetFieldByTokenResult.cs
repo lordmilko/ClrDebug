@@ -5,7 +5,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataTypeDefinition.GetFieldByToken"/> method.
     /// </summary>
-    [DebuggerDisplay("nameBuf = {nameBuf}, type = {type.ToString(),nq}, flags = {flags.ToString(),nq}")]
+    [DebuggerDisplay("nameBuf = {nameBuf}, type = {type?.ToString(),nq}, flags = {flags.ToString(),nq}")]
     public struct GetFieldByTokenResult
     {
         public string nameBuf { get; }

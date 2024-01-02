@@ -9,7 +9,7 @@ namespace ClrDebug
     /// <remarks>
     /// The caller must release the pointer to the <see cref="ICorDebugModule"/> object once it is no longer in use.
     /// </remarks>
-    [DebuggerDisplay("pModule = {pModule.ToString(),nq}, ip = {ip}, methodDef = {methodDef}, isLastForeignExceptionFrame = {isLastForeignExceptionFrame}")]
+    [DebuggerDisplay("pModule = {pModule?.ToString(),nq}, ip = {ip}, methodDef = {methodDef.ToString(),nq}, isLastForeignExceptionFrame = {isLastForeignExceptionFrame}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public partial struct CorDebugExceptionObjectStackFrame
     {

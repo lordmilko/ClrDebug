@@ -5,7 +5,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataTypeDefinition.TokenAndScope"/> property.
     /// </summary>
-    [DebuggerDisplay("token = {token.ToString(),nq}, mod = {mod.ToString(),nq}")]
+    [DebuggerDisplay("token = {token.ToString(),nq}, mod = {mod?.ToString(),nq}")]
     public struct XCLRDataTypeDefinition_GetTokenAndScopeResult
     {
         public mdTypeDef token { get; }
