@@ -1,0 +1,45 @@
+﻿namespace ClrDebug.DbgEng
+{
+    public class SvcEventArgumentsModuleDiscovery : ComObject<ISvcEventArgumentsModuleDiscovery>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvcEventArgumentsModuleDiscovery"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
+        public SvcEventArgumentsModuleDiscovery(ISvcEventArgumentsModuleDiscovery raw) : base(raw)
+        {
+        }
+
+        #region ISvcEventArgumentsModuleDiscovery
+        #region Module
+
+        public SvcModule Module
+        {
+            get
+            {
+                SvcModule moduleResult;
+                TryGetModule(out moduleResult).ThrowDbgEngNotOK();
+
+                return moduleResult;
+            }
+        }
+
+        public HRESULT TryGetModule(out SvcModule moduleResult)
+        {
+            /*HRESULT GetModule(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISvcModule module);*/
+            ISvcModule module;
+            HRESULT hr = Raw.GetModule(out module);
+
+            if (hr == HRESULT.S_OK)
+                moduleResult = SvcModule.New(module);
+            else
+                moduleResult = default(SvcModule);
+
+            return hr;
+        }
+
+        #endregion
+        #endregion
+    }
+}
