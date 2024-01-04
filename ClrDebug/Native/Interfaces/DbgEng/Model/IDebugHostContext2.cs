@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -7,6 +7,13 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface IDebugHostContext2 : IDebugHostContext
     {
+        /// <summary>
+        /// Returns whether two <see cref="IDebugHostContext"/> objects are equal by value. Note that there is no requirement for a debug host to have interface pointer equality for two contexts which are equivalent.<para/>
+        /// The actual contexts can be compared through this method.
+        /// </summary>
+        /// <param name="pContext">The host context to compare against.</param>
+        /// <param name="pIsEqual">An indication of whether the values of the two objects are equal.</param>
+        /// <returns>This method returns HRESULT.</returns>
         [PreserveSig]
         new HRESULT IsEqualTo(
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostContext pContext,
