@@ -592,6 +592,8 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Gets the system for a server.
         /// </summary>
+        /// <param name="Server">A pointer to the returned server value.</param>
+        /// <param name="Id">Id</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         new HRESULT GetSystemByServer(

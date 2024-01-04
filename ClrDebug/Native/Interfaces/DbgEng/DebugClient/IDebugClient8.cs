@@ -4,13 +4,10 @@ using SRI = System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
-    /// <summary>
-    /// This interface supports event context callbacks.
-    /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [Guid("e3acb9d7-7ec2-4f0c-a0da-e81e0cbbe628")]
+    [Guid("CEC43ADD-6375-469e-83D5-414E4033C19A")]
     [ComImport]
-    public interface IDebugClient6 : IDebugClient5
+    public interface IDebugClient8 : IDebugClient7
     {
         #region IDebugClient
 
@@ -1543,8 +1540,53 @@ namespace ClrDebug.DbgEng
         /// <param name="Callbacks">[in, optional] The interface pointer to the event callbacks object.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This event interface replaces the use of <see cref="IDebugClient.SetEventCallbacks"/>.</returns>
         [PreserveSig]
-        HRESULT SetEventContextCallbacks(
+        new HRESULT SetEventContextCallbacks(
             [In] IDebugEventContextCallbacks Callbacks);
+
+        #endregion
+        #region IDebugClient7
+
+        /// <summary>
+        /// The SetClientContext method is reserved for internal use.
+        /// </summary>
+        /// <param name="Context">[in] The SetClientContext method is reserved for internal use.</param>
+        /// <param name="ContextSize">[in] The SetClientContext method is reserved for internal use.</param>
+        /// <returns>The SetClientContext method is reserved for internal use.</returns>
+        [PreserveSig]
+        new HRESULT SetClientContext(
+            [In] IntPtr Context,
+            [In] int ContextSize);
+
+        #endregion
+        #region IDebugClient8
+
+        /// <summary>
+        /// The OpenDumpFileWide2 method opens a dump file as a debugger target.
+        /// </summary>
+        /// <param name="FileName">[in, optional] Specifies the name of the dump file to open -- unless FileHandle is not zero, in which case FileName is used only when the engine is queried for the name of the dump file.<para/>
+        /// FileName must include the file name extension. FileName can include a relative or absolute path; relative paths are relative to the directory in which the debugger was started.<para/>
+        /// FileName can also be in the form of a file URL, starting with "file://". If FileName specifies a cabinet (.cab) file, the cabinet file is searched for the first file with extension .kdmp, then .hdmp, then .mdmp, and finally .dmp.</param>
+        /// <param name="FileHandle">[in] Specifies the file handle of the dump file to open. If FileHandle is zero, FileName is used to open the dump file.<para/>
+        /// Otherwise, if FileName is not NULL, the engine returns it when queried for the name of the dump file. If FileHandle is not zero and FileName is NULL, the engine will return HandleOnly for the file name.</param>
+        /// <param name="AlternateArch">[in] Specifies the AlternateArch argument which is an IMAGE_FILE_MACHINE_* constant. For more information, see Image File Machine Constants.<para/>
+        /// These two constants are supported. This parameter is only relevant if you are using OpenDumpFileWide2 to open an image file (not a dump file) which can be mapped into different architectures.<para/>
+        /// For example ARM64X, where the DLL can be loaded into an x64/EC process or an ARM64 process. By default, information about the DLL is presented using whatever architecture the image headers have defined.<para/>
+        /// If you call OpenDumpFileWide2 with a different architecture, the information will be presented using the architecture that was passed.<para/>
+        /// This allows you to see the “fixups” which the OS would have applied if the DLL were loaded into that architecture of process.<para/>
+        /// For more information about ARM64X, see Arm64X PE files.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// The engine doesn't completely attach to the dump file until the WaitForEvent method has been called. When a dump
+        /// file is created from a process or kernel, information about the last event is stored in the dump file. After the
+        /// dump file is opened, the next time execution is attempted, the engine will generate this event for the event callbacks.
+        /// Only then does the dump file become available in the debugging session. For more information about crash dump files,
+        /// see Dump-File Targets.
+        /// </remarks>
+        [PreserveSig]
+        HRESULT OpenDumpFileWide2(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
+            [In] long FileHandle,
+            [In] IMAGE_FILE_MACHINE AlternateArch);
 
         #endregion
     }

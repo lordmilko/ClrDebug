@@ -1731,11 +1731,11 @@ namespace ClrDebug.DbgEng
             [Out] out int NameSize);
 
         /// <summary>
-        /// Checks whether the engine is using manageddebugging support when it retrieves information for a module.
+        /// Checks whether the engine is using managed debugging support when it retrieves information for a module.
         /// </summary>
         /// <param name="Index">[in] The index of a module.</param>
         /// <param name="Base">[in] The base of the module.</param>
-        /// <returns>IDebugSymbols3::IsManagedModule returns a value of S_OK if the engine is using manageddebugging support when it retrieves information for a module.</returns>
+        /// <returns>IDebugSymbols3::IsManagedModule returns a value of S_OK if the engine is using managed debugging support when it retrieves information for a module.</returns>
         /// <remarks>
         /// It can be expensive to run this check.
         /// </remarks>
@@ -1905,11 +1905,11 @@ namespace ClrDebug.DbgEng
             [In] int Index);
 
         /// <summary>
-        /// Recovers just-in-time (JIT) debugging information and sets currentdebugger scope context based on that information.
+        /// Recovers just-in-time (JIT) debugging information and sets current debugger scope context based on that information.
         /// </summary>
         /// <param name="OutputControl">[in] An output control.</param>
         /// <param name="InfoOffset">[in] An offset for the debugging information.</param>
-        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. The method gets JUT debugging information from a specified address from the debugging target, and then sets the currentdebugger scope context from that information.<para/>
+        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. The method gets JUT debugging information from a specified address from the debugging target, and then sets the current debugger scope context from that information.<para/>
         /// This method is equivalent to '.jdinfo' command.</returns>
         [PreserveSig]
         HRESULT SetScopeFromJitDebugInfo(
@@ -2220,8 +2220,8 @@ namespace ClrDebug.DbgEng
         /// <param name="RegionsCount">[in] The number of regions associated with the symbol.</param>
         /// <param name="RegionsAvail">[out, optional] A pointer to the number of regions available to the symbol.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This function returns all known memory regions that associated with a specified symbol.<para/>
-        /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarilylarge number of regions.<para/>
-        /// The quality of information returned is highlydependent on the symbolic information available.</returns>
+        /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarily large number of regions.<para/>
+        /// The quality of information returned is highly dependent on the symbolic information available.</returns>
         [PreserveSig]
         HRESULT GetSymbolEntryOffsetRegions(
             [In] ref DEBUG_MODULE_AND_ID Id,
@@ -2231,7 +2231,7 @@ namespace ClrDebug.DbgEng
             [Out] out int RegionsAvail);
 
         /// <summary>
-        /// Allows navigation within thesymbol entry hierarchy.
+        /// Allows navigation within the symbol entry hierarchy.
         /// </summary>
         /// <param name="FromId">[in] A pointer to a <see cref="DEBUG_MODULE_AND_ID"/> structure as the input ID.</param>
         /// <param name="Flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
@@ -2268,7 +2268,8 @@ namespace ClrDebug.DbgEng
         /// <param name="Flags">[in] Specifies bit flags that control the behavior of this method. Flags can be any combination of values from the following table.<para/>
         /// If this option is not set, the debugger engine will load the symbols for all modules until it finds the file specified in File.<para/>
         /// To use the default set of flags, set Flags to DEBUG_GSEL_DEFAULT. This has all the flags in the previous table turned off.</param>
-        /// <param name="Entries">[out, optional] Receives the locations in the target's memory that correspond to the source lines queried for. Each entry in this array is of type <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> and contains the source line number along with a location in the target's memory.</param>
+        /// <param name="Entries">[out, optional] Receives the locations in the target's memory that correspond to the source lines queried for.<para/>
+        /// Each entry in this array is of type <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> and contains the source line number along with a location in the target's memory.</param>
         /// <param name="EntriesCount">[in] Specifies the number of entries in the Entries array.</param>
         /// <param name="EntriesAvail">[out, optional] Receives the number of locations that match the query found in the target's memory.</param>
         /// <returns>These methods can also return error values. See Return Values for more details.</returns>
@@ -2359,7 +2360,7 @@ namespace ClrDebug.DbgEng
         /// <param name="RegionsCount">[in] The number of regions associated with the entry.</param>
         /// <param name="RegionsAvail">[out, optional] A pointer to the number of regions available to the entry.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This function returns all known memory regions that associated with a specified source entry.<para/>
-        /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarilylarge number of regions.</returns>
+        /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarily large number of regions.</returns>
         [PreserveSig]
         HRESULT GetSourceEntryOffsetRegions(
             [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry,

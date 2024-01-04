@@ -16,10 +16,7 @@ namespace ClrDebug.DbgEng
         /// <param name="ConnectOptions">[in, optional] Specifies the connection settings for communicating with the computer running the kernel target.<para/>
         /// The interpretation of ConnectOptions depends on the value of Flags. ConnectOptions will be interpreted the same way as the options that follow the -k switch on the WinDbg and KD command lines.<para/>
         /// Environment variables affect ConnectOptions in the same way they affect the -k switch. eXDI drivers are not described in this documentation.<para/>
-        /// If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.<para/>
-        /// eXDI drivers are not described in this documentation. If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.<para/>
-        /// ConnectOptions will be interpreted the same way as the options that follow the -k switch on the WinDbg and KD command lines.<para/>
-        /// Environment variables affect ConnectOptions in the same way they affect the -k switch.</param>
+        /// If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         HRESULT AttachKernel(
@@ -589,7 +586,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_OUTPUT Mask);
 
         /// <summary>
-        /// Gets the width of an output line forcommands that produce formatted output.
+        /// Gets the width of an output line for commands that produce formatted output.
         /// </summary>
         /// <param name="Columns">[out] The number of columns in the output.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
@@ -614,8 +611,8 @@ namespace ClrDebug.DbgEng
         /// <param name="PrefixSize">[out, optional] A pointer to the size of the buffer.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
-        /// Some of the engine commands producemultiple lines of output. A prefix can be added to each line. The prefix value
-        /// is not a general setting for any outputthat contains a newline. Methods which usethe line prefix are marked in
+        /// Some of the engine commands produce multiple lines of output. A prefix can be added to each line. The prefix value
+        /// is not a general setting for any output that contains a newline. Methods which use the line prefix are marked in
         /// their documentation.
         /// </remarks>
         [PreserveSig]
@@ -627,9 +624,10 @@ namespace ClrDebug.DbgEng
         /// <param name="Prefix">[in, optional] A pointer to the prefix value.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
-        /// Some of the engine commands producemultiple lines of output. This function sets a prefix that the engine adds to
-        /// each line. This function allows the caller to control indentation or identifying marks. The prefix value is not
-        /// a general setting for any outputthat contains a newline. Methods which usethe line prefix are marked in their documentation.
+        /// Some of the engine commands produce multiple lines of output. This function sets a prefix that the engine adds
+        /// to each line. This function allows the caller to control indentation or identifying marks. The prefix value is
+        /// not a general setting for any output that contains a newline. Methods which use the line prefix are marked in their
+        /// documentation.
         /// </remarks>
         [PreserveSig]
         HRESULT SetOutputLinePrefix(

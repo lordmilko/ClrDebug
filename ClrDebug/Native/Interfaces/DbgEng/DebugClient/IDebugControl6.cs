@@ -1050,9 +1050,9 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="Count">[in] Specifies the number of values to convert.</param>
         /// <param name="In">[in] Specifies the array of values to convert. The number of elements that this array holds is Count.</param>
-        /// <param name="Out">[out] Specifies the array to be populated by the converted values. The types of these values are specified by OutType.<para/>
-        /// The number of elements that this array holds is Count.</param>
         /// <param name="OutType">[in] Specifies the array of desired types for the converted values. For possible values, see <see cref="DEBUG_VALUE"/>.<para/>
+        /// The number of elements that this array holds is Count.</param>
+        /// <param name="Out">[out] Specifies the array to be populated by the converted values. The types of these values are specified by OutType.<para/>
         /// The number of elements that this array holds is Count.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>

@@ -88,8 +88,11 @@ namespace ClrDebug
         COR_E_AMBIGUOUSMATCH = 0x8000211D,
 
         //0x8001
-        RPC_E_NOT_REGISTERED = 0x80010103,
+        RPC_E_CLIENT_DIED           = 0x80010008,
+        RPC_E_NOT_REGISTERED        = 0x80010103,
+        RPC_E_INVALIDMETHOD         = 0x80010107,
         RPC_E_SERVERCALL_RETRYLATER = 0x8001010A,
+        RPC_E_WRONG_THREAD          = 0x8001010E,
 
         //0x8002
         COR_E_TARGETPARAMCOUNT = 0x8002000E,

@@ -5,9 +5,9 @@ using SRI = System.Runtime.InteropServices;
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [Guid("b2ffe162-2412-429f-8d1d-5bf6dd824696")]
+    [Guid("b86fb3b1-80d4-475b-aea3-cf06539cf63a")]
     [ComImport]
-    public interface IDebugControl5 : IDebugControl4
+    public interface IDebugControl7 : IDebugControl6
     {
         #region IDebugControl
 
@@ -2969,7 +2969,7 @@ namespace ClrDebug.DbgEng
         /// <param name="FramesFilled">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
         /// <returns>This method may also return other error values. See Return Values for more details.</returns>
         [PreserveSig]
-        HRESULT GetStackTraceEx(
+        new HRESULT GetStackTraceEx(
             [In] long FrameOffset,
             [In] long StackOffset,
             [In] long InstructionOffset,
@@ -2991,7 +2991,7 @@ namespace ClrDebug.DbgEng
         /// The array of stack frames can be obtained using <see cref="GetStackTraceEx"/>.
         /// </remarks>
         [PreserveSig]
-        HRESULT OutputStackTraceEx(
+        new HRESULT OutputStackTraceEx(
             [In] int OutputControl,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames,
             [In] int FramesSize,
@@ -3020,7 +3020,7 @@ namespace ClrDebug.DbgEng
         /// be taken when using the register state that might not be restored by an unwind.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetContextStackTraceEx(
+        new HRESULT GetContextStackTraceEx(
             [In] IntPtr StartContext,
             [In] int StartContextSize,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME_EX[] Frames,
@@ -3044,7 +3044,7 @@ namespace ClrDebug.DbgEng
         /// <param name="Flags">[in] Specifies bit flags that determine what information to output for each frame. Flags can be any combination of values from the following table.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        HRESULT OutputContextStackTraceEx(
+        new HRESULT OutputContextStackTraceEx(
             [In] int OutputControl,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames,
             [In] int FramesSize,
@@ -3060,9 +3060,60 @@ namespace ClrDebug.DbgEng
         /// <param name="Bp">[out] Receives the breakpoint.</param>
         /// <returns>This method can also return other error values. See Return Values for more details.</returns>
         [PreserveSig]
-        HRESULT GetBreakpointByGuid(
+        new HRESULT GetBreakpointByGuid(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid Guid,
             [Out, ComAliasName("IDebugBreakpoint3")] out IntPtr Bp);
+
+        #endregion
+        #region IDebugControl6
+
+        /// <summary>
+        /// The GetExecutionStatusEx method returns information about the execution status of the debugger engine.
+        /// </summary>
+        /// <param name="Status">[out] Receives the extended execution status. This will be set to values described in DEBUG_STATUS_XXX.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// For more information, see Target Information.
+        /// </remarks>
+        [PreserveSig]
+        new HRESULT GetExecutionStatusEx(
+            [Out] out DEBUG_STATUS Status);
+
+        /// <summary>
+        /// The GetSynchronizationStatus method returns information about the synchronization status of the debugger engine.
+        /// </summary>
+        /// <param name="SendsAttempted">[out] The number of packet sends that have been attempted by the current debugger-engine kernel transport mechanism.<para/>
+        /// This number will be incremented if engine did not receive a packet "ACK" for the last packet sent by the engine to the target.</param>
+        /// <param name="SecondsSinceLastResponse">[out] The number of seconds since the last response.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// When the client object connects to a session, the most recent output from the session is sent to the client. If
+        /// the session is currently waiting on input, the client object is given the opportunity to provide input. Thus, the
+        /// client object synchronizes with the session's input and output.
+        /// </remarks>
+        [PreserveSig]
+        new HRESULT GetSynchronizationStatus(
+            [Out] out int SendsAttempted,
+            [Out] out int SecondsSinceLastResponse);
+
+        #endregion
+        #region IDebugControl7
+
+        /// <summary>
+        /// The GetDebuggeeType2 method describes the nature of the current target.
+        /// </summary>
+        /// <param name="Flags">[in] Takes a single flag, DEBUG_EXEC_FLAGS_NONBLOCK, that indicates whether the function GetDebuggeeType2 should own the engine critical section object (g_EngineLock) before finding the debuggee type.<para/>
+        /// If the Flag is present, then the function will try to own the critical section. If that fails, it will continue without blocking the caller thread.<para/>
+        /// If the flag is not passed in, then the function will wait for the engine critical section to become available before continuing.</param>
+        /// <param name="Class">[out] Receives the class of the current target. It will be set to one of the values in the following table.</param>
+        /// <param name="Qualifier">[out] Provides more details about the type of the target. Its interpretation depends on the value of Class. When class is DEBUG_CLASS_UNINITIALIZED, Qualifier returns zero.<para/>
+        /// The following values are applicable for kernel-mode targets. The following values are applicable for user-mode targets.</param>
+        /// <returns>This method does not return a value.</returns>
+        [PreserveSig]
+        HRESULT GetDebuggeeType2(
+            [In] DEBUG_EXEC_FLAGS Flags,
+            [Out] out DEBUG_CLASS Class,
+            [Out] out DEBUG_CLASS_QUALIFIER Qualifier);
 
         #endregion
     }

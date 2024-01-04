@@ -5,12 +5,12 @@ using SRI = System.Runtime.InteropServices;
 namespace ClrDebug.DbgEng
 {
     /// <summary>
-    /// This interface supports event context callbacks.
+    /// The IDebugClient7 interface is reserved for internal use.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [Guid("e3acb9d7-7ec2-4f0c-a0da-e81e0cbbe628")]
+    [Guid("13586be3-542e-481e-b1f2-8497ba74f9a9")]
     [ComImport]
-    public interface IDebugClient6 : IDebugClient5
+    public interface IDebugClient7 : IDebugClient6
     {
         #region IDebugClient
 
@@ -1543,8 +1543,22 @@ namespace ClrDebug.DbgEng
         /// <param name="Callbacks">[in, optional] The interface pointer to the event callbacks object.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This event interface replaces the use of <see cref="IDebugClient.SetEventCallbacks"/>.</returns>
         [PreserveSig]
-        HRESULT SetEventContextCallbacks(
+        new HRESULT SetEventContextCallbacks(
             [In] IDebugEventContextCallbacks Callbacks);
+
+        #endregion
+        #region IDebugClient7
+
+        /// <summary>
+        /// The SetClientContext method is reserved for internal use.
+        /// </summary>
+        /// <param name="Context">[in] The SetClientContext method is reserved for internal use.</param>
+        /// <param name="ContextSize">[in] The SetClientContext method is reserved for internal use.</param>
+        /// <returns>The SetClientContext method is reserved for internal use.</returns>
+        [PreserveSig]
+        HRESULT SetClientContext(
+            [In] IntPtr Context,
+            [In] int ContextSize);
 
         #endregion
     }
