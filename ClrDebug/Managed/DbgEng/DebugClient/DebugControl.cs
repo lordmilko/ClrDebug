@@ -31,6 +31,9 @@ namespace ClrDebug.DbgEng
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private IDebugControl6Vtbl* Vtbl6 => (IDebugControl6Vtbl*) base.Vtbl;
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IDebugControl7Vtbl* Vtbl7 => (IDebugControl7Vtbl*) base.Vtbl;
+
         #endregion
 
         public DebugControl(IntPtr raw) : base(raw, IID_IDebugControl)
@@ -2782,9 +2785,9 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="count">[in] Specifies the number of values to convert.</param>
         /// <param name="in">[in] Specifies the array of values to convert. The number of elements that this array holds is Count.</param>
-        /// <param name="outType">[out] Specifies the array to be populated by the converted values. The types of these values are specified by OutType.<para/>
+        /// <param name="outType">[in] Specifies the array of desired types for the converted values. For possible values, see <see cref="DEBUG_VALUE"/>.<para/>
         /// The number of elements that this array holds is Count.</param>
-        /// <returns>[in] Specifies the array of desired types for the converted values. For possible values, see <see cref="DEBUG_VALUE"/>.<para/>
+        /// <returns>[out] Specifies the array to be populated by the converted values. The types of these values are specified by OutType.<para/>
         /// The number of elements that this array holds is Count.</returns>
         /// <remarks>
         /// This method converts an array of values of one type into values of another type. Some of these conversions can
@@ -2803,9 +2806,9 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="count">[in] Specifies the number of values to convert.</param>
         /// <param name="in">[in] Specifies the array of values to convert. The number of elements that this array holds is Count.</param>
-        /// <param name="outType">[out] Specifies the array to be populated by the converted values. The types of these values are specified by OutType.<para/>
+        /// <param name="outType">[in] Specifies the array of desired types for the converted values. For possible values, see <see cref="DEBUG_VALUE"/>.<para/>
         /// The number of elements that this array holds is Count.</param>
-        /// <param name="out">[in] Specifies the array of desired types for the converted values. For possible values, see <see cref="DEBUG_VALUE"/>.<para/>
+        /// <param name="out">[out] Specifies the array to be populated by the converted values. The types of these values are specified by OutType.<para/>
         /// The number of elements that this array holds is Count.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
@@ -7999,6 +8002,53 @@ namespace ClrDebug.DbgEng
 
         #endregion
         #endregion
+        #region IDebugControl7
+        #region GetDebuggeeType2
+
+        /// <summary>
+        /// The GetDebuggeeType2 method describes the nature of the current target.
+        /// </summary>
+        /// <param name="flags">[in] Takes a single flag, DEBUG_EXEC_FLAGS_NONBLOCK, that indicates whether the function GetDebuggeeType2 should own the engine critical section object (g_EngineLock) before finding the debuggee type.<para/>
+        /// If the Flag is present, then the function will try to own the critical section. If that fails, it will continue without blocking the caller thread.<para/>
+        /// If the flag is not passed in, then the function will wait for the engine critical section to become available before continuing.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        public GetDebuggeeType2Result GetDebuggeeType2(DEBUG_EXEC_FLAGS flags)
+        {
+            GetDebuggeeType2Result result;
+            TryGetDebuggeeType2(flags, out result).ThrowDbgEngNotOK();
+
+            return result;
+        }
+
+        /// <summary>
+        /// The GetDebuggeeType2 method describes the nature of the current target.
+        /// </summary>
+        /// <param name="flags">[in] Takes a single flag, DEBUG_EXEC_FLAGS_NONBLOCK, that indicates whether the function GetDebuggeeType2 should own the engine critical section object (g_EngineLock) before finding the debuggee type.<para/>
+        /// If the Flag is present, then the function will try to own the critical section. If that fails, it will continue without blocking the caller thread.<para/>
+        /// If the flag is not passed in, then the function will wait for the engine critical section to become available before continuing.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>This method does not return a value.</returns>
+        public HRESULT TryGetDebuggeeType2(DEBUG_EXEC_FLAGS flags, out GetDebuggeeType2Result result)
+        {
+            InitDelegate(ref getDebuggeeType2, Vtbl7->GetDebuggeeType2);
+            /*HRESULT GetDebuggeeType2(
+            [In] DEBUG_EXEC_FLAGS Flags,
+            [Out] out DEBUG_CLASS Class,
+            [Out] out DEBUG_CLASS_QUALIFIER Qualifier);*/
+            DEBUG_CLASS @class;
+            DEBUG_CLASS_QUALIFIER qualifier;
+            HRESULT hr = getDebuggeeType2(Raw, flags, out @class, out qualifier);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetDebuggeeType2Result(@class, qualifier);
+            else
+                result = default(GetDebuggeeType2Result);
+
+            return hr;
+        }
+
+        #endregion
+        #endregion
         #region Cached Delegates
         #region IDebugControl
 
@@ -8370,6 +8420,12 @@ namespace ClrDebug.DbgEng
         private GetSynchronizationStatusDelegate getSynchronizationStatus;
 
         #endregion
+        #region IDebugControl7
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private GetDebuggeeType2Delegate getDebuggeeType2;
+
+        #endregion
         #endregion
         #region Delegates
         #region IDebugControl
@@ -8577,6 +8633,11 @@ namespace ClrDebug.DbgEng
 
         private delegate HRESULT GetExecutionStatusExDelegate(IntPtr self, [Out] out DEBUG_STATUS Status);
         private delegate HRESULT GetSynchronizationStatusDelegate(IntPtr self, [Out] out int SendsAttempted, [Out] out int SecondsSinceLastResponse);
+
+        #endregion
+        #region IDebugControl7
+
+        private delegate HRESULT GetDebuggeeType2Delegate(IntPtr self, [In] DEBUG_EXEC_FLAGS Flags, [Out] out DEBUG_CLASS Class, [Out] out DEBUG_CLASS_QUALIFIER Qualifier);
 
         #endregion
         #endregion

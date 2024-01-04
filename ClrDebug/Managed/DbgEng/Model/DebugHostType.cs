@@ -157,11 +157,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetIntrinsicType method returns information about what kind of intrinsic the type is. Two values are returned out of this method: The combination of the two values provides the full set of information about the intrinsic.
         /// </summary>
-        public DebugHostType_GetIntrinsicTypeResult IntrinsicType
+        public GetIntrinsicTypeResult IntrinsicType
         {
             get
             {
-                DebugHostType_GetIntrinsicTypeResult result;
+                GetIntrinsicTypeResult result;
                 TryGetIntrinsicType(out result).ThrowDbgEngNotOK();
 
                 return result;
@@ -173,7 +173,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
-        public HRESULT TryGetIntrinsicType(out DebugHostType_GetIntrinsicTypeResult result)
+        public HRESULT TryGetIntrinsicType(out GetIntrinsicTypeResult result)
         {
             /*HRESULT GetIntrinsicType(
             [Out] out IntrinsicKind intrinsicKind,
@@ -183,9 +183,9 @@ namespace ClrDebug.DbgEng
             HRESULT hr = Raw.GetIntrinsicType(out intrinsicKind, out carrierType);
 
             if (hr == HRESULT.S_OK)
-                result = new DebugHostType_GetIntrinsicTypeResult(intrinsicKind, carrierType);
+                result = new GetIntrinsicTypeResult(intrinsicKind, carrierType);
             else
-                result = default(DebugHostType_GetIntrinsicTypeResult);
+                result = default(GetIntrinsicTypeResult);
 
             return hr;
         }

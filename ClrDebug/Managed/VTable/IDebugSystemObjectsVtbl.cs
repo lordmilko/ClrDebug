@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.DbgEng.Vtbl
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct IDebugSystemObjectsVtbl
+    internal struct IDebugSystemObjectsVtbl
     {
         public readonly IntPtr GetEventThread;
         public readonly IntPtr GetEventProcess;

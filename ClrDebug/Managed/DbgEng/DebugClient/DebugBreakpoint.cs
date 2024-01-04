@@ -642,7 +642,7 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The SetOffsetExpression methods set an expression string that evaluates to the location that triggers a breakpoint.
         /// </summary>
-        /// <param name="expression">[in] The expression string that evaluates to the location on the target that triggers the breakpoint. If the engine icannot evaluate the expression (for example, if the expression contains a symbol that cannot be interpreted), the breakpoint is flagged as deferred.<para/>
+        /// <param name="expression">[in] The expression string that evaluates to the location on the target that triggers the breakpoint. If the engine cannot evaluate the expression (for example, if the expression contains a symbol that cannot be interpreted), the breakpoint is flagged as deferred.<para/>
         /// (For more information about deferred breakpoints, see Controlling Breakpoint Flags and Parameters.) For more information about the expression syntax, see Using Breakpoints.</param>
         /// <returns>This method can also return error values. For more information, see Return Values.</returns>
         /// <remarks>

@@ -21,6 +21,23 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region ClientInternal
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private DebugClientInternal clientInternal;
+
+        public DebugClientInternal ClientInternal
+        {
+            get
+            {
+                if (clientInternal == null)
+                    clientInternal = new DebugClientInternal(Raw);
+
+                return clientInternal;
+            }
+        }
+
+        #endregion
         #region Control
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -34,6 +51,23 @@ namespace ClrDebug.DbgEng
                     control = new DebugControl(Raw);
 
                 return control;
+            }
+        }
+
+        #endregion
+        #region DataModelScripting
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private DebugDataModelScripting dataModelScripting;
+
+        public DebugDataModelScripting DataModelScripting
+        {
+            get
+            {
+                if (dataModelScripting == null)
+                    dataModelScripting = new DebugDataModelScripting(Raw);
+
+                return dataModelScripting;
             }
         }
 
@@ -55,6 +89,74 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region HostDataModelAccess
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private HostDataModelAccess hostDataModelAccess;
+
+        public HostDataModelAccess HostDataModelAccess
+        {
+            get
+            {
+                if (hostDataModelAccess == null)
+                    hostDataModelAccess = new HostDataModelAccess(AsInterface<IHostDataModelAccess>());
+
+                return hostDataModelAccess;
+            }
+        }
+
+        #endregion
+        #region LinkableProcessServer
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private DebugLinkableProcessServer linkableProcessServer;
+
+        public DebugLinkableProcessServer LinkableProcessServer
+        {
+            get
+            {
+                if (linkableProcessServer == null)
+                    linkableProcessServer = new DebugLinkableProcessServer(Raw);
+
+                return linkableProcessServer;
+            }
+        }
+
+        #endregion
+        #region ModelQuery
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private DebugModelQuery modelQuery;
+
+        public DebugModelQuery ModelQuery
+        {
+            get
+            {
+                if (modelQuery == null)
+                    modelQuery = new DebugModelQuery(Raw);
+
+                return modelQuery;
+            }
+        }
+
+        #endregion
+        #region PlmClient
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private DebugPlmClient plmClient;
+
+        public DebugPlmClient PlmClient
+        {
+            get
+            {
+                if (plmClient == null)
+                    plmClient = new DebugPlmClient(Raw);
+
+                return plmClient;
+            }
+        }
+
+        #endregion
         #region Registers
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -68,6 +170,40 @@ namespace ClrDebug.DbgEng
                     registers = new DebugRegisters(Raw);
 
                 return registers;
+            }
+        }
+
+        #endregion
+        #region ServiceProvider
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private DebugServiceProvider serviceProvider;
+
+        public DebugServiceProvider ServiceProvider
+        {
+            get
+            {
+                if (serviceProvider == null)
+                    serviceProvider = new DebugServiceProvider(Raw);
+
+                return serviceProvider;
+            }
+        }
+
+        #endregion
+        #region Settings
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private DebugSettings settings;
+
+        public DebugSettings Settings
+        {
+            get
+            {
+                if (settings == null)
+                    settings = new DebugSettings(Raw);
+
+                return settings;
             }
         }
 
@@ -102,6 +238,23 @@ namespace ClrDebug.DbgEng
                     systemObjects = new DebugSystemObjects(Raw);
 
                 return systemObjects;
+            }
+        }
+
+        #endregion
+        #region TestHook
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private DebugTestHook testHook;
+
+        public DebugTestHook TestHook
+        {
+            get
+            {
+                if (testHook == null)
+                    testHook = new DebugTestHook(AsInterface<IDebugTestHook>());
+
+                return testHook;
             }
         }
 

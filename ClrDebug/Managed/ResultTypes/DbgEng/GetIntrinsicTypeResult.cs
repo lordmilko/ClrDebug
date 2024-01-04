@@ -7,7 +7,7 @@ namespace ClrDebug.DbgEng
     /// Encapsulates the results of the <see cref="DebugHostType.IntrinsicType"/> property.
     /// </summary>
     [DebuggerDisplay("intrinsicKind = {intrinsicKind.ToString(),nq}, carrierType = {carrierType.ToString(),nq}")]
-    public struct DebugHostType_GetIntrinsicTypeResult
+    public struct GetIntrinsicTypeResult
     {
         /// <summary>
         /// The kind of intrinsic will be returned here. This will indicate the overall type of the intrinsic -- whether it is an integer, unsigned, floating point, etc...<para/>
@@ -20,7 +20,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         public VARENUM carrierType { get; }
 
-        public DebugHostType_GetIntrinsicTypeResult(IntrinsicKind intrinsicKind, VARENUM carrierType)
+        public GetIntrinsicTypeResult(IntrinsicKind intrinsicKind, VARENUM carrierType)
         {
             this.intrinsicKind = intrinsicKind;
             this.carrierType = carrierType;

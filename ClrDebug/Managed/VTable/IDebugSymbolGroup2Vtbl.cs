@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.DbgEng.Vtbl
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct IDebugSymbolGroup2Vtbl
+    internal struct IDebugSymbolGroup2Vtbl
     {
         public readonly IntPtr GetNumberSymbols;
         public readonly IntPtr AddSymbol;

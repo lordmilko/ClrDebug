@@ -113,18 +113,18 @@
         #endregion
         #region IntrinsicType
 
-        public GetIntrinsicTypeResult IntrinsicType
+        public SvcSymbolType_GetIntrinsicTypeResult IntrinsicType
         {
             get
             {
-                GetIntrinsicTypeResult result;
+                SvcSymbolType_GetIntrinsicTypeResult result;
                 TryGetIntrinsicType(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
         }
 
-        public HRESULT TryGetIntrinsicType(out GetIntrinsicTypeResult result)
+        public HRESULT TryGetIntrinsicType(out SvcSymbolType_GetIntrinsicTypeResult result)
         {
             /*HRESULT GetIntrinsicType(
             [Out] out SvcSymbolIntrinsicKind kind,
@@ -134,9 +134,9 @@
             HRESULT hr = Raw.GetIntrinsicType(out kind, out packingSize);
 
             if (hr == HRESULT.S_OK)
-                result = new GetIntrinsicTypeResult(kind, packingSize);
+                result = new SvcSymbolType_GetIntrinsicTypeResult(kind, packingSize);
             else
-                result = default(GetIntrinsicTypeResult);
+                result = default(SvcSymbolType_GetIntrinsicTypeResult);
 
             return hr;
         }

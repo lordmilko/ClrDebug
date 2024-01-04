@@ -346,6 +346,7 @@ namespace ClrDebug.DbgEng
         /// <param name="StringSize">[out, optional] Receives the size, in characters, of the string returned to StringBuffer. If StringSize is NULL, this information is not returned.</param>
         /// <param name="pInfoEx">[out, optional] A pointer to a <see cref="SYMBOL_INFO_EX"/> structure.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        [PreserveSig]
         HRESULT GetSymbolInformationWideEx(
             [In] DEBUG_SYMINFO Which,
             [In] long Arg64,

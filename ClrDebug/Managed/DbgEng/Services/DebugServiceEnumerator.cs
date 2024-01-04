@@ -15,18 +15,18 @@ namespace ClrDebug.DbgEng
         #region IDebugServiceEnumerator
         #region Next
 
-        public GetNextResult Next
+        public DebugServiceEnumerator_GetNextResult Next
         {
             get
             {
-                GetNextResult result;
+                DebugServiceEnumerator_GetNextResult result;
                 TryGetNext(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
         }
 
-        public HRESULT TryGetNext(out GetNextResult result)
+        public HRESULT TryGetNext(out DebugServiceEnumerator_GetNextResult result)
         {
             /*HRESULT GetNext(
             [Out] out Guid serviceGuid,
@@ -36,9 +36,9 @@ namespace ClrDebug.DbgEng
             HRESULT hr = Raw.GetNext(out serviceGuid, out service);
 
             if (hr == HRESULT.S_OK)
-                result = new GetNextResult(serviceGuid, service == null ? null : new DebugServiceLayer(service));
+                result = new DebugServiceEnumerator_GetNextResult(serviceGuid, service == null ? null : new DebugServiceLayer(service));
             else
-                result = default(GetNextResult);
+                result = default(DebugServiceEnumerator_GetNextResult);
 
             return hr;
         }

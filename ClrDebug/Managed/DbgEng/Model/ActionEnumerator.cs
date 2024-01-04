@@ -13,18 +13,18 @@
         #region IActionEnumerator
         #region Next
 
-        public ActionEnumerator_GetNextResult Next
+        public GetNextResult Next
         {
             get
             {
-                ActionEnumerator_GetNextResult result;
+                GetNextResult result;
                 TryGetNext(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
         }
 
-        public HRESULT TryGetNext(out ActionEnumerator_GetNextResult result)
+        public HRESULT TryGetNext(out GetNextResult result)
         {
             /*HRESULT GetNext(
             [Out, MarshalAs(UnmanagedType.BStr)] out string keyName,
@@ -42,9 +42,9 @@
             HRESULT hr = Raw.GetNext(out keyName, out actionName, out actionDescription, out actionIsDefault, out actionMethod, out metadta);
 
             if (hr == HRESULT.S_OK)
-                result = new ActionEnumerator_GetNextResult(keyName, actionName, actionDescription, actionIsDefault, actionMethod == null ? null : new ModelObject(actionMethod), metadta == null ? null : new KeyStore(metadta));
+                result = new GetNextResult(keyName, actionName, actionDescription, actionIsDefault, actionMethod == null ? null : new ModelObject(actionMethod), metadta == null ? null : new KeyStore(metadta));
             else
-                result = default(ActionEnumerator_GetNextResult);
+                result = default(GetNextResult);
 
             return hr;
         }

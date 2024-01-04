@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.DbgEng.Vtbl
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct IDebugClient2Vtbl
+    internal struct IDebugClient2Vtbl
     {
         public readonly IntPtr AttachKernel;
         public readonly IntPtr GetKernelConnectionOptions;

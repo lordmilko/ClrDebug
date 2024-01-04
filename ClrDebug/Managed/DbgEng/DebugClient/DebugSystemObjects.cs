@@ -1594,6 +1594,8 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Gets the system for a server.
         /// </summary>
+        /// <param name="server">A pointer to the returned server value.</param>
+        /// <returns>Id</returns>
         public int GetSystemByServer(long server)
         {
             int id;
@@ -1605,6 +1607,8 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Gets the system for a server.
         /// </summary>
+        /// <param name="server">A pointer to the returned server value.</param>
+        /// <param name="id">Id</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         public HRESULT TryGetSystemByServer(long server, out int id)
         {

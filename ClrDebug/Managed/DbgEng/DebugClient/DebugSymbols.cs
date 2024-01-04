@@ -4541,7 +4541,7 @@ namespace ClrDebug.DbgEng
         #region IsManagedModule
 
         /// <summary>
-        /// Checks whether the engine is using manageddebugging support when it retrieves information for a module.
+        /// Checks whether the engine is using managed debugging support when it retrieves information for a module.
         /// </summary>
         /// <param name="index">[in] The index of a module.</param>
         /// <param name="base">[in] The base of the module.</param>
@@ -4557,11 +4557,11 @@ namespace ClrDebug.DbgEng
         }
 
         /// <summary>
-        /// Checks whether the engine is using manageddebugging support when it retrieves information for a module.
+        /// Checks whether the engine is using managed debugging support when it retrieves information for a module.
         /// </summary>
         /// <param name="index">[in] The index of a module.</param>
         /// <param name="base">[in] The base of the module.</param>
-        /// <returns>IDebugSymbols3::IsManagedModule returns a value of S_OK if the engine is using manageddebugging support when it retrieves information for a module.</returns>
+        /// <returns>IDebugSymbols3::IsManagedModule returns a value of S_OK if the engine is using managed debugging support when it retrieves information for a module.</returns>
         /// <remarks>
         /// It can be expensive to run this check.
         /// </remarks>
@@ -4932,7 +4932,7 @@ namespace ClrDebug.DbgEng
         #region SetScopeFromJitDebugInfo
 
         /// <summary>
-        /// Recovers just-in-time (JIT) debugging information and sets currentdebugger scope context based on that information.
+        /// Recovers just-in-time (JIT) debugging information and sets current debugger scope context based on that information.
         /// </summary>
         /// <param name="outputControl">[in] An output control.</param>
         /// <param name="infoOffset">[in] An offset for the debugging information.</param>
@@ -4942,11 +4942,11 @@ namespace ClrDebug.DbgEng
         }
 
         /// <summary>
-        /// Recovers just-in-time (JIT) debugging information and sets currentdebugger scope context based on that information.
+        /// Recovers just-in-time (JIT) debugging information and sets current debugger scope context based on that information.
         /// </summary>
         /// <param name="outputControl">[in] An output control.</param>
         /// <param name="infoOffset">[in] An offset for the debugging information.</param>
-        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. The method gets JUT debugging information from a specified address from the debugging target, and then sets the currentdebugger scope context from that information.<para/>
+        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. The method gets JUT debugging information from a specified address from the debugging target, and then sets the current debugger scope context from that information.<para/>
         /// This method is equivalent to '.jdinfo' command.</returns>
         public HRESULT TrySetScopeFromJitDebugInfo(int outputControl, long infoOffset)
         {
@@ -5754,8 +5754,8 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <param name="regions">[out] The memory regions associated with the symbol.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This function returns all known memory regions that associated with a specified symbol.<para/>
-        /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarilylarge number of regions.<para/>
-        /// The quality of information returned is highlydependent on the symbolic information available.</returns>
+        /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarily large number of regions.<para/>
+        /// The quality of information returned is highly dependent on the symbolic information available.</returns>
         public HRESULT TryGetSymbolEntryOffsetRegions(DEBUG_MODULE_AND_ID id, int flags, out DEBUG_OFFSET_REGION[] regions)
         {
             InitDelegate(ref getSymbolEntryOffsetRegions, Vtbl3->GetSymbolEntryOffsetRegions);
@@ -5784,7 +5784,7 @@ namespace ClrDebug.DbgEng
         #region GetSymbolEntryBySymbolEntry
 
         /// <summary>
-        /// Allows navigation within thesymbol entry hierarchy.
+        /// Allows navigation within the symbol entry hierarchy.
         /// </summary>
         /// <param name="fromId">[in] A pointer to a <see cref="DEBUG_MODULE_AND_ID"/> structure as the input ID.</param>
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
@@ -5798,7 +5798,7 @@ namespace ClrDebug.DbgEng
         }
 
         /// <summary>
-        /// Allows navigation within thesymbol entry hierarchy.
+        /// Allows navigation within the symbol entry hierarchy.
         /// </summary>
         /// <param name="fromId">[in] A pointer to a <see cref="DEBUG_MODULE_AND_ID"/> structure as the input ID.</param>
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
@@ -5874,7 +5874,8 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] Specifies bit flags that control the behavior of this method. Flags can be any combination of values from the following table.<para/>
         /// If this option is not set, the debugger engine will load the symbols for all modules until it finds the file specified in File.<para/>
         /// To use the default set of flags, set Flags to DEBUG_GSEL_DEFAULT. This has all the flags in the previous table turned off.</param>
-        /// <returns>[out, optional] Receives the locations in the target's memory that correspond to the source lines queried for. Each entry in this array is of type <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> and contains the source line number along with a location in the target's memory.</returns>
+        /// <returns>[out, optional] Receives the locations in the target's memory that correspond to the source lines queried for.<para/>
+        /// Each entry in this array is of type <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> and contains the source line number along with a location in the target's memory.</returns>
         /// <remarks>
         /// These methods can be used by debugger applications to fetch locations in the target's memory for setting breakpoints
         /// or matching source code with disassembled instructions. For example, setting the flags DEBUG_GSEL_ALLOW_HIGHER
@@ -5897,7 +5898,8 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] Specifies bit flags that control the behavior of this method. Flags can be any combination of values from the following table.<para/>
         /// If this option is not set, the debugger engine will load the symbols for all modules until it finds the file specified in File.<para/>
         /// To use the default set of flags, set Flags to DEBUG_GSEL_DEFAULT. This has all the flags in the previous table turned off.</param>
-        /// <param name="entries">[out, optional] Receives the locations in the target's memory that correspond to the source lines queried for. Each entry in this array is of type <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> and contains the source line number along with a location in the target's memory.</param>
+        /// <param name="entries">[out, optional] Receives the locations in the target's memory that correspond to the source lines queried for.<para/>
+        /// Each entry in this array is of type <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> and contains the source line number along with a location in the target's memory.</param>
         /// <returns>These methods can also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// These methods can be used by debugger applications to fetch locations in the target's memory for setting breakpoints
@@ -6139,7 +6141,7 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <param name="regions">[out] The memory regions associated with the source entry.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This function returns all known memory regions that associated with a specified source entry.<para/>
-        /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarilylarge number of regions.</returns>
+        /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarily large number of regions.</returns>
         public HRESULT TryGetSourceEntryOffsetRegions(DEBUG_SYMBOL_SOURCE_ENTRY entry, int flags, out DEBUG_OFFSET_REGION[] regions)
         {
             InitDelegate(ref getSourceEntryOffsetRegions, Vtbl3->GetSourceEntryOffsetRegions);

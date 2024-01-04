@@ -22,6 +22,9 @@ namespace ClrDebug.DbgEng
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private IDebugAdvanced3Vtbl* Vtbl3 => (IDebugAdvanced3Vtbl*) base.Vtbl;
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IDebugAdvanced4Vtbl* Vtbl4 => (IDebugAdvanced4Vtbl*) base.Vtbl;
+
         #endregion
 
         public DebugAdvanced(IntPtr raw) : base(raw, IID_IDebugAdvanced)
@@ -717,6 +720,91 @@ namespace ClrDebug.DbgEng
 
         #endregion
         #endregion
+        #region IDebugAdvanced4
+        #region GetSymbolInformationWideEx
+
+        /// <summary>
+        /// The GetSymbolInformationWideEx method returns specified information about a symbol.
+        /// </summary>
+        /// <param name="which">[in] Specifies the piece of information to return. Which can take one of the values in the follow table. No string is returned and StringBuffer, StringBufferSize, and StringSize must all be set to zero.</param>
+        /// <param name="arg64">[in] Specifies a 64-bit argument. This parameter has the following interpretations depending on the value of Which: Ignored.<para/>
+        /// The base address of the module whose description is being requested. Specifies the address in the target's memory of the symbol whose name is being requested.<para/>
+        /// Specifies the module whose symbols are requested. Arg64 is a location within the memory allocation of the module.</param>
+        /// <param name="arg32">[in] Specifies a 32-bit argument. This parameter has the following interpretations depending on the value of Which: The engine breakpoint ID of the desired breakpoint.<para/>
+        /// Set to zero. The PDB classification of the symbol. Arg32 must be one of the values in the SymTagEnum enumeration defined in Dbghelp.h.<para/>
+        /// For more information, see PDB documentation. The PDB classification of the symbol. Arg32 must be one of the values in the SymTagEnum enumeration defined in Dbghelp.h.<para/>
+        /// For more information, see PDB documentation.</param>
+        /// <param name="buffer">[out, optional] Receives the requested symbol information. The type of the data returned depends on the value of Which.<para/>
+        /// If Buffer is NULL, this information is not returned.</param>
+        /// <param name="bufferSize">[in] Specifies the size, in bytes, of the buffer Buffer.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        public GetSymbolInformationWideExResult GetSymbolInformationWideEx(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize)
+        {
+            GetSymbolInformationWideExResult result;
+            TryGetSymbolInformationWideEx(which, arg64, arg32, buffer, bufferSize, out result).ThrowDbgEngNotOK();
+
+            return result;
+        }
+
+        /// <summary>
+        /// The GetSymbolInformationWideEx method returns specified information about a symbol.
+        /// </summary>
+        /// <param name="which">[in] Specifies the piece of information to return. Which can take one of the values in the follow table. No string is returned and StringBuffer, StringBufferSize, and StringSize must all be set to zero.</param>
+        /// <param name="arg64">[in] Specifies a 64-bit argument. This parameter has the following interpretations depending on the value of Which: Ignored.<para/>
+        /// The base address of the module whose description is being requested. Specifies the address in the target's memory of the symbol whose name is being requested.<para/>
+        /// Specifies the module whose symbols are requested. Arg64 is a location within the memory allocation of the module.</param>
+        /// <param name="arg32">[in] Specifies a 32-bit argument. This parameter has the following interpretations depending on the value of Which: The engine breakpoint ID of the desired breakpoint.<para/>
+        /// Set to zero. The PDB classification of the symbol. Arg32 must be one of the values in the SymTagEnum enumeration defined in Dbghelp.h.<para/>
+        /// For more information, see PDB documentation. The PDB classification of the symbol. Arg32 must be one of the values in the SymTagEnum enumeration defined in Dbghelp.h.<para/>
+        /// For more information, see PDB documentation.</param>
+        /// <param name="buffer">[out, optional] Receives the requested symbol information. The type of the data returned depends on the value of Which.<para/>
+        /// If Buffer is NULL, this information is not returned.</param>
+        /// <param name="bufferSize">[in] Specifies the size, in bytes, of the buffer Buffer.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        public HRESULT TryGetSymbolInformationWideEx(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize, out GetSymbolInformationWideExResult result)
+        {
+            InitDelegate(ref getSymbolInformationWideEx, Vtbl4->GetSymbolInformationWideEx);
+            /*HRESULT GetSymbolInformationWideEx(
+            [In] DEBUG_SYMINFO Which,
+            [In] long Arg64,
+            [In] int Arg32,
+            [Out] IntPtr Buffer,
+            [In] int BufferSize,
+            [Out] out int InfoSize,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] StringBuffer,
+            [In] int StringBufferSize,
+            [Out] out int StringSize,
+            [Out] out SYMBOL_INFO_EX pInfoEx);*/
+            int infoSize;
+            char[] stringBuffer;
+            int stringBufferSize = 0;
+            int stringSize;
+            SYMBOL_INFO_EX pInfoEx;
+            HRESULT hr = getSymbolInformationWideEx(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize, out pInfoEx);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            stringBufferSize = stringSize;
+            stringBuffer = new char[stringBufferSize];
+            hr = getSymbolInformationWideEx(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize, out pInfoEx);
+
+            if (hr == HRESULT.S_OK)
+            {
+                result = new GetSymbolInformationWideExResult(infoSize, CreateString(stringBuffer, stringSize), pInfoEx);
+
+                return hr;
+            }
+
+            fail:
+            result = default(GetSymbolInformationWideExResult);
+
+            return hr;
+        }
+
+        #endregion
+        #endregion
         #region Cached Delegates
         #region IDebugAdvanced
 
@@ -750,6 +838,12 @@ namespace ClrDebug.DbgEng
         private GetSymbolInformationWideDelegate getSymbolInformationWide;
 
         #endregion
+        #region IDebugAdvanced4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private GetSymbolInformationWideExDelegate getSymbolInformationWideEx;
+
+        #endregion
         #endregion
         #region Delegates
         #region IDebugAdvanced
@@ -772,6 +866,11 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetSourceFileInformationWideDelegate(IntPtr self, [In] DEBUG_SRCFILE Which, [In, MarshalAs(UnmanagedType.LPWStr)] string SourceFile, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
         private delegate HRESULT FindSourceFileAndTokenWideDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [In] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 8)] char[] Buffer, [In] int BufferSize, [Out] out int FoundSize);
         private delegate HRESULT GetSymbolInformationWideDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
+
+        #endregion
+        #region IDebugAdvanced4
+
+        private delegate HRESULT GetSymbolInformationWideExDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] StringBuffer, [In] int StringBufferSize, [Out] out int StringSize, [Out] out SYMBOL_INFO_EX pInfoEx);
 
         #endregion
         #endregion

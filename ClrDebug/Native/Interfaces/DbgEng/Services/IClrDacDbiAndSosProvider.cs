@@ -13,19 +13,19 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.U1)] out bool pIsClrImage,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pbCanProvideClrDac,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pbCanProvideClrSos);
-        
+
         [PreserveSig]
         new HRESULT ProvideClrDac(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule pModule,
             [In, MarshalAs(UnmanagedType.LPWStr)] string forcePath,
             [Out, MarshalAs(UnmanagedType.BStr)] out string pDacPath);
-        
+
         [PreserveSig]
         new HRESULT ProvideClrSos(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule pModule,
             [In, MarshalAs(UnmanagedType.LPWStr)] string forcePath,
             [Out, MarshalAs(UnmanagedType.BStr)] out string pSosPath);
-        
+
         [PreserveSig]
         HRESULT IsClrImageEx(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule module,
@@ -33,7 +33,7 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.U1)] out bool pbCanProvideClrDac,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pbCanProvideClrDbi,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pbCanProvideClrSos);
-        
+
         [PreserveSig]
         HRESULT ProvideClrDbi(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule pModule,

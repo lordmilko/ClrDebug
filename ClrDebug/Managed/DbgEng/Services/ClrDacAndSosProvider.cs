@@ -1,25 +1,12 @@
-﻿using System;
-
-namespace ClrDebug.DbgEng
+﻿namespace ClrDebug.DbgEng
 {
-    public abstract class ClrDacAndSosProvider : ComObject<IClrDacAndSosProvider>
+    public class ClrDacAndSosProvider : ComObject<IClrDacAndSosProvider>
     {
-        public static ClrDacAndSosProvider New(IClrDacAndSosProvider value)
-        {
-            if (value == null)
-                return null;
-
-            if (value is IClrDacDbiAndSosProvider)
-                return new ClrDacDbiAndSosProvider((IClrDacDbiAndSosProvider) value);
-
-            throw new NotImplementedException("Encountered an 'IClrDacAndSosProvider' interface of an unknown type. Cannot create wrapper type.");
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ClrDacAndSosProvider"/> class.
         /// </summary>
         /// <param name="raw">The raw COM interface that should be contained in this object.</param>
-        protected ClrDacAndSosProvider(IClrDacAndSosProvider raw) : base(raw)
+        public ClrDacAndSosProvider(IClrDacAndSosProvider raw) : base(raw)
         {
         }
 

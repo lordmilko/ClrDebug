@@ -31,6 +31,12 @@ namespace ClrDebug.DbgEng
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private IDebugClient6Vtbl* Vtbl6 => (IDebugClient6Vtbl*) base.Vtbl;
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IDebugClient7Vtbl* Vtbl7 => (IDebugClient7Vtbl*) base.Vtbl;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IDebugClient8Vtbl* Vtbl8 => (IDebugClient8Vtbl*) base.Vtbl;
+
         #endregion
 
         public DebugClient(IntPtr raw) : base(raw, IID_IDebugClient)
@@ -400,7 +406,7 @@ namespace ClrDebug.DbgEng
         #region OutputWidth
 
         /// <summary>
-        /// Gets or sets the width of an output line forcommands that produce formatted output.
+        /// Gets or sets the width of an output line for commands that produce formatted output.
         /// </summary>
         public int OutputWidth
         {
@@ -418,7 +424,7 @@ namespace ClrDebug.DbgEng
         }
 
         /// <summary>
-        /// Gets the width of an output line forcommands that produce formatted output.
+        /// Gets the width of an output line for commands that produce formatted output.
         /// </summary>
         /// <param name="columns">[out] The number of columns in the output.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
@@ -469,8 +475,8 @@ namespace ClrDebug.DbgEng
         /// <param name="bufferResult">[out] A pointer to the buffer to get the prefix.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
-        /// Some of the engine commands producemultiple lines of output. A prefix can be added to each line. The prefix value
-        /// is not a general setting for any outputthat contains a newline. Methods which usethe line prefix are marked in
+        /// Some of the engine commands produce multiple lines of output. A prefix can be added to each line. The prefix value
+        /// is not a general setting for any output that contains a newline. Methods which use the line prefix are marked in
         /// their documentation.
         /// </remarks>
         public HRESULT TryGetOutputLinePrefix(out string bufferResult)
@@ -508,9 +514,10 @@ namespace ClrDebug.DbgEng
         /// <param name="prefix">[in, optional] A pointer to the prefix value.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
-        /// Some of the engine commands producemultiple lines of output. This function sets a prefix that the engine adds to
-        /// each line. This function allows the caller to control indentation or identifying marks. The prefix value is not
-        /// a general setting for any outputthat contains a newline. Methods which usethe line prefix are marked in their documentation.
+        /// Some of the engine commands produce multiple lines of output. This function sets a prefix that the engine adds
+        /// to each line. This function allows the caller to control indentation or identifying marks. The prefix value is
+        /// not a general setting for any output that contains a newline. Methods which use the line prefix are marked in their
+        /// documentation.
         /// </remarks>
         public HRESULT TrySetOutputLinePrefix(string prefix)
         {
@@ -654,10 +661,7 @@ namespace ClrDebug.DbgEng
         /// <param name="connectOptions">[in, optional] Specifies the connection settings for communicating with the computer running the kernel target.<para/>
         /// The interpretation of ConnectOptions depends on the value of Flags. ConnectOptions will be interpreted the same way as the options that follow the -k switch on the WinDbg and KD command lines.<para/>
         /// Environment variables affect ConnectOptions in the same way they affect the -k switch. eXDI drivers are not described in this documentation.<para/>
-        /// If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.<para/>
-        /// eXDI drivers are not described in this documentation. If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.<para/>
-        /// ConnectOptions will be interpreted the same way as the options that follow the -k switch on the WinDbg and KD command lines.<para/>
-        /// Environment variables affect ConnectOptions in the same way they affect the -k switch.</param>
+        /// If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.</param>
         public void AttachKernel(DEBUG_ATTACH flags, string connectOptions)
         {
             TryAttachKernel(flags, connectOptions).ThrowDbgEngNotOK();
@@ -670,10 +674,7 @@ namespace ClrDebug.DbgEng
         /// <param name="connectOptions">[in, optional] Specifies the connection settings for communicating with the computer running the kernel target.<para/>
         /// The interpretation of ConnectOptions depends on the value of Flags. ConnectOptions will be interpreted the same way as the options that follow the -k switch on the WinDbg and KD command lines.<para/>
         /// Environment variables affect ConnectOptions in the same way they affect the -k switch. eXDI drivers are not described in this documentation.<para/>
-        /// If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.<para/>
-        /// eXDI drivers are not described in this documentation. If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.<para/>
-        /// ConnectOptions will be interpreted the same way as the options that follow the -k switch on the WinDbg and KD command lines.<para/>
-        /// Environment variables affect ConnectOptions in the same way they affect the -k switch.</param>
+        /// If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         public HRESULT TryAttachKernel(DEBUG_ATTACH flags, string connectOptions)
         {
@@ -3037,7 +3038,7 @@ namespace ClrDebug.DbgEng
         /// <param name="bufferResult">[out] The buffer in which to write the string.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         /// <remarks>
-        /// The quit lock stringcannot be retrieved from a secure session.
+        /// The quit lock string cannot be retrieved from a secure session.
         /// </remarks>
         public HRESULT TryGetQuitLockString(out string bufferResult)
         {
@@ -3112,7 +3113,7 @@ namespace ClrDebug.DbgEng
         /// <param name="bufferResult">[out] The buffer in which to write the Unicode character string.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         /// <remarks>
-        /// The quit lock stringcannot be retrieved from a secure session.
+        /// The quit lock string cannot be retrieved from a secure session.
         /// </remarks>
         public HRESULT TryGetQuitLockStringWide(out string bufferResult)
         {
@@ -3795,6 +3796,101 @@ namespace ClrDebug.DbgEng
 
         #endregion
         #endregion
+        #region IDebugClient7
+        #region SetClientContext
+
+        /// <summary>
+        /// The SetClientContext method is reserved for internal use.
+        /// </summary>
+        /// <param name="context">[in] The SetClientContext method is reserved for internal use.</param>
+        /// <param name="contextSize">[in] The SetClientContext method is reserved for internal use.</param>
+        public void SetClientContext(IntPtr context, int contextSize)
+        {
+            TrySetClientContext(context, contextSize).ThrowDbgEngNotOK();
+        }
+
+        /// <summary>
+        /// The SetClientContext method is reserved for internal use.
+        /// </summary>
+        /// <param name="context">[in] The SetClientContext method is reserved for internal use.</param>
+        /// <param name="contextSize">[in] The SetClientContext method is reserved for internal use.</param>
+        /// <returns>The SetClientContext method is reserved for internal use.</returns>
+        public HRESULT TrySetClientContext(IntPtr context, int contextSize)
+        {
+            InitDelegate(ref setClientContext, Vtbl7->SetClientContext);
+
+            /*HRESULT SetClientContext(
+            [In] IntPtr Context,
+            [In] int ContextSize);*/
+            return setClientContext(Raw, context, contextSize);
+        }
+
+        #endregion
+        #endregion
+        #region IDebugClient8
+        #region OpenDumpFileWide2
+
+        /// <summary>
+        /// The OpenDumpFileWide2 method opens a dump file as a debugger target.
+        /// </summary>
+        /// <param name="fileName">[in, optional] Specifies the name of the dump file to open -- unless FileHandle is not zero, in which case FileName is used only when the engine is queried for the name of the dump file.<para/>
+        /// FileName must include the file name extension. FileName can include a relative or absolute path; relative paths are relative to the directory in which the debugger was started.<para/>
+        /// FileName can also be in the form of a file URL, starting with "file://". If FileName specifies a cabinet (.cab) file, the cabinet file is searched for the first file with extension .kdmp, then .hdmp, then .mdmp, and finally .dmp.</param>
+        /// <param name="fileHandle">[in] Specifies the file handle of the dump file to open. If FileHandle is zero, FileName is used to open the dump file.<para/>
+        /// Otherwise, if FileName is not NULL, the engine returns it when queried for the name of the dump file. If FileHandle is not zero and FileName is NULL, the engine will return HandleOnly for the file name.</param>
+        /// <param name="alternateArch">[in] Specifies the AlternateArch argument which is an IMAGE_FILE_MACHINE_* constant. For more information, see Image File Machine Constants.<para/>
+        /// These two constants are supported. This parameter is only relevant if you are using OpenDumpFileWide2 to open an image file (not a dump file) which can be mapped into different architectures.<para/>
+        /// For example ARM64X, where the DLL can be loaded into an x64/EC process or an ARM64 process. By default, information about the DLL is presented using whatever architecture the image headers have defined.<para/>
+        /// If you call OpenDumpFileWide2 with a different architecture, the information will be presented using the architecture that was passed.<para/>
+        /// This allows you to see the “fixups” which the OS would have applied if the DLL were loaded into that architecture of process.<para/>
+        /// For more information about ARM64X, see Arm64X PE files.</param>
+        /// <remarks>
+        /// The engine doesn't completely attach to the dump file until the WaitForEvent method has been called. When a dump
+        /// file is created from a process or kernel, information about the last event is stored in the dump file. After the
+        /// dump file is opened, the next time execution is attempted, the engine will generate this event for the event callbacks.
+        /// Only then does the dump file become available in the debugging session. For more information about crash dump files,
+        /// see Dump-File Targets.
+        /// </remarks>
+        public void OpenDumpFileWide2(string fileName, long fileHandle, IMAGE_FILE_MACHINE alternateArch)
+        {
+            TryOpenDumpFileWide2(fileName, fileHandle, alternateArch).ThrowDbgEngNotOK();
+        }
+
+        /// <summary>
+        /// The OpenDumpFileWide2 method opens a dump file as a debugger target.
+        /// </summary>
+        /// <param name="fileName">[in, optional] Specifies the name of the dump file to open -- unless FileHandle is not zero, in which case FileName is used only when the engine is queried for the name of the dump file.<para/>
+        /// FileName must include the file name extension. FileName can include a relative or absolute path; relative paths are relative to the directory in which the debugger was started.<para/>
+        /// FileName can also be in the form of a file URL, starting with "file://". If FileName specifies a cabinet (.cab) file, the cabinet file is searched for the first file with extension .kdmp, then .hdmp, then .mdmp, and finally .dmp.</param>
+        /// <param name="fileHandle">[in] Specifies the file handle of the dump file to open. If FileHandle is zero, FileName is used to open the dump file.<para/>
+        /// Otherwise, if FileName is not NULL, the engine returns it when queried for the name of the dump file. If FileHandle is not zero and FileName is NULL, the engine will return HandleOnly for the file name.</param>
+        /// <param name="alternateArch">[in] Specifies the AlternateArch argument which is an IMAGE_FILE_MACHINE_* constant. For more information, see Image File Machine Constants.<para/>
+        /// These two constants are supported. This parameter is only relevant if you are using OpenDumpFileWide2 to open an image file (not a dump file) which can be mapped into different architectures.<para/>
+        /// For example ARM64X, where the DLL can be loaded into an x64/EC process or an ARM64 process. By default, information about the DLL is presented using whatever architecture the image headers have defined.<para/>
+        /// If you call OpenDumpFileWide2 with a different architecture, the information will be presented using the architecture that was passed.<para/>
+        /// This allows you to see the “fixups” which the OS would have applied if the DLL were loaded into that architecture of process.<para/>
+        /// For more information about ARM64X, see Arm64X PE files.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// The engine doesn't completely attach to the dump file until the WaitForEvent method has been called. When a dump
+        /// file is created from a process or kernel, information about the last event is stored in the dump file. After the
+        /// dump file is opened, the next time execution is attempted, the engine will generate this event for the event callbacks.
+        /// Only then does the dump file become available in the debugging session. For more information about crash dump files,
+        /// see Dump-File Targets.
+        /// </remarks>
+        public HRESULT TryOpenDumpFileWide2(string fileName, long fileHandle, IMAGE_FILE_MACHINE alternateArch)
+        {
+            InitDelegate(ref openDumpFileWide2, Vtbl8->OpenDumpFileWide2);
+
+            /*HRESULT OpenDumpFileWide2(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
+            [In] long FileHandle,
+            [In] IMAGE_FILE_MACHINE AlternateArch);*/
+            return openDumpFileWide2(Raw, fileName, fileHandle, alternateArch);
+        }
+
+        #endregion
+        #endregion
         #region Cached Delegates
         #region IDebugClient
 
@@ -4006,6 +4102,18 @@ namespace ClrDebug.DbgEng
         private SetEventContextCallbacksDelegate setEventContextCallbacks;
 
         #endregion
+        #region IDebugClient7
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private SetClientContextDelegate setClientContext;
+
+        #endregion
+        #region IDebugClient8
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private OpenDumpFileWide2Delegate openDumpFileWide2;
+
+        #endregion
         #endregion
         #region Delegates
         #region IDebugClient
@@ -4123,6 +4231,16 @@ namespace ClrDebug.DbgEng
         #region IDebugClient6
 
         private delegate HRESULT SetEventContextCallbacksDelegate(IntPtr self, [In] IDebugEventContextCallbacks Callbacks);
+
+        #endregion
+        #region IDebugClient7
+
+        private delegate HRESULT SetClientContextDelegate(IntPtr self, [In] IntPtr Context, [In] int ContextSize);
+
+        #endregion
+        #region IDebugClient8
+
+        private delegate HRESULT OpenDumpFileWide2Delegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string FileName, [In] long FileHandle, [In] IMAGE_FILE_MACHINE AlternateArch);
 
         #endregion
         #endregion

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.DbgEng.Vtbl
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct IDebugDataSpacesVtbl
+    internal struct IDebugDataSpacesVtbl
     {
         public readonly IntPtr ReadVirtual;
         public readonly IntPtr WriteVirtual;
