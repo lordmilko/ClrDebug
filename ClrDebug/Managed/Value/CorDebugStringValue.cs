@@ -47,53 +47,40 @@ namespace ClrDebug
         }
 
         #endregion
-        #region String
+        #region GetString
 
         /// <summary>
         /// Gets the string referenced by this <see cref="ICorDebugStringValue"/>.
         /// </summary>
-        public string String
+        /// <param name="cchString">[in] The size of the szString array.</param>
+        /// <returns>[out] An array that stores the retrieved string.</returns>
+        public string GetString(int cchString)
         {
-            get
-            {
-                string szStringResult;
-                TryGetString(out szStringResult).ThrowOnNotOK();
+            string szStringResult;
+            TryGetString(cchString, out szStringResult).ThrowOnNotOK();
 
-                return szStringResult;
-            }
+            return szStringResult;
         }
 
         /// <summary>
         /// Gets the string referenced by this <see cref="ICorDebugStringValue"/>.
         /// </summary>
+        /// <param name="cchString">[in] The size of the szString array.</param>
         /// <param name="szStringResult">[out] An array that stores the retrieved string.</param>
-        public HRESULT TryGetString(out string szStringResult)
+        public HRESULT TryGetString(int cchString, out string szStringResult)
         {
             /*HRESULT GetString(
             [In] int cchString,
             [Out] out int pcchString,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szString);*/
-            int cchString = 0;
             int pcchString;
-            char[] szString;
-            HRESULT hr = Raw.GetString(cchString, out pcchString, null);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cchString = pcchString;
-            szString = new char[cchString];
-            hr = Raw.GetString(cchString, out pcchString, szString);
+            char[] szString = new char[cchString];
+            HRESULT hr = Raw.GetString(cchString, out pcchString, szString);
 
             if (hr == HRESULT.S_OK)
-            {
                 szStringResult = CreateString(szString, pcchString);
-
-                return hr;
-            }
-
-            fail:
-            szStringResult = default(string);
+            else
+                szStringResult = default(string);
 
             return hr;
         }
