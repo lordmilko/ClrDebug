@@ -163,7 +163,7 @@ namespace ClrDebug
         /// type parameters (for example, ArrayList&lt;T&gt;), you can use GetParameterizedType to construct a type object
         /// for an instantiated type such as ArrayList&lt;int&gt;.
         /// </remarks>
-        public CorDebugType GetParameterizedType(CorElementType elementType, int nTypeArgs, ICorDebugType ppTypeArgs)
+        public CorDebugType GetParameterizedType(CorElementType elementType, int nTypeArgs, ICorDebugType[] ppTypeArgs)
         {
             CorDebugType ppTypeResult;
             TryGetParameterizedType(elementType, nTypeArgs, ppTypeArgs, out ppTypeResult).ThrowOnNotOK();
@@ -186,15 +186,15 @@ namespace ClrDebug
         /// type parameters (for example, ArrayList&lt;T&gt;), you can use GetParameterizedType to construct a type object
         /// for an instantiated type such as ArrayList&lt;int&gt;.
         /// </remarks>
-        public HRESULT TryGetParameterizedType(CorElementType elementType, int nTypeArgs, ICorDebugType ppTypeArgs, out CorDebugType ppTypeResult)
+        public HRESULT TryGetParameterizedType(CorElementType elementType, int nTypeArgs, ICorDebugType[] ppTypeArgs, out CorDebugType ppTypeResult)
         {
             /*HRESULT GetParameterizedType(
             [In] CorElementType elementType,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugType[] ppTypeArgs,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
             ICorDebugType ppType;
-            HRESULT hr = Raw2.GetParameterizedType(elementType, nTypeArgs, ref ppTypeArgs, out ppType);
+            HRESULT hr = Raw2.GetParameterizedType(elementType, nTypeArgs, ppTypeArgs, out ppType);
 
             if (hr == HRESULT.S_OK)
                 ppTypeResult = ppType == null ? null : new CorDebugType(ppType);

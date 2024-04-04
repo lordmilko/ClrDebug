@@ -49,7 +49,7 @@ namespace ClrDebug
         HRESULT CallFunction(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugValue[] ppArgs);
 
         /// <summary>
         /// Allocates a new object instance and calls the specified constructor method. This method is obsolete in the .NET Framework version 2.0.<para/>
@@ -63,7 +63,7 @@ namespace ClrDebug
         HRESULT NewObject(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pConstructor,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugValue[] ppArgs);
 
         /// <summary>
         /// Allocates a new object instance of the specified type, without attempting to call a constructor method. This method is obsolete in the .NET Framework version 2.0.<para/>
