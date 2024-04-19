@@ -70,6 +70,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result == null ? null : new CorDebugVariableHome(result);
+            else
+                Current = default(CorDebugVariableHome);
 
             return fetched == 1;
         }

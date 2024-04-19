@@ -148,9 +148,9 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// This method updates the enumerator position by the number of elements fetched.
         /// </remarks>
-        public DiaEnumSymbolsByAddr_NextResult Next(int celt)
+        public NextResult Next(int celt)
         {
-            DiaEnumSymbolsByAddr_NextResult result;
+            NextResult result;
             TryNext(celt, out result).ThrowOnNotOK();
 
             return result;
@@ -165,7 +165,7 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// This method updates the enumerator position by the number of elements fetched.
         /// </remarks>
-        public HRESULT TryNext(int celt, out DiaEnumSymbolsByAddr_NextResult result)
+        public HRESULT TryNext(int celt, out NextResult result)
         {
             /*HRESULT Next(
             [In] int celt,
@@ -176,9 +176,9 @@ namespace ClrDebug.DIA
             HRESULT hr = Raw.Next(celt, out rgelt, out pceltFetched);
 
             if (hr == HRESULT.S_OK)
-                result = new DiaEnumSymbolsByAddr_NextResult(rgelt == null ? null : new DiaSymbol(rgelt), pceltFetched);
+                result = new NextResult(rgelt == null ? null : new DiaSymbol(rgelt), pceltFetched);
             else
-                result = default(DiaEnumSymbolsByAddr_NextResult);
+                result = default(NextResult);
 
             return hr;
         }

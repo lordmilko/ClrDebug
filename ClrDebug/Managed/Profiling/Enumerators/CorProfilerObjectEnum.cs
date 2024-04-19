@@ -98,6 +98,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(ObjectID);
 
             return fetched == 1;
         }

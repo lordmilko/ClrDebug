@@ -174,6 +174,8 @@ namespace ClrDebug.DIA
 
             if (fetched == 1)
                 Current = result == null ? null : new DiaSymbol(result);
+            else
+                Current = default(DiaSymbol);
 
             return fetched == 1;
         }

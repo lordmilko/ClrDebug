@@ -61,6 +61,8 @@ namespace ClrDebug.DIA
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(STATPROPSTG);
 
             return fetched == 1;
         }

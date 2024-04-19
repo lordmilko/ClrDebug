@@ -60,6 +60,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(COR_MEMORY_RANGE);
 
             return fetched == 1;
         }

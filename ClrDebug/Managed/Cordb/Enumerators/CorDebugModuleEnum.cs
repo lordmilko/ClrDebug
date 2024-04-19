@@ -63,6 +63,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result == null ? null : new CorDebugModule(result);
+            else
+                Current = default(CorDebugModule);
 
             return fetched == 1;
         }

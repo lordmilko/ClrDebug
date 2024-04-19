@@ -172,6 +172,8 @@ namespace ClrDebug.DIA
 
             if (fetched == 1)
                 Current = result == null ? null : new DiaInjectedSource(result);
+            else
+                Current = default(DiaInjectedSource);
 
             return fetched == 1;
         }

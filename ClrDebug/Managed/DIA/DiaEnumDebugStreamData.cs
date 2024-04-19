@@ -233,6 +233,8 @@ namespace ClrDebug.DIA
 
             if (pceltFetched == 1)
                 Current = pbData;
+            else
+                Current = default(byte[]);
 
             return pceltFetched == 1;
         }

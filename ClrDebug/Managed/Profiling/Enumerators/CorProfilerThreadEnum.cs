@@ -97,6 +97,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(ThreadID);
 
             return fetched == 1;
         }

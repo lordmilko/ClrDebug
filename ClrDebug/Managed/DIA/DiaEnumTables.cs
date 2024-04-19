@@ -180,6 +180,8 @@ namespace ClrDebug.DIA
 
             if (fetched == 1)
                 Current = result == null ? null : new DiaTable(result);
+            else
+                Current = default(DiaTable);
 
             return fetched == 1;
         }

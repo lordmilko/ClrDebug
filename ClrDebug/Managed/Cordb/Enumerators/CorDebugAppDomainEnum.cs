@@ -64,6 +64,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result == null ? null : new CorDebugAppDomain(result);
+            else
+                Current = default(CorDebugAppDomain);
 
             return fetched == 1;
         }

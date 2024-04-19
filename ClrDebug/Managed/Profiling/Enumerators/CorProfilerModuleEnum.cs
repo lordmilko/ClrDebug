@@ -97,6 +97,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(ModuleID);
 
             return fetched == 1;
         }

@@ -173,6 +173,8 @@ namespace ClrDebug.DIA
 
             if (fetched == 1)
                 Current = result == null ? null : new DiaEnumDebugStreamData(result);
+            else
+                Current = default(DiaEnumDebugStreamData);
 
             return fetched == 1;
         }

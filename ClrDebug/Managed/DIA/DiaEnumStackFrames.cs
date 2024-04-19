@@ -1,4 +1,7 @@
-﻿namespace ClrDebug.DIA
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace ClrDebug.DIA
 {
     /// <summary>
     /// Enumerates the various stack frames available.
@@ -6,78 +9,62 @@
     /// <remarks>
     /// Obtain this interface by calling the IDiaStackWalker or IDiaStackWalker methods.
     /// </remarks>
-    public class DiaEnumStackFrames : ComObject<IDiaEnumStackFrames>
+    public class DiaEnumStackFrames : IEnumerable<DiaStackFrame>, IEnumerator<DiaStackFrame>
     {
+        public IDiaEnumStackFrames Raw { get; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DiaEnumStackFrames"/> class.
         /// </summary>
         /// <param name="raw">The raw COM interface that should be contained in this object.</param>
-        public DiaEnumStackFrames(IDiaEnumStackFrames raw) : base(raw)
+        public DiaEnumStackFrames(IDiaEnumStackFrames raw)
         {
+            Raw = raw;
         }
 
-        #region IDiaEnumStackFrames
-        #region Next
-
-        /// <summary>
-        /// Retrieves a specified number of stack frame elements from the enumeration sequence.
-        /// </summary>
-        /// <param name="celt">[in] The number of stackframe elements in the enumerator to be retrieved.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public NextResult Next(int celt)
-        {
-            NextResult result;
-            TryNext(celt, out result).ThrowOnNotOK();
-
-            return result;
-        }
-
-        /// <summary>
-        /// Retrieves a specified number of stack frame elements from the enumeration sequence.
-        /// </summary>
-        /// <param name="celt">[in] The number of stackframe elements in the enumerator to be retrieved.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>If successful, returns S_OK. Returns S_FALSE if there are no more stack frames. Otherwise, returns an error code.</returns>
-        public HRESULT TryNext(int celt, out NextResult result)
-        {
-            /*HRESULT Next(
-            [In] int celt,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaStackFrame rgelt,
-            [Out] out int pceltFetched);*/
-            IDiaStackFrame rgelt;
-            int pceltFetched;
-            HRESULT hr = Raw.Next(celt, out rgelt, out pceltFetched);
-
-            if (hr == HRESULT.S_OK)
-                result = new NextResult(rgelt == null ? null : new DiaStackFrame(rgelt), pceltFetched);
-            else
-                result = default(NextResult);
-
-            return hr;
-        }
-
-        #endregion
-        #region Reset
-
-        /// <summary>
-        /// Resets the enumeration sequence to the beginning.
-        /// </summary>
         public void Reset()
         {
-            TryReset().ThrowOnNotOK();
+            if (Raw == null)
+                return;
+
+            Raw.Reset();
+            Current = default(DiaStackFrame);
         }
 
-        /// <summary>
-        /// Resets the enumeration sequence to the beginning.
-        /// </summary>
-        /// <returns>Returns S_OK.</returns>
-        public HRESULT TryReset()
-        {
-            /*HRESULT Reset();*/
-            return Raw.Reset();
-        }
+        #region IEnumerable
+
+        public IEnumerator<DiaStackFrame> GetEnumerator() => this;
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion
+        #region IEnumerator
+
+        public DiaStackFrame Current { get; private set; }
+
+        object IEnumerator.Current => Current;
+
+        public bool MoveNext()
+        {
+            if (Raw == null)
+                return false;
+
+            int fetched;
+            IDiaStackFrame result;
+            var hr = Raw.Next(1, out result, out fetched);
+
+            if (fetched == 1)
+                Current = result == null ? null : new DiaStackFrame(result);
+            else
+                Current = default(DiaStackFrame);
+
+            return fetched == 1;
+        }
+
+        public void Dispose()
+        {
+        }
+
         #endregion
     }
 }

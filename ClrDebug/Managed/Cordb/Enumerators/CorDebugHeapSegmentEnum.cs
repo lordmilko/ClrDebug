@@ -71,6 +71,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(COR_SEGMENT);
 
             return fetched == 1;
         }

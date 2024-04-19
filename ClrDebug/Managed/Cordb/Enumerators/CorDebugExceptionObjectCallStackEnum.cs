@@ -68,6 +68,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(CorDebugExceptionObjectStackFrame);
 
             return fetched == 1;
         }

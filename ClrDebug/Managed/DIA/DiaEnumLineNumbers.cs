@@ -172,6 +172,8 @@ namespace ClrDebug.DIA
 
             if (fetched == 1)
                 Current = result == null ? null : new DiaLineNumber(result);
+            else
+                Current = default(DiaLineNumber);
 
             return fetched == 1;
         }

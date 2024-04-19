@@ -70,6 +70,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(COR_HEAPOBJECT);
 
             return fetched == 1;
         }

@@ -63,6 +63,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result == null ? null : new CorDebugAssembly(result);
+            else
+                Current = default(CorDebugAssembly);
 
             return fetched == 1;
         }

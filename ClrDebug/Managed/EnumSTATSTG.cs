@@ -60,6 +60,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(STATSTG);
 
             return fetched == 1;
         }

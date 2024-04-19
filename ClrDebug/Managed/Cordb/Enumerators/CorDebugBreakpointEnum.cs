@@ -63,6 +63,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = CorDebugBreakpoint.New(result);
+            else
+                Current = default(CorDebugBreakpoint);
 
             return fetched == 1;
         }

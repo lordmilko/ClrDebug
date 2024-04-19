@@ -169,6 +169,8 @@ namespace ClrDebug.DIA
 
             if (fetched == 1)
                 Current = result == null ? null : new DiaSectionContrib(result);
+            else
+                Current = default(DiaSectionContrib);
 
             return fetched == 1;
         }

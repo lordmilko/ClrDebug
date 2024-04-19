@@ -65,6 +65,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result == null ? null : new CorDebugEditAndContinueErrorInfo(result);
+            else
+                Current = default(CorDebugEditAndContinueErrorInfo);
 
             return fetched == 1;
         }

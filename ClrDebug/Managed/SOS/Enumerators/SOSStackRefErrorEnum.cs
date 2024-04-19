@@ -49,6 +49,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(SOSStackRefError);
 
             return fetched == 1;
         }

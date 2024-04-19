@@ -69,6 +69,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result == null ? null : new CorPublishProcess(result);
+            else
+                Current = default(CorPublishProcess);
 
             return fetched == 1;
         }

@@ -69,6 +69,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(COR_GC_REFERENCE);
 
             return fetched == 1;
         }

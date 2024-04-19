@@ -65,6 +65,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(object);
 
             return fetched == 1;
         }

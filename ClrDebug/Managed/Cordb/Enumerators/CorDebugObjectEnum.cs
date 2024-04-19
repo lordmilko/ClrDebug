@@ -63,6 +63,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(CORDB_ADDRESS);
 
             return fetched == 1;
         }

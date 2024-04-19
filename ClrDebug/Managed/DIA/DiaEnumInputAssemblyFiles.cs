@@ -136,6 +136,8 @@ namespace ClrDebug.DIA
 
             if (fetched == 1)
                 Current = result == null ? null : new DiaInputAssemblyFile(result);
+            else
+                Current = default(DiaInputAssemblyFile);
 
             return fetched == 1;
         }

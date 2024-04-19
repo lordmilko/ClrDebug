@@ -82,6 +82,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = result;
+            else
+                Current = default(COR_PRF_METHOD);
 
             return fetched == 1;
         }

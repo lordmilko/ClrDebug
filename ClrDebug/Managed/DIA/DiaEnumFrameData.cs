@@ -248,6 +248,8 @@ namespace ClrDebug.DIA
 
             if (fetched == 1)
                 Current = result == null ? null : new DiaFrameData(result);
+            else
+                Current = default(DiaFrameData);
 
             return fetched == 1;
         }

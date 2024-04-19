@@ -63,6 +63,8 @@ namespace ClrDebug
 
             if (fetched == 1)
                 Current = CorDebugFrame.New(result);
+            else
+                Current = default(CorDebugFrame);
 
             return fetched == 1;
         }
