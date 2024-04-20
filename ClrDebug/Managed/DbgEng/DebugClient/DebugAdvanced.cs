@@ -112,6 +112,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugAdvanced2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw2;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw2
+        {
+            get
+            {
+                InitInterface(typeof(IDebugAdvanced2).GUID, ref raw2);
+
+                return raw2;
+            }
+        }
+
         #region Request
 
         /// <summary>
@@ -157,7 +172,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr OutBuffer,
             [In] int OutBufferSize,
             [Out] out int OutSize);*/
-            return this.request(Raw, request, inBuffer, inBufferSize, outBuffer, outBufferSize, out outSize);
+            return this.request(Raw2, request, inBuffer, inBufferSize, outBuffer, outBufferSize, out outSize);
         }
 
         #endregion
@@ -220,7 +235,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);*/
-            return getSourceFileInformation(Raw, which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize);
+            return getSourceFileInformation(Raw2, which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize);
         }
 
         #endregion
@@ -317,14 +332,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int foundSize;
-            HRESULT hr = findSourceFileAndToken(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
+            HRESULT hr = findSourceFileAndToken(Raw2, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = foundSize;
             buffer = new char[bufferSize];
-            hr = findSourceFileAndToken(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
+            hr = findSourceFileAndToken(Raw2, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -398,14 +413,14 @@ namespace ClrDebug.DbgEng
             char[] stringBuffer;
             int stringBufferSize = 0;
             int stringSize;
-            HRESULT hr = getSymbolInformation(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
+            HRESULT hr = getSymbolInformation(Raw2, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             stringBufferSize = stringSize;
             stringBuffer = new char[stringBufferSize];
-            hr = getSymbolInformation(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
+            hr = getSymbolInformation(Raw2, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -463,12 +478,27 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);*/
-            return getSystemObjectInformation(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize);
+            return getSystemObjectInformation(Raw2, which, arg64, arg32, buffer, bufferSize, out infoSize);
         }
 
         #endregion
         #endregion
         #region IDebugAdvanced3
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw3;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw3
+        {
+            get
+            {
+                InitInterface(typeof(IDebugAdvanced3).GUID, ref raw3);
+
+                return raw3;
+            }
+        }
+
         #region GetSourceFileInformationWide
 
         /// <summary>
@@ -528,7 +558,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);*/
-            return getSourceFileInformationWide(Raw, which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize);
+            return getSourceFileInformationWide(Raw3, which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize);
         }
 
         #endregion
@@ -615,14 +645,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int foundSize;
-            HRESULT hr = findSourceFileAndTokenWide(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
+            HRESULT hr = findSourceFileAndTokenWide(Raw3, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = foundSize;
             buffer = new char[bufferSize];
-            hr = findSourceFileAndTokenWide(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
+            hr = findSourceFileAndTokenWide(Raw3, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -696,14 +726,14 @@ namespace ClrDebug.DbgEng
             char[] stringBuffer;
             int stringBufferSize = 0;
             int stringSize;
-            HRESULT hr = getSymbolInformationWide(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
+            HRESULT hr = getSymbolInformationWide(Raw3, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             stringBufferSize = stringSize;
             stringBuffer = new char[stringBufferSize];
-            hr = getSymbolInformationWide(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
+            hr = getSymbolInformationWide(Raw3, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -721,6 +751,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugAdvanced4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw4;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw4
+        {
+            get
+            {
+                InitInterface(typeof(IDebugAdvanced4).GUID, ref raw4);
+
+                return raw4;
+            }
+        }
+
         #region GetSymbolInformationWideEx
 
         /// <summary>
@@ -781,14 +826,14 @@ namespace ClrDebug.DbgEng
             int stringBufferSize = 0;
             int stringSize;
             SYMBOL_INFO_EX pInfoEx;
-            HRESULT hr = getSymbolInformationWideEx(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize, out pInfoEx);
+            HRESULT hr = getSymbolInformationWideEx(Raw4, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize, out pInfoEx);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             stringBufferSize = stringSize;
             stringBuffer = new char[stringBufferSize];
-            hr = getSymbolInformationWideEx(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize, out pInfoEx);
+            hr = getSymbolInformationWideEx(Raw4, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize, out pInfoEx);
 
             if (hr == HRESULT.S_OK)
             {

@@ -1776,6 +1776,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugClient2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw2;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw2
+        {
+            get
+            {
+                InitInterface(typeof(IDebugClient2).GUID, ref raw2);
+
+                return raw2;
+            }
+        }
+
         #region IsKernelDebuggerEnabled
 
         /// <summary>
@@ -1808,7 +1823,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref isKernelDebuggerEnabled, Vtbl2->IsKernelDebuggerEnabled);
 
             /*HRESULT IsKernelDebuggerEnabled();*/
-            return isKernelDebuggerEnabled(Raw);
+            return isKernelDebuggerEnabled(Raw2);
         }
 
         #endregion
@@ -1859,7 +1874,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_DUMP Qualifier,
             [In] DEBUG_FORMAT FormatFlags,
             [In, MarshalAs(UnmanagedType.LPStr)] string Comment);*/
-            return writeDumpFile2(Raw, dumpFile, qualifier, formatFlags, comment);
+            return writeDumpFile2(Raw2, dumpFile, qualifier, formatFlags, comment);
         }
 
         #endregion
@@ -1900,7 +1915,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT AddDumpInformationFile(
             [In, MarshalAs(UnmanagedType.LPStr)] string InfoFile,
             [In] DEBUG_DUMP_FILE Type);*/
-            return addDumpInformationFile(Raw, infoFile, type);
+            return addDumpInformationFile(Raw2, infoFile, type);
         }
 
         #endregion
@@ -1934,7 +1949,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT EndProcessServer(
             [In] long Server);*/
-            return endProcessServer(Raw, server);
+            return endProcessServer(Raw2, server);
         }
 
         #endregion
@@ -1970,7 +1985,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT WaitForProcessServerEnd(
             [In] int Timeout);*/
-            return waitForProcessServerEnd(Raw, timeout);
+            return waitForProcessServerEnd(Raw2, timeout);
         }
 
         #endregion
@@ -2003,7 +2018,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref terminateCurrentProcess, Vtbl2->TerminateCurrentProcess);
 
             /*HRESULT TerminateCurrentProcess();*/
-            return terminateCurrentProcess(Raw);
+            return terminateCurrentProcess(Raw2);
         }
 
         #endregion
@@ -2034,7 +2049,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref detachCurrentProcess, Vtbl2->DetachCurrentProcess);
 
             /*HRESULT DetachCurrentProcess();*/
-            return detachCurrentProcess(Raw);
+            return detachCurrentProcess(Raw2);
         }
 
         #endregion
@@ -2069,12 +2084,27 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref abandonCurrentProcess, Vtbl2->AbandonCurrentProcess);
 
             /*HRESULT AbandonCurrentProcess();*/
-            return abandonCurrentProcess(Raw);
+            return abandonCurrentProcess(Raw2);
         }
 
         #endregion
         #endregion
         #region IDebugClient3
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw3;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw3
+        {
+            get
+            {
+                InitInterface(typeof(IDebugClient3).GUID, ref raw3);
+
+                return raw3;
+            }
+        }
+
         #region GetRunningProcessSystemIdByExecutableNameWide
 
         /// <summary>
@@ -2117,7 +2147,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string ExeName,
             [In] DEBUG_GET_PROC Flags,
             [Out] out int Id);*/
-            return getRunningProcessSystemIdByExecutableNameWide(Raw, server, exeName, flags, out id);
+            return getRunningProcessSystemIdByExecutableNameWide(Raw3, server, exeName, flags, out id);
         }
 
         #endregion
@@ -2173,7 +2203,7 @@ namespace ClrDebug.DbgEng
             char[] description;
             int descriptionSize = 0;
             int actualDescriptionSize;
-            HRESULT hr = getRunningProcessDescriptionWide(Raw, server, systemId, flags, null, exeNameSize, out actualExeNameSize, null, descriptionSize, out actualDescriptionSize);
+            HRESULT hr = getRunningProcessDescriptionWide(Raw3, server, systemId, flags, null, exeNameSize, out actualExeNameSize, null, descriptionSize, out actualDescriptionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2182,7 +2212,7 @@ namespace ClrDebug.DbgEng
             exeName = new char[exeNameSize];
             descriptionSize = actualDescriptionSize;
             description = new char[descriptionSize];
-            hr = getRunningProcessDescriptionWide(Raw, server, systemId, flags, exeName, exeNameSize, out actualExeNameSize, description, descriptionSize, out actualDescriptionSize);
+            hr = getRunningProcessDescriptionWide(Raw3, server, systemId, flags, exeName, exeNameSize, out actualExeNameSize, description, descriptionSize, out actualDescriptionSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2242,7 +2272,7 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS CreateFlags);*/
-            return createProcessWide(Raw, server, commandLine, createFlags);
+            return createProcessWide(Raw3, server, commandLine, createFlags);
         }
 
         #endregion
@@ -2298,12 +2328,27 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_CREATE_PROCESS CreateFlags,
             [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);*/
-            return createProcessAndAttachWide(Raw, server, commandLine, createFlags, processId, attachFlags);
+            return createProcessAndAttachWide(Raw3, server, commandLine, createFlags, processId, attachFlags);
         }
 
         #endregion
         #endregion
         #region IDebugClient4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw4;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw4
+        {
+            get
+            {
+                InitInterface(typeof(IDebugClient4).GUID, ref raw4);
+
+                return raw4;
+            }
+        }
+
         #region NumberDumpFiles
 
         /// <summary>
@@ -2334,7 +2379,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetNumberDumpFiles(
             [Out] out int Number);*/
-            return getNumberDumpFiles(Raw, out number);
+            return getNumberDumpFiles(Raw4, out number);
         }
 
         #endregion
@@ -2375,7 +2420,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT OpenDumpFileWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
             [In] long FileHandle);*/
-            return openDumpFileWide(Raw, fileName, fileHandle);
+            return openDumpFileWide(Raw4, fileName, fileHandle);
         }
 
         #endregion
@@ -2423,7 +2468,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_DUMP Qualifier,
             [In] DEBUG_FORMAT FormatFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Comment);*/
-            return writeDumpFileWide(Raw, dumpFile, fileHandle, qualifier, formatFlags, comment);
+            return writeDumpFileWide(Raw4, dumpFile, fileHandle, qualifier, formatFlags, comment);
         }
 
         #endregion
@@ -2467,7 +2512,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
             [In] long FileHandle,
             [In] DEBUG_DUMP_FILE Type);*/
-            return addDumpInformationFileWide(Raw, fileName, fileHandle, type);
+            return addDumpInformationFileWide(Raw4, fileName, fileHandle, type);
         }
 
         #endregion
@@ -2513,14 +2558,14 @@ namespace ClrDebug.DbgEng
             int nameSize;
             long handle;
             int type;
-            HRESULT hr = getDumpFile(Raw, index, null, bufferSize, out nameSize, out handle, out type);
+            HRESULT hr = getDumpFile(Raw4, index, null, bufferSize, out nameSize, out handle, out type);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getDumpFile(Raw, index, buffer, bufferSize, out nameSize, out handle, out type);
+            hr = getDumpFile(Raw4, index, buffer, bufferSize, out nameSize, out handle, out type);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2578,14 +2623,14 @@ namespace ClrDebug.DbgEng
             int nameSize;
             long handle;
             int type;
-            HRESULT hr = getDumpFileWide(Raw, index, null, bufferSize, out nameSize, out handle, out type);
+            HRESULT hr = getDumpFileWide(Raw4, index, null, bufferSize, out nameSize, out handle, out type);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getDumpFileWide(Raw, index, buffer, bufferSize, out nameSize, out handle, out type);
+            hr = getDumpFileWide(Raw4, index, buffer, bufferSize, out nameSize, out handle, out type);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2603,6 +2648,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugClient5
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw5;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw5
+        {
+            get
+            {
+                InitInterface(typeof(IDebugClient5).GUID, ref raw5);
+
+                return raw5;
+            }
+        }
+
         #region KernelConnectionOptionsWide
 
         /// <summary>
@@ -2643,14 +2703,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int optionsSize;
-            HRESULT hr = getKernelConnectionOptionsWide(Raw, null, bufferSize, out optionsSize);
+            HRESULT hr = getKernelConnectionOptionsWide(Raw5, null, bufferSize, out optionsSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = optionsSize;
             buffer = new char[bufferSize];
-            hr = getKernelConnectionOptionsWide(Raw, buffer, bufferSize, out optionsSize);
+            hr = getKernelConnectionOptionsWide(Raw5, buffer, bufferSize, out optionsSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2680,7 +2740,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetKernelConnectionOptionsWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Options);*/
-            return setKernelConnectionOptionsWide(Raw, options);
+            return setKernelConnectionOptionsWide(Raw5, options);
         }
 
         #endregion
@@ -2722,7 +2782,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetOutputCallbacksWide(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugOutputCallbacksWide Callbacks);*/
-            return getOutputCallbacksWide(Raw, out callbacks);
+            return getOutputCallbacksWide(Raw5, out callbacks);
         }
 
         /// <summary>
@@ -2743,7 +2803,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetOutputCallbacksWide(
             [In] IDebugOutputCallbacksWide Callbacks);*/
-            return setOutputCallbacksWide(Raw, callbacks);
+            return setOutputCallbacksWide(Raw5, callbacks);
         }
 
         #endregion
@@ -2782,14 +2842,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int prefixSize;
-            HRESULT hr = getOutputLinePrefixWide(Raw, null, bufferSize, out prefixSize);
+            HRESULT hr = getOutputLinePrefixWide(Raw5, null, bufferSize, out prefixSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = prefixSize;
             buffer = new char[bufferSize];
-            hr = getOutputLinePrefixWide(Raw, buffer, bufferSize, out prefixSize);
+            hr = getOutputLinePrefixWide(Raw5, buffer, bufferSize, out prefixSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2815,7 +2875,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetOutputLinePrefixWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Prefix);*/
-            return setOutputLinePrefixWide(Raw, prefix);
+            return setOutputLinePrefixWide(Raw5, prefix);
         }
 
         #endregion
@@ -2854,14 +2914,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int identitySize;
-            HRESULT hr = getIdentityWide(Raw, null, bufferSize, out identitySize);
+            HRESULT hr = getIdentityWide(Raw5, null, bufferSize, out identitySize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = identitySize;
             buffer = new char[bufferSize];
-            hr = getIdentityWide(Raw, buffer, bufferSize, out identitySize);
+            hr = getIdentityWide(Raw5, buffer, bufferSize, out identitySize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2916,7 +2976,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetEventCallbacksWide(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacksWide Callbacks);*/
-            return getEventCallbacksWide(Raw, out callbacks);
+            return getEventCallbacksWide(Raw5, out callbacks);
         }
 
         /// <summary>
@@ -2939,7 +2999,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetEventCallbacksWide(
             [In] IDebugEventCallbacksWide Callbacks);*/
-            return setEventCallbacksWide(Raw, callbacks);
+            return setEventCallbacksWide(Raw5, callbacks);
         }
 
         #endregion
@@ -2973,7 +3033,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetNumberInputCallbacks(
             [Out] out int Count);*/
-            return getNumberInputCallbacks(Raw, out count);
+            return getNumberInputCallbacks(Raw5, out count);
         }
 
         #endregion
@@ -3008,7 +3068,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetNumberOutputCallbacks(
             [Out] out int Count);*/
-            return getNumberOutputCallbacks(Raw, out count);
+            return getNumberOutputCallbacks(Raw5, out count);
         }
 
         #endregion
@@ -3050,14 +3110,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getQuitLockString(Raw, null, bufferSize, out stringSize);
+            HRESULT hr = getQuitLockString(Raw5, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
             buffer = new char[bufferSize];
-            hr = getQuitLockString(Raw, buffer, bufferSize, out stringSize);
+            hr = getQuitLockString(Raw5, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3083,7 +3143,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetQuitLockString(
             [In, MarshalAs(UnmanagedType.LPStr)] string LockString);*/
-            return setQuitLockString(Raw, lockString);
+            return setQuitLockString(Raw5, lockString);
         }
 
         #endregion
@@ -3125,14 +3185,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getQuitLockStringWide(Raw, null, bufferSize, out stringSize);
+            HRESULT hr = getQuitLockStringWide(Raw5, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
             buffer = new char[bufferSize];
-            hr = getQuitLockStringWide(Raw, buffer, bufferSize, out stringSize);
+            hr = getQuitLockStringWide(Raw5, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3158,7 +3218,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetQuitLockStringWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string LockString);*/
-            return setQuitLockStringWide(Raw, lockString);
+            return setQuitLockStringWide(Raw5, lockString);
         }
 
         #endregion
@@ -3193,7 +3253,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT AttachKernelWide(
             [In] DEBUG_ATTACH Flags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string ConnectOptions);*/
-            return attachKernelWide(Raw, flags, connectOptions);
+            return attachKernelWide(Raw5, flags, connectOptions);
         }
 
         #endregion
@@ -3245,7 +3305,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_CLASS Flags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Options,
             [In] IntPtr Reserved);*/
-            return startProcessServerWide(Raw, flags, options, reserved);
+            return startProcessServerWide(Raw5, flags, options, reserved);
         }
 
         #endregion
@@ -3287,7 +3347,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT ConnectProcessServerWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string RemoteOptions,
             [Out] out long Server);*/
-            return connectProcessServerWide(Raw, remoteOptions, out server);
+            return connectProcessServerWide(Raw5, remoteOptions, out server);
         }
 
         #endregion
@@ -3323,7 +3383,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT StartServerWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Options);*/
-            return startServerWide(Raw, options);
+            return startServerWide(Raw5, options);
         }
 
         #endregion
@@ -3361,7 +3421,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_OUTCTL OutputControl,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Machine,
             [In] DEBUG_SERVERS Flags);*/
-            return outputServersWide(Raw, outputControl, machine, flags);
+            return outputServersWide(Raw5, outputControl, machine, flags);
         }
 
         #endregion
@@ -3401,7 +3461,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_OUTCTL OutputControl,
             [In] int Flags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Machine);*/
-            return outputIdentityWide(Raw, outputControl, flags, machine);
+            return outputIdentityWide(Raw5, outputControl, flags, machine);
         }
 
         #endregion
@@ -3458,7 +3518,7 @@ namespace ClrDebug.DbgEng
             [In] int OptionsBufferSize,
             [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory,
             [In, MarshalAs(UnmanagedType.LPStr)] string Environment);*/
-            return createProcess2(Raw, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment);
+            return createProcess2(Raw5, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment);
         }
 
         #endregion
@@ -3515,7 +3575,7 @@ namespace ClrDebug.DbgEng
             [In] int OptionsBufferSize,
             [In, MarshalAs(UnmanagedType.LPWStr)] string InitialDirectory,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Environment);*/
-            return createProcess2Wide(Raw, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment);
+            return createProcess2Wide(Raw5, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment);
         }
 
         #endregion
@@ -3578,7 +3638,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPStr)] string Environment,
             [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);*/
-            return createProcessAndAttach2(Raw, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags);
+            return createProcessAndAttach2(Raw5, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags);
         }
 
         #endregion
@@ -3641,7 +3701,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string Environment,
             [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);*/
-            return createProcessAndAttach2Wide(Raw, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags);
+            return createProcessAndAttach2Wide(Raw5, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags);
         }
 
         #endregion
@@ -3667,7 +3727,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT PushOutputLinePrefix(
             [In, MarshalAs(UnmanagedType.LPStr)] string NewPrefix,
             [Out] out long Handle);*/
-            return pushOutputLinePrefix(Raw, newPrefix, out handle);
+            return pushOutputLinePrefix(Raw5, newPrefix, out handle);
         }
 
         #endregion
@@ -3693,7 +3753,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT PushOutputLinePrefixWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string NewPrefix,
             [Out] out long Handle);*/
-            return pushOutputLinePrefixWide(Raw, newPrefix, out handle);
+            return pushOutputLinePrefixWide(Raw5, newPrefix, out handle);
         }
 
         #endregion
@@ -3719,7 +3779,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT PopOutputLinePrefix(
             [In] long Handle);*/
-            return popOutputLinePrefix(Raw, handle);
+            return popOutputLinePrefix(Raw5, handle);
         }
 
         #endregion
@@ -3763,12 +3823,27 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetNumberEventCallbacks(
             [In] DEBUG_EVENT_TYPE Flags,
             [Out] out int Count);*/
-            return getNumberEventCallbacks(Raw, flags, out count);
+            return getNumberEventCallbacks(Raw5, flags, out count);
         }
 
         #endregion
         #endregion
         #region IDebugClient6
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw6;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw6
+        {
+            get
+            {
+                InitInterface(typeof(IDebugClient6).GUID, ref raw6);
+
+                return raw6;
+            }
+        }
+
         #region SetEventContextCallbacks
 
         /// <summary>
@@ -3791,12 +3866,27 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetEventContextCallbacks(
             [In] IDebugEventContextCallbacks Callbacks);*/
-            return setEventContextCallbacks(Raw, callbacks);
+            return setEventContextCallbacks(Raw6, callbacks);
         }
 
         #endregion
         #endregion
         #region IDebugClient7
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw7;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw7
+        {
+            get
+            {
+                InitInterface(typeof(IDebugClient7).GUID, ref raw7);
+
+                return raw7;
+            }
+        }
+
         #region SetClientContext
 
         /// <summary>
@@ -3822,12 +3912,27 @@ namespace ClrDebug.DbgEng
             /*HRESULT SetClientContext(
             [In] IntPtr Context,
             [In] int ContextSize);*/
-            return setClientContext(Raw, context, contextSize);
+            return setClientContext(Raw7, context, contextSize);
         }
 
         #endregion
         #endregion
         #region IDebugClient8
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw8;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw8
+        {
+            get
+            {
+                InitInterface(typeof(IDebugClient8).GUID, ref raw8);
+
+                return raw8;
+            }
+        }
+
         #region OpenDumpFileWide2
 
         /// <summary>
@@ -3886,7 +3991,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
             [In] long FileHandle,
             [In] IMAGE_FILE_MACHINE AlternateArch);*/
-            return openDumpFileWide2(Raw, fileName, fileHandle, alternateArch);
+            return openDumpFileWide2(Raw8, fileName, fileHandle, alternateArch);
         }
 
         #endregion

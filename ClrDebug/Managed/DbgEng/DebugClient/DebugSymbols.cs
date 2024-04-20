@@ -2429,6 +2429,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugSymbols2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw2;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw2
+        {
+            get
+            {
+                InitInterface(typeof(IDebugSymbols2).GUID, ref raw2);
+
+                return raw2;
+            }
+        }
+
         #region TypeOptions
 
         /// <summary>
@@ -2465,7 +2480,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetTypeOptions(
             [Out] out DEBUG_TYPEOPTS Options);*/
-            return getTypeOptions(Raw, out options);
+            return getTypeOptions(Raw2, out options);
         }
 
         /// <summary>
@@ -2485,7 +2500,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetTypeOptions(
             [In] DEBUG_TYPEOPTS Options);*/
-            return setTypeOptions(Raw, options);
+            return setTypeOptions(Raw2, options);
         }
 
         #endregion
@@ -2543,7 +2558,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int VerInfoSize);*/
-            return getModuleVersionInformation(Raw, index, @base, item, buffer, bufferSize, out verInfoSize);
+            return getModuleVersionInformation(Raw2, index, @base, item, buffer, bufferSize, out verInfoSize);
         }
 
         #endregion
@@ -2593,14 +2608,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getModuleNameString(Raw, which, index, @base, null, bufferSize, out nameSize);
+            HRESULT hr = getModuleNameString(Raw2, which, index, @base, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getModuleNameString(Raw, which, index, @base, buffer, bufferSize, out nameSize);
+            hr = getModuleNameString(Raw2, which, index, @base, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2660,14 +2675,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getConstantName(Raw, module, typeId, value, null, bufferSize, out nameSize);
+            HRESULT hr = getConstantName(Raw2, module, typeId, value, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getConstantName(Raw, module, typeId, value, buffer, bufferSize, out nameSize);
+            hr = getConstantName(Raw2, module, typeId, value, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2727,14 +2742,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getFieldName(Raw, module, typeId, fieldIndex, null, bufferSize, out nameSize);
+            HRESULT hr = getFieldName(Raw2, module, typeId, fieldIndex, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getFieldName(Raw, module, typeId, fieldIndex, buffer, bufferSize, out nameSize);
+            hr = getFieldName(Raw2, module, typeId, fieldIndex, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2784,7 +2799,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT AddTypeOptions(
             [In] DEBUG_TYPEOPTS Options);*/
-            return addTypeOptions(Raw, options);
+            return addTypeOptions(Raw2, options);
         }
 
         #endregion
@@ -2822,12 +2837,27 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT RemoveTypeOptions(
             [In] DEBUG_TYPEOPTS Options);*/
-            return removeTypeOptions(Raw, options);
+            return removeTypeOptions(Raw2, options);
         }
 
         #endregion
         #endregion
         #region IDebugSymbols3
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw3;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw3
+        {
+            get
+            {
+                InitInterface(typeof(IDebugSymbols3).GUID, ref raw3);
+
+                return raw3;
+            }
+        }
+
         #region SymbolPathWide
 
         /// <summary>
@@ -2868,14 +2898,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int pathSize;
-            HRESULT hr = getSymbolPathWide(Raw, null, bufferSize, out pathSize);
+            HRESULT hr = getSymbolPathWide(Raw3, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = pathSize;
             buffer = new char[bufferSize];
-            hr = getSymbolPathWide(Raw, buffer, bufferSize, out pathSize);
+            hr = getSymbolPathWide(Raw3, buffer, bufferSize, out pathSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2906,7 +2936,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetSymbolPathWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Path);*/
-            return setSymbolPathWide(Raw, path);
+            return setSymbolPathWide(Raw3, path);
         }
 
         #endregion
@@ -2950,14 +2980,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int pathSize;
-            HRESULT hr = getImagePathWide(Raw, null, bufferSize, out pathSize);
+            HRESULT hr = getImagePathWide(Raw3, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = pathSize;
             buffer = new char[bufferSize];
-            hr = getImagePathWide(Raw, buffer, bufferSize, out pathSize);
+            hr = getImagePathWide(Raw3, buffer, bufferSize, out pathSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2987,7 +3017,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetImagePathWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Path);*/
-            return setImagePathWide(Raw, path);
+            return setImagePathWide(Raw3, path);
         }
 
         #endregion
@@ -3031,14 +3061,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int pathSize;
-            HRESULT hr = getSourcePathWide(Raw, null, bufferSize, out pathSize);
+            HRESULT hr = getSourcePathWide(Raw3, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = pathSize;
             buffer = new char[bufferSize];
-            hr = getSourcePathWide(Raw, buffer, bufferSize, out pathSize);
+            hr = getSourcePathWide(Raw3, buffer, bufferSize, out pathSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3069,7 +3099,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetSourcePathWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Path);*/
-            return setSourcePathWide(Raw, path);
+            return setSourcePathWide(Raw3, path);
         }
 
         #endregion
@@ -3106,7 +3136,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetCurrentScopeFrameIndex(
             [Out] out int Index);*/
-            return getCurrentScopeFrameIndex(Raw, out index);
+            return getCurrentScopeFrameIndex(Raw3, out index);
         }
 
         #endregion
@@ -3150,14 +3180,14 @@ namespace ClrDebug.DbgEng
             int nameBufferSize = 0;
             int nameSize;
             long displacement;
-            HRESULT hr = getNameByOffsetWide(Raw, offset, null, nameBufferSize, out nameSize, out displacement);
+            HRESULT hr = getNameByOffsetWide(Raw3, offset, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
             nameBuffer = new char[nameBufferSize];
-            hr = getNameByOffsetWide(Raw, offset, nameBuffer, nameBufferSize, out nameSize, out displacement);
+            hr = getNameByOffsetWide(Raw3, offset, nameBuffer, nameBufferSize, out nameSize, out displacement);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3221,7 +3251,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetOffsetByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
             [Out] out long Offset);*/
-            return getOffsetByNameWide(Raw, symbol, out offset);
+            return getOffsetByNameWide(Raw3, symbol, out offset);
         }
 
         #endregion
@@ -3274,14 +3304,14 @@ namespace ClrDebug.DbgEng
             int nameBufferSize = 0;
             int nameSize;
             long displacement;
-            HRESULT hr = getNearNameByOffsetWide(Raw, offset, delta, null, nameBufferSize, out nameSize, out displacement);
+            HRESULT hr = getNearNameByOffsetWide(Raw3, offset, delta, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
             nameBuffer = new char[nameBufferSize];
-            hr = getNearNameByOffsetWide(Raw, offset, delta, nameBuffer, nameBufferSize, out nameSize, out displacement);
+            hr = getNearNameByOffsetWide(Raw3, offset, delta, nameBuffer, nameBufferSize, out nameSize, out displacement);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3339,14 +3369,14 @@ namespace ClrDebug.DbgEng
             int fileBufferSize = 0;
             int fileSize;
             long displacement;
-            HRESULT hr = getLineByOffsetWide(Raw, offset, out line, null, fileBufferSize, out fileSize, out displacement);
+            HRESULT hr = getLineByOffsetWide(Raw3, offset, out line, null, fileBufferSize, out fileSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             fileBufferSize = fileSize;
             fileBuffer = new char[fileBufferSize];
-            hr = getLineByOffsetWide(Raw, offset, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
+            hr = getLineByOffsetWide(Raw3, offset, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3401,7 +3431,7 @@ namespace ClrDebug.DbgEng
             [In] int Line,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
             [Out] out long Offset);*/
-            return getOffsetByLineWide(Raw, line, file, out offset);
+            return getOffsetByLineWide(Raw3, line, file, out offset);
         }
 
         #endregion
@@ -3448,7 +3478,7 @@ namespace ClrDebug.DbgEng
             [Out] out long Base);*/
             int index;
             long @base;
-            HRESULT hr = getModuleByModuleNameWide(Raw, name, startIndex, out index, out @base);
+            HRESULT hr = getModuleByModuleNameWide(Raw3, name, startIndex, out index, out @base);
 
             if (hr == HRESULT.S_OK)
                 result = new GetModuleByModuleNameWideResult(index, @base);
@@ -3499,7 +3529,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolModuleWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
             [Out] out long Base);*/
-            return getSymbolModuleWide(Raw, symbol, out @base);
+            return getSymbolModuleWide(Raw3, symbol, out @base);
         }
 
         #endregion
@@ -3544,14 +3574,14 @@ namespace ClrDebug.DbgEng
             char[] nameBuffer;
             int nameBufferSize = 0;
             int nameSize;
-            HRESULT hr = getTypeNameWide(Raw, module, typeId, null, nameBufferSize, out nameSize);
+            HRESULT hr = getTypeNameWide(Raw3, module, typeId, null, nameBufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
             nameBuffer = new char[nameBufferSize];
-            hr = getTypeNameWide(Raw, module, typeId, nameBuffer, nameBufferSize, out nameSize);
+            hr = getTypeNameWide(Raw3, module, typeId, nameBuffer, nameBufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3614,7 +3644,7 @@ namespace ClrDebug.DbgEng
             [In] long Module,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
             [Out] out int TypeId);*/
-            return getTypeIdWide(Raw, module, name, out typeId);
+            return getTypeIdWide(Raw3, module, name, out typeId);
         }
 
         #endregion
@@ -3664,7 +3694,7 @@ namespace ClrDebug.DbgEng
             [In] int TypeId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Field,
             [Out] out int Offset);*/
-            return getFieldOffsetWide(Raw, module, typeId, field, out offset);
+            return getFieldOffsetWide(Raw3, module, typeId, field, out offset);
         }
 
         #endregion
@@ -3706,7 +3736,7 @@ namespace ClrDebug.DbgEng
             [Out] out long Module);*/
             int typeId;
             long module;
-            HRESULT hr = getSymbolTypeIdWide(Raw, symbol, out typeId, out module);
+            HRESULT hr = getSymbolTypeIdWide(Raw3, symbol, out typeId, out module);
 
             if (hr == HRESULT.S_OK)
                 result = new GetSymbolTypeIdWideResult(typeId, module);
@@ -3760,7 +3790,7 @@ namespace ClrDebug.DbgEng
             [In, ComAliasName("IDebugSymbolGroup2")] IntPtr Update,
             [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Symbols);*/
             IntPtr symbols;
-            HRESULT hr = getScopeSymbolGroup2(Raw, flags, update, out symbols);
+            HRESULT hr = getScopeSymbolGroup2(Raw3, flags, update, out symbols);
 
             if (hr == HRESULT.S_OK)
                 symbolsResult = symbols == IntPtr.Zero ? null : new DebugSymbolGroup(symbols);
@@ -3810,7 +3840,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT CreateSymbolGroup2(
             [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Group);*/
             IntPtr group;
-            HRESULT hr = createSymbolGroup2(Raw, out group);
+            HRESULT hr = createSymbolGroup2(Raw3, out group);
 
             if (hr == HRESULT.S_OK)
                 groupResult = group == IntPtr.Zero ? null : new DebugSymbolGroup(group);
@@ -3861,7 +3891,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT StartSymbolMatchWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Pattern,
             [Out] out long Handle);*/
-            return startSymbolMatchWide(Raw, pattern, out handle);
+            return startSymbolMatchWide(Raw3, pattern, out handle);
         }
 
         #endregion
@@ -3909,14 +3939,14 @@ namespace ClrDebug.DbgEng
             int bufferSize = 0;
             int matchSize;
             long offset;
-            HRESULT hr = getNextSymbolMatchWide(Raw, handle, null, bufferSize, out matchSize, out offset);
+            HRESULT hr = getNextSymbolMatchWide(Raw3, handle, null, bufferSize, out matchSize, out offset);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = matchSize;
             buffer = new char[bufferSize];
-            hr = getNextSymbolMatchWide(Raw, handle, buffer, bufferSize, out matchSize, out offset);
+            hr = getNextSymbolMatchWide(Raw3, handle, buffer, bufferSize, out matchSize, out offset);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3964,7 +3994,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT ReloadWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Module);*/
-            return reloadWide(Raw, module);
+            return reloadWide(Raw3, module);
         }
 
         #endregion
@@ -4000,7 +4030,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT AppendSymbolPathWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Addition);*/
-            return appendSymbolPathWide(Raw, addition);
+            return appendSymbolPathWide(Raw3, addition);
         }
 
         #endregion
@@ -4034,7 +4064,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT AppendImagePathWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Addition);*/
-            return appendImagePathWide(Raw, addition);
+            return appendImagePathWide(Raw3, addition);
         }
 
         #endregion
@@ -4082,14 +4112,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int elementSize;
-            HRESULT hr = getSourcePathElementWide(Raw, index, null, bufferSize, out elementSize);
+            HRESULT hr = getSourcePathElementWide(Raw3, index, null, bufferSize, out elementSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = elementSize;
             buffer = new char[bufferSize];
-            hr = getSourcePathElementWide(Raw, index, buffer, bufferSize, out elementSize);
+            hr = getSourcePathElementWide(Raw3, index, buffer, bufferSize, out elementSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -4137,7 +4167,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT AppendSourcePathWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Addition);*/
-            return appendSourcePathWide(Raw, addition);
+            return appendSourcePathWide(Raw3, addition);
         }
 
         #endregion
@@ -4197,14 +4227,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int foundSize;
-            HRESULT hr = findSourceFileWide(Raw, startElement, file, flags, out foundElement, null, bufferSize, out foundSize);
+            HRESULT hr = findSourceFileWide(Raw3, startElement, file, flags, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = foundSize;
             buffer = new char[bufferSize];
-            hr = findSourceFileWide(Raw, startElement, file, flags, out foundElement, buffer, bufferSize, out foundSize);
+            hr = findSourceFileWide(Raw3, startElement, file, flags, out foundElement, buffer, bufferSize, out foundSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -4264,14 +4294,14 @@ namespace ClrDebug.DbgEng
             buffer = null;
             int bufferLines = 0;
             int fileLines;
-            HRESULT hr = getSourceFileLineOffsetsWide(Raw, file, null, bufferLines, out fileLines);
+            HRESULT hr = getSourceFileLineOffsetsWide(Raw3, file, null, bufferLines, out fileLines);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferLines = fileLines;
             buffer = new long[bufferLines];
-            hr = getSourceFileLineOffsetsWide(Raw, file, buffer, bufferLines, out fileLines);
+            hr = getSourceFileLineOffsetsWide(Raw3, file, buffer, bufferLines, out fileLines);
             fail:
             return hr;
         }
@@ -4331,7 +4361,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int VerInfoSize);*/
-            return getModuleVersionInformationWide(Raw, index, @base, item, buffer, bufferSize, out verInfoSize);
+            return getModuleVersionInformationWide(Raw3, index, @base, item, buffer, bufferSize, out verInfoSize);
         }
 
         #endregion
@@ -4381,14 +4411,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getModuleNameStringWide(Raw, which, index, @base, null, bufferSize, out nameSize);
+            HRESULT hr = getModuleNameStringWide(Raw3, which, index, @base, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getModuleNameStringWide(Raw, which, index, @base, buffer, bufferSize, out nameSize);
+            hr = getModuleNameStringWide(Raw3, which, index, @base, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -4448,14 +4478,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getConstantNameWide(Raw, module, typeId, value, null, bufferSize, out nameSize);
+            HRESULT hr = getConstantNameWide(Raw3, module, typeId, value, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getConstantNameWide(Raw, module, typeId, value, buffer, bufferSize, out nameSize);
+            hr = getConstantNameWide(Raw3, module, typeId, value, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -4515,14 +4545,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getFieldNameWide(Raw, module, typeId, fieldIndex, null, bufferSize, out nameSize);
+            HRESULT hr = getFieldNameWide(Raw3, module, typeId, fieldIndex, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getFieldNameWide(Raw, module, typeId, fieldIndex, buffer, bufferSize, out nameSize);
+            hr = getFieldNameWide(Raw3, module, typeId, fieldIndex, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -4572,7 +4602,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT IsManagedModule(
             [In] int Index,
             [In] long Base);*/
-            return isManagedModule(Raw, index, @base);
+            return isManagedModule(Raw3, index, @base);
         }
 
         #endregion
@@ -4622,7 +4652,7 @@ namespace ClrDebug.DbgEng
             [Out] out long Base);*/
             int index;
             long @base;
-            HRESULT hr = getModuleByModuleName2(Raw, name, startIndex, flags, out index, out @base);
+            HRESULT hr = getModuleByModuleName2(Raw3, name, startIndex, flags, out index, out @base);
 
             if (hr == HRESULT.S_OK)
                 result = new GetModuleByModuleName2Result(index, @base);
@@ -4679,7 +4709,7 @@ namespace ClrDebug.DbgEng
             [Out] out long Base);*/
             int index;
             long @base;
-            HRESULT hr = getModuleByModuleName2Wide(Raw, name, startIndex, flags, out index, out @base);
+            HRESULT hr = getModuleByModuleName2Wide(Raw3, name, startIndex, flags, out index, out @base);
 
             if (hr == HRESULT.S_OK)
                 result = new GetModuleByModuleName2WideResult(index, @base);
@@ -4738,7 +4768,7 @@ namespace ClrDebug.DbgEng
             [Out] out long Base);*/
             int index;
             long @base;
-            HRESULT hr = getModuleByOffset2(Raw, offset, startIndex, flags, out index, out @base);
+            HRESULT hr = getModuleByOffset2(Raw3, offset, startIndex, flags, out index, out @base);
 
             if (hr == HRESULT.S_OK)
                 result = new GetModuleByOffset2Result(index, @base);
@@ -4797,7 +4827,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPStr)] string ImagePath,
             [In, MarshalAs(UnmanagedType.LPStr)] string ModuleName,
             [In] DEBUG_ADDSYNTHMOD Flags);*/
-            return addSyntheticModule(Raw, @base, size, imagePath, moduleName, flags);
+            return addSyntheticModule(Raw3, @base, size, imagePath, moduleName, flags);
         }
 
         #endregion
@@ -4849,7 +4879,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string ImagePath,
             [In, MarshalAs(UnmanagedType.LPWStr)] string ModuleName,
             [In] DEBUG_ADDSYNTHMOD Flags);*/
-            return addSyntheticModuleWide(Raw, @base, size, imagePath, moduleName, flags);
+            return addSyntheticModuleWide(Raw3, @base, size, imagePath, moduleName, flags);
         }
 
         #endregion
@@ -4885,7 +4915,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT RemoveSyntheticModule(
             [In] long Base);*/
-            return removeSyntheticModule(Raw, @base);
+            return removeSyntheticModule(Raw3, @base);
         }
 
         #endregion
@@ -4925,7 +4955,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetScopeFrameByIndex(
             [In] int Index);*/
-            return setScopeFrameByIndex(Raw, index);
+            return setScopeFrameByIndex(Raw3, index);
         }
 
         #endregion
@@ -4955,7 +4985,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT SetScopeFromJitDebugInfo(
             [In] int OutputControl,
             [In] long InfoOffset);*/
-            return setScopeFromJitDebugInfo(Raw, outputControl, infoOffset);
+            return setScopeFromJitDebugInfo(Raw3, outputControl, infoOffset);
         }
 
         #endregion
@@ -4986,7 +5016,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref setScopeFromStoredEvent, Vtbl3->SetScopeFromStoredEvent);
 
             /*HRESULT SetScopeFromStoredEvent();*/
-            return setScopeFromStoredEvent(Raw);
+            return setScopeFromStoredEvent(Raw3);
         }
 
         #endregion
@@ -5024,7 +5054,7 @@ namespace ClrDebug.DbgEng
             [In] int OutputControl,
             [In] DEBUG_OUTSYM Flags,
             [In] long Offset);*/
-            return outputSymbolByOffset(Raw, outputControl, flags, offset);
+            return outputSymbolByOffset(Raw3, outputControl, flags, offset);
         }
 
         #endregion
@@ -5077,7 +5107,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BufferNeeded);*/
-            return getFunctionEntryByOffset(Raw, offset, flags, buffer, bufferSize, out bufferNeeded);
+            return getFunctionEntryByOffset(Raw3, offset, flags, buffer, bufferSize, out bufferNeeded);
         }
 
         #endregion
@@ -5131,7 +5161,7 @@ namespace ClrDebug.DbgEng
             [Out] out int Offset);*/
             int fieldTypeId;
             int offset;
-            HRESULT hr = getFieldTypeAndOffset(Raw, module, containerTypeId, field, out fieldTypeId, out offset);
+            HRESULT hr = getFieldTypeAndOffset(Raw3, module, containerTypeId, field, out fieldTypeId, out offset);
 
             if (hr == HRESULT.S_OK)
                 result = new GetFieldTypeAndOffsetResult(fieldTypeId, offset);
@@ -5192,7 +5222,7 @@ namespace ClrDebug.DbgEng
             [Out] out int Offset);*/
             int fieldTypeId;
             int offset;
-            HRESULT hr = getFieldTypeAndOffsetWide(Raw, module, containerTypeId, field, out fieldTypeId, out offset);
+            HRESULT hr = getFieldTypeAndOffsetWide(Raw3, module, containerTypeId, field, out fieldTypeId, out offset);
 
             if (hr == HRESULT.S_OK)
                 result = new GetFieldTypeAndOffsetWideResult(fieldTypeId, offset);
@@ -5252,7 +5282,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
             [In] DEBUG_ADDSYNTHSYM Flags,
             [Out] out DEBUG_MODULE_AND_ID Id);*/
-            return addSyntheticSymbol(Raw, offset, size, name, flags, out id);
+            return addSyntheticSymbol(Raw3, offset, size, name, flags, out id);
         }
 
         #endregion
@@ -5305,7 +5335,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
             [In] DEBUG_ADDSYNTHSYM Flags,
             [Out] out DEBUG_MODULE_AND_ID Id);*/
-            return addSyntheticSymbolWide(Raw, offset, size, name, flags, out id);
+            return addSyntheticSymbolWide(Raw3, offset, size, name, flags, out id);
         }
 
         #endregion
@@ -5343,7 +5373,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT RemoveSyntheticSymbol(
             [In] ref DEBUG_MODULE_AND_ID Id);*/
-            return removeSyntheticSymbol(Raw, ref id);
+            return removeSyntheticSymbol(Raw3, ref id);
         }
 
         #endregion
@@ -5390,7 +5420,7 @@ namespace ClrDebug.DbgEng
             long[] displacements;
             int idsCount = 0;
             int entries;
-            HRESULT hr = getSymbolEntriesByOffset(Raw, offset, flags, null, null, idsCount, out entries);
+            HRESULT hr = getSymbolEntriesByOffset(Raw3, offset, flags, null, null, idsCount, out entries);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5398,7 +5428,7 @@ namespace ClrDebug.DbgEng
             idsCount = entries;
             displacements = new long[idsCount];
             ids = new DEBUG_MODULE_AND_ID[idsCount];
-            hr = getSymbolEntriesByOffset(Raw, offset, flags, ids, displacements, idsCount, out entries);
+            hr = getSymbolEntriesByOffset(Raw3, offset, flags, ids, displacements, idsCount, out entries);
 
             if (hr == HRESULT.S_OK)
             {
@@ -5457,14 +5487,14 @@ namespace ClrDebug.DbgEng
             ids = null;
             int idsCount = 0;
             int entries;
-            HRESULT hr = getSymbolEntriesByName(Raw, symbol, flags, null, idsCount, out entries);
+            HRESULT hr = getSymbolEntriesByName(Raw3, symbol, flags, null, idsCount, out entries);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             idsCount = entries;
             ids = new DEBUG_MODULE_AND_ID[idsCount];
-            hr = getSymbolEntriesByName(Raw, symbol, flags, ids, idsCount, out entries);
+            hr = getSymbolEntriesByName(Raw3, symbol, flags, ids, idsCount, out entries);
             fail:
             return hr;
         }
@@ -5513,14 +5543,14 @@ namespace ClrDebug.DbgEng
             ids = null;
             int idsCount = 0;
             int entries;
-            HRESULT hr = getSymbolEntriesByNameWide(Raw, symbol, flags, null, idsCount, out entries);
+            HRESULT hr = getSymbolEntriesByNameWide(Raw3, symbol, flags, null, idsCount, out entries);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             idsCount = entries;
             ids = new DEBUG_MODULE_AND_ID[idsCount];
-            hr = getSymbolEntriesByNameWide(Raw, symbol, flags, ids, idsCount, out entries);
+            hr = getSymbolEntriesByNameWide(Raw3, symbol, flags, ids, idsCount, out entries);
             fail:
             return hr;
         }
@@ -5557,7 +5587,7 @@ namespace ClrDebug.DbgEng
             [In] long ModuleBase,
             [In] int Token,
             [Out] out DEBUG_MODULE_AND_ID Id);*/
-            return getSymbolEntryByToken(Raw, moduleBase, token, out id);
+            return getSymbolEntryByToken(Raw3, moduleBase, token, out id);
         }
 
         #endregion
@@ -5595,7 +5625,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolEntryInformation(
             [In] ref DEBUG_MODULE_AND_ID Id,
             [Out] out DEBUG_SYMBOL_ENTRY Info);*/
-            return getSymbolEntryInformation(Raw, ref id, out info);
+            return getSymbolEntryInformation(Raw3, ref id, out info);
         }
 
         #endregion
@@ -5642,14 +5672,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getSymbolEntryString(Raw, ref id, which, null, bufferSize, out stringSize);
+            HRESULT hr = getSymbolEntryString(Raw3, ref id, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
             buffer = new char[bufferSize];
-            hr = getSymbolEntryString(Raw, ref id, which, buffer, bufferSize, out stringSize);
+            hr = getSymbolEntryString(Raw3, ref id, which, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -5708,14 +5738,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getSymbolEntryStringWide(Raw, ref id, which, null, bufferSize, out stringSize);
+            HRESULT hr = getSymbolEntryStringWide(Raw3, ref id, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
             buffer = new char[bufferSize];
-            hr = getSymbolEntryStringWide(Raw, ref id, which, buffer, bufferSize, out stringSize);
+            hr = getSymbolEntryStringWide(Raw3, ref id, which, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -5768,14 +5798,14 @@ namespace ClrDebug.DbgEng
             regions = null;
             int regionsCount = 0;
             int regionsAvail;
-            HRESULT hr = getSymbolEntryOffsetRegions(Raw, ref id, flags, null, regionsCount, out regionsAvail);
+            HRESULT hr = getSymbolEntryOffsetRegions(Raw3, ref id, flags, null, regionsCount, out regionsAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             regionsCount = regionsAvail;
             regions = new DEBUG_OFFSET_REGION[regionsCount];
-            hr = getSymbolEntryOffsetRegions(Raw, ref id, flags, regions, regionsCount, out regionsAvail);
+            hr = getSymbolEntryOffsetRegions(Raw3, ref id, flags, regions, regionsCount, out regionsAvail);
             fail:
             return hr;
         }
@@ -5812,7 +5842,7 @@ namespace ClrDebug.DbgEng
             [In] ref DEBUG_MODULE_AND_ID FromId,
             [In] int Flags,
             [Out] out DEBUG_MODULE_AND_ID ToId);*/
-            return getSymbolEntryBySymbolEntry(Raw, ref fromId, flags, out toId);
+            return getSymbolEntryBySymbolEntry(Raw3, ref fromId, flags, out toId);
         }
 
         #endregion
@@ -5851,14 +5881,14 @@ namespace ClrDebug.DbgEng
             entries = null;
             int entriesCount = 0;
             int entriesAvail;
-            HRESULT hr = getSourceEntriesByOffset(Raw, offset, flags, null, entriesCount, out entriesAvail);
+            HRESULT hr = getSourceEntriesByOffset(Raw3, offset, flags, null, entriesCount, out entriesAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             entriesCount = entriesAvail;
             entries = new DEBUG_SYMBOL_SOURCE_ENTRY[entriesCount];
-            hr = getSourceEntriesByOffset(Raw, offset, flags, entries, entriesCount, out entriesAvail);
+            hr = getSourceEntriesByOffset(Raw3, offset, flags, entries, entriesCount, out entriesAvail);
             fail:
             return hr;
         }
@@ -5920,14 +5950,14 @@ namespace ClrDebug.DbgEng
             entries = null;
             int entriesCount = 0;
             int entriesAvail;
-            HRESULT hr = getSourceEntriesByLine(Raw, line, file, flags, null, entriesCount, out entriesAvail);
+            HRESULT hr = getSourceEntriesByLine(Raw3, line, file, flags, null, entriesCount, out entriesAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             entriesCount = entriesAvail;
             entries = new DEBUG_SYMBOL_SOURCE_ENTRY[entriesCount];
-            hr = getSourceEntriesByLine(Raw, line, file, flags, entries, entriesCount, out entriesAvail);
+            hr = getSourceEntriesByLine(Raw3, line, file, flags, entries, entriesCount, out entriesAvail);
             fail:
             return hr;
         }
@@ -5987,14 +6017,14 @@ namespace ClrDebug.DbgEng
             entries = null;
             int entriesCount = 0;
             int entriesAvail;
-            HRESULT hr = getSourceEntriesByLineWide(Raw, line, file, flags, null, entriesCount, out entriesAvail);
+            HRESULT hr = getSourceEntriesByLineWide(Raw3, line, file, flags, null, entriesCount, out entriesAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             entriesCount = entriesAvail;
             entries = new DEBUG_SYMBOL_SOURCE_ENTRY[entriesCount];
-            hr = getSourceEntriesByLineWide(Raw, line, file, flags, entries, entriesCount, out entriesAvail);
+            hr = getSourceEntriesByLineWide(Raw3, line, file, flags, entries, entriesCount, out entriesAvail);
             fail:
             return hr;
         }
@@ -6036,14 +6066,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getSourceEntryString(Raw, ref entry, which, null, bufferSize, out stringSize);
+            HRESULT hr = getSourceEntryString(Raw3, ref entry, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
             buffer = new char[bufferSize];
-            hr = getSourceEntryString(Raw, ref entry, which, buffer, bufferSize, out stringSize);
+            hr = getSourceEntryString(Raw3, ref entry, which, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -6095,14 +6125,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getSourceEntryStringWide(Raw, ref entry, which, null, bufferSize, out stringSize);
+            HRESULT hr = getSourceEntryStringWide(Raw3, ref entry, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
             buffer = new char[bufferSize];
-            hr = getSourceEntryStringWide(Raw, ref entry, which, buffer, bufferSize, out stringSize);
+            hr = getSourceEntryStringWide(Raw3, ref entry, which, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -6154,14 +6184,14 @@ namespace ClrDebug.DbgEng
             regions = null;
             int regionsCount = 0;
             int regionsAvail;
-            HRESULT hr = getSourceEntryOffsetRegions(Raw, ref entry, flags, null, regionsCount, out regionsAvail);
+            HRESULT hr = getSourceEntryOffsetRegions(Raw3, ref entry, flags, null, regionsCount, out regionsAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             regionsCount = regionsAvail;
             regions = new DEBUG_OFFSET_REGION[regionsCount];
-            hr = getSourceEntryOffsetRegions(Raw, ref entry, flags, regions, regionsCount, out regionsAvail);
+            hr = getSourceEntryOffsetRegions(Raw3, ref entry, flags, regions, regionsCount, out regionsAvail);
             fail:
             return hr;
         }
@@ -6198,12 +6228,27 @@ namespace ClrDebug.DbgEng
             [In] ref DEBUG_SYMBOL_SOURCE_ENTRY FromEntry,
             [In] int Flags,
             [Out] out DEBUG_SYMBOL_SOURCE_ENTRY ToEntry);*/
-            return getSourceEntryBySourceEntry(Raw, ref fromEntry, flags, out toEntry);
+            return getSourceEntryBySourceEntry(Raw3, ref fromEntry, flags, out toEntry);
         }
 
         #endregion
         #endregion
         #region IDebugSymbols4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw4;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw4
+        {
+            get
+            {
+                InitInterface(typeof(IDebugSymbols4).GUID, ref raw4);
+
+                return raw4;
+            }
+        }
+
         #region GetScopeEx
 
         /// <summary>
@@ -6237,7 +6282,7 @@ namespace ClrDebug.DbgEng
             [In] int ScopeContextSize);*/
             long instructionOffset;
             DEBUG_STACK_FRAME_EX scopeFrame;
-            HRESULT hr = getScopeEx(Raw, out instructionOffset, out scopeFrame, scopeContext, scopeContextSize);
+            HRESULT hr = getScopeEx(Raw4, out instructionOffset, out scopeFrame, scopeContext, scopeContextSize);
 
             if (hr == HRESULT.S_OK)
                 result = new GetScopeExResult(instructionOffset, scopeFrame);
@@ -6279,7 +6324,7 @@ namespace ClrDebug.DbgEng
             [In] ref DEBUG_STACK_FRAME_EX ScopeFrame,
             [In] IntPtr ScopeContext,
             [In] int ScopeContextSize);*/
-            return setScopeEx(Raw, instructionOffset, ref scopeFrame, scopeContext, scopeContextSize);
+            return setScopeEx(Raw4, instructionOffset, ref scopeFrame, scopeContext, scopeContextSize);
         }
 
         #endregion
@@ -6320,14 +6365,14 @@ namespace ClrDebug.DbgEng
             int nameBufferSize = 0;
             int nameSize;
             long displacement;
-            HRESULT hr = getNameByInlineContext(Raw, offset, inlineContext, null, nameBufferSize, out nameSize, out displacement);
+            HRESULT hr = getNameByInlineContext(Raw4, offset, inlineContext, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
             nameBuffer = new char[nameBufferSize];
-            hr = getNameByInlineContext(Raw, offset, inlineContext, nameBuffer, nameBufferSize, out nameSize, out displacement);
+            hr = getNameByInlineContext(Raw4, offset, inlineContext, nameBuffer, nameBufferSize, out nameSize, out displacement);
 
             if (hr == HRESULT.S_OK)
             {
@@ -6380,14 +6425,14 @@ namespace ClrDebug.DbgEng
             int nameBufferSize = 0;
             int nameSize;
             long displacement;
-            HRESULT hr = getNameByInlineContextWide(Raw, offset, inlineContext, null, nameBufferSize, out nameSize, out displacement);
+            HRESULT hr = getNameByInlineContextWide(Raw4, offset, inlineContext, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
             nameBuffer = new char[nameBufferSize];
-            hr = getNameByInlineContextWide(Raw, offset, inlineContext, nameBuffer, nameBufferSize, out nameSize, out displacement);
+            hr = getNameByInlineContextWide(Raw4, offset, inlineContext, nameBuffer, nameBufferSize, out nameSize, out displacement);
 
             if (hr == HRESULT.S_OK)
             {
@@ -6442,14 +6487,14 @@ namespace ClrDebug.DbgEng
             char[] fileBuffer;
             int fileSize;
             long displacement;
-            HRESULT hr = getLineByInlineContext(Raw, offset, inlineContext, out line, null, fileBufferSize, out fileSize, out displacement);
+            HRESULT hr = getLineByInlineContext(Raw4, offset, inlineContext, out line, null, fileBufferSize, out fileSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             inlineContext = line;
             fileBuffer = new char[inlineContext];
-            hr = getLineByInlineContext(Raw, offset, inlineContext, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
+            hr = getLineByInlineContext(Raw4, offset, inlineContext, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
 
             if (hr == HRESULT.S_OK)
             {
@@ -6504,14 +6549,14 @@ namespace ClrDebug.DbgEng
             char[] fileBuffer;
             int fileSize;
             long displacement;
-            HRESULT hr = getLineByInlineContextWide(Raw, offset, inlineContext, out line, null, fileBufferSize, out fileSize, out displacement);
+            HRESULT hr = getLineByInlineContextWide(Raw4, offset, inlineContext, out line, null, fileBufferSize, out fileSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             inlineContext = line;
             fileBuffer = new char[inlineContext];
-            hr = getLineByInlineContextWide(Raw, offset, inlineContext, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
+            hr = getLineByInlineContextWide(Raw4, offset, inlineContext, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
 
             if (hr == HRESULT.S_OK)
             {
@@ -6558,12 +6603,27 @@ namespace ClrDebug.DbgEng
             [In] int Flags,
             [In] long Offset,
             [In] int InlineContext);*/
-            return outputSymbolByInlineContext(Raw, outputControl, flags, offset, inlineContext);
+            return outputSymbolByInlineContext(Raw4, outputControl, flags, offset, inlineContext);
         }
 
         #endregion
         #endregion
         #region IDebugSymbols5
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw5;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw5
+        {
+            get
+            {
+                InitInterface(typeof(IDebugSymbols5).GUID, ref raw5);
+
+                return raw5;
+            }
+        }
+
         #region GetCurrentScopeFrameIndexEx
 
         /// <summary>
@@ -6592,7 +6652,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetCurrentScopeFrameIndexEx(
             [In] DEBUG_FRAME Flags,
             [Out] out int Index);*/
-            return getCurrentScopeFrameIndexEx(Raw, flags, out index);
+            return getCurrentScopeFrameIndexEx(Raw5, flags, out index);
         }
 
         #endregion
@@ -6621,7 +6681,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT SetScopeFrameByIndexEx(
             [In] DEBUG_FRAME Flags,
             [In] int Index);*/
-            return setScopeFrameByIndexEx(Raw, flags, index);
+            return setScopeFrameByIndexEx(Raw5, flags, index);
         }
 
         #endregion

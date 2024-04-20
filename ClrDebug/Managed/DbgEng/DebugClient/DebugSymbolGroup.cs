@@ -443,6 +443,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugSymbolGroup2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw2;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw2
+        {
+            get
+            {
+                InitInterface(typeof(IDebugSymbolGroup2).GUID, ref raw2);
+
+                return raw2;
+            }
+        }
+
         #region AddSymbolWide
 
         /// <summary>
@@ -484,7 +499,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT AddSymbolWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
             [In, Out] ref int Index);*/
-            return addSymbolWide(Raw, name, ref index);
+            return addSymbolWide(Raw2, name, ref index);
         }
 
         #endregion
@@ -518,7 +533,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT RemoveSymbolByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name);*/
-            return removeSymbolByNameWide(Raw, name);
+            return removeSymbolByNameWide(Raw2, name);
         }
 
         #endregion
@@ -560,14 +575,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getSymbolNameWide(Raw, index, null, bufferSize, out nameSize);
+            HRESULT hr = getSymbolNameWide(Raw2, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getSymbolNameWide(Raw, index, buffer, bufferSize, out nameSize);
+            hr = getSymbolNameWide(Raw2, index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -618,7 +633,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT WriteSymbolWide(
             [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Value);*/
-            return writeSymbolWide(Raw, index, value);
+            return writeSymbolWide(Raw2, index, value);
         }
 
         #endregion
@@ -665,7 +680,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT OutputAsTypeWide(
             [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Type);*/
-            return outputAsTypeWide(Raw, index, type);
+            return outputAsTypeWide(Raw2, index, type);
         }
 
         #endregion
@@ -707,14 +722,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getSymbolTypeName(Raw, index, null, bufferSize, out nameSize);
+            HRESULT hr = getSymbolTypeName(Raw2, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getSymbolTypeName(Raw, index, buffer, bufferSize, out nameSize);
+            hr = getSymbolTypeName(Raw2, index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -768,14 +783,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getSymbolTypeNameWide(Raw, index, null, bufferSize, out nameSize);
+            HRESULT hr = getSymbolTypeNameWide(Raw2, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getSymbolTypeNameWide(Raw, index, buffer, bufferSize, out nameSize);
+            hr = getSymbolTypeNameWide(Raw2, index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -827,7 +842,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolSize(
             [In] int Index,
             [Out] out int Size);*/
-            return getSymbolSize(Raw, index, out size);
+            return getSymbolSize(Raw2, index, out size);
         }
 
         #endregion
@@ -865,7 +880,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolOffset(
             [In] int Index,
             [Out] out long Offset);*/
-            return getSymbolOffset(Raw, index, out offset);
+            return getSymbolOffset(Raw2, index, out offset);
         }
 
         #endregion
@@ -905,7 +920,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolRegister(
             [In] int Index,
             [Out] out int Register);*/
-            return getSymbolRegister(Raw, index, out register);
+            return getSymbolRegister(Raw2, index, out register);
         }
 
         #endregion
@@ -951,14 +966,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getSymbolValueText(Raw, index, null, bufferSize, out nameSize);
+            HRESULT hr = getSymbolValueText(Raw2, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getSymbolValueText(Raw, index, buffer, bufferSize, out nameSize);
+            hr = getSymbolValueText(Raw2, index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1016,14 +1031,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getSymbolValueTextWide(Raw, index, null, bufferSize, out nameSize);
+            HRESULT hr = getSymbolValueTextWide(Raw2, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getSymbolValueTextWide(Raw, index, buffer, bufferSize, out nameSize);
+            hr = getSymbolValueTextWide(Raw2, index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1073,7 +1088,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolEntryInformation(
             [In] int Index,
             [Out] out DEBUG_SYMBOL_ENTRY Info);*/
-            return getSymbolEntryInformation(Raw, index, out info);
+            return getSymbolEntryInformation(Raw2, index, out info);
         }
 
         #endregion

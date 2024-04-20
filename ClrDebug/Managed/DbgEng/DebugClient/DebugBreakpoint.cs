@@ -803,6 +803,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugBreakpoint2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw2;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw2
+        {
+            get
+            {
+                InitInterface(typeof(IDebugBreakpoint2).GUID, ref raw2);
+
+                return raw2;
+            }
+        }
+
         #region CommandWide
 
         /// <summary>
@@ -844,14 +859,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int commandSize;
-            HRESULT hr = getCommandWide(Raw, null, bufferSize, out commandSize);
+            HRESULT hr = getCommandWide(Raw2, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = commandSize;
             buffer = new char[bufferSize];
-            hr = getCommandWide(Raw, buffer, bufferSize, out commandSize);
+            hr = getCommandWide(Raw2, buffer, bufferSize, out commandSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -885,7 +900,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetCommandWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Command);*/
-            return setCommandWide(Raw, command);
+            return setCommandWide(Raw2, command);
         }
 
         #endregion
@@ -932,14 +947,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int expressionSize;
-            HRESULT hr = getOffsetExpressionWide(Raw, null, bufferSize, out expressionSize);
+            HRESULT hr = getOffsetExpressionWide(Raw2, null, bufferSize, out expressionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = expressionSize;
             buffer = new char[bufferSize];
-            hr = getOffsetExpressionWide(Raw, buffer, bufferSize, out expressionSize);
+            hr = getOffsetExpressionWide(Raw2, buffer, bufferSize, out expressionSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -968,12 +983,27 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetOffsetExpressionWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Command);*/
-            return setOffsetExpressionWide(Raw, command);
+            return setOffsetExpressionWide(Raw2, command);
         }
 
         #endregion
         #endregion
         #region IDebugBreakpoint3
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw3;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw3
+        {
+            get
+            {
+                InitInterface(typeof(IDebugBreakpoint3).GUID, ref raw3);
+
+                return raw3;
+            }
+        }
+
         #region Guid
 
         /// <summary>
@@ -1001,7 +1031,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetGuid(
             [Out] out Guid Guid);*/
-            return getGuid(Raw, out guid);
+            return getGuid(Raw3, out guid);
         }
 
         #endregion

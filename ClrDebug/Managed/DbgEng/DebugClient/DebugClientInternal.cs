@@ -47,6 +47,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugClientInternal2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw2;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw2
+        {
+            get
+            {
+                InitInterface(typeof(IDebugClientInternal2).GUID, ref raw2);
+
+                return raw2;
+            }
+        }
+
         #region OpenProtocolConnectionWide2
 
         public OpenProtocolConnectionWide2Result OpenProtocolConnectionWide2(string protocolString)
@@ -68,7 +83,7 @@ namespace ClrDebug.DbgEng
             ProtocolConnectionKind connectionKind;
             int systemId;
             long server;
-            HRESULT hr = openProtocolConnectionWide2(Raw, protocolString, out connectionKind, out systemId, out server);
+            HRESULT hr = openProtocolConnectionWide2(Raw2, protocolString, out connectionKind, out systemId, out server);
 
             if (hr == HRESULT.S_OK)
                 result = new OpenProtocolConnectionWide2Result(connectionKind, systemId, server);

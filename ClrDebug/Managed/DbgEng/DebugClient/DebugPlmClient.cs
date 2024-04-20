@@ -89,6 +89,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugPlmClient2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw2;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw2
+        {
+            get
+            {
+                InitInterface(typeof(IDebugPlmClient2).GUID, ref raw2);
+
+                return raw2;
+            }
+        }
+
         #region LaunchPlmBgTaskForDebugWide
 
         /// <summary>
@@ -128,7 +143,7 @@ namespace ClrDebug.DbgEng
             [Out] out int ThreadId);*/
             int processId;
             int threadId;
-            HRESULT hr = launchPlmBgTaskForDebugWide(Raw, server, timeout, packageFullName, backgroundTaskId, out processId, out threadId);
+            HRESULT hr = launchPlmBgTaskForDebugWide(Raw2, server, timeout, packageFullName, backgroundTaskId, out processId, out threadId);
 
             if (hr == HRESULT.S_OK)
                 result = new LaunchPlmBgTaskForDebugWideResult(processId, threadId);
@@ -141,6 +156,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugPlmClient3
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw3;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw3
+        {
+            get
+            {
+                InitInterface(typeof(IDebugPlmClient3).GUID, ref raw3);
+
+                return raw3;
+            }
+        }
+
         #region QueryPlmPackageWide
 
         /// <summary>
@@ -169,7 +199,7 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugOutputStream Stream);*/
-            return queryPlmPackageWide(Raw, server, packageFullName, stream);
+            return queryPlmPackageWide(Raw3, server, packageFullName, stream);
         }
 
         #endregion
@@ -198,7 +228,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT QueryPlmPackageList(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugOutputStream Stream);*/
-            return queryPlmPackageList(Raw, server, stream);
+            return queryPlmPackageList(Raw3, server, stream);
         }
 
         #endregion
@@ -227,7 +257,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT EnablePlmPackageDebugWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);*/
-            return enablePlmPackageDebugWide(Raw, server, packageFullName);
+            return enablePlmPackageDebugWide(Raw3, server, packageFullName);
         }
 
         #endregion
@@ -256,7 +286,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT DisablePlmPackageDebugWide(
             [In] ulong Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);*/
-            return disablePlmPackageDebugWide(Raw, server, packageFullName);
+            return disablePlmPackageDebugWide(Raw3, server, packageFullName);
         }
 
         #endregion
@@ -285,7 +315,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT SuspendPlmPackageWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);*/
-            return suspendPlmPackageWide(Raw, server, packageFullName);
+            return suspendPlmPackageWide(Raw3, server, packageFullName);
         }
 
         #endregion
@@ -314,7 +344,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT ResumePlmPackageWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);*/
-            return resumePlmPackageWide(Raw, server, packageFullName);
+            return resumePlmPackageWide(Raw3, server, packageFullName);
         }
 
         #endregion
@@ -343,7 +373,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT TerminatePlmPackageWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);*/
-            return terminatePlmPackageWide(Raw, server, packageFullName);
+            return terminatePlmPackageWide(Raw3, server, packageFullName);
         }
 
         #endregion
@@ -372,7 +402,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string AppName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Arguments);*/
-            return launchAndDebugPlmAppWide(Raw, server, packageFullName, appName, arguments);
+            return launchAndDebugPlmAppWide(Raw3, server, packageFullName, appName, arguments);
         }
 
         #endregion
@@ -398,7 +428,7 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string BackgroundTaskId);*/
-            return activateAndDebugPlmBgTaskWide(Raw, server, packageFullName, backgroundTaskId);
+            return activateAndDebugPlmBgTaskWide(Raw3, server, packageFullName, backgroundTaskId);
         }
 
         #endregion

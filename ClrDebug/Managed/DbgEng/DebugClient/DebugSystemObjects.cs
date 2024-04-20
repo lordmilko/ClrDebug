@@ -1141,6 +1141,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugSystemObjects2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw2;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw2
+        {
+            get
+            {
+                InitInterface(typeof(IDebugSystemObjects2).GUID, ref raw2);
+
+                return raw2;
+            }
+        }
+
         #region CurrentProcessUpTime
 
         /// <summary>
@@ -1168,7 +1183,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetCurrentProcessUpTime(
             [Out] out int UpTime);*/
-            return getCurrentProcessUpTime(Raw, out upTime);
+            return getCurrentProcessUpTime(Raw2, out upTime);
         }
 
         #endregion
@@ -1209,7 +1224,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetImplicitThreadDataOffset(
             [Out] out long Offset);*/
-            return getImplicitThreadDataOffset(Raw, out offset);
+            return getImplicitThreadDataOffset(Raw2, out offset);
         }
 
         /// <summary>
@@ -1228,7 +1243,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetImplicitThreadDataOffset(
             [In] long Offset);*/
-            return setImplicitThreadDataOffset(Raw, offset);
+            return setImplicitThreadDataOffset(Raw2, offset);
         }
 
         #endregion
@@ -1269,7 +1284,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetImplicitProcessDataOffset(
             [Out] out long Offset);*/
-            return getImplicitProcessDataOffset(Raw, out offset);
+            return getImplicitProcessDataOffset(Raw2, out offset);
         }
 
         /// <summary>
@@ -1288,12 +1303,27 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetImplicitProcessDataOffset(
             [In] long Offset);*/
-            return setImplicitProcessDataOffset(Raw, offset);
+            return setImplicitProcessDataOffset(Raw2, offset);
         }
 
         #endregion
         #endregion
         #region IDebugSystemObjects3
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw3;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw3
+        {
+            get
+            {
+                InitInterface(typeof(IDebugSystemObjects3).GUID, ref raw3);
+
+                return raw3;
+            }
+        }
+
         #region EventSystem
 
         /// <summary>
@@ -1321,7 +1351,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetEventSystem(
             [Out] out int Id);*/
-            return getEventSystem(Raw, out id);
+            return getEventSystem(Raw3, out id);
         }
 
         #endregion
@@ -1356,7 +1386,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetCurrentSystemId(
             [Out] out int Id);*/
-            return getCurrentSystemId(Raw, out id);
+            return getCurrentSystemId(Raw3, out id);
         }
 
         /// <summary>
@@ -1375,7 +1405,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetCurrentSystemId(
             [In] int Id);*/
-            return setCurrentSystemId(Raw, id);
+            return setCurrentSystemId(Raw3, id);
         }
 
         #endregion
@@ -1406,7 +1436,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetNumberSystems(
             [Out] out int Count);*/
-            return getNumberSystems(Raw, out count);
+            return getNumberSystems(Raw3, out count);
         }
 
         #endregion
@@ -1448,7 +1478,7 @@ namespace ClrDebug.DbgEng
             int largestProcessThreads;
             int largestSystemThreads;
             int largestSystemProcesses;
-            HRESULT hr = getTotalNumberThreadsAndProcesses(Raw, out totalThreads, out totalProcesses, out largestProcessThreads, out largestSystemThreads, out largestSystemProcesses);
+            HRESULT hr = getTotalNumberThreadsAndProcesses(Raw3, out totalThreads, out totalProcesses, out largestProcessThreads, out largestSystemThreads, out largestSystemProcesses);
 
             if (hr == HRESULT.S_OK)
                 result = new GetTotalNumberThreadsAndProcessesResult(totalThreads, totalProcesses, largestProcessThreads, largestSystemThreads, largestSystemProcesses);
@@ -1486,7 +1516,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetCurrentSystemServer(
             [Out] out long server);*/
-            return getCurrentSystemServer(Raw, out server);
+            return getCurrentSystemServer(Raw3, out server);
         }
 
         #endregion
@@ -1521,14 +1551,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int size = 0;
             int needed;
-            HRESULT hr = getCurrentSystemServerName(Raw, null, size, out needed);
+            HRESULT hr = getCurrentSystemServerName(Raw3, null, size, out needed);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             size = needed;
             buffer = new char[size];
-            hr = getCurrentSystemServerName(Raw, buffer, size, out needed);
+            hr = getCurrentSystemServerName(Raw3, buffer, size, out needed);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1583,7 +1613,7 @@ namespace ClrDebug.DbgEng
             [In] int Count,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids);*/
             ids = new int[count];
-            HRESULT hr = getSystemIdsByIndex(Raw, start, count, ids);
+            HRESULT hr = getSystemIdsByIndex(Raw3, start, count, ids);
 
             return hr;
         }
@@ -1617,12 +1647,27 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSystemByServer(
             [In] long Server,
             [Out] out int Id);*/
-            return getSystemByServer(Raw, server, out id);
+            return getSystemByServer(Raw3, server, out id);
         }
 
         #endregion
         #endregion
         #region IDebugSystemObjects4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw4;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw4
+        {
+            get
+            {
+                InitInterface(typeof(IDebugSystemObjects4).GUID, ref raw4);
+
+                return raw4;
+            }
+        }
+
         #region CurrentProcessExecutableNameWide
 
         /// <summary>
@@ -1658,14 +1703,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int exeSize;
-            HRESULT hr = getCurrentProcessExecutableNameWide(Raw, null, bufferSize, out exeSize);
+            HRESULT hr = getCurrentProcessExecutableNameWide(Raw4, null, bufferSize, out exeSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = exeSize;
             buffer = new char[bufferSize];
-            hr = getCurrentProcessExecutableNameWide(Raw, buffer, bufferSize, out exeSize);
+            hr = getCurrentProcessExecutableNameWide(Raw4, buffer, bufferSize, out exeSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1712,14 +1757,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getCurrentSystemServerNameWide(Raw, null, bufferSize, out nameSize);
+            HRESULT hr = getCurrentSystemServerNameWide(Raw4, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getCurrentSystemServerNameWide(Raw, buffer, bufferSize, out nameSize);
+            hr = getCurrentSystemServerNameWide(Raw4, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {

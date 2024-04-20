@@ -1010,6 +1010,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugDataSpaces2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw2;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw2
+        {
+            get
+            {
+                InitInterface(typeof(IDebugDataSpaces2).GUID, ref raw2);
+
+                return raw2;
+            }
+        }
+
         #region VirtualToPhysical
 
         /// <summary>
@@ -1044,7 +1059,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT VirtualToPhysical(
             [In] long Virtual,
             [Out] out long Physical);*/
-            return virtualToPhysical(Raw, @virtual, out physical);
+            return virtualToPhysical(Raw2, @virtual, out physical);
         }
 
         #endregion
@@ -1096,14 +1111,14 @@ namespace ClrDebug.DbgEng
             offsets = null;
             int offsetsSize = 0;
             int levels;
-            HRESULT hr = getVirtualTranslationPhysicalOffsets(Raw, @virtual, null, offsetsSize, out levels);
+            HRESULT hr = getVirtualTranslationPhysicalOffsets(Raw2, @virtual, null, offsetsSize, out levels);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             offsetsSize = levels;
             offsets = new long[offsetsSize];
-            hr = getVirtualTranslationPhysicalOffsets(Raw, @virtual, offsets, offsetsSize, out levels);
+            hr = getVirtualTranslationPhysicalOffsets(Raw2, @virtual, offsets, offsetsSize, out levels);
             fail:
             return hr;
         }
@@ -1158,7 +1173,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int DataSize);*/
-            return readHandleData(Raw, handle, dataType, buffer, bufferSize, out dataSize);
+            return readHandleData(Raw2, handle, dataType, buffer, bufferSize, out dataSize);
         }
 
         #endregion
@@ -1211,7 +1226,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr Buffer,
             [In] int PatternSize,
             [Out] out int Filled);*/
-            return fillVirtual(Raw, start, size, buffer, patternSize, out filled);
+            return fillVirtual(Raw2, start, size, buffer, patternSize, out filled);
         }
 
         #endregion
@@ -1264,7 +1279,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr Buffer,
             [In] int PatternSize,
             [Out] out int Filled);*/
-            return fillPhysical(Raw, start, size, buffer, patternSize, out filled);
+            return fillPhysical(Raw2, start, size, buffer, patternSize, out filled);
         }
 
         #endregion
@@ -1309,12 +1324,27 @@ namespace ClrDebug.DbgEng
             /*HRESULT QueryVirtual(
             [In] long Offset,
             [Out] IntPtr Info);*/
-            return queryVirtual(Raw, offset, info);
+            return queryVirtual(Raw2, offset, info);
         }
 
         #endregion
         #endregion
         #region IDebugDataSpaces3
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw3;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw3
+        {
+            get
+            {
+                InitInterface(typeof(IDebugDataSpaces3).GUID, ref raw3);
+
+                return raw3;
+            }
+        }
+
         #region ReadImageNtHeaders
 
         /// <summary>
@@ -1356,7 +1386,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT ReadImageNtHeaders(
             [In] long ImageBase,
             [Out] IntPtr Headers);*/
-            return readImageNtHeaders(Raw, imageBase, headers);
+            return readImageNtHeaders(Raw3, imageBase, headers);
         }
 
         #endregion
@@ -1409,7 +1439,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int TotalSize);*/
-            return readTagged(Raw, tag, offset, buffer, bufferSize, out totalSize);
+            return readTagged(Raw3, tag, offset, buffer, bufferSize, out totalSize);
         }
 
         #endregion
@@ -1444,7 +1474,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT StartEnumTagged(
             [Out] out long Handle);*/
-            return startEnumTagged(Raw, out handle);
+            return startEnumTagged(Raw3, out handle);
         }
 
         #endregion
@@ -1478,7 +1508,7 @@ namespace ClrDebug.DbgEng
             [Out] out int Size);*/
             Guid tag;
             int size;
-            HRESULT hr = getNextTagged(Raw, handle, out tag, out size);
+            HRESULT hr = getNextTagged(Raw3, handle, out tag, out size);
 
             if (hr == HRESULT.S_OK)
                 result = new GetNextTaggedResult(tag, size);
@@ -1517,12 +1547,27 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT EndEnumTagged(
             [In] long Handle);*/
-            return endEnumTagged(Raw, handle);
+            return endEnumTagged(Raw3, handle);
         }
 
         #endregion
         #endregion
         #region IDebugDataSpaces4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw4;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw4
+        {
+            get
+            {
+                InitInterface(typeof(IDebugDataSpaces4).GUID, ref raw4);
+
+                return raw4;
+            }
+        }
+
         #region GetOffsetInformation
 
         /// <summary>
@@ -1571,7 +1616,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);*/
-            return getOffsetInformation(Raw, space, which, offset, buffer, bufferSize, out infoSize);
+            return getOffsetInformation(Raw4, space, which, offset, buffer, bufferSize, out infoSize);
         }
 
         #endregion
@@ -1613,7 +1658,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetNextDifferentlyValidOffsetVirtual(
             [In] long Offset,
             [Out] out long NextOffset);*/
-            return getNextDifferentlyValidOffsetVirtual(Raw, offset, out nextOffset);
+            return getNextDifferentlyValidOffsetVirtual(Raw4, offset, out nextOffset);
         }
 
         #endregion
@@ -1650,7 +1695,7 @@ namespace ClrDebug.DbgEng
             [Out] out int ValidSize);*/
             long validBase;
             int validSize;
-            HRESULT hr = getValidRegionVirtual(Raw, @base, size, out validBase, out validSize);
+            HRESULT hr = getValidRegionVirtual(Raw4, @base, size, out validBase, out validSize);
 
             if (hr == HRESULT.S_OK)
                 result = new GetValidRegionVirtualResult(validBase, validSize);
@@ -1716,7 +1761,7 @@ namespace ClrDebug.DbgEng
             [In] int PatternSize,
             [In] int PatternGranularity,
             [Out] out long MatchOffset);*/
-            return searchVirtual2(Raw, offset, length, flags, buffer, patternSize, patternGranularity, out matchOffset);
+            return searchVirtual2(Raw4, offset, length, flags, buffer, patternSize, patternGranularity, out matchOffset);
         }
 
         #endregion
@@ -1763,14 +1808,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringBytes;
-            HRESULT hr = readMultiByteStringVirtual(Raw, offset, maxBytes, null, bufferSize, out stringBytes);
+            HRESULT hr = readMultiByteStringVirtual(Raw4, offset, maxBytes, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
             buffer = new char[bufferSize];
-            hr = readMultiByteStringVirtual(Raw, offset, maxBytes, buffer, bufferSize, out stringBytes);
+            hr = readMultiByteStringVirtual(Raw4, offset, maxBytes, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1840,14 +1885,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringBytes;
-            HRESULT hr = readMultiByteStringVirtualWide(Raw, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
+            HRESULT hr = readMultiByteStringVirtualWide(Raw4, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
             buffer = new char[bufferSize];
-            hr = readMultiByteStringVirtualWide(Raw, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
+            hr = readMultiByteStringVirtualWide(Raw4, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1911,14 +1956,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringBytes;
-            HRESULT hr = readUnicodeStringVirtual(Raw, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
+            HRESULT hr = readUnicodeStringVirtual(Raw4, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
             buffer = new char[bufferSize];
-            hr = readUnicodeStringVirtual(Raw, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
+            hr = readUnicodeStringVirtual(Raw4, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1977,14 +2022,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringBytes;
-            HRESULT hr = readUnicodeStringVirtualWide(Raw, offset, maxBytes, null, bufferSize, out stringBytes);
+            HRESULT hr = readUnicodeStringVirtualWide(Raw4, offset, maxBytes, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
             buffer = new char[bufferSize];
-            hr = readUnicodeStringVirtualWide(Raw, offset, maxBytes, buffer, bufferSize, out stringBytes);
+            hr = readUnicodeStringVirtualWide(Raw4, offset, maxBytes, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2049,7 +2094,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesRead);*/
-            return readPhysical2(Raw, offset, flags, buffer, bufferSize, out bytesRead);
+            return readPhysical2(Raw4, offset, flags, buffer, bufferSize, out bytesRead);
         }
 
         #endregion
@@ -2102,7 +2147,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesWritten);*/
-            return writePhysical2(Raw, offset, flags, buffer, bufferSize, out bytesWritten);
+            return writePhysical2(Raw4, offset, flags, buffer, bufferSize, out bytesWritten);
         }
 
         #endregion

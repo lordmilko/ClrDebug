@@ -523,6 +523,21 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
         #region IDebugRegisters2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private IntPtr raw2;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IntPtr Raw2
+        {
+            get
+            {
+                InitInterface(typeof(IDebugRegisters2).GUID, ref raw2);
+
+                return raw2;
+            }
+        }
+
         #region NumberPseudoRegisters
 
         /// <summary>
@@ -555,7 +570,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT GetNumberPseudoRegisters(
             [Out] out int Number);*/
-            return getNumberPseudoRegisters(Raw, out number);
+            return getNumberPseudoRegisters(Raw2, out number);
         }
 
         #endregion
@@ -599,14 +614,14 @@ namespace ClrDebug.DbgEng
             int nameBufferSize = 0;
             int nameSize;
             DEBUG_REGISTER_DESCRIPTION desc;
-            HRESULT hr = getDescriptionWide(Raw, register, null, nameBufferSize, out nameSize, out desc);
+            HRESULT hr = getDescriptionWide(Raw2, register, null, nameBufferSize, out nameSize, out desc);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
             nameBuffer = new char[nameBufferSize];
-            hr = getDescriptionWide(Raw, register, nameBuffer, nameBufferSize, out nameSize, out desc);
+            hr = getDescriptionWide(Raw2, register, nameBuffer, nameBufferSize, out nameSize, out desc);
 
             if (hr == HRESULT.S_OK)
             {
@@ -656,7 +671,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetIndexByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
             [Out] out int Index);*/
-            return getIndexByNameWide(Raw, name, out index);
+            return getIndexByNameWide(Raw2, name, out index);
         }
 
         #endregion
@@ -708,14 +723,14 @@ namespace ClrDebug.DbgEng
             int nameSize;
             long typeModule;
             int typeId;
-            HRESULT hr = getPseudoDescription(Raw, register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
+            HRESULT hr = getPseudoDescription(Raw2, register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
             nameBuffer = new char[nameBufferSize];
-            hr = getPseudoDescription(Raw, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
+            hr = getPseudoDescription(Raw2, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr == HRESULT.S_OK)
             {
@@ -779,14 +794,14 @@ namespace ClrDebug.DbgEng
             int nameSize;
             long typeModule;
             int typeId;
-            HRESULT hr = getPseudoDescriptionWide(Raw, register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
+            HRESULT hr = getPseudoDescriptionWide(Raw2, register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
             nameBuffer = new char[nameBufferSize];
-            hr = getPseudoDescriptionWide(Raw, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
+            hr = getPseudoDescriptionWide(Raw2, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr == HRESULT.S_OK)
             {
@@ -838,7 +853,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetPseudoIndexByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
             [Out] out int Index);*/
-            return getPseudoIndexByName(Raw, name, out index);
+            return getPseudoIndexByName(Raw2, name, out index);
         }
 
         #endregion
@@ -878,7 +893,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetPseudoIndexByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
             [Out] out int Index);*/
-            return getPseudoIndexByNameWide(Raw, name, out index);
+            return getPseudoIndexByNameWide(Raw2, name, out index);
         }
 
         #endregion
@@ -931,7 +946,7 @@ namespace ClrDebug.DbgEng
             [In] int Start,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
             values = new DEBUG_VALUE[count];
-            HRESULT hr = getPseudoValues(Raw, source, count, indices, start, values);
+            HRESULT hr = getPseudoValues(Raw2, source, count, indices, start, values);
 
             return hr;
         }
@@ -981,7 +996,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
-            return setPseudoValues(Raw, source, count, indices, start, values);
+            return setPseudoValues(Raw2, source, count, indices, start, values);
         }
 
         #endregion
@@ -1040,7 +1055,7 @@ namespace ClrDebug.DbgEng
             [In] int Start,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
             values = new DEBUG_VALUE[count];
-            HRESULT hr = getValues2(Raw, source, count, indices, start, values);
+            HRESULT hr = getValues2(Raw2, source, count, indices, start, values);
 
             return hr;
         }
@@ -1102,7 +1117,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
-            return setValues2(Raw, source, count, indices, start, values);
+            return setValues2(Raw2, source, count, indices, start, values);
         }
 
         #endregion
@@ -1144,7 +1159,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_OUTCTL OutputControl,
             [In] DEBUG_REGSRC Source,
             [In] DEBUG_REGISTERS Flags);*/
-            return outputRegisters2(Raw, outputControl, source, flags);
+            return outputRegisters2(Raw2, outputControl, source, flags);
         }
 
         #endregion
@@ -1188,7 +1203,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetInstructionOffset2(
             [In] DEBUG_REGSRC Source,
             [Out] out long Offset);*/
-            return getInstructionOffset2(Raw, source, out offset);
+            return getInstructionOffset2(Raw2, source, out offset);
         }
 
         #endregion
@@ -1220,7 +1235,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetStackOffset2(
             [In] DEBUG_REGSRC Source,
             [Out] out long Offset);*/
-            return getStackOffset2(Raw, source, out offset);
+            return getStackOffset2(Raw2, source, out offset);
         }
 
         #endregion
@@ -1262,7 +1277,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetFrameOffset2(
             [In] DEBUG_REGSRC Source,
             [Out] out long Offset);*/
-            return getFrameOffset2(Raw, source, out offset);
+            return getFrameOffset2(Raw2, source, out offset);
         }
 
         #endregion
