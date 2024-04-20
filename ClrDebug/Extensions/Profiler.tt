@@ -81,7 +81,7 @@ if (baseType == "IntPtr")
 }
 #>
 
-        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<<#= type #>>((ulong) Value, value);
+        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo((ulong) Value, value is <#= type #> v ? v.Value : value);
 
         public bool Equals(<#= type #> other) => other.Value.Equals(Value);
 

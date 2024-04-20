@@ -156,6 +156,44 @@ namespace ClrDebug.Tests
             }
         }
 
+        [TestMethod]
+        public void Number_CompareTo_UInt64()
+        {
+            //For each type, compare to itself, an invalid type, an int, a uint, a long and a ulong
+
+            CORDB_ADDRESS source = 1;
+
+            var values = new object[]
+            {
+                (CORDB_ADDRESS) 2,
+                (int) 2,
+                (uint) 2,
+                (long) 2,
+                (ulong) 2,
+            };
+
+            foreach (var value in values)
+                Assert.AreEqual(-1, source.CompareTo(value));
+        }
+
+        [TestMethod]
+        public void Number_CompareTo_UInt32()
+        {
+            //For each type, compare to itself, an invalid type, an int, a uint, a long and a ulong
+
+            mdToken source = 1;
+
+            var values = new object[]
+            {
+                (mdToken) 2,
+                (int) 2,
+                (uint) 2,
+            };
+
+            foreach (var value in values)
+                Assert.AreEqual(-1, source.CompareTo(value));
+        }
+
         private T As<T>(ulong value, Type type)
         {
             var parameter = Expression.Parameter(typeof(ulong));

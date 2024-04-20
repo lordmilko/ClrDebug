@@ -132,7 +132,7 @@ public int Rid => (int) Value & 0x00FFFFFF;
 <#
     }
 #>
-        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<<#= type #>>(Value, value);
+        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo(Value, value is <#= type #> v ? v.Value : value);
 
         public bool Equals(<#= type #> other) => other.Value.Equals(Value);
 

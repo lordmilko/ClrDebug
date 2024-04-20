@@ -2158,7 +2158,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetFunction(out bool pRetVal)
         {
             /*HRESULT get_function(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_function(out pRetVal);
         }
 

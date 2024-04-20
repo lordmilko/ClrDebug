@@ -73,7 +73,7 @@ namespace ClrDebug
 
         public static CORDB_ADDRESS operator~(CORDB_ADDRESS value) => ~value.Value;
 
-        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CORDB_ADDRESS>(Value, value);
+        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo(Value, value is CORDB_ADDRESS v ? v.Value : value);
 
         public bool Equals(CORDB_ADDRESS other) => other.Value.Equals(Value);
 
@@ -148,7 +148,7 @@ namespace ClrDebug
 
         public static CORDB_REGISTER operator~(CORDB_REGISTER value) => ~value.Value;
 
-        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CORDB_REGISTER>(Value, value);
+        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo(Value, value is CORDB_REGISTER v ? v.Value : value);
 
         public bool Equals(CORDB_REGISTER other) => other.Value.Equals(Value);
 
@@ -225,7 +225,7 @@ namespace ClrDebug
 
         public static CLRDATA_ADDRESS operator~(CLRDATA_ADDRESS value) => ~value.Value;
 
-        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CLRDATA_ADDRESS>(Value, value);
+        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo(Value, value is CLRDATA_ADDRESS v ? v.Value : value);
 
         public bool Equals(CLRDATA_ADDRESS other) => other.Value.Equals(Value);
 

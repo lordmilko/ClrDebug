@@ -496,6 +496,7 @@ namespace ClrDebug.DIA
         /// The supplied VARIANT must be initialized before it is passed to this method. For more information, see the example.
         /// </remarks>
         [PreserveSig]
+        [Obsolete("DiaVariant objects returned from this method must be manually freed. Consider using the DiaExtensions.get_value(this IDiaSymbol symbol, out object pRetVal) extension method instead.")]
         new HRESULT get_value(
             out DiaVariant pRetVal);
 

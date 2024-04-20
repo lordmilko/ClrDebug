@@ -124,7 +124,7 @@ for(int j = 0; j < boolOps.Length; j++)
 
         public static <#= type #> operator~(<#= type #> value) => ~value.Value;
 
-        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<<#= type #>>(Value, value);
+        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo(Value, value is <#= type #> v ? v.Value : value);
 
         public bool Equals(<#= type #> other) => other.Value.Equals(Value);
 

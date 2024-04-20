@@ -4,18 +4,30 @@ namespace ClrDebug
 {
     internal static class UnsignedValueHelpers
     {
-        public static int CompareTo<T>(ulong first, object second)
+        public static int CompareTo(ulong first, object second)
         {
-            if (second is T || second is int || second is ulong)
-                return first.CompareTo((uint)second);
+            if (second is int i)
+                return first.CompareTo((ulong) i);
+
+            if (second is uint u)
+                return first.CompareTo((ulong) u);
+
+            if (second is long l)
+                return first.CompareTo((ulong)l);
+
+            if (second is ulong ul)
+                return first.CompareTo(ul);
 
             return first.CompareTo(second);
         }
 
-        public static int CompareTo<T>(uint first, object second)
+        public static int CompareTo(uint first, object second)
         {
-            if (second is T || second is int || second is uint)
-                return first.CompareTo((uint)second);
+            if (second is int i)
+                return first.CompareTo((uint) i);
+
+            if (second is uint u)
+                return first.CompareTo(u);
 
             return first.CompareTo(second);
         }
