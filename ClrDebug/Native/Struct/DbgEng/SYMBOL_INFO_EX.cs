@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -10,6 +11,7 @@ namespace ClrDebug.DbgEng
     /// in the original source code. They are added to bind together functionality inside of the PE generated binary, for
     /// example calling NET framework functions inside of a native binary.
     /// </remarks>
+    [DebuggerDisplay("SizeOfStruct = {SizeOfStruct}, TypeOfInfo = {TypeOfInfo.ToString(),nq}, Offset = {Offset}, Line = {Line}, Displacement = {Displacement}, Reserved = {Reserved}")]
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct SYMBOL_INFO_EX
     {

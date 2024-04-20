@@ -437,7 +437,7 @@ namespace ClrDebug
         /// The AllocVirtual method serves as a logical wrapper for the Win32 VirtualAlloc function. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public CLRDATA_ADDRESS AllocVirtual(CLRDATA_ADDRESS addr, int size, MEM_FLAGS typeFlags, PAGE_FLAGS protectFlags)
+        public CLRDATA_ADDRESS AllocVirtual(CLRDATA_ADDRESS addr, int size, MEM_TYPE_FLAGS typeFlags, PAGE_FLAGS protectFlags)
         {
             CLRDATA_ADDRESS virt;
             TryAllocVirtual(addr, size, typeFlags, protectFlags, out virt).ThrowOnNotOK();
@@ -457,12 +457,12 @@ namespace ClrDebug
         /// The AllocVirtual method serves as a logical wrapper for the Win32 VirtualAlloc function. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryAllocVirtual(CLRDATA_ADDRESS addr, int size, MEM_FLAGS typeFlags, PAGE_FLAGS protectFlags, out CLRDATA_ADDRESS virt)
+        public HRESULT TryAllocVirtual(CLRDATA_ADDRESS addr, int size, MEM_TYPE_FLAGS typeFlags, PAGE_FLAGS protectFlags, out CLRDATA_ADDRESS virt)
         {
             /*HRESULT AllocVirtual(
             [In] CLRDATA_ADDRESS addr,
             [In] int size,
-            [In] MEM_FLAGS typeFlags,
+            [In] MEM_TYPE_FLAGS typeFlags,
             [In] PAGE_FLAGS protectFlags,
             [Out] out CLRDATA_ADDRESS virt);*/
             return Raw2.AllocVirtual(addr, size, typeFlags, protectFlags, out virt);
@@ -481,7 +481,7 @@ namespace ClrDebug
         /// The FreeVirtual method serves as a logical wrapper for the Win32 VirtualFree function. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public void FreeVirtual(CLRDATA_ADDRESS addr, int size, MEM_FLAGS typeFlags)
+        public void FreeVirtual(CLRDATA_ADDRESS addr, int size, MEM_TYPE_FLAGS typeFlags)
         {
             TryFreeVirtual(addr, size, typeFlags).ThrowOnNotOK();
         }
@@ -496,12 +496,12 @@ namespace ClrDebug
         /// The FreeVirtual method serves as a logical wrapper for the Win32 VirtualFree function. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryFreeVirtual(CLRDATA_ADDRESS addr, int size, MEM_FLAGS typeFlags)
+        public HRESULT TryFreeVirtual(CLRDATA_ADDRESS addr, int size, MEM_TYPE_FLAGS typeFlags)
         {
             /*HRESULT FreeVirtual(
             [In] CLRDATA_ADDRESS addr,
             [In] int size,
-            [In] MEM_FLAGS typeFlags);*/
+            [In] MEM_TYPE_FLAGS typeFlags);*/
             return Raw2.FreeVirtual(addr, size, typeFlags);
         }
 

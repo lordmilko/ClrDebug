@@ -305,6 +305,15 @@ namespace ClrDebug
 
         #endregion
 
+        /// <summary>
+        /// Dispatches managed callback events to user subscribed event handlers.<para/>
+        /// By default, this method raises the specified <paramref name="handler"/>, followed by <see cref="OnAnyEvent"/>. The behavior of this method can be customized by overriding it in a derived class.<para/>
+        /// To raise <see cref="OnAnyEvent"/> from a derived class, call <see cref="RaiseOnAnyEvent(CorDebugManagedCallbackEventArgs)"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of callback event-specific event handler to invoke.</typeparam>
+        /// <param name="handler">The callback event-specific event handler to invoke.</param>
+        /// <param name="args">The event args to pass to the event handler.</param>
+        /// <returns><see cref="HRESULT.S_OK"/></returns>
         protected virtual HRESULT HandleEvent<T>(EventHandler<T> handler, CorDebugManagedCallbackEventArgs args)
             where T : CorDebugManagedCallbackEventArgs
         {
@@ -313,5 +322,7 @@ namespace ClrDebug
 
             return HRESULT.S_OK;
         }
+
+        protected void RaiseOnAnyEvent(CorDebugManagedCallbackEventArgs args) => OnAnyEvent?.Invoke(this, args);
     }
 }

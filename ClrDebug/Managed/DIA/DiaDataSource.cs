@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using ClrDebug;
 
 namespace ClrDebug.DIA
@@ -309,6 +310,90 @@ namespace ClrDebug.DIA
             [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 5)] byte[] pbMiscInfo,
             [MarshalAs(UnmanagedType.Interface), In] object pCallback);*/
             return Raw.loadDataFromMiscInfo(executable, searchPath, timeStampExe, timeStampDbg, sizeOfExe, cbMiscInfo, pbMiscInfo, pCallback);
+        }
+
+        #endregion
+        #endregion
+        #region IDiaDataSource2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IDiaDataSource2 Raw2 => (IDiaDataSource2) Raw;
+
+        #region RawPDBPtr
+
+        public IntPtr RawPDBPtr
+        {
+            get
+            {
+                IntPtr pppdb;
+                TryGetRawPDBPtr(out pppdb).ThrowOnNotOK();
+
+                return pppdb;
+            }
+        }
+
+        public HRESULT TryGetRawPDBPtr(out IntPtr pppdb)
+        {
+            /*HRESULT getRawPDBPtr(
+            [Out] out IntPtr pppdb);*/
+            return Raw2.getRawPDBPtr(out pppdb);
+        }
+
+        #endregion
+        #region LoadDataFromRawPDBPtr
+
+        public void LoadDataFromRawPDBPtr(IntPtr ppdb)
+        {
+            TryLoadDataFromRawPDBPtr(ppdb).ThrowOnNotOK();
+        }
+
+        public HRESULT TryLoadDataFromRawPDBPtr(IntPtr ppdb)
+        {
+            /*HRESULT loadDataFromRawPDBPtr(
+            [In] IntPtr ppdb);*/
+            return Raw2.loadDataFromRawPDBPtr(ppdb);
+        }
+
+        #endregion
+        #endregion
+        #region IDiaDataSource3
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IDiaDataSource3 Raw3 => (IDiaDataSource3) Raw;
+
+        #region GetStreamSize
+
+        public int GetStreamSize(string stream)
+        {
+            int pcb;
+            TryGetStreamSize(stream, out pcb).ThrowOnNotOK();
+
+            return pcb;
+        }
+
+        public HRESULT TryGetStreamSize(string stream, out int pcb)
+        {
+            /*HRESULT getStreamSize(
+            [MarshalAs(UnmanagedType.LPWStr), In] string stream,
+            [Out] out int pcb);*/
+            return Raw3.getStreamSize(stream, out pcb);
+        }
+
+        #endregion
+        #region GetStreamRawData
+
+        public void GetStreamRawData(string stream, int cbRead, IntPtr pbData)
+        {
+            TryGetStreamRawData(stream, cbRead, pbData).ThrowOnNotOK();
+        }
+
+        public HRESULT TryGetStreamRawData(string stream, int cbRead, IntPtr pbData)
+        {
+            /*HRESULT getStreamRawData(
+            [MarshalAs(UnmanagedType.LPWStr), In] string stream,
+            [In] int cbRead,
+            [Out] IntPtr pbData);*/
+            return Raw3.getStreamRawData(stream, cbRead, pbData);
         }
 
         #endregion

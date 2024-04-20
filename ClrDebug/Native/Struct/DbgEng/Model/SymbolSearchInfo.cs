@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.DbgEng
     /// This structure describes, the search record passed to EnumerateChildrenEx in order to restrict symbol searches.<para/>
     /// A given kind of symbol (as indicated by the SymbolKind enumeration) searched may have its own derived type.
     /// </summary>
+    [DebuggerDisplay("HeaderSize = {HeaderSize}, InfoSize = {InfoSize}, SearchOptions = {SearchOptions}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct SymbolSearchInfo
     {

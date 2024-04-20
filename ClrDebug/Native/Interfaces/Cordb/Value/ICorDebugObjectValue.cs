@@ -106,7 +106,7 @@ namespace ClrDebug
         /// </summary>
         [PreserveSig]
         HRESULT GetVirtualMethod(
-            [In] int memberRef,
+            [In] mdMemberRef memberRef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>

@@ -24,11 +24,11 @@ namespace ClrDebug.DbgEng
         THROUGH_RTL = 0x00010000, /* STACK_SIZE_PARAM_IS_A_RESERVATION */
 
         /// <summary>
-        ///    The process is a console application that is being run without a console
-        ///    window. Therefore, the console handle for the application is not set.
+        /// The process is a console application that is being run without a console
+        /// window. Therefore, the console handle for the application is not set.
         ///
-        ///    This flag is ignored if the application is not a console application, or if
-        ///    it is used with either <see cref="CREATE_NEW_CONSOLE"/> or DETACHED_PROCESS.
+        /// This flag is ignored if the application is not a console application, or if
+        /// it is used with either <see cref="CREATE_NEW_CONSOLE"/> or DETACHED_PROCESS.
         /// </summary>
         CREATE_NO_WINDOW = 0x08000000,
     }

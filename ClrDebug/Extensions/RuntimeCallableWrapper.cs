@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using ClrDebug.DbgEng.Vtbl;
@@ -22,10 +23,15 @@ namespace ClrDebug
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected void* Vtbl => IUnknownVtbl + 1;
 
+#if DEBUG
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private int remainingRefs;
+#endif
+
         public static readonly Guid IID_IUnknown = new Guid("00000000-0000-0000-C000-000000000046");
 
         /// <summary>
-        /// Gets the reference count on the underlying COM object.
+        /// Gets the reference count of the underlying COM object.
         /// </summary>
         private int RefCount
         {
@@ -38,6 +44,10 @@ namespace ClrDebug
                 }
             }
         }
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public int UnsafeRefCount => RefCount;
 
         /// <summary>
         /// Gets the reference count of any normal RCWs that have been created by the runtime.<para/>
@@ -62,7 +72,7 @@ namespace ClrDebug
             }
         }
 
-        private bool disposed;
+        protected bool disposed;
 
         //Though we're only locking resources owned by a single RuntimeCallableWrapper, there's no point wasting memory
         //on each object just to store this lock
@@ -73,21 +83,28 @@ namespace ClrDebug
         {
         }
 
-        public RuntimeCallableWrapper(IntPtr raw)
+        private RuntimeCallableWrapper(IntPtr raw)
         {
             if (raw == IntPtr.Zero)
                 throw new ArgumentNullException(nameof(raw));
 
             Raw = raw;
 
-            IUnknownVtbl = *(IUnknownVtbl**)raw;
+            IUnknownVtbl = *(IUnknownVtbl**) raw;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RuntimeCallableWrapper"/> class from a raw COM pointer and an interface IID that the pointer should be
+        /// converted to via a call to QueryInterface().<para/>
+        /// Upon performing a successful QueryInterface(), the reference count of the underlying COM object will be increased by 1. Upon disposing this
+        /// <see cref="RuntimeCallableWrapper"/>, if the remaining reference count is 1, this instance will also perform the final Release() to bring the reference count to 0.
+        /// </summary>
+        /// <param name="raw">The pointer to the COM object that should be encapsulated in this <see cref="RuntimeCallableWrapper"/>.</param>
+        /// <param name="riid">The <see cref="Guid"/> of the interface that <paramref name="raw"/> should be converted to.</param>
         public RuntimeCallableWrapper(IntPtr raw, Guid riid) : this(raw)
         {
             IntPtr ppvObject;
-            Marshal.ThrowExceptionForHR((int) QueryInterface(riid, out ppvObject));
-            Release();
+            QueryInterface(riid, out ppvObject).ThrowOnNotOK();
 
             Raw = ppvObject;
             IUnknownVtbl = *(IUnknownVtbl**)ppvObject;
@@ -124,6 +141,12 @@ namespace ClrDebug
             @delegate = Marshal.GetDelegateForFunctionPointer<T>(vtablePtr);
         }
 
+        protected void InitInterface(Guid riid, ref IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                QueryInterface(riid, out ptr).ThrowOnNotOK();
+        }
+
         /// <summary>
         /// Marshals a real RCW of a specified interface type from the underlying object pointer.<para/>
         /// If the COM object does not respond to QueryInterface against IUnknown, this method will
@@ -137,9 +160,14 @@ namespace ClrDebug
             var unk = Marshal.GetObjectForIUnknown(Raw);
 #pragma warning restore CA1416 //This call site is reachable on all platforms
 
-            return (T)unk;
+            return (T) unk;
         }
 
+        /// <summary>
+        /// Disposes all <see cref="RuntimeCallableWrapper"/> extension members that may be associated with this object,
+        /// and decreases the reference count of the underlying COM object by 1.<para/>If, after decreasing the underlying COM object's
+        /// reference count, the remaining count is now 1, this method also performs the final release of the given COM object.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
@@ -155,8 +183,29 @@ namespace ClrDebug
                     //Free managed references
                 }
 
+                if (Raw != IntPtr.Zero)
+                {
+                    //When this RCW was constructed, the reference count was already 1. When we QI'd for the interface type that this RCW encapsulates,
+                    //the count jumped up to 2. Because we take ownership of the object that we encapsulate, when the count hits 1 again, we need to also
+                    //perform the final release 
+
+#if DEBUG
+                    remainingRefs = Release();
+
+                    if (remainingRefs == 1)
+                    {
+                        Release();
+                        remainingRefs = 0;
+                    }
+#else
+                    if (Release() == 1)
                 Release();
+#endif
+
+                }
+
                 Raw = IntPtr.Zero;
+
                 disposed = true;
             }
         }
@@ -207,5 +256,15 @@ namespace ClrDebug
         private delegate int ReleaseDelegate(IntPtr self);
 
         #endregion
+
+#if DEBUG
+        public override string ToString()
+        {
+            if (Raw == IntPtr.Zero)
+                return $"[Destroyed / RefCount: {remainingRefs}] {GetType().Name}";
+
+            return $"[RefCount {RefCount}] {GetType().Name}";
+        }
+#endif
     }
 }

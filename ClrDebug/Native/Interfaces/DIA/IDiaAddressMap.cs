@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -136,7 +137,7 @@ namespace ClrDebug.DIA
         [PreserveSig]
         HRESULT set_imageHeaders(
             [In] int cbData,
-            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pbData,
+            [In] IntPtr pbData,
             [In, MarshalAs(UnmanagedType.Bool)] bool originalHeaders);
 
         /// <summary>

@@ -65,8 +65,10 @@
 
         STATUS_INVALID_PARAMETER = 0xC000000D,
         STATUS_NO_MORE_ENTRIES = 0x8000001A,
+        STATUS_ACCESS_DENIED = 0xC0000022,
         STATUS_OBJECT_NAME_INVALID = 0xC0000033,
         STATUS_OBJECT_NAME_NOT_FOUND = 0xC0000034,
+        STATUS_PORT_ALREADY_SET = 0xC0000048,
 
         /// <summary>
         /// Array bounds exceeded.<para/>
@@ -182,6 +184,12 @@
         /// </summary>
         DBG_CONTROL_C = 0x40010005,
 
-        STATUS_CPP_EH_EXCEPTION = 0xE06D7363
+        //0xE000 (Special)
+        //These can also be reported as HRESULT values and do not require a FACILITY_NT_BIT
+
+        STATUS_CLR_EXCEPTION = 0xE0434F4D,   //0xE0 + "COM"
+
+        //This value is also known as EXCEPTION_MSVC
+        STATUS_CPP_EH_EXCEPTION = 0xE06D7363, //0xE0 + "msc"
     }
 }

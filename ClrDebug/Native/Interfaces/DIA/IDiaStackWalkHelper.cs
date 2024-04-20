@@ -25,13 +25,13 @@ namespace ClrDebug.DIA
     {
         [PreserveSig]
         HRESULT get_registerValue(
-            [In] int index,
+            [In] CV_HREG_e index,
             [Out] out long pRetVal);
 
         [PreserveSig]
         HRESULT put_registerValue(
-            [In] int index,
-            [In] long pRetVal);
+            [In] CV_HREG_e index,
+            [In] long NewVal);
 
         [PreserveSig]
         HRESULT readMemory(

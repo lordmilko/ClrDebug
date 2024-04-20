@@ -17,7 +17,7 @@ namespace ClrDebug.DIA
         public string lpwstrName;
         public int propid;
         public VARENUM vt;
-
+        [DebuggerDisplay("lpwstrName = {lpwstrName.ToString(),nq}, propid = {propid}, vt = {vt.ToString(),nq}")]
         public struct Native
         {
             public IntPtr lpwstrName;

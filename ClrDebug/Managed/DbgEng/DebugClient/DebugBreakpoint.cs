@@ -300,9 +300,9 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getDataParameters, Vtbl->GetDataParameters);
             /*HRESULT GetDataParameters(
             [Out] out int Size,
-            [Out] out DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);*/
+            [Out] out DEBUG_BREAK AccessType);*/
             int size;
-            DEBUG_BREAKPOINT_ACCESS_TYPE accessType;
+            DEBUG_BREAK accessType;
             HRESULT hr = getDataParameters(Raw, out size, out accessType);
 
             if (hr == HRESULT.S_OK)
@@ -776,7 +776,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about breakpoint properties, see Controlling Breakpoint Flags and Parameters.
         /// </remarks>
-        public void SetDataParameters(int size, DEBUG_BREAKPOINT_ACCESS_TYPE accessType)
+        public void SetDataParameters(int size, DEBUG_BREAK accessType)
         {
             TrySetDataParameters(size, accessType).ThrowDbgEngNotOK();
         }
@@ -790,13 +790,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about breakpoint properties, see Controlling Breakpoint Flags and Parameters.
         /// </remarks>
-        public HRESULT TrySetDataParameters(int size, DEBUG_BREAKPOINT_ACCESS_TYPE accessType)
+        public HRESULT TrySetDataParameters(int size, DEBUG_BREAK accessType)
         {
             InitDelegate(ref setDataParameters, Vtbl->SetDataParameters);
 
             /*HRESULT SetDataParameters(
             [In] int Size,
-            [In] DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);*/
+            [In] DEBUG_BREAK AccessType);*/
             return setDataParameters(Raw, size, accessType);
         }
 
@@ -1082,7 +1082,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
         private delegate HRESULT GetOffsetDelegate(IntPtr self, [Out] out long Offset);
         private delegate HRESULT SetOffsetDelegate(IntPtr self, [In] long Offset);
-        private delegate HRESULT GetDataParametersDelegate(IntPtr self, [Out] out int Size, [Out] out DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
+        private delegate HRESULT GetDataParametersDelegate(IntPtr self, [Out] out int Size, [Out] out DEBUG_BREAK AccessType);
         private delegate HRESULT GetPassCountDelegate(IntPtr self, [Out] out int Count);
         private delegate HRESULT SetPassCountDelegate(IntPtr self, [In] int Count);
         private delegate HRESULT GetCurrentPassCountDelegate(IntPtr self, [Out] out int Count);
@@ -1095,7 +1095,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetParametersDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_PARAMETERS Params);
         private delegate HRESULT AddFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
         private delegate HRESULT RemoveFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
-        private delegate HRESULT SetDataParametersDelegate(IntPtr self, [In] int Size, [In] DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
+        private delegate HRESULT SetDataParametersDelegate(IntPtr self, [In] int Size, [In] DEBUG_BREAK AccessType);
 
         #endregion
         #region IDebugBreakpoint2

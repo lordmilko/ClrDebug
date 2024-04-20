@@ -214,7 +214,7 @@ namespace ClrDebug
         /// <summary>
         /// GetVirtualMethod is not implemented in this version of the .NET Framework.
         /// </summary>
-        public CorDebugFunction GetVirtualMethod(int memberRef)
+        public CorDebugFunction GetVirtualMethod(mdMemberRef memberRef)
         {
             CorDebugFunction ppFunctionResult;
             TryGetVirtualMethod(memberRef, out ppFunctionResult).ThrowOnNotOK();
@@ -225,10 +225,10 @@ namespace ClrDebug
         /// <summary>
         /// GetVirtualMethod is not implemented in this version of the .NET Framework.
         /// </summary>
-        public HRESULT TryGetVirtualMethod(int memberRef, out CorDebugFunction ppFunctionResult)
+        public HRESULT TryGetVirtualMethod(mdMemberRef memberRef, out CorDebugFunction ppFunctionResult)
         {
             /*HRESULT GetVirtualMethod(
-            [In] int memberRef,
+            [In] mdMemberRef memberRef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetVirtualMethod(memberRef, out ppFunction);
@@ -280,7 +280,7 @@ namespace ClrDebug
         /// Gets interface pointers to the "ICorDebugFunction" and "ICorDebugType" instances that represent the most derived
         /// method and type for the specified member reference.
         /// </remarks>
-        public GetVirtualMethodAndTypeResult GetVirtualMethodAndType(int memberRef)
+        public GetVirtualMethodAndTypeResult GetVirtualMethodAndType(mdMemberRef memberRef)
         {
             GetVirtualMethodAndTypeResult result;
             TryGetVirtualMethodAndType(memberRef, out result).ThrowOnNotOK();
@@ -295,10 +295,10 @@ namespace ClrDebug
         /// Gets interface pointers to the "ICorDebugFunction" and "ICorDebugType" instances that represent the most derived
         /// method and type for the specified member reference.
         /// </remarks>
-        public HRESULT TryGetVirtualMethodAndType(int memberRef, out GetVirtualMethodAndTypeResult result)
+        public HRESULT TryGetVirtualMethodAndType(mdMemberRef memberRef, out GetVirtualMethodAndTypeResult result)
         {
             /*HRESULT GetVirtualMethodAndType(
-            [In] int memberRef,
+            [In] mdMemberRef memberRef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
             ICorDebugFunction ppFunction;

@@ -18,13 +18,13 @@ namespace ClrDebug.DIA
 #if !GENERATED_MARSHALLING
         [PreserveSig]
         new HRESULT get_registerValue(
-            [In] int index,
+            [In] CV_HREG_e index,
             [Out] out long pRetVal);
 
         [PreserveSig]
         new HRESULT put_registerValue(
-            [In] int index,
-            [In] long pRetVal);
+            [In] CV_HREG_e index,
+            [In] long NewVal);
 
         [PreserveSig]
         new HRESULT readMemory(

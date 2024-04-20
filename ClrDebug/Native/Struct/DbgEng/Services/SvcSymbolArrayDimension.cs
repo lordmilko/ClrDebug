@@ -1,7 +1,9 @@
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
+    [DebuggerDisplay("DimensionFlags = {DimensionFlags}, LowerBound = {LowerBound}, Length = {Length}, Stride = {Stride}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct SvcSymbolArrayDimension
     {

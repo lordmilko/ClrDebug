@@ -5,6 +5,8 @@ using SRI = System.Runtime.InteropServices;
 using System.Runtime.InteropServices.Marshalling;
 #endif
 
+//todo: theres a bunch of places where we lost method name references. e.g. IDiaSymbol::get_registerId lost its reference to IDiaSymbol::get_offset
+
 namespace ClrDebug.DIA
 {
     [Guid("99B665F7-C1B2-49D3-89B2-A384361ACAB5")]
@@ -495,12 +497,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         new HRESULT get_value(
-#if !GENERATED_MARSHALLING
-            [Out, MarshalAs(UnmanagedType.Struct)]
-#else
-            [MarshalUsing(typeof(VariantMarshaller))]
-#endif
-            out object pRetVal);
+            out DiaVariant pRetVal);
 
         /// <summary>
         /// Retrieves the base type for this symbol.
@@ -792,7 +789,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
         [PreserveSig]
         new HRESULT get_function(
-            [Out] out int pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that specifies whether the symbol refers to managed code.

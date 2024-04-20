@@ -48,7 +48,7 @@ namespace ClrDebug.DIA
         [PreserveSig]
         HRESULT Item(
 #if !GENERATED_MARSHALLING
-            [In, MarshalAs(UnmanagedType.Struct)]
+            [In, MarshalAs(UnmanagedType.Struct)] //Because we're the one creating the BSTR, we're the one responsible for freeing it, not DIA, so we dont need to worry about using DiaFreeString
 #else
             [MarshalUsing(typeof(VariantMarshaller))]
 #endif

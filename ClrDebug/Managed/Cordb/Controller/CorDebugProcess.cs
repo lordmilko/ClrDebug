@@ -814,15 +814,16 @@ namespace ClrDebug
         /// Sets an unmanaged breakpoint at the specified native image offset.
         /// </summary>
         /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> object that specifies the native image offset.</param>
+        /// <param name="bufsize">[in] The size, in bytes, of the buffer array.</param>
         /// <returns>[out] An array that contains the opcode that is replaced by the breakpoint.</returns>
         /// <remarks>
         /// If the native image offset is within the common language runtime (CLR), the breakpoint will be ignored. This allows
         /// the CLR to avoid dispatching an out-of-band breakpoint, when the breakpoint is set by the debugger.
         /// </remarks>
-        public byte[] SetUnmanagedBreakpoint(CORDB_ADDRESS address)
+        public byte[] SetUnmanagedBreakpoint(CORDB_ADDRESS address, int bufsize)
         {
             byte[] buffer;
-            TrySetUnmanagedBreakpoint(address, out buffer).ThrowOnNotOK();
+            TrySetUnmanagedBreakpoint(address, bufsize, out buffer).ThrowOnNotOK();
 
             return buffer;
         }
@@ -831,30 +832,26 @@ namespace ClrDebug
         /// Sets an unmanaged breakpoint at the specified native image offset.
         /// </summary>
         /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> object that specifies the native image offset.</param>
+        /// <param name="bufsize">[in] The size, in bytes, of the buffer array.</param>
         /// <param name="buffer">[out] An array that contains the opcode that is replaced by the breakpoint.</param>
         /// <remarks>
         /// If the native image offset is within the common language runtime (CLR), the breakpoint will be ignored. This allows
         /// the CLR to avoid dispatching an out-of-band breakpoint, when the breakpoint is set by the debugger.
         /// </remarks>
-        public HRESULT TrySetUnmanagedBreakpoint(CORDB_ADDRESS address, out byte[] buffer)
+        public HRESULT TrySetUnmanagedBreakpoint(CORDB_ADDRESS address, int bufsize, out byte[] buffer)
         {
             /*HRESULT SetUnmanagedBreakpoint(
             [In] CORDB_ADDRESS address,
             [In] int bufsize,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] buffer,
             [Out] out int bufLen);*/
-            int bufsize = 0;
-            buffer = null;
-            int bufLen;
-            HRESULT hr = Raw2.SetUnmanagedBreakpoint(address, bufsize, null, out bufLen);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            bufsize = bufLen;
             buffer = new byte[bufsize];
-            hr = Raw2.SetUnmanagedBreakpoint(address, bufsize, buffer, out bufLen);
-            fail:
+            int bufLen;
+            HRESULT hr = Raw2.SetUnmanagedBreakpoint(address, bufsize, buffer, out bufLen);
+
+            if (bufsize != bufLen)
+                Array.Resize(ref buffer, bufLen);
+
             return hr;
         }
 

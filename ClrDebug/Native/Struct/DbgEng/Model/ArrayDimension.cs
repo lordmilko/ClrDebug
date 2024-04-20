@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -9,6 +10,7 @@ namespace ClrDebug.DbgEng
     /// For C-style arrays, a single array dimension is returned here with values which are always:LowerBound = 0 Length
     /// = ARRAYSIZE(array) Stride = sizeof(elementType)
     /// </remarks>
+    [DebuggerDisplay("LowerBound = {LowerBound}, Length = {Length}, Stride = {Stride}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct ArrayDimension
     {

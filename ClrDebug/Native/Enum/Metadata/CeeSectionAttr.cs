@@ -1,14 +1,5 @@
 ﻿namespace ClrDebug
 {
-    internal enum IMAGE_SCN : uint
-    {
-        CNT_CODE = 0x00000020,
-        CNT_INITIALIZED_DATA = 0x00000040,
-        MEM_EXECUTE = 0x20000000,
-        MEM_READ = 0x40000000,
-        MEM_WRITE = 0x80000000
-    }
-
     /// <summary>
     /// Provides values that specify attributes of a section for use by the <see cref="ICeeGen"/> interface.
     /// </summary>

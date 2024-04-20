@@ -259,5 +259,40 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+
+        protected override void Dispose(bool disposing)
+        {
+            advanced?.Dispose();
+            clientInternal?.Dispose();
+            control?.Dispose();
+            dataModelScripting?.Dispose();
+            dataSpaces?.Dispose();
+            linkableProcessServer?.Dispose();
+            modelQuery?.Dispose();
+            plmClient?.Dispose();
+            registers?.Dispose();
+            serviceProvider?.Dispose();
+            settings?.Dispose();
+            symbols?.Dispose();
+            systemObjects?.Dispose();
+
+            advanced = null;
+            clientInternal = null;
+            control = null;
+            dataModelScripting = null;
+            dataSpaces = null;
+            hostDataModelAccess = null;
+            linkableProcessServer = null;
+            modelQuery = null;
+            plmClient = null;
+            registers = null;
+            serviceProvider = null;
+            settings = null;
+            symbols = null;
+            systemObjects = null;
+            testHook = null;
+
+            base.Dispose(disposing);
+        }
     }
 }

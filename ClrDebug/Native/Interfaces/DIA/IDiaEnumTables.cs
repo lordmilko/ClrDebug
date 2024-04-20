@@ -51,7 +51,7 @@ namespace ClrDebug.DIA
         [PreserveSig]
         HRESULT Item(
 #if !GENERATED_MARSHALLING
-            [In, MarshalAs(UnmanagedType.Struct)]
+            [In, MarshalAs(UnmanagedType.Struct)] //Doesn't need custom DIA string marshalling
 #else
             [MarshalUsing(typeof(VariantMarshaller))]
 #endif

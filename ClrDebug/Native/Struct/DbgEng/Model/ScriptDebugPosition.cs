@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// Defines a position within a script.
     /// </summary>
+    [DebuggerDisplay("Line = {Line}, Column = {Column}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct ScriptDebugPosition
     {

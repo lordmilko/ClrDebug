@@ -7,7 +7,7 @@ namespace ClrDebug.DbgEng
     /// Different architectures support different sets of these bits.
     /// </summary>
     [Flags]
-    public enum DEBUG_BREAKPOINT_ACCESS_TYPE : uint
+    public enum DEBUG_BREAK : uint
     {
         READ = 1,
         WRITE = 2,

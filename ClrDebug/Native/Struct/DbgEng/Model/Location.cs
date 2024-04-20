@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.DbgEng
     /// Defines the location for an object. This particular variant of Location is the C-COM access struct. Note that a location only has meaning in conjunction with a host context.<para/>
     /// It is a location within a context. When performing an operation on the location (reading bytes, writing bytes, etc...), a valid host context must be supplied.
     /// </summary>
+    [DebuggerDisplay("HostDefined = {HostDefined}, Offset = {Offset}, IsVirtualAddress = {IsVirtualAddress}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct Location
     {
@@ -30,15 +32,15 @@ namespace ClrDebug.DbgEng
             Offset = virtualAddress;
         }
 
-        public static bool operator== (Location left, Location right) =>
+        public static bool operator ==(Location left, Location right) =>
             left.HostDefined == right.HostDefined && left.Offset == right.Offset;
 
         public static bool operator !=(Location left, Location right) => !(left == right);
 
-        public static Location operator+ (Location left, long offset)
+        public static Location operator +(Location left, long offset)
         {
             return new Location
-            {
+        {
                 HostDefined = left.HostDefined,
                 Offset = left.Offset + offset
             };
@@ -56,7 +58,7 @@ namespace ClrDebug.DbgEng
         public override bool Equals(object obj)
         {
             if (obj is Location l)
-                return this == l;
+return this == l;
 
             return false;
         }

@@ -43,7 +43,7 @@ namespace ClrDebug
         [FieldOffset(0x42)]
         public ushort SegSs;
         [FieldOffset(0x44)]
-        public int EFlags;
+        public X86_CONTEXT_FLAGS EFlags;
 
         // Debug Registers
         [FieldOffset(0x48)]

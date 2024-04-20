@@ -83,6 +83,11 @@ namespace ClrDebug
         /// </summary>
         miNoOptimization = 0x0040,   // Method may not be optimized.
 
+        /// <summary>
+        /// Specifies that the method may contain hot code and should be aggressively optimized.
+        /// </summary>
+        miAggressiveOptimization = 0x0200,
+
         // These are the flags that are allowed in MethodImplAttribute's Value
         // property. This should include everything above except the code impl
         // flags (which are used for MethodImplAttribute's MethodCodeType field).

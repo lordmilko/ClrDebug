@@ -1,7 +1,9 @@
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
+    [DebuggerDisplay("Kind = {Kind.ToString(),nq}, Offset = {Offset}, Offsets = {Offsets}, TableOffsets = {TableOffsets}, BitField = {BitField}, RegInfo = {RegInfo.ToString(),nq}")]
     [StructLayout(LayoutKind.Explicit)]
     public struct SvcSymbolLocation
     {

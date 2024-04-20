@@ -49,7 +49,7 @@ namespace ClrDebug.DbgEng
         /// The type of access that will trigger the breakpoint. If the type of the breakpoint is not a data breakpoint, this is zero.<para/>
         /// See <see cref="IDebugBreakpoint.GetDataParameters"/>.
         /// </summary>
-        public DEBUG_BREAKPOINT_ACCESS_TYPE DataAccessType;
+        public DEBUG_BREAK DataAccessType;
 
         /// <summary>
         /// The number of times the target will hit the breakpoint before it is triggered. See <see cref="IDebugBreakpoint.GetPassCount"/>.

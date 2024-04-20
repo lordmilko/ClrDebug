@@ -3,7 +3,7 @@
 namespace ClrDebug
 {
     [Flags]
-    public enum MEM_FLAGS : uint
+    public enum MEM_TYPE_FLAGS : uint
     {
         MEM_COMMIT = 0x00001000,
         MEM_RESERVE = 0x00002000,

@@ -337,7 +337,7 @@ namespace ClrDebug
             /*HRESULT GetRuntimeNameByAddress(
             [In] CLRDATA_ADDRESS address,
             [In] int flags, //Unused, must be 0
-            [In] int bufLen,
+            [In] int bufLen, //FormatCLRStubName() erroneously subtracts the amount written from the buffer length when calling wcscat_s (https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/strcat-s-wcscat-s-mbscat-s?view=msvc-170#remarks). As such, we must pass 2x the required length to compensate for this
             [Out] out int nameLen,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out CLRDATA_ADDRESS displacement);*/
@@ -350,7 +350,7 @@ namespace ClrDebug
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufLen = nameLen;
+            bufLen = nameLen * 2;
             nameBuf = new char[bufLen];
             hr = Raw.GetRuntimeNameByAddress(address, flags, bufLen, out nameLen, nameBuf, out displacement);
 

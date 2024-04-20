@@ -797,7 +797,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
         [PreserveSig]
         HRESULT get_function(
-            [Out] out int pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that specifies whether the symbol refers to managed code.

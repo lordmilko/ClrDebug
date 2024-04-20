@@ -32,19 +32,19 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_registerValue(
-            [In] int index,
+            [In] CV_HREG_e index,
             [Out] out long pRetVal);
 
         /// <summary>
         /// Sets the value of a register.
         /// </summary>
         /// <param name="index">[in] A value from the CV_HREG_e Enumeration enumeration specifying the register to write to.</param>
-        /// <param name="pRetVal">[in] The new register value.</param>
+        /// <param name="NewVal">[in] The new register value.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT put_registerValue(
-            [In] int index,
-            [In] long pRetVal);
+            [In] CV_HREG_e index,
+            [In] long NewVal);
 
         /// <summary>
         /// Reads memory from image.

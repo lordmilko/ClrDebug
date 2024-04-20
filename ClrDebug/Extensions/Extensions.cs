@@ -31,6 +31,11 @@ namespace ClrDebug
         [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
         [MarshalAs(UnmanagedType.Interface), Out] out object ppv);
 
+    public delegate HRESULT DllGetClassObjectDelegate(
+        [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
+        [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+        [MarshalAs(UnmanagedType.Interface), Out] out object ppv);
+
     public static partial class Extensions
     {
         public const int DAC_NUM_GC_DATA_POINTS = 9;
@@ -41,7 +46,16 @@ namespace ClrDebug
 
         public const int DAC_NUMBERGENERATIONS = 4;
 
+        public const int CorILMethod_FormatShift = 3;
+        public const int CorILMethod_FormatMask = ((1 << CorILMethod_FormatShift) - 1);
+
         private const string mscoree = "mscoree.dll";
+
+        public static mdToken RidToToken(int rid, CorTokenType tktype) => rid | (int) tktype;
+        public static mdToken TokenFromRid(int rid, CorTokenType tktype) => rid | (int) tktype;
+        public static int RidFromToken(mdToken tk) => tk & 0x00ffffff;
+        public static CorTokenType TypeFromToken(mdToken tk) => (CorTokenType) (tk & 0xff000000);
+        public static bool IsNilToken(mdToken tk) => RidFromToken(tk) == 0;
 
         /// <summary>
         /// Caches the reference to mscordacwks retrieved in <see cref="CLRDataCreateInstance(ICLRDataTarget)"/>.
@@ -63,6 +77,8 @@ namespace ClrDebug
         public static readonly Guid CLSID_DiaSource = new Guid("E6756135-1E65-4D17-8576-610761398C3C");
         public static readonly Guid CLSID_DiaSourceAlt = new Guid("91904831-49CA-4766-B95C-25397E2DD6DC");
         public static readonly Guid CLSID_DiaStackWalker = new Guid("CE4A85DB-5768-475B-A4E1-C0BCA2112A6B");
+
+        public static readonly Guid IID_IUnknown = new Guid("00000000-0000-0000-C000-000000000046");
 
         private const string ClrLibDesktop = "clr.dll";
         private const string ClrLibWinCore = "coreclr.dll";
@@ -348,7 +364,7 @@ namespace ClrDebug
             if (length > charArray.Length)
                 return CreateString(charArray);
 
-            //In ClrDataAccess::GetFrameName on .NET Framework, it erroneously reports that "needed" amount as being -1 than what was truly needed,
+            //In ClrDataAccess::GetFrameName on .NET Framework, it erroneously reports the "needed" amount as being one less than what was truly needed,
             //resulting in a "length" here already ignoring the trailing null terminator. While .NET Core uses wcslen in this method instead, the
             //bottom line is we can't trust whether the length means "with or without the null terminator", so we must check this ourselves
             return new string(
@@ -478,7 +494,7 @@ namespace ClrDebug
             }
             else
             {
-                //It's a fake BSTR. Rewind 4 bytes (-2 u16's) over the fake BSTR length
+                //It's a fake BSTR. Rewind 4 bytes (-2 u16's) over the fake BSTR length to get the original allocation address
                 //FreeHGlobal is equivalent to LocalFree and this will not change https://github.com/dotnet/runtime/issues/29051
                 Marshal.FreeHGlobal(pString - 4);
             }
@@ -490,7 +506,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pString">A pointer to the string to create a managed <see cref="string"/> from.</param>
         /// <returns>A managed <see cref="string"/> that encapsulates the value pointed to by <paramref name="pString"/>.</returns>
-        internal static string DiaStringToManaged(IntPtr pString)
+        internal static unsafe string DiaStringToManaged(IntPtr pString)
         {
             if (pString == IntPtr.Zero)
                 return null;
@@ -498,7 +514,11 @@ namespace ClrDebug
             if (DiaStringsUseComHeap)
                 return Marshal.PtrToStringBSTR(pString);
 
-            return Marshal.PtrToStringUni(pString);
+            //Grab the length which is sitting 4 bytes behind the pointer we were given,
+            //subtract 1 for the null terminator and then divide by 2 to get the number
+            //of unicode characters
+            var length = ((*(int*) (pString - 4) - 1) / 2);
+            return Marshal.PtrToStringUni(pString, length);
         }
 
         #endregion

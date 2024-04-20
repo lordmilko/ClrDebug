@@ -27,7 +27,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetVirtualMethodAndType(
-            [In] int memberRef,
+            [In] mdMemberRef memberRef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
     }

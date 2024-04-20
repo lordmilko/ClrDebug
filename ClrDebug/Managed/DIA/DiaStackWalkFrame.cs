@@ -27,7 +27,7 @@
         /// </summary>
         /// <param name="index">[in] A value from the CV_HREG_e Enumeration enumeration specifying the register to get the value for.</param>
         /// <returns>[out] Returns the current value of the register.</returns>
-        public long GetRegisterValue(int index)
+        public long GetRegisterValue(CV_HREG_e index)
         {
             long pRetVal;
             TryGetRegisterValue(index, out pRetVal).ThrowOnNotOK();
@@ -41,10 +41,10 @@
         /// <param name="index">[in] A value from the CV_HREG_e Enumeration enumeration specifying the register to get the value for.</param>
         /// <param name="pRetVal">[out] Returns the current value of the register.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
-        public HRESULT TryGetRegisterValue(int index, out long pRetVal)
+        public HRESULT TryGetRegisterValue(CV_HREG_e index, out long pRetVal)
         {
             /*HRESULT get_registerValue(
-            [In] int index,
+            [In] CV_HREG_e index,
             [Out] out long pRetVal);*/
             return Raw.get_registerValue(index, out pRetVal);
         }
@@ -56,24 +56,24 @@
         /// Sets the value of a register.
         /// </summary>
         /// <param name="index">[in] A value from the CV_HREG_e Enumeration enumeration specifying the register to write to.</param>
-        /// <param name="pRetVal">[in] The new register value.</param>
-        public void PutRegisterValue(int index, long pRetVal)
+        /// <param name="newVal">[in] The new register value.</param>
+        public void PutRegisterValue(CV_HREG_e index, long newVal)
         {
-            TryPutRegisterValue(index, pRetVal).ThrowOnNotOK();
+            TryPutRegisterValue(index, newVal).ThrowOnNotOK();
         }
 
         /// <summary>
         /// Sets the value of a register.
         /// </summary>
         /// <param name="index">[in] A value from the CV_HREG_e Enumeration enumeration specifying the register to write to.</param>
-        /// <param name="pRetVal">[in] The new register value.</param>
+        /// <param name="newVal">[in] The new register value.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
-        public HRESULT TryPutRegisterValue(int index, long pRetVal)
+        public HRESULT TryPutRegisterValue(CV_HREG_e index, long newVal)
         {
             /*HRESULT put_registerValue(
-            [In] int index,
-            [In] long pRetVal);*/
-            return Raw.put_registerValue(index, pRetVal);
+            [In] CV_HREG_e index,
+            [In] long NewVal);*/
+            return Raw.put_registerValue(index, newVal);
         }
 
         #endregion

@@ -123,7 +123,7 @@ namespace ClrDebug
         /// Changes the continuation status for the outstanding debug event on the specified thread.
         /// </summary>
         /// <param name="dwThreadId">The operating system-defined thread identifier.</param>
-        /// <param name="continueStatus">A COREDB_CONTINUE_STATUS value that represents the new requested continuation status.</param>
+        /// <param name="continueStatus">A CORDB_CONTINUE_STATUS value that represents the new requested continuation status.</param>
         /// <remarks>
         /// The debugger calls the ContinueStatusChanged method when it calls an <see cref="ICorDebug"/> method that requires the current
         /// debug event to be handled in a way that is potentially different from the way in which it normally would be handled.

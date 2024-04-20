@@ -1,4 +1,6 @@
-﻿namespace ClrDebug.DIA
+﻿using System;
+
+namespace ClrDebug.DIA
 {
     /// <summary>
     /// Provides control over how the DIA SDK computes virtual and relative virtual addresses for debug objects.
@@ -212,7 +214,7 @@
         /// method to enable the relative virtual address calculations after providing the missing image headers from the image
         /// itself.
         /// </remarks>
-        public void SetImageHeaders(int cbData, byte[] pbData, bool originalHeaders)
+        public void SetImageHeaders(int cbData, IntPtr pbData, bool originalHeaders)
         {
             TrySetImageHeaders(cbData, pbData, originalHeaders).ThrowOnNotOK();
         }
@@ -233,11 +235,11 @@
         /// method to enable the relative virtual address calculations after providing the missing image headers from the image
         /// itself.
         /// </remarks>
-        public HRESULT TrySetImageHeaders(int cbData, byte[] pbData, bool originalHeaders)
+        public HRESULT TrySetImageHeaders(int cbData, IntPtr pbData, bool originalHeaders)
         {
             /*HRESULT set_imageHeaders(
             [In] int cbData,
-            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 0)] byte[] pbData,
+            [In] IntPtr pbData,
             [In, MarshalAs(UnmanagedType.Bool)] bool originalHeaders);*/
             return Raw.set_imageHeaders(cbData, pbData, originalHeaders);
         }

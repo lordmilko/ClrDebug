@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -8,6 +9,7 @@ namespace ClrDebug.DbgEng
     /// <remarks>
     /// Use SymbolSearchInfo to describe the search record used to restrict symbol searches.
     /// </remarks>
+    [DebuggerDisplay("HeaderSize = {HeaderSize}, InfoSize = {InfoSize}, SearchOptions = {SearchOptions}, SearchType = {SearchType.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct TypeSearchInfo
     {

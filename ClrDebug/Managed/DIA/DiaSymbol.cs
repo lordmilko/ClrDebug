@@ -2137,12 +2137,12 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a flag that specifies whether the public symbol refers to a function.
         /// </summary>
-        public int Function
+        public bool Function
         {
             get
             {
-                int pRetVal;
-                TryGetFunction(out pRetVal).ThrowOnNotOK();
+                bool pRetVal;
+                TryGetFunction(out pRetVal).ThrowOnFailed();
 
                 return pRetVal;
             }
@@ -2153,10 +2153,10 @@ namespace ClrDebug.DIA
         /// </summary>
         /// <param name="pRetVal">[out] Returns a TRUE if the symbol refers to a function; otherwise, returns FALSE.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
-        public HRESULT TryGetFunction(out int pRetVal)
+        public HRESULT TryGetFunction(out bool pRetVal)
         {
             /*HRESULT get_function(
-            [Out] out int pRetVal);*/
+            [Out] out bool pRetVal);*/
             return Raw.get_function(out pRetVal);
         }
 

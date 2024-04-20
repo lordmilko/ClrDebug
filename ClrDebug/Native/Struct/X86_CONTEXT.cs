@@ -38,7 +38,7 @@ namespace ClrDebug
         public int Ebp;
         public int Eip;
         public int SegCs;
-        public int EFlags;
+        public X86_CONTEXT_FLAGS EFlags;
         public int Esp;
         public int SegSs;
 
