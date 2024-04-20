@@ -27,11 +27,6 @@ namespace SymStore
         public readonly bool IsClrSpecialFile;
 
         /// <summary>
-        /// Empty array of keys
-        /// </summary>
-        public static SymbolStoreKey[] EmptyArray = new SymbolStoreKey[0];
-
-        /// <summary>
         /// Create key instance.
         /// </summary>
         /// <param name="index">index to lookup on symbol server</param>
@@ -49,10 +44,7 @@ namespace SymStore
         /// Returns the first two parts of the index tuple. Allows a different file name
         /// to be appended to this symbol key. Includes the trailing "/".
         /// </summary>
-        public string IndexPrefix
-        {
-            get { return Index.Substring(0, Index.LastIndexOf("/") + 1); }
-        }
+        public string IndexPrefix => Index.Substring(0, Index.LastIndexOf("/") + 1);
 
         /// <summary>
         /// Returns the hash of the index.

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -389,6 +390,18 @@ namespace ClrDebug
                     ? length     //The length already precludes a null terminator
                     : length - 1 //We're expecting the last character should be a null terminator
                 );
+        }
+
+        internal static string CreateString(byte[] charArray, int length)
+        {
+            if (charArray == null)
+                return null;
+
+            //The length will include a null terminator. So if there's no characters, or just a null terminator, it's an empty string
+            if (length <= 1 || charArray.Length == 0)
+                return string.Empty;
+
+            return Encoding.ASCII.GetString(charArray, 0, length - 1);
         }
 
         /// <summary>

@@ -305,7 +305,7 @@ namespace ClrDebug
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public unsafe struct VARIANT
+        public struct VARIANT
         {
             //On x86, VARIANT is 16 bytes, while on x64 its 24 bytes.
             //A VARIANT consists of an 8 byte header followed by 2 pointers (tagBRECORD)
@@ -325,6 +325,8 @@ namespace ClrDebug
 
     #endregion
 #else
+    //Only used when targeting netstandard2.0 (which implies Windows only)
+
     public static unsafe class CrossPlatformStringMarshaller
     {
         public static string ConvertToManaged(IntPtr unmanaged) =>

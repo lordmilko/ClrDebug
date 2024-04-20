@@ -242,23 +242,6 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
-        #region TestHook
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private DebugTestHook testHook;
-
-        public DebugTestHook TestHook
-        {
-            get
-            {
-                if (testHook == null)
-                    testHook = new DebugTestHook(AsInterface<IDebugTestHook>());
-
-                return testHook;
-            }
-        }
-
-        #endregion
 
         protected override void Dispose(bool disposing)
         {
@@ -290,7 +273,6 @@ namespace ClrDebug.DbgEng
             settings = null;
             symbols = null;
             systemObjects = null;
-            testHook = null;
 
             base.Dispose(disposing);
         }

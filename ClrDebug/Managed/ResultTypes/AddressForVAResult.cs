@@ -3,7 +3,7 @@
 namespace ClrDebug.DIA
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="DiaStackWalkHelper.AddressForVA"/> method.
+    /// Encapsulates the results of the <see cref="DiaSession.AddressForVA"/> method.
     /// </summary>
     [DebuggerDisplay("pISect = {pISect}, pOffset = {pOffset}")]
     public struct AddressForVAResult

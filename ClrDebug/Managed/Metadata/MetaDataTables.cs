@@ -227,7 +227,7 @@ namespace ClrDebug
             [Out] out int pcRows,
             [Out] out int pcCols,
             [Out] out int piKey,
-            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppName);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NoFreeAnsiStringMarshaler))] out string ppName);*/
             int pcbRow;
             int pcRows;
             int pcCols;
@@ -282,7 +282,7 @@ namespace ClrDebug
             [Out] out int poCol,
             [Out] out int pcbCol,
             [Out] out int pType,
-            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppName);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NoFreeAnsiStringMarshaler))] out string ppName);*/
             int poCol;
             int pcbCol;
             int pType;
@@ -324,7 +324,7 @@ namespace ClrDebug
             [In] int ixCdTkn,
             [Out] out int pcTokens,
             [Out, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 1), ComAliasName("mdToken")] out IntPtr ppTokens,
-            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppName);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NoFreeAnsiStringMarshaler))] out string ppName);*/
             int pcTokens = 0;
             IntPtr ppTokens = default(IntPtr);
             string ppName;
@@ -458,7 +458,7 @@ namespace ClrDebug
         {
             /*HRESULT GetString(
             [In] int ixString,
-            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppString);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NoFreeAnsiStringMarshaler))] out string ppString);*/
             return Raw.GetString(ixString, out ppString);
         }
 
@@ -790,7 +790,7 @@ namespace ClrDebug
         {
             /*HRESULT GetMetaDataStreamInfo(
             [In] int ix,
-            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppchName,
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NoFreeAnsiStringMarshaler))] out string ppchName,
             [Out] out IntPtr ppv,
             [Out] out int pcb);*/
             string ppchName;

@@ -91,9 +91,9 @@ namespace ClrDebug
             [Out] out int pcCols,
             [Out] out int piKey,
 #if !GENERATED_MARSHALLING
-            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))]
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NoFreeAnsiStringMarshaler))]
 #else
-            [MarshalUsing(typeof(AnsiStringMarshaller))]
+            [MarshalUsing(typeof(NoFreeAnsiStringMarshaller))]
 #endif
             out string ppName);
 
@@ -118,9 +118,9 @@ namespace ClrDebug
             [Out] out int pcbCol,
             [Out] out int pType,
 #if !GENERATED_MARSHALLING
-            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))]
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NoFreeAnsiStringMarshaler))]
 #else
-            [MarshalUsing(typeof(AnsiStringMarshaller))]
+            [MarshalUsing(typeof(NoFreeAnsiStringMarshaller))]
 #endif
             out string ppName);
 
@@ -137,9 +137,9 @@ namespace ClrDebug
             [Out] out int pcTokens,
             [Out, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 1), ComAliasName("mdToken")] out IntPtr ppTokens,
 #if !GENERATED_MARSHALLING
-            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))]
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NoFreeAnsiStringMarshaler))]
 #else
-            [MarshalUsing(typeof(AnsiStringMarshaller))]
+            [MarshalUsing(typeof(NoFreeAnsiStringMarshaller))]
 #endif
             out string ppName);
 
@@ -188,9 +188,9 @@ namespace ClrDebug
         HRESULT GetString(
             [In] int ixString,
 #if !GENERATED_MARSHALLING
-            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))]
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NoFreeAnsiStringMarshaler))]
 #else
-            [MarshalUsing(typeof(AnsiStringMarshaller))]
+            [MarshalUsing(typeof(NoFreeAnsiStringMarshaller))]
 #endif
             out string ppString);
 

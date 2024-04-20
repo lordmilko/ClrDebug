@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
 #if !GENERATED_MARSHALLING
-    class ManualAnsiStringMarshaler : ICustomMarshaler
+    class NoFreeAnsiStringMarshaler : ICustomMarshaler
     {
-        public static ICustomMarshaler GetInstance(string pstrCookie) => new ManualAnsiStringMarshaler();
+        public static ICustomMarshaler GetInstance(string pstrCookie) => new NoFreeAnsiStringMarshaler();
 
         public void CleanUpManagedData(object ManagedObj)
         {
@@ -30,6 +33,13 @@ namespace ClrDebug
 
         //The default marshaler will attempt to free the native string. We don't want that
         public object MarshalNativeToManaged(IntPtr pNativeData) => Marshal.PtrToStringAnsi(pNativeData);
+    }
+#else
+    [CustomMarshaller(typeof(string), MarshalMode.Default, typeof(AnsiStringMarshaller))]
+    internal static unsafe class NoFreeAnsiStringMarshaller
+    {
+        public static string? ConvertToManaged(byte* unmanaged) =>
+            AnsiStringMarshaller.ConvertToManaged(unmanaged);
     }
 #endif
 }

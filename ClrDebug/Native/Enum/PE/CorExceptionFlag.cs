@@ -2,6 +2,7 @@
 
 namespace ClrDebug
 {
+    //While IMAGE_COR_ILMETHOD_FAT says its flags are 12 bits, currently I think only the first 8 are used, and the remaining 4 are padding, so byte is the appropriate underlying type to use here
     [Flags]
     public enum CorExceptionFlag : byte                       // definitions for the Flags field below (for both big and small)
     {

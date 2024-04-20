@@ -115,10 +115,12 @@ namespace ClrDebug
         {
             if (vt == VARENUM.VT_BSTR)
                 Extensions.DiaFreeString(dummy1);
-            else
+            else if (vt == VARENUM.VT_UNKNOWN)
             {
-                DiaVariant local = this;
-                VariantMarshaller.Free(*(VariantMarshaller.VARIANT*)&local);
+                var ptr = *(nint*) dummy1;
+
+                if (ptr != IntPtr.Zero)
+                    Marshal.Release(ptr);
             }
 
             vt = VARENUM.VT_EMPTY;

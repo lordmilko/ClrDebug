@@ -235,7 +235,7 @@ namespace ClrDebug
         HRESULT GetJitHelperFunctionName(
             [In] CLRDATA_ADDRESS ip,
             [In] int count,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] name,
             [Out] out int pNeeded);
 
         [PreserveSig]

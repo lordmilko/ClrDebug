@@ -2,6 +2,8 @@
 
 namespace ClrDebug.DbgEng
 {
+    //Create this interface by requesting it from DebugCreate()
+
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("046c9341-f0aa-400b-b1c3-617e1372d1a4")]
     [ComImport]

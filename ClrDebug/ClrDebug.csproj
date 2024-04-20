@@ -15,6 +15,7 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\ClrDebug.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591</NoWarn>
     <IsPackable>true</IsPackable>
+    <LangVersion>latest</LangVersion>
     <AssemblyTitle>Managed wrappers around the .NET Unmanaged API</AssemblyTitle>
     <EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
   </PropertyGroup>

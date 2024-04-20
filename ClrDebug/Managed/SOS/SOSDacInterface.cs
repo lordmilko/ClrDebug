@@ -1010,10 +1010,10 @@ namespace ClrDebug
             /*HRESULT GetJitHelperFunctionName(
             [In] CLRDATA_ADDRESS ip,
             [In] int count,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] name,
             [Out] out int pNeeded);*/
             int count = 0;
-            char[] name;
+            byte[] name;
             int pNeeded;
             HRESULT hr = Raw.GetJitHelperFunctionName(ip, count, null, out pNeeded);
 
@@ -1021,7 +1021,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            name = new char[count];
+            name = new byte[count];
             hr = Raw.GetJitHelperFunctionName(ip, count, name, out pNeeded);
 
             if (hr == HRESULT.S_OK)
