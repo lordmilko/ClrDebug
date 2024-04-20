@@ -81,6 +81,8 @@ A custom `COMException` type is used to properly store the `HRESULT` enum value 
 
 In more advanced scenarios, you'll probably want to implement a type derived from `CorDebugManagedCallback` that overrides the `HandleEvent` method. By default, `HandleEvent` will invoke the event-specific event handler (e.g. `OnLoadModule`) followed by the shared event handler (`OnAnyEvent`). If you have any work that needs to be done before/after these events are fired, you can do this in your custom `HandleEvent` override. Your custom `HandleEvent` override should then either call `base.HandleEvent` to get the default event handling, or dispatch all events manually, itself. You can use `RaiseOnAnyEvent` to invoke the `OnAnyEvent` handler from a derived class.
 
+For information on how to create an `ICorDebug` instance for debugging .NET Core applications, see the [NetCore](https://github.com/lordmilko/ClrDebug/tree/master/Samples/NetCore) sample.
+
 ### SOS
 
 SOS types, including `SOSDacInterface` and `XCLRDataProcess` can be retrieved via the `CLRDataCreateInstance` extension method
@@ -90,12 +92,12 @@ using static ClrDebug.Extensions;
 
 //Implement a custom ICLRDataTarget that will be used to interact with the target process.
 //See Samples/DacTypeDump/DataTarget.cs for a basic example.
-dataTarget = new DataTarget();
+var dataTarget = new DataTarget();
 
 var sosDacInterface = CLRDataCreateInstance(dataTarget).SOSDacInterface;
 ```
 
-Once you have your `SOSDacInterface`, you can easily get a `XCLRDataProcess` out of it, using ClrDebug's helpful `As` extension methods, which handle the messy work of accessing the wrapper's `Raw` property, casting it to the target interface type and creating the required wrapper type around it.
+Once you have your `SOSDacInterface`, you can easily get an `XCLRDataProcess` out of it, using ClrDebug's helpful `As` extension methods, which handle the messy work of accessing the wrapper's `Raw` property, casting it to the target interface type and creating the required wrapper type around it.
 
 ```c#
 //Short for new XCLRDataProcess((IXCLRDataProcess) sosDacInterface.Raw);
@@ -127,7 +129,7 @@ Files opened by an `IMetaDataDispenserEx` may be locked until the interface usin
 
 ### DIA
 
-Normally, manipulating PDBs using DIA is very messy and painful. In ClrDebug, it's easy!
+Normally, manipulating PDBs via DIA is very messy and painful. In ClrDebug, it's easy!
 
 There are two ways to use DIA: using the statically linked version inside DbgHelp, and via the standalone version, using DLLs such as `msdia140.dll`.
 
@@ -172,10 +174,11 @@ if (SymGetDiaSession(hProcess, modBase, out var raw))
 
 ### msdia140
 
-When using the standalone version of DIA, you can use `Microsoft.Diagnostics.Tracing.TraceEvent.SupportFiles` to grab an "official" distribution of DIA from Microsoft. We don't want any of the other files in this package, so we can potentially just add an MSBuild directive to copy `msdia140.dll` to our output directory. Ensuring these files also get copied across Project References in your solution can be tricky. One potential solution is to do the following:
+When using the standalone version of DIA, you can use `Microsoft.Diagnostics.Tracing.TraceEvent.SupportFiles` to grab an "official" distribution of DIA from Microsoft. We don't want any of the other files in this package, so we can potentially just apply `ExcludeAssets="compile;runtime"` to the `PackageReference`, and then add an MSBuild directive to copy `msdia140.dll` to our output directory. Ensuring these files also get copied across Project References in your solution can be tricky. One potential solution is to do the following:
 
 ```xml
-<!-- I like to use "x64" instead of "amd64". Customize these as you like -->
+<!-- I like to use "x64" instead of "amd64". Customize these as you like.
+     $(TraceEventSupportFilesBase) is defined by Microsoft.Diagnostics.Tracing.TraceEvent.SupportFiles -->
 <None Include="$(TraceEventSupportFilesBase)native\x86\msdia140.dll" CopyToOutputDirectory="PreserveNewest" Visible="False" Link="x86\%(FileName)%(Extension)" />
 <None Include="$(TraceEventSupportFilesBase)native\amd64\msdia140.dll" CopyToOutputDirectory="PreserveNewest" Visible="False" Link="x64\%(FileName)%(Extension)" />
 ```
@@ -225,7 +228,7 @@ var debugClient = new DebugClient(pDebugClient);
 debugClient.Control.Execute(DEBUG_OUTCTL.THIS_CLIENT, "k", DEBUG_EXECUTE.DEFAULT);
 ```
 
-When you are done using your `DebugClient`, it is recommended to call `Dispose` on it prior to unloading `dbgeng.dll`. `DebugClient.Dispose` will automatically call `Dispose` on all sub-interface wrappers that you used during its lifetime. If you unload `dbgeng.dll` while there are still live DbgEng interface objects, your program will crash when these RCWs attempt to `Release` their remaining references on the finalizer thread. If, instead of using these extension properties, you use ClrDebug's `As<T>` extension methods, or manually create new wrapper objects from the `DebugClient.Raw` property directly, you may find yourself with stray un-released RCWs that may blow up your process when finalized after you've already unloaded `dbgeng.dll`. Ensuring RCW's have been properly disposed prior to unloading their DLL is a common .NET problem, and is not something specific to ClrDebug.
+When you are done using your `DebugClient`, it is recommended to call `Dispose` on it prior to unloading `dbgeng.dll`. `DebugClient.Dispose` will automatically call `Dispose` on all sub-interface wrappers that you accessed during its lifetime. If you unload `dbgeng.dll` while there are still live DbgEng interface objects, your program will crash when these RCWs attempt to `Release` their remaining references on the finalizer thread. If, instead of using these extension properties, you use ClrDebug's `As<T>` extension methods, or manually create new wrapper objects from the `DebugClient.Raw` property directly, you may find yourself with stray un-released RCWs that may blow up your process when finalized after you've already unloaded `dbgeng.dll`. Ensuring RCW's have been properly disposed prior to unloading their DLL is a common .NET problem, and is not something specific to ClrDebug.
 
 When working with `HRESULT` values returned from DbgEng COM methods, use the `ThrowDbgEngNotOK` and `ThrowDbgEngFailed` extension methods, rather than the usual `ThrowOnNotOK` and `ThrowOnFailed` extension methods. Certain `HRESULT` values have specific meanings within the context of DbgEng (e.g. `E_NOINTERFACE` doesn't have anything to do with "interfaces"), and ClrDebug will automatically wrap these `HRESULT` values up in a custom exception type that more properly explains what exactly is going on.
 
@@ -273,6 +276,8 @@ with proper cross references to types, properties and methods contained within X
 * Debugger displays on all structs, making it much easier to debug without having to expand things
 * User friendly exceptions. No more having to lookup what the error code in a given `COMException` means; the relevant `HRESULT` enum member will be clearly displayed
 * `ToString` overrides on any wrapper that contains a `Name` property
+
+Note that ClrDebug's principle objective is to accurately mirror the API contracts of the unmanaged types it attempts to wrap. As such, every release of ClrDebug has the potential to introduce breaking changes.
 
 ## Troubleshooting
 

@@ -39,9 +39,9 @@ namespace ClrDebug
         HRESULT CallParameterizedFunction(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugType[] ppTypeArgs,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 3), In] ICorDebugValue[] ppArgs);
 
         /// <summary>
         /// Gets a pointer to a new <see cref="ICorDebugValue"/> of the specified type, with an initial value of zero or null.
@@ -74,9 +74,9 @@ namespace ClrDebug
         HRESULT NewParameterizedObject(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pConstructor,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugType[] ppTypeArgs,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 3), In] ICorDebugValue[] ppArgs);
 
         /// <summary>
         /// Instantiates a new parameterized type object of the specified class without attempting to call a constructor method.
@@ -92,7 +92,7 @@ namespace ClrDebug
         HRESULT NewParameterizedObjectNoConstructor(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pClass,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugType[] ppTypeArgs);
 
         /// <summary>
         /// Allocates a new array of the specified element type and dimensions.

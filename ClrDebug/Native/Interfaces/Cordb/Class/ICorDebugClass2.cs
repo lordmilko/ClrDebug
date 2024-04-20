@@ -38,7 +38,7 @@ namespace ClrDebug
         HRESULT GetParameterizedType(
             [In] CorElementType elementType,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugType[] ppTypeArgs,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
 
         /// <summary>

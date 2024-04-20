@@ -150,7 +150,7 @@ namespace ClrDebug
         /// domain, a transition will occur as long as all arguments are also in that application domain.
         /// </remarks>
         [Obsolete]
-        public void CallFunction(ICorDebugFunction pFunction, int nArgs, ICorDebugValue ppArgs)
+        public void CallFunction(ICorDebugFunction pFunction, int nArgs, ICorDebugValue[] ppArgs)
         {
             TryCallFunction(pFunction, nArgs, ppArgs).ThrowOnNotOK();
         }
@@ -166,13 +166,13 @@ namespace ClrDebug
         /// domain, a transition will occur as long as all arguments are also in that application domain.
         /// </remarks>
         [Obsolete]
-        public HRESULT TryCallFunction(ICorDebugFunction pFunction, int nArgs, ICorDebugValue ppArgs)
+        public HRESULT TryCallFunction(ICorDebugFunction pFunction, int nArgs, ICorDebugValue[] ppArgs)
         {
             /*HRESULT CallFunction(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);*/
-            return Raw.CallFunction(pFunction, nArgs, ref ppArgs);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugValue[] ppArgs);*/
+            return Raw.CallFunction(pFunction, nArgs, ppArgs);
         }
 
         #endregion
@@ -186,7 +186,7 @@ namespace ClrDebug
         /// <param name="nArgs">[in] The size of the ppArgs array.</param>
         /// <param name="ppArgs">[in] An array of <see cref="ICorDebugValue"/> objects, each of which represents an argument to be passed to the constructor.</param>
         [Obsolete]
-        public void NewObject(ICorDebugFunction pConstructor, int nArgs, ICorDebugValue ppArgs)
+        public void NewObject(ICorDebugFunction pConstructor, int nArgs, ICorDebugValue[] ppArgs)
         {
             TryNewObject(pConstructor, nArgs, ppArgs).ThrowOnNotOK();
         }
@@ -199,13 +199,13 @@ namespace ClrDebug
         /// <param name="nArgs">[in] The size of the ppArgs array.</param>
         /// <param name="ppArgs">[in] An array of <see cref="ICorDebugValue"/> objects, each of which represents an argument to be passed to the constructor.</param>
         [Obsolete]
-        public HRESULT TryNewObject(ICorDebugFunction pConstructor, int nArgs, ICorDebugValue ppArgs)
+        public HRESULT TryNewObject(ICorDebugFunction pConstructor, int nArgs, ICorDebugValue[] ppArgs)
         {
             /*HRESULT NewObject(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pConstructor,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);*/
-            return Raw.NewObject(pConstructor, nArgs, ref ppArgs);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugValue[] ppArgs);*/
+            return Raw.NewObject(pConstructor, nArgs, ppArgs);
         }
 
         #endregion
@@ -420,7 +420,7 @@ namespace ClrDebug
         /// be performed only in limited scenarios. If CallParameterizedFunction or <see cref="CallFunction"/> fails, the
         /// returned <see cref="HRESULT"/> will indicate the most general possible reason for failure.
         /// </remarks>
-        public void CallParameterizedFunction(ICorDebugFunction pFunction, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
+        public void CallParameterizedFunction(ICorDebugFunction pFunction, int nTypeArgs, ICorDebugType[] ppTypeArgs, int nArgs, ICorDebugValue[] ppArgs)
         {
             TryCallParameterizedFunction(pFunction, nTypeArgs, ppTypeArgs, nArgs, ppArgs).ThrowOnNotOK();
         }
@@ -441,15 +441,15 @@ namespace ClrDebug
         /// be performed only in limited scenarios. If CallParameterizedFunction or <see cref="CallFunction"/> fails, the
         /// returned <see cref="HRESULT"/> will indicate the most general possible reason for failure.
         /// </remarks>
-        public HRESULT TryCallParameterizedFunction(ICorDebugFunction pFunction, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
+        public HRESULT TryCallParameterizedFunction(ICorDebugFunction pFunction, int nTypeArgs, ICorDebugType[] ppTypeArgs, int nArgs, ICorDebugValue[] ppArgs)
         {
             /*HRESULT CallParameterizedFunction(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugType[] ppTypeArgs,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);*/
-            return Raw2.CallParameterizedFunction(pFunction, nTypeArgs, ref ppTypeArgs, nArgs, ref ppArgs);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 3), In] ICorDebugValue[] ppArgs);*/
+            return Raw2.CallParameterizedFunction(pFunction, nTypeArgs, ppTypeArgs, nArgs, ppArgs);
         }
 
         #endregion
@@ -515,7 +515,7 @@ namespace ClrDebug
         /// <remarks>
         /// The object's constructor may take <see cref="Type"/> parameters.
         /// </remarks>
-        public void NewParameterizedObject(ICorDebugFunction pConstructor, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
+        public void NewParameterizedObject(ICorDebugFunction pConstructor, int nTypeArgs, ICorDebugType[] ppTypeArgs, int nArgs, ICorDebugValue[] ppArgs)
         {
             TryNewParameterizedObject(pConstructor, nTypeArgs, ppTypeArgs, nArgs, ppArgs).ThrowOnNotOK();
         }
@@ -531,15 +531,15 @@ namespace ClrDebug
         /// <remarks>
         /// The object's constructor may take <see cref="Type"/> parameters.
         /// </remarks>
-        public HRESULT TryNewParameterizedObject(ICorDebugFunction pConstructor, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
+        public HRESULT TryNewParameterizedObject(ICorDebugFunction pConstructor, int nTypeArgs, ICorDebugType[] ppTypeArgs, int nArgs, ICorDebugValue[] ppArgs)
         {
             /*HRESULT NewParameterizedObject(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pConstructor,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugType[] ppTypeArgs,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);*/
-            return Raw2.NewParameterizedObject(pConstructor, nTypeArgs, ref ppTypeArgs, nArgs, ref ppArgs);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 3), In] ICorDebugValue[] ppArgs);*/
+            return Raw2.NewParameterizedObject(pConstructor, nTypeArgs, ppTypeArgs, nArgs, ppArgs);
         }
 
         #endregion
@@ -555,7 +555,7 @@ namespace ClrDebug
         /// The NewParameterizedObjectNoConstructor method will fail if an incorrect number of type arguments or the wrong
         /// types of type arguments are passed.
         /// </remarks>
-        public void NewParameterizedObjectNoConstructor(ICorDebugClass pClass, int nTypeArgs, ICorDebugType ppTypeArgs)
+        public void NewParameterizedObjectNoConstructor(ICorDebugClass pClass, int nTypeArgs, ICorDebugType[] ppTypeArgs)
         {
             TryNewParameterizedObjectNoConstructor(pClass, nTypeArgs, ppTypeArgs).ThrowOnNotOK();
         }
@@ -570,13 +570,13 @@ namespace ClrDebug
         /// The NewParameterizedObjectNoConstructor method will fail if an incorrect number of type arguments or the wrong
         /// types of type arguments are passed.
         /// </remarks>
-        public HRESULT TryNewParameterizedObjectNoConstructor(ICorDebugClass pClass, int nTypeArgs, ICorDebugType ppTypeArgs)
+        public HRESULT TryNewParameterizedObjectNoConstructor(ICorDebugClass pClass, int nTypeArgs, ICorDebugType[] ppTypeArgs)
         {
             /*HRESULT NewParameterizedObjectNoConstructor(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pClass,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs);*/
-            return Raw2.NewParameterizedObjectNoConstructor(pClass, nTypeArgs, ref ppTypeArgs);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 1), In] ICorDebugType[] ppTypeArgs);*/
+            return Raw2.NewParameterizedObjectNoConstructor(pClass, nTypeArgs, ppTypeArgs);
         }
 
         #endregion
