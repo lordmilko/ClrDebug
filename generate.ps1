@@ -8,8 +8,8 @@ $normalArgs = @{
     Namespace = "ClrDebug"
     Partial = "CorDebug","CLRMetaHost","CLRMetaHostPolicy","CLRDebugging","MetaDataDispenserEx","CorDebugValue"
     FancyExceptions = $true
-    Skip = "*CorDebugManagedCallbackEventArgs","ClassFactory","Dia*Callback"
-    ManualArray = "isosdacinterface.getappdomainlist","ICorDebugCode.GetCode","ITypeInfo.GetNames","ITypeLib.FindName"
+    Skip = "*CorDebugManagedCallbackEventArgs","ClassFactory","Dia*Callback","IDiaStackWalkFrame","DiaStackWalkHelper"
+    ManualArray = "isosdacinterface.getappdomainlist","ICorDebugCode.GetCode","ITypeInfo.GetNames","ITypeLib.FindName","ICorDebugProcess2.SetUnmanagedBreakpoint","ICorDebugStringValue.GetString"
     MaxPathArray = "ixclrdata*.getfilename"
     MaxLongPathArray = "ISymNGenWriter*.QueryPDBNameExW"
     SkipFolder = "DbgEng"
@@ -42,9 +42,9 @@ $dbgEngArgs = @{
     Partial = "DebugClient"
     FancyExceptions = $true
     Skip = "*Callback*"
-    IncludeFolders = "dbgeng"
+    IncludeFolders = "DebugClient"
     VTable = $true
-    DefaultFolder = "DbgEng"
+    DefaultFolder = "DbgEng\DebugClient"
     FancyExceptionHandler = "ThrowDbgEngNotOK"
     CDecl = "IDebugControl*.Output","IDebugControl*.OutputWide","IDebugControl*.ControlledOutput*","IDebugControl*.OutputPrompt*"
     FailedOnlyFancyExceptionHandler = "ThrowDbgEngFailed"
@@ -54,3 +54,23 @@ $dbgEngArgs = @{
 }
 
 New-ComWrapper @dbgEngArgs
+
+Write-Host "Generating DbgEng (Extra)..."
+
+# DbgEng Model/Services
+
+$dbgEngExtraArgs = @{
+    Path = "$PSScriptRoot\ClrDebug"
+    NumberAsValueOnSimpleInvocation = $true
+    Namespace = "ClrDebug.DbgEng"
+    FancyExceptions = $true
+    IncludeFolders = "DbgEng"
+    SkipFolder = "DebugClient"
+    NotAbstract = "IClrDacAndSosProvider"
+    DefaultFolder = "DbgEng"
+    FancyExceptionHandler = "ThrowDbgEngNotOK"
+    FailedOnlyFancyExceptionHandler = "ThrowDbgEngFailed"
+    CharArrayHandler = "ClrDebug.Extensions.CreateString"
+}
+
+New-ComWrapper @dbgEngExtraArgs

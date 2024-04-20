@@ -42,7 +42,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Searches the specified stack frame for a return address at or near the specified stack address.
         /// </summary>
-        /// <param name="frame">[in] An IDiaFrameData object that represents the current stack frame.</param>
+        /// <param name="frame">[in] An <see cref="IDiaFrameData"/> object that represents the current stack frame.</param>
         /// <param name="startAddress">[in] A virtual memory address from which to begin searching.</param>
         /// <param name="returnAddress">[out] Returns the nearest function return address to startAddress.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
@@ -60,8 +60,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the symbol that contains the specified virtual address.
         /// </summary>
-        /// <param name="va">[in] The virtual address that is contained in the requested symbol. The symbol must be a SymTagFunctionType (a value from the SymTagEnum Enumeration enumeration).</param>
-        /// <param name="ppSymbol">[out] An IDiaSymbol object that represents the symbol at the specified address.</param>
+        /// <param name="va">[in] The virtual address that is contained in the requested symbol. The symbol must be a SymTagFunctionType (a value from the <see cref="SymTagEnum"/> enumeration).</param>
+        /// <param name="ppSymbol">[out] An <see cref="IDiaSymbol"/> object that represents the symbol at the specified address.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         new HRESULT symbolForVA(

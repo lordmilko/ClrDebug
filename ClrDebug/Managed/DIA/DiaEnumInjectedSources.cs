@@ -8,8 +8,9 @@ namespace ClrDebug.DIA
     /// Enumerate the various injected sources contained in the data source.
     /// </summary>
     /// <remarks>
-    /// This interface is obtained by calling the IDiaSession method with the name of a specific source file or by calling
-    /// the IDiaSession method with the GUID of the IDiaEnumInjectedSources interface.
+    /// This interface is obtained by calling the <see cref="DiaSession.FindInjectedSource"/> method with the name of
+    /// a specific source file or by calling the <see cref="DiaSession.EnumTables"/> property with the GUID of the IDiaEnumInjectedSources
+    /// interface.
     /// </remarks>
     public class DiaEnumInjectedSources : IEnumerable<DiaInjectedSource>, IEnumerator<DiaInjectedSource>
     {
@@ -83,9 +84,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryGetCount(out int pRetVal)
         {
-            /*HRESULT get_count(
+            /*HRESULT get_Count(
             [Out] out int pRetVal);*/
-            return Raw.get_count(out pRetVal);
+            return Raw.get_Count(out pRetVal);
         }
 
         #endregion
@@ -94,8 +95,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves an injected source by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaInjectedSource object to be retrieved. The index is the range 0 to count-1, where count is returned by the IDiaEnumInjectedSources method.</param>
-        /// <returns>[out] Returns an IDiaInjectedSource object representing the injected source.</returns>
+        /// <param name="index">[in] Index of the <see cref="IDiaInjectedSource"/> object to be retrieved. The index is the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <returns>[out] Returns an <see cref="IDiaInjectedSource"/> object representing the injected source.</returns>
         public DiaInjectedSource Item(int index)
         {
             DiaInjectedSource injectedSourceResult;
@@ -107,8 +108,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves an injected source by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaInjectedSource object to be retrieved. The index is the range 0 to count-1, where count is returned by the IDiaEnumInjectedSources method.</param>
-        /// <param name="injectedSourceResult">[out] Returns an IDiaInjectedSource object representing the injected source.</param>
+        /// <param name="index">[in] Index of the <see cref="IDiaInjectedSource"/> object to be retrieved. The index is the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <param name="injectedSourceResult">[out] Returns an <see cref="IDiaInjectedSource"/> object representing the injected source.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryItem(int index, out DiaInjectedSource injectedSourceResult)
         {

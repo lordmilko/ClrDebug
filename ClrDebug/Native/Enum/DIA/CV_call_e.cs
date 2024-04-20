@@ -3,6 +3,9 @@
     /// <summary>
     /// Specifies the calling convention for a function.
     /// </summary>
+    /// <remarks>
+    /// The values in this enumeration are returned by a call to the <see cref="IDiaSymbol.get_callingConvention"/> method.
+    /// </remarks>
     public enum CV_call_e
     {
         /// <summary>

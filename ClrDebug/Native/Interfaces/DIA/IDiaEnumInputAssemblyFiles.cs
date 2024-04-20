@@ -19,7 +19,7 @@ namespace ClrDebug.DIA
             [Out, MarshalAs(UnmanagedType.Interface)] out IEnumVARIANT pRetVal);
 
         [PreserveSig]
-        HRESULT get_count(
+        HRESULT get_Count(
             [Out] out int pRetVal);
 
         [PreserveSig]

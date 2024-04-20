@@ -91,6 +91,21 @@ namespace ClrDebug
         private const string DacLibLinuxCore = "libmscordaccore.so";
         private const string DacLibMacCore = "libmscordaccore.dylib";
 
+        public const string COR_CTOR_METHOD_NAME = ".ctor";
+        public const string COR_CCTOR_METHOD_NAME = ".cctor";
+        public const string COR_ENUM_FIELD_NAME = "value__";
+
+        // The predefined name for deleting a typeDef, MethodDef, FieldDef, Property and Event
+        public const string COR_DELETED_NAME_A = "_Deleted";
+        public const string COR_VTABLEGAP_NAME_A = "_VtblGap";
+
+        // We intentionally use strncmp so that we will ignore any suffix
+        public static bool IsDeletedName(string strName) =>
+            strName?.StartsWith(COR_DELETED_NAME_A) == true;
+
+        public static bool IsVtblGapName(string strName) =>
+            strName?.StartsWith(COR_VTABLEGAP_NAME_A) == true;
+
 
         internal const int FACILITY_NT_BIT = 0x10000000;
 

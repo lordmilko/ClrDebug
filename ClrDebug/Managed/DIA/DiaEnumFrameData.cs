@@ -8,7 +8,7 @@ namespace ClrDebug.DIA
     /// Enumerates the various frame data elements contained in the data source.
     /// </summary>
     /// <remarks>
-    /// Obtain this interface from the IDiaSession method. See the example for details.
+    /// Obtain this interface from the <see cref="DiaSession.EnumTables"/> property. See the example for details.
     /// </remarks>
     public class DiaEnumFrameData : IEnumerable<DiaFrameData>, IEnumerator<DiaFrameData>
     {
@@ -83,9 +83,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryGetCount(out int pRetVal)
         {
-            /*HRESULT get_count(
+            /*HRESULT get_Count(
             [Out] out int pRetVal);*/
-            return Raw.get_count(out pRetVal);
+            return Raw.get_Count(out pRetVal);
         }
 
         #endregion
@@ -94,8 +94,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a frame data element by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaFrameData object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumFrameData method.</param>
-        /// <returns>[out] Returns an IDiaFrameData object representing the desired frame data element.</returns>
+        /// <param name="index">[in] Index of the <see cref="IDiaFrameData"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <returns>[out] Returns an <see cref="IDiaFrameData"/> object representing the desired frame data element.</returns>
         public DiaFrameData Item(int index)
         {
             DiaFrameData frameResult;
@@ -107,8 +107,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a frame data element by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaFrameData object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumFrameData method.</param>
-        /// <param name="frameResult">[out] Returns an IDiaFrameData object representing the desired frame data element.</param>
+        /// <param name="index">[in] Index of the <see cref="IDiaFrameData"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <param name="frameResult">[out] Returns an <see cref="IDiaFrameData"/> object representing the desired frame data element.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryItem(int index, out DiaFrameData frameResult)
         {
@@ -133,7 +133,7 @@ namespace ClrDebug.DIA
         /// Returns a frame by relative virtual address (RVA).
         /// </summary>
         /// <param name="relativeVirtualAddress">[in] RVA of the frame of interest.</param>
-        /// <returns>[out] Returns an IDiaFrameData object representing the frame that contains the address provided.</returns>
+        /// <returns>[out] Returns an <see cref="IDiaFrameData"/> object representing the frame that contains the address provided.</returns>
         public DiaFrameData FrameByRVA(int relativeVirtualAddress)
         {
             DiaFrameData frameResult;
@@ -146,7 +146,7 @@ namespace ClrDebug.DIA
         /// Returns a frame by relative virtual address (RVA).
         /// </summary>
         /// <param name="relativeVirtualAddress">[in] RVA of the frame of interest.</param>
-        /// <param name="frameResult">[out] Returns an IDiaFrameData object representing the frame that contains the address provided.</param>
+        /// <param name="frameResult">[out] Returns an <see cref="IDiaFrameData"/> object representing the frame that contains the address provided.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if no frame data matches the specified address. Otherwise, returns an error code.</returns>
         public HRESULT TryFrameByRVA(int relativeVirtualAddress, out DiaFrameData frameResult)
         {
@@ -171,7 +171,7 @@ namespace ClrDebug.DIA
         /// Returns a frame by virtual address (VA).
         /// </summary>
         /// <param name="virtualAddress">[in] VA of the frame of interest.</param>
-        /// <returns>[out] Returns an IDiaFrameData object that represents the frame that contains the address provided.</returns>
+        /// <returns>[out] Returns an <see cref="IDiaFrameData"/> object that represents the frame that contains the address provided.</returns>
         public DiaFrameData FrameByVA(long virtualAddress)
         {
             DiaFrameData frameResult;
@@ -184,7 +184,7 @@ namespace ClrDebug.DIA
         /// Returns a frame by virtual address (VA).
         /// </summary>
         /// <param name="virtualAddress">[in] VA of the frame of interest.</param>
-        /// <param name="frameResult">[out] Returns an IDiaFrameData object that represents the frame that contains the address provided.</param>
+        /// <param name="frameResult">[out] Returns an <see cref="IDiaFrameData"/> object that represents the frame that contains the address provided.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if no frame data matches the specified address. Otherwise, returns an error code.</returns>
         public HRESULT TryFrameByVA(long virtualAddress, out DiaFrameData frameResult)
         {

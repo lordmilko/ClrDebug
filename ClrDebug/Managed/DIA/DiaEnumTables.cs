@@ -8,7 +8,7 @@ namespace ClrDebug.DIA
     /// Enumerates the various tables contained in the data source.
     /// </summary>
     /// <remarks>
-    /// Obtain this interface by calling the IDiaSession method.
+    /// Obtain this interface by calling the <see cref="DiaSession.EnumTables"/> property.
     /// </remarks>
     public class DiaEnumTables : IEnumerable<DiaTable>, IEnumerator<DiaTable>
     {
@@ -83,9 +83,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryGetCount(out int pRetVal)
         {
-            /*HRESULT get_count(
+            /*HRESULT get_Count(
             [Out] out int pRetVal);*/
-            return Raw.get_count(out pRetVal);
+            return Raw.get_Count(out pRetVal);
         }
 
         #endregion
@@ -94,8 +94,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a table by means of an index or name.
         /// </summary>
-        /// <param name="index">[in] Index or name of the IDiaTable to be retrieved. If an integer variant is used, it must be in the range 0 to count-1, where count is as returned by the IDiaEnumTables method.</param>
-        /// <returns>[out] Returns an IDiaTable object representing the desired table.</returns>
+        /// <param name="index">[in] Index or name of the <see cref="IDiaTable"/> to be retrieved. If an integer variant is used, it must be in the range 0 to count-1, where count is as returned by the <see cref="Count"/> property.</param>
+        /// <returns>[out] Returns an <see cref="IDiaTable"/> object representing the desired table.</returns>
         /// <remarks>
         /// If a string variant is specified, then the string names a particular table. The name should be one of the table
         /// names as defined in Constants (Debug Interface Access SDK).
@@ -111,8 +111,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a table by means of an index or name.
         /// </summary>
-        /// <param name="index">[in] Index or name of the IDiaTable to be retrieved. If an integer variant is used, it must be in the range 0 to count-1, where count is as returned by the IDiaEnumTables method.</param>
-        /// <param name="tableResult">[out] Returns an IDiaTable object representing the desired table.</param>
+        /// <param name="index">[in] Index or name of the <see cref="IDiaTable"/> to be retrieved. If an integer variant is used, it must be in the range 0 to count-1, where count is as returned by the <see cref="Count"/> property.</param>
+        /// <param name="tableResult">[out] Returns an <see cref="IDiaTable"/> object representing the desired table.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         /// <remarks>
         /// If a string variant is specified, then the string names a particular table. The name should be one of the table

@@ -9,8 +9,8 @@ namespace ClrDebug.DIA
     /// </summary>
     /// <remarks>
     /// This interface provides symbols grouped by a specific type of symbol, for example, SymTagUDT (user-defined types)
-    /// or SymTagBaseClass. To work with symbols grouped by address, use the IDiaEnumSymbolsByAddr interface. Obtain this
-    /// interface by calling the following methods:
+    /// or SymTagBaseClass. To work with symbols grouped by address, use the <see cref="IDiaEnumSymbolsByAddr"/> interface.
+    /// Obtain this interface by calling the following methods:
     /// </remarks>
     public class DiaEnumSymbols : IEnumerable<DiaSymbol>, IEnumerator<DiaSymbol>
     {
@@ -85,9 +85,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryGetCount(out int pRetVal)
         {
-            /*HRESULT get_count(
+            /*HRESULT get_Count(
             [Out] out int pRetVal);*/
-            return Raw.get_count(out pRetVal);
+            return Raw.get_Count(out pRetVal);
         }
 
         #endregion
@@ -96,8 +96,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a symbol by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaSymbol object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumSymbols method.</param>
-        /// <returns>[out] Returns an IDiaSymbol object representing the desired symbol.</returns>
+        /// <param name="index">[in] Index of the <see cref="IDiaSymbol"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <returns>[out] Returns an <see cref="IDiaSymbol"/> object representing the desired symbol.</returns>
         public DiaSymbol Item(int index)
         {
             DiaSymbol symbolResult;
@@ -109,8 +109,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a symbol by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaSymbol object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumSymbols method.</param>
-        /// <param name="symbolResult">[out] Returns an IDiaSymbol object representing the desired symbol.</param>
+        /// <param name="index">[in] Index of the <see cref="IDiaSymbol"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <param name="symbolResult">[out] Returns an <see cref="IDiaSymbol"/> object representing the desired symbol.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryItem(int index, out DiaSymbol symbolResult)
         {

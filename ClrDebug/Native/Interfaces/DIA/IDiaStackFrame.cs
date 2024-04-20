@@ -9,8 +9,9 @@ namespace ClrDebug.DIA
     /// Exposes the properties of a stack frame.
     /// </summary>
     /// <remarks>
-    /// A stack frame is an abstraction of a function call during its execution. Obtain this interface by calling the IDiaEnumStackFrames
-    /// method. See the IDiaEnumStackFrames interface for an example on obtaining the IDiaStackFrame interface.
+    /// A stack frame is an abstraction of a function call during its execution. Obtain this interface by calling the <see
+    /// cref="IDiaEnumStackFrames.Next"/> method. See the <see cref="IDiaEnumStackFrames"/> interface for an example on
+    /// obtaining the IDiaStackFrame interface.
     /// </remarks>
     [Guid("5EDBC96D-CDD6-4792-AFBE-CC89007D9610")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -24,7 +25,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the frame type.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the StackFrameTypeEnum Enumeration enumeration.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="StackFrameTypeEnum"/> enumeration.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_type(
@@ -109,7 +110,8 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
         /// System exception handling is also known as structured exception handling. This is not the same thing as C++ exception
-        /// handling. To determine if C++ exception handling is in effect, call the IDiaStackFrame method.
+        /// handling. To determine if C++ exception handling is in effect, call the <see cref="get_cplusplusExceptionHandling"/>
+        /// method.
         /// </remarks>
         [PreserveSig]
         HRESULT get_systemExceptionHandling(
@@ -122,7 +124,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
         /// C++ exception handling is not the same as structured or system exception handling. To determine if structured exception
-        /// handling is in effect, call the IDiaStackFrame method.
+        /// handling is in effect, call the <see cref="get_systemExceptionHandling"/> method.
         /// </remarks>
         [PreserveSig]
         HRESULT get_cplusplusExceptionHandling(
@@ -158,7 +160,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the value of a specified register as stored in the stack frame.
         /// </summary>
-        /// <param name="index">[in] One of the CV_HREG_e Enumeration enumeration values.</param>
+        /// <param name="index">[in] One of the <see cref="CV_HREG_e"/> enumeration values.</param>
         /// <param name="pRetVal">[out] Value stored in the register.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns error code.</returns>
         [PreserveSig]

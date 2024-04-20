@@ -11,9 +11,9 @@ namespace ClrDebug.DIA
     /// <remarks>
     /// Some debug streams (XDATA, PDATA) contain copies of data also stored in the image. These stream data objects can
     /// be queried for the IDiaImageData interface. See the "Notes for Callers" section in this topic for details. Obtain
-    /// this interface by calling QueryInterface on an IDiaEnumDebugStreamData object. Note that not all debug streams
-    /// support the IDiaImageData interface. For example, currently only the XDATA and PDATA streams support the IDiaImageData
-    /// interface.
+    /// this interface by calling QueryInterface on an <see cref="IDiaEnumDebugStreamData"/> object. Note that not all
+    /// debug streams support the IDiaImageData interface. For example, currently only the XDATA and PDATA streams support
+    /// the IDiaImageData interface.
     /// </remarks>
     [Guid("C8E40ED2-A1D9-4221-8692-3CE661184B44")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

@@ -3,6 +3,11 @@
     /// <summary>
     /// Specifies the type of a symbol.
     /// </summary>
+    /// <remarks>
+    /// All symbols within a debug file have an identifying tag that specifies the symbol's type. The values in this enumeration
+    /// are returned by a call to the <see cref="IDiaSymbol.get_symTag"/> method. The values in this enumeration are passed
+    /// to the following methods to limit the scope of the search to a specific symbol type:
+    /// </remarks>
     public enum SymTagEnum : uint
     {
         /// <summary>

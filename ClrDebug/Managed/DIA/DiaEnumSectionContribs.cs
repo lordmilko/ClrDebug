@@ -80,9 +80,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryGetCount(out int pRetVal)
         {
-            /*HRESULT get_count(
+            /*HRESULT get_Count(
             [Out] out int pRetVal);*/
-            return Raw.get_count(out pRetVal);
+            return Raw.get_Count(out pRetVal);
         }
 
         #endregion
@@ -91,8 +91,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves section contributions by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaSectionContrib object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumSectionContribs method.</param>
-        /// <returns>[out] Returns an IDiaSectionContrib object representing the desired section contribution.</returns>
+        /// <param name="index">[in] Index of the <see cref="IDiaSectionContrib"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <returns>[out] Returns an <see cref="IDiaSectionContrib"/> object representing the desired section contribution.</returns>
         public DiaSectionContrib Item(int index)
         {
             DiaSectionContrib sectionResult;
@@ -104,8 +104,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves section contributions by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaSectionContrib object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumSectionContribs method.</param>
-        /// <param name="sectionResult">[out] Returns an IDiaSectionContrib object representing the desired section contribution.</param>
+        /// <param name="index">[in] Index of the <see cref="IDiaSectionContrib"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <param name="sectionResult">[out] Returns an <see cref="IDiaSectionContrib"/> object representing the desired section contribution.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryItem(int index, out DiaSectionContrib sectionResult)
         {

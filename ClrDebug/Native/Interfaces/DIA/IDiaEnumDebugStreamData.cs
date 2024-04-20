@@ -12,8 +12,8 @@ namespace ClrDebug.DIA
     /// <remarks>
     /// This interface represents a stream of records in a debug data stream. The size and interpretation of each record
     /// is dependent on the data stream the record comes from. This interface effectively provides access to the raw data
-    /// bytes in the symbol file. Call the IDiaEnumDebugStreams or IDiaEnumDebugStreams methods to obtain an IDiaEnumDebugStreamData
-    /// object.
+    /// bytes in the symbol file. Call the <see cref="IDiaEnumDebugStreams.Item"/> or <see cref="IDiaEnumDebugStreams.Next"/>
+    /// methods to obtain an IDiaEnumDebugStreamData object.
     /// </remarks>
     [Guid("486943E8-D187-4A6B-A3C4-291259FFF60D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -58,7 +58,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the specified record.
         /// </summary>
-        /// <param name="index">[in] Index of the record to be retrieved. The index is in the range 0 to count-1, where count is returned by IDiaEnumDebugStreamData.</param>
+        /// <param name="index">[in] Index of the record to be retrieved. The index is in the range 0 to count-1, where count is returned by <see cref="get_Count"/>.</param>
         /// <param name="cbData">[in] Size of the data buffer, in bytes.</param>
         /// <param name="pcbData">[out] Returns the number of bytes returned. If data is NULL, then pcbData contains the total number of bytes of data available in the specified record.</param>
         /// <param name="pbData">[out] A buffer that is filled in with the debug stream record data.</param>
@@ -106,7 +106,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Creates an enumerator that contains the same enumerated sequence as the current enumerator.
         /// </summary>
-        /// <param name="ppenum">[out] Returns an IDiaEnumDebugStreamData object that contains the duplicated sequence of debug data stream records.</param>
+        /// <param name="ppenum">[out] Returns an <see cref="IDiaEnumDebugStreamData"/> object that contains the duplicated sequence of debug data stream records.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT Clone(

@@ -9,8 +9,9 @@ namespace ClrDebug.DIA
     /// Enumerate the various injected sources contained in the data source.
     /// </summary>
     /// <remarks>
-    /// This interface is obtained by calling the IDiaSession method with the name of a specific source file or by calling
-    /// the IDiaSession method with the GUID of the IDiaEnumInjectedSources interface.
+    /// This interface is obtained by calling the <see cref="IDiaSession.findInjectedSource"/> method with the name of
+    /// a specific source file or by calling the <see cref="IDiaSession.getEnumTables"/> method with the GUID of the IDiaEnumInjectedSources
+    /// interface.
     /// </remarks>
     [Guid("D5612573-6925-4468-8883-98CDEC8C384A")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -35,14 +36,14 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns the number of injected sources.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
-        HRESULT get_count(
+        HRESULT get_Count(
             [Out] out int pRetVal);
 
         /// <summary>
         /// Retrieves an injected source by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaInjectedSource object to be retrieved. The index is the range 0 to count-1, where count is returned by the IDiaEnumInjectedSources method.</param>
-        /// <param name="injectedSource">[out] Returns an IDiaInjectedSource object representing the injected source.</param>
+        /// <param name="index">[in] Index of the <see cref="IDiaInjectedSource"/> object to be retrieved. The index is the range 0 to count-1, where count is returned by the <see cref="get_Count"/> method.</param>
+        /// <param name="injectedSource">[out] Returns an <see cref="IDiaInjectedSource"/> object representing the injected source.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT Item(
@@ -53,7 +54,7 @@ namespace ClrDebug.DIA
         /// Retrieves a specified number of injected sources in the enumeration sequence.
         /// </summary>
         /// <param name="celt">[in] The number of injected sources in the enumerator to be retrieved.</param>
-        /// <param name="rgelt">[out] Returns an array of IDiaInjectedSource objects that represents the desired injected sources.</param>
+        /// <param name="rgelt">[out] Returns an array of <see cref="IDiaInjectedSource"/> objects that represents the desired injected sources.</param>
         /// <param name="pceltFetched">[out] Returns the number of injected sources in the fetched enumerator.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if there are no more injected sources. Otherwise, returns an error code.</returns>
         [PreserveSig]
@@ -81,7 +82,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Creates an enumerator that contains the same enumeration state as the current enumerator.
         /// </summary>
-        /// <param name="ppenum">[out] Returns an IDiaEnumInjectedSources object that contains a duplicate of the enumerator. The injected sources are not duplicated, only the enumerator.</param>
+        /// <param name="ppenum">[out] Returns an <see cref="IDiaEnumInjectedSources"/> object that contains a duplicate of the enumerator. The injected sources are not duplicated, only the enumerator.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT Clone(

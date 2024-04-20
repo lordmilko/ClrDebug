@@ -10,8 +10,8 @@ namespace ClrDebug.DIA
     /// Receives callbacks from the DIA symbol locating procedure, allowing restrictions to be imposed on the locating process.
     /// </summary>
     /// <remarks>
-    /// The client application implements this interface and provides a reference to it in the call to the IDiaDataSource
-    /// method. Remember to implement all of the methods in the IDiaLoadCallback interface as well.
+    /// The client application implements this interface and provides a reference to it in the call to the <see cref="IDiaDataSource.loadDataForExe"/>
+    /// method. Remember to implement all of the methods in the <see cref="IDiaLoadCallback"/> interface as well.
     /// </remarks>
     [Guid("4688A074-5A4D-4486-AEA8-7B90711D9F7C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -31,12 +31,12 @@ namespace ClrDebug.DIA
         /// <param name="pbData">[in] An array that is filled in with the debug directory.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code. The return code is typically ignored.</returns>
         /// <remarks>
-        /// The IDiaDataSource method invokes this callback when it finds a debug directory while processing the executable
-        /// file. This method removes the need for the client to reverse engineer the executable and/or debug file to support
-        /// debug information other than that found in the .pdb file. With this data, the client can recognize the type of
-        /// debug information available and whether it resides in the executable file or the .dbg file. Most clients will not
-        /// need this callback because the IDiaDataSource::loadDataForExe method transparently opens both .pdb and .dbg files
-        /// when necessary to serve symbols.
+        /// The <see cref="IDiaDataSource.loadDataForExe"/> method invokes this callback when it finds a debug directory while
+        /// processing the executable file. This method removes the need for the client to reverse engineer the executable
+        /// and/or debug file to support debug information other than that found in the .pdb file. With this data, the client
+        /// can recognize the type of debug information available and whether it resides in the executable file or the .dbg
+        /// file. Most clients will not need this callback because the IDiaDataSource::loadDataForExe method transparently
+        /// opens both .pdb and .dbg files when necessary to serve symbols.
         /// </remarks>
         [PreserveSig]
         new HRESULT NotifyDebugDir(

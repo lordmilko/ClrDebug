@@ -9,8 +9,9 @@ namespace ClrDebug.DIA
     /// Retrieves data describing a section contribution, that is, a contiguous block of memory contributed to the image by a compiland.
     /// </summary>
     /// <remarks>
-    /// This interface is obtained by calling the IDiaEnumSectionContribs and IDiaEnumSectionContribs methods. See the
-    /// IDiaEnumSectionContribs interface for an example of obtaining the IDiaSectionContrib interface.
+    /// This interface is obtained by calling the <see cref="IDiaEnumSectionContribs.Item"/> and <see cref="IDiaEnumSectionContribs.Next"/>
+    /// methods. See the <see cref="IDiaEnumSectionContribs"/> interface for an example of obtaining the IDiaSectionContrib
+    /// interface.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0CF4B60E-35B1-4C6C-BDD8-854B9C8E3857")]
@@ -24,7 +25,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a reference to the compiland symbol that contributed this section.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSymbol object representing the compiland that contributed this section.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSymbol"/> object representing the compiland that contributed this section.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_compiland(

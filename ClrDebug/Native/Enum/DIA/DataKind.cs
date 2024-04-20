@@ -3,6 +3,9 @@
     /// <summary>
     /// Indicates the particular scope of a data value.
     /// </summary>
+    /// <remarks>
+    /// The values in this enumeration are returned by the <see cref="IDiaSymbol.get_dataKind"/> method.
+    /// </remarks>
     public enum DataKind
     {
         /// <summary>

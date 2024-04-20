@@ -9,7 +9,8 @@ namespace ClrDebug.DIA
     /// Enumerates the various segments contained in the data source.
     /// </summary>
     /// <remarks>
-    /// Obtain this interface by calling the QueryInterface method on an IDiaTable object. See the example for details.
+    /// Obtain this interface by calling the QueryInterface method on an <see cref="IDiaTable"/> object. See the example
+    /// for details.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E8368CA9-01D1-419D-AC0C-E31235DBDA9F")]
@@ -34,14 +35,14 @@ namespace ClrDebug.DIA
         /// </summary>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
-        HRESULT get_count(
+        HRESULT get_Count(
             [Out] out int pRetVal);
 
         /// <summary>
         /// Retrieves a segment by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaSegment object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumSegments method.</param>
-        /// <param name="segment">[out] Returns an IDiaSegment object representing the desired segment.</param>
+        /// <param name="index">[in] Index of the <see cref="IDiaSegment"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="get_Count"/> method.</param>
+        /// <param name="segment">[out] Returns an <see cref="IDiaSegment"/> object representing the desired segment.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT Item(
@@ -52,7 +53,7 @@ namespace ClrDebug.DIA
         /// Retrieves a specified number of segments in the enumeration sequence.
         /// </summary>
         /// <param name="celt">[in] The number of segments in the enumerator to be retrieved.</param>
-        /// <param name="rgelt">[out] An array that is to be filled in with the desired IDiaSegment objects that represent the segments.</param>
+        /// <param name="rgelt">[out] An array that is to be filled in with the desired <see cref="IDiaSegment"/> objects that represent the segments.</param>
         /// <param name="pceltFetched">[out] Returns the number of segments in the fetched enumerator.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if there are no more segments. Otherwise, returns an error code.</returns>
         [PreserveSig]
@@ -80,7 +81,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Creates an enumerator that contains the same enumeration state as the current enumerator.
         /// </summary>
-        /// <param name="ppenum">[out] Returns an IDiaEnumSegments object that contains a duplicate of the enumerator. The segments are not duplicated, only the enumerator.</param>
+        /// <param name="ppenum">[out] Returns an <see cref="IDiaEnumSegments"/> object that contains a duplicate of the enumerator. The segments are not duplicated, only the enumerator.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT Clone(

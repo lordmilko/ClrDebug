@@ -8,8 +8,8 @@ namespace ClrDebug.DIA
     /// Enumerates the various debug streams contained in the data source.
     /// </summary>
     /// <remarks>
-    /// The content of debug streams is implementation-dependent and the data formats are undocumented. Call the IDiaSession
-    /// method to obtain an IDiaEnumDebugStreams object.
+    /// The content of debug streams is implementation-dependent and the data formats are undocumented. Call the <see cref="DiaSession.EnumDebugStreams"/>
+    /// property to obtain an IDiaEnumDebugStreams object.
     /// </remarks>
     public class DiaEnumDebugStreams : IEnumerable<DiaEnumDebugStreamData>, IEnumerator<DiaEnumDebugStreamData>
     {
@@ -84,9 +84,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryGetCount(out int pRetVal)
         {
-            /*HRESULT get_count(
+            /*HRESULT get_Count(
             [Out] out int pRetVal);*/
-            return Raw.get_count(out pRetVal);
+            return Raw.get_Count(out pRetVal);
         }
 
         #endregion
@@ -95,8 +95,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a debug stream by means of an index or name.
         /// </summary>
-        /// <param name="index">[in] Index or name of the debug stream to be retrieved. If an integer variant is used, it must be in the range 0 to count-1, where count is as returned by the IDiaEnumDebugStreams method.</param>
-        /// <returns>[out] Returns an IDiaEnumDebugStreamData object representing the specified debug stream.</returns>
+        /// <param name="index">[in] Index or name of the debug stream to be retrieved. If an integer variant is used, it must be in the range 0 to count-1, where count is as returned by the <see cref="Count"/> property.</param>
+        /// <returns>[out] Returns an <see cref="IDiaEnumDebugStreamData"/> object representing the specified debug stream.</returns>
         public DiaEnumDebugStreamData Item(object index)
         {
             DiaEnumDebugStreamData streamResult;
@@ -108,8 +108,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a debug stream by means of an index or name.
         /// </summary>
-        /// <param name="index">[in] Index or name of the debug stream to be retrieved. If an integer variant is used, it must be in the range 0 to count-1, where count is as returned by the IDiaEnumDebugStreams method.</param>
-        /// <param name="streamResult">[out] Returns an IDiaEnumDebugStreamData object representing the specified debug stream.</param>
+        /// <param name="index">[in] Index or name of the debug stream to be retrieved. If an integer variant is used, it must be in the range 0 to count-1, where count is as returned by the <see cref="Count"/> property.</param>
+        /// <param name="streamResult">[out] Returns an <see cref="IDiaEnumDebugStreamData"/> object representing the specified debug stream.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryItem(object index, out DiaEnumDebugStreamData streamResult)
         {

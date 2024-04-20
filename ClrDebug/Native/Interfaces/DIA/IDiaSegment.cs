@@ -10,8 +10,8 @@ namespace ClrDebug.DIA
     /// </summary>
     /// <remarks>
     /// Because the DIA SDK already performs translations from the section offset to relative virtual addresses, most applications
-    /// will not make use of the information in the segment map. Obtain this interface by calling the IDiaEnumSegments
-    /// or IDiaEnumSegments methods. See the example for details.
+    /// will not make use of the information in the segment map. Obtain this interface by calling the <see cref="IDiaEnumSegments.Item"/>
+    /// or <see cref="IDiaEnumSegments.Next"/> methods. See the example for details.
     /// </remarks>
     [Guid("0775B784-C75B-4449-848B-B7BD3159545B")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

@@ -8,7 +8,8 @@ namespace ClrDebug.DIA
     /// Enumerates the various source files contained in the data source.
     /// </summary>
     /// <remarks>
-    /// Obtain this interface by calling the QueryInterface method on an IDiaTable object. See the example for details.
+    /// Obtain this interface by calling the QueryInterface method on an <see cref="IDiaTable"/> object. See the example
+    /// for details.
     /// </remarks>
     public class DiaEnumSourceFiles : IEnumerable<DiaSourceFile>, IEnumerator<DiaSourceFile>
     {
@@ -83,9 +84,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryGetCount(out int pRetVal)
         {
-            /*HRESULT get_count(
+            /*HRESULT get_Count(
             [Out] out int pRetVal);*/
-            return Raw.get_count(out pRetVal);
+            return Raw.get_Count(out pRetVal);
         }
 
         #endregion
@@ -94,8 +95,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a source file by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaSourceFile object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumSourceFiles method.</param>
-        /// <returns>[out] Returns an IDiaSourceFile object representing the desired source file.</returns>
+        /// <param name="index">[in] Index of the <see cref="IDiaSourceFile"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <returns>[out] Returns an <see cref="IDiaSourceFile"/> object representing the desired source file.</returns>
         public DiaSourceFile Item(int index)
         {
             DiaSourceFile sourceFileResult;
@@ -107,8 +108,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a source file by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaSourceFile object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumSourceFiles method.</param>
-        /// <param name="sourceFileResult">[out] Returns an IDiaSourceFile object representing the desired source file.</param>
+        /// <param name="index">[in] Index of the <see cref="IDiaSourceFile"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <param name="sourceFileResult">[out] Returns an <see cref="IDiaSourceFile"/> object representing the desired source file.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryItem(int index, out DiaSourceFile sourceFileResult)
         {

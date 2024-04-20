@@ -4,8 +4,9 @@
     /// Exposes the properties of a stack frame.
     /// </summary>
     /// <remarks>
-    /// A stack frame is an abstraction of a function call during its execution. Obtain this interface by calling the IDiaEnumStackFrames
-    /// method. See the IDiaEnumStackFrames interface for an example on obtaining the IDiaStackFrame interface.
+    /// A stack frame is an abstraction of a function call during its execution. Obtain this interface by calling the <see
+    /// cref="DiaEnumStackFrames.MoveNext"/> method. See the <see cref="IDiaEnumStackFrames"/> interface for an example on
+    /// obtaining the IDiaStackFrame interface.
     /// </remarks>
     public class DiaStackFrame : ComObject<IDiaStackFrame>
     {
@@ -37,7 +38,7 @@
         /// <summary>
         /// Retrieves the frame type.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the StackFrameTypeEnum Enumeration enumeration.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="StackFrameTypeEnum"/> enumeration.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the property is not supported. Otherwise, returns an error code.</returns>
         public HRESULT TryGetType(out StackFrameTypeEnum pRetVal)
         {
@@ -302,7 +303,8 @@
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
         /// System exception handling is also known as structured exception handling. This is not the same thing as C++ exception
-        /// handling. To determine if C++ exception handling is in effect, call the IDiaStackFrame method.
+        /// handling. To determine if C++ exception handling is in effect, call the <see cref="CplusplusExceptionHandling"/>
+        /// property.
         /// </remarks>
         public HRESULT TryGetSystemExceptionHandling(out bool pRetVal)
         {
@@ -335,7 +337,7 @@
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
         /// C++ exception handling is not the same as structured or system exception handling. To determine if structured exception
-        /// handling is in effect, call the IDiaStackFrame method.
+        /// handling is in effect, call the <see cref="SystemExceptionHandling"/> property.
         /// </remarks>
         public HRESULT TryGetCplusplusExceptionHandling(out bool pRetVal)
         {
@@ -437,7 +439,7 @@
         /// <summary>
         /// Retrieves the value of a specified register as stored in the stack frame.
         /// </summary>
-        /// <param name="index">[in] One of the CV_HREG_e Enumeration enumeration values.</param>
+        /// <param name="index">[in] One of the <see cref="CV_HREG_e"/> enumeration values.</param>
         /// <returns>[out] Value stored in the register.</returns>
         public long GetRegisterValue(CV_HREG_e index)
         {
@@ -450,7 +452,7 @@
         /// <summary>
         /// Retrieves the value of a specified register as stored in the stack frame.
         /// </summary>
-        /// <param name="index">[in] One of the CV_HREG_e Enumeration enumeration values.</param>
+        /// <param name="index">[in] One of the <see cref="CV_HREG_e"/> enumeration values.</param>
         /// <param name="pRetVal">[out] Value stored in the register.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns error code.</returns>
         public HRESULT TryGetRegisterValue(CV_HREG_e index, out long pRetVal)

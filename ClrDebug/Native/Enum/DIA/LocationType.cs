@@ -3,6 +3,11 @@
     /// <summary>
     /// Indicates the kind of location information contained in a symbol.
     /// </summary>
+    /// <remarks>
+    /// The properties available to the <see cref="IDiaSymbol"/> interface depend on the symbol's location within the image
+    /// file. For more information, see Symbol Locations. The values in this enumeration are returned by a call to the
+    /// <see cref="IDiaSymbol.get_locationType"/> method.
+    /// </remarks>
     public enum LocationType
     {
         /// <summary>

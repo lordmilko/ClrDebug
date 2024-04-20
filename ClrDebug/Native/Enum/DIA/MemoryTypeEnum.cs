@@ -3,6 +3,10 @@
     /// <summary>
     /// Specifies the type of memory to access.
     /// </summary>
+    /// <remarks>
+    /// The values in this enumeration are passed to the <see cref="IDiaStackWalkHelper.readMemory"/> method to limit access
+    /// to different types of memory.
+    /// </remarks>
     public enum MemoryTypeEnum
     {
         /// <summary>

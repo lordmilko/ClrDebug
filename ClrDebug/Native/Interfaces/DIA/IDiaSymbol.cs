@@ -37,7 +37,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the symbol type classifier.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns A value from the SymTagEnum Enumeration enumeration that specifies the symbol type classifier.</param>
+        /// <param name="pRetVal">[out] Returns A value from the <see cref="SymTagEnum"/> enumeration that specifies the symbol type classifier.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         HRESULT get_symTag(
@@ -60,7 +60,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a reference to the lexical parent of the symbol.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSymbol object that represents the lexical parent of the symbol.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSymbol"/> object that represents the lexical parent of the symbol.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
         /// <remarks>
         /// The lexical parent of a symbol is the enclosing function or module. For example, the lexical parent of a function
@@ -75,7 +75,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a reference to the class parent of the symbol.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSymbol object that represents the class parent of the symbol.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSymbol"/> object that represents the class parent of the symbol.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
         /// The types of symbols that can be class parents are documented in Class Hierarchy of Symbol Types.
@@ -87,12 +87,12 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the symbol that represents the type for this symbol.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSymbol object that represents the type of this symbol.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSymbol"/> object that represents the type of this symbol.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
-        /// To determine the type a symbol has, you must call this method and examine the resulting IDiaSymbol object. Note
-        /// that it is possible for a symbol to not have a type. For example, the name of a structure has no type but it might
-        /// have children symbols (use the IDiaSymbol method to examine those children).
+        /// To determine the type a symbol has, you must call this method and examine the resulting <see cref="IDiaSymbol"/>
+        /// object. Note that it is possible for a symbol to not have a type. For example, the name of a structure has no type
+        /// but it might have children symbols (use the <see cref="findChildren"/> method to examine those children).
         /// </remarks>
         [PreserveSig]
         HRESULT get_type(
@@ -101,7 +101,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the variable classification of a data symbol.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the DataKind Enumeration enumeration specifying the kind of data such as global, static, or constant, for example.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="DataKind"/> enumeration specifying the kind of data such as global, static, or constant, for example.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         HRESULT get_dataKind(
@@ -110,44 +110,44 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the location type of a data symbol.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the LocationType Enumeration enumeration that specifies the location type of a data symbol, such as static or local.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="LocationType"/> enumeration that specifies the location type of a data symbol, such as static or local.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         HRESULT get_locationType(
             [Out] out LocationType pRetVal);
 
         /// <summary>
-        /// Retrieves the section part of an address location. Use when the LocationType Enumeration is set to LocIsStatic.
+        /// Retrieves the section part of an address location. Use when the <see cref="LocationType"/> is set to LocIsStatic.
         /// </summary>
         /// <param name="pRetVal">[out] Returns the section part of an address location.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
         /// For static members located in an external DLL, the section returned by this method may be 0 as this method relies
-        /// on obtaining the virtual address of the member. Virtual addresses are valid only if the IDiaSession method in the
-        /// IDiaSession interface has been called with a nonzero parameter specifying the load address of the DLL. To get the
-        /// offset part of an address, call the IDiaSymbol method.
+        /// on obtaining the virtual address of the member. Virtual addresses are valid only if the <see cref="IDiaSession.put_loadAddress"/>
+        /// method in the <see cref="IDiaSession"/> interface has been called with a nonzero parameter specifying the load
+        /// address of the DLL. To get the offset part of an address, call the <see cref="get_addressOffset"/> method.
         /// </remarks>
         [PreserveSig]
         HRESULT get_addressSection(
             [Out] out int pRetVal);
 
         /// <summary>
-        /// Retrieves the offset part of an address location. Use when the LocationType Enumeration is set to LocIsStatic.
+        /// Retrieves the offset part of an address location. Use when the <see cref="LocationType"/> is set to LocIsStatic.
         /// </summary>
         /// <param name="pRetVal">[out] Returns the offset part of an address location.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
         /// For static members located in an external DLL, the offset returned by this method may be 0 as this method relies
-        /// on obtaining the virtual address of the member. Virtual addresses are valid only if the IDiaSession method in the
-        /// IDiaSession interface has been called with a nonzero parameter specifying the load address of the DLL. To get the
-        /// section part of an address, call the IDiaSymbol method.
+        /// on obtaining the virtual address of the member. Virtual addresses are valid only if the <see cref="IDiaSession.put_loadAddress"/>
+        /// method in the <see cref="IDiaSession"/> interface has been called with a nonzero parameter specifying the load
+        /// address of the DLL. To get the section part of an address, call the <see cref="get_addressSection"/> method.
         /// </remarks>
         [PreserveSig]
         HRESULT get_addressOffset(
             [Out] out int pRetVal);
 
         /// <summary>
-        /// Retrieves the relative virtual address (RVA) of the location. Use when the LocationType Enumeration is set to LocIsStatic.
+        /// Retrieves the relative virtual address (RVA) of the location. Use when the <see cref="LocationType"/> is set to LocIsStatic.
         /// </summary>
         /// <param name="pRetVal">[out] Returns the relative virtual address of the location.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
@@ -156,7 +156,7 @@ namespace ClrDebug.DIA
             [Out] out int pRetVal);
 
         /// <summary>
-        /// Retrieves the virtual address (VA) of the location. Use when the LocationType Enumeration is set to LocIsStatic.
+        /// Retrieves the virtual address (VA) of the location. Use when the <see cref="LocationType"/> is set to LocIsStatic.
         /// </summary>
         /// <param name="pRetVal">[out] Returns the virtual address of the location.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
@@ -165,21 +165,21 @@ namespace ClrDebug.DIA
             [Out] out long pRetVal);
 
         /// <summary>
-        /// Retrieves the register designator of the location when the LocationType Enumeration is set to LocIsEnregistered.
+        /// Retrieves the register designator of the location when the <see cref="LocationType"/> is set to LocIsEnregistered.
         /// </summary>
         /// <param name="pRetVal">[out] Returns the register designator of the location.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
-        /// If the symbol is relative to a register, that is, if the symbol's LocationType Enumeration is set to LocIsRegRel,
-        /// use the get_registerId method followed by a call to the IDiaSymbol method to get the offset from the register where
-        /// the symbol is located.
+        /// If the symbol is relative to a register, that is, if the symbol's <see cref="LocationType"/> is set to LocIsRegRel,
+        /// use the get_registerId method followed by a call to the <see cref="get_offset"/> method to get the offset from
+        /// the register where the symbol is located.
         /// </remarks>
         [PreserveSig]
         HRESULT get_registerId(
             [Out] out CV_HREG_e pRetVal);
 
         /// <summary>
-        /// Retrieves the offset of the symbol location. Use when the LocationType Enumeration is LocIsRegRel or LocIsBitField.
+        /// Retrieves the offset of the symbol location. Use when the <see cref="LocationType"/> is LocIsRegRel or LocIsBitField.
         /// </summary>
         /// <param name="pRetVal">[out] Returns the offset in bytes of the symbol location.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
@@ -197,7 +197,7 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns the number of bytes or bits of memory used by the object represented by this symbol.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
-        /// If the LocationType Enumeration of the symbol is LocIsBitField, the length returned by this method is in bits;
+        /// If the <see cref="LocationType"/> of the symbol is LocIsBitField, the length returned by this method is in bits;
         /// otherwise, the length is in bytes for all other location types.
         /// </remarks>
         [PreserveSig]
@@ -205,7 +205,7 @@ namespace ClrDebug.DIA
             [Out] out long pRetVal);
 
         /// <summary>
-        /// Retrieves the slot number of the location. Use when the LocationType Enumeration is LocIsSlot.
+        /// Retrieves the slot number of the location. Use when the <see cref="LocationType"/> is LocIsSlot.
         /// </summary>
         /// <param name="pRetVal">[out] Returns the slot number of the location.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
@@ -247,7 +247,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the access modifier of a class member.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the CV_access_e Enumeration enumeration that specifies the access modifier of a class member.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="CV_access_e"/> enumeration that specifies the access modifier of a class member.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         HRESULT get_access(
@@ -270,7 +270,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the platform type for which the compiland was compiled.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the CV_CPU_TYPE_e Enumeration enumeration that specifies the platform type for which the compiland was compiled.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="CV_CPU_TYPE_e"/> enumeration that specifies the platform type for which the compiland was compiled.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         HRESULT get_platform(
@@ -279,7 +279,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the language of the source.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the CV_CFL_LANG Enumeration enumeration that specifies the language of the source.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="CV_CFL_LANG"/> enumeration that specifies the language of the source.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
         [PreserveSig]
         HRESULT get_language(
@@ -422,10 +422,10 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the thunk type of a function.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the THUNK_ORDINAL Enumeration enumeration that specifies the thunk type of a function.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="THUNK_ORDINAL"/> enumeration that specifies the thunk type of a function.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
-        /// This property is valid only if the symbol as a SymTagEnum Enumeration value of SymTagThunk. A "thunk" is a piece
+        /// This property is valid only if the symbol as a <see cref="SymTagEnum"/> value of SymTagThunk. A "thunk" is a piece
         /// of code that converts between a 32-bit memory address space (also known as flat address space) and a 16-bit address
         /// space (known as a segmented address space).
         /// </remarks>
@@ -484,7 +484,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Returns an indicator of a methods calling convention.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the CV_call_e Enumeration enumeration that specifies a method's calling convention.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="CV_call_e"/> enumeration that specifies a method's calling convention.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         HRESULT get_callingConvention(
@@ -506,7 +506,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the base type for this symbol.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the BasicType Enumeration enumeration specifying the base type of the symbol.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="BasicType"/> enumeration specifying the base type of the symbol.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
         /// The basic type for a symbol can be determined by first getting the type of the symbol and then interrogating that
@@ -553,7 +553,7 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns the name of the file from which the symbols were loaded.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
-        /// This property is valid only for symbols with a SymTagEnum Enumeration value of SymTagExe that also have global
+        /// This property is valid only for symbols with a <see cref="SymTagEnum"/> value of SymTagExe that also have global
         /// scope.
         /// </remarks>
         [PreserveSig]
@@ -584,7 +584,7 @@ namespace ClrDebug.DIA
             [Out] out int pRetVal);
 
         /// <summary>
-        /// Retrieves the bit position of location. Used when the LocationType Enumeration is LocIsBitField.
+        /// Retrieves the bit position of location. Used when the <see cref="LocationType"/> is LocIsBitField.
         /// </summary>
         /// <param name="pRetVal">[out] Returns the bit position of the location.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
@@ -595,7 +595,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the symbol interface of the array index type of the symbol.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSymbol object that represents the array index type of the symbol.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSymbol"/> object that represents the array index type of the symbol.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
         /// <remarks>
         /// Some languages can specify the type used as an index to an array. The symbol returned from this method specifies
@@ -711,7 +711,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the symbol interface of the type of the virtual table for a user-defined type.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSymbol object representing the virtual table for a user-defined type.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSymbol"/> object representing the virtual table for a user-defined type.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
         [PreserveSig]
         HRESULT get_virtualTableShape(
@@ -893,7 +893,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the lower bound of a FORTRAN array dimension.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSymbol object that represents the lower bound of a FORTRAN array dimension.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSymbol"/> object that represents the lower bound of a FORTRAN array dimension.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         HRESULT get_lowerBound(
@@ -902,7 +902,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a symbol representing the upper bound of a FORTRAN array dimension.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSymbol object that represents the upper bound of a FORTRAN array dimension.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSymbol"/> object that represents the upper bound of a FORTRAN array dimension.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         HRESULT get_upperBound(
@@ -947,13 +947,14 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the children of the symbol.
         /// </summary>
-        /// <param name="symTag">[in] Specifies the symbol tags of the children to be retrieved, as defined in the SymTagEnum Enumeration. Set to SymTagNull for all children to be retrieved.</param>
+        /// <param name="symTag">[in] Specifies the symbol tags of the children to be retrieved, as defined in the <see cref="SymTagEnum"/>. Set to SymTagNull for all children to be retrieved.</param>
         /// <param name="name">[in] Specifies the name of the children to be retrieved. Set to NULL for all children to be retrieved.</param>
-        /// <param name="compareFlags">[in] Specifies the comparison options applied to name matching. Values from the NameSearchOptions Enumeration enumeration can be used alone or in combination.</param>
-        /// <param name="ppResult">[out] Returns an IDiaEnumSymbols object that contains a list of the child symbols retrieved.</param>
+        /// <param name="compareFlags">[in] Specifies the comparison options applied to name matching. Values from the <see cref="NameSearchOptions"/> enumeration can be used alone or in combination.</param>
+        /// <param name="ppResult">[out] Returns an <see cref="IDiaEnumSymbols"/> object that contains a list of the child symbols retrieved.</param>
         /// <returns>Returns S_OK if at least one child of the symbol was found, or returns S_FALSE if no children were found; otherwise returns an error code.</returns>
         /// <remarks>
-        /// This method is identical to calling the IDiaSession method with this symbol as the first parameter.
+        /// This method is identical to calling the <see cref="IDiaSession.findChildren"/> method with this symbol as the first
+        /// parameter.
         /// </remarks>
         [PreserveSig]
         HRESULT findChildren(
@@ -965,13 +966,13 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the children of the symbol. The local symbols that are returned include live range information, if the program is compiled with optimization on.
         /// </summary>
-        /// <param name="symTag">[in] Specifies the symbol tags of the children to be retrieved, as defined in the SymTagEnum Enumeration. Set to SymTagNull for all children to be retrieved.</param>
+        /// <param name="symTag">[in] Specifies the symbol tags of the children to be retrieved, as defined in the <see cref="SymTagEnum"/>. Set to SymTagNull for all children to be retrieved.</param>
         /// <param name="name">[in] Specifies the name of the children to be retrieved. Set to NULL for all children to be retrieved.</param>
-        /// <param name="compareFlags">[in] Specifies the comparison options to be applied to name matching. Values from the NameSearchOptions Enumeration enumeration can be used alone or in combination.</param>
-        /// <param name="ppResult">[out] Returns an IDiaEnumSymbols object that contains a list of the child symbols retrieved.</param>
+        /// <param name="compareFlags">[in] Specifies the comparison options to be applied to name matching. Values from the <see cref="NameSearchOptions"/> enumeration can be used alone or in combination.</param>
+        /// <param name="ppResult">[out] Returns an <see cref="IDiaEnumSymbols"/> object that contains a list of the child symbols retrieved.</param>
         /// <returns>Returns S_OK if at least one child of the symbol was found, or returns S_FALSE if no children were found; otherwise, returns an error code.</returns>
         /// <remarks>
-        /// This method is the extended version of IDiaSymbol.
+        /// This method is the extended version of <see cref="findChildren"/>.
         /// </remarks>
         [PreserveSig]
         HRESULT findChildrenEx(
@@ -983,11 +984,11 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the children of the symbol that are valid at a specified address.
         /// </summary>
-        /// <param name="symtag">[in] Specifies the symbol tags of the children to be retrieved, as defined in the SymTagEnum Enumeration. Set to SymTagNull for all children to be retrieved.</param>
+        /// <param name="symtag">[in] Specifies the symbol tags of the children to be retrieved, as defined in the <see cref="SymTagEnum"/>. Set to SymTagNull for all children to be retrieved.</param>
         /// <param name="name">[in] Specifies the name of the children to be retrieved. Set to NULL for all children to be retrieved.</param>
-        /// <param name="compareFlags">[in] Specifies the comparison options to be applied to name matching. Values from the NameSearchOptions Enumeration enumeration can be used alone or in combination.</param>
+        /// <param name="compareFlags">[in] Specifies the comparison options to be applied to name matching. Values from the <see cref="NameSearchOptions"/> enumeration can be used alone or in combination.</param>
         /// <param name="address">[in] The address of the symbol.</param>
-        /// <param name="ppResult">[out] Returns an IDiaEnumSymbols object that contains a list of the child symbols retrieved.</param>
+        /// <param name="ppResult">[out] Returns an <see cref="IDiaEnumSymbols"/> object that contains a list of the child symbols retrieved.</param>
         /// <returns>Returns S_OK if at least one child of the symbol was found, or returns S_FALSE if no children were found; otherwise, returns an error code.</returns>
         /// <remarks>
         /// The local symbols that are returned include live range information.
@@ -1003,11 +1004,11 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the children of the symbol that are valid at a specified virtual address.
         /// </summary>
-        /// <param name="symTag">[in] Specifies the symbol tags of the children to be retrieved, as defined in the SymTagEnum Enumeration. Set to SymTagNull for all children to be retrieved.</param>
+        /// <param name="symTag">[in] Specifies the symbol tags of the children to be retrieved, as defined in the <see cref="SymTagEnum"/>. Set to SymTagNull for all children to be retrieved.</param>
         /// <param name="name">[in] Specifies the name of the children to be retrieved. Set to NULL for all children to be retrieved.</param>
-        /// <param name="compareFlags">[in] Specifies the comparison options to be applied to name matching. Values from the NameSearchOptions Enumeration enumeration can be used alone or in combination.</param>
+        /// <param name="compareFlags">[in] Specifies the comparison options to be applied to name matching. Values from the <see cref="NameSearchOptions"/> enumeration can be used alone or in combination.</param>
         /// <param name="va">[in] Specifies the virtual address.</param>
-        /// <param name="ppResult">[out] Returns an IDiaEnumSymbols object that contains a list of the child symbols retrieved.</param>
+        /// <param name="ppResult">[out] Returns an <see cref="IDiaEnumSymbols"/> object that contains a list of the child symbols retrieved.</param>
         /// <returns>Returns S_OK if at least one child of the symbol was found, or returns S_FALSE if no children were found; otherwise, returns an error code.</returns>
         /// <remarks>
         /// The local symbols that are returned include live range information.
@@ -1023,11 +1024,11 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the children of the symbol that are valid at a specified relative virtual address (RVA).
         /// </summary>
-        /// <param name="symTag">[in] Specifies the symbol tags of the children to be retrieved, as defined in the SymTagEnum Enumeration. Set to SymTagNull for all children to be retrieved.</param>
+        /// <param name="symTag">[in] Specifies the symbol tags of the children to be retrieved, as defined in the <see cref="SymTagEnum"/>. Set to SymTagNull for all children to be retrieved.</param>
         /// <param name="name">[in] Specifies the name of the children to be retrieved. Set to NULL for all children to be retrieved.</param>
-        /// <param name="compareFlags">[in] Specifies the comparison options to be applied to name matching. Values from the NameSearchOptions Enumeration enumeration can be used alone or in combination.</param>
+        /// <param name="compareFlags">[in] Specifies the comparison options to be applied to name matching. Values from the <see cref="NameSearchOptions"/> enumeration can be used alone or in combination.</param>
         /// <param name="rva">[in] Specifies the RVA.</param>
-        /// <param name="ppResult">[out] Returns an IDiaEnumSymbols object that contains a list of the child symbols retrieved.</param>
+        /// <param name="ppResult">[out] Returns an <see cref="IDiaEnumSymbols"/> object that contains a list of the child symbols retrieved.</param>
         /// <returns>Returns S_OK if at least one child of the symbol was found, or returns S_FALSE if no children were found; otherwise, returns an error code.</returns>
         /// <remarks>
         /// The local symbols that are returned include live range information.
@@ -1064,7 +1065,7 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns the RVA of a thunk target.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
-        /// This property is valid only if the symbol as a SymTagEnum Enumeration value of SymTagThunk. A "thunk" is a piece
+        /// This property is valid only if the symbol as a <see cref="SymTagEnum"/> value of SymTagThunk. A "thunk" is a piece
         /// of code that converts between a 32-bit memory address space (also known as flat address space) and a 16-bit address
         /// space (known as a segmented address space).
         /// </remarks>
@@ -1078,7 +1079,7 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns the VA of a thunk target.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
-        /// This property is valid only if the symbol as a SymTagEnum Enumeration value of SymTagThunk. A "thunk" is a piece
+        /// This property is valid only if the symbol as a <see cref="SymTagEnum"/> value of SymTagThunk. A "thunk" is a piece
         /// of code that converts between a 32-bit memory address space (also known as flat address space) and a 16-bit address
         /// space (known as a segmented address space).
         /// </remarks>
@@ -1101,7 +1102,7 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns a unique value that identifies an OEM.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
-        /// This property applies only to symbols with a SymTagEnum Enumeration type of SymTagCustomType.
+        /// This property applies only to symbols with a <see cref="SymTagEnum"/> type of SymTagCustomType.
         /// </remarks>
         [PreserveSig]
         HRESULT get_oemId(
@@ -1114,7 +1115,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
         /// The identifier is a unique value created by the DIA SDK to mark all symbols as unique. This property applies only
-        /// to symbols with a SymTagEnum Enumeration type of SymTagCustomType.
+        /// to symbols with a <see cref="SymTagEnum"/> type of SymTagCustomType.
         /// </remarks>
         [PreserveSig]
         HRESULT get_oemSymbolId(
@@ -1125,7 +1126,7 @@ namespace ClrDebug.DIA
         /// </summary>
         /// <param name="cTypes">[in] Size of the buffer to hold the data.</param>
         /// <param name="pcTypes">[out] Returns the number of types written, or, if the types parameter is NULL, then the total number of types available.</param>
-        /// <param name="pTypes">[out] An array that is to be filled in with the IDiaSymbol objects that represent all the types for this symbol.</param>
+        /// <param name="pTypes">[out] An array that is to be filled in with the <see cref="IDiaSymbol"/> objects that represent all the types for this symbol.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         HRESULT get_types(
@@ -1149,10 +1150,10 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the type of the object pointer for a class method.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSymbol object that represents the object pointer for a class method.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSymbol"/> object that represents the object pointer for a class method.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
-        /// This property applies only to symbols with a SymTagEnum Enumeration type of SymTagFunctionType.
+        /// This property applies only to symbols with a <see cref="SymTagEnum"/> type of SymTagFunctionType.
         /// </remarks>
         [PreserveSig]
         HRESULT get_objectPointerType(
@@ -1161,7 +1162,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the variety of a user-defined type (UDT).
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the UdtKind Enumeration enumeration that specifies the kind of a UDT: structure, class, or union.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="UdtKind"/> enumeration that specifies the kind of a UDT: structure, class, or union.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
         [PreserveSig]
         HRESULT get_udtKind(
@@ -1395,7 +1396,7 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns TRUE if the data is part of an aggregation of symbols split from a parent symbol; otherwise, returns FALSE.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
-        /// The IDiaSymbol method is TRUE for the symbol that is the parent of the aggregated symbols.
+        /// The <see cref="get_isSplitted"/> method is TRUE for the symbol that is the parent of the aggregated symbols.
         /// </remarks>
         [PreserveSig]
         HRESULT get_isAggregated(
@@ -1407,7 +1408,7 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns TRUE if the symbol has been split into an aggregate of symbols; otherwise, returns FALSE.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
         /// <remarks>
-        /// The IDiaSymbol method returns TRUE for all symbols that are part of a split symbol.
+        /// The <see cref="get_isAggregated"/> method returns TRUE for all symbols that are part of a split symbol.
         /// </remarks>
         [PreserveSig]
         HRESULT get_isSplitted(
@@ -1447,7 +1448,7 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// A virtual base table pointer (vbtptr) is a hidden pointer in a Visual C++ vtable that handles inheritance from
         /// virtual base classes. A vbtptr can have different sizes depending on the inherited classes. This method returns
-        /// an IDiaSymbol object that can be used to determine the size of the vbtptr.
+        /// an <see cref="IDiaSymbol"/> object that can be used to determine the size of the vbtptr.
         /// </remarks>
         [PreserveSig]
         HRESULT get_virtualBaseTableType(
@@ -1550,7 +1551,7 @@ namespace ClrDebug.DIA
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
-        /// Retrieves a flag that specifies whether a pointer type is an rvalue reference. Use when the SymTagEnum Enumeration is set to a pointer type.
+        /// Retrieves a flag that specifies whether a pointer type is an rvalue reference. Use when the <see cref="SymTagEnum"/> is set to a pointer type.
         /// </summary>
         /// <param name="pRetVal">[out] Returns TRUE if the pointer is an rvalue reference; otherwise, returns FALSE.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
@@ -1559,9 +1560,9 @@ namespace ClrDebug.DIA
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
-        /// Retrieves the original type for this symbol. Use when the SymTagEnum Enumeration is set to a type.
+        /// Retrieves the original type for this symbol. Use when the <see cref="SymTagEnum"/> is set to a type.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSymbol object that represents the original type of this symbol.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSymbol"/> object that represents the original type of this symbol.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
         /// The current type is a modification of the returned original type. The original type for a symbol can be determined
@@ -1573,7 +1574,7 @@ namespace ClrDebug.DIA
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol pRetVal);
 
         /// <summary>
-        /// Retrieves a flag that specifies whether the frame pointer is present. Use when the SymTagEnum Enumeration is set to SymTagFunction.
+        /// Retrieves a flag that specifies whether the frame pointer is present. Use when the <see cref="SymTagEnum"/> is set to SymTagFunction.
         /// </summary>
         /// <param name="pRetVal">[out] ] Returns TRUE if the frame pointer is present; otherwise, returns FALSE.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
@@ -1582,7 +1583,7 @@ namespace ClrDebug.DIA
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
-        /// Retrieves a flag that specifies whether the preprocesser directive for a safe buffer is used. Use when the SymTagEnum Enumeration is set to SymTagFunction.
+        /// Retrieves a flag that specifies whether the preprocessor directive for a safe buffer is used. Use when the <see cref="SymTagEnum"/> is set to SymTagFunction.
         /// </summary>
         /// <param name="pRetVal">[out] Returns TRUE if the pointer uses a preprocessor directive for a safe buffer; otherwise, returns FALSE.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
@@ -1605,7 +1606,7 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns TRUE if the class or method is sealed; otherwise, returns FALSE.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         /// <remarks>
-        /// A sealed class cannot be used as a base class. A sealed method cannot be overidden.
+        /// A sealed class cannot be used as a base class. A sealed method cannot be overridden.
         /// </remarks>
         [PreserveSig]
         HRESULT get_sealed(
@@ -1636,7 +1637,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         /// <remarks>
         /// The address formed by the section and offset is the beginning of the range in which the symbol is valid. To get
-        /// the offset part of the address, use IDiaSymbol.
+        /// the offset part of the address, use <see cref="get_liveRangeStartAddressOffset"/>.
         /// </remarks>
         [PreserveSig]
         HRESULT get_liveRangeStartAddressSection(
@@ -1649,7 +1650,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         /// <remarks>
         /// The address formed by the section and offset is the beginning of the range in which the symbol is valid. To get
-        /// the section part of the address, use IDiaSymbol.
+        /// the section part of the address, use <see cref="get_liveRangeStartAddressSection"/>.
         /// </remarks>
         [PreserveSig]
         HRESULT get_liveRangeStartAddressOffset(
@@ -1695,7 +1696,7 @@ namespace ClrDebug.DIA
             [Out] out int pRetVal);
 
         /// <summary>
-        /// Retrieves the ID of the register that holds a base pointer to the parameters. Use when the SymTagEnum Enumeration is set to SymTagFunction.
+        /// Retrieves the ID of the register that holds a base pointer to the parameters. Use when the <see cref="SymTagEnum"/> is set to SymTagFunction.
         /// </summary>
         /// <param name="pRetVal">[out] Returns the ID of the register that holds a base pointer to the parameters.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
@@ -1704,7 +1705,7 @@ namespace ClrDebug.DIA
             [Out] out int pRetVal);
 
         /// <summary>
-        /// Retrieves the ID of the register that holds a base pointer to local variables on the stack. Use when the SymTagEnum Enumeration is set to SymTagFunction.
+        /// Retrieves the ID of the register that holds a base pointer to local variables on the stack. Use when the <see cref="SymTagEnum"/> is set to SymTagFunction.
         /// </summary>
         /// <param name="pRetVal">[out] Returns the ID of the register that holds a base pointer to local variables on the stack.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>

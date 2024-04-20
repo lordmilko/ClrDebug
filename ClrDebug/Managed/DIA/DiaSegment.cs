@@ -5,8 +5,8 @@
     /// </summary>
     /// <remarks>
     /// Because the DIA SDK already performs translations from the section offset to relative virtual addresses, most applications
-    /// will not make use of the information in the segment map. Obtain this interface by calling the IDiaEnumSegments
-    /// or IDiaEnumSegments methods. See the example for details.
+    /// will not make use of the information in the segment map. Obtain this interface by calling the <see cref="DiaEnumSegments.Item"/>
+    /// or <see cref="DiaEnumSegments.MoveNext"/> methods. See the example for details.
     /// </remarks>
     public class DiaSegment : ComObject<IDiaSegment>
     {

@@ -4,7 +4,8 @@
     /// Accesses information that describes the process of mapping from a block of bytes of image text to a source file line number.
     /// </summary>
     /// <remarks>
-    /// Obtain this interface by calling the IDiaEnumLineNumbers or IDiaEnumLineNumbers methods.
+    /// Obtain this interface by calling the <see cref="DiaEnumLineNumbers.Item"/> or <see cref="DiaEnumLineNumbers.MoveNext"/>
+    /// methods.
     /// </remarks>
     public class DiaLineNumber : ComObject<IDiaLineNumber>
     {
@@ -36,7 +37,7 @@
         /// <summary>
         /// Retrieves a reference to the symbol for the compiland that contributed the bytes of image text.
         /// </summary>
-        /// <param name="pRetValResult">[out] Returns an IDiaSymbol object for the compiland that contributed the bytes of image text.</param>
+        /// <param name="pRetValResult">[out] Returns an <see cref="IDiaSymbol"/> object for the compiland that contributed the bytes of image text.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         public HRESULT TryGetCompiland(out DiaSymbol pRetValResult)
         {
@@ -73,7 +74,7 @@
         /// <summary>
         /// Retrieves a reference to the source file.
         /// </summary>
-        /// <param name="pRetValResult">[out] Returns an IDiaSourceFile object that represents the source file.</param>
+        /// <param name="pRetValResult">[out] Returns an <see cref="IDiaSourceFile"/> object that represents the source file.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         public HRESULT TryGetSourceFile(out DiaSourceFile pRetValResult)
         {
@@ -353,7 +354,7 @@
         /// <param name="pRetVal">[out] Returns the number of bytes in a block.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
-        /// The block is the length of source code on the line as represented by the IDiaLineNumber object.
+        /// The block is the length of source code on the line as represented by the <see cref="IDiaLineNumber"/> object.
         /// </remarks>
         public HRESULT TryGetLength(out int pRetVal)
         {

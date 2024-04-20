@@ -3,6 +3,9 @@
     /// <summary>
     /// Specifies the symbol's basic type.
     /// </summary>
+    /// <remarks>
+    /// The values in this enumeration are returned by the <see cref="IDiaSymbol.get_baseType"/> method.
+    /// </remarks>
     public enum BasicType
     {
         /// <summary>

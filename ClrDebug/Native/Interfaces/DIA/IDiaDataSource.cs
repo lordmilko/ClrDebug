@@ -11,10 +11,11 @@ namespace ClrDebug.DIA
     /// </summary>
     /// <remarks>
     /// A call to one of the load methods of the IDiaDataSource interface opens the symbol source. A successful call to
-    /// the IDiaDataSource method returns an IDiaSession interface that supports querying the data source. If the load
-    /// method returns a file-related error then the IDiaDataSource method return value contains the file name associated
-    /// with the error. This interface is obtained by calling the CoCreateInstance function with the class identifier CLSID_DiaSource
-    /// and the interface ID of IID_IDiaDataSource. The example shows how this interface is obtained.
+    /// the <see cref="openSession"/> method returns an <see cref="IDiaSession"/> interface that supports querying the
+    /// data source. If the load method returns a file-related error then the <see cref="get_lastError"/> method return
+    /// value contains the file name associated with the error. This interface is obtained by calling the CoCreateInstance
+    /// function with the class identifier CLSID_DiaSource and the interface ID of IID_IDiaDataSource. The example shows
+    /// how this interface is obtained.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("79F1BB5F-B66E-48E5-B6A9-1545C323CA3D")]
@@ -46,8 +47,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code. The following table shows the possible return values for this method.</returns>
         /// <remarks>
         /// This method loads the debug data directly from a .pdb file. To validate the .pdb file against specific criteria,
-        /// use the IDiaDataSource method. To gain access to the data load process (through a callback mechanism), use the
-        /// IDiaDataSource method. To load a .pdb file directly from memory, use the IDiaDataSource method.
+        /// use the <see cref="loadAndValidateDataFromPdb"/> method. To gain access to the data load process (through a callback
+        /// mechanism), use the <see cref="loadDataForExe"/> method. To load a .pdb file directly from memory, use the <see
+        /// cref="loadDataFromIStream"/> method.
         /// </remarks>
         [PreserveSig]
         HRESULT loadDataFromPdb(
@@ -64,9 +66,9 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// A .pdb file contains both signature and age values. These values are replicated in the .exe or .dll file that matches
         /// the .pdb file. Before preparing the data source, this method verifies that the named .pdb file's signature and
-        /// age match the values provided. To load a .pdb file without validation, use the IDiaDataSource method. To gain access
-        /// to the data load process (through a callback mechanism), use the IDiaDataSource method. To load a .pdb file directly
-        /// from memory, use the IDiaDataSource method.
+        /// age match the values provided. To load a .pdb file without validation, use the <see cref="loadDataFromPdb"/> method.
+        /// To gain access to the data load process (through a callback mechanism), use the <see cref="loadDataForExe"/> method.
+        /// To load a .pdb file directly from memory, use the <see cref="loadDataFromIStream"/> method.
         /// </remarks>
         [PreserveSig]
         HRESULT loadAndValidateDataFromPdb(
@@ -85,19 +87,19 @@ namespace ClrDebug.DIA
         /// </summary>
         /// <param name="executable">[in] Path to the .exe or .dll file.</param>
         /// <param name="searchPath">[in] Alternate path to search for debug data.</param>
-        /// <param name="pCallback">[in] An IUnknown interface for an object that supports a debug callback interface, such as the IDiaLoadCallback, IDiaLoadCallback2, the IDiaReadExeAtOffsetCallback, and/or the IDiaReadExeAtRVACallback interfaces.</param>
+        /// <param name="pCallback">[in] An IUnknown interface for an object that supports a debug callback interface, such as the <see cref="IDiaLoadCallback"/>, <see cref="IDiaLoadCallback2"/>, the <see cref="IDiaReadExeAtOffsetCallback"/>, and/or the <see cref="IDiaReadExeAtRVACallback"/> interfaces.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code. The following table shows some of the possible error codes for this method.</returns>
         /// <remarks>
         /// The debug header of the .exe/.dll file names the associated debug data location. If you are loading debug data
         /// from a symbol server, symsrv.dll must be present in the same directory where either the user’s application or msdia140.dll
         /// is installed, or it must be present in the system directory. This method reads the debug header and then searches
         /// for and prepares the debug data. The progress of the search may, optionally, be reported and controlled through
-        /// callbacks. For example, the IDiaLoadCallback is invoked when the IDiaDataSource::loadDataForExe method finds and
-        /// processes a debug directory. The IDiaReadExeAtOffsetCallback and IDiaReadExeAtRVACallback interfaces allow the
-        /// client application to provide alternative methods for reading data from the executable file when the file cannot
-        /// be accessed directly through standard file I/O. To load a .pdb file without validation, use the IDiaDataSource
-        /// method. To validate the .pdb file against specific criteria, use the IDiaDataSource method. To load a .pdb file
-        /// directly from memory, use the IDiaDataSource method.
+        /// callbacks. For example, the <see cref="IDiaLoadCallback.NotifyDebugDir"/> is invoked when the IDiaDataSource::loadDataForExe
+        /// method finds and processes a debug directory. The <see cref="IDiaReadExeAtOffsetCallback"/> and <see cref="IDiaReadExeAtRVACallback"/>
+        /// interfaces allow the client application to provide alternative methods for reading data from the executable file
+        /// when the file cannot be accessed directly through standard file I/O. To load a .pdb file without validation, use
+        /// the <see cref="loadDataFromPdb"/> method. To validate the .pdb file against specific criteria, use the <see cref="loadAndValidateDataFromPdb"/>
+        /// method. To load a .pdb file directly from memory, use the <see cref="loadDataFromIStream"/> method.
         /// </remarks>
         [PreserveSig]
         HRESULT loadDataForExe(
@@ -112,9 +114,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code. The following table shows the possible return values for this method.</returns>
         /// <remarks>
         /// This method allows the debug data for an executable to be obtained from memory through an IStream object. To load
-        /// a .pdb file without validation, use the IDiaDataSource method. To validate the .pdb file against specific criteria,
-        /// use the IDiaDataSource method. To gain access to the data load process (through a callback mechanism), use the
-        /// IDiaDataSource method.
+        /// a .pdb file without validation, use the <see cref="loadDataFromPdb"/> method. To validate the .pdb file against
+        /// specific criteria, use the <see cref="loadAndValidateDataFromPdb"/> method. To gain access to the data load process
+        /// (through a callback mechanism), use the <see cref="loadDataForExe"/> method.
         /// </remarks>
         [PreserveSig]
         HRESULT loadDataFromIStream(
@@ -123,13 +125,13 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Opens a session for querying symbols.
         /// </summary>
-        /// <param name="ppSession">[out] Returns an IDiaSession object representing the open session.</param>
+        /// <param name="ppSession">[out] Returns an <see cref="IDiaSession"/> object representing the open session.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code. The following table shows the possible return values for this method.</returns>
         /// <remarks>
-        /// This method opens an IDiaSession object for a data source. IDiaSession objects implement queries into the data
-        /// source. A session manages one address space for each set of debug symbols. If the .exe or .dll file described by
-        /// the data source symbols is active in multiple address ranges (for example, because multiple processes have it loaded),
-        /// then one session for each address range should be used.
+        /// This method opens an <see cref="IDiaSession"/> object for a data source. IDiaSession objects implement queries
+        /// into the data source. A session manages one address space for each set of debug symbols. If the .exe or .dll file
+        /// described by the data source symbols is active in multiple address ranges (for example, because multiple processes
+        /// have it loaded), then one session for each address range should be used.
         /// </remarks>
         [PreserveSig]
         HRESULT openSession(

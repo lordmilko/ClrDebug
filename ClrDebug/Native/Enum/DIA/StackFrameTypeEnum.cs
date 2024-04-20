@@ -3,6 +3,9 @@
     /// <summary>
     /// Specifies the stack frame type.
     /// </summary>
+    /// <remarks>
+    /// The values in this enumeration are returned by a call to the <see cref="IDiaStackFrame.get_type"/> method.
+    /// </remarks>
     public enum StackFrameTypeEnum
     {
         /// <summary>

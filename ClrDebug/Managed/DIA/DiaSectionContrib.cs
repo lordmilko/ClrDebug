@@ -4,8 +4,9 @@
     /// Retrieves data describing a section contribution, that is, a contiguous block of memory contributed to the image by a compiland.
     /// </summary>
     /// <remarks>
-    /// This interface is obtained by calling the IDiaEnumSectionContribs and IDiaEnumSectionContribs methods. See the
-    /// IDiaEnumSectionContribs interface for an example of obtaining the IDiaSectionContrib interface.
+    /// This interface is obtained by calling the <see cref="DiaEnumSectionContribs.Item"/> and <see cref="DiaEnumSectionContribs.MoveNext"/>
+    /// methods. See the <see cref="IDiaEnumSectionContribs"/> interface for an example of obtaining the IDiaSectionContrib
+    /// interface.
     /// </remarks>
     public class DiaSectionContrib : ComObject<IDiaSectionContrib>
     {
@@ -37,7 +38,7 @@
         /// <summary>
         /// Retrieves a reference to the compiland symbol that contributed this section.
         /// </summary>
-        /// <param name="pRetValResult">[out] Returns an IDiaSymbol object representing the compiland that contributed this section.</param>
+        /// <param name="pRetValResult">[out] Returns an <see cref="IDiaSymbol"/> object representing the compiland that contributed this section.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         public HRESULT TryGetCompiland(out DiaSymbol pRetValResult)
         {

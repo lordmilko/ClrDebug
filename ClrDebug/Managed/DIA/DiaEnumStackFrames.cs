@@ -7,7 +7,8 @@ namespace ClrDebug.DIA
     /// Enumerates the various stack frames available.
     /// </summary>
     /// <remarks>
-    /// Obtain this interface by calling the IDiaStackWalker or IDiaStackWalker methods.
+    /// Obtain this interface by calling the <see cref="DiaStackWalker.GetEnumFrames"/> or <see cref="DiaStackWalker.GetEnumFrames2"/>
+    /// methods.
     /// </remarks>
     public class DiaEnumStackFrames : IEnumerable<DiaStackFrame>, IEnumerator<DiaStackFrame>
     {

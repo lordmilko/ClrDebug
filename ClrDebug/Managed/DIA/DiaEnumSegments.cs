@@ -8,7 +8,8 @@ namespace ClrDebug.DIA
     /// Enumerates the various segments contained in the data source.
     /// </summary>
     /// <remarks>
-    /// Obtain this interface by calling the QueryInterface method on an IDiaTable object. See the example for details.
+    /// Obtain this interface by calling the QueryInterface method on an <see cref="IDiaTable"/> object. See the example
+    /// for details.
     /// </remarks>
     public class DiaEnumSegments : IEnumerable<DiaSegment>, IEnumerator<DiaSegment>
     {
@@ -82,9 +83,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryGetCount(out int pRetVal)
         {
-            /*HRESULT get_count(
+            /*HRESULT get_Count(
             [Out] out int pRetVal);*/
-            return Raw.get_count(out pRetVal);
+            return Raw.get_Count(out pRetVal);
         }
 
         #endregion
@@ -93,8 +94,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a segment by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaSegment object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumSegments method.</param>
-        /// <returns>[out] Returns an IDiaSegment object representing the desired segment.</returns>
+        /// <param name="index">[in] Index of the <see cref="IDiaSegment"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <returns>[out] Returns an <see cref="IDiaSegment"/> object representing the desired segment.</returns>
         public DiaSegment Item(int index)
         {
             DiaSegment segmentResult;
@@ -106,8 +107,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a segment by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaSegment object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumSegments method.</param>
-        /// <param name="segmentResult">[out] Returns an IDiaSegment object representing the desired segment.</param>
+        /// <param name="index">[in] Index of the <see cref="IDiaSegment"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <param name="segmentResult">[out] Returns an <see cref="IDiaSegment"/> object representing the desired segment.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryItem(int index, out DiaSegment segmentResult)
         {

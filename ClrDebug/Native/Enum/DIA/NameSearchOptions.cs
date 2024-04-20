@@ -2,6 +2,12 @@
 
 namespace ClrDebug.DIA
 {
+    /// <summary>
+    /// Specifies the search options for symbol and file names.
+    /// </summary>
+    /// <remarks>
+    /// The values from this enumeration are passed to the following methods:
+    /// </remarks>
     [Flags]
     public enum NameSearchOptions
     {

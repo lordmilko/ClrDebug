@@ -6,9 +6,9 @@
     /// <remarks>
     /// Some debug streams (XDATA, PDATA) contain copies of data also stored in the image. These stream data objects can
     /// be queried for the IDiaImageData interface. See the "Notes for Callers" section in this topic for details. Obtain
-    /// this interface by calling QueryInterface on an IDiaEnumDebugStreamData object. Note that not all debug streams
-    /// support the IDiaImageData interface. For example, currently only the XDATA and PDATA streams support the IDiaImageData
-    /// interface.
+    /// this interface by calling QueryInterface on an <see cref="IDiaEnumDebugStreamData"/> object. Note that not all
+    /// debug streams support the IDiaImageData interface. For example, currently only the XDATA and PDATA streams support
+    /// the IDiaImageData interface.
     /// </remarks>
     public class DiaImageData : ComObject<IDiaImageData>
     {

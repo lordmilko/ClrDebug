@@ -9,11 +9,11 @@ namespace ClrDebug.DIA
     /// <remarks>
     /// Each property within a property set is identified by a property identifier (ID), a four-byte ULONG value unique
     /// to that set. The properties exposed through the IDiaPropertyStorage interface correspond to the properties available
-    /// in the parent interface. For example, the properties of the IDiaSymbol interface can be accessed by name through
-    /// the IDiaPropertyStorage interface (note, however, that even though the property may be accessible, it does not
-    /// mean the property is valid for a particular IDiaSymbol object). Obtain this interface by calling the QueryInterface
-    /// method on another interface. The following interfaces can be queried for the IDiaPropertyStorage interface:
-    /// <see cref="IDiaSectionContrib"/>, <see cref="IDiaSegment"/>, <see cref="IDiaInjectedSource"/>, <see cref="IDiaFrameData"/>,
+    /// in the parent interface. For example, the properties of the <see cref="IDiaSymbol"/> interface can be accessed
+    /// by name through the IDiaPropertyStorage interface (note, however, that even though the property may be accessible,
+    /// it does not mean the property is valid for a particular IDiaSymbol object). Obtain this interface by calling the
+    /// QueryInterface method on another interface. The following interfaces can be queried for the IDiaPropertyStorage
+    /// interface: <see cref="IDiaSectionContrib"/>, <see cref="IDiaSegment"/>, <see cref="IDiaInjectedSource"/>, <see cref="IDiaFrameData"/>,
     /// <see cref="IDiaSymbol"/>, <see cref="IDiaSourceFile"/>, <see cref="IDiaLineNumber"/>.
     /// </remarks>
     public class DiaPropertyStorage : ComObject<IDiaPropertyStorage>

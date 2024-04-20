@@ -9,7 +9,8 @@ namespace ClrDebug.DIA
     /// Accesses information that describes the process of mapping from a block of bytes of image text to a source file line number.
     /// </summary>
     /// <remarks>
-    /// Obtain this interface by calling the IDiaEnumLineNumbers or IDiaEnumLineNumbers methods.
+    /// Obtain this interface by calling the <see cref="IDiaEnumLineNumbers.Item"/> or <see cref="IDiaEnumLineNumbers.Next"/>
+    /// methods.
     /// </remarks>
     [Guid("B388EB14-BE4D-421D-A8A1-6CF7AB057086")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -23,7 +24,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a reference to the symbol for the compiland that contributed the bytes of image text.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSymbol object for the compiland that contributed the bytes of image text.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSymbol"/> object for the compiland that contributed the bytes of image text.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_compiland(
@@ -32,7 +33,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a reference to the source file.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns an IDiaSourceFile object that represents the source file.</param>
+        /// <param name="pRetVal">[out] Returns an <see cref="IDiaSourceFile"/> object that represents the source file.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT get_sourceFile(
@@ -124,7 +125,7 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns the number of bytes in a block.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
-        /// The block is the length of source code on the line as represented by the IDiaLineNumber object.
+        /// The block is the length of source code on the line as represented by the <see cref="IDiaLineNumber"/> object.
         /// </remarks>
         [PreserveSig]
         HRESULT get_length(

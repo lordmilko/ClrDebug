@@ -1,5 +1,12 @@
 ﻿namespace ClrDebug.DIA
 {
+    /// <summary>
+    /// Specifies a target register.
+    /// </summary>
+    /// <remarks>
+    /// Each processor type uses its own unique set of registers. The values in this enumeration are passed to the following
+    /// methods:
+    /// </remarks>
     public enum CV_HREG_e
     {
         CV_ALLREG_ERR = 30000,

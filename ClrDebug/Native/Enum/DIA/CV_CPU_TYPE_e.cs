@@ -1,5 +1,11 @@
 ﻿namespace ClrDebug.DIA
 {
+    /// <summary>
+    /// Specifies the target processor.
+    /// </summary>
+    /// <remarks>
+    /// The values in this enumeration are returned by a call to the <see cref="IDiaSymbol.get_platform"/> method.
+    /// </remarks>
     public enum CV_CPU_TYPE_e
     {
         CV_CFL_8080 = 0x00,

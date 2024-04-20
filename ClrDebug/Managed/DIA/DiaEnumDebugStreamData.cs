@@ -10,8 +10,8 @@ namespace ClrDebug.DIA
     /// <remarks>
     /// This interface represents a stream of records in a debug data stream. The size and interpretation of each record
     /// is dependent on the data stream the record comes from. This interface effectively provides access to the raw data
-    /// bytes in the symbol file. Call the IDiaEnumDebugStreams or IDiaEnumDebugStreams methods to obtain an IDiaEnumDebugStreamData
-    /// object.
+    /// bytes in the symbol file. Call the <see cref="DiaEnumDebugStreams.Item"/> or <see cref="DiaEnumDebugStreams.MoveNext"/>
+    /// methods to obtain an IDiaEnumDebugStreamData object.
     /// </remarks>
     public class DiaEnumDebugStreamData : IEnumerable<byte[]>, IEnumerator<byte[]>
     {
@@ -125,7 +125,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the specified record.
         /// </summary>
-        /// <param name="index">[in] Index of the record to be retrieved. The index is in the range 0 to count-1, where count is returned by IDiaEnumDebugStreamData.</param>
+        /// <param name="index">[in] Index of the record to be retrieved. The index is in the range 0 to count-1, where count is returned by <see cref="Count"/>.</param>
         /// <returns>[out] A buffer that is filled in with the debug stream record data.</returns>
         public byte[] Item(int index)
         {
@@ -138,7 +138,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the specified record.
         /// </summary>
-        /// <param name="index">[in] Index of the record to be retrieved. The index is in the range 0 to count-1, where count is returned by IDiaEnumDebugStreamData.</param>
+        /// <param name="index">[in] Index of the record to be retrieved. The index is in the range 0 to count-1, where count is returned by <see cref="Count"/>.</param>
         /// <param name="pbData">[out] A buffer that is filled in with the debug stream record data.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code. Returns E_INVALIDARG for invalid parameters and if the index parameter is out of bounds.</returns>
         public HRESULT TryItem(int index, out byte[] pbData)

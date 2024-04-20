@@ -10,13 +10,14 @@ namespace ClrDebug.DIA
     /// </summary>
     /// <remarks>
     /// This interface implements the IEnumUnknown enumeration methods in the Microsoft.VisualStudio.OLE.Interop namespace.
-    /// The IEnumUnknown enumeration interface is much more efficient for iterating over the table contents than the IDiaTable
-    /// and IDiaTable methods. The interpretation of the IUnknown interface returned from either the IDiaTable::Item method
-    /// or the Next method (in the Microsoft.VisualStudio.OLE.Interop namespace) is dependent on the type of table. For
-    /// example, if the IDiaTable interface represents a list of injected sources, the IUnknown interface should be queried
-    /// for the IDiaInjectedSource interface. Obtain this interface by calling the IDiaEnumTables or IDiaEnumTables methods.
-    /// The following interfaces are implemented with the IDiaTable interface (that is, you can query the IDiaTable interface
-    /// for one of the following interfaces):
+    /// The IEnumUnknown enumeration interface is much more efficient for iterating over the table contents than the <see
+    /// cref="get_Count"/> and <see cref="Item"/> methods. The interpretation of the IUnknown interface returned from either
+    /// the IDiaTable::Item method or the Next method (in the Microsoft.VisualStudio.OLE.Interop namespace) is dependent
+    /// on the type of table. For example, if the IDiaTable interface represents a list of injected sources, the IUnknown
+    /// interface should be queried for the <see cref="IDiaInjectedSource"/> interface. Obtain this interface by calling
+    /// the <see cref="IDiaEnumTables.Item"/> or <see cref="IDiaEnumTables.Next"/> methods. The following interfaces are
+    /// implemented with the IDiaTable interface (that is, you can query the IDiaTable interface for one of the following
+    /// interfaces):
     /// </remarks>
     [Guid("4A59FB77-ABAC-469B-A30B-9ECC85BFEF14")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -75,21 +76,21 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns the number of items in the table.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
-        HRESULT get_count(
+        HRESULT get_Count(
             [Out] out int pRetVal);
 
         /// <summary>
         /// Retrieves a reference to the specified entry in the table.
         /// </summary>
-        /// <param name="index">[in] The index of the table entry in the range 0 to count-1, where count is returned by the IDiaTablemethod.</param>
+        /// <param name="index">[in] The index of the table entry in the range 0 to count-1, where count is returned by the <see cref="get_Count"/>method.</param>
         /// <param name="element">[out] Returns an IUnknown object that represents the specified table entry.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         /// <remarks>
         /// A table represents a collection of objects. Depending on those objects, the element parameter can be cast to the
-        /// appropriate interface. For example, if a table contains IDiaSegment objects, then the element parameter can be
-        /// cast to the IDiaSegment interface. It is a more common approach to call the QueryInterface method in the IDiaTable
-        /// interface for the appropriate enumerator interface and use the enumerator's specific methods to access the table
-        /// contents. See the IDiaEnumInjectedSources interface for an example.
+        /// appropriate interface. For example, if a table contains <see cref="IDiaSegment"/> objects, then the element parameter
+        /// can be cast to the IDiaSegment interface. It is a more common approach to call the QueryInterface method in the
+        /// <see cref="IDiaTable"/> interface for the appropriate enumerator interface and use the enumerator's specific methods
+        /// to access the table contents. See the <see cref="IDiaEnumInjectedSources"/> interface for an example.
         /// </remarks>
         [PreserveSig]
         HRESULT Item(

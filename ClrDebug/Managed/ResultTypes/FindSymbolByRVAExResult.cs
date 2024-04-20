@@ -9,7 +9,7 @@ namespace ClrDebug.DIA
     public struct FindSymbolByRVAExResult
     {
         /// <summary>
-        /// Returns an IDiaSymbol object that represents the symbol retrieved.
+        /// Returns an <see cref="IDiaSymbol"/> object that represents the symbol retrieved.
         /// </summary>
         public DiaSymbol ppSymbol { get; }
 

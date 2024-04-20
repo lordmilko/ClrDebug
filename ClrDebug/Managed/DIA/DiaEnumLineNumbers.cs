@@ -8,7 +8,7 @@ namespace ClrDebug.DIA
     /// Enumerates the various line numbers contained in the data source.
     /// </summary>
     /// <remarks>
-    /// This interface is obtained by calling one of the following methods in the IDiaSession interface:
+    /// This interface is obtained by calling one of the following methods in the <see cref="IDiaSession"/> interface:
     /// </remarks>
     public class DiaEnumLineNumbers : IEnumerable<DiaLineNumber>, IEnumerator<DiaLineNumber>
     {
@@ -83,9 +83,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryGetCount(out int pRetVal)
         {
-            /*HRESULT get_count(
+            /*HRESULT get_Count(
             [Out] out int pRetVal);*/
-            return Raw.get_count(out pRetVal);
+            return Raw.get_Count(out pRetVal);
         }
 
         #endregion
@@ -94,8 +94,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a line number by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaLineNumber object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumLineNumbers method.</param>
-        /// <returns>[out] Returns an IDiaLineNumber object representing the desired line number.</returns>
+        /// <param name="index">[in] Index of the <see cref="IDiaLineNumber"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <returns>[out] Returns an <see cref="IDiaLineNumber"/> object representing the desired line number.</returns>
         public DiaLineNumber Item(int index)
         {
             DiaLineNumber lineNumberResult;
@@ -107,8 +107,8 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves a line number by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaLineNumber object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumLineNumbers method.</param>
-        /// <param name="lineNumberResult">[out] Returns an IDiaLineNumber object representing the desired line number.</param>
+        /// <param name="index">[in] Index of the <see cref="IDiaLineNumber"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="Count"/> property.</param>
+        /// <param name="lineNumberResult">[out] Returns an <see cref="IDiaLineNumber"/> object representing the desired line number.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryItem(int index, out DiaLineNumber lineNumberResult)
         {

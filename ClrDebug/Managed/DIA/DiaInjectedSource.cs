@@ -5,8 +5,9 @@
     /// </summary>
     /// <remarks>
     /// Injected source is text that is injected during compilation. This does not mean the preprocessor #include used
-    /// in C++. Obtain this interface by calling the IDiaEnumInjectedSources or IDiaEnumInjectedSources methods. See the
-    /// IDiaEnumInjectedSources interface for an example of obtaining the IDiaInjectedSource interface.
+    /// in C++. Obtain this interface by calling the <see cref="DiaEnumInjectedSources.Item"/> or <see cref="DiaEnumInjectedSources.MoveNext"/>
+    /// methods. See the <see cref="IDiaEnumInjectedSources"/> interface for an example of obtaining the IDiaInjectedSource
+    /// interface.
     /// </remarks>
     public class DiaInjectedSource : ComObject<IDiaInjectedSource>
     {
@@ -70,8 +71,8 @@
         /// <param name="pRetVal">[out] Returns the number of bytes of code.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
-        /// The value returned by this method is the length of the source code and is the same value as returned by the IDiaInjectedSource
-        /// method.
+        /// The value returned by this method is the length of the source code and is the same value as returned by the <see
+        /// cref="Source"/> property.
         /// </remarks>
         public HRESULT TryGetLength(out long pRetVal)
         {

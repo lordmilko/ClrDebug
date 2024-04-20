@@ -20,7 +20,7 @@ namespace ClrDebug.DIA
         /// </summary>
         /// <param name="isect">[in] Image section number.</param>
         /// <param name="offset">[in] Offset in section.</param>
-        /// <param name="ppSymbol">[out] Returns an IDiaSymbol object representing the symbol found.</param>
+        /// <param name="ppSymbol">[out] Returns an <see cref="IDiaSymbol"/> object representing the symbol found.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the symbol could not be found. Otherwise, returns an error code.</returns>
         [PreserveSig]
         new HRESULT symbolByAddr(
@@ -32,7 +32,7 @@ namespace ClrDebug.DIA
         /// Positions the enumerator by performing a lookup by relative virtual address (RVA).
         /// </summary>
         /// <param name="relativeVirtualAddress">[in] Address relative to start of image.</param>
-        /// <param name="ppSymbol">[out] Returns an IDiaSymbol object representing the symbol found.</param>
+        /// <param name="ppSymbol">[out] Returns an <see cref="IDiaSymbol"/> object representing the symbol found.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the symbol could not be found. Otherwise, returns an error code.</returns>
         [PreserveSig]
         new HRESULT symbolByRVA(
@@ -43,7 +43,7 @@ namespace ClrDebug.DIA
         /// Positions the enumerator by performing a lookup by virtual address (VA).
         /// </summary>
         /// <param name="virtualAddress">[in] Virtual address.</param>
-        /// <param name="ppSymbol">[out] Returns an IDiaSymbol object representing the symbol found.</param>
+        /// <param name="ppSymbol">[out] Returns an <see cref="IDiaSymbol"/> object representing the symbol found.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the symbol could not be found. Otherwise, returns an error code.</returns>
         [PreserveSig]
         new HRESULT symbolByVA(
@@ -54,7 +54,7 @@ namespace ClrDebug.DIA
         /// Retrieves the next symbols in order by address.
         /// </summary>
         /// <param name="celt">[in] The number of symbols in the enumerator to be retrieved.</param>
-        /// <param name="rgelt">[out] An array that is to be filled in with the IDiaSymbol object that represent the desired symbols.</param>
+        /// <param name="rgelt">[out] An array that is to be filled in with the <see cref="IDiaSymbol"/> object that represent the desired symbols.</param>
         /// <param name="pceltFetched">[out] Returns the number of symbols in the fetched enumerator.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if there are no more symbols. Otherwise, returns an error code.</returns>
         /// <remarks>
@@ -70,7 +70,7 @@ namespace ClrDebug.DIA
         /// Retrieves the previous symbols in order by address.
         /// </summary>
         /// <param name="celt">[in] The number of symbols in the enumerator to be retrieved.</param>
-        /// <param name="rgelt">[out] An array that is to be filled in with IDiaSymbol objects that represent the desired symbols.</param>
+        /// <param name="rgelt">[out] An array that is to be filled in with <see cref="IDiaSymbol"/> objects that represent the desired symbols.</param>
         /// <param name="pceltFetched">[out] Returns the number of symbols in the fetched enumerator.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if there are no previous symbols. Otherwise, returns an error code.</returns>
         /// <remarks>
@@ -85,7 +85,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Makes a copy of an object.
         /// </summary>
-        /// <param name="ppenum">[out] Returns an IDiaEnumSymbolsByAddr object that contains a duplicate of the enumerator. The symbols are not duplicated, only the enumerator.</param>
+        /// <param name="ppenum">[out] Returns an <see cref="IDiaEnumSymbolsByAddr"/> object that contains a duplicate of the enumerator. The symbols are not duplicated, only the enumerator.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         new HRESULT Clone(

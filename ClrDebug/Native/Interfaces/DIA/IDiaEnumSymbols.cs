@@ -10,8 +10,8 @@ namespace ClrDebug.DIA
     /// </summary>
     /// <remarks>
     /// This interface provides symbols grouped by a specific type of symbol, for example, SymTagUDT (user-defined types)
-    /// or SymTagBaseClass. To work with symbols grouped by address, use the IDiaEnumSymbolsByAddr interface. Obtain this
-    /// interface by calling the following methods:
+    /// or SymTagBaseClass. To work with symbols grouped by address, use the <see cref="IDiaEnumSymbolsByAddr"/> interface.
+    /// Obtain this interface by calling the following methods:
     /// </remarks>
     [Guid("CAB72C48-443B-48F5-9B0B-42F0820AB29A")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -37,14 +37,14 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns the number of symbols.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
-        HRESULT get_count(
+        HRESULT get_Count(
             [Out] out int pRetVal);
 
         /// <summary>
         /// Retrieves a symbol by means of an index.
         /// </summary>
-        /// <param name="index">[in] Index of the IDiaSymbol object to be retrieved. The index is in the range 0 to count-1, where count is returned by the IDiaEnumSymbols method.</param>
-        /// <param name="symbol">[out] Returns an IDiaSymbol object representing the desired symbol.</param>
+        /// <param name="index">[in] Index of the <see cref="IDiaSymbol"/> object to be retrieved. The index is in the range 0 to count-1, where count is returned by the <see cref="get_Count"/> method.</param>
+        /// <param name="symbol">[out] Returns an <see cref="IDiaSymbol"/> object representing the desired symbol.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT Item(
@@ -55,7 +55,7 @@ namespace ClrDebug.DIA
         /// Retrieves a specified number of symbols in the enumeration sequence.
         /// </summary>
         /// <param name="celt">[in] The number of symbols in the enumerator to be retrieved.</param>
-        /// <param name="rgelt">[out] An array that is to be filled in with the IDiaSymbol objects that represent the desired symbols.</param>
+        /// <param name="rgelt">[out] An array that is to be filled in with the <see cref="IDiaSymbol"/> objects that represent the desired symbols.</param>
         /// <param name="pceltFetched">[out] Returns the number of symbols in the fetched enumerator.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if there are no more symbols. Otherwise, returns an error code.</returns>
         [PreserveSig]
@@ -83,7 +83,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Creates an enumerator that contains the same enumeration state as the current enumerator.
         /// </summary>
-        /// <param name="ppenum">[out] Returns an IDiaEnumSymbols object that contains a duplicate of the enumerator. The symbols are not duplicated, only the enumerator.</param>
+        /// <param name="ppenum">[out] Returns an <see cref="IDiaEnumSymbols"/> object that contains a duplicate of the enumerator. The symbols are not duplicated, only the enumerator.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT Clone(

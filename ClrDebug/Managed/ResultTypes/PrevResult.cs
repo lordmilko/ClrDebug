@@ -9,7 +9,7 @@ namespace ClrDebug.DIA
     public struct PrevResult
     {
         /// <summary>
-        /// An array that is to be filled in with IDiaSymbol objects that represent the desired symbols.
+        /// An array that is to be filled in with <see cref="IDiaSymbol"/> objects that represent the desired symbols.
         /// </summary>
         public DiaSymbol rgelt { get; }
 

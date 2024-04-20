@@ -9,7 +9,7 @@ namespace ClrDebug.DIA
     /// Enumerates the various tables contained in the data source.
     /// </summary>
     /// <remarks>
-    /// Obtain this interface by calling the IDiaSession method.
+    /// Obtain this interface by calling the <see cref="IDiaSession.getEnumTables"/> method.
     /// </remarks>
     [Guid("C65C2B0A-1150-4D7A-AFCC-E05BF3DEE81E")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -35,14 +35,14 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns the number of tables.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
-        HRESULT get_count(
+        HRESULT get_Count(
             [Out] out int pRetVal);
 
         /// <summary>
         /// Retrieves a table by means of an index or name.
         /// </summary>
-        /// <param name="index">[in] Index or name of the IDiaTable to be retrieved. If an integer variant is used, it must be in the range 0 to count-1, where count is as returned by the IDiaEnumTables method.</param>
-        /// <param name="table">[out] Returns an IDiaTable object representing the desired table.</param>
+        /// <param name="index">[in] Index or name of the <see cref="IDiaTable"/> to be retrieved. If an integer variant is used, it must be in the range 0 to count-1, where count is as returned by the <see cref="get_Count"/> method.</param>
+        /// <param name="table">[out] Returns an <see cref="IDiaTable"/> object representing the desired table.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         /// <remarks>
         /// If a string variant is specified, then the string names a particular table. The name should be one of the table
@@ -62,7 +62,7 @@ namespace ClrDebug.DIA
         /// Retrieves a specified number of tables in the enumeration sequence.
         /// </summary>
         /// <param name="celt">[in] The number of tables in the enumerator to be retrieved.</param>
-        /// <param name="rgelt">[out] An array that is to be filled in with the IDiaTable objects that represent the desired tables.</param>
+        /// <param name="rgelt">[out] An array that is to be filled in with the <see cref="IDiaTable"/> objects that represent the desired tables.</param>
         /// <param name="pceltFetched">[out] Returns the number of tables in the fetched enumerator.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if there are no more tables. Otherwise, returns an error code.</returns>
         [PreserveSig]
@@ -90,7 +90,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Creates an enumerator that contains the same enumeration state as the current enumerator.
         /// </summary>
-        /// <param name="ppenum">[out] Returns an IDiaEnumTables object that contains a duplicate of the enumerator. The tables are not duplicated, only the enumerator.</param>
+        /// <param name="ppenum">[out] Returns an <see cref="IDiaEnumTables"/> object that contains a duplicate of the enumerator. The tables are not duplicated, only the enumerator.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT Clone(

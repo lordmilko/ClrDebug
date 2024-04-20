@@ -3,6 +3,9 @@
     /// <summary>
     /// Specifies the source code language of the application or linked module.
     /// </summary>
+    /// <remarks>
+    /// The values in this enumeration are returned by a call to the <see cref="IDiaSymbol.get_language"/> method.
+    /// </remarks>
     public enum CV_CFL_LANG
     {
         /// <summary>

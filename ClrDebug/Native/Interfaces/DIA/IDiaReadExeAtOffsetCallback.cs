@@ -11,9 +11,9 @@ namespace ClrDebug.DIA
     /// </summary>
     /// <remarks>
     /// The client application implements this interface in order to provide the bytes of the executable using an absolute
-    /// offset into the executable's file. To use a relative virtual address, implement the IDiaReadExeAtRVACallback interface.
-    /// This method is implemented by the client application and passed to the IDiaDataSource method as an alternative
-    /// method for reading the file.
+    /// offset into the executable's file. To use a relative virtual address, implement the <see cref="IDiaReadExeAtRVACallback"/>
+    /// interface. This method is implemented by the client application and passed to the <see cref="IDiaDataSource.loadDataForExe"/>
+    /// method as an alternative method for reading the file.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("587A461C-B80B-4F54-9194-5032589A6319")]
@@ -33,7 +33,7 @@ namespace ClrDebug.DIA
         /// <param name="pbData">[in, out] An array that is filled in with bytes read from file.</param>
         /// <remarks>
         /// This method is called by the DIA support code to load data bytes from an executable using an absolute file offset.
-        /// This method is called in support of the IDiaDataSource method.
+        /// This method is called in support of the <see cref="IDiaDataSource.loadDataForExe"/> method.
         /// </remarks>
         [PreserveSig]
         HRESULT ReadExecutableAt(

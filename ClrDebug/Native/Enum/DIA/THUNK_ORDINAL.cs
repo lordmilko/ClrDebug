@@ -3,6 +3,9 @@
     /// <summary>
     /// Designates thunk types.
     /// </summary>
+    /// <remarks>
+    /// The values in this enumeration are returned from a call to the <see cref="IDiaSymbol.get_thunkOrdinal"/> method.
+    /// </remarks>
     public enum THUNK_ORDINAL
     {
         /// <summary>

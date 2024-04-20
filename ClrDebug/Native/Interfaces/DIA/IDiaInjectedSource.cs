@@ -11,8 +11,9 @@ namespace ClrDebug.DIA
     /// </summary>
     /// <remarks>
     /// Injected source is text that is injected during compilation. This does not mean the preprocessor #include used
-    /// in C++. Obtain this interface by calling the IDiaEnumInjectedSources or IDiaEnumInjectedSources methods. See the
-    /// IDiaEnumInjectedSources interface for an example of obtaining the IDiaInjectedSource interface.
+    /// in C++. Obtain this interface by calling the <see cref="IDiaEnumInjectedSources.Item"/> or <see cref="IDiaEnumInjectedSources.Next"/>
+    /// methods. See the <see cref="IDiaEnumInjectedSources"/> interface for an example of obtaining the IDiaInjectedSource
+    /// interface.
     /// </remarks>
     [Guid("AE605CDC-8105-4A23-B710-3259F1E26112")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -38,8 +39,8 @@ namespace ClrDebug.DIA
         /// <param name="pRetVal">[out] Returns the number of bytes of code.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
-        /// The value returned by this method is the length of the source code and is the same value as returned by the IDiaInjectedSource
-        /// method.
+        /// The value returned by this method is the length of the source code and is the same value as returned by the <see
+        /// cref="get_source"/> method.
         /// </remarks>
         [PreserveSig]
         HRESULT get_length(

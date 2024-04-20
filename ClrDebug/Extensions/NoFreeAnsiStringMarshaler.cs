@@ -38,7 +38,7 @@ namespace ClrDebug
     [CustomMarshaller(typeof(string), MarshalMode.Default, typeof(AnsiStringMarshaller))]
     internal static unsafe class NoFreeAnsiStringMarshaller
     {
-        public static string? ConvertToManaged(byte* unmanaged) =>
+        public static string ConvertToManaged(byte* unmanaged) =>
             AnsiStringMarshaller.ConvertToManaged(unmanaged);
     }
 #endif

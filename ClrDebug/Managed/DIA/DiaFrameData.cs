@@ -5,8 +5,8 @@
     /// </summary>
     /// <remarks>
     /// The details available for a frame are for execution points within the address range indicated by the address and
-    /// block length. Obtain this interface by calling the IDiaEnumFrameData or IDiaEnumFrameData methods. See the IDiaEnumFrameData
-    /// interface for details.
+    /// block length. Obtain this interface by calling the <see cref="DiaEnumFrameData.MoveNext"/> or <see cref="DiaEnumFrameData.Item"/>
+    /// methods. See the <see cref="IDiaEnumFrameData"/> interface for details.
     /// </remarks>
     public class DiaFrameData : ComObject<IDiaFrameData>
     {
@@ -157,8 +157,8 @@
         /// <param name="pRetVal">[out] Returns the number of bytes of code in the frame.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
-        /// The value returned by this method is typically used in the interpretation of a program string (see the IDiaFrameData
-        /// method for the definition of a program string).
+        /// The value returned by this method is typically used in the interpretation of a program string (see the <see cref="Program"/>
+        /// property for the definition of a program string).
         /// </remarks>
         public HRESULT TryGetLengthBlock(out int pRetVal)
         {
@@ -190,8 +190,8 @@
         /// <param name="pRetVal">[out] Returns the number of bytes of local variables.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
-        /// The value returned by this method is typically used in the interpretation of a program string (see the IDiaFrameData
-        /// method for the definition of a program string).
+        /// The value returned by this method is typically used in the interpretation of a program string (see the <see cref="Program"/>
+        /// property for the definition of a program string).
         /// </remarks>
         public HRESULT TryGetLengthLocals(out int pRetVal)
         {
@@ -223,8 +223,8 @@
         /// <param name="pRetVal">[out] Returns the number of bytes of parameters.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
-        /// The value returned by this method is typically used in the interpretation of a program string (see the IDiaFrameData
-        /// method for the definition of a program string).
+        /// The value returned by this method is typically used in the interpretation of a program string (see the <see cref="Program"/>
+        /// property for the definition of a program string).
         /// </remarks>
         public HRESULT TryGetLengthParams(out int pRetVal)
         {
@@ -256,8 +256,8 @@
         /// <param name="pRetVal">[out] Returns the maximum number of bytes pushed on the stack.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
-        /// The value returned by this method is typically used in the interpretation of a program string (see the IDiaFrameData
-        /// method for the definition of a program string).
+        /// The value returned by this method is typically used in the interpretation of a program string (see the <see cref="Program"/>
+        /// property for the definition of a program string).
         /// </remarks>
         public HRESULT TryGetMaxStack(out int pRetVal)
         {
@@ -322,8 +322,8 @@
         /// <param name="pRetVal">[out] Returns the number of bytes of saved registers.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
-        /// The value returned by this method is typically used in the interpretation of a program string (see the IDiaFrameData
-        /// method for the definition of a program string).
+        /// The value returned by this method is typically used in the interpretation of a program string (see the <see cref="Program"/>
+        /// property for the definition of a program string).
         /// </remarks>
         public HRESULT TryGetLengthSavedRegisters(out int pRetVal)
         {
@@ -391,7 +391,7 @@
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
         /// System exception handling is more commonly known as structured exception handling. To determine if C++ exception
-        /// handling is in effect, call the IDiaFrameData method.
+        /// handling is in effect, call the <see cref="CplusplusExceptionHandling"/> property.
         /// </remarks>
         public HRESULT TryGetSystemExceptionHandling(out bool pRetVal)
         {
@@ -424,7 +424,7 @@
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
         /// To determine if structured exception handling is in effect (which is very different from C++ exception handling),
-        /// call the IDiaFrameData method.
+        /// call the <see cref="SystemExceptionHandling"/> property.
         /// </remarks>
         public HRESULT TryGetCplusplusExceptionHandling(out bool pRetVal)
         {
@@ -490,8 +490,8 @@
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         /// <remarks>
         /// This property should be used only by code that formerly accessed FPO_DATA, or when the program string returned
-        /// by the IDiaFrameData method is NULL. Otherwise, the program string contains all the information needed to compute
-        /// previous register values.
+        /// by the <see cref="Program"/> property is NULL. Otherwise, the program string contains all the information needed
+        /// to compute previous register values.
         /// </remarks>
         public HRESULT TryGetAllocatesBasePointer(out bool pRetVal)
         {
@@ -520,7 +520,7 @@
         /// <summary>
         /// Retrieves the compiler-specific frame type.
         /// </summary>
-        /// <param name="pRetVal">[out] Returns a value from the StackFrameTypeEnum Enumeration enumeration that indicates the compiler-specific frame type.</param>
+        /// <param name="pRetVal">[out] Returns a value from the <see cref="StackFrameTypeEnum"/> enumeration that indicates the compiler-specific frame type.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if this property is not supported. Otherwise, returns an error code.</returns>
         public HRESULT TryGetType(out StackFrameTypeEnum pRetVal)
         {
@@ -549,7 +549,7 @@
         /// <summary>
         /// Retrieves a frame data interface for the enclosing function.
         /// </summary>
-        /// <param name="pRetValResult">[out] Returns an IDiaFrameData object for the enclosing function.</param>
+        /// <param name="pRetValResult">[out] Returns an <see cref="IDiaFrameData"/> object for the enclosing function.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryGetFunctionParent(out DiaFrameData pRetValResult)
         {
@@ -572,10 +572,10 @@
         /// <summary>
         /// Performs stack unwinding and returns results in a stack walk frame interface.
         /// </summary>
-        /// <param name="frame">[in] An IDiaStackWalkFrame object that holds the state of frame registers.</param>
+        /// <param name="frame">[in] An <see cref="IDiaStackWalkFrame"/> object that holds the state of frame registers.</param>
         /// <remarks>
-        /// This method is called during debugging to unwind the stack. The IDiaStackWalkFrame object is implemented by the
-        /// client application to receive updates to the registers and to provide methods used by the execute method.
+        /// This method is called during debugging to unwind the stack. The <see cref="IDiaStackWalkFrame"/> object is implemented
+        /// by the client application to receive updates to the registers and to provide methods used by the execute method.
         /// </remarks>
         public void Execute(IDiaStackWalkFrame frame)
         {
@@ -585,11 +585,11 @@
         /// <summary>
         /// Performs stack unwinding and returns results in a stack walk frame interface.
         /// </summary>
-        /// <param name="frame">[in] An IDiaStackWalkFrame object that holds the state of frame registers.</param>
+        /// <param name="frame">[in] An <see cref="IDiaStackWalkFrame"/> object that holds the state of frame registers.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code. The following table shows the possible return values for this method.</returns>
         /// <remarks>
-        /// This method is called during debugging to unwind the stack. The IDiaStackWalkFrame object is implemented by the
-        /// client application to receive updates to the registers and to provide methods used by the execute method.
+        /// This method is called during debugging to unwind the stack. The <see cref="IDiaStackWalkFrame"/> object is implemented
+        /// by the client application to receive updates to the registers and to provide methods used by the execute method.
         /// </remarks>
         public HRESULT TryExecute(IDiaStackWalkFrame frame)
         {

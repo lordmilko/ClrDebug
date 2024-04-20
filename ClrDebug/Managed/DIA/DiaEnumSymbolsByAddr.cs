@@ -7,8 +7,8 @@ namespace ClrDebug.DIA
     /// </summary>
     /// <remarks>
     /// This interface provides symbols grouped by address. To work with symbols grouped by type, for example SymTagUDT
-    /// (user-defined type) or SymTagBaseClass, use the IDiaEnumSymbols interface. Obtain this interface by calling the
-    /// IDiaSession method.
+    /// (user-defined type) or SymTagBaseClass, use the <see cref="IDiaEnumSymbols"/> interface. Obtain this interface
+    /// by calling the <see cref="DiaSession.SymbolsByAddr"/> property.
     /// </remarks>
     public class DiaEnumSymbolsByAddr : ComObject<IDiaEnumSymbolsByAddr>
     {
@@ -28,7 +28,7 @@ namespace ClrDebug.DIA
         /// </summary>
         /// <param name="isect">[in] Image section number.</param>
         /// <param name="offset">[in] Offset in section.</param>
-        /// <returns>[out] Returns an IDiaSymbol object representing the symbol found.</returns>
+        /// <returns>[out] Returns an <see cref="IDiaSymbol"/> object representing the symbol found.</returns>
         public DiaSymbol SymbolByAddr(int isect, int offset)
         {
             DiaSymbol ppSymbolResult;
@@ -42,7 +42,7 @@ namespace ClrDebug.DIA
         /// </summary>
         /// <param name="isect">[in] Image section number.</param>
         /// <param name="offset">[in] Offset in section.</param>
-        /// <param name="ppSymbolResult">[out] Returns an IDiaSymbol object representing the symbol found.</param>
+        /// <param name="ppSymbolResult">[out] Returns an <see cref="IDiaSymbol"/> object representing the symbol found.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the symbol could not be found. Otherwise, returns an error code.</returns>
         public HRESULT TrySymbolByAddr(int isect, int offset, out DiaSymbol ppSymbolResult)
         {
@@ -68,7 +68,7 @@ namespace ClrDebug.DIA
         /// Positions the enumerator by performing a lookup by relative virtual address (RVA).
         /// </summary>
         /// <param name="relativeVirtualAddress">[in] Address relative to start of image.</param>
-        /// <returns>[out] Returns an IDiaSymbol object representing the symbol found.</returns>
+        /// <returns>[out] Returns an <see cref="IDiaSymbol"/> object representing the symbol found.</returns>
         public DiaSymbol SymbolByRVA(int relativeVirtualAddress)
         {
             DiaSymbol ppSymbolResult;
@@ -81,7 +81,7 @@ namespace ClrDebug.DIA
         /// Positions the enumerator by performing a lookup by relative virtual address (RVA).
         /// </summary>
         /// <param name="relativeVirtualAddress">[in] Address relative to start of image.</param>
-        /// <param name="ppSymbolResult">[out] Returns an IDiaSymbol object representing the symbol found.</param>
+        /// <param name="ppSymbolResult">[out] Returns an <see cref="IDiaSymbol"/> object representing the symbol found.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the symbol could not be found. Otherwise, returns an error code.</returns>
         public HRESULT TrySymbolByRVA(int relativeVirtualAddress, out DiaSymbol ppSymbolResult)
         {
@@ -106,7 +106,7 @@ namespace ClrDebug.DIA
         /// Positions the enumerator by performing a lookup by virtual address (VA).
         /// </summary>
         /// <param name="virtualAddress">[in] Virtual address.</param>
-        /// <returns>[out] Returns an IDiaSymbol object representing the symbol found.</returns>
+        /// <returns>[out] Returns an <see cref="IDiaSymbol"/> object representing the symbol found.</returns>
         public DiaSymbol SymbolByVA(long virtualAddress)
         {
             DiaSymbol ppSymbolResult;
@@ -119,7 +119,7 @@ namespace ClrDebug.DIA
         /// Positions the enumerator by performing a lookup by virtual address (VA).
         /// </summary>
         /// <param name="virtualAddress">[in] Virtual address.</param>
-        /// <param name="ppSymbolResult">[out] Returns an IDiaSymbol object representing the symbol found.</param>
+        /// <param name="ppSymbolResult">[out] Returns an <see cref="IDiaSymbol"/> object representing the symbol found.</param>
         /// <returns>If successful, returns S_OK. Returns S_FALSE if the symbol could not be found. Otherwise, returns an error code.</returns>
         public HRESULT TrySymbolByVA(long virtualAddress, out DiaSymbol ppSymbolResult)
         {
@@ -235,7 +235,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Makes a copy of an object.
         /// </summary>
-        /// <returns>[out] Returns an IDiaEnumSymbolsByAddr object that contains a duplicate of the enumerator. The symbols are not duplicated, only the enumerator.</returns>
+        /// <returns>[out] Returns an <see cref="IDiaEnumSymbolsByAddr"/> object that contains a duplicate of the enumerator. The symbols are not duplicated, only the enumerator.</returns>
         public DiaEnumSymbolsByAddr Clone()
         {
             DiaEnumSymbolsByAddr ppenumResult;
@@ -247,7 +247,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Makes a copy of an object.
         /// </summary>
-        /// <param name="ppenumResult">[out] Returns an IDiaEnumSymbolsByAddr object that contains a duplicate of the enumerator. The symbols are not duplicated, only the enumerator.</param>
+        /// <param name="ppenumResult">[out] Returns an <see cref="IDiaEnumSymbolsByAddr"/> object that contains a duplicate of the enumerator. The symbols are not duplicated, only the enumerator.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         public HRESULT TryClone(out DiaEnumSymbolsByAddr ppenumResult)
         {

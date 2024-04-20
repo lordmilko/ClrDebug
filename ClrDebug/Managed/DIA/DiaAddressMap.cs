@@ -7,11 +7,12 @@ namespace ClrDebug.DIA
     /// </summary>
     /// <remarks>
     /// The control provided by this interface is encapsulated in two sets of data you supply: image headers and address
-    /// maps. Most clients use the IDiaDataSource method to find the proper debug information for an image and the method
-    /// can typically discover all of the necessary headers and maps data itself. However some clients implement specialized
-    /// processing and searching for data. Such clients use the methods of the IDiaAddressMap interface to provide the
-    /// DIA SDK with the search results. This interface is available from the DIA session object. The client calls the
-    /// QueryInterface method on DIA session object interface, usually IDiaSession, to retrieve the IDiaAddressMap interface.
+    /// maps. Most clients use the <see cref="DiaDataSource.LoadDataForExe"/> method to find the proper debug information
+    /// for an image and the method can typically discover all of the necessary headers and maps data itself. However some
+    /// clients implement specialized processing and searching for data. Such clients use the methods of the IDiaAddressMap
+    /// interface to provide the DIA SDK with the search results. This interface is available from the DIA session object.
+    /// The client calls the QueryInterface method on DIA session object interface, usually <see cref="IDiaSession"/>,
+    /// to retrieve the IDiaAddressMap interface.
     /// </remarks>
     public class DiaAddressMap : ComObject<IDiaAddressMap>
     {
@@ -52,9 +53,9 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// Executable post-processors sometimes update the executable. DIA contains a mechanism to support the translation
         /// of symbols to the new layout. Client applications can set the address map for a particular session by getting the
-        /// IDiaAddressMap interface from the IDiaSession interface and calling the IDiaAddressMap method followed by a call
-        /// to the IDiaAddressMap method. The get_addressMapEnabled method returns the results of calling the put_addressMapEnabled
-        /// method.
+        /// <see cref="IDiaAddressMap"/> interface from the <see cref="IDiaSession"/> interface and calling the <see cref="SetAddressMap"/>
+        /// method followed by a call to the <see cref="AddressMapEnabled"/> property. The get_addressMapEnabled method returns
+        /// the results of calling the put_addressMapEnabled method.
         /// </remarks>
         public HRESULT TryGetAddressMapEnabled(out bool pRetVal)
         {
@@ -71,10 +72,10 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// Executable post-processors sometimes update the executable. DIA contains a mechanism to support the translation
         /// of symbols to the new layout. When a PDB file is loaded, the address map stored in the file is enabled. There are
-        /// times, however, when a client application may need to supply its own address map by calling the IDiaAddressMap
+        /// times, however, when a client application may need to supply its own address map by calling the <see cref="SetAddressMap"/>
         /// method. If the set_addressMap method is successful, the client application must call the put_addressMapEnabled
         /// method with a NewVal parameter of TRUE to enable the use of that address map. The current state of the address
-        /// map being enabled can be retrieved with a call to the IDiaAddressMap method.
+        /// map being enabled can be retrieved with a call to the <see cref="AddressMapEnabled"/> property.
         /// </remarks>
         public HRESULT TryPutAddressMapEnabled(bool newVal)
         {
@@ -111,9 +112,9 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         /// <remarks>
         /// RVAs are enabled if the segments have been initially loaded from a PDB file. The use of RVAs can be temporarily
-        /// disabled by calling the IDiaAddressMap method. Also, new image headers can be established by calling the IDiaAddressMap
-        /// method followed by a call to the put_relativeVirtualAddressEnabled method to enable use of the RVAs using the new
-        /// image headers.
+        /// disabled by calling the <see cref="RelativeVirtualAddressEnabled"/> property. Also, new image headers can be
+        /// established by calling the <see cref="SetImageHeaders"/> method followed by a call to the put_relativeVirtualAddressEnabled
+        /// method to enable use of the RVAs using the new image headers.
         /// </remarks>
         public HRESULT TryGetRelativeVirtualAddressEnabled(out bool pRetVal)
         {
@@ -130,8 +131,9 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// Addresses for debug objects described by DIA interfaces, and relative to the executable's image base, can be retrieved
         /// as relative virtual addresses. The use of RVAs is enabled when segments are initially loaded from a PDB file. To
-        /// get the current state of the use of RVAs, call the IDiaAddressMap method. The put_relativeVirtualAddress method
-        /// must be called to enable RVAs after a successful call to the IDiaAddressMap method has established new image headers.
+        /// get the current state of the use of RVAs, call the <see cref="RelativeVirtualAddressEnabled"/> property. The
+        /// put_relativeVirtualAddress method must be called to enable RVAs after a successful call to the <see cref="SetImageHeaders"/>
+        /// method has established new image headers.
         /// </remarks>
         public HRESULT TryPutRelativeVirtualAddressEnabled(bool newVal)
         {
@@ -168,8 +170,8 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         /// <remarks>
         /// Images are aligned to specific memory boundaries depending how the image was loaded and created. The alignment
-        /// is typically on 1, 2, 4, 8, 16, 32, or 64 byte boundaries. The image alignment can be set with a call to the IDiaAddressMap
-        /// method.
+        /// is typically on 1, 2, 4, 8, 16, 32, or 64 byte boundaries. The image alignment can be set with a call to the <see
+        /// cref="ImageAlign"/> property.
         /// </remarks>
         public HRESULT TryGetImageAlign(out int pRetVal)
         {
@@ -187,7 +189,7 @@ namespace ClrDebug.DIA
         /// Images (loaded executables) are aligned to specified memory boundaries. This alignment can be affected by the current
         /// system architecture and by compile and link time options. Image alignment is always on byte boundaries. The following
         /// image alignment values are valid: 1, 2, 4, 8, 16, 32, and 64 byte boundaries. The current image alignment can be
-        /// retrieved with a call to the IDiaAddressMap method.
+        /// retrieved with a call to the <see cref="ImageAlign"/> property.
         /// </remarks>
         public HRESULT TryPutImageAlign(int newVal)
         {
@@ -205,14 +207,14 @@ namespace ClrDebug.DIA
         /// <param name="cbData">[in] Number of bytes of header data. Must be n*sizeof(IMAGE_SECTION_HEADER) where n is the number of section headers in the executable.</param>
         /// <param name="pbData">[in] An array of IMAGE_SECTION_HEADER structures to be used as the image headers.</param>
         /// <param name="originalHeaders">[in] Set to FALSE if the image headers are from the new image, TRUE if they reflect the original image prior to an upgrade.<para/>
-        /// Typically, this would be set to TRUE only in combination with calls to the IDiaAddressMap method.</param>
+        /// Typically, this would be set to TRUE only in combination with calls to the <see cref="SetAddressMap"/> method.</param>
         /// <remarks>
         /// The IMAGE_SECTION_HEADER structure is declared in Winnt.h and represents the image section header format of the
         /// executable. Relative virtual address calculations depend upon the IMAGE_SECTION_HEADER values. Usually, the DIA
         /// retrieves these from the program database (.pdb) file. If these values are missing, the DIA is unable to calculate
-        /// relative virtual addresses and the IDiaAddressMap method returns FALSE. The client must then call the IDiaAddressMap
-        /// method to enable the relative virtual address calculations after providing the missing image headers from the image
-        /// itself.
+        /// relative virtual addresses and the <see cref="RelativeVirtualAddressEnabled"/> property returns FALSE. The client
+        /// must then call the <see cref="RelativeVirtualAddressEnabled"/> property to enable the relative virtual address
+        /// calculations after providing the missing image headers from the image itself.
         /// </remarks>
         public void SetImageHeaders(int cbData, IntPtr pbData, bool originalHeaders)
         {
@@ -225,15 +227,15 @@ namespace ClrDebug.DIA
         /// <param name="cbData">[in] Number of bytes of header data. Must be n*sizeof(IMAGE_SECTION_HEADER) where n is the number of section headers in the executable.</param>
         /// <param name="pbData">[in] An array of IMAGE_SECTION_HEADER structures to be used as the image headers.</param>
         /// <param name="originalHeaders">[in] Set to FALSE if the image headers are from the new image, TRUE if they reflect the original image prior to an upgrade.<para/>
-        /// Typically, this would be set to TRUE only in combination with calls to the IDiaAddressMap method.</param>
+        /// Typically, this would be set to TRUE only in combination with calls to the <see cref="SetAddressMap"/> method.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         /// <remarks>
         /// The IMAGE_SECTION_HEADER structure is declared in Winnt.h and represents the image section header format of the
         /// executable. Relative virtual address calculations depend upon the IMAGE_SECTION_HEADER values. Usually, the DIA
         /// retrieves these from the program database (.pdb) file. If these values are missing, the DIA is unable to calculate
-        /// relative virtual addresses and the IDiaAddressMap method returns FALSE. The client must then call the IDiaAddressMap
-        /// method to enable the relative virtual address calculations after providing the missing image headers from the image
-        /// itself.
+        /// relative virtual addresses and the <see cref="RelativeVirtualAddressEnabled"/> property returns FALSE. The client
+        /// must then call the <see cref="RelativeVirtualAddressEnabled"/> property to enable the relative virtual address
+        /// calculations after providing the missing image headers from the image itself.
         /// </remarks>
         public HRESULT TrySetImageHeaders(int cbData, IntPtr pbData, bool originalHeaders)
         {
@@ -251,14 +253,14 @@ namespace ClrDebug.DIA
         /// Provides an address map to support image layout translations.
         /// </summary>
         /// <param name="cData">[in] The number of elements in the data parameter.</param>
-        /// <param name="pData">[in] An array of DiaAddressMapEntry Structure structures that define the translation map.</param>
+        /// <param name="pData">[in] An array of <see cref="DiaAddressMapEntry"/> structures that define the translation map.</param>
         /// <param name="imageToSymbols">[in] TRUE if the data parameter defines a map from the new image layout to the original layout (as described by the debug symbols).<para/>
         /// FALSE if data is a map to the new image layout taken from the original layout.</param>
         /// <remarks>
         /// Usually, the DIA retrieves address translation maps from the program database (.pdb) file. If these values are
-        /// missing, the IDiaAddressMap method is called twice, once with the imagetoSymbols parameter set to TRUE and once
-        /// with the imagetoSymbols parameter set to FALSE. Address map translations cannot be enabled using the IDiaAddressMap
-        /// method unless both translation maps are provided.
+        /// missing, the <see cref="SetImageHeaders"/> method is called twice, once with the imagetoSymbols parameter set
+        /// to TRUE and once with the imagetoSymbols parameter set to FALSE. Address map translations cannot be enabled using
+        /// the <see cref="AddressMapEnabled"/> property unless both translation maps are provided.
         /// </remarks>
         public void SetAddressMap(int cData, DiaAddressMapEntry[] pData, bool imageToSymbols)
         {
@@ -269,15 +271,15 @@ namespace ClrDebug.DIA
         /// Provides an address map to support image layout translations.
         /// </summary>
         /// <param name="cData">[in] The number of elements in the data parameter.</param>
-        /// <param name="pData">[in] An array of DiaAddressMapEntry Structure structures that define the translation map.</param>
+        /// <param name="pData">[in] An array of <see cref="DiaAddressMapEntry"/> structures that define the translation map.</param>
         /// <param name="imageToSymbols">[in] TRUE if the data parameter defines a map from the new image layout to the original layout (as described by the debug symbols).<para/>
         /// FALSE if data is a map to the new image layout taken from the original layout.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         /// <remarks>
         /// Usually, the DIA retrieves address translation maps from the program database (.pdb) file. If these values are
-        /// missing, the IDiaAddressMap method is called twice, once with the imagetoSymbols parameter set to TRUE and once
-        /// with the imagetoSymbols parameter set to FALSE. Address map translations cannot be enabled using the IDiaAddressMap
-        /// method unless both translation maps are provided.
+        /// missing, the <see cref="SetImageHeaders"/> method is called twice, once with the imagetoSymbols parameter set
+        /// to TRUE and once with the imagetoSymbols parameter set to FALSE. Address map translations cannot be enabled using
+        /// the <see cref="AddressMapEnabled"/> property unless both translation maps are provided.
         /// </remarks>
         public HRESULT TrySetAddressMap(int cData, DiaAddressMapEntry[] pData, bool imageToSymbols)
         {

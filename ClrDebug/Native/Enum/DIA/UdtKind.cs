@@ -3,6 +3,9 @@
     /// <summary>
     /// Describes the variety of user-defined type (UDT).
     /// </summary>
+    /// <remarks>
+    /// The values in this enumeration are returned by the <see cref="IDiaSymbol.get_udtKind"/> method.
+    /// </remarks>
     public enum UdtKind
     {
         /// <summary>

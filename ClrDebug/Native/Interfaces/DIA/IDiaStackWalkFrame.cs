@@ -7,13 +7,14 @@ using System.Runtime.InteropServices.Marshalling;
 namespace ClrDebug.DIA
 {
     /// <summary>
-    /// Maintains stack context between invocations of the IDiaFrameData method.
+    /// Maintains stack context between invocations of the <see cref="IDiaFrameData.execute"/> method.
     /// </summary>
     /// <remarks>
     /// This interface is used during program execution to read and write registers as well as access memory and find return
-    /// addresses. The client application implements this interface and passes an instance of the interface to the IDiaFrameData
-    /// method. The same instance of this interface is used again and again to maintain the state of the registers during
-    /// each invocation of the execute method. The execute method also uses this interface to determine the return address.
+    /// addresses. The client application implements this interface and passes an instance of the interface to the <see
+    /// cref="IDiaFrameData.execute"/> method. The same instance of this interface is used again and again to maintain
+    /// the state of the registers during each invocation of the execute method. The execute method also uses this interface
+    /// to determine the return address.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("07C590C1-438D-4F47-BDCD-4397BC81AD75")]
@@ -27,7 +28,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the value of a register.
         /// </summary>
-        /// <param name="index">[in] A value from the CV_HREG_e Enumeration enumeration specifying the register to get the value for.</param>
+        /// <param name="index">[in] A value from the <see cref="CV_HREG_e"/> enumeration specifying the register to get the value for.</param>
         /// <param name="pRetVal">[out] Returns the current value of the register.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
@@ -38,7 +39,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Sets the value of a register.
         /// </summary>
-        /// <param name="index">[in] A value from the CV_HREG_e Enumeration enumeration specifying the register to write to.</param>
+        /// <param name="index">[in] A value from the <see cref="CV_HREG_e"/> enumeration specifying the register to write to.</param>
         /// <param name="NewVal">[in] The new register value.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
@@ -49,7 +50,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Reads memory from image.
         /// </summary>
-        /// <param name="type">[in] One of the MemoryTypeEnum Enumeration enumeration values that specifies the kind of memory to access.</param>
+        /// <param name="type">[in] One of the <see cref="MemoryTypeEnum"/> enumeration values that specifies the kind of memory to access.</param>
         /// <param name="va">[in] Virtual address location in image to begin reading.</param>
         /// <param name="cbData">[in] Size of the data buffer, in bytes.</param>
         /// <param name="pcbData">[out] Returns the number of bytes returned. If data is NULL, then pcbData contains the total number of bytes of data available.</param>
@@ -66,7 +67,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Searches the specified stack frame for the nearest function return address.
         /// </summary>
-        /// <param name="frame">[in] An IDiaFrameData object that represents the current stack frame.</param>
+        /// <param name="frame">[in] An <see cref="IDiaFrameData"/> object that represents the current stack frame.</param>
         /// <param name="returnAddress">[out] Returns the nearest function return address.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
@@ -77,7 +78,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Searches the specified stack frame for a return address at or near the specified address.
         /// </summary>
-        /// <param name="frame">[in] An IDiaFrameData object that represents the current stack frame.</param>
+        /// <param name="frame">[in] An <see cref="IDiaFrameData"/> object that represents the current stack frame.</param>
         /// <param name="startAddress">[in] A virtual memory address from which to begin searching.</param>
         /// <param name="returnAddress">[out] Returns the nearest function return address to startAddress.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
