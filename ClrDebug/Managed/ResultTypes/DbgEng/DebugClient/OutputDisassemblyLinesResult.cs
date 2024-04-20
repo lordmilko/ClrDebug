@@ -19,7 +19,7 @@ namespace ClrDebug.DbgEng
         public long StartOffset { get; }
 
         /// <summary>
-        /// Receives the locaiton in the target's memory of the instruction that follows the last disassembled instruction.
+        /// Receives the location in the target's memory of the instruction that follows the last disassembled instruction.
         /// </summary>
         public long EndOffset { get; }
 

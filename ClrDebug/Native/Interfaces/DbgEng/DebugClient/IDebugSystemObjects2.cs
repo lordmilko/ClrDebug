@@ -123,7 +123,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="Start">[in] Specifies the index of the first thread whose IDs are requested.</param>
         /// <param name="Count">[in] Specifies the number of threads whose IDs are requested.</param>
-        /// <param name="Ids">[out, optional] Receives the engine thread IDs. If Ids is NULL, this information is not returned; otherwise, Ids is treated as an array of Count ULONG valuess.</param>
+        /// <param name="Ids">[out, optional] Receives the engine thread IDs. If Ids is NULL, this information is not returned; otherwise, Ids is treated as an array of Count ULONG values.</param>
         /// <param name="SysIds">[out, optional] Receives the system thread IDs. If SysIds is NULL, this information is not returned; otherwise, SysIds is treated as an array of Count ULONG values.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>

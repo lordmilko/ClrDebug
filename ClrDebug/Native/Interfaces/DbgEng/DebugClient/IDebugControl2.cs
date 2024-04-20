@@ -473,7 +473,7 @@ namespace ClrDebug.DbgEng
         /// <param name="Flags">[in] Specifies the bit-flags that affect the behavior of this method. The following table lists the bits that can be set.</param>
         /// <param name="OffsetLine">[out, optional] Receives the line number in the output that contains the instruction at Offset. If OffsetLine is NULL, this information is not returned.</param>
         /// <param name="StartOffset">[out, optional] Receives the location in the target's memory of the first instruction included in the output. If StartOffset is NULL, this information is not returned.</param>
-        /// <param name="EndOffset">[out, optional] Receives the locaiton in the target's memory of the instruction that follows the last disassembled instruction.</param>
+        /// <param name="EndOffset">[out, optional] Receives the location in the target's memory of the instruction that follows the last disassembled instruction.</param>
         /// <param name="LineOffsets">[out, optional] Receives the locations in the target's memory of the instructions included in the output starting with the instruction at Offset.<para/>
         /// LineOffsets is an array that contains TotalLines elements. Offset is the value of first entry in this array unless there was an error disassembling the instructions before this instruction.<para/>
         /// In this case, the first entry will contain DEBUG_ANY_ID and Offset will be placed in the second entry in the array (index one).<para/>

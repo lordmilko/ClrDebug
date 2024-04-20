@@ -598,7 +598,7 @@ namespace ClrDebug.DbgEng
             [Out] out int TotalSize);
 
         /// <summary>
-        /// The StartEnumTagged method initializes a enumeration over the tagged data associated with a debugger session.
+        /// The StartEnumTagged method initializes an enumeration over the tagged data associated with a debugger session.
         /// </summary>
         /// <param name="Handle">[out] Receives the handle identifying the enumeration. This handle can be passed to <see cref="GetNextTagged"/> and <see cref="EndEnumTagged"/>.</param>
         /// <returns>This method can also return error values. See Return Values for more details.</returns>

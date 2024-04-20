@@ -1446,7 +1446,7 @@ namespace ClrDebug.DbgEng
         #region StartEnumTagged
 
         /// <summary>
-        /// The StartEnumTagged method initializes a enumeration over the tagged data associated with a debugger session.
+        /// The StartEnumTagged method initializes an enumeration over the tagged data associated with a debugger session.
         /// </summary>
         /// <returns>[out] Receives the handle identifying the enumeration. This handle can be passed to <see cref="GetNextTagged"/> and <see cref="EndEnumTagged"/>.</returns>
         /// <remarks>
@@ -1461,7 +1461,7 @@ namespace ClrDebug.DbgEng
         }
 
         /// <summary>
-        /// The StartEnumTagged method initializes a enumeration over the tagged data associated with a debugger session.
+        /// The StartEnumTagged method initializes an enumeration over the tagged data associated with a debugger session.
         /// </summary>
         /// <param name="handle">[out] Receives the handle identifying the enumeration. This handle can be passed to <see cref="GetNextTagged"/> and <see cref="EndEnumTagged"/>.</param>
         /// <returns>This method can also return error values. See Return Values for more details.</returns>

@@ -395,7 +395,7 @@ namespace ClrDebug.DbgEng
         /// If Indices is NULL, Start is used instead.</param>
         /// <param name="Start">[in] If Indices is NULL, the registers will be read consecutively starting at this index. Otherwise, it is ignored.</param>
         /// <param name="Values">[out] Receives the values of the registers. The number of elements that this array holds is Count. See <see cref="DEBUG_VALUE"/> for a description of this parameter type.</param>
-        /// <returns>This list does not contain all the erros that might occur. For a list of possible errors, see HRESULT Values.</returns>
+        /// <returns>This list does not contain all the errors that might occur. For a list of possible errors, see HRESULT Values.</returns>
         /// <remarks>
         /// If the return value is not S_OK, some of the registers still might have been read. If the target was not accessible,
         /// the return type is E_UNEXPECTED and Values is unchanged. Otherwise, Values will contain partial results and the

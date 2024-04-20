@@ -147,7 +147,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetDataParameters(
             [Out] out int Size,
-            [Out] out DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
+            [Out] out DEBUG_BREAK AccessType);
 
         /// <summary>
         /// The SetDataParameters method sets the parameters for a processor breakpoint.
@@ -161,7 +161,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT SetDataParameters(
             [In] int Size,
-            [In] DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
+            [In] DEBUG_BREAK AccessType);
 
         /// <summary>
         /// The GetPassCount method returns the number of times that the target was originally required to reach the breakpoint location before the breakpoint is triggered.

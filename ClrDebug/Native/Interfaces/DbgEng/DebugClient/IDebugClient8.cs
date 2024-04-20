@@ -369,8 +369,18 @@ namespace ClrDebug.DbgEng
         new HRESULT StartServer(
             [In, MarshalAs(UnmanagedType.LPStr)] string Options);
 
+        /// <summary>
+        /// The OutputServers method lists the servers running on a given computer.
+        /// </summary>
+        /// <param name="OutputControl">[in] Specifies the output control to use while outputting the servers. For possible values, see DEBUG_OUTCTL_XXX.</param>
+        /// <param name="Machine">[in] Specifies the name of the computer whose servers will be listed. Machine has the following form:</param>
+        /// <param name="Flags">[in] Specifies a bit-set that determines which servers to output. The possible bit flags are:</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// For more information about remote debugging, see Remote Debugging.
+        /// </remarks>
         [PreserveSig]
-        new HRESULT OutputServer(
+        new HRESULT OutputServers(
             [In] DEBUG_OUTCTL OutputControl,
             [In, MarshalAs(UnmanagedType.LPStr)] string Machine,
             [In] DEBUG_SERVERS Flags);

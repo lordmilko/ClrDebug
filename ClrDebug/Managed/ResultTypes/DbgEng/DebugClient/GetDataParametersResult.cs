@@ -16,9 +16,9 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The type of access that triggers the breakpoint. For a list of possible values, see Valid Parameters for Processor Breakpoints.
         /// </summary>
-        public DEBUG_BREAKPOINT_ACCESS_TYPE AccessType { get; }
+        public DEBUG_BREAK AccessType { get; }
 
-        public GetDataParametersResult(int size, DEBUG_BREAKPOINT_ACCESS_TYPE accessType)
+        public GetDataParametersResult(int size, DEBUG_BREAK accessType)
         {
             Size = size;
             AccessType = accessType;

@@ -9,7 +9,7 @@ namespace ClrDebug.DbgEng
     public struct GetThreadIdsByIndexResult
     {
         /// <summary>
-        /// Receives the engine thread IDs. If Ids is NULL, this information is not returned; otherwise, Ids is treated as an array of Count ULONG valuess.
+        /// Receives the engine thread IDs. If Ids is NULL, this information is not returned; otherwise, Ids is treated as an array of Count ULONG values.
         /// </summary>
         public int[] Ids { get; }
 

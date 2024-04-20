@@ -1375,22 +1375,41 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
-        #region OutputServer
+        #region OutputServers
 
-        public void OutputServer(DEBUG_OUTCTL outputControl, string machine, DEBUG_SERVERS flags)
+        /// <summary>
+        /// The OutputServers method lists the servers running on a given computer.
+        /// </summary>
+        /// <param name="outputControl">[in] Specifies the output control to use while outputting the servers. For possible values, see DEBUG_OUTCTL_XXX.</param>
+        /// <param name="machine">[in] Specifies the name of the computer whose servers will be listed. Machine has the following form:</param>
+        /// <param name="flags">[in] Specifies a bit-set that determines which servers to output. The possible bit flags are:</param>
+        /// <remarks>
+        /// For more information about remote debugging, see Remote Debugging.
+        /// </remarks>
+        public void OutputServers(DEBUG_OUTCTL outputControl, string machine, DEBUG_SERVERS flags)
         {
-            TryOutputServer(outputControl, machine, flags).ThrowDbgEngNotOK();
+            TryOutputServers(outputControl, machine, flags).ThrowDbgEngNotOK();
         }
 
-        public HRESULT TryOutputServer(DEBUG_OUTCTL outputControl, string machine, DEBUG_SERVERS flags)
+        /// <summary>
+        /// The OutputServers method lists the servers running on a given computer.
+        /// </summary>
+        /// <param name="outputControl">[in] Specifies the output control to use while outputting the servers. For possible values, see DEBUG_OUTCTL_XXX.</param>
+        /// <param name="machine">[in] Specifies the name of the computer whose servers will be listed. Machine has the following form:</param>
+        /// <param name="flags">[in] Specifies a bit-set that determines which servers to output. The possible bit flags are:</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// For more information about remote debugging, see Remote Debugging.
+        /// </remarks>
+        public HRESULT TryOutputServers(DEBUG_OUTCTL outputControl, string machine, DEBUG_SERVERS flags)
         {
-            InitDelegate(ref outputServer, Vtbl->OutputServer);
+            InitDelegate(ref outputServers, Vtbl->OutputServers);
 
-            /*HRESULT OutputServer(
+            /*HRESULT OutputServers(
             [In] DEBUG_OUTCTL OutputControl,
             [In, MarshalAs(UnmanagedType.LPStr)] string Machine,
             [In] DEBUG_SERVERS Flags);*/
-            return outputServer(Raw, outputControl, machine, flags);
+            return outputServers(Raw, outputControl, machine, flags);
         }
 
         #endregion
@@ -4068,7 +4087,7 @@ namespace ClrDebug.DbgEng
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private StartServerDelegate startServer;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OutputServerDelegate outputServer;
+        private OutputServersDelegate outputServers;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private TerminateProcessesDelegate terminateProcesses;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -4257,7 +4276,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT WriteDumpFileDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string DumpFile, [In] DEBUG_DUMP Qualifier);
         private delegate HRESULT ConnectSessionDelegate(IntPtr self, [In] DEBUG_CONNECT_SESSION Flags, [In] int HistoryLimit);
         private delegate HRESULT StartServerDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Options);
-        private delegate HRESULT OutputServerDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string Machine, [In] DEBUG_SERVERS Flags);
+        private delegate HRESULT OutputServersDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string Machine, [In] DEBUG_SERVERS Flags);
         private delegate HRESULT TerminateProcessesDelegate(IntPtr self);
         private delegate HRESULT DetachProcessesDelegate(IntPtr self);
         private delegate HRESULT EndSessionDelegate(IntPtr self, [In] DEBUG_END Flags);

@@ -26,7 +26,7 @@ namespace ClrDebug.DbgEng.Vtbl
         public readonly IntPtr WriteDumpFile;
         public readonly IntPtr ConnectSession;
         public readonly IntPtr StartServer;
-        public readonly IntPtr OutputServer;
+        public readonly IntPtr OutputServers;
         public readonly IntPtr TerminateProcesses;
         public readonly IntPtr DetachProcesses;
         public readonly IntPtr EndSession;
