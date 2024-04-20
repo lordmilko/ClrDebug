@@ -293,6 +293,20 @@ namespace ClrDebug
             }
         }
 
+        public DllGetClassObjectDelegate DllGetClassObject
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(DllGetClassObject));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).DllGetClassObject;
+#else
+                return Marshal.GetDelegateForFunctionPointer<DllGetClassObjectDelegate>(export);
+#endif
+            }
+        }
+
         public get_hostfxr_path_fn get_hostfxr_path
         {
             get

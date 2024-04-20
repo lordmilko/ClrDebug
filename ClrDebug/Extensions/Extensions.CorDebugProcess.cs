@@ -107,6 +107,130 @@ namespace ClrDebug
         }
 
         #endregion
+        #region WriteMemory<T>
+
+        /// <summary>
+        /// Writes data to an area of memory in this process.
+        /// </summary>
+        /// <typeparam name="T">The type of value to write.</typeparam>
+        /// <param name="process">The <see cref="CorDebugProcess"/> whose memory should be modified.</param>
+        /// <param name="address">A <see cref="CORDB_ADDRESS"/> value that is the base address of the memory area to which data is written. Before data transfer occurs, the system verifies that the memory area of the specified size, beginning at the base address, is accessible for writing.<para/>
+        /// If it is not accessible, the method fails.</param>
+        /// <param name="value">The value to be written.</param>
+        /// <returns>A pointer to a variable that receives the number of bytes written to the memory area in this process. If written is NULL, this parameter is ignored.</returns>
+        /// <remarks>
+        /// Data is automatically written behind any breakpoints. In the .NET Framework version 2.0, native debuggers should
+        /// not use this method to inject breakpoints into the instruction stream. Use <see cref="CorDebugProcess.SetUnmanagedBreakpoint"/>
+        /// instead. The WriteMemory method should be used only outside of managed code. This method can corrupt the runtime
+        /// if used improperly.
+        /// </remarks>
+        public static int WriteMemory<T>(this CorDebugProcess process, CORDB_ADDRESS address, T value) where T : struct
+        {
+            int written;
+            TryWriteMemory(process, address, value, out written).ThrowOnNotOK();
+            return written;
+        }
+
+        /// <summary>
+        /// Tries to write data to an area of memory in this process.
+        /// </summary>
+        /// <typeparam name="T">The type of value to write.</typeparam>
+        /// <param name="process">The <see cref="CorDebugProcess"/> whose memory should be modified.</param>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that is the base address of the memory area to which data is written. Before data transfer occurs, the system verifies that the memory area of the specified size, beginning at the base address, is accessible for writing.<para/>
+        /// If it is not accessible, the method fails.</param>
+        /// <param name="value">The value to be written.</param>
+        /// <param name="written">[out] A pointer to a variable that receives the number of bytes written to the memory area in this process. If written is NULL, this parameter is ignored.</param>
+        /// <remarks>
+        /// Data is automatically written behind any breakpoints. In the .NET Framework version 2.0, native debuggers should
+        /// not use this method to inject breakpoints into the instruction stream. Use <see cref="CorDebugProcess.SetUnmanagedBreakpoint"/>
+        /// instead. The WriteMemory method should be used only outside of managed code. This method can corrupt the runtime
+        /// if used improperly.
+        /// </remarks>
+        public static HRESULT TryWriteMemory<T>(this CorDebugProcess process, CORDB_ADDRESS address, T value, out int written) where T : struct
+        {
+            var size = Marshal.SizeOf<T>();
+            var buffer = Marshal.AllocHGlobal(size);
+
+            try
+            {
+                Marshal.StructureToPtr(value, buffer, false);
+
+                var hr = process.TryWriteMemory(address, size, buffer, out written);
+
+                return hr;
+            }
+            finally
+            {
+                Marshal.DestroyStructure<T>(buffer);
+                Marshal.FreeHGlobal(buffer);
+            }
+        }
+
+        #endregion
+        #region WriteMemory (byte[])
+
+        /// <summary>
+        /// Writes data to an area of memory in this process.
+        /// </summary>
+        /// <param name="process">The <see cref="CorDebugProcess"/> whose memory should be modified.</param>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that is the base address of the memory area to which data is written. Before data transfer occurs, the system verifies that the memory area of the specified size, beginning at the base address, is accessible for writing.<para/>
+        /// If it is not accessible, the method fails.</param>
+        /// <param name="value">The value to be written.</param>
+        /// <returns>[out] A pointer to a variable that receives the number of bytes written to the memory area in this process. If written is NULL, this parameter is ignored.</returns>
+        /// <remarks>
+        /// Data is automatically written behind any breakpoints. In the .NET Framework version 2.0, native debuggers should
+        /// not use this method to inject breakpoints into the instruction stream. Use <see cref="CorDebugProcess.SetUnmanagedBreakpoint"/>
+        /// instead. The WriteMemory method should be used only outside of managed code. This method can corrupt the runtime
+        /// if used improperly.
+        /// </remarks>
+        public static int WriteMemory(this CorDebugProcess process, CORDB_ADDRESS address, byte[] value)
+        {
+            int written;
+            TryWriteMemory(process, address, value, out written).ThrowOnNotOK();
+            return written;
+        }
+
+        /// <summary>
+        /// Tries to write data to an area of memory in this process.
+        /// </summary>
+        /// <param name="process">The <see cref="CorDebugProcess"/> whose memory should be modified.</param>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that is the base address of the memory area to which data is written. Before data transfer occurs, the system verifies that the memory area of the specified size, beginning at the base address, is accessible for writing.<para/>
+        /// If it is not accessible, the method fails.</param>
+        /// <param name="value">The value to be written.</param>
+        /// <param name="written">[out] A pointer to a variable that receives the number of bytes written to the memory area in this process. If written is NULL, this parameter is ignored.</param>
+        /// <remarks>
+        /// Data is automatically written behind any breakpoints. In the .NET Framework version 2.0, native debuggers should
+        /// not use this method to inject breakpoints into the instruction stream. Use <see cref="CorDebugProcess.SetUnmanagedBreakpoint"/>
+        /// instead. The WriteMemory method should be used only outside of managed code. This method can corrupt the runtime
+        /// if used improperly.
+        /// </remarks>
+        public static HRESULT TryWriteMemory(this CorDebugProcess process, CORDB_ADDRESS address, byte[] value, out int written)
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            IntPtr buffer = IntPtr.Zero;
+
+            try
+            {
+                if (value.Length != 0)
+                {
+                    buffer = Marshal.AllocHGlobal(value.Length);
+                    Marshal.Copy(value, 0, buffer, value.Length);
+                }
+
+                var hr = process.TryWriteMemory(address, value.Length, buffer, out written);
+
+                return hr;
+            }
+            finally
+            {
+                if (buffer != IntPtr.Zero)
+                    Marshal.FreeHGlobal(buffer);
+            }
+        }
+
+        #endregion
         #region GetThreadContext<T>
 
         /// <summary>

@@ -35,7 +35,7 @@ namespace ClrDebug
                 var hr = clrDataCreateInstance(iid, target, out iface);
                 hr.ThrowOnNotOK();
 
-                return (T)iface;
+                return (T) iface;
             }
         }
     }

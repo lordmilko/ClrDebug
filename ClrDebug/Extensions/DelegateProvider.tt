@@ -53,6 +53,8 @@ var types = new[]
     "CLRDataCreateInstanceDelegate",
     "MetaDataGetDispenserDelegate",
 
+    "DllGetClassObjectDelegate",
+
     "get_hostfxr_path_fn",
 
     "hostfxr_close_fn",

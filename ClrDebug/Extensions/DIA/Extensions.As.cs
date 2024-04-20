@@ -32,6 +32,34 @@ namespace ClrDebug.DIA
         }
 
         #endregion
+        #region DiaSession
+
+        /// <summary>
+        /// Creates a <see cref="ComObject{T}"/> around an interface supported by the <see cref="IDiaSession"/> interface.<para/>
+        /// Possible conversions include <see cref="DiaAddressMap"/> and <see cref="DiaSession"/>.
+        /// </summary>
+        /// <typeparam name="T">A type that wraps one of the interfaces <see cref="IDiaSession"/> supports.</typeparam>
+        /// <param name="diaSession">The existing wrapper to create the new wrapper from.</param>
+        /// <returns>A wrapper of type <typeparamref name="T"/>.</returns>
+        /// <exception cref="NotSupportedException">A type is specified that is not known to this function.</exception>
+        public static T As<T>(this DiaSession diaSession)
+        {
+            var t = typeof(T);
+            object result;
+
+            var raw = diaSession.Raw;
+
+            if (t == typeof(DiaAddressMap))
+                result = new DiaAddressMap((IDiaAddressMap) raw);
+            else if (t == typeof(DiaSession))
+                result = diaSession;
+            else
+                throw Extensions.GetAsNotSupportedException<T, IDiaEnumDebugStreamData>();
+
+            return (T) result;
+        }
+
+        #endregion
         #region As<DiaPropertyStorage>
 
         /// <summary>

@@ -243,6 +243,21 @@ namespace ClrDebug
             new CLRDataCreateInstanceInterfaces(clrDataCreateInstance, target);
 
         #endregion
+        #region DllGetClassObject
+
+        /// <summary>
+        /// Provides facilities for retrieving interfaces that are commonly retrieved from a <see cref="DllGetClassObjectDelegate"/>.
+        /// </summary>
+        /// <param name="hModule">A handle to the module that DllGetClassObject should be called on.</param>
+        /// <returns>The common interfaces that can be retrieved from a <see cref="DllGetClassObjectDelegate"/>.</returns>
+        public static DllGetClassObjectInterfaces DllGetClassObject(IntPtr hModule)
+        {
+            var dllGetClassObject = new DelegateProvider(hModule).DllGetClassObject;
+
+            return new DllGetClassObjectInterfaces(dllGetClassObject);
+        }
+
+        #endregion
         #region MetaDataGetDispenser
 
         internal static IMetaDataDispenserEx MetaDataGetDispenser()

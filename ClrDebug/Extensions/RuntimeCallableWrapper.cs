@@ -199,7 +199,7 @@ namespace ClrDebug
                     }
 #else
                     if (Release() == 1)
-                Release();
+                        Release();
 #endif
 
                 }
