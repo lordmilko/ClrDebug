@@ -1298,6 +1298,8 @@ namespace ClrDebug.DIA
         {
             /*HRESULT get_value(
             [Out, MarshalAs(UnmanagedType.Struct)] out object pRetVal);*/
+
+            //Extension method
             return Raw.get_value(out pRetVal);
         }
 

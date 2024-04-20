@@ -494,13 +494,9 @@ namespace ClrDebug.DIA
         /// The supplied VARIANT must be initialized before it is passed to this method. For more information, see the example.
         /// </remarks>
         [PreserveSig]
+        [Obsolete("DiaVariant objects returned from this method must be manually freed. Consider using the DiaExtensions.get_value(this IDiaSymbol symbol, out object pRetVal) extension method instead.")]
         new HRESULT get_value(
-#if !GENERATED_MARSHALLING
-            [Out, MarshalAs(UnmanagedType.Struct)]
-#else
-            [MarshalUsing(typeof(VariantMarshaller))]
-#endif
-            out object pRetVal);
+            out DiaVariant pRetVal);
 
         /// <summary>
         /// Retrieves the base type for this symbol.
@@ -792,7 +788,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
         [PreserveSig]
         new HRESULT get_function(
-            [Out] out int pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Retrieves a flag that specifies whether the symbol refers to managed code.
