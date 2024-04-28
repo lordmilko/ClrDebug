@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.PDB
     /// Trampoline thunk symbol
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, trampType = {trampType}, cbThunk = {cbThunk}, offThunk = {offThunk.ToString(),nq}, offTarget = {offTarget.ToString(),nq}, sectThunk = {sectThunk}, sectTarget = {sectTarget}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct TRAMPOLINESYM
     {
         /// <summary>

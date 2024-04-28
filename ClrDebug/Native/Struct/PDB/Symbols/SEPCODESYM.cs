@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, pParent = {pParent}, pEnd = {pEnd}, length = {length}, scf = {scf.ToString(),nq}, off = {off.ToString(),nq}, offParent = {offParent.ToString(),nq}, sect = {sect}, sectParent = {sectParent}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct SEPCODESYM
     {
         /// <summary>

@@ -1,10 +1,8 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, ordinal = {ordinal}, fConstant = {fConstant}, fData = {fData}, fPrivate = {fPrivate}, fNoName = {fNoName}, fOrdinal = {fOrdinal}, fForwarder = {fForwarder}, reserved = {reserved}, data = {data}, name = {name}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct EXPORTSYM
     {

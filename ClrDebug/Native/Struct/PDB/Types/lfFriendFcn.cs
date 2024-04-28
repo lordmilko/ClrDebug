@@ -1,12 +1,11 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
     /// <summary>
     /// subfield record for friend function
     /// </summary>
-    [DebuggerDisplay("leaf = {leaf.ToString(),nq}, pad0 = {pad0}, index = {index.ToString(),nq}, Name = {Name}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct lfFriendFcn
     {
@@ -29,5 +28,12 @@ namespace ClrDebug.PDB
         /// name of friend function
         /// </summary>
         public fixed byte Name[1];
+
+        public override string ToString()
+        {
+            //It seems strings are only length prefixed when they're not UTF 8 (pre-v7.0)
+            fixed (byte* ptr = Name)
+                return CreateString(ptr);
+        }
     }
 }

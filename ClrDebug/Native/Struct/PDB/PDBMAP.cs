@@ -1,9 +1,7 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, name = {name}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct PDBMAP
     {

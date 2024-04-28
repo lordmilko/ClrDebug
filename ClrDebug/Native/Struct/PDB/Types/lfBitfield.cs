@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.PDB
     /// type record for LF_BITFIELD
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, type = {type.ToString(),nq}, length = {length}, position = {position}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct lfBitfield
     {
         /// <summary>

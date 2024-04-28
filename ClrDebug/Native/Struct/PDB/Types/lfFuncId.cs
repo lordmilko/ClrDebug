@@ -1,10 +1,8 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("leaf = {leaf.ToString(),nq}, scopeId = {scopeId.ToString(),nq}, type = {type.ToString(),nq}, name = {name}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct lfFuncId
     {

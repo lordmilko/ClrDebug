@@ -509,7 +509,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="byteArray">The null-terminated sequence of ASCII or UTF8 characters.</param>
         /// <param name="utf8">Whether to interpret <paramref name="byteArray"/> as a sequence of UTF8 characters or ASCII characters.</param>
-        /// <returns>A <see langword="string"/> containing the characters in <paramref name="byteArray"/> prior to the null-terminator (\0), or <see cref="string.Empty"/> if <paramref name="charArray"/> is empty,
+        /// <returns>A <see langword="string"/> containing the characters in <paramref name="byteArray"/> prior to the null-terminator (\0), or <see cref="string.Empty"/> if <paramref name="byteArray"/> is empty,
         /// or <see langword="null"/> if <paramref name="byteArray"/> is <see langword="null"/></returns>
         public static string CreateString(byte[] byteArray, bool utf8 = false)
         {

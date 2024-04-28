@@ -1,10 +1,8 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, machine = {machine}, language = {language}, pcode = {pcode}, floatprec = {floatprec}, floatpkg = {floatpkg}, ambdata = {ambdata}, ambcode = {ambcode}, mode32 = {mode32}, pad = {pad}, flags1 = {flags1}, flags2 = {flags2}, ver = {ver}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct CFLAGSYM
     {

@@ -1,12 +1,11 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
     /// <summary>
     /// type record describing using of a type server
     /// </summary>
-    [DebuggerDisplay("leaf = {leaf.ToString(),nq}, signature = {signature}, age = {age}, name = {name}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct lfTypeServer
     {
@@ -29,5 +28,12 @@ namespace ClrDebug.PDB
         /// length prefixed name of PDB
         /// </summary>
         public fixed byte name[1];
+
+        public override string ToString()
+        {
+            //It seems strings are only length prefixed when they're not UTF 8 (pre-v7.0)
+            fixed (byte* ptr = name)
+                return CreateString(ptr);
+        }
     }
 }

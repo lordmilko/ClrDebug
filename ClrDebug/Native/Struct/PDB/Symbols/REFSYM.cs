@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, sumName = {sumName}, ibSym = {ibSym}, imod = {imod}, usFill = {usFill}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct REFSYM
     {
         /// <summary>

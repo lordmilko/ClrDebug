@@ -1,10 +1,8 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, iLanguage = {iLanguage}, fEC = {fEC}, fNoDbgInfo = {fNoDbgInfo}, fLTCG = {fLTCG}, fNoDataAlign = {fNoDataAlign}, fManagedPresent = {fManagedPresent}, fSecurityChecks = {fSecurityChecks}, fHotPatch = {fHotPatch}, fCVTCIL = {fCVTCIL}, fMSILModule = {fMSILModule}, fSdl = {fSdl}, fPGO = {fPGO}, fExp = {fExp}, pad = {pad}, flags = {flags}, machine = {machine}, verFEMajor = {verFEMajor}, verFEMinor = {verFEMinor}, verFEBuild = {verFEBuild}, verFEQFE = {verFEQFE}, verMajor = {verMajor}, verMinor = {verMinor}, verBuild = {verBuild}, verQFE = {verQFE}, verSz = {verSz}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct COMPILESYM3
     {

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.PDB
     /// complex 64-bit leaf
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, val_real = {val_real}, val_imag = {val_imag}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct lfCmplx64
     {
         /// <summary>

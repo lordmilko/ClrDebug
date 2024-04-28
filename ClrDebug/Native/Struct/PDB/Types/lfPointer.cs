@@ -113,7 +113,7 @@ namespace ClrDebug.PDB
             }
 
             /// <summary>
-            /// TRUE if it is this pointer of member function with & ref-qualifier
+            /// TRUE if it is this pointer of member function with &amp; ref-qualifier
             /// </summary>
             public bool islref
             {
@@ -122,7 +122,7 @@ namespace ClrDebug.PDB
             }
 
             /// <summary>
-            /// TRUE if it is this pointer of member function with && ref-qualifier
+            /// TRUE if it is this pointer of member function with &amp;&amp; ref-qualifier
             /// </summary>
             public bool isrref
             {

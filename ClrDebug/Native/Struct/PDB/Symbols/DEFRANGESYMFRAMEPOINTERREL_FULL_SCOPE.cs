@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.PDB
     /// A frame variable valid in all function scope
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, offFramePointer = {offFramePointer.ToString(),nq}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct DEFRANGESYMFRAMEPOINTERREL_FULL_SCOPE
     {
         /// <summary>

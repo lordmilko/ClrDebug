@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.PDB
     /// type record for pad leaf
     /// </summary>
     [DebuggerDisplay("leaf = {leaf}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct lfPad
     {
         public byte leaf;

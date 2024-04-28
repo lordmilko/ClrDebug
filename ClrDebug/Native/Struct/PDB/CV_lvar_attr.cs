@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.PDB
     /// extended attributes common to all local variables
     /// </summary>
     [DebuggerDisplay("off = {off.ToString(),nq}, seg = {seg}, flags = {flags.ToString(),nq}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_lvar_attr
     {
         /// <summary>

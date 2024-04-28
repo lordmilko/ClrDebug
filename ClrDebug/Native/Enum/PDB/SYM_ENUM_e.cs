@@ -48,7 +48,7 @@
 
         /// <summary>
         /// Reserved symbol for CV internal use.<para/>
-        /// Type: <see cref=""/>
+        /// Type: Unknown
         /// </summary>
         S_CVRESERVE = 0x0008,
 
@@ -71,19 +71,19 @@
 
         /// <summary>
         /// multiple register variable.<para/>
-        /// Type: <see cref=""/>
+        /// Type: <see cref="MANYREGSYM_16t"/>
         /// </summary>
         S_MANYREG_16t = 0x000c,
 
         /// <summary>
         /// return description symbol.<para/>
-        /// Type: <see cref=""/>
+        /// Type: <see cref="RETURNSYM"/>
         /// </summary>
         S_RETURN = 0x000d,
 
         /// <summary>
         /// description of this pointer on entry.<para/>
-        /// Type: <see cref=""/>
+        /// Type: <see cref="ENTRYTHISSYM"/>
         /// </summary>
         S_ENTRYTHIS = 0x000e,
 
@@ -155,7 +155,7 @@
 
         /// <summary>
         /// address of virtual function table.<para/>
-        /// Type: <see cref=""/>
+        /// Type: Unknown
         /// </summary>
         S_VFTABLE16 = 0x010b,
 
@@ -232,7 +232,7 @@
 
         /// <summary>
         /// address of virtual function table.<para/>
-        /// Type: <see cref=""/>
+        /// Type: Unknown
         /// </summary>
         S_VFTABLE32_16t = 0x020b,
 
@@ -288,7 +288,7 @@
 
         /// <summary>
         /// Used for page alignment of symbols.<para/>
-        /// Type: <see cref=""/>
+        /// Type: <see cref="ALIGNSYM"/>
         /// </summary>
         S_ALIGN = 0x0402,
 
@@ -336,7 +336,7 @@
 
         /// <summary>
         /// multiple register variable.<para/>
-        /// Type: <see cref=""/>
+        /// Type: <see cref="MANYREGSYM"/>
         /// </summary>
         S_MANYREG_ST = 0x1005,
 
@@ -378,7 +378,7 @@
 
         /// <summary>
         /// address of virtual function table.<para/>
-        /// Type: <see cref=""/>
+        /// Type: Unknown
         /// </summary>
         S_VFTABLE32 = 0x100c,
 
@@ -429,7 +429,7 @@
 
         /// <summary>
         /// multiple register variable.<para/>
-        /// Type: <see cref=""/>
+        /// Type: <see cref="MANYREGSYM2"/>
         /// </summary>
         S_MANYREG2_ST = 0x1014,
 
@@ -475,31 +475,31 @@
 
         /// <summary>
         /// Local proc.<para/>
-        /// Type: <see cref=""/>
+        /// Type: <see cref="MANPROCSYM"/>
         /// </summary>
         S_LMANPROC_ST = 0x101b,
 
         /// <summary>
         /// reserved.<para/>
-        /// Type: <see cref=""/>
+        /// Type: Unknown
         /// </summary>
         S_RESERVED1 = 0x101c,
 
         /// <summary>
         /// reserved.<para/>
-        /// Type: <see cref=""/>
+        /// Type: Unknown
         /// </summary>
         S_RESERVED2 = 0x101d,
 
         /// <summary>
         /// reserved.<para/>
-        /// Type: <see cref=""/>
+        /// Type: Unknown
         /// </summary>
         S_RESERVED3 = 0x101e,
 
         /// <summary>
         /// reserved.<para/>
-        /// Type: <see cref=""/>
+        /// Type: Unknown
         /// </summary>
         S_RESERVED4 = 0x101f,
 
@@ -527,8 +527,7 @@
         // Symbols w/ SZ name fields. All name fields contain utf8 encoded strings.
 
         /// <summary>
-        /// starting point for SZ name symbols.<para/>
-        /// Type: <see cref=""/>
+        /// starting point for SZ name symbols.
         /// </summary>
         S_ST_MAX = 0x1100,
 
@@ -588,7 +587,7 @@
 
         /// <summary>
         /// multiple register variable.<para/>
-        /// Type: <see cref=""/>
+        /// Type: <see cref="MANYREGSYM"/>
         /// </summary>
         S_MANYREG = 0x110a,
 
@@ -666,7 +665,7 @@
 
         /// <summary>
         /// multiple register variable.<para/>
-        /// Type: <see cref=""/>
+        /// Type: <see cref="MANYREGSYM2"/>
         /// </summary>
         S_MANYREG2 = 0x1117,
 
@@ -690,7 +689,7 @@
 
         /// <summary>
         /// alias for LOCALSLOT.<para/>
-        /// Type: <see cref=""/>
+        /// Type: <see cref="SLOTSYM32"/>
         /// </summary>
         S_SLOT = S_LOCALSLOT,
 
@@ -804,19 +803,19 @@
 
         /// <summary>
         /// defines a local symbol in optimized code.<para/>
-        /// Type: <see cref=""/>
+        /// Type: Unknown
         /// </summary>
         S_LOCAL_2005 = 0x1133,
 
         /// <summary>
         /// defines a single range of addresses in which symbol can be evaluated.<para/>
-        /// Type: <see cref=""/>
+        /// Type: Unknown
         /// </summary>
         S_DEFRANGE_2005 = 0x1134,
 
         /// <summary>
         /// defines ranges of addresses in which symbol can be evaluated.<para/>
-        /// Type: <see cref=""/>
+        /// Type: Unknown
         /// </summary>
         S_DEFRANGE2_2005 = 0x1135,
 

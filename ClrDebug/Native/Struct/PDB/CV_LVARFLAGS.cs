@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -7,6 +8,7 @@ namespace ClrDebug.PDB
     /// local variable flags
     /// </summary>
     [DebuggerDisplay("fIsParam = {fIsParam}, fAddrTaken = {fAddrTaken}, fCompGenx = {fCompGenx}, fIsAggregate = {fIsAggregate}, fIsAggregated = {fIsAggregated}, fIsAliased = {fIsAliased}, fIsAlias = {fIsAlias}, fIsRetValue = {fIsRetValue}, fIsOptimizedOut = {fIsOptimizedOut}, fIsEnregGlob = {fIsEnregGlob}, fIsEnregStat = {fIsEnregStat}, unused = {unused}, flags = {flags}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_LVARFLAGS
     {
         /// <summary>

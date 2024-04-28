@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, pParent = {pParent}, pEnd = {pEnd}, pNext = {pNext}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct THUNKSYM
     {
         /// <summary>

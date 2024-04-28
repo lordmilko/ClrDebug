@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -7,6 +8,7 @@ namespace ClrDebug.PDB
     /// flag bitfields for separated code attributes
     /// </summary>
     [DebuggerDisplay("fIsLexicalScope = {fIsLexicalScope}, fReturnsToParent = {fReturnsToParent}, pad = {pad}, flags = {flags}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_SEPCODEFLAGS
     {
         /// <summary>

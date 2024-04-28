@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -7,7 +6,6 @@ namespace ClrDebug.PDB
     /// <summary>
     /// Defines a local DPC group shared variable and its location.
     /// </summary>
-    [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, typind = {typind.ToString(),nq}, flags = {flags.ToString(),nq}, dataslot = {dataslot}, dataoff = {dataoff}, name = {name}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct LOCALDPCGROUPSHAREDSYM
     {

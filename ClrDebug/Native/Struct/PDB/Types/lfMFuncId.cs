@@ -1,9 +1,8 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("leaf = {leaf.ToString(),nq}, parentType = {parentType.ToString(),nq}, type = {type.ToString(),nq}, name = {name}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct lfMFuncId
     {
@@ -23,5 +22,12 @@ namespace ClrDebug.PDB
         public CV_typ_t type;
 
         public fixed byte name[1];
+
+        public override string ToString()
+        {
+            //It seems strings are only length prefixed when they're not UTF 8 (pre-v7.0)
+            fixed (byte* ptr = name)
+                return CreateString(ptr);
+        }
     }
 }

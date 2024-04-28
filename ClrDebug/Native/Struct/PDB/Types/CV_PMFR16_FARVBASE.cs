@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.PDB
     /// representation of a 16:16 far pointer to member function of a class with virtual bases
     /// </summary>
     [DebuggerDisplay("off = {off.ToString(),nq}, seg = {seg}, mdisp = {mdisp.ToString(),nq}, pdisp = {pdisp.ToString(),nq}, vdisp = {vdisp.ToString(),nq}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_PMFR16_FARVBASE
     {
         /// <summary>

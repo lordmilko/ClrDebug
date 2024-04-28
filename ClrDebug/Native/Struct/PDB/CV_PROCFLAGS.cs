@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -7,6 +8,7 @@ namespace ClrDebug.PDB
     /// enum describing function return method
     /// </summary>
     [DebuggerDisplay("CV_PFLAG_NOFPO = {CV_PFLAG_NOFPO}, CV_PFLAG_INT = {CV_PFLAG_INT}, CV_PFLAG_FAR = {CV_PFLAG_FAR}, CV_PFLAG_NEVER = {CV_PFLAG_NEVER}, CV_PFLAG_NOTREACHED = {CV_PFLAG_NOTREACHED}, CV_PFLAG_CUST_CALL = {CV_PFLAG_CUST_CALL}, CV_PFLAG_NOINLINE = {CV_PFLAG_NOINLINE}, CV_PFLAG_OPTDBGINFO = {CV_PFLAG_OPTDBGINFO}, bAll = {bAll}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_PROCFLAGS
     {
         /// <summary>

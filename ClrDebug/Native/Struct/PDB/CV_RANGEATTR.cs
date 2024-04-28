@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("maybe = {maybe}, padding = {padding}, data = {data}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_RANGEATTR
     {
         /// <summary>

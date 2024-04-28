@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, framesize = {framesize}, off = {off.ToString(),nq}, reg = {reg}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct SLINK32
     {
         /// <summary>

@@ -1,10 +1,8 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, isectCoff = {isectCoff}, typind = {typind.ToString(),nq}, imod = {imod}, fLocal = {fLocal}, fData = {fData}, fUDT = {fUDT}, fLabel = {fLabel}, fConst = {fConst}, reserved = {reserved}, data2 = {data2}, name = {name}")]
     [StructLayout(LayoutKind.Explicit)]
     public unsafe struct REFMINIPDB
     {

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using ClrDebug.DIA;
 using static ClrDebug.Extensions;
 
@@ -8,6 +9,7 @@ namespace ClrDebug.PDB
     /// class field attribute
     /// </summary>
     [DebuggerDisplay("access = {access.ToString(),nq}, pseudo = {pseudo}, noinherit = {noinherit}, noconstruct = {noconstruct}, compgenx = {compgenx}, @sealed = {@sealed}, unused = {unused}, data = {data}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_fldattr_t
     {
         /// <summary>

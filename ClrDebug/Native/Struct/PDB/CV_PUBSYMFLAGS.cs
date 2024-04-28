@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("grfFlags = {grfFlags}, fCode = {fCode}, fFunction = {fFunction}, fManaged = {fManaged}, fMSIL = {fMSIL}, __unused = {__unused}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_PUBSYMFLAGS
     {
         public int grfFlags;

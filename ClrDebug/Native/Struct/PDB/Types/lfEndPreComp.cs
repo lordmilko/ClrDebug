@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.PDB
     /// type record describing end of precompiled types that can be included by another file
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, signature = {signature}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct lfEndPreComp
     {
         /// <summary>

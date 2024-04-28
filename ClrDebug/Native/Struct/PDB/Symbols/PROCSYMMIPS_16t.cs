@@ -1,10 +1,8 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, pParent = {pParent}, pEnd = {pEnd}, pNext = {pNext}, len = {len}, DbgStart = {DbgStart}, DbgEnd = {DbgEnd}, regSave = {regSave}, fpSave = {fpSave}, intOff = {intOff.ToString(),nq}, fpOff = {fpOff.ToString(),nq}, off = {off.ToString(),nq}, seg = {seg}, typind = {typind.ToString(),nq}, retReg = {retReg}, frameReg = {frameReg}, name = {name}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct PROCSYMMIPS_16t
     {

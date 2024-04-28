@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -7,6 +8,7 @@ namespace ClrDebug.PDB
     /// function flags
     /// </summary>
     [DebuggerDisplay("cxxreturnudt = {cxxreturnudt}, ctor = {ctor}, ctorvbase = {ctorvbase}, unused = {unused}, flags = {flags}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_funcattr_t
     {
         /// <summary>

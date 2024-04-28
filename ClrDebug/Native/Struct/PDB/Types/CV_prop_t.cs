@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -7,6 +8,7 @@ namespace ClrDebug.PDB
     /// bit field structure describing class/struct/union/enum properties
     /// </summary>
     [DebuggerDisplay("data = {data}, packed = {packed}, ctor = {ctor}, ovlops = {ovlops}, isnested = {isnested}, cnested = {cnested}, opassign = {opassign}, opcast = {opcast}, fwdref = {fwdref}, scoped = {scoped}, hasuniquename = {hasuniquename}, @sealed = {@sealed}, intrinsic = {intrinsic}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_prop_t
     {
         public short data;

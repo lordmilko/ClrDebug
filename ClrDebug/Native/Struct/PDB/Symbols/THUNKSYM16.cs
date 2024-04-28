@@ -1,9 +1,7 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, pParent = {pParent}, pEnd = {pEnd}, pNext = {pNext}, off = {off.ToString(),nq}, seg = {seg}, len = {len}, ord = {ord}, name = {name}, variant = {variant}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct THUNKSYM16
     {

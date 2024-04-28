@@ -1,12 +1,11 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
     /// <summary>
     /// type record for nested (scoped) type definition, with attributes new records for vC v5.0, no need to have 16-bit ti versions.
     /// </summary>
-    [DebuggerDisplay("leaf = {leaf.ToString(),nq}, attr = {attr.ToString(),nq}, index = {index.ToString(),nq}, Name = {Name}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct lfNestTypeEx
     {
@@ -29,5 +28,12 @@ namespace ClrDebug.PDB
         /// length prefixed type name
         /// </summary>
         public fixed byte Name[1];
+
+        public override string ToString()
+        {
+            //It seems strings are only length prefixed when they're not UTF 8 (pre-v7.0)
+            fixed (byte* ptr = Name)
+                return CreateString(ptr);
+        }
     }
 }

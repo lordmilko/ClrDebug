@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("leaf = {leaf.ToString(),nq}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct lfEasy
     {
         /// <summary>

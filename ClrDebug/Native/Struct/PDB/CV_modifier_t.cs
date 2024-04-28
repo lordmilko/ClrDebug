@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -7,6 +8,7 @@ namespace ClrDebug.PDB
     /// enumeration for LF_MODIFIER values
     /// </summary>
     [DebuggerDisplay("MOD_const = {MOD_const}, MOD_volatile = {MOD_volatile}, MOD_unaligned = {MOD_unaligned}, MOD_unused = {MOD_unused}, flags = {flags}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_modifier_t
     {
         public bool MOD_const

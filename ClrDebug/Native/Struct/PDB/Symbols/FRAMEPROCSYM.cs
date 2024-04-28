@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, cbFrame = {cbFrame}, cbPad = {cbPad}, offPad = {offPad.ToString(),nq}, cbSaveRegs = {cbSaveRegs}, offExHdlr = {offExHdlr.ToString(),nq}, sectExHdlr = {sectExHdlr}, fHasAlloca = {fHasAlloca}, fHasSetJmp = {fHasSetJmp}, fHasLongJmp = {fHasLongJmp}, fHasInlAsm = {fHasInlAsm}, fHasEH = {fHasEH}, fInlSpec = {fInlSpec}, fHasSEH = {fHasSEH}, fNaked = {fNaked}, fSecurityChecks = {fSecurityChecks}, fAsyncEH = {fAsyncEH}, fGSNoStackOrdering = {fGSNoStackOrdering}, fWasInlined = {fWasInlined}, fGSCheck = {fGSCheck}, fSafeBuffers = {fSafeBuffers}, encodedLocalBasePointer = {encodedLocalBasePointer}, encodedParamBasePointer = {encodedParamBasePointer}, fPogoOn = {fPogoOn}, fValidCounts = {fValidCounts}, fOptSpeed = {fOptSpeed}, fGuardCF = {fGuardCF}, fGuardCFW = {fGuardCFW}, pad = {pad}, flags = {flags}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct FRAMEPROCSYM
     {
         /// <summary>
@@ -27,11 +29,10 @@ namespace ClrDebug.PDB
         public int cbPad;
 
         /// <summary>
-        /// offset (relative to frame poniter) to where
+        /// offset (relative to frame poniter) to where padding starts
         /// </summary>
         public CV_uoff32_t offPad;
 
-        //  padding starts
         /// <summary>
         /// count of bytes of callee save registers
         /// </summary>

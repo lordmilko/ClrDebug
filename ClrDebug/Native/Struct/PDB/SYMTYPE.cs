@@ -1,9 +1,7 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, data = {data}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct SYMTYPE
     {

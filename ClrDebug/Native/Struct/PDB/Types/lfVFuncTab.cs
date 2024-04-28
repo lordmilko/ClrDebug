@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.PDB
     /// subfield record for virtual function table pointer
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, pad0 = {pad0}, type = {type.ToString(),nq}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct lfVFuncTab
     {
         /// <summary>

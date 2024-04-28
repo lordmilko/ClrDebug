@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.PDB
     /// representation of a 16:16 far pointer to member functions of a class with no virtual bases and multiple address points
     /// </summary>
     [DebuggerDisplay("off = {off.ToString(),nq}, seg = {seg}, disp = {disp}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_PMFR16_FARNVMA
     {
         /// <summary>

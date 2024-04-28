@@ -1,10 +1,8 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, pParent = {pParent}, pEnd = {pEnd}, len = {len}, off = {off.ToString(),nq}, seg = {seg}, expr = {expr}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct WITHSYM32
     {

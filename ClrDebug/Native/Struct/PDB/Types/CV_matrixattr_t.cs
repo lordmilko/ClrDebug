@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -7,6 +8,7 @@ namespace ClrDebug.PDB
     /// matrix flags
     /// </summary>
     [DebuggerDisplay("row_major = {row_major}, unused = {unused}, data = {data}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CV_matrixattr_t
     {
         /// <summary>

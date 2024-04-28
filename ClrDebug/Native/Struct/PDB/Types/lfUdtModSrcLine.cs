@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, type = {type.ToString(),nq}, src = {src.ToString(),nq}, line = {line}, imod = {imod}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct lfUdtModSrcLine
     {
         /// <summary>

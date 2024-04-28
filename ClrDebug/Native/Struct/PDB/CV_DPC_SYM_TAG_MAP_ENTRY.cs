@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
 {
@@ -6,6 +7,7 @@ namespace ClrDebug.PDB
     /// Represents a mapping from a DPC pointer tag value to the corresponding symbol record
     /// </summary>
     [DebuggerDisplay("tagValue = {tagValue}, symRecordOffset = {symRecordOffset.ToString(),nq}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct CV_DPC_SYM_TAG_MAP_ENTRY
     {
         /// <summary>

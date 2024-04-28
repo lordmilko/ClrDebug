@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -7,7 +6,6 @@ namespace ClrDebug.PDB
     /// <summary>
     /// type record for LF_ALIAS
     /// </summary>
-    [DebuggerDisplay("leaf = {leaf.ToString(),nq}, utype = {utype.ToString(),nq}, Name = {Name}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public unsafe struct lfAlias
     {
