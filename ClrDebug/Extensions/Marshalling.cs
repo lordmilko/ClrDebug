@@ -327,7 +327,7 @@ namespace ClrDebug
 #else
     //Only used when targeting netstandard2.0 (which implies Windows only)
 
-    public static unsafe class CrossPlatformStringMarshaller
+    public static class CrossPlatformStringMarshaller
     {
         public static string ConvertToManaged(IntPtr unmanaged) =>
             Marshal.PtrToStringUni(unmanaged);

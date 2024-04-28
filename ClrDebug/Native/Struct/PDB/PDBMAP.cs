@@ -1,0 +1,27 @@
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
+
+namespace ClrDebug.PDB
+{
+    [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, name = {name}")]
+    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    public unsafe struct PDBMAP
+    {
+        /// <summary>
+        /// Record length
+        /// </summary>
+        public short reclen;
+
+        /// <summary>
+        /// S_PDBMAP
+        /// </summary>
+        public SYM_ENUM_e rectyp;
+
+        /// <summary>
+        /// zero terminated source PDB filename followed by zero
+        /// </summary>
+        public fixed byte name[1];
+
+        // terminated destination PDB filename, both in wchar_t
+    }
+}

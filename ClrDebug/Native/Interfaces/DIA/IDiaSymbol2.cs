@@ -494,7 +494,7 @@ namespace ClrDebug.DIA
         /// The supplied VARIANT must be initialized before it is passed to this method. For more information, see the example.
         /// </remarks>
         [PreserveSig]
-        [Obsolete("DiaVariant objects returned from this method must be manually freed. Consider using the DiaExtensions.get_value(this IDiaSymbol symbol, out object pRetVal) extension method instead.")]
+        [Obsolete(Extensions.DiaVariantWarning)]
         new HRESULT get_value(
             out DiaVariant pRetVal);
 
@@ -518,7 +518,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         new HRESULT get_token(
-            [Out] out int pRetVal);
+            [Out] out mdToken pRetVal);
 
         /// <summary>
         /// Retrieves the timestamp of the underlying executable file.

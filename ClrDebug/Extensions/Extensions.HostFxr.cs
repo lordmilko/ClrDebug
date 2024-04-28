@@ -1487,7 +1487,7 @@ namespace ClrDebug
         /// will be propagated to hostpolicy for the duration of the call. This means that errors from
         /// both hostfxr and hostpolicy will be reporter through the same error writer.<para/>
         /// </remarks>
-        public unsafe HostFxrErrorWriterDelegate SetErrorWriter(HostFxrErrorWriterDelegate errorWriter)
+        public HostFxrErrorWriterDelegate SetErrorWriter(HostFxrErrorWriterDelegate errorWriter)
         {
             var @delegate = delegateProvider.hostfxr_set_error_writer;
 

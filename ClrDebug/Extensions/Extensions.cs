@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 #if GENERATED_MARSHALLING
@@ -39,6 +38,9 @@ namespace ClrDebug
 
     public static partial class Extensions
     {
+        internal const string DiaVariantWarning = "DiaVariant objects returned from this method must be manually freed. Consider using the DiaExtensions.get_value(this IDiaSymbol symbol, out object pRetVal) extension method instead.";
+        internal const string DbgEngNoQueryInterfaceWarning = "This method does not QueryInterface the object passed to it, resulting in it using the default CCW VTable which contains entries for IDispatch immediately after IUnknown. Consider using the DbgEngExtensions extension method that handles the required marshalling for you.";
+
         public const int DAC_NUM_GC_DATA_POINTS = 9;
         public const int DAC_MAX_COMPACT_REASONS_COUNT = 11;
         public const int DAC_MAX_EXPAND_MECHANISMS_COUNT = 6;
@@ -351,6 +353,135 @@ namespace ClrDebug
             return buffer;
         }
 
+        #region Get/Set Bits
+        #region Get (1)
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static bool GetBitFlag(int bitField, byte zeroBasedBit) => (bitField & (1 << zeroBasedBit)) != 0;
+
+        #endregion
+        #region Set (1)
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void SetBitFlag(ref int bitField, byte zeroBasedBit, bool value)
+        {
+            //Clear out the bit. If value is true, add it back in. If it wasn't in in the first place, it's in now
+
+            var bit = 1 << zeroBasedBit;
+
+            bitField &= ~bit;
+
+            bitField |= value ? bit : 0;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void SetBitFlag(ref byte bitField, byte zeroBasedBit, bool value)
+        {
+            var intValue = (int) bitField;
+            SetBitFlag(ref intValue, zeroBasedBit, value);
+            bitField = (byte) intValue;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void SetBitFlag(ref short bitField, byte zeroBasedBit, bool value)
+        {
+            var intValue = (int) bitField;
+            SetBitFlag(ref intValue, zeroBasedBit, value);
+            bitField = (short) intValue;
+        }
+
+        #endregion
+        #region Get (Multiple)
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static int GetBits(int bitField, byte zeroBasedBit, byte count)
+        {
+            int bitMask = 1;
+
+            //Suppose we want to get bits 11 and 12
+            //0001100000000000
+            //We'd build up a mask 11 and then shift it over 11 bits. Or, instead, we can right shift all the bits back to the start!
+
+            for (var i = 1; i < count; i++)
+            {
+                bitMask <<= 1;
+                bitMask |= 1;
+            }
+
+            var shifted = bitField >> zeroBasedBit;
+
+            var masked = shifted & bitMask;
+
+            return masked;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static short GetBits(short bitField, byte zeroBasedBit, byte count) => (short) GetBits((int) bitField, zeroBasedBit, count);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static byte GetBits(byte bitField, byte zeroBasedBit, byte count) => (byte) GetBits((int) bitField, zeroBasedBit, count);
+
+        #endregion
+        #region Set (Multiple)
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void SetBits(ref int bitField, byte zeroBasedBit, byte count, int value)
+        {
+            int bitMask = 1;
+
+            for (var i = 1; i < count; i++)
+            {
+                bitMask <<= 1;
+                bitMask |= 1;
+            }
+
+            //Clear out the existing bits
+            bitField &= ~(bitMask << zeroBasedBit);
+
+            bitField |= (value & bitMask) << zeroBasedBit;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void SetBits(ref byte bitField, byte zeroBasedBit, byte count, int value)
+        {
+            var intValue = (int) bitField;
+            SetBits(ref intValue, zeroBasedBit, count, value);
+            bitField = (byte) intValue;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void SetBits(ref short bitField, byte zeroBasedBit, byte count, int value)
+        {
+            var intValue = (int) bitField;
+            SetBits(ref intValue, zeroBasedBit, count, value);
+            bitField = (short) intValue;
+        }
+
+        #endregion
+        #endregion
+        #region CreateString
+        #region Pointer
+
+        public static unsafe string CreateString(byte* pString, bool utf8 = false)
+        {
+            if (pString == default)
+                return null;
+
+            var p = pString;
+
+            while (*p != 0)
+                p++;
+
+            var length = (int)(p - pString);
+
+            var encoding = utf8 ? Encoding.UTF8 : Encoding.ASCII;
+
+            return encoding.GetString(pString, length);
+        }
+
+        #endregion
+        #region Array / Unknown Length
+
         /// <summary>
         /// Creates a <see langword="string"/> from a null-terminated sequence of characters of unknown length.
         /// </summary>
@@ -372,6 +503,34 @@ namespace ClrDebug
 
             return new string(charArray, 0, length);
         }
+
+        /// <summary>
+        /// Creates a <see langword="string"/> from a null-terminated sequence of ASCII or UTF8 characters of unknown length.
+        /// </summary>
+        /// <param name="byteArray">The null-terminated sequence of ASCII or UTF8 characters.</param>
+        /// <param name="utf8">Whether to interpret <paramref name="byteArray"/> as a sequence of UTF8 characters or ASCII characters.</param>
+        /// <returns>A <see langword="string"/> containing the characters in <paramref name="byteArray"/> prior to the null-terminator (\0), or <see cref="string.Empty"/> if <paramref name="charArray"/> is empty,
+        /// or <see langword="null"/> if <paramref name="byteArray"/> is <see langword="null"/></returns>
+        public static string CreateString(byte[] byteArray, bool utf8 = false)
+        {
+            if (byteArray == null)
+                return null;
+
+            var length = 0;
+
+            for (; length < byteArray.Length; length++)
+            {
+                if (byteArray[length] == '\0')
+                    break;
+            }
+
+            var encoding = utf8 ? Encoding.UTF8 : Encoding.ASCII;
+
+            return encoding.GetString(byteArray, 0, length);
+        }
+
+        #endregion
+        #region Array / Known Length
 
         /// <summary>
         /// Creates a <see langword="string"/> from a null-terminated sequence of characters of known length.
@@ -407,16 +566,35 @@ namespace ClrDebug
                 );
         }
 
-        internal static string CreateString(byte[] charArray, int length)
+        /// <summary>
+        /// Creates a <see langword="string"/> from a null-terminated sequence of ASCII characters of known length.
+        /// </summary>
+        /// <param name="byteArray">The null-terminated sequence of ASCII characters.</param>
+        /// <param name="length">The number of bytes that were filled in in <paramref name="byteArray"/> including a null-terminator (\0).</param>
+        /// <returns>A <see langword="string"/> containing the characters in <paramref name="byteArray"/> prior to the null-terminator (\0), or <see cref="string.Empty"/> if <paramref name="byteArray"/> is empty,
+        /// or <see langword="null"/> if <paramref name="byteArray"/> is <see langword="null"/></returns>
+        public static string CreateString(byte[] byteArray, int length)
         {
-            if (charArray == null)
+            if (byteArray == null)
                 return null;
 
             //The length will include a null terminator. So if there's no characters, or just a null terminator, it's an empty string
-            if (length <= 1 || charArray.Length == 0)
+            if (length <= 1 || byteArray.Length == 0)
                 return string.Empty;
 
-            return Encoding.ASCII.GetString(charArray, 0, length - 1);
+            return Encoding.ASCII.GetString(byteArray, 0, length - 1);
+        }
+
+        #endregion
+        #endregion
+
+        internal static void InitDelegate<T>(ref T @delegate, IntPtr vtablePtr)
+        {
+            //If we've already initialized this delegate, no need to do it again
+            if (@delegate != null)
+                return;
+
+            @delegate = Marshal.GetDelegateForFunctionPointer<T>(vtablePtr);
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ namespace ClrDebug.TypeLib
     /// Contains information about how to transfer a structure element, parameter, or function return value between processes.
     /// </summary>
     [DebuggerDisplay("pparamdescex = {pparamdescex.ToString(),nq}, wParamFlags = {wParamFlags.ToString(),nq}")]
-    public unsafe struct PARAMDESC
+    public struct PARAMDESC
     {
         /// <summary>
         /// The default value for the parameter, if <see cref="PARAMFLAG.PARAMFLAG_FHASDEFAULT"/> is specified in wParamFlags.<para/>

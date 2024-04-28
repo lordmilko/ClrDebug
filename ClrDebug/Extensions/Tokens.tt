@@ -68,7 +68,6 @@ for(int i = 0; i < types.Length; i++)
 public static readonly <#= type #> Nil = new <#= type #>();
         <#
                 WriteLine("");
-                Write("        ");
             }
             else if(type != "mdCPToken")
             {
@@ -76,13 +75,18 @@ public static readonly <#= type #> Nil = new <#= type #>();
 public static readonly <#= type #> Nil = new <#= type #>((uint) CorTokenType.<#= type.Insert(2, "t") #>);
         <#
                 WriteLine("");
-                Write("        ");
             }
         #>
-public int Rid => (int) Value & 0x00FFFFFF;
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;

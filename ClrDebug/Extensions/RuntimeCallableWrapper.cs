@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using ClrDebug.DbgEng.Vtbl;
 
@@ -132,14 +133,9 @@ namespace ClrDebug
 #pragma warning restore CA1416 //This call site is reachable on all platforms
         }
 
-        protected void InitDelegate<T>(ref T @delegate, IntPtr vtablePtr)
-        {
-            //If we've already initialized this delegate, no need to do it again
-            if (@delegate != null)
-                return;
-
-            @delegate = Marshal.GetDelegateForFunctionPointer<T>(vtablePtr);
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected void InitDelegate<T>(ref T @delegate, IntPtr vtablePtr) =>
+            Extensions.InitDelegate(ref @delegate, vtablePtr);
 
         protected void InitInterface(Guid riid, ref IntPtr ptr)
         {

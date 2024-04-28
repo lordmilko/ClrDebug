@@ -17,6 +17,7 @@ ClrDebug aims to be a complete wrapper around all of the essential APIs you may 
 * `IXCLR*`/`ISOS*`/DAC
 * DbgEng (`IDebug*`)
 * DIA
+* PDB1
 * and more
 
 ## Getting Started

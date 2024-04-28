@@ -31,6 +31,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DelegateProvider.cs</LastGenOutput>
     </None>
+    <None Update="Extensions\PDB\Types.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Types.cs</LastGenOutput>
+    </None>
     <None Update="Extensions\Pointers.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Pointers.cs</LastGenOutput>
@@ -50,6 +54,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DelegateProvider.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions\PDB\Types.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Types.tt</DependentUpon>
     </Compile>
     <Compile Update="Extensions\Pointers.cs">
       <DesignTime>True</DesignTime>

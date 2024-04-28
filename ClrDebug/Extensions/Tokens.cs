@@ -13,10 +13,16 @@ namespace ClrDebug
     {
         public static readonly mdToken Nil = new mdToken();
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -251,10 +257,16 @@ namespace ClrDebug
     {
         public static readonly mdModule Nil = new mdModule((uint) CorTokenType.mdtModule);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -299,10 +311,16 @@ namespace ClrDebug
     {
         public static readonly mdTypeRef Nil = new mdTypeRef((uint) CorTokenType.mdtTypeRef);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -347,10 +365,16 @@ namespace ClrDebug
     {
         public static readonly mdTypeDef Nil = new mdTypeDef((uint) CorTokenType.mdtTypeDef);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -395,10 +419,16 @@ namespace ClrDebug
     {
         public static readonly mdFieldDef Nil = new mdFieldDef((uint) CorTokenType.mdtFieldDef);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -443,10 +473,16 @@ namespace ClrDebug
     {
         public static readonly mdMethodDef Nil = new mdMethodDef((uint) CorTokenType.mdtMethodDef);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -491,10 +527,16 @@ namespace ClrDebug
     {
         public static readonly mdParamDef Nil = new mdParamDef((uint) CorTokenType.mdtParamDef);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -539,10 +581,16 @@ namespace ClrDebug
     {
         public static readonly mdInterfaceImpl Nil = new mdInterfaceImpl((uint) CorTokenType.mdtInterfaceImpl);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -587,10 +635,16 @@ namespace ClrDebug
     {
         public static readonly mdMemberRef Nil = new mdMemberRef((uint) CorTokenType.mdtMemberRef);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -635,10 +689,16 @@ namespace ClrDebug
     {
         public static readonly mdCustomAttribute Nil = new mdCustomAttribute((uint) CorTokenType.mdtCustomAttribute);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -683,10 +743,16 @@ namespace ClrDebug
     {
         public static readonly mdPermission Nil = new mdPermission((uint) CorTokenType.mdtPermission);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -731,10 +797,16 @@ namespace ClrDebug
     {
         public static readonly mdSignature Nil = new mdSignature((uint) CorTokenType.mdtSignature);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -779,10 +851,16 @@ namespace ClrDebug
     {
         public static readonly mdEvent Nil = new mdEvent((uint) CorTokenType.mdtEvent);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -827,10 +905,16 @@ namespace ClrDebug
     {
         public static readonly mdProperty Nil = new mdProperty((uint) CorTokenType.mdtProperty);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -875,10 +959,16 @@ namespace ClrDebug
     {
         public static readonly mdModuleRef Nil = new mdModuleRef((uint) CorTokenType.mdtModuleRef);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -923,10 +1013,16 @@ namespace ClrDebug
     {
         public static readonly mdAssembly Nil = new mdAssembly((uint) CorTokenType.mdtAssembly);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -971,10 +1067,16 @@ namespace ClrDebug
     {
         public static readonly mdAssemblyRef Nil = new mdAssemblyRef((uint) CorTokenType.mdtAssemblyRef);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -1019,10 +1121,16 @@ namespace ClrDebug
     {
         public static readonly mdFile Nil = new mdFile((uint) CorTokenType.mdtFile);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -1067,10 +1175,16 @@ namespace ClrDebug
     {
         public static readonly mdExportedType Nil = new mdExportedType((uint) CorTokenType.mdtExportedType);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -1115,10 +1229,16 @@ namespace ClrDebug
     {
         public static readonly mdManifestResource Nil = new mdManifestResource((uint) CorTokenType.mdtManifestResource);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -1163,10 +1283,16 @@ namespace ClrDebug
     {
         public static readonly mdTypeSpec Nil = new mdTypeSpec((uint) CorTokenType.mdtTypeSpec);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -1211,10 +1337,16 @@ namespace ClrDebug
     {
         public static readonly mdGenericParam Nil = new mdGenericParam((uint) CorTokenType.mdtGenericParam);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -1259,10 +1391,16 @@ namespace ClrDebug
     {
         public static readonly mdMethodSpec Nil = new mdMethodSpec((uint) CorTokenType.mdtMethodSpec);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -1307,10 +1445,16 @@ namespace ClrDebug
     {
         public static readonly mdGenericParamConstraint Nil = new mdGenericParamConstraint((uint) CorTokenType.mdtGenericParamConstraint);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -1355,10 +1499,16 @@ namespace ClrDebug
     {
         public static readonly mdString Nil = new mdString((uint) CorTokenType.mdtString);
         
+        /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
@@ -1401,10 +1551,16 @@ namespace ClrDebug
     [DebuggerDisplay("{ToString(),nq} [mdCPToken]")]
     public struct mdCPToken : IComparable, IEquatable<mdCPToken>
     {
+                /// <summary>
+        /// Gets the Row ID of the metadata token.
+        /// </summary>
         public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
+        /// <summary>
+        /// Gets the raw numeric value of the metadata token.
+        /// </summary>
         public uint Value { get; }
 
         public bool IsNil => Rid == 0;
