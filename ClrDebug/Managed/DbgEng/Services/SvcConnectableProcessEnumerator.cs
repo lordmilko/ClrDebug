@@ -13,6 +13,9 @@
         #region ISvcConnectableProcessEnumerator
         #region Next
 
+        /// <summary>
+        /// Gets the next connectable process in the list.
+        /// </summary>
         public SvcConnectableProcess Next
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the next connectable process in the list.
+        /// </summary>
         public HRESULT TryGetNext(out SvcConnectableProcess connectableProcessResult)
         {
             /*HRESULT GetNext(
@@ -42,11 +48,17 @@
         #endregion
         #region Reset
 
+        /// <summary>
+        /// Resets the enumerator to the first process.
+        /// </summary>
         public void Reset()
         {
             TryReset().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Resets the enumerator to the first process.
+        /// </summary>
         public HRESULT TryReset()
         {
             /*HRESULT Reset();*/

@@ -2,6 +2,13 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// A service which offers the ability to aggregate other services implements this interface. Typically, this is used in one of two scenarios
+    /// 1) Enumerators which provide the capability to enumerate from multiple sources -- each an independent service.<para/>
+    /// An aggregate service will "merge" all of the enumerators and direct calls to Find* to the appropriate service.
+    /// 
+    /// 2) ...
+    /// </summary>
     public class DebugServiceAggregate : ComObject<IDebugServiceAggregate>
     {
         /// <summary>
@@ -15,11 +22,17 @@ namespace ClrDebug.DbgEng
         #region IDebugServiceAggregate
         #region AggregateService
 
+        /// <summary>
+        /// Adds a new service to the aggregate.
+        /// </summary>
         public void AggregateService(Guid serviceGuid, IDebugServiceLayer childService)
         {
             TryAggregateService(serviceGuid, childService).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Adds a new service to the aggregate.
+        /// </summary>
         public HRESULT TryAggregateService(Guid serviceGuid, IDebugServiceLayer childService)
         {
             /*HRESULT AggregateService(
@@ -31,11 +44,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region DeaggregateService
 
+        /// <summary>
+        /// Removes a service from the aggregate.
+        /// </summary>
         public void DeaggregateService(Guid serviceGuid, IDebugServiceLayer childService)
         {
             TryDeaggregateService(serviceGuid, childService).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Removes a service from the aggregate.
+        /// </summary>
         public HRESULT TryDeaggregateService(Guid serviceGuid, IDebugServiceLayer childService)
         {
             /*HRESULT DeaggregateService(

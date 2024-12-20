@@ -13,11 +13,17 @@
         #region IComponentPseudoStreamMapperInitializer
         #region Initialize
 
+        /// <summary>
+        /// Initializes the component.
+        /// </summary>
         public void Initialize(ISvcDebugSourceFile pUnderlyingFile)
         {
             TryInitialize(pUnderlyingFile).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Initializes the component.
+        /// </summary>
         public HRESULT TryInitialize(ISvcDebugSourceFile pUnderlyingFile)
         {
             /*HRESULT Initialize(

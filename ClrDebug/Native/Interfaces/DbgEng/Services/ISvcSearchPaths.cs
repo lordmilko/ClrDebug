@@ -7,10 +7,18 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcSearchPaths
     {
+        /// <summary>
+        /// Provides a semicolon separated list of paths to the provider in which to search for the appropriate images/symbols.<para/>
+        /// Note that this accepts symbol server syntax.
+        /// </summary>
         [PreserveSig]
         HRESULT SetAllPaths(
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPaths);
-        
+
+        /// <summary>
+        /// Provides a semicolon separated list of paths from which the provider will search for the appropriate images/symbols.<para/>
+        /// Note that this will return symbol server syntax.
+        /// </summary>
         [PreserveSig]
         HRESULT GetAllPaths(
             [Out, MarshalAs(UnmanagedType.BStr)] out string searchPaths);

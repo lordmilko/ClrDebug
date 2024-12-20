@@ -1,5 +1,8 @@
-namespace ClrDebug.DbgEng
+﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Defines a particular type of data access.
+    /// </summary>
     public enum DataAccessFlags : uint
     {
         DataNone = 0x00000000,

@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: A process connector service which acts as a "process server" similar to a DbgSrv or. "gdbserver --multi" instance.
+    /// </summary>
     public class SvcProcessConnector : ComObject<ISvcProcessConnector>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcProcessConnector
         #region EnumerateConnectableProcesses
 
+        /// <summary>
+        /// Enumerates all of the processes on the server which are connectable.
+        /// </summary>
         public SvcConnectableProcessEnumerator EnumerateConnectableProcesses()
         {
             SvcConnectableProcessEnumerator connectableProcessEnumResult;
@@ -21,6 +27,9 @@
             return connectableProcessEnumResult;
         }
 
+        /// <summary>
+        /// Enumerates all of the processes on the server which are connectable.
+        /// </summary>
         public HRESULT TryEnumerateConnectableProcesses(out SvcConnectableProcessEnumerator connectableProcessEnumResult)
         {
             /*HRESULT EnumerateConnectableProcesses(
@@ -39,6 +48,9 @@
         #endregion
         #region AttachProcess
 
+        /// <summary>
+        /// Attaches to a process on the process server. After a successful call to this method, the process enumeration service is expected to enumerate the process.
+        /// </summary>
         public SvcProcess AttachProcess(long pid, SvcAttachFlags attachFlags)
         {
             SvcProcess ppProcessResult;
@@ -47,6 +59,9 @@
             return ppProcessResult;
         }
 
+        /// <summary>
+        /// Attaches to a process on the process server. After a successful call to this method, the process enumeration service is expected to enumerate the process.
+        /// </summary>
         public HRESULT TryAttachProcess(long pid, SvcAttachFlags attachFlags, out SvcProcess ppProcessResult)
         {
             /*HRESULT AttachProcess(
@@ -67,6 +82,11 @@
         #endregion
         #region CreateProcess
 
+        /// <summary>
+        /// Creates a process on the process server. After a successful call to this method, the process enumeration service is expected to enumerate the process.<para/>
+        /// The 'executablePath' and 'commandLine' arguments behave similarly to Windows CreateProcess* call. If both are specified, 'executablePath' is the path to the executable and 'commandLine' is the full command line (which a plug-in may or may not need to parse/separate depending on the underlying system) If 'executablePath' is nullptr and 'commandLine' is not, the first argument of 'commandLine' is the executable to utilize.<para/>
+        /// Such argument must be separated by standard means (white space separated allowing for the use of quotation marks) If 'executablePath' is not nullptr and 'commandLine' is, it is assumed that 'executablePath' is also the command line.
+        /// </summary>
         public SvcProcess CreateProcess(string executablePath, string commandLine, SvcAttachFlags attachFlags, string workingDirectory)
         {
             SvcProcess ppProcessResult;
@@ -75,6 +95,11 @@
             return ppProcessResult;
         }
 
+        /// <summary>
+        /// Creates a process on the process server. After a successful call to this method, the process enumeration service is expected to enumerate the process.<para/>
+        /// The 'executablePath' and 'commandLine' arguments behave similarly to Windows CreateProcess* call. If both are specified, 'executablePath' is the path to the executable and 'commandLine' is the full command line (which a plug-in may or may not need to parse/separate depending on the underlying system) If 'executablePath' is nullptr and 'commandLine' is not, the first argument of 'commandLine' is the executable to utilize.<para/>
+        /// Such argument must be separated by standard means (white space separated allowing for the use of quotation marks) If 'executablePath' is not nullptr and 'commandLine' is, it is assumed that 'executablePath' is also the command line.
+        /// </summary>
         public HRESULT TryCreateProcess(string executablePath, string commandLine, SvcAttachFlags attachFlags, string workingDirectory, out SvcProcess ppProcessResult)
         {
             /*HRESULT CreateProcess(

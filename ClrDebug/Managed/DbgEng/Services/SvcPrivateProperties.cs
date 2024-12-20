@@ -2,6 +2,9 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: Various services.
+    /// </summary>
     public class SvcPrivateProperties : ComObject<ISvcPrivateProperties>
     {
         /// <summary>
@@ -15,6 +18,9 @@ namespace ClrDebug.DbgEng
         #region ISvcPrivateProperties
         #region HasProperty
 
+        /// <summary>
+        /// Indicates whether this object supports a private property.
+        /// </summary>
         public bool HasProperty(Guid set, int id)
         {
             bool hasProperty;
@@ -23,6 +29,9 @@ namespace ClrDebug.DbgEng
             return hasProperty;
         }
 
+        /// <summary>
+        /// Indicates whether this object supports a private property.
+        /// </summary>
         public HRESULT TryHasProperty(Guid set, int id, out bool hasProperty)
         {
             /*HRESULT HasProperty(
@@ -35,11 +44,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetProperty
 
+        /// <summary>
+        /// Gets a private property.
+        /// </summary>
         public void GetProperty(Guid set, int id, int bufferSize, IntPtr buffer)
         {
             TryGetProperty(set, id, bufferSize, buffer).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Gets a private property.
+        /// </summary>
         public HRESULT TryGetProperty(Guid set, int id, int bufferSize, IntPtr buffer)
         {
             /*HRESULT GetProperty(
@@ -53,11 +68,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region SetProperty
 
+        /// <summary>
+        /// Sets a private property.
+        /// </summary>
         public void SetProperty(Guid set, int id, int valueSize, IntPtr valueBuffer)
         {
             TrySetProperty(set, id, valueSize, valueBuffer).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Sets a private property.
+        /// </summary>
         public HRESULT TrySetProperty(Guid set, int id, int valueSize, IntPtr valueBuffer)
         {
             /*HRESULT SetProperty(

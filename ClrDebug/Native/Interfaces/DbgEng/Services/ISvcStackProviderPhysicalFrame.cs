@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcStackProviderPhysicalFrame
     {
+        /// <summary>
+        /// Gets the underlying SVC_STACK_FRAME and register context for the frame. This would be equivalent to having called ISvcStackFrameUnwind::UnwindFrame and gotten the same values out.
+        /// </summary>
         [PreserveSig]
         HRESULT GetFrame(
             [In, Out] ref SVC_STACK_FRAME pStackFrame,

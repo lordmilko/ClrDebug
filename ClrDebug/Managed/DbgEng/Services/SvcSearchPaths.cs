@@ -13,6 +13,10 @@
         #region ISvcSearchPaths
         #region AllPaths
 
+        /// <summary>
+        /// Provides a semicolon separated list of paths from which the provider will search for the appropriate images/symbols.<para/>
+        /// Note that this will return symbol server syntax.
+        /// </summary>
         public string AllPaths
         {
             get
@@ -28,6 +32,10 @@
             }
         }
 
+        /// <summary>
+        /// Provides a semicolon separated list of paths from which the provider will search for the appropriate images/symbols.<para/>
+        /// Note that this will return symbol server syntax.
+        /// </summary>
         public HRESULT TryGetAllPaths(out string searchPaths)
         {
             /*HRESULT GetAllPaths(
@@ -35,6 +43,10 @@
             return Raw.GetAllPaths(out searchPaths);
         }
 
+        /// <summary>
+        /// Provides a semicolon separated list of paths to the provider in which to search for the appropriate images/symbols.<para/>
+        /// Note that this accepts symbol server syntax.
+        /// </summary>
         public HRESULT TrySetAllPaths(string searchPaths)
         {
             /*HRESULT SetAllPaths(

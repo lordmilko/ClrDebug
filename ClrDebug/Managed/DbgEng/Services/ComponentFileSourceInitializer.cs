@@ -16,11 +16,17 @@ namespace ClrDebug.DbgEng
         #region IComponentFileSourceInitializer
         #region Initialize
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_FILESOURCE component by opening a file at the given path. This method will fail if no such file exists or it cannot be opened.
+        /// </summary>
         public void Initialize(string filePath)
         {
             TryInitialize(filePath).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_FILESOURCE component by opening a file at the given path. This method will fail if no such file exists or it cannot be opened.
+        /// </summary>
         public HRESULT TryInitialize(string filePath)
         {
             /*HRESULT Initialize(
@@ -37,11 +43,19 @@ namespace ClrDebug.DbgEng
 
         #region InitializeFromHandle
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_FILESOURCE component from an already opened file handle. While a file name must be provided, it has no bearing on the utilized file.<para/>
+        /// If this method succeeds, ownership of the file handle is *TRANSFERRED* to the file source.
+        /// </summary>
         public void InitializeFromHandle(string fileName, IntPtr fileHandle)
         {
             TryInitializeFromHandle(fileName, fileHandle).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_FILESOURCE component from an already opened file handle. While a file name must be provided, it has no bearing on the utilized file.<para/>
+        /// If this method succeeds, ownership of the file handle is *TRANSFERRED* to the file source.
+        /// </summary>
         public HRESULT TryInitializeFromHandle(string fileName, IntPtr fileHandle)
         {
             /*HRESULT InitializeFromHandle(

@@ -13,6 +13,9 @@
         #region ISvcDebugSourceFileInformation
         #region Name
 
+        /// <summary>
+        /// Gets the name of the underlying file.
+        /// </summary>
         public string Name
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the name of the underlying file.
+        /// </summary>
         public HRESULT TryGetName(out string fileName)
         {
             /*HRESULT GetName(
@@ -34,6 +40,9 @@
         #endregion
         #region Path
 
+        /// <summary>
+        /// Gets the path of the underlying file.
+        /// </summary>
         public string Path
         {
             get
@@ -45,6 +54,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the path of the underlying file.
+        /// </summary>
         public HRESULT TryGetPath(out string filePath)
         {
             /*HRESULT GetPath(
@@ -55,6 +67,9 @@
         #endregion
         #region Size
 
+        /// <summary>
+        /// Gets the size of the underlying file.
+        /// </summary>
         public long Size
         {
             get
@@ -66,6 +81,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the size of the underlying file.
+        /// </summary>
         public HRESULT TryGetSize(out long fileSize)
         {
             /*HRESULT GetSize(

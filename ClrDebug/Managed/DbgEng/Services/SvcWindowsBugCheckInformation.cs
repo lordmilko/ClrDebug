@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Notes - All implementations of ISvcWindowsBugCheckInformation must also implement ISvcExceptionInformation.
+    /// </summary>
     public class SvcWindowsBugCheckInformation : ComObject<ISvcWindowsBugCheckInformation>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcWindowsBugCheckInformation
         #region BugCheckCode
 
+        /// <summary>
+        /// Gets the bugcheck code.
+        /// </summary>
         public int BugCheckCode
         {
             get
@@ -25,6 +31,9 @@
         #endregion
         #region BugCheckData
 
+        /// <summary>
+        /// Gets the bugcheck data.
+        /// </summary>
         public long BugCheckData
         {
             get

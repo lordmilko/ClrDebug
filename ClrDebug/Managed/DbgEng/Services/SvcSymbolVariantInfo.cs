@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Any symbol which represents a variant part of a data structure (whether the discriminator or a discriminant) should implement ISvcSymbolVariantInfo.
+    /// </summary>
     public class SvcSymbolVariantInfo : ComObject<ISvcSymbolVariantInfo>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcSymbolVariantInfo
         #region IsDiscriminator
 
+        /// <summary>
+        /// Indicates whether this member/field is a discriminator for a variant record.
+        /// </summary>
         public bool IsDiscriminator
         {
             get
@@ -24,6 +30,9 @@
             }
         }
 
+        /// <summary>
+        /// Indicates whether this member/field is a discriminator for a variant record.
+        /// </summary>
         public HRESULT TryIsDiscriminator(out bool pIsDiscriminator)
         {
             /*HRESULT IsDiscriminator(
@@ -34,6 +43,9 @@
         #endregion
         #region IsDiscriminated
 
+        /// <summary>
+        /// Indicates whether this member/field is conditional based on the value of the discriminator. This can also optionally return the discriminator symbol.
+        /// </summary>
         public IsDiscriminatedResult IsDiscriminated
         {
             get
@@ -45,6 +57,9 @@
             }
         }
 
+        /// <summary>
+        /// Indicates whether this member/field is conditional based on the value of the discriminator. This can also optionally return the discriminator symbol.
+        /// </summary>
         public HRESULT TryIsDiscriminated(out IsDiscriminatedResult result)
         {
             /*HRESULT IsDiscriminated(
@@ -65,6 +80,10 @@
         #endregion
         #region DiscriminatorValues
 
+        /// <summary>
+        /// Indicates the set of discriminator values for which this field/member is valid. This can return one of several things - Two variants that are both empty: The discriminator is a default discriminator (used if no other discriminator matches) - One variant (pLowRange) and one empty variant: The discriminator is a single value "pLowRange" - Two variants of identical type: The discriminator values are a range [pLowRange, pHighRange) Either of the above with a return value of S_FALSE: The set of discriminator values is disjoint and cannot be expressed by a single range.<para/>
+        /// In this case, you must call EnumerateDiscriminatorValues to get a full accounting of discriminator values for which this field/member is valid.
+        /// </summary>
         public GetDiscriminatorValuesResult DiscriminatorValues
         {
             get
@@ -76,6 +95,10 @@
             }
         }
 
+        /// <summary>
+        /// Indicates the set of discriminator values for which this field/member is valid. This can return one of several things - Two variants that are both empty: The discriminator is a default discriminator (used if no other discriminator matches) - One variant (pLowRange) and one empty variant: The discriminator is a single value "pLowRange" - Two variants of identical type: The discriminator values are a range [pLowRange, pHighRange) Either of the above with a return value of S_FALSE: The set of discriminator values is disjoint and cannot be expressed by a single range.<para/>
+        /// In this case, you must call EnumerateDiscriminatorValues to get a full accounting of discriminator values for which this field/member is valid.
+        /// </summary>
         public HRESULT TryGetDiscriminatorValues(out GetDiscriminatorValuesResult result)
         {
             /*HRESULT GetDiscriminatorValues(
@@ -96,6 +119,9 @@
         #endregion
         #region HasVariantMembers
 
+        /// <summary>
+        /// Indicates whether this *TYPE* has variant members or is a variant record.
+        /// </summary>
         public bool HasVariantMembers()
         {
             bool pHasVariantMembers;
@@ -104,6 +130,9 @@
             return pHasVariantMembers;
         }
 
+        /// <summary>
+        /// Indicates whether this *TYPE* has variant members or is a variant record.
+        /// </summary>
         public HRESULT TryHasVariantMembers(out bool pHasVariantMembers)
         {
             /*HRESULT HasVariantMembers(
@@ -114,6 +143,9 @@
         #endregion
         #region EnumerateDiscriminatorValues
 
+        /// <summary>
+        /// Enumerates all discriminator values for which this field/member is valid. While this function always works, it only NEEDS to be used if GetDiscriminatorValues returns S_FALSE as an indication that there are disjoint values.
+        /// </summary>
         public SvcSymbolDiscriminatorValuesEnumerator EnumerateDiscriminatorValues()
         {
             SvcSymbolDiscriminatorValuesEnumerator ppEnumResult;
@@ -122,6 +154,9 @@
             return ppEnumResult;
         }
 
+        /// <summary>
+        /// Enumerates all discriminator values for which this field/member is valid. While this function always works, it only NEEDS to be used if GetDiscriminatorValues returns S_FALSE as an indication that there are disjoint values.
+        /// </summary>
         public HRESULT TryEnumerateDiscriminatorValues(out SvcSymbolDiscriminatorValuesEnumerator ppEnumResult)
         {
             /*HRESULT EnumerateDiscriminatorValues(

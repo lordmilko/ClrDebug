@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcSymbolCompilationUnitSources
     {
+        /// <summary>
+        /// Enumerates all of the source files which contribute to this compilation unit.
+        /// </summary>
         [PreserveSig]
         HRESULT EnumerateSourceFiles(
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,

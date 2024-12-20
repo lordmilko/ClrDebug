@@ -13,6 +13,9 @@
         #region ISvcThreadEnumerator
         #region Next
 
+        /// <summary>
+        /// Gets the next thread from the enumerator.
+        /// </summary>
         public SvcThread Next
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the next thread from the enumerator.
+        /// </summary>
         public HRESULT TryGetNext(out SvcThread targetThreadResult)
         {
             /*HRESULT GetNext(
@@ -42,11 +48,17 @@
         #endregion
         #region Reset
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public void Reset()
         {
             TryReset().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public HRESULT TryReset()
         {
             /*HRESULT Reset();*/

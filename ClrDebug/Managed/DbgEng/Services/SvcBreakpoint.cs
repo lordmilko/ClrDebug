@@ -13,6 +13,9 @@
         #region ISvcBreakpoint
         #region Kind
 
+        /// <summary>
+        /// Gets the kind of breakpoint that this ISvcBreakpoint represents.
+        /// </summary>
         public BreakpointKind Kind
         {
             get
@@ -25,6 +28,9 @@
         #endregion
         #region ProcessKey
 
+        /// <summary>
+        /// Gets the process key which this breakpoint is set within.
+        /// </summary>
         public long ProcessKey
         {
             get
@@ -37,6 +43,9 @@
         #endregion
         #region Address
 
+        /// <summary>
+        /// Gets the address for this breakpoint.
+        /// </summary>
         public long Address
         {
             get
@@ -49,6 +58,9 @@
         #endregion
         #region DataAccessFlags
 
+        /// <summary>
+        /// Gets the data access flags for this breakpoint. This method will fail when called on a breakpoint which is not a data breakpoint.
+        /// </summary>
         public DataAccessFlags DataAccessFlags
         {
             get
@@ -60,6 +72,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the data access flags for this breakpoint. This method will fail when called on a breakpoint which is not a data breakpoint.
+        /// </summary>
         public HRESULT TryGetDataAccessFlags(out DataAccessFlags pFlags)
         {
             /*HRESULT GetDataAccessFlags(
@@ -70,6 +85,9 @@
         #endregion
         #region DataWidth
 
+        /// <summary>
+        /// Gets the data access width for this breakpoint. This method will fail when called on a breakpoint which is not a data brakpoint.
+        /// </summary>
         public long DataWidth
         {
             get
@@ -81,6 +99,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the data access width for this breakpoint. This method will fail when called on a breakpoint which is not a data brakpoint.
+        /// </summary>
         public HRESULT TryGetDataWidth(out long pWidth)
         {
             /*HRESULT GetDataWidth(
@@ -91,11 +112,17 @@
         #endregion
         #region Delete
 
+        /// <summary>
+        /// Deletes the breakpoint.
+        /// </summary>
         public void Delete()
         {
             TryDelete().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Deletes the breakpoint.
+        /// </summary>
         public HRESULT TryDelete()
         {
             /*HRESULT Delete();*/
@@ -105,11 +132,17 @@
         #endregion
         #region Disable
 
+        /// <summary>
+        /// Disables the breakpoint. Disable is an on/off operation. You cannot disable a disabled breakpoint. Calling Disable on a disabled breakpoint will return S_FALSE as an indication that the breakpoint is disabled BUT that the Disable call was not the actor which performed the operation.
+        /// </summary>
         public void Disable()
         {
             TryDisable().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Disables the breakpoint. Disable is an on/off operation. You cannot disable a disabled breakpoint. Calling Disable on a disabled breakpoint will return S_FALSE as an indication that the breakpoint is disabled BUT that the Disable call was not the actor which performed the operation.
+        /// </summary>
         public HRESULT TryDisable()
         {
             /*HRESULT Disable();*/
@@ -119,11 +152,17 @@
         #endregion
         #region Enable
 
+        /// <summary>
+        /// Enables the breakpoint. Enable is an on/off operation. You cannot enable an enabled breakpoint. Calling Enable on an enabled breakpoint will return S_FALSE as an indication that the breakpoint is enabled BUT that the Enable call was not the actor which performed the operation.
+        /// </summary>
         public void Enable()
         {
             TryEnable().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Enables the breakpoint. Enable is an on/off operation. You cannot enable an enabled breakpoint. Calling Enable on an enabled breakpoint will return S_FALSE as an indication that the breakpoint is enabled BUT that the Enable call was not the actor which performed the operation.
+        /// </summary>
         public HRESULT TryEnable()
         {
             /*HRESULT Enable();*/

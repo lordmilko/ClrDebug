@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: DEBUG_SERVICE_DIAGNOSTIC_LOGGING.
+    /// </summary>
     public class SvcDiagnosticLogging : ComObject<ISvcDiagnosticLogging>
     {
         /// <summary>
@@ -13,11 +16,17 @@
         #region ISvcDiagnosticLogging
         #region Log
 
+        /// <summary>
+        /// Sends a message to a diagnostic logging sink. What the host does with the log message is entirely up to it.
+        /// </summary>
         public void Log(DiagnosticLogLevel level, string logMessage, string component, string category)
         {
             TryLog(level, logMessage, component, category).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Sends a message to a diagnostic logging sink. What the host does with the log message is entirely up to it.
+        /// </summary>
         public HRESULT TryLog(DiagnosticLogLevel level, string logMessage, string component, string category)
         {
             /*HRESULT Log(

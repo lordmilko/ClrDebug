@@ -1,5 +1,9 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Represents a way to discover scopes and their contents (variables and arguments) including that of inlined functions.<para/>
+    /// Symbol sets which support inline frame resolution along with the enumeration of locals and arguments must support this interface.
+    /// </summary>
     public class SvcSymbolSetInlineScopeResolution : ComObject<ISvcSymbolSetInlineScopeResolution>
     {
         /// <summary>
@@ -13,6 +17,10 @@
         #region ISvcSymbolSetInlineScopeResolution
         #region FindScopeByOffsetAndInlineSymbol
 
+        /// <summary>
+        /// Finds a scope by an offset within the image and the inline function symbol representing a certain level of inlining at that location.<para/>
+        /// A caller which passes nullptr for the inlineSymbol or passes a function symbol which does not represent an inlined function instance will get the behavior of the ISvcSymbolSetScopeResolution variant of this method.
+        /// </summary>
         public SvcSymbolSetScope FindScopeByOffsetAndInlineSymbol(long moduleOffset, ISvcSymbol inlineSymbol)
         {
             SvcSymbolSetScope scopeResult;
@@ -21,6 +29,10 @@
             return scopeResult;
         }
 
+        /// <summary>
+        /// Finds a scope by an offset within the image and the inline function symbol representing a certain level of inlining at that location.<para/>
+        /// A caller which passes nullptr for the inlineSymbol or passes a function symbol which does not represent an inlined function instance will get the behavior of the ISvcSymbolSetScopeResolution variant of this method.
+        /// </summary>
         public HRESULT TryFindScopeByOffsetAndInlineSymbol(long moduleOffset, ISvcSymbol inlineSymbol, out SvcSymbolSetScope scopeResult)
         {
             /*HRESULT FindScopeByOffsetAndInlineSymbol(

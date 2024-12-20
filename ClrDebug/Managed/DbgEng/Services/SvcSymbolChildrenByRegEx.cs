@@ -1,5 +1,9 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Any symbol which supports the enumeration of children by regular expression supports this interface. Simple symbol providers which only do basic address -&gt; name and name -&gt; address mapping need not implement this interface.<para/>
+    /// This interface should be considered *OPTIONAL* -- even in the presence of ISvcSymbolChildren. It is intended for providers which can provide for optimization of regular expression lookups.
+    /// </summary>
     public class SvcSymbolChildrenByRegEx : ComObject<ISvcSymbolChildrenByRegEx>
     {
         /// <summary>
@@ -13,6 +17,9 @@
         #region ISvcSymbolChildrenByRegEx
         #region EnumerateChildrenByRegEx
 
+        /// <summary>
+        /// Enumerates all children of the given symbol whose name matches a given regular expression.
+        /// </summary>
         public SvcSymbolSetEnumerator EnumerateChildrenByRegEx(SvcSymbolKind kind, string regEx, SvcSymbolSearchInfo pSearchInfo)
         {
             SvcSymbolSetEnumerator childEnumResult;
@@ -21,6 +28,9 @@
             return childEnumResult;
         }
 
+        /// <summary>
+        /// Enumerates all children of the given symbol whose name matches a given regular expression.
+        /// </summary>
         public HRESULT TryEnumerateChildrenByRegEx(SvcSymbolKind kind, string regEx, SvcSymbolSearchInfo pSearchInfo, out SvcSymbolSetEnumerator childEnumResult)
         {
             /*HRESULT EnumerateChildrenByRegEx(

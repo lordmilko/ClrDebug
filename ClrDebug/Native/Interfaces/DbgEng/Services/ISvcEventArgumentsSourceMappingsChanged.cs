@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcEventArgumentsSourceMappingsChanged
     {
+        /// <summary>
+        /// Gets the module for which source mappings are changing.
+        /// </summary>
         [PreserveSig]
         HRESULT GetModule(
             [Out, MarshalAs(UnmanagedType.Interface)] out ISvcModule module);

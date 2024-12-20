@@ -7,9 +7,15 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcThreadEnumerator
     {
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         [PreserveSig]
         HRESULT Reset();
-        
+
+        /// <summary>
+        /// Gets the next thread from the enumerator.
+        /// </summary>
         [PreserveSig]
         HRESULT GetNext(
             [Out, MarshalAs(UnmanagedType.Interface)] out ISvcThread targetThread);

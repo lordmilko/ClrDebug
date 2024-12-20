@@ -1,5 +1,9 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: [Optional] Module enumeration service. The ISvcPrimaryModules (and derivative) interface(s) may optionally be provided on the module enumeration service to indicate key modules of a process.<para/>
+    /// Typically, this is used to determine the main executable image of a given process.
+    /// </summary>
     public class SvcPrimaryModules : ComObject<ISvcPrimaryModules>
     {
         /// <summary>
@@ -13,6 +17,10 @@
         #region ISvcPrimaryModules
         #region FindExecutableModule
 
+        /// <summary>
+        /// Finds the main executable module for the given process. This is the executable image which started the given process.<para/>
+        /// For a non-process context (e.g.: a kernel), this may be defined as the kernel image.
+        /// </summary>
         public SvcModule FindExecutableModule(ISvcProcess process)
         {
             SvcModule executableModuleResult;
@@ -21,6 +29,10 @@
             return executableModuleResult;
         }
 
+        /// <summary>
+        /// Finds the main executable module for the given process. This is the executable image which started the given process.<para/>
+        /// For a non-process context (e.g.: a kernel), this may be defined as the kernel image.
+        /// </summary>
         public HRESULT TryFindExecutableModule(ISvcProcess process, out SvcModule executableModuleResult)
         {
             /*HRESULT FindExecutableModule(

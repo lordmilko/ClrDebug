@@ -13,6 +13,9 @@
         #region ISvcDebugSourceView
         #region ViewSource
 
+        /// <summary>
+        /// Gets the the source of this view.
+        /// </summary>
         public DebugServiceManager ViewSource
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the the source of this view.
+        /// </summary>
         public HRESULT TryGetViewSource(out DebugServiceManager viewSourceResult)
         {
             /*HRESULT GetViewSource(

@@ -13,6 +13,9 @@
         #region ISvcSymbolType
         #region TypeKind
 
+        /// <summary>
+        /// Gets the kind of type symbol that this is (e.g.: base type, struct, array, etc...).
+        /// </summary>
         public SvcSymbolTypeKind TypeKind
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the kind of type symbol that this is (e.g.: base type, struct, array, etc...).
+        /// </summary>
         public HRESULT TryGetTypeKind(out SvcSymbolTypeKind kind)
         {
             /*HRESULT GetTypeKind(
@@ -34,6 +40,9 @@
         #endregion
         #region Size
 
+        /// <summary>
+        /// Gets the overall size of the type as laid out in memory.
+        /// </summary>
         public long Size
         {
             get
@@ -45,6 +54,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the overall size of the type as laid out in memory.
+        /// </summary>
         public HRESULT TryGetSize(out long size)
         {
             /*HRESULT GetSize(
@@ -55,6 +67,12 @@
         #endregion
         #region BaseType
 
+        /// <summary>
+        /// If the type is a derivation of another single type (e.g.: as "MyStruct *" is derived from "MyStruct"), this returns the base type of the derivation.<para/>
+        /// For pointers, this would return the type pointed to. For arrays, this would return what the array is an array of.<para/>
+        /// If the type is not such a derivative type, an error is returned. Note that this method has nothing to do with C++ base classes.<para/>
+        /// Such are symbols which can be enumerated from the derived class.
+        /// </summary>
         public SvcSymbol BaseType
         {
             get
@@ -66,6 +84,12 @@
             }
         }
 
+        /// <summary>
+        /// If the type is a derivation of another single type (e.g.: as "MyStruct *" is derived from "MyStruct"), this returns the base type of the derivation.<para/>
+        /// For pointers, this would return the type pointed to. For arrays, this would return what the array is an array of.<para/>
+        /// If the type is not such a derivative type, an error is returned. Note that this method has nothing to do with C++ base classes.<para/>
+        /// Such are symbols which can be enumerated from the derived class.
+        /// </summary>
         public HRESULT TryGetBaseType(out SvcSymbol baseTypeResult)
         {
             /*HRESULT GetBaseType(
@@ -84,6 +108,9 @@
         #endregion
         #region UnmodifiedType
 
+        /// <summary>
+        /// If the type is a qualified form (const/volatile/etc...) of another type, this returns a type symbol with all qualifiers stripped.
+        /// </summary>
         public SvcSymbol UnmodifiedType
         {
             get
@@ -95,6 +122,9 @@
             }
         }
 
+        /// <summary>
+        /// If the type is a qualified form (const/volatile/etc...) of another type, this returns a type symbol with all qualifiers stripped.
+        /// </summary>
         public HRESULT TryGetUnmodifiedType(out SvcSymbol unmodifiedTypeResult)
         {
             /*HRESULT GetUnmodifiedType(
@@ -113,6 +143,9 @@
         #endregion
         #region IntrinsicType
 
+        /// <summary>
+        /// If the type kind as reported by GetTypeKind is an intrinsic, this returns more information about the particular kind of intrinsic.
+        /// </summary>
         public SvcSymbolType_GetIntrinsicTypeResult IntrinsicType
         {
             get
@@ -124,6 +157,9 @@
             }
         }
 
+        /// <summary>
+        /// If the type kind as reported by GetTypeKind is an intrinsic, this returns more information about the particular kind of intrinsic.
+        /// </summary>
         public HRESULT TryGetIntrinsicType(out SvcSymbolType_GetIntrinsicTypeResult result)
         {
             /*HRESULT GetIntrinsicType(
@@ -144,6 +180,9 @@
         #endregion
         #region PointerKind
 
+        /// <summary>
+        /// Returns what kind of pointer the type is (e.g.: a standard pointer, a pointer to member, a reference, an r-value reference, etc...
+        /// </summary>
         public SvcSymbolPointerKind PointerKind
         {
             get
@@ -155,6 +194,9 @@
             }
         }
 
+        /// <summary>
+        /// Returns what kind of pointer the type is (e.g.: a standard pointer, a pointer to member, a reference, an r-value reference, etc...
+        /// </summary>
         public HRESULT TryGetPointerKind(out SvcSymbolPointerKind kind)
         {
             /*HRESULT GetPointerKind(
@@ -165,6 +207,9 @@
         #endregion
         #region MemberType
 
+        /// <summary>
+        /// If the pointer is a pointer-to-class-member, this returns the type of such class.
+        /// </summary>
         public SvcSymbolType MemberType
         {
             get
@@ -176,6 +221,9 @@
             }
         }
 
+        /// <summary>
+        /// If the pointer is a pointer-to-class-member, this returns the type of such class.
+        /// </summary>
         public HRESULT TryGetMemberType(out SvcSymbolType memberTypeResult)
         {
             /*HRESULT GetMemberType(
@@ -194,6 +242,9 @@
         #endregion
         #region ArrayDimensionality
 
+        /// <summary>
+        /// Returns the dimensionality of the array. There is no guarantee that every array type representable by these interfaces is a standard zero-based one dimensional array as is standard in C.
+        /// </summary>
         public long ArrayDimensionality
         {
             get
@@ -205,6 +256,9 @@
             }
         }
 
+        /// <summary>
+        /// Returns the dimensionality of the array. There is no guarantee that every array type representable by these interfaces is a standard zero-based one dimensional array as is standard in C.
+        /// </summary>
         public HRESULT TryGetArrayDimensionality(out long arrayDimensionality)
         {
             /*HRESULT GetArrayDimensionality(
@@ -215,6 +269,10 @@
         #endregion
         #region ArrayHeaderSize
 
+        /// <summary>
+        /// Gets the size of any header of the array (this is the offset of the first element of the array as described by the dimensions).<para/>
+        /// This should *ALWAYS* return 0 for a C style array.
+        /// </summary>
         public long ArrayHeaderSize
         {
             get
@@ -226,6 +284,10 @@
             }
         }
 
+        /// <summary>
+        /// Gets the size of any header of the array (this is the offset of the first element of the array as described by the dimensions).<para/>
+        /// This should *ALWAYS* return 0 for a C style array.
+        /// </summary>
         public HRESULT TryGetArrayHeaderSize(out long arrayHeaderSize)
         {
             /*HRESULT GetArrayHeaderSize(
@@ -236,6 +298,9 @@
         #endregion
         #region FunctionReturnType
 
+        /// <summary>
+        /// Returns the return type of a function. Even non-value returning functions (e.g.: void) should return a type representing this.
+        /// </summary>
         public SvcSymbol FunctionReturnType
         {
             get
@@ -247,6 +312,9 @@
             }
         }
 
+        /// <summary>
+        /// Returns the return type of a function. Even non-value returning functions (e.g.: void) should return a type representing this.
+        /// </summary>
         public HRESULT TryGetFunctionReturnType(out SvcSymbol returnTypeResult)
         {
             /*HRESULT GetFunctionReturnType(
@@ -265,6 +333,9 @@
         #endregion
         #region FunctionParameterTypeCount
 
+        /// <summary>
+        /// Returns the number of parameters that the function takes.
+        /// </summary>
         public long FunctionParameterTypeCount
         {
             get
@@ -276,6 +347,9 @@
             }
         }
 
+        /// <summary>
+        /// Returns the number of parameters that the function takes.
+        /// </summary>
         public HRESULT TryGetFunctionParameterTypeCount(out long count)
         {
             /*HRESULT GetFunctionParameterTypeCount(
@@ -286,6 +360,9 @@
         #endregion
         #region GetArrayDimensions
 
+        /// <summary>
+        /// Fills in information about each dimension of the array including its lower bound, length, and stride.
+        /// </summary>
         public SvcSymbolArrayDimension[] GetArrayDimensions(long dimensions)
         {
             SvcSymbolArrayDimension[] pDimensions;
@@ -294,6 +371,9 @@
             return pDimensions;
         }
 
+        /// <summary>
+        /// Fills in information about each dimension of the array including its lower bound, length, and stride.
+        /// </summary>
         public HRESULT TryGetArrayDimensions(long dimensions, out SvcSymbolArrayDimension[] pDimensions)
         {
             /*HRESULT GetArrayDimensions(
@@ -308,6 +388,9 @@
         #endregion
         #region GetFunctionParameterTypeAt
 
+        /// <summary>
+        /// Returns the type of the "i"-th argument to the function as a new ISvcSymbol.
+        /// </summary>
         public SvcSymbol GetFunctionParameterTypeAt(long i)
         {
             SvcSymbol parameterTypeResult;
@@ -316,6 +399,9 @@
             return parameterTypeResult;
         }
 
+        /// <summary>
+        /// Returns the type of the "i"-th argument to the function as a new ISvcSymbol.
+        /// </summary>
         public HRESULT TryGetFunctionParameterTypeAt(long i, out SvcSymbol parameterTypeResult)
         {
             /*HRESULT GetFunctionParameterTypeAt(

@@ -7,10 +7,16 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcRegisterEnumerator
     {
+        /// <summary>
+        /// Gets the next register for the architecture. Returns E_BOUNDS if there are no more.
+        /// </summary>
         [PreserveSig]
         HRESULT GetNext(
             [Out, MarshalAs(UnmanagedType.Interface)] out ISvcRegisterInformation registerInfo);
-        
+
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         [PreserveSig]
         HRESULT Reset();
     }

@@ -13,6 +13,9 @@
         #region ISvcConnectableProcess
         #region ExecutablePath
 
+        /// <summary>
+        /// Gets the full path to the process executable.
+        /// </summary>
         public string ExecutablePath
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the full path to the process executable.
+        /// </summary>
         public HRESULT TryGetExecutablePath(out string executablePath)
         {
             /*HRESULT GetExecutablePath(
@@ -34,6 +40,9 @@
         #endregion
         #region Arguments
 
+        /// <summary>
+        /// Gets the arguments to the executable (if available). A connectable process may return E_NOTIMPL here if this cannot be determined for the given platform.
+        /// </summary>
         public string Arguments
         {
             get
@@ -45,6 +54,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the arguments to the executable (if available). A connectable process may return E_NOTIMPL here if this cannot be determined for the given platform.
+        /// </summary>
         public HRESULT TryGetArguments(out string executableArguments)
         {
             /*HRESULT GetArguments(
@@ -55,6 +67,9 @@
         #endregion
         #region Id
 
+        /// <summary>
+        /// Gets the process ID as identified by the underlying system.
+        /// </summary>
         public long Id
         {
             get
@@ -66,6 +81,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the process ID as identified by the underlying system.
+        /// </summary>
         public HRESULT TryGetId(out long processId)
         {
             /*HRESULT GetId(
@@ -76,6 +94,9 @@
         #endregion
         #region User
 
+        /// <summary>
+        /// Gets the user name as identified by the underlying system. A connectable process may return E_NOTIMPL here if this cannot be determined for the given platform.
+        /// </summary>
         public string User
         {
             get
@@ -87,6 +108,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the user name as identified by the underlying system. A connectable process may return E_NOTIMPL here if this cannot be determined for the given platform.
+        /// </summary>
         public HRESULT TryGetUser(out string user)
         {
             /*HRESULT GetUser(

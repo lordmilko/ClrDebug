@@ -13,6 +13,9 @@
         #region ISvcEventArgumentExecutionStateChange
         #region ChangeKind
 
+        /// <summary>
+        /// Gets the kind of execution state change which has occurred.
+        /// </summary>
         public SvcExecutionStateChangeKind ChangeKind
         {
             get
@@ -25,6 +28,9 @@
         #endregion
         #region ChangeEffects
 
+        /// <summary>
+        /// Gets the process and/or execution unit which is affected by the state change. These may be null on output, indicating that the change affected every process/execution unit in the debug target.
+        /// </summary>
         public GetChangeEffectsResult ChangeEffects
         {
             get
@@ -36,6 +42,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the process and/or execution unit which is affected by the state change. These may be null on output, indicating that the change affected every process/execution unit in the debug target.
+        /// </summary>
         public HRESULT TryGetChangeEffects(out GetChangeEffectsResult result)
         {
             /*HRESULT GetChangeEffects(

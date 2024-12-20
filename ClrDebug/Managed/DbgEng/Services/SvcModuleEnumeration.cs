@@ -13,6 +13,10 @@
         #region ISvcModuleEnumeration
         #region FindModule
 
+        /// <summary>
+        /// Finds a module by a unique key. The interpretation and semantic meaning of the key is specific to the service which provides this.<para/>
+        /// This may be the base address of the module.
+        /// </summary>
         public SvcModule FindModule(ISvcProcess process, long moduleKey)
         {
             SvcModule targetModuleResult;
@@ -21,6 +25,10 @@
             return targetModuleResult;
         }
 
+        /// <summary>
+        /// Finds a module by a unique key. The interpretation and semantic meaning of the key is specific to the service which provides this.<para/>
+        /// This may be the base address of the module.
+        /// </summary>
         public HRESULT TryFindModule(ISvcProcess process, long moduleKey, out SvcModule targetModuleResult)
         {
             /*HRESULT FindModule(
@@ -41,6 +49,9 @@
         #endregion
         #region FindModuleAtAddress
 
+        /// <summary>
+        /// Finds a module by an address.
+        /// </summary>
         public SvcModule FindModuleAtAddress(ISvcProcess process, long moduleAddress)
         {
             SvcModule targetModuleResult;
@@ -49,6 +60,9 @@
             return targetModuleResult;
         }
 
+        /// <summary>
+        /// Finds a module by an address.
+        /// </summary>
         public HRESULT TryFindModuleAtAddress(ISvcProcess process, long moduleAddress, out SvcModule targetModuleResult)
         {
             /*HRESULT FindModuleAtAddress(
@@ -69,6 +83,9 @@
         #endregion
         #region EnumerateModules
 
+        /// <summary>
+        /// Returns an enumerator object which is capable of enumerating all modules in the given process and creating an ISvcModule for them.
+        /// </summary>
         public SvcModuleEnumerator EnumerateModules(ISvcProcess process)
         {
             SvcModuleEnumerator targetModuleEnumeratorResult;
@@ -77,6 +94,9 @@
             return targetModuleEnumeratorResult;
         }
 
+        /// <summary>
+        /// Returns an enumerator object which is capable of enumerating all modules in the given process and creating an ISvcModule for them.
+        /// </summary>
         public HRESULT TryEnumerateModules(ISvcProcess process, out SvcModuleEnumerator targetModuleEnumeratorResult)
         {
             /*HRESULT EnumerateModules(

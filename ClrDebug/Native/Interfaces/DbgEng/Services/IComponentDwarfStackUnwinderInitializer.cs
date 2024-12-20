@@ -7,6 +7,10 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface IComponentDwarfStackUnwinderInitializer
     {
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENT_DWARF_STACK_UNWINDER component. It takes an optional stack unwinder which can be used as a fallback by the DWARF stack unwinder.<para/>
+        /// (This is used for ARM targets atm.).
+        /// </summary>
         [PreserveSig]
         HRESULT Initialize(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcStackFrameUnwind pSecondaryUnwinder);

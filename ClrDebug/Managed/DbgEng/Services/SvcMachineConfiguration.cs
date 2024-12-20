@@ -3,6 +3,9 @@ using System.Diagnostics;
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: DEBUG_SERVICE_MACHINE (always). The ISvcMachineConfiguration interface is provided by the machine service.
+    /// </summary>
     public class SvcMachineConfiguration : ComObject<ISvcMachineConfiguration>
     {
         /// <summary>
@@ -16,6 +19,9 @@ namespace ClrDebug.DbgEng
         #region ISvcMachineConfiguration
         #region Architecture
 
+        /// <summary>
+        /// Returns the archtiecture of the machine as an IMAGE_FILE_MACHINE_* constant.
+        /// </summary>
         public int Architecture
         {
             get
@@ -34,6 +40,10 @@ namespace ClrDebug.DbgEng
 
         #region ArchitectureGuid
 
+        /// <summary>
+        /// Returns the architecture of the machine as a DEBUG_ARCHDEF_* guid. This supports the notion of a custom architecture.<para/>
+        /// If such is utilized, the returned GUID *MUST* also be the component aggregate for the architecture.
+        /// </summary>
         public Guid ArchitectureGuid
         {
             get
@@ -45,6 +55,10 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Returns the architecture of the machine as a DEBUG_ARCHDEF_* guid. This supports the notion of a custom architecture.<para/>
+        /// If such is utilized, the returned GUID *MUST* also be the component aggregate for the architecture.
+        /// </summary>
         public HRESULT TryGetArchitectureGuid(out Guid architecture)
         {
             /*HRESULT GetArchitectureGuid(

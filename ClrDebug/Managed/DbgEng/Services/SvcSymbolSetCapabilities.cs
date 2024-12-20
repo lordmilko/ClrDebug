@@ -2,6 +2,10 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: Optionally provided by any symbol set. Represents a way to query the capabilities (and some key properties) of a symbol set.<para/>
+    /// This interface is *ENTIRELY* optional. If it is not present, the default value of any capability queried must be assumed.
+    /// </summary>
     public class SvcSymbolSetCapabilities : ComObject<ISvcSymbolSetCapabilities>
     {
         /// <summary>
@@ -15,11 +19,21 @@ namespace ClrDebug.DbgEng
         #region ISvcSymbolSetCapabilities
         #region QueryCapability
 
+        /// <summary>
+        /// Asks the symbol set about a particular capability as identified by a set GUID and an ID within that set. Each GUID/ID identifies the type of data returned in the resulting buffer.<para/>
+        /// The following error codes carry special semantics with this API E_NOT_SET: The symbol set does not understand the capability.<para/>
+        /// Assume default behavior.
+        /// </summary>
         public void QueryCapability(Guid set, int id, int bufferSize, IntPtr buffer)
         {
             TryQueryCapability(set, id, bufferSize, buffer).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Asks the symbol set about a particular capability as identified by a set GUID and an ID within that set. Each GUID/ID identifies the type of data returned in the resulting buffer.<para/>
+        /// The following error codes carry special semantics with this API E_NOT_SET: The symbol set does not understand the capability.<para/>
+        /// Assume default behavior.
+        /// </summary>
         public HRESULT TryQueryCapability(Guid set, int id, int bufferSize, IntPtr buffer)
         {
             /*HRESULT QueryCapability(

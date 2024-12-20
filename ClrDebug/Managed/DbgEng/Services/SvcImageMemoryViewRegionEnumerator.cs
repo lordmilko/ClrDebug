@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// ISvcImageMemoryRegionEnumerator An enumerator for "memory view regions" of an executable.
+    /// </summary>
     public class SvcImageMemoryViewRegionEnumerator : ComObject<ISvcImageMemoryViewRegionEnumerator>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcImageMemoryViewRegionEnumerator
         #region Next
 
+        /// <summary>
+        /// Gets the next "memory view region".
+        /// </summary>
         public SvcImageMemoryViewRegion Next
         {
             get
@@ -24,6 +30,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the next "memory view region".
+        /// </summary>
         public HRESULT TryGetNext(out SvcImageMemoryViewRegion ppRegionResult)
         {
             /*HRESULT GetNext(
@@ -42,11 +51,17 @@
         #endregion
         #region Reset
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public void Reset()
         {
             TryReset().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public HRESULT TryReset()
         {
             /*HRESULT Reset();*/

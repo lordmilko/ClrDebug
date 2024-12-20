@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: DEBUG_SERVICE_OS_KERNELINFRASTRUCTURE.
+    /// </summary>
     public class SvcOSKernelTypes : ComObject<ISvcOSKernelTypes>
     {
         /// <summary>
@@ -13,6 +16,10 @@
         #region ISvcOSKernelTypes
         #region ProcessType
 
+        /// <summary>
+        /// If the kernel describes the notion of processes from a process enumerator and such objects have an object in the kernel associated with them, that object is of this type.<para/>
+        /// For Windows, this would be EPROCESS. A return of E_NOT_SET indicates that no such type exists.
+        /// </summary>
         public SvcSymbol ProcessType
         {
             get
@@ -24,6 +31,10 @@
             }
         }
 
+        /// <summary>
+        /// If the kernel describes the notion of processes from a process enumerator and such objects have an object in the kernel associated with them, that object is of this type.<para/>
+        /// For Windows, this would be EPROCESS. A return of E_NOT_SET indicates that no such type exists.
+        /// </summary>
         public HRESULT TryGetProcessType(out SvcSymbol ppProcessTypeResult)
         {
             /*HRESULT GetProcessType(
@@ -42,6 +53,10 @@
         #endregion
         #region ThreadType
 
+        /// <summary>
+        /// If the kernel describes the notion of threads from a thread enumerator and such objects have an object in the kernel associated with them, that object is of this type.<para/>
+        /// For Windows, this would be ETHREAD. A return of E_NOT_SET indicates that no such type exists.
+        /// </summary>
         public SvcSymbol ThreadType
         {
             get
@@ -53,6 +68,10 @@
             }
         }
 
+        /// <summary>
+        /// If the kernel describes the notion of threads from a thread enumerator and such objects have an object in the kernel associated with them, that object is of this type.<para/>
+        /// For Windows, this would be ETHREAD. A return of E_NOT_SET indicates that no such type exists.
+        /// </summary>
         public HRESULT TryGetThreadType(out SvcSymbol ppThreadTypeResult)
         {
             /*HRESULT GetThreadType(
@@ -71,6 +90,10 @@
         #endregion
         #region ModuleType
 
+        /// <summary>
+        /// If the kernel describes the notion of a module (SO / DLL / driver) from a module enumerator and such objects have an object in the kernel associated with them, that object is of this type.<para/>
+        /// A return of E_NOT_SET indicates that no such type exists.
+        /// </summary>
         public SvcSymbol ModuleType
         {
             get
@@ -82,6 +105,10 @@
             }
         }
 
+        /// <summary>
+        /// If the kernel describes the notion of a module (SO / DLL / driver) from a module enumerator and such objects have an object in the kernel associated with them, that object is of this type.<para/>
+        /// A return of E_NOT_SET indicates that no such type exists.
+        /// </summary>
         public HRESULT TryGetModuleType(out SvcSymbol ppModuleTypeResult)
         {
             /*HRESULT GetModuleType(

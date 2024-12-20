@@ -1,5 +1,9 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// The low level interface exposed from a DEBUG_SERVICE_BREAKPOINT_CONTROLLER which handles the fundamental low level breakpoint operations.<para/>
+    /// Higher level breakpoint operations (e.g.: source level / deferred / etc...) are handled at the breakpoint manager level.
+    /// </summary>
     public class SvcBreakpointController : ComObject<ISvcBreakpointController>
     {
         /// <summary>
@@ -13,6 +17,10 @@
         #region ISvcBreakpointController
         #region EnumerateBreakpoints
 
+        /// <summary>
+        /// Enumerates all breakpoints known to the breakpoint controller. Note that this will *ONLY* enumerate breakpoints known to the controller.<para/>
+        /// There may be logically higher level breakpoints which are not realized as a single underlying breakpoint and are handled at the manager level.
+        /// </summary>
         public SvcBreakpointEnumerator EnumerateBreakpoints(ISvcProcess pProcess)
         {
             SvcBreakpointEnumerator ppBreakpointEnumResult;
@@ -21,6 +29,10 @@
             return ppBreakpointEnumResult;
         }
 
+        /// <summary>
+        /// Enumerates all breakpoints known to the breakpoint controller. Note that this will *ONLY* enumerate breakpoints known to the controller.<para/>
+        /// There may be logically higher level breakpoints which are not realized as a single underlying breakpoint and are handled at the manager level.
+        /// </summary>
         public HRESULT TryEnumerateBreakpoints(ISvcProcess pProcess, out SvcBreakpointEnumerator ppBreakpointEnumResult)
         {
             /*HRESULT EnumerateBreakpoints(
@@ -40,6 +52,9 @@
         #endregion
         #region CreateCodeBreakpoint
 
+        /// <summary>
+        /// Creates a new code breakpoint at a given address.
+        /// </summary>
         public SvcBreakpoint CreateCodeBreakpoint(ISvcProcess pProcess, long address)
         {
             SvcBreakpoint ppBreakpointResult;
@@ -48,6 +63,9 @@
             return ppBreakpointResult;
         }
 
+        /// <summary>
+        /// Creates a new code breakpoint at a given address.
+        /// </summary>
         public HRESULT TryCreateCodeBreakpoint(ISvcProcess pProcess, long address, out SvcBreakpoint ppBreakpointResult)
         {
             /*HRESULT CreateCodeBreakpoint(
@@ -68,6 +86,9 @@
         #endregion
         #region CreateDataBreakpoint
 
+        /// <summary>
+        /// Creates a new data breakpoint at a given address.
+        /// </summary>
         public SvcBreakpoint CreateDataBreakpoint(ISvcProcess pProcess, long address, long dataWidth, DataAccessFlags accessFlags)
         {
             SvcBreakpoint ppBreakpointResult;
@@ -76,6 +97,9 @@
             return ppBreakpointResult;
         }
 
+        /// <summary>
+        /// Creates a new data breakpoint at a given address.
+        /// </summary>
         public HRESULT TryCreateDataBreakpoint(ISvcProcess pProcess, long address, long dataWidth, DataAccessFlags accessFlags, out SvcBreakpoint ppBreakpointResult)
         {
             /*HRESULT CreateDataBreakpoint(

@@ -42,6 +42,9 @@
         #endregion
         #region ProcessorNumber
 
+        /// <summary>
+        /// Gets the processor number assigned to this execution unit. Calling ISvcMachineDebug::GetProcessor with this number should get back to the same execution unit.
+        /// </summary>
         public long ProcessorNumber
         {
             get

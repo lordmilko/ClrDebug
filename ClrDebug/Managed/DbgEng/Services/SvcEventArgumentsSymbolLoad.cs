@@ -13,6 +13,9 @@
         #region ISvcEventArgumentsSymbolLoad
         #region Module
 
+        /// <summary>
+        /// Gets the module for which symbols were loaded.
+        /// </summary>
         public SvcModule Module
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the module for which symbols were loaded.
+        /// </summary>
         public HRESULT TryGetModule(out SvcModule moduleResult)
         {
             /*HRESULT GetModule(
@@ -42,6 +48,9 @@
         #endregion
         #region Symbols
 
+        /// <summary>
+        /// Gets the symbols which were loaded for the module. The caller should check the output result for nullptr for symbol formats which are not (currently) expressable as a symbol set.
+        /// </summary>
         public SvcSymbolSet Symbols
         {
             get
@@ -53,6 +62,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the symbols which were loaded for the module. The caller should check the output result for nullptr for symbol formats which are not (currently) expressable as a symbol set.
+        /// </summary>
         public HRESULT TryGetSymbols(out SvcSymbolSet symbolsResult)
         {
             /*HRESULT GetSymbols(

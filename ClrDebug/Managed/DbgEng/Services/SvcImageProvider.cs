@@ -1,5 +1,10 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Defines a mechanism by which the original binary image for a module/image mapped into the debug target can be located from the limited information available from the debug target.<para/>
+    /// A given debug target may, for example, represent a minidump which only has image headers or a core file which only has a subset of the image pages mapped into the core.<para/>
+    /// This interface will attempt to find the original image file and return a file abstraction over it such that the entire module/image is available for debugging.
+    /// </summary>
     public class SvcImageProvider : ComObject<ISvcImageProvider>
     {
         /// <summary>
@@ -13,6 +18,9 @@
         #region ISvcImageProvider
         #region LocateImage
 
+        /// <summary>
+        /// Locate the file for a given image within the target.
+        /// </summary>
         public SvcDebugSourceFile LocateImage(ISvcModule image)
         {
             SvcDebugSourceFile ppFileResult;
@@ -21,6 +29,9 @@
             return ppFileResult;
         }
 
+        /// <summary>
+        /// Locate the file for a given image within the target.
+        /// </summary>
         public HRESULT TryLocateImage(ISvcModule image, out SvcDebugSourceFile ppFileResult)
         {
             /*HRESULT LocateImage(

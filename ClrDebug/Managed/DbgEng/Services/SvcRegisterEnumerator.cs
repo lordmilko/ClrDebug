@@ -13,6 +13,9 @@
         #region ISvcRegisterEnumerator
         #region Next
 
+        /// <summary>
+        /// Gets the next register for the architecture. Returns E_BOUNDS if there are no more.
+        /// </summary>
         public SvcRegisterInformation Next
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the next register for the architecture. Returns E_BOUNDS if there are no more.
+        /// </summary>
         public HRESULT TryGetNext(out SvcRegisterInformation registerInfoResult)
         {
             /*HRESULT GetNext(
@@ -42,11 +48,17 @@
         #endregion
         #region Reset
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public void Reset()
         {
             TryReset().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public HRESULT TryReset()
         {
             /*HRESULT Reset();*/

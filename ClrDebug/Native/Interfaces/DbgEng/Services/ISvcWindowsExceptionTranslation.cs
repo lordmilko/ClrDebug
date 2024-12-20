@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcWindowsExceptionTranslation
     {
+        /// <summary>
+        /// Translates the exception from one record to another. It is legal for this method to do absolutely nothing other than succeed (or return an S_FALSE indication of no translation).
+        /// </summary>
         [PreserveSig]
         HRESULT TranslateException(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcExecutionUnit execUnit,

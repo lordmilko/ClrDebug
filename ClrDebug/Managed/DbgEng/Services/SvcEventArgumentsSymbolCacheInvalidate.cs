@@ -13,6 +13,9 @@
         #region ISvcEventArgumentsSymbolCacheInvalidate
         #region SymbolsInformation
 
+        /// <summary>
+        /// Gets information about the module and symbol set for which cache invalidation should occur.
+        /// </summary>
         public GetSymbolsInformationResult SymbolsInformation
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets information about the module and symbol set for which cache invalidation should occur.
+        /// </summary>
         public HRESULT TryGetSymbolsInformation(out GetSymbolsInformationResult result)
         {
             /*HRESULT GetSymbolsInformation(

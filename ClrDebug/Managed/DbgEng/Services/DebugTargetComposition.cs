@@ -16,6 +16,9 @@ namespace ClrDebug.DbgEng
         #region IDebugTargetComposition
         #region CreateServiceManager
 
+        /// <summary>
+        /// Creates a service manager.
+        /// </summary>
         public DebugServiceManager CreateServiceManager()
         {
             DebugServiceManager serviceManagerResult;
@@ -24,6 +27,9 @@ namespace ClrDebug.DbgEng
             return serviceManagerResult;
         }
 
+        /// <summary>
+        /// Creates a service manager.
+        /// </summary>
         public HRESULT TryCreateServiceManager(out DebugServiceManager serviceManagerResult)
         {
             /*HRESULT CreateServiceManager(
@@ -42,11 +48,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region RegisterComponent
 
+        /// <summary>
+        /// Registers a given component by GUID such that an instance of the component can be created via Create[AndQuery]Component.
+        /// </summary>
         public void RegisterComponent(Guid componentGuid, IDebugTargetCompositionComponent component)
         {
             TryRegisterComponent(componentGuid, component).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Registers a given component by GUID such that an instance of the component can be created via Create[AndQuery]Component.
+        /// </summary>
         public HRESULT TryRegisterComponent(Guid componentGuid, IDebugTargetCompositionComponent component)
         {
             /*HRESULT RegisterComponent(
@@ -115,11 +127,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region UnregisterComponent
 
+        /// <summary>
+        /// Unregisters a given component by GUID such that instances of the component can no longer be created via Create[AndQuery]Component.
+        /// </summary>
         public void UnregisterComponent(Guid componentGuid, IDebugTargetCompositionComponent component)
         {
             TryUnregisterComponent(componentGuid, component).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Unregisters a given component by GUID such that instances of the component can no longer be created via Create[AndQuery]Component.
+        /// </summary>
         public HRESULT TryUnregisterComponent(Guid componentGuid, IDebugTargetCompositionComponent component)
         {
             /*HRESULT UnregisterComponent(
@@ -137,11 +155,21 @@ namespace ClrDebug.DbgEng
 
         #region RegisterComponentAsConditionalService
 
+        /// <summary>
+        /// Registers a given component by GUID such that an instance of the component can be created via Create[AndQuery]Component.<para/>
+        /// In addition, registers the component as a conditional implementation of a given service as given by the conditional service information.<para/>
+        /// The given component can either be created by its explicit component GUID or it can be created by a the service GUID and a description of the conditions.
+        /// </summary>
         public void RegisterComponentAsConditionalService(Guid componentGuid, IDebugTargetCompositionComponent component, SvcConditionalServiceInformation conditionalServiceInfo)
         {
             TryRegisterComponentAsConditionalService(componentGuid, component, conditionalServiceInfo).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Registers a given component by GUID such that an instance of the component can be created via Create[AndQuery]Component.<para/>
+        /// In addition, registers the component as a conditional implementation of a given service as given by the conditional service information.<para/>
+        /// The given component can either be created by its explicit component GUID or it can be created by a the service GUID and a description of the conditions.
+        /// </summary>
         public HRESULT TryRegisterComponentAsConditionalService(Guid componentGuid, IDebugTargetCompositionComponent component, SvcConditionalServiceInformation conditionalServiceInfo)
         {
             /*HRESULT RegisterComponentAsConditionalService(
@@ -154,6 +182,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region CreateConditionalService
 
+        /// <summary>
+        /// Finds the component registered as the implementation of a particular service for a particular set of conditions and creates it.
+        /// </summary>
         public DebugServiceLayer CreateConditionalService(SvcConditionalServiceInformation conditionalServiceInfo)
         {
             DebugServiceLayer componentServiceResult;
@@ -162,6 +193,9 @@ namespace ClrDebug.DbgEng
             return componentServiceResult;
         }
 
+        /// <summary>
+        /// Finds the component registered as the implementation of a particular service for a particular set of conditions and creates it.
+        /// </summary>
         public HRESULT TryCreateConditionalService(SvcConditionalServiceInformation conditionalServiceInfo, out DebugServiceLayer componentServiceResult)
         {
             /*HRESULT CreateConditionalService(
@@ -217,11 +251,19 @@ namespace ClrDebug.DbgEng
 
         #region RegisterComponentAsStandardAggregator
 
+        /// <summary>
+        /// Registers a given component by GUID such that it acts as the standard means of aggregation for another service as identified by GUID.<para/>
+        /// The given component must implement IDebugServiceAggregate.
+        /// </summary>
         public void RegisterComponentAsStandardAggregator(Guid componentGuid, IDebugTargetCompositionComponent component, Guid aggregatedServiceGuid)
         {
             TryRegisterComponentAsStandardAggregator(componentGuid, component, aggregatedServiceGuid).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Registers a given component by GUID such that it acts as the standard means of aggregation for another service as identified by GUID.<para/>
+        /// The given component must implement IDebugServiceAggregate.
+        /// </summary>
         public HRESULT TryRegisterComponentAsStandardAggregator(Guid componentGuid, IDebugTargetCompositionComponent component, Guid aggregatedServiceGuid)
         {
             /*HRESULT RegisterComponentAsStandardAggregator(
@@ -234,6 +276,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region CreateServiceAggregatorComponent
 
+        /// <summary>
+        /// Finds the component registered as the standard implementation of an aggregator for a particular service and creates it.<para/>
+        /// The returned component will implement IDebugServiceAggregate.
+        /// </summary>
         public DebugServiceLayer CreateServiceAggregatorComponent(Guid serviceGuid)
         {
             DebugServiceLayer componentServiceResult;
@@ -242,6 +288,10 @@ namespace ClrDebug.DbgEng
             return componentServiceResult;
         }
 
+        /// <summary>
+        /// Finds the component registered as the standard implementation of an aggregator for a particular service and creates it.<para/>
+        /// The returned component will implement IDebugServiceAggregate.
+        /// </summary>
         public HRESULT TryCreateServiceAggregatorComponent(Guid serviceGuid, out DebugServiceLayer componentServiceResult)
         {
             /*HRESULT CreateServiceAggregatorComponent(

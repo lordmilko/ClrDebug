@@ -13,6 +13,9 @@
         #region ISvcStackProviderPhysicalFrame
         #region GetFrame
 
+        /// <summary>
+        /// Gets the underlying SVC_STACK_FRAME and register context for the frame. This would be equivalent to having called ISvcStackFrameUnwind::UnwindFrame and gotten the same values out.
+        /// </summary>
         public SvcRegisterContext GetFrame(ref SVC_STACK_FRAME pStackFrame)
         {
             SvcRegisterContext ppRegisterContextResult;
@@ -21,6 +24,9 @@
             return ppRegisterContextResult;
         }
 
+        /// <summary>
+        /// Gets the underlying SVC_STACK_FRAME and register context for the frame. This would be equivalent to having called ISvcStackFrameUnwind::UnwindFrame and gotten the same values out.
+        /// </summary>
         public HRESULT TryGetFrame(ref SVC_STACK_FRAME pStackFrame, out SvcRegisterContext ppRegisterContextResult)
         {
             /*HRESULT GetFrame(

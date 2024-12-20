@@ -2,6 +2,10 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// An optional QI off an ISvcImageParser. This parses arbitrary image data blobs (structures) and provides pointers to such data.<para/>
+    /// Data is identified by GUIDs.
+    /// </summary>
     public class SvcImageDataLocationParser : ComObject<ISvcImageDataLocationParser>
     {
         /// <summary>
@@ -15,6 +19,9 @@ namespace ClrDebug.DbgEng
         #region ISvcImageDataLocationParser
         #region LocateDataBlob
 
+        /// <summary>
+        /// Locates an arbitrary data blob identified by GUID and returns both the memory and file offset of the data. If the data has no memory or file offset (but has the opposite), zero is returned in the appropriate field.
+        /// </summary>
         public LocateDataBlobResult LocateDataBlob(Guid dataBlob)
         {
             LocateDataBlobResult result;
@@ -23,6 +30,9 @@ namespace ClrDebug.DbgEng
             return result;
         }
 
+        /// <summary>
+        /// Locates an arbitrary data blob identified by GUID and returns both the memory and file offset of the data. If the data has no memory or file offset (but has the opposite), zero is returned in the appropriate field.
+        /// </summary>
         public HRESULT TryLocateDataBlob(Guid dataBlob, out LocateDataBlobResult result)
         {
             /*HRESULT LocateDataBlob(

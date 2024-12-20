@@ -7,11 +7,17 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface IComponentStackUnwindContextInitializer2 : IComponentStackUnwindContextInitializer
     {
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_STACKUNWIND_CONTEXT component.
+        /// </summary>
         [PreserveSig]
         new HRESULT Initialize(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcProcess unwindProcess,
             [In, MarshalAs(UnmanagedType.Interface)] ISvcThread unwindThread);
-        
+
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_STACKUNWIND_CONTEXT component.
+        /// </summary>
         [PreserveSig]
         HRESULT Initialize2(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcProcess unwindProcess,

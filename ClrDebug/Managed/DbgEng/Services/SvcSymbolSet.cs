@@ -1,5 +1,10 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Represents an abstract set of symbols. This may represent all symbols in a PDB. It may represent the "export symbols" of an image.<para/>
+    /// It may represent a subset of the symbols in a PDB. There is no requirement that a symbol set represent a single "file".<para/>
+    /// It may represent, in aggregate, multiple sources of symbolic information for a given set of functionality (often represented by an image).
+    /// </summary>
     public class SvcSymbolSet : ComObject<ISvcSymbolSet>
     {
         /// <summary>
@@ -13,6 +18,9 @@
         #region ISvcSymbolSet
         #region GetSymbolById
 
+        /// <summary>
+        /// Returns the symbol for a given symbol ID (returned by ISvcSymbol::GetId).
+        /// </summary>
         public SvcSymbol GetSymbolById(long symbolId)
         {
             SvcSymbol ppSymbolResult;
@@ -21,6 +29,9 @@
             return ppSymbolResult;
         }
 
+        /// <summary>
+        /// Returns the symbol for a given symbol ID (returned by ISvcSymbol::GetId).
+        /// </summary>
         public HRESULT TryGetSymbolById(long symbolId, out SvcSymbol ppSymbolResult)
         {
             /*HRESULT GetSymbolById(
@@ -40,6 +51,9 @@
         #endregion
         #region EnumerateAllSymbols
 
+        /// <summary>
+        /// Enumerates all symbols in the set.
+        /// </summary>
         public SvcSymbolSetEnumerator EnumerateAllSymbols()
         {
             SvcSymbolSetEnumerator ppEnumeratorResult;
@@ -48,6 +62,9 @@
             return ppEnumeratorResult;
         }
 
+        /// <summary>
+        /// Enumerates all symbols in the set.
+        /// </summary>
         public HRESULT TryEnumerateAllSymbols(out SvcSymbolSetEnumerator ppEnumeratorResult)
         {
             /*HRESULT EnumerateAllSymbols(

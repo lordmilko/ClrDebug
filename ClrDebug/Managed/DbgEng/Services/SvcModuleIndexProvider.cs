@@ -15,6 +15,9 @@ namespace ClrDebug.DbgEng
         #region ISvcModuleIndexProvider
         #region GetModuleIndexKey
 
+        /// <summary>
+        /// Gets a key for the given module which is used as an index on the symbol server.
+        /// </summary>
         public GetModuleIndexKeyResult GetModuleIndexKey(ISvcModule pModule)
         {
             GetModuleIndexKeyResult result;
@@ -23,6 +26,9 @@ namespace ClrDebug.DbgEng
             return result;
         }
 
+        /// <summary>
+        /// Gets a key for the given module which is used as an index on the symbol server.
+        /// </summary>
         public HRESULT TryGetModuleIndexKey(ISvcModule pModule, out GetModuleIndexKeyResult result)
         {
             /*HRESULT GetModuleIndexKey(

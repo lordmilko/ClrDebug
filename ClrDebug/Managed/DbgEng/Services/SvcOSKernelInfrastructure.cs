@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: DEBUG_SERVICE_OS_KERNELINFRASTRUCTURE.
+    /// </summary>
     public class SvcOSKernelInfrastructure : ComObject<ISvcOSKernelInfrastructure>
     {
         /// <summary>
@@ -13,6 +16,10 @@
         #region ISvcOSKernelInfrastructure
         #region GetDirectoryBase
 
+        /// <summary>
+        /// Gets the pointer to the top level paging structures for a particular process (e.g.: The PDE base that would go into CR3 on AMD64).<para/>
+        /// If these structures are not in memory, an error will be returned.
+        /// </summary>
         public long GetDirectoryBase(DirectoryBaseKind dirKind, ISvcProcess pProcess)
         {
             long pDirectoryBase;
@@ -21,6 +28,10 @@
             return pDirectoryBase;
         }
 
+        /// <summary>
+        /// Gets the pointer to the top level paging structures for a particular process (e.g.: The PDE base that would go into CR3 on AMD64).<para/>
+        /// If these structures are not in memory, an error will be returned.
+        /// </summary>
         public HRESULT TryGetDirectoryBase(DirectoryBaseKind dirKind, ISvcProcess pProcess, out long pDirectoryBase)
         {
             /*HRESULT GetDirectoryBase(
@@ -33,6 +44,9 @@
         #endregion
         #region GetPagingLevels
 
+        /// <summary>
+        /// Gets the number of paging levels that a particular process will use.
+        /// </summary>
         public int GetPagingLevels(ISvcProcess pProcess)
         {
             int pPagingLevels;
@@ -41,6 +55,9 @@
             return pPagingLevels;
         }
 
+        /// <summary>
+        /// Gets the number of paging levels that a particular process will use.
+        /// </summary>
         public HRESULT TryGetPagingLevels(ISvcProcess pProcess, out int pPagingLevels)
         {
             /*HRESULT GetPagingLevels(
@@ -52,6 +69,9 @@
         #endregion
         #region GetExecutionState
 
+        /// <summary>
+        /// For a hardware execution unit (a CPU), return information about the process/thread that is running on that particular CPU.
+        /// </summary>
         public GetExecutionStateResult GetExecutionState(ISvcExecutionUnit pProcessor)
         {
             GetExecutionStateResult result;
@@ -60,6 +80,9 @@
             return result;
         }
 
+        /// <summary>
+        /// For a hardware execution unit (a CPU), return information about the process/thread that is running on that particular CPU.
+        /// </summary>
         public HRESULT TryGetExecutionState(ISvcExecutionUnit pProcessor, out GetExecutionStateResult result)
         {
             /*HRESULT GetExecutionState(

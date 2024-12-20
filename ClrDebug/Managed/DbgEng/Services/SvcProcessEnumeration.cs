@@ -13,6 +13,10 @@
         #region ISvcProcessEnumeration
         #region FindProcess
 
+        /// <summary>
+        /// Finds a process by a unique key. The interpretation and semantic meaning of the key is specific to the service which provides this.<para/>
+        /// For Windows Kernel mode, this may be a service which returns o an ISvcProcess from a target EPROCESS pointer. For user mode, it might be the process ID.
+        /// </summary>
         public SvcProcess FindProcess(long processKey)
         {
             SvcProcess targetProcessResult;
@@ -21,6 +25,10 @@
             return targetProcessResult;
         }
 
+        /// <summary>
+        /// Finds a process by a unique key. The interpretation and semantic meaning of the key is specific to the service which provides this.<para/>
+        /// For Windows Kernel mode, this may be a service which returns o an ISvcProcess from a target EPROCESS pointer. For user mode, it might be the process ID.
+        /// </summary>
         public HRESULT TryFindProcess(long processKey, out SvcProcess targetProcessResult)
         {
             /*HRESULT FindProcess(
@@ -40,6 +48,9 @@
         #endregion
         #region EnumerateProcesses
 
+        /// <summary>
+        /// Returns an enumerator object which is capable of enumerating all processes on the target and creating an ISvcProcess for them.
+        /// </summary>
         public SvcProcessEnumerator EnumerateProcesses()
         {
             SvcProcessEnumerator targetProcessEnumeratorResult;
@@ -48,6 +59,9 @@
             return targetProcessEnumeratorResult;
         }
 
+        /// <summary>
+        /// Returns an enumerator object which is capable of enumerating all processes on the target and creating an ISvcProcess for them.
+        /// </summary>
         public HRESULT TryEnumerateProcesses(out SvcProcessEnumerator targetProcessEnumeratorResult)
         {
             /*HRESULT EnumerateProcesses(

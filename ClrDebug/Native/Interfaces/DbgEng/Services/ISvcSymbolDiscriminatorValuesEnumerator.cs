@@ -7,9 +7,15 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcSymbolDiscriminatorValuesEnumerator
     {
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         [PreserveSig]
         HRESULT Reset();
-        
+
+        /// <summary>
+        /// Gets the next range of discriminator values in the enumerator. Note that this has identical semantics to ISvcSymbolVariantInfo::GetDescriminatorValues in terms of pLowValue and pHighValue.
+        /// </summary>
         [PreserveSig]
         HRESULT GetNext(
             [Out, MarshalAs(UnmanagedType.Struct)] out object pLowValue,

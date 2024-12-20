@@ -8,10 +8,16 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface IDebugTargetComposition
     {
+        /// <summary>
+        /// Creates a service manager.
+        /// </summary>
         [PreserveSig]
         HRESULT CreateServiceManager(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceManager serviceManager);
-        
+
+        /// <summary>
+        /// Registers a given component by GUID such that an instance of the component can be created via Create[AndQuery]Component.
+        /// </summary>
         [PreserveSig]
         HRESULT RegisterComponent(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
@@ -28,7 +34,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer componentService,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object interfaceUnknown);
-        
+
+        /// <summary>
+        /// Unregisters a given component by GUID such that instances of the component can no longer be created via Create[AndQuery]Component.
+        /// </summary>
         [PreserveSig]
         HRESULT UnregisterComponent(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,

@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Represents a lexical scope within code. A scope can implement ISvcSymbolChildren to allow query of other children underneath the scope.
+    /// </summary>
     public class SvcSymbolSetScope : ComObject<ISvcSymbolSetScope>
     {
         /// <summary>
@@ -13,6 +16,10 @@
         #region ISvcSymbolSetScope
         #region EnumerateArguments
 
+        /// <summary>
+        /// If the scope is a function scope (or is a lexical sub-scope of a function), this enumerates the arguments of the function.<para/>
+        /// This will fail for a scope for which arguments are inappropriate.
+        /// </summary>
         public SvcSymbolSetEnumerator EnumerateArguments()
         {
             SvcSymbolSetEnumerator enumeratorResult;
@@ -21,6 +28,10 @@
             return enumeratorResult;
         }
 
+        /// <summary>
+        /// If the scope is a function scope (or is a lexical sub-scope of a function), this enumerates the arguments of the function.<para/>
+        /// This will fail for a scope for which arguments are inappropriate.
+        /// </summary>
         public HRESULT TryEnumerateArguments(out SvcSymbolSetEnumerator enumeratorResult)
         {
             /*HRESULT EnumerateArguments(
@@ -39,6 +50,9 @@
         #endregion
         #region EnumerateLocals
 
+        /// <summary>
+        /// Enumerates the locals within the scope.
+        /// </summary>
         public SvcSymbolSetEnumerator EnumerateLocals()
         {
             SvcSymbolSetEnumerator enumeratorResult;
@@ -47,6 +61,9 @@
             return enumeratorResult;
         }
 
+        /// <summary>
+        /// Enumerates the locals within the scope.
+        /// </summary>
         public HRESULT TryEnumerateLocals(out SvcSymbolSetEnumerator enumeratorResult)
         {
             /*HRESULT EnumerateLocals(

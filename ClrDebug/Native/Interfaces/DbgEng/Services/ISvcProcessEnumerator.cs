@@ -7,9 +7,15 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcProcessEnumerator
     {
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         [PreserveSig]
         HRESULT Reset();
-        
+
+        /// <summary>
+        /// Gets the next process from the enumerator.
+        /// </summary>
         [PreserveSig]
         HRESULT GetNext(
             [Out, MarshalAs(UnmanagedType.Interface)] out ISvcProcess targetProcess);

@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface IComponentVirtualMemoryFromFileInitializer
     {
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_VIRTUALMEMORY_FROM_FILE component.
+        /// </summary>
         [PreserveSig]
         HRESULT Initialize(
             [In] long mappingBaseAddress);

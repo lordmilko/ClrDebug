@@ -2,6 +2,10 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// The ISvcRegisterContext unit describes a set of registers and their values. A register context for a standard supported platform can optionally support ISvcClassicRegisterContext where the given register context can be represented by a platform specific Windows CONTEXT structure.<para/>
+    /// In addition, a register context which holds a set of "special context" for a standard supported platform can optionally support ISvcClassicSpecialContext where that part of the register context can be presented by a platform specific Windows KSPECIAL_REGISTERS structure.
+    /// </summary>
     public class SvcRegisterContext : ComObject<ISvcRegisterContext>
     {
         /// <summary>
@@ -15,6 +19,9 @@ namespace ClrDebug.DbgEng
         #region ISvcRegisterContext
         #region ArchitectureGuid
 
+        /// <summary>
+        /// Returns the architecture of the registers that this register context holds. This is either a DEBUG_ARCHDEF_* standard GUID or is a GUID defining a custom architecture.
+        /// </summary>
         public Guid ArchitectureGuid
         {
             get
@@ -26,6 +33,9 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Returns the architecture of the registers that this register context holds. This is either a DEBUG_ARCHDEF_* standard GUID or is a GUID defining a custom architecture.
+        /// </summary>
         public HRESULT TryGetArchitectureGuid(out Guid architecture)
         {
             /*HRESULT GetArchitectureGuid(
@@ -36,6 +46,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetRegisterValue
 
+        /// <summary>
+        /// Gets the value of a register as given by its canonical register number. The following error codes carry special meaning E_INSUFFICIENT_BUFFER: The in-passed buffer is not large enough to hold the register value.<para/>
+        /// The actual size of the register is returned in registerSize. E_NOT_SET : The register context does not contain a value for the given register and such cannot be retrieved.
+        /// </summary>
         public int GetRegisterValue(int registerId, IntPtr buffer, int bufferSize)
         {
             int registerSize;
@@ -44,6 +58,10 @@ namespace ClrDebug.DbgEng
             return registerSize;
         }
 
+        /// <summary>
+        /// Gets the value of a register as given by its canonical register number. The following error codes carry special meaning E_INSUFFICIENT_BUFFER: The in-passed buffer is not large enough to hold the register value.<para/>
+        /// The actual size of the register is returned in registerSize. E_NOT_SET : The register context does not contain a value for the given register and such cannot be retrieved.
+        /// </summary>
         public HRESULT TryGetRegisterValue(int registerId, IntPtr buffer, int bufferSize, out int registerSize)
         {
             /*HRESULT GetRegisterValue(
@@ -57,6 +75,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetRegisterValue64
 
+        /// <summary>
+        /// Similar to GetRegisterValue, this is a convenience method for integer/GPR registers of 64-bits or less where the value of the register will be zero extended to 64-bits and returned.
+        /// </summary>
         public long GetRegisterValue64(int registerId)
         {
             long pRegisterValue;
@@ -65,6 +86,9 @@ namespace ClrDebug.DbgEng
             return pRegisterValue;
         }
 
+        /// <summary>
+        /// Similar to GetRegisterValue, this is a convenience method for integer/GPR registers of 64-bits or less where the value of the register will be zero extended to 64-bits and returned.
+        /// </summary>
         public HRESULT TryGetRegisterValue64(int registerId, out long pRegisterValue)
         {
             /*HRESULT GetRegisterValue64(
@@ -76,6 +100,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetAbstractRegisterValue64
 
+        /// <summary>
+        /// Behaves as GetRegisterValue64 but on an abstract ID.
+        /// </summary>
         public long GetAbstractRegisterValue64(SvcAbstractRegister abstractId)
         {
             long pRegisterValue;
@@ -84,6 +111,9 @@ namespace ClrDebug.DbgEng
             return pRegisterValue;
         }
 
+        /// <summary>
+        /// Behaves as GetRegisterValue64 but on an abstract ID.
+        /// </summary>
         public HRESULT TryGetAbstractRegisterValue64(SvcAbstractRegister abstractId, out long pRegisterValue)
         {
             /*HRESULT GetAbstractRegisterValue64(
@@ -95,6 +125,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region SetRegisterValue
 
+        /// <summary>
+        /// Sets the value of a register as given by its canonical register number. The following error codes carry special meaning E_INSUFFICIENT_BUFFER: The in-passed buffer is not large enough for the register's value.<para/>
+        /// The required size of the register value is returned in registerSize. E_NOTIMPL : The context does not allow the setting of this register value.
+        /// </summary>
         public int SetRegisterValue(int registerId, IntPtr buffer, int bufferSize)
         {
             int registerSize;
@@ -103,6 +137,10 @@ namespace ClrDebug.DbgEng
             return registerSize;
         }
 
+        /// <summary>
+        /// Sets the value of a register as given by its canonical register number. The following error codes carry special meaning E_INSUFFICIENT_BUFFER: The in-passed buffer is not large enough for the register's value.<para/>
+        /// The required size of the register value is returned in registerSize. E_NOTIMPL : The context does not allow the setting of this register value.
+        /// </summary>
         public HRESULT TrySetRegisterValue(int registerId, IntPtr buffer, int bufferSize, out int registerSize)
         {
             /*HRESULT SetRegisterValue(
@@ -116,11 +154,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region SetRegisterValue64
 
+        /// <summary>
+        /// Similar to SetRegisterValue, this is a convenience method for integer/GPR registers of 64-bits or less where the value of the register will be set from a (presumed) zero extended 64-bit value.
+        /// </summary>
         public void SetRegisterValue64(int registerId, long registerValue)
         {
             TrySetRegisterValue64(registerId, registerValue).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Similar to SetRegisterValue, this is a convenience method for integer/GPR registers of 64-bits or less where the value of the register will be set from a (presumed) zero extended 64-bit value.
+        /// </summary>
         public HRESULT TrySetRegisterValue64(int registerId, long registerValue)
         {
             /*HRESULT SetRegisterValue64(
@@ -132,11 +176,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region SetAbstractRegisterValue64
 
+        /// <summary>
+        /// Behaves as SetRegisterValue64 but on an abstract ID.
+        /// </summary>
         public void SetAbstractRegisterValue64(SvcAbstractRegister abstractId, long registerValue)
         {
             TrySetAbstractRegisterValue64(abstractId, registerValue).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Behaves as SetRegisterValue64 but on an abstract ID.
+        /// </summary>
         public HRESULT TrySetAbstractRegisterValue64(SvcAbstractRegister abstractId, long registerValue)
         {
             /*HRESULT SetAbstractRegisterValue64(
@@ -148,6 +198,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetRegisterValues
 
+        /// <summary>
+        /// Gets the value of multiple registers in a single call. Registers are given by a structure defining their canonical register number and the position the value should be placed within an output structure.
+        /// </summary>
         public int[] GetRegisterValues(int registerCount, RegisterInformationQuery[] pRegisters, int bufferSize, IntPtr buffer)
         {
             int[] registerSizes;
@@ -156,6 +209,9 @@ namespace ClrDebug.DbgEng
             return registerSizes;
         }
 
+        /// <summary>
+        /// Gets the value of multiple registers in a single call. Registers are given by a structure defining their canonical register number and the position the value should be placed within an output structure.
+        /// </summary>
         public HRESULT TryGetRegisterValues(int registerCount, RegisterInformationQuery[] pRegisters, int bufferSize, IntPtr buffer, out int[] registerSizes)
         {
             /*HRESULT GetRegisterValues(
@@ -173,6 +229,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region SetRegisterValues
 
+        /// <summary>
+        /// Sets the value of multiple registers in a single call. Registers are given by a structure defining their canonical register number and the position the value should be retrieved from within an input structure.
+        /// </summary>
         public int[] SetRegisterValues(int registerCount, RegisterInformationQuery[] pRegisters, int bufferSize, IntPtr buffer)
         {
             int[] registerSizes;
@@ -181,6 +240,9 @@ namespace ClrDebug.DbgEng
             return registerSizes;
         }
 
+        /// <summary>
+        /// Sets the value of multiple registers in a single call. Registers are given by a structure defining their canonical register number and the position the value should be retrieved from within an input structure.
+        /// </summary>
         public HRESULT TrySetRegisterValues(int registerCount, RegisterInformationQuery[] pRegisters, int bufferSize, IntPtr buffer, out int[] registerSizes)
         {
             /*HRESULT SetRegisterValues(
@@ -198,11 +260,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region SetToContext
 
+        /// <summary>
+        /// Copies the values of one register context into this register context.
+        /// </summary>
         public void SetToContext(ISvcRegisterContext registerContext)
         {
             TrySetToContext(registerContext).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Copies the values of one register context into this register context.
+        /// </summary>
         public HRESULT TrySetToContext(ISvcRegisterContext registerContext)
         {
             /*HRESULT SetToContext(
@@ -213,6 +281,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region Duplicate
 
+        /// <summary>
+        /// Creates a duplicate copy of the register context. Changes made to the duplicate copy do not affect the original.
+        /// </summary>
         public SvcRegisterContext Duplicate()
         {
             SvcRegisterContext duplicateContextResult;
@@ -221,6 +292,9 @@ namespace ClrDebug.DbgEng
             return duplicateContextResult;
         }
 
+        /// <summary>
+        /// Creates a duplicate copy of the register context. Changes made to the duplicate copy do not affect the original.
+        /// </summary>
         public HRESULT TryDuplicate(out SvcRegisterContext duplicateContextResult)
         {
             /*HRESULT Duplicate(

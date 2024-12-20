@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface IComponentPseudoStreamMapperInitializer
     {
+        /// <summary>
+        /// Initializes the component.
+        /// </summary>
         [PreserveSig]
         HRESULT Initialize(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcDebugSourceFile pUnderlyingFile);

@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: DEBUG_SERVICE_EXCEPTION_FORMATTER.
+    /// </summary>
     public class SvcExceptionFormatter : ComObject<ISvcExceptionFormatter>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcExceptionFormatter
         #region GetDescription
 
+        /// <summary>
+        /// Gets a description of the given exceptional event (Win32 exception, Linux signal, etc...).
+        /// </summary>
         public string GetDescription(ISvcExceptionInformation exceptionInformation)
         {
             string exceptionDescription;
@@ -21,6 +27,9 @@
             return exceptionDescription;
         }
 
+        /// <summary>
+        /// Gets a description of the given exceptional event (Win32 exception, Linux signal, etc...).
+        /// </summary>
         public HRESULT TryGetDescription(ISvcExceptionInformation exceptionInformation, out string exceptionDescription)
         {
             /*HRESULT GetDescription(

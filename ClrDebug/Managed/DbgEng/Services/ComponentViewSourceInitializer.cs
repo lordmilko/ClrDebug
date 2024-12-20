@@ -13,11 +13,17 @@
         #region IComponentViewSourceInitializer
         #region Initialize
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_VIEWSOURCE component.
+        /// </summary>
         public void Initialize(IDebugServiceManager pServiceManager)
         {
             TryInitialize(pServiceManager).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_VIEWSOURCE component.
+        /// </summary>
         public HRESULT TryInitialize(IDebugServiceManager pServiceManager)
         {
             /*HRESULT Initialize(

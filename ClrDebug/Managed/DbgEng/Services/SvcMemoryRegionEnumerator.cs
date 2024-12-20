@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Enumerates address regions.
+    /// </summary>
     public class SvcMemoryRegionEnumerator : ComObject<ISvcMemoryRegionEnumerator>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcMemoryRegionEnumerator
         #region Next
 
+        /// <summary>
+        /// Gets the next memory region.
+        /// </summary>
         public SvcMemoryRegion Next
         {
             get
@@ -24,6 +30,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the next memory region.
+        /// </summary>
         public HRESULT TryGetNext(out SvcMemoryRegion regionResult)
         {
             /*HRESULT GetNext(
@@ -42,11 +51,17 @@
         #endregion
         #region Reset
 
+        /// <summary>
+        /// Resets the enumerator back to its initial creation state.
+        /// </summary>
         public void Reset()
         {
             TryReset().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Resets the enumerator back to its initial creation state.
+        /// </summary>
         public HRESULT TryReset()
         {
             /*HRESULT Reset();*/

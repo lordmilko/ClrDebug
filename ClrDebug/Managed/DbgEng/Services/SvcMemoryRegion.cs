@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Describes a contiguous region of memory within an address space.
+    /// </summary>
     public class SvcMemoryRegion : ComObject<ISvcMemoryRegion>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcMemoryRegion
         #region Range
 
+        /// <summary>
+        /// Gets the bounds of this memory region.
+        /// </summary>
         public SvcAddressRange Range
         {
             get
@@ -24,6 +30,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the bounds of this memory region.
+        /// </summary>
         public HRESULT TryGetRange(out SvcAddressRange range)
         {
             /*HRESULT GetRange(
@@ -34,6 +43,9 @@
         #endregion
         #region IsReadable
 
+        /// <summary>
+        /// Indicates whether this region of memory is readable. If the implementation cannot make a determination of whether the range is readable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public bool IsReadable
         {
             get
@@ -45,6 +57,9 @@
             }
         }
 
+        /// <summary>
+        /// Indicates whether this region of memory is readable. If the implementation cannot make a determination of whether the range is readable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public HRESULT TryIsReadable(out bool isReadable)
         {
             /*HRESULT IsReadable(
@@ -55,6 +70,9 @@
         #endregion
         #region IsWriteable
 
+        /// <summary>
+        /// Indicates whether this region of memory is writeable. If the implementation cannot make a determination of whether the range is writeable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public bool IsWriteable
         {
             get
@@ -66,6 +84,9 @@
             }
         }
 
+        /// <summary>
+        /// Indicates whether this region of memory is writeable. If the implementation cannot make a determination of whether the range is writeable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public HRESULT TryIsWriteable(out bool isWriteable)
         {
             /*HRESULT IsWriteable(
@@ -76,6 +97,9 @@
         #endregion
         #region IsExecutable
 
+        /// <summary>
+        /// Indicates whether this region of memory is executable. If the implementation cannot make a determination of whether the range is executable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public bool IsExecutable
         {
             get
@@ -87,6 +111,9 @@
             }
         }
 
+        /// <summary>
+        /// Indicates whether this region of memory is executable. If the implementation cannot make a determination of whether the range is executable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public HRESULT TryIsExecutable(out bool isExecutable)
         {
             /*HRESULT IsExecutable(

@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Represents a lexical scope within code at a particular stack frame defined by its context record. An implementation of ISvcSymbolSetScopeFrame *MUST* QI for ISvcSymbolSetScope.
+    /// </summary>
     public class SvcSymbolSetScopeFrame : ComObject<ISvcSymbolSetScopeFrame>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcSymbolSetScopeFrame
         #region GetContext
 
+        /// <summary>
+        /// Gets the context for the scope frame.
+        /// </summary>
         public SvcRegisterContext GetContext(SvcContextFlags contextFlags)
         {
             SvcRegisterContext registerContextResult;
@@ -21,6 +27,9 @@
             return registerContextResult;
         }
 
+        /// <summary>
+        /// Gets the context for the scope frame.
+        /// </summary>
         public HRESULT TryGetContext(SvcContextFlags contextFlags, out SvcRegisterContext registerContextResult)
         {
             /*HRESULT GetContext(

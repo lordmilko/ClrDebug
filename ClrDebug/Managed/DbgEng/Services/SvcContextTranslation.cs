@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: DEBUG_SERVICE_EXECUTION_CONTEXT_TRANSLATION. Defines a means of translating from one context to another (e.g.: native to WoW, emulator to emulate, etc...).
+    /// </summary>
     public class SvcContextTranslation : ComObject<ISvcContextTranslation>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcContextTranslation
         #region GetTranslatedContext
 
+        /// <summary>
+        /// Gets a translated context record for the given execution unit (thread or core).
+        /// </summary>
         public SvcRegisterContext GetTranslatedContext(ISvcExecutionUnit execUnit, SvcContextFlags contextFlags)
         {
             SvcRegisterContext contextResult;
@@ -21,6 +27,9 @@
             return contextResult;
         }
 
+        /// <summary>
+        /// Gets a translated context record for the given execution unit (thread or core).
+        /// </summary>
         public HRESULT TryGetTranslatedContext(ISvcExecutionUnit execUnit, SvcContextFlags contextFlags, out SvcRegisterContext contextResult)
         {
             /*HRESULT GetTranslatedContext(
@@ -41,11 +50,17 @@
         #endregion
         #region SetTranslatedContext
 
+        /// <summary>
+        /// Sets a translated context record to the given execution unit (thread or core).
+        /// </summary>
         public void SetTranslatedContext(ISvcExecutionUnit execUnit, SvcContextFlags contextFlags, ISvcRegisterContext context)
         {
             TrySetTranslatedContext(execUnit, contextFlags, context).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Sets a translated context record to the given execution unit (thread or core).
+        /// </summary>
         public HRESULT TrySetTranslatedContext(ISvcExecutionUnit execUnit, SvcContextFlags contextFlags, ISvcRegisterContext context)
         {
             /*HRESULT SetTranslatedContext(

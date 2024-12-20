@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface IComponentFileSourceInitializer
     {
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_FILESOURCE component by opening a file at the given path. This method will fail if no such file exists or it cannot be opened.
+        /// </summary>
         [PreserveSig]
         HRESULT Initialize(
             [In, MarshalAs(UnmanagedType.LPWStr)] string filePath);

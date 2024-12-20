@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: Various objects returned from services (processes, threads, symbol sets, etc...).
+    /// </summary>
     public class SvcDescription : ComObject<ISvcDescription>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcDescription
         #region Description
 
+        /// <summary>
+        /// Gets a description of the object on which the interface exists. This is intended for short textual display in some UI element.
+        /// </summary>
         public string Description
         {
             get
@@ -24,6 +30,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets a description of the object on which the interface exists. This is intended for short textual display in some UI element.
+        /// </summary>
         public HRESULT TryGetDescription(out string objectDescription)
         {
             /*HRESULT GetDescription(

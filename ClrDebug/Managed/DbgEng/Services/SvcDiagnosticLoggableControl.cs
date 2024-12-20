@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: (Various Components).
+    /// </summary>
     public class SvcDiagnosticLoggableControl : ComObject<ISvcDiagnosticLoggableControl>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcDiagnosticLoggableControl
         #region LoggingLevel
 
+        /// <summary>
+        /// Gets or sets the current diagnostic logging level for this service.
+        /// </summary>
         public DiagnosticLogLevel LoggingLevel
         {
             get

@@ -15,11 +15,17 @@ namespace ClrDebug.DbgEng
         #region IComponentStackUnwindContextInitializer
         #region Initialize
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_STACKUNWIND_CONTEXT component.
+        /// </summary>
         public void Initialize(ISvcProcess unwindProcess, ISvcThread unwindThread)
         {
             TryInitialize(unwindProcess, unwindThread).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_STACKUNWIND_CONTEXT component.
+        /// </summary>
         public HRESULT TryInitialize(ISvcProcess unwindProcess, ISvcThread unwindThread)
         {
             /*HRESULT Initialize(
@@ -37,11 +43,17 @@ namespace ClrDebug.DbgEng
 
         #region Initialize2
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_STACKUNWIND_CONTEXT component.
+        /// </summary>
         public void Initialize2(ISvcProcess unwindProcess, ISvcExecutionUnit unwindExecUnit)
         {
             TryInitialize2(unwindProcess, unwindExecUnit).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_STACKUNWIND_CONTEXT component.
+        /// </summary>
         public HRESULT TryInitialize2(ISvcProcess unwindProcess, ISvcExecutionUnit unwindExecUnit)
         {
             /*HRESULT Initialize2(

@@ -16,11 +16,17 @@ namespace ClrDebug.DbgEng
         #region IDebugServiceManager
         #region InitializeServices
 
+        /// <summary>
+        /// Called once by the owner of the service manager to initialize all bound services in topological order. After the initialization, services which come into or change the service stack must be prepared to deal with immediate initialization and handling NotifyServiceChange calls.
+        /// </summary>
         public void InitializeServices()
         {
             TryInitializeServices().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Called once by the owner of the service manager to initialize all bound services in topological order. After the initialization, services which come into or change the service stack must be prepared to deal with immediate initialization and handling NotifyServiceChange calls.
+        /// </summary>
         public HRESULT TryInitializeServices()
         {
             /*HRESULT InitializeServices();*/
@@ -30,6 +36,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region QueryService
 
+        /// <summary>
+        /// Find a component which implements the service given by serviceGuid and query it for the interface specified by serviceInterface.<para/>
+        /// Such service is returned in interfaceUnknown.
+        /// </summary>
         public object QueryService(Guid serviceGuid, Guid serviceInterface)
         {
             object interfaceUnknown;
@@ -38,6 +48,10 @@ namespace ClrDebug.DbgEng
             return interfaceUnknown;
         }
 
+        /// <summary>
+        /// Find a component which implements the service given by serviceGuid and query it for the interface specified by serviceInterface.<para/>
+        /// Such service is returned in interfaceUnknown.
+        /// </summary>
         public HRESULT TryQueryService(Guid serviceGuid, Guid serviceInterface, out object interfaceUnknown)
         {
             /*HRESULT QueryService(
@@ -50,6 +64,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region LocateService
 
+        /// <summary>
+        /// Finds a component which implements the service given by serviceGuid and returns a generic IUnknown interface to the service.<para/>
+        /// The service must be explicitly queried for whatever interface is required.
+        /// </summary>
         public DebugServiceLayer LocateService(Guid serviceGuid)
         {
             DebugServiceLayer serviceResult;
@@ -58,6 +76,10 @@ namespace ClrDebug.DbgEng
             return serviceResult;
         }
 
+        /// <summary>
+        /// Finds a component which implements the service given by serviceGuid and returns a generic IUnknown interface to the service.<para/>
+        /// The service must be explicitly queried for whatever interface is required.
+        /// </summary>
         public HRESULT TryLocateService(Guid serviceGuid, out DebugServiceLayer serviceResult)
         {
             /*HRESULT LocateService(
@@ -77,11 +99,19 @@ namespace ClrDebug.DbgEng
         #endregion
         #region RegisterService
 
+        /// <summary>
+        /// Registers a service with the service manager. If a service is already registered by the specified serviceGuid, this call will replace the underlying service.<para/>
+        /// Unregistration of a service can be performed by registering a nullptr service layer.
+        /// </summary>
         public void RegisterService(Guid serviceGuid, IDebugServiceLayer service)
         {
             TryRegisterService(serviceGuid, service).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Registers a service with the service manager. If a service is already registered by the specified serviceGuid, this call will replace the underlying service.<para/>
+        /// Unregistration of a service can be performed by registering a nullptr service layer.
+        /// </summary>
         public HRESULT TryRegisterService(Guid serviceGuid, IDebugServiceLayer service)
         {
             /*HRESULT RegisterService(
@@ -93,11 +123,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region RegisterEventNotification
 
+        /// <summary>
+        /// Registers a service for event notifications on a particular event (or set of events).
+        /// </summary>
         public void RegisterEventNotification(Guid eventGuid, IDebugServiceLayer service)
         {
             TryRegisterEventNotification(eventGuid, service).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Registers a service for event notifications on a particular event (or set of events).
+        /// </summary>
         public HRESULT TryRegisterEventNotification(Guid eventGuid, IDebugServiceLayer service)
         {
             /*HRESULT RegisterEventNotification(
@@ -109,11 +145,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region UnregisterEventNotification
 
+        /// <summary>
+        /// Unregisters a service from event notifications on a particular event (or set of events).
+        /// </summary>
         public void UnregisterEventNotification(Guid eventGuid, IDebugServiceLayer service)
         {
             TryUnregisterEventNotification(eventGuid, service).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Unregisters a service from event notifications on a particular event (or set of events).
+        /// </summary>
         public HRESULT TryUnregisterEventNotification(Guid eventGuid, IDebugServiceLayer service)
         {
             /*HRESULT UnregisterEventNotification(
@@ -125,6 +167,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region FireEventNotification
 
+        /// <summary>
+        /// Fires an event to all registered event sinks.
+        /// </summary>
         public HRESULT FireEventNotification(Guid eventGuid, object eventArgument)
         {
             HRESULT pSinkResult;
@@ -133,6 +178,9 @@ namespace ClrDebug.DbgEng
             return pSinkResult;
         }
 
+        /// <summary>
+        /// Fires an event to all registered event sinks.
+        /// </summary>
         public HRESULT TryFireEventNotification(Guid eventGuid, object eventArgument, out HRESULT pSinkResult)
         {
             /*HRESULT FireEventNotification(
@@ -151,6 +199,9 @@ namespace ClrDebug.DbgEng
 
         #region EnumerateServices
 
+        /// <summary>
+        /// Enumerates all of the services in the service manager.
+        /// </summary>
         public DebugServiceEnumerator EnumerateServices()
         {
             DebugServiceEnumerator enumeratorResult;
@@ -159,6 +210,9 @@ namespace ClrDebug.DbgEng
             return enumeratorResult;
         }
 
+        /// <summary>
+        /// Enumerates all of the services in the service manager.
+        /// </summary>
         public HRESULT TryEnumerateServices(out DebugServiceEnumerator enumeratorResult)
         {
             /*HRESULT EnumerateServices(
@@ -183,11 +237,17 @@ namespace ClrDebug.DbgEng
 
         #region UninitializeServices
 
+        /// <summary>
+        /// Clients should call this before releasing their final reference to the service manager. This will remove and uninitialize any services still in the service container.
+        /// </summary>
         public void UninitializeServices()
         {
             TryUninitializeServices().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Clients should call this before releasing their final reference to the service manager. This will remove and uninitialize any services still in the service container.
+        /// </summary>
         public HRESULT TryUninitializeServices()
         {
             /*HRESULT UninitializeServices();*/
@@ -203,11 +263,23 @@ namespace ClrDebug.DbgEng
 
         #region RegisterConditionalService
 
+        /// <summary>
+        /// Registers a conditional service with the service manager. If a service is already registered by the specified serviceGuid and conditions, this call will replace the underlying service.<para/>
+        /// Unregistration of a service can be performed by registering a nullptr service layer. NOTE: If a component wishes to be both a conditional service and a canonical service, it must call both RegisterConditionalService and RegisterService and deal with the fact that it may be initialized twice.<para/>
+        /// An example of this might be a disassembler service which registers as the AMD64 disassembler but also the canonical disassembler for an AMD64 debug target.<para/>
+        /// It may be the case that such a service would need to listen for change notifications and add/remove itself as the canonical service if conditions can change.
+        /// </summary>
         public void RegisterConditionalService(SvcConditionalServiceInformation conditionalServiceInfo, IDebugServiceLayer service)
         {
             TryRegisterConditionalService(conditionalServiceInfo, service).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Registers a conditional service with the service manager. If a service is already registered by the specified serviceGuid and conditions, this call will replace the underlying service.<para/>
+        /// Unregistration of a service can be performed by registering a nullptr service layer. NOTE: If a component wishes to be both a conditional service and a canonical service, it must call both RegisterConditionalService and RegisterService and deal with the fact that it may be initialized twice.<para/>
+        /// An example of this might be a disassembler service which registers as the AMD64 disassembler but also the canonical disassembler for an AMD64 debug target.<para/>
+        /// It may be the case that such a service would need to listen for change notifications and add/remove itself as the canonical service if conditions can change.
+        /// </summary>
         public HRESULT TryRegisterConditionalService(SvcConditionalServiceInformation conditionalServiceInfo, IDebugServiceLayer service)
         {
             /*HRESULT RegisterConditionalService(
@@ -219,6 +291,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region QueryConditionalService
 
+        /// <summary>
+        /// Find a component which implements the service given in in the conditionalServiceInfo structure according to the conditions specified there and query it for the interface specified by serviceInterface.<para/>
+        /// Such service is returned in interfaceUnknown. If the 'dynamicAdd' parameter is true and the composition manager knows of a component that provides the service under the given condition, the component will be created and added to the service container.
+        /// </summary>
         public object QueryConditionalService(SvcConditionalServiceInformation conditionalServiceInfo, bool dynamicAdd, Guid serviceInterface)
         {
             object serviceUnknown;
@@ -227,6 +303,10 @@ namespace ClrDebug.DbgEng
             return serviceUnknown;
         }
 
+        /// <summary>
+        /// Find a component which implements the service given in in the conditionalServiceInfo structure according to the conditions specified there and query it for the interface specified by serviceInterface.<para/>
+        /// Such service is returned in interfaceUnknown. If the 'dynamicAdd' parameter is true and the composition manager knows of a component that provides the service under the given condition, the component will be created and added to the service container.
+        /// </summary>
         public HRESULT TryQueryConditionalService(SvcConditionalServiceInformation conditionalServiceInfo, bool dynamicAdd, Guid serviceInterface, out object serviceUnknown)
         {
             /*HRESULT QueryConditionalService(
@@ -240,6 +320,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region LocateConditionalService
 
+        /// <summary>
+        /// Finds a component which implements the service given in the conditionalServiceInfo structure according to the conditions specified there and return a generic interface to the service.<para/>
+        /// The service must be explicitly queried for whatever interface is required. If the 'dynamicAdd' parameter is true and the composition manager knows of a component that provides the service under the given condition, the component will be created and added to the service container.
+        /// </summary>
         public DebugServiceLayer LocateConditionalService(SvcConditionalServiceInformation conditionalServiceInfo, bool dynamicAdd)
         {
             DebugServiceLayer serviceResult;
@@ -248,6 +332,10 @@ namespace ClrDebug.DbgEng
             return serviceResult;
         }
 
+        /// <summary>
+        /// Finds a component which implements the service given in the conditionalServiceInfo structure according to the conditions specified there and return a generic interface to the service.<para/>
+        /// The service must be explicitly queried for whatever interface is required. If the 'dynamicAdd' parameter is true and the composition manager knows of a component that provides the service under the given condition, the component will be created and added to the service container.
+        /// </summary>
         public HRESULT TryLocateConditionalService(SvcConditionalServiceInformation conditionalServiceInfo, bool dynamicAdd, out DebugServiceLayer serviceResult)
         {
             /*HRESULT LocateConditionalService(
@@ -274,11 +362,23 @@ namespace ClrDebug.DbgEng
 
         #region AggregateService
 
+        /// <summary>
+        /// Adds a new service to an aggregate collection in the service manager. Instead of calling pService-&gt;RegisterServices(pServiceManager) to register the service, calling pServiceManager-&gt;AggregateService(DEBUG_SERVICE_XXX, pService) acts as a "helper method" with the following functionality - If there is no DEBUG_SERVICE_XXX in the service container, it behaves identically to calling pService-&gt;RegisterServices(pServiceManager).<para/>
+        /// - If there is a DEBUG_SERVICE_XXX in the service container and that service is already an aggregator, it queries the existing service for IDebugServiceAggregate and calls AggregateService.<para/>
+        /// In effect, it adds 'newAggregateService' as one of the children that the aggregator aggregates. - If there is a DEBUG_SERVICE_XXX in the service container and that service is *NOT* an aggregator, it creates the default aggregator for the service (via IDebugTargetComposition3::CreateServiceAggregatorComponent), replaces what was in the container with the newly created aggregator, and adds both the pre-existing service and 'newAggregateService' as children that the aggregator aggregates.<para/>
+        /// Note that this method can fail if there is no defualt aggregator registered for a particular service.
+        /// </summary>
         public void AggregateService(Guid serviceGuid, IDebugServiceLayer newAggregateService)
         {
             TryAggregateService(serviceGuid, newAggregateService).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Adds a new service to an aggregate collection in the service manager. Instead of calling pService-&gt;RegisterServices(pServiceManager) to register the service, calling pServiceManager-&gt;AggregateService(DEBUG_SERVICE_XXX, pService) acts as a "helper method" with the following functionality - If there is no DEBUG_SERVICE_XXX in the service container, it behaves identically to calling pService-&gt;RegisterServices(pServiceManager).<para/>
+        /// - If there is a DEBUG_SERVICE_XXX in the service container and that service is already an aggregator, it queries the existing service for IDebugServiceAggregate and calls AggregateService.<para/>
+        /// In effect, it adds 'newAggregateService' as one of the children that the aggregator aggregates. - If there is a DEBUG_SERVICE_XXX in the service container and that service is *NOT* an aggregator, it creates the default aggregator for the service (via IDebugTargetComposition3::CreateServiceAggregatorComponent), replaces what was in the container with the newly created aggregator, and adds both the pre-existing service and 'newAggregateService' as children that the aggregator aggregates.<para/>
+        /// Note that this method can fail if there is no defualt aggregator registered for a particular service.
+        /// </summary>
         public HRESULT TryAggregateService(Guid serviceGuid, IDebugServiceLayer newAggregateService)
         {
             /*HRESULT AggregateService(

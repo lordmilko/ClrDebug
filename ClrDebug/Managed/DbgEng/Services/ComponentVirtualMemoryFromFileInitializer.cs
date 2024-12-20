@@ -13,11 +13,17 @@
         #region IComponentVirtualMemoryFromFileInitializer
         #region Initialize
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_VIRTUALMEMORY_FROM_FILE component.
+        /// </summary>
         public void Initialize(long mappingBaseAddress)
         {
             TryInitialize(mappingBaseAddress).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_VIRTUALMEMORY_FROM_FILE component.
+        /// </summary>
         public HRESULT TryInitialize(long mappingBaseAddress)
         {
             /*HRESULT Initialize(

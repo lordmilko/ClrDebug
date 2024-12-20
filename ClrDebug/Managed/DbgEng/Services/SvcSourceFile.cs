@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Represents a source file that contributes to the code in a binary.
+    /// </summary>
     public class SvcSourceFile : ComObject<ISvcSourceFile>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcSourceFile
         #region Id
 
+        /// <summary>
+        /// Gets a unique identifier for the source file.
+        /// </summary>
         public long Id
         {
             get
@@ -25,6 +31,9 @@
         #endregion
         #region Name
 
+        /// <summary>
+        /// Gets the name of the source file.
+        /// </summary>
         public string Name
         {
             get
@@ -36,6 +45,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the name of the source file.
+        /// </summary>
         public HRESULT TryGetName(out string name)
         {
             /*HRESULT GetName(
@@ -46,6 +58,9 @@
         #endregion
         #region Path
 
+        /// <summary>
+        /// Gets the path of the source file.
+        /// </summary>
         public string Path
         {
             get
@@ -57,6 +72,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the path of the source file.
+        /// </summary>
         public HRESULT TryGetPath(out string path)
         {
             /*HRESULT GetPath(
@@ -67,6 +85,9 @@
         #endregion
         #region HashDataSize
 
+        /// <summary>
+        /// Gets the size of the source file hash stored in symbolic information. If the symbolic information has no source file hash, this should return zero.
+        /// </summary>
         public long HashDataSize
         {
             get
@@ -79,6 +100,9 @@
         #endregion
         #region CompilationUnits
 
+        /// <summary>
+        /// Gets all the compilation units which reference this particular source file.
+        /// </summary>
         public SvcSymbolSetEnumerator CompilationUnits
         {
             get
@@ -90,6 +114,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets all the compilation units which reference this particular source file.
+        /// </summary>
         public HRESULT TryGetCompilationUnits(out SvcSymbolSetEnumerator cuEnumeratorResult)
         {
             /*HRESULT GetCompilationUnits(
@@ -108,6 +135,9 @@
         #endregion
         #region GetHashData
 
+        /// <summary>
+        /// Gets the hash data associated with the source file. If there is no such information stored in the symbolic information, this will return E_NOT_SET.
+        /// </summary>
         public GetHashDataResult GetHashData(long hashDataSize)
         {
             GetHashDataResult result;
@@ -116,6 +146,9 @@
             return result;
         }
 
+        /// <summary>
+        /// Gets the hash data associated with the source file. If there is no such information stored in the symbolic information, this will return E_NOT_SET.
+        /// </summary>
         public HRESULT TryGetHashData(long hashDataSize, out GetHashDataResult result)
         {
             /*HRESULT GetHashData(

@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: DEBUG_SERVICE_MACHINE (where applicable). The ISvcMachineDebug interface is provided only for configurations which are debugging at a hardware or kernel level where the debug primitives are in terms of processors and their contexts rather than threads and processes.
+    /// </summary>
     public class SvcMachineDebug : ComObject<ISvcMachineDebug>
     {
         /// <summary>
@@ -13,6 +16,10 @@
         #region ISvcMachineDebug
         #region DefaultAddressContext
 
+        /// <summary>
+        /// If a default address context is available, this returns it. The machine implementor can decide what constitues a defualt address context.<para/>
+        /// If automatic kernel discovery is to take place this must be an address context in which that can occur.
+        /// </summary>
         public SvcAddressContext DefaultAddressContext
         {
             get
@@ -24,6 +31,10 @@
             }
         }
 
+        /// <summary>
+        /// If a default address context is available, this returns it. The machine implementor can decide what constitues a defualt address context.<para/>
+        /// If automatic kernel discovery is to take place this must be an address context in which that can occur.
+        /// </summary>
         public HRESULT TryGetDefaultAddressContext(out SvcAddressContext defaultAddressContextResult)
         {
             /*HRESULT GetDefaultAddressContext(
@@ -42,6 +53,9 @@
         #endregion
         #region NumberOfProcessors
 
+        /// <summary>
+        /// ; Returns the number of processors on the machine.
+        /// </summary>
         public long NumberOfProcessors
         {
             get
@@ -54,6 +68,9 @@
         #endregion
         #region GetProcessor
 
+        /// <summary>
+        /// Gets an interface for the given processor.
+        /// </summary>
         public SvcExecutionUnit GetProcessor(long processorNumber)
         {
             SvcExecutionUnit processorResult;
@@ -62,6 +79,9 @@
             return processorResult;
         }
 
+        /// <summary>
+        /// Gets an interface for the given processor.
+        /// </summary>
         public HRESULT TryGetProcessor(long processorNumber, out SvcExecutionUnit processorResult)
         {
             /*HRESULT GetProcessor(

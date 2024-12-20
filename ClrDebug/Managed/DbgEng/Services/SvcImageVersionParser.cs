@@ -3,6 +3,9 @@ using System.Diagnostics;
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// An optional QI off an ISvcImageParser. This parses any version data on the image.
+    /// </summary>
     public class SvcImageVersionParser : ComObject<ISvcImageVersionParser>
     {
         /// <summary>
@@ -16,6 +19,10 @@ namespace ClrDebug.DbgEng
         #region ISvcImageVersionParser
         #region GetVersionString
 
+        /// <summary>
+        /// Returns a string representation of the version of the image the parser was created for. If such version information does not exist for the given file type, E_NOT_SET can be returned.<para/>
+        /// A provider should always attempt to map some semantic onto VersionGeneric. VersionFile/VersionProduct has specific meaning for Windows and may or may not for other platforms.
+        /// </summary>
         public string GetVersionString(VersionKind kind)
         {
             string pVersion;
@@ -24,6 +31,10 @@ namespace ClrDebug.DbgEng
             return pVersion;
         }
 
+        /// <summary>
+        /// Returns a string representation of the version of the image the parser was created for. If such version information does not exist for the given file type, E_NOT_SET can be returned.<para/>
+        /// A provider should always attempt to map some semantic onto VersionGeneric. VersionFile/VersionProduct has specific meaning for Windows and may or may not for other platforms.
+        /// </summary>
         public HRESULT TryGetVersionString(VersionKind kind, out string pVersion)
         {
             /*HRESULT GetVersionString(
@@ -35,6 +46,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetVersionNumber
 
+        /// <summary>
+        /// Returns a numeric representation of the version of the image the parser was created for. If such version information does not exist for the given file type, E_NOT_SET can be returned.<para/>
+        /// If the given version request cannot be mapped to 4 numeric a.b.c.d values, this can return E_NOTIMPL. If the given version request maps to less than 4 numeric values, non-existant values should always be set to zero.
+        /// </summary>
         public GetVersionNumberResult GetVersionNumber(VersionKind kind)
         {
             GetVersionNumberResult result;
@@ -43,6 +58,10 @@ namespace ClrDebug.DbgEng
             return result;
         }
 
+        /// <summary>
+        /// Returns a numeric representation of the version of the image the parser was created for. If such version information does not exist for the given file type, E_NOT_SET can be returned.<para/>
+        /// If the given version request cannot be mapped to 4 numeric a.b.c.d values, this can return E_NOTIMPL. If the given version request maps to less than 4 numeric values, non-existant values should always be set to zero.
+        /// </summary>
         public HRESULT TryGetVersionNumber(VersionKind kind, out GetVersionNumberResult result)
         {
             /*HRESULT GetVersionNumber(
@@ -68,6 +87,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetVersionDataString
 
+        /// <summary>
+        /// Gets additional information stamped into the version record for a particular platform. The version data string can be identified by either GUID or by name.<para/>
+        /// The other argument should be nullptr. An unrecognized string/GUID should return E_NOT_SET.
+        /// </summary>
         public string GetVersionDataString(Guid pVersionDataIdentifierGuid, string pVersionDataIdentifierString)
         {
             string pVersionDataString;
@@ -76,6 +99,10 @@ namespace ClrDebug.DbgEng
             return pVersionDataString;
         }
 
+        /// <summary>
+        /// Gets additional information stamped into the version record for a particular platform. The version data string can be identified by either GUID or by name.<para/>
+        /// The other argument should be nullptr. An unrecognized string/GUID should return E_NOT_SET.
+        /// </summary>
         public HRESULT TryGetVersionDataString(Guid pVersionDataIdentifierGuid, string pVersionDataIdentifierString, out string pVersionDataString)
         {
             /*HRESULT GetVersionDataString(

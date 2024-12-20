@@ -13,11 +13,17 @@
         #region ISvcWindowsExceptionTranslation
         #region TranslateException
 
+        /// <summary>
+        /// Translates the exception from one record to another. It is legal for this method to do absolutely nothing other than succeed (or return an S_FALSE indication of no translation).
+        /// </summary>
         public void TranslateException(ISvcExecutionUnit execUnit, ref EXCEPTION_RECORD64 exceptionRecord)
         {
             TryTranslateException(execUnit, ref exceptionRecord).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Translates the exception from one record to another. It is legal for this method to do absolutely nothing other than succeed (or return an S_FALSE indication of no translation).
+        /// </summary>
         public HRESULT TryTranslateException(ISvcExecutionUnit execUnit, ref EXCEPTION_RECORD64 exceptionRecord)
         {
             /*HRESULT TranslateException(

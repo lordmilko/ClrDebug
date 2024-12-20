@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface IComponentViewSourceInitializer
     {
+        /// <summary>
+        /// Initializes the DEBUG_COMPONENTSVC_VIEWSOURCE component.
+        /// </summary>
         [PreserveSig]
         HRESULT Initialize(
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceManager pServiceManager);

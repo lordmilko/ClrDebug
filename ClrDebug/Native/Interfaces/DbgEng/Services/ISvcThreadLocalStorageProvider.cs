@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcThreadLocalStorageProvider
     {
+        /// <summary>
+        /// Returns the base address of a module's TLS block for a given thread.
+        /// </summary>
         [PreserveSig]
         HRESULT GetTLSBlockAddress(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule pModule,

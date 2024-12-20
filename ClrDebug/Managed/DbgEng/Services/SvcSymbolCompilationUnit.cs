@@ -13,6 +13,9 @@
         #region ISvcSymbolCompilationUnit
         #region PrimarySource
 
+        /// <summary>
+        /// Gets the primary source file of the CU, if available.
+        /// </summary>
         public SvcSourceFile PrimarySource
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the primary source file of the CU, if available.
+        /// </summary>
         public HRESULT TryGetPrimarySource(out SvcSourceFile primarySourceFileResult)
         {
             /*HRESULT GetPrimarySource(
@@ -42,6 +48,10 @@
         #endregion
         #region Language
 
+        /// <summary>
+        /// Gets the language of the CU, if available. If there are multiple versions (e.g.: C++03, C++07, C++11, C++17, etc...), the version field can optionally indicate such.<para/>
+        /// If the version is not available, the return value is static_cast&lt;ULONG&gt;(-1).
+        /// </summary>
         public GetLanguageResult Language
         {
             get
@@ -53,6 +63,10 @@
             }
         }
 
+        /// <summary>
+        /// Gets the language of the CU, if available. If there are multiple versions (e.g.: C++03, C++07, C++11, C++17, etc...), the version field can optionally indicate such.<para/>
+        /// If the version is not available, the return value is static_cast&lt;ULONG&gt;(-1).
+        /// </summary>
         public HRESULT TryGetLanguage(out GetLanguageResult result)
         {
             /*HRESULT GetLanguage(
@@ -73,6 +87,9 @@
         #endregion
         #region Producer
 
+        /// <summary>
+        /// Gets the producer / compiler identification string for the CU, if available.
+        /// </summary>
         public string Producer
         {
             get
@@ -84,6 +101,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the producer / compiler identification string for the CU, if available.
+        /// </summary>
         public HRESULT TryGetProducer(out string producerString)
         {
             /*HRESULT GetProducer(

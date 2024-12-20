@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Represents a way to abstract runtime type information (whether RTTI based or based upon another type system).
+    /// </summary>
     public class SvcSymbolSetRuntimeTypeInformation : ComObject<ISvcSymbolSetRuntimeTypeInformation>
     {
         /// <summary>
@@ -13,6 +16,10 @@
         #region ISvcSymbolSetRuntimeTypeInformation
         #region GetRuntimeType
 
+        /// <summary>
+        /// For an object of a given type at a given address within a specified address context (e.g.: process), utilize RTTI or other type system information to determine the actual runtime type of the object and its location.<para/>
+        /// This method can arbitrarily fail.
+        /// </summary>
         public GetRuntimeTypeResult GetRuntimeType(ISvcAddressContext addressContext, long staticObjectOffset, ISvcSymbolType staticObjectType)
         {
             GetRuntimeTypeResult result;
@@ -21,6 +28,10 @@
             return result;
         }
 
+        /// <summary>
+        /// For an object of a given type at a given address within a specified address context (e.g.: process), utilize RTTI or other type system information to determine the actual runtime type of the object and its location.<para/>
+        /// This method can arbitrarily fail.
+        /// </summary>
         public HRESULT TryGetRuntimeType(ISvcAddressContext addressContext, long staticObjectOffset, ISvcSymbolType staticObjectType, out GetRuntimeTypeResult result)
         {
             /*HRESULT GetRuntimeType(

@@ -13,6 +13,9 @@
         #region ISvcWindowsKernelInfrastructure
         #region FindKpcrForProcessor
 
+        /// <summary>
+        /// Finds the KPCR for a given processor.
+        /// </summary>
         public long FindKpcrForProcessor(long processorNumber)
         {
             long kpcrAddress;
@@ -21,6 +24,9 @@
             return kpcrAddress;
         }
 
+        /// <summary>
+        /// Finds the KPCR for a given processor.
+        /// </summary>
         public HRESULT TryFindKpcrForProcessor(long processorNumber, out long kpcrAddress)
         {
             /*HRESULT FindKpcrForProcessor(
@@ -32,6 +38,9 @@
         #endregion
         #region FindKprcbForProcessor
 
+        /// <summary>
+        /// Finds the KPRCB for a given processor.
+        /// </summary>
         public long FindKprcbForProcessor(long processorNumber)
         {
             long kprcbAddress;
@@ -40,6 +49,9 @@
             return kprcbAddress;
         }
 
+        /// <summary>
+        /// Finds the KPRCB for a given processor.
+        /// </summary>
         public HRESULT TryFindKprcbForProcessor(long processorNumber, out long kprcbAddress)
         {
             /*HRESULT FindKprcbForProcessor(
@@ -51,6 +63,9 @@
         #endregion
         #region FindThreadForProcessor
 
+        /// <summary>
+        /// Finds the KTHREAD which is executing on a given processor.
+        /// </summary>
         public long FindThreadForProcessor(long processorNumber)
         {
             long kthreadAddress;
@@ -59,6 +74,9 @@
             return kthreadAddress;
         }
 
+        /// <summary>
+        /// Finds the KTHREAD which is executing on a given processor.
+        /// </summary>
         public HRESULT TryFindThreadForProcessor(long processorNumber, out long kthreadAddress)
         {
             /*HRESULT FindThreadForProcessor(
@@ -70,6 +88,9 @@
         #endregion
         #region ReadContextForProcessor
 
+        /// <summary>
+        /// Reads a context record from the KPRCB for a given processor.
+        /// </summary>
         public SvcRegisterContext ReadContextForProcessor(long processorNumber, SvcContextFlags contextFlags)
         {
             SvcRegisterContext ppRegisterContextResult;
@@ -78,6 +99,9 @@
             return ppRegisterContextResult;
         }
 
+        /// <summary>
+        /// Reads a context record from the KPRCB for a given processor.
+        /// </summary>
         public HRESULT TryReadContextForProcessor(long processorNumber, SvcContextFlags contextFlags, out SvcRegisterContext ppRegisterContextResult)
         {
             /*HRESULT ReadContextForProcessor(
@@ -98,6 +122,9 @@
         #endregion
         #region ReadSpecialContextForProcessor
 
+        /// <summary>
+        /// Reads the special registers from the KPRCB for a given processor.
+        /// </summary>
         public SvcRegisterContext ReadSpecialContextForProcessor(long processorNumber)
         {
             SvcRegisterContext ppSpecialContextResult;
@@ -106,6 +133,9 @@
             return ppSpecialContextResult;
         }
 
+        /// <summary>
+        /// Reads the special registers from the KPRCB for a given processor.
+        /// </summary>
         public HRESULT TryReadSpecialContextForProcessor(long processorNumber, out SvcRegisterContext ppSpecialContextResult)
         {
             /*HRESULT ReadSpecialContextForProcessor(

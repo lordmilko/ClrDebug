@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Represents a way to discover scopes and their contents (variables and arguments). Symbol sets which support the enumeration of locals and arguments must support this interface.
+    /// </summary>
     public class SvcSymbolSetScopeResolution : ComObject<ISvcSymbolSetScopeResolution>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcSymbolSetScopeResolution
         #region GlobalScope
 
+        /// <summary>
+        /// Returns a scope representing the global scope of the module the symbol set represents. This may be an aggregation of other symbols one could discover through fully enumerating the symbol set.
+        /// </summary>
         public SvcSymbolSetScope GlobalScope
         {
             get
@@ -24,6 +30,9 @@
             }
         }
 
+        /// <summary>
+        /// Returns a scope representing the global scope of the module the symbol set represents. This may be an aggregation of other symbols one could discover through fully enumerating the symbol set.
+        /// </summary>
         public HRESULT TryGetGlobalScope(out SvcSymbolSetScope scopeResult)
         {
             /*HRESULT GetGlobalScope(
@@ -42,6 +51,9 @@
         #endregion
         #region FindScopeByOffset
 
+        /// <summary>
+        /// Finds a scope by an offset within the image (which is assumed to be an offset within a function or other code area).
+        /// </summary>
         public SvcSymbolSetScope FindScopeByOffset(long moduleOffset)
         {
             SvcSymbolSetScope scopeResult;
@@ -50,6 +62,9 @@
             return scopeResult;
         }
 
+        /// <summary>
+        /// Finds a scope by an offset within the image (which is assumed to be an offset within a function or other code area).
+        /// </summary>
         public HRESULT TryFindScopeByOffset(long moduleOffset, out SvcSymbolSetScope scopeResult)
         {
             /*HRESULT FindScopeByOffset(
@@ -69,6 +84,9 @@
         #endregion
         #region FindScopeFrame
 
+        /// <summary>
+        /// Finds a scope by the unwound context record for a stack frame.
+        /// </summary>
         public SvcSymbolSetScopeFrame FindScopeFrame(ISvcProcess process, ISvcRegisterContext registerContext)
         {
             SvcSymbolSetScopeFrame scopeFrameResult;
@@ -77,6 +95,9 @@
             return scopeFrameResult;
         }
 
+        /// <summary>
+        /// Finds a scope by the unwound context record for a stack frame.
+        /// </summary>
         public HRESULT TryFindScopeFrame(ISvcProcess process, ISvcRegisterContext registerContext, out SvcSymbolSetScopeFrame scopeFrameResult)
         {
             /*HRESULT FindScopeFrame(

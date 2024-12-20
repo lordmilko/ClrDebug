@@ -1,5 +1,9 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Any symbol which is typed, has type information, or more advanced location capability (other than a simple linear offset within the image) supports this interface.<para/>
+    /// Simple symbol providers which only do basic address -&gt; name and name -&gt; address mapping need not implement this interface.
+    /// </summary>
     public class SvcSymbolInfo : ComObject<ISvcSymbolInfo>
     {
         /// <summary>
@@ -13,6 +17,9 @@
         #region ISvcSymbolInfo
         #region Type
 
+        /// <summary>
+        /// Gets the type of the symbol.
+        /// </summary>
         public SvcSymbol Type
         {
             get
@@ -24,6 +31,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the type of the symbol.
+        /// </summary>
         public HRESULT TryGetType(out SvcSymbol symbolTypeResult)
         {
             /*HRESULT GetType(
@@ -42,6 +52,9 @@
         #endregion
         #region Location
 
+        /// <summary>
+        /// Gets the location of the symbol.
+        /// </summary>
         public SvcSymbolLocation Location
         {
             get
@@ -53,6 +66,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the location of the symbol.
+        /// </summary>
         public HRESULT TryGetLocation(out SvcSymbolLocation pLocation)
         {
             /*HRESULT GetLocation(
@@ -63,6 +79,10 @@
         #endregion
         #region Value
 
+        /// <summary>
+        /// Gets the value of a constant value symbol. GetLocation will return an indication that the symbol has a constant value.<para/>
+        /// If this method is called on a symbol without a constant value, it will fail.
+        /// </summary>
         public object Value
         {
             get
@@ -74,6 +94,10 @@
             }
         }
 
+        /// <summary>
+        /// Gets the value of a constant value symbol. GetLocation will return an indication that the symbol has a constant value.<para/>
+        /// If this method is called on a symbol without a constant value, it will fail.
+        /// </summary>
         public HRESULT TryGetValue(out object pValue)
         {
             /*HRESULT GetValue(
@@ -84,6 +108,10 @@
         #endregion
         #region GetAttribute
 
+        /// <summary>
+        /// Gets a simple attribute of the symbol. The type of a given attribute is defined by the attribute itself. If the symbol cannot logically provide a value for the attribute, E_NOT_SET should be returned.<para/>
+        /// If the provider does not implement the attribute for any symbol, E_NOTIMPL should be returned.
+        /// </summary>
         public object GetAttribute(SvcSymbolAttribute attr)
         {
             object pAttributeValue;
@@ -92,6 +120,10 @@
             return pAttributeValue;
         }
 
+        /// <summary>
+        /// Gets a simple attribute of the symbol. The type of a given attribute is defined by the attribute itself. If the symbol cannot logically provide a value for the attribute, E_NOT_SET should be returned.<para/>
+        /// If the provider does not implement the attribute for any symbol, E_NOTIMPL should be returned.
+        /// </summary>
         public HRESULT TryGetAttribute(SvcSymbolAttribute attr, out object pAttributeValue)
         {
             /*HRESULT GetAttribute(

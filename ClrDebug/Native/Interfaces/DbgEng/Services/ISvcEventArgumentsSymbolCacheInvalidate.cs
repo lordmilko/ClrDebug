@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcEventArgumentsSymbolCacheInvalidate
     {
+        /// <summary>
+        /// Gets information about the module and symbol set for which cache invalidation should occur.
+        /// </summary>
         [PreserveSig]
         HRESULT GetSymbolsInformation(
             [Out, MarshalAs(UnmanagedType.Interface)] out ISvcModule module,

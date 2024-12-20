@@ -1,5 +1,9 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// If a given stack unwinder service implements this interface, other components involved in unwind can inject a frame during the unwinder.<para/>
+    /// The injected frame becomes the NEXT frame regardless of other Unwind* calls that may or may not be in progress.
+    /// </summary>
     public class SvcStackFrameInjection : ComObject<ISvcStackFrameInjection>
     {
         /// <summary>
@@ -13,11 +17,17 @@
         #region ISvcStackFrameInjection
         #region InjectStackFrame
 
+        /// <summary>
+        /// InjectStackFrame Adds a stack frame with the given information and register context as the immediately next frame from the unwind.
+        /// </summary>
         public void InjectStackFrame(ISvcStackUnwindContext pUnwindContext, SVC_STACK_FRAME pStackFrame, ISvcRegisterContext pRegisterContext)
         {
             TryInjectStackFrame(pUnwindContext, pStackFrame, pRegisterContext).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// InjectStackFrame Adds a stack frame with the given information and register context as the immediately next frame from the unwind.
+        /// </summary>
         public HRESULT TryInjectStackFrame(ISvcStackUnwindContext pUnwindContext, SVC_STACK_FRAME pStackFrame, ISvcRegisterContext pRegisterContext)
         {
             /*HRESULT InjectStackFrame(

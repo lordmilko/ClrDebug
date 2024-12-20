@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Returns certain attributes of the stack. This interface is optional on most frame types. It is mandatory on any generic frame and optional on other types.
+    /// </summary>
     public class SvcStackProviderFrameAttributes : ComObject<ISvcStackProviderFrameAttributes>
     {
         /// <summary>
@@ -13,6 +16,10 @@
         #region ISvcStackProviderFrameAttributes
         #region FrameText
 
+        /// <summary>
+        /// Gets the "textual representation" of this stack frame. The meaning of this can vary by stack provider. Conceptually, this is what a debugger would place in a "call stack" window representing this frame.<para/>
+        /// Anyone who implements ISvcStackProviderFrameAttributes *MUST* implement GetFrameText.
+        /// </summary>
         public string FrameText
         {
             get
@@ -24,6 +31,10 @@
             }
         }
 
+        /// <summary>
+        /// Gets the "textual representation" of this stack frame. The meaning of this can vary by stack provider. Conceptually, this is what a debugger would place in a "call stack" window representing this frame.<para/>
+        /// Anyone who implements ISvcStackProviderFrameAttributes *MUST* implement GetFrameText.
+        /// </summary>
         public HRESULT TryGetFrameText(out string frameText)
         {
             /*HRESULT GetFrameText(
@@ -34,6 +45,11 @@
         #endregion
         #region SourceAssociation
 
+        /// <summary>
+        /// Gets the "source association" for this stack frame (e.g.: the source file, line number, and column number). This is an optional attribute.<para/>
+        /// It is legal for any implementation to E_NOTIMPL this. The line number and column number are optional (albeit a column cannot be provided without a line).<para/>
+        /// A client may legally return a value of zero for either of these indicating that it is not available or not relevant (e.g.: compiler generated code which does not necessarily map to a line of code may legally return 0 for the source line).
+        /// </summary>
         public GetSourceAssociationResult SourceAssociation
         {
             get
@@ -45,6 +61,11 @@
             }
         }
 
+        /// <summary>
+        /// Gets the "source association" for this stack frame (e.g.: the source file, line number, and column number). This is an optional attribute.<para/>
+        /// It is legal for any implementation to E_NOTIMPL this. The line number and column number are optional (albeit a column cannot be provided without a line).<para/>
+        /// A client may legally return a value of zero for either of these indicating that it is not available or not relevant (e.g.: compiler generated code which does not necessarily map to a line of code may legally return 0 for the source line).
+        /// </summary>
         public HRESULT TryGetSourceAssociation(out GetSourceAssociationResult result)
         {
             /*HRESULT GetSourceAssociation(

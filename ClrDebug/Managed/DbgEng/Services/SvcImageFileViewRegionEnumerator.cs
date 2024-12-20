@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// An enumerator for "file view regions" of an executable.
+    /// </summary>
     public class SvcImageFileViewRegionEnumerator : ComObject<ISvcImageFileViewRegionEnumerator>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcImageFileViewRegionEnumerator
         #region Next
 
+        /// <summary>
+        /// Gets the next "file view region".
+        /// </summary>
         public SvcImageFileViewRegion Next
         {
             get
@@ -24,6 +30,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the next "file view region".
+        /// </summary>
         public HRESULT TryGetNext(out SvcImageFileViewRegion ppRegionResult)
         {
             /*HRESULT GetNext(
@@ -42,11 +51,17 @@
         #endregion
         #region Reset
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public void Reset()
         {
             TryReset().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public HRESULT TryReset()
         {
             /*HRESULT Reset();*/

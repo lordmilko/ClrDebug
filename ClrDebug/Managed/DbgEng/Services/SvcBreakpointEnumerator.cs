@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Enumerates breakpoints.
+    /// </summary>
     public class SvcBreakpointEnumerator : ComObject<ISvcBreakpointEnumerator>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcBreakpointEnumerator
         #region Next
 
+        /// <summary>
+        /// Gets the next breakpoint in the collection.
+        /// </summary>
         public SvcBreakpoint Next
         {
             get
@@ -24,6 +30,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the next breakpoint in the collection.
+        /// </summary>
         public HRESULT TryGetNext(out SvcBreakpoint ppBreakpointResult)
         {
             /*HRESULT GetNext(
@@ -42,11 +51,17 @@
         #endregion
         #region Reset
 
+        /// <summary>
+        /// Resets the enumerator so that the first breakpoint in the collection is returned from the subsequent GetNext call.
+        /// </summary>
         public void Reset()
         {
             TryReset().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Resets the enumerator so that the first breakpoint in the collection is returned from the subsequent GetNext call.
+        /// </summary>
         public HRESULT TryReset()
         {
             /*HRESULT Reset();*/

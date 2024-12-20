@@ -16,6 +16,9 @@
 
         #region IsClrImageEx
 
+        /// <summary>
+        /// Determines if an image/module is a CLR image and if it can provide (retrieve/download/etc.) the CLR DAC, DBI, and SOS for it.
+        /// </summary>
         public IsClrImageExResult IsClrImageEx(ISvcModule module)
         {
             IsClrImageExResult result;
@@ -24,6 +27,9 @@
             return result;
         }
 
+        /// <summary>
+        /// Determines if an image/module is a CLR image and if it can provide (retrieve/download/etc.) the CLR DAC, DBI, and SOS for it.
+        /// </summary>
         public HRESULT TryIsClrImageEx(ISvcModule module, out IsClrImageExResult result)
         {
             /*HRESULT IsClrImageEx(
@@ -49,6 +55,9 @@
         #endregion
         #region ProvideClrDbi
 
+        /// <summary>
+        /// Retrieves/downloads/etc. the CLR DBI.
+        /// </summary>
         public string ProvideClrDbi(ISvcModule pModule, string forcePath)
         {
             string pDbiPath;
@@ -57,6 +66,9 @@
             return pDbiPath;
         }
 
+        /// <summary>
+        /// Retrieves/downloads/etc. the CLR DBI.
+        /// </summary>
         public HRESULT TryProvideClrDbi(ISvcModule pModule, string forcePath, out string pDbiPath)
         {
             /*HRESULT ProvideClrDbi(

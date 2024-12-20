@@ -1,5 +1,10 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Represents a "simple interface" around the mapping of addresses to lines of code within the image for inlined locations.<para/>
+    /// This is an optional interface for symbol sets to implement. A symbol set which handles inlined frames should always implement this interface.<para/>
+    /// Reverse mappings require the more advanced ISvcSymbolSetLineResolution interface (not as yet defined) as there are nearly always multiple mappings for an inlined method.
+    /// </summary>
     public class SvcSymbolSetSimpleInlineSourceLineResolution : ComObject<ISvcSymbolSetSimpleInlineSourceLineResolution>
     {
         /// <summary>
@@ -13,6 +18,10 @@
         #region ISvcSymbolSetSimpleInlineSourceLineResolution
         #region FindSourceLineByOffsetAndInlineSymbol
 
+        /// <summary>
+        /// FindSourceLineByOffsetAndInlineSymbol Works similarly to ISvcSymbolSetSimpleLineResolution::FindSourceLineByOffset excepting that it passes a specific inline frame to indicate which of multiply nested inline functions to return the line of code for.<para/>
+        /// If no inline symbol is provided or the outer function symbol is provided, this operates identically to FindSourceLineByOffset.
+        /// </summary>
         public FindSourceLineByOffsetAndInlineSymbolResult FindSourceLineByOffsetAndInlineSymbol(long moduleOffset, ISvcSymbol inlineSymbol)
         {
             FindSourceLineByOffsetAndInlineSymbolResult result;
@@ -21,6 +30,10 @@
             return result;
         }
 
+        /// <summary>
+        /// FindSourceLineByOffsetAndInlineSymbol Works similarly to ISvcSymbolSetSimpleLineResolution::FindSourceLineByOffset excepting that it passes a specific inline frame to indicate which of multiply nested inline functions to return the line of code for.<para/>
+        /// If no inline symbol is provided or the outer function symbol is provided, this operates identically to FindSourceLineByOffset.
+        /// </summary>
         public HRESULT TryFindSourceLineByOffsetAndInlineSymbol(long moduleOffset, ISvcSymbol inlineSymbol, out FindSourceLineByOffsetAndInlineSymbolResult result)
         {
             /*HRESULT FindSourceLineByOffsetAndInlineSymbol(

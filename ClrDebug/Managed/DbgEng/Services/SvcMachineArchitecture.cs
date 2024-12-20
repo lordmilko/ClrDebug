@@ -2,6 +2,10 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: DEBUG_SERVICE_ARCHINFO. The ISvcMachineArchitecture interface provides access to architecture specific capabilities that are general information about a given architecture (bitness, pointer sizes, disassembly, page sizes, etc...).<para/>
+    /// The service which provides this interface must be in every target composition stack regardless of whether it is debugging user mode processes, an OS kernel, or a hardware connection (e.g.: JTAG).
+    /// </summary>
     public class SvcMachineArchitecture : ComObject<ISvcMachineArchitecture>
     {
         /// <summary>
@@ -15,6 +19,10 @@ namespace ClrDebug.DbgEng
         #region ISvcMachineArchitecture
         #region Architecture
 
+        /// <summary>
+        /// Gets an IMAGE_FILE_MACHINE_* constant definining the architecture described by this interface. Note that some machines cannot be described by an IMAGE_FILE_MACHINE constant and would return IMAGE_CUSTOM from this.<para/>
+        /// With such a return value, the architecture must be understood via the architecture GUID returned from GetArchitectureGuid.
+        /// </summary>
         public int Architecture
         {
             get
@@ -27,6 +35,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region ArchitectureGuid
 
+        /// <summary>
+        /// Returns the architecture GUID defining the architecture. This is either a DEBUG_ARCHDEF_* standard GUID or is a GUID defining a custom architecture.<para/>
+        /// The GUID returned here *MUST* also be a component GUID for the architecture specific components.
+        /// </summary>
         public Guid ArchitectureGuid
         {
             get
@@ -38,6 +50,10 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Returns the architecture GUID defining the architecture. This is either a DEBUG_ARCHDEF_* standard GUID or is a GUID defining a custom architecture.<para/>
+        /// The GUID returned here *MUST* also be a component GUID for the architecture specific components.
+        /// </summary>
         public HRESULT TryGetArchitectureGuid(out Guid architecture)
         {
             /*HRESULT GetArchitectureGuid(
@@ -48,6 +64,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region Bitness
 
+        /// <summary>
+        /// Gets the bitness of the architecture (32/64/etc...).
+        /// </summary>
         public long Bitness
         {
             get
@@ -60,6 +79,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region PageSize
 
+        /// <summary>
+        /// Gets the standard page size of the machine.
+        /// </summary>
         public long PageSize
         {
             get
@@ -72,6 +94,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region PageShift
 
+        /// <summary>
+        /// Gets the standard bit shift to get the page number from a given physical offset.
+        /// </summary>
         public long PageShift
         {
             get
@@ -84,6 +109,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region EnumerateRegisters
 
+        /// <summary>
+        /// Returns an enumerator which enumerates all registers for this architecture that are covered by the inpassed set of flags.
+        /// </summary>
         public SvcRegisterEnumerator EnumerateRegisters(SvcContextFlags flags)
         {
             SvcRegisterEnumerator registerEnumeratorResult;
@@ -92,6 +120,9 @@ namespace ClrDebug.DbgEng
             return registerEnumeratorResult;
         }
 
+        /// <summary>
+        /// Returns an enumerator which enumerates all registers for this architecture that are covered by the inpassed set of flags.
+        /// </summary>
         public HRESULT TryEnumerateRegisters(SvcContextFlags flags, out SvcRegisterEnumerator registerEnumeratorResult)
         {
             /*HRESULT EnumerateRegisters(
@@ -111,6 +142,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetRegisterInformation
 
+        /// <summary>
+        /// Gets the register information for a particular register by its canonical id.
+        /// </summary>
         public SvcRegisterInformation GetRegisterInformation(int registerId)
         {
             SvcRegisterInformation registerInformationResult;
@@ -119,6 +153,9 @@ namespace ClrDebug.DbgEng
             return registerInformationResult;
         }
 
+        /// <summary>
+        /// Gets the register information for a particular register by its canonical id.
+        /// </summary>
         public HRESULT TryGetRegisterInformation(int registerId, out SvcRegisterInformation registerInformationResult)
         {
             /*HRESULT GetRegisterInformation(
@@ -138,6 +175,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetIdForAbstractRegister
 
+        /// <summary>
+        /// Gets the canonical register number for a given abstract register. If the architecture does not have such register (e.g.: the return address register is queried for X86), E_BOUNDS is returned.
+        /// </summary>
         public int GetIdForAbstractRegister(SvcAbstractRegister abstractId)
         {
             int canonicalId;
@@ -146,6 +186,9 @@ namespace ClrDebug.DbgEng
             return canonicalId;
         }
 
+        /// <summary>
+        /// Gets the canonical register number for a given abstract register. If the architecture does not have such register (e.g.: the return address register is queried for X86), E_BOUNDS is returned.
+        /// </summary>
         public HRESULT TryGetIdForAbstractRegister(SvcAbstractRegister abstractId, out int canonicalId)
         {
             /*HRESULT GetIdForAbstractRegister(
@@ -157,6 +200,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region CreateRegisterContext
 
+        /// <summary>
+        /// Creates an empty register context. While the canonical ISvcMachineArchitecture implementation is required to implement a "standard register record" that supports get/set of all registers in the architecture, there is **ABSOLUTELY NO REQUIREMENT** that this is the record returned by any call to get register state.<para/>
+        /// Plug-ins are free to implement ISvcRegisterContext on their own.
+        /// </summary>
         public SvcRegisterContext CreateRegisterContext()
         {
             SvcRegisterContext ppArchRegisterContextResult;
@@ -165,6 +212,10 @@ namespace ClrDebug.DbgEng
             return ppArchRegisterContextResult;
         }
 
+        /// <summary>
+        /// Creates an empty register context. While the canonical ISvcMachineArchitecture implementation is required to implement a "standard register record" that supports get/set of all registers in the architecture, there is **ABSOLUTELY NO REQUIREMENT** that this is the record returned by any call to get register state.<para/>
+        /// Plug-ins are free to implement ISvcRegisterContext on their own.
+        /// </summary>
         public HRESULT TryCreateRegisterContext(out SvcRegisterContext ppArchRegisterContextResult)
         {
             /*HRESULT CreateRegisterContext(
@@ -183,6 +234,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetDirectoryBase
 
+        /// <summary>
+        /// From special registers, get the directory base (zero extended to 64-bit).
+        /// </summary>
         public long GetDirectoryBase(DirectoryBaseKind dirKind, ISvcRegisterContext pSpecialContext)
         {
             /*long GetDirectoryBase(
@@ -194,11 +248,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetPagingLevels
 
+        /// <summary>
+        /// From special registers, get the number of paging levels the hardware is configured to utilize.
+        /// </summary>
         public void GetPagingLevels(ISvcRegisterContext pSpecialContext)
         {
             TryGetPagingLevels(pSpecialContext).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// From special registers, get the number of paging levels the hardware is configured to utilize.
+        /// </summary>
         public HRESULT TryGetPagingLevels(ISvcRegisterContext pSpecialContext)
         {
             /*int GetPagingLevels(

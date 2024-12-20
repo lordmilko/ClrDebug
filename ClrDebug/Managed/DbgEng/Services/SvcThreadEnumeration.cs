@@ -13,6 +13,10 @@
         #region ISvcThreadEnumeration
         #region FindThread
 
+        /// <summary>
+        /// Finds a thread by a unique key. The interpretation and semantic meaning of the key is specific to the service which provides this.<para/>
+        /// For Windows Kernel mode, this may be a service which returns o an ISvcThread from a target ETHREAD pointer. For user mode, it might be the thread ID.
+        /// </summary>
         public SvcThread FindThread(ISvcProcess process, long threadKey)
         {
             SvcThread targetThreadResult;
@@ -21,6 +25,10 @@
             return targetThreadResult;
         }
 
+        /// <summary>
+        /// Finds a thread by a unique key. The interpretation and semantic meaning of the key is specific to the service which provides this.<para/>
+        /// For Windows Kernel mode, this may be a service which returns o an ISvcThread from a target ETHREAD pointer. For user mode, it might be the thread ID.
+        /// </summary>
         public HRESULT TryFindThread(ISvcProcess process, long threadKey, out SvcThread targetThreadResult)
         {
             /*HRESULT FindThread(
@@ -41,6 +49,9 @@
         #endregion
         #region EnumerateThreads
 
+        /// <summary>
+        /// Returns an enumerator object which is capable of enumerating all processes on the target and creating an ISvcProcess for them.
+        /// </summary>
         public SvcThreadEnumerator EnumerateThreads(ISvcProcess process)
         {
             SvcThreadEnumerator targetThreadEnumeratorResult;
@@ -49,6 +60,9 @@
             return targetThreadEnumeratorResult;
         }
 
+        /// <summary>
+        /// Returns an enumerator object which is capable of enumerating all processes on the target and creating an ISvcProcess for them.
+        /// </summary>
         public HRESULT TryEnumerateThreads(ISvcProcess process, out SvcThreadEnumerator targetThreadEnumeratorResult)
         {
             /*HRESULT EnumerateThreads(

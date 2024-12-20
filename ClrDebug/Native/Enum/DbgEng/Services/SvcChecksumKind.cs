@@ -1,5 +1,8 @@
-namespace ClrDebug.DbgEng
+﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Indicates the kind of checksum.
+    /// </summary>
     public enum SvcChecksumKind : uint
     {
         ChecksumKind_None,

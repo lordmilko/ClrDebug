@@ -15,6 +15,9 @@ namespace ClrDebug.DbgEng
         #region ISvcDebugSourceFileMapping
         #region Handle
 
+        /// <summary>
+        /// Gets the original handle associated with this file mapping.
+        /// </summary>
         public IntPtr Handle
         {
             get
@@ -26,6 +29,9 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Gets the original handle associated with this file mapping.
+        /// </summary>
         public HRESULT TryGetHandle(out IntPtr pHandle)
         {
             /*HRESULT GetHandle(
@@ -36,6 +42,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region MapFile
 
+        /// <summary>
+        /// Returns a complete memory mapping of the file. Note that this entire interface can only be used in process and is in no way required of a source file implementation.
+        /// </summary>
         public MapFileResult MapFile()
         {
             MapFileResult result;
@@ -44,6 +53,9 @@ namespace ClrDebug.DbgEng
             return result;
         }
 
+        /// <summary>
+        /// Returns a complete memory mapping of the file. Note that this entire interface can only be used in process and is in no way required of a source file implementation.
+        /// </summary>
         public HRESULT TryMapFile(out MapFileResult result)
         {
             /*HRESULT MapFile(

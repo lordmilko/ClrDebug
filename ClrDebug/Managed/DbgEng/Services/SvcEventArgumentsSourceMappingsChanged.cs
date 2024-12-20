@@ -13,6 +13,9 @@
         #region ISvcEventArgumentsSourceMappingsChanged
         #region Module
 
+        /// <summary>
+        /// Gets the module for which source mappings are changing.
+        /// </summary>
         public SvcModule Module
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the module for which source mappings are changing.
+        /// </summary>
         public HRESULT TryGetModule(out SvcModule moduleResult)
         {
             /*HRESULT GetModule(

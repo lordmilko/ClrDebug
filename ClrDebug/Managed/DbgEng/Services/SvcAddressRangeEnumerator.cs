@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Enumerates a set of one or more address ranges.
+    /// </summary>
     public class SvcAddressRangeEnumerator : ComObject<ISvcAddressRangeEnumerator>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcAddressRangeEnumerator
         #region Next
 
+        /// <summary>
+        /// Gets the next address range from the enumerator.
+        /// </summary>
         public SvcAddressRange Next
         {
             get
@@ -24,6 +30,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the next address range from the enumerator.
+        /// </summary>
         public HRESULT TryGetNext(out SvcAddressRange pAddressRange)
         {
             /*HRESULT GetNext(
@@ -34,11 +43,17 @@
         #endregion
         #region Reset
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public void Reset()
         {
             TryReset().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public HRESULT TryReset()
         {
             /*HRESULT Reset();*/

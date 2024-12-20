@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: DEBUG_SERVICE_OS_KERNELLOCATOR.
+    /// </summary>
     public class SvcOSKernelLocator : ComObject<ISvcOSKernelLocator>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcOSKernelLocator
         #region KernelBase
 
+        /// <summary>
+        /// Gets the base address of the kernel.
+        /// </summary>
         public long KernelBase
         {
             get
@@ -24,6 +30,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the base address of the kernel.
+        /// </summary>
         public HRESULT TryGetKernelBase(out long pKernelBase)
         {
             /*HRESULT GetKernelBase(
@@ -34,6 +43,9 @@
         #endregion
         #region CreateOSKernelComponent
 
+        /// <summary>
+        /// Creates the component aggregate for whatever operating system kernel was identified.
+        /// </summary>
         public DebugServiceLayer CreateOSKernelComponent()
         {
             DebugServiceLayer ppServiceLayerResult;
@@ -42,6 +54,9 @@
             return ppServiceLayerResult;
         }
 
+        /// <summary>
+        /// Creates the component aggregate for whatever operating system kernel was identified.
+        /// </summary>
         public HRESULT TryCreateOSKernelComponent(out DebugServiceLayer ppServiceLayerResult)
         {
             /*HRESULT CreateOSKernelComponent(

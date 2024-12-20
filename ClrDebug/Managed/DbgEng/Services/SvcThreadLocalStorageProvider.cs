@@ -13,6 +13,9 @@
         #region ISvcThreadLocalStorageProvider
         #region GetTLSBlockAddress
 
+        /// <summary>
+        /// Returns the base address of a module's TLS block for a given thread.
+        /// </summary>
         public long GetTLSBlockAddress(ISvcModule pModule, ISvcThread pThread)
         {
             long pAddress;
@@ -21,6 +24,9 @@
             return pAddress;
         }
 
+        /// <summary>
+        /// Returns the base address of a module's TLS block for a given thread.
+        /// </summary>
         public HRESULT TryGetTLSBlockAddress(ISvcModule pModule, ISvcThread pThread, out long pAddress)
         {
             /*HRESULT GetTLSBlockAddress(

@@ -15,6 +15,10 @@ namespace ClrDebug.DbgEng
         #region ISvcWindowsKdInfrastructure
         #region KdDebuggerDataBlock
 
+        /// <summary>
+        /// Retrieves a pointer to the read debugger data block in memory. The valid size of the block is returned as well.<para/>
+        /// This pointer is guaranteed to be valid until the virtual memory service in the service stack changes. In this case, any cached copy of this pointer must be flushed and reread.
+        /// </summary>
         public GetKdDebuggerDataBlockResult KdDebuggerDataBlock
         {
             get
@@ -26,6 +30,10 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Retrieves a pointer to the read debugger data block in memory. The valid size of the block is returned as well.<para/>
+        /// This pointer is guaranteed to be valid until the virtual memory service in the service stack changes. In this case, any cached copy of this pointer must be flushed and reread.
+        /// </summary>
         public HRESULT TryGetKdDebuggerDataBlock(out GetKdDebuggerDataBlockResult result)
         {
             /*HRESULT GetKdDebuggerDataBlock(
@@ -46,6 +54,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region FindKdVersionBlock
 
+        /// <summary>
+        /// Finds the KD version block and returns its address. If the version block is not located within the address space of the debug source, this may fail.<para/>
+        /// In such cases, GetKdVersionBlock may be called.
+        /// </summary>
         public long FindKdVersionBlock()
         {
             long kdVersionBlockAddress;
@@ -54,6 +66,10 @@ namespace ClrDebug.DbgEng
             return kdVersionBlockAddress;
         }
 
+        /// <summary>
+        /// Finds the KD version block and returns its address. If the version block is not located within the address space of the debug source, this may fail.<para/>
+        /// In such cases, GetKdVersionBlock may be called.
+        /// </summary>
         public HRESULT TryFindKdVersionBlock(out long kdVersionBlockAddress)
         {
             /*HRESULT FindKdVersionBlock(
@@ -64,6 +80,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region FindKdDebuggerDataBlock
 
+        /// <summary>
+        /// Finds the KD debugger data block and returns its address. If the debugger data block is not located within the address space of the debug source, this may fail.<para/>
+        /// In such cases, GetKdDebuggerDataBlock may be called.
+        /// </summary>
         public long FindKdDebuggerDataBlock()
         {
             long kdDebuggerDataBlockAddress;
@@ -72,6 +92,10 @@ namespace ClrDebug.DbgEng
             return kdDebuggerDataBlockAddress;
         }
 
+        /// <summary>
+        /// Finds the KD debugger data block and returns its address. If the debugger data block is not located within the address space of the debug source, this may fail.<para/>
+        /// In such cases, GetKdDebuggerDataBlock may be called.
+        /// </summary>
         public HRESULT TryFindKdDebuggerDataBlock(out long kdDebuggerDataBlockAddress)
         {
             /*HRESULT FindKdDebuggerDataBlock(

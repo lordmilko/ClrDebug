@@ -13,6 +13,10 @@
         #region ISvcTargetOperationStatusNotification
         #region NotifyOperationChange
 
+        /// <summary>
+        /// Called by the step controller or step manager to notify a "client" that a requested operation has changed state (e.g.: completed or been canceled, etc...) The semantics of "pAffectedUnit" and "affectedAddress" depend on the type of operation.<para/>
+        /// For a halt operation, this would be the "thread" or "core" that took the halt signal and the program counter at the point of the halt.
+        /// </summary>
         public void NotifyOperationChange(ISvcTargetOperation pOperation, TargetOperationStatus opStatus, ISvcExecutionUnit pAffectedUnit, long affectedAddress)
         {
             /*void NotifyOperationChange(

@@ -13,6 +13,10 @@
         #region ISvcStackProviderPartialPhysicalFrame
         #region InstructionPointer
 
+        /// <summary>
+        /// Gets the instruction pointer for this partial physical frame. This is the *MINIMUM MUST* implement for a partial physical frame.<para/>
+        /// All other Get* methods within ISvcStackProviderPartialPhysicalFrame may legally return E_NOT_SET.
+        /// </summary>
         public long InstructionPointer
         {
             get
@@ -24,6 +28,10 @@
             }
         }
 
+        /// <summary>
+        /// Gets the instruction pointer for this partial physical frame. This is the *MINIMUM MUST* implement for a partial physical frame.<para/>
+        /// All other Get* methods within ISvcStackProviderPartialPhysicalFrame may legally return E_NOT_SET.
+        /// </summary>
         public HRESULT TryGetInstructionPointer(out long instructionPointer)
         {
             /*HRESULT GetInstructionPointer(
@@ -34,6 +42,10 @@
         #endregion
         #region StackPointer
 
+        /// <summary>
+        /// Gets the stack pointer for this partial physical frame. This may return E_NOT_SET indicating that there is no available stack pointer value for this partial frame.<para/>
+        /// All users of a partial physical frame must be able to deal with such.
+        /// </summary>
         public long StackPointer
         {
             get
@@ -45,6 +57,10 @@
             }
         }
 
+        /// <summary>
+        /// Gets the stack pointer for this partial physical frame. This may return E_NOT_SET indicating that there is no available stack pointer value for this partial frame.<para/>
+        /// All users of a partial physical frame must be able to deal with such.
+        /// </summary>
         public HRESULT TryGetStackPointer(out long stackPointer)
         {
             /*HRESULT GetStackPointer(
@@ -55,6 +71,10 @@
         #endregion
         #region FramePointer
 
+        /// <summary>
+        /// Gets the frame pointer for this partial physical frame. This may return E_NOT_SET indicating that there is no available frame pointer value for this partial frame.<para/>
+        /// All users of a partial physical frame must be able to deal with such.
+        /// </summary>
         public long FramePointer
         {
             get
@@ -66,6 +86,10 @@
             }
         }
 
+        /// <summary>
+        /// Gets the frame pointer for this partial physical frame. This may return E_NOT_SET indicating that there is no available frame pointer value for this partial frame.<para/>
+        /// All users of a partial physical frame must be able to deal with such.
+        /// </summary>
         public HRESULT TryGetFramePointer(out long framePointer)
         {
             /*HRESULT GetFramePointer(

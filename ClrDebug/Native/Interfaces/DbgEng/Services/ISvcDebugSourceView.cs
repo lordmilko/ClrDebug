@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcDebugSourceView
     {
+        /// <summary>
+        /// Gets the the source of this view.
+        /// </summary>
         [PreserveSig]
         HRESULT GetViewSource(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceManager viewSource);

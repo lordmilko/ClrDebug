@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface IDebugTargetCompositionComponent
     {
+        /// <summary>
+        /// Create a new instance of this component which is not yet bound to any service manager.
+        /// </summary>
         [PreserveSig]
         HRESULT CreateInstance(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer componentService);

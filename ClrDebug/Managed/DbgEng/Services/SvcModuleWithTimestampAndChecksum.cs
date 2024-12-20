@@ -16,6 +16,9 @@
 
         #region TimeDateStamp
 
+        /// <summary>
+        /// Gets the time date stamp of the module.
+        /// </summary>
         public int TimeDateStamp
         {
             get
@@ -27,6 +30,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the time date stamp of the module.
+        /// </summary>
         public HRESULT TryGetTimeDateStamp(out int moduleTimeDateStamp)
         {
             /*HRESULT GetTimeDateStamp(
@@ -37,6 +43,9 @@
         #endregion
         #region CheckSum
 
+        /// <summary>
+        /// Gets the check sum of the module.
+        /// </summary>
         public int CheckSum
         {
             get
@@ -48,6 +57,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the check sum of the module.
+        /// </summary>
         public HRESULT TryGetCheckSum(out int moduleCheckSum)
         {
             /*HRESULT GetCheckSum(

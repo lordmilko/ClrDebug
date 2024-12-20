@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -7,6 +7,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface IClrDacDbiAndSosProvider : IClrDacAndSosProvider
     {
+        /// <summary>
+        /// Determines if an image/module is a CLR image and if it can provide (retrieve/download/etc.) the CLR DAC and SOS for it.
+        /// </summary>
         [PreserveSig]
         new HRESULT IsClrImage(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule module,
@@ -14,18 +17,27 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.U1)] out bool pbCanProvideClrDac,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pbCanProvideClrSos);
 
+        /// <summary>
+        /// Retrieves/downloads/etc. the CLR DAC.
+        /// </summary>
         [PreserveSig]
         new HRESULT ProvideClrDac(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule pModule,
             [In, MarshalAs(UnmanagedType.LPWStr)] string forcePath,
             [Out, MarshalAs(UnmanagedType.BStr)] out string pDacPath);
 
+        /// <summary>
+        /// Retrieves/downloads/etc. the CLR SOS.
+        /// </summary>
         [PreserveSig]
         new HRESULT ProvideClrSos(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule pModule,
             [In, MarshalAs(UnmanagedType.LPWStr)] string forcePath,
             [Out, MarshalAs(UnmanagedType.BStr)] out string pSosPath);
 
+        /// <summary>
+        /// Determines if an image/module is a CLR image and if it can provide (retrieve/download/etc.) the CLR DAC, DBI, and SOS for it.
+        /// </summary>
         [PreserveSig]
         HRESULT IsClrImageEx(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule module,
@@ -34,6 +46,9 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.U1)] out bool pbCanProvideClrDbi,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pbCanProvideClrSos);
 
+        /// <summary>
+        /// Retrieves/downloads/etc. the CLR DBI.
+        /// </summary>
         [PreserveSig]
         HRESULT ProvideClrDbi(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule pModule,

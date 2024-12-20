@@ -13,6 +13,9 @@
         #region ISvcSymbolDiscriminatorValuesEnumerator
         #region Next
 
+        /// <summary>
+        /// Gets the next range of discriminator values in the enumerator. Note that this has identical semantics to ISvcSymbolVariantInfo::GetDescriminatorValues in terms of pLowValue and pHighValue.
+        /// </summary>
         public SvcSymbolDiscriminatorValuesEnumerator_GetNextResult Next
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the next range of discriminator values in the enumerator. Note that this has identical semantics to ISvcSymbolVariantInfo::GetDescriminatorValues in terms of pLowValue and pHighValue.
+        /// </summary>
         public HRESULT TryGetNext(out SvcSymbolDiscriminatorValuesEnumerator_GetNextResult result)
         {
             /*HRESULT GetNext(
@@ -44,11 +50,17 @@
         #endregion
         #region Reset
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public void Reset()
         {
             TryReset().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public HRESULT TryReset()
         {
             /*HRESULT Reset();*/

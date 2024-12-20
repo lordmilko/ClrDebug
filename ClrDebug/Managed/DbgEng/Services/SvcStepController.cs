@@ -13,6 +13,9 @@
         #region ISvcStepController
         #region Status
 
+        /// <summary>
+        /// Gets the current status of the target.
+        /// </summary>
         public TargetStatus Status
         {
             get
@@ -25,6 +28,10 @@
         #endregion
         #region HaltReason
 
+        /// <summary>
+        /// Gets the reason why the target is halted. This call may only legally be made while GetStatus() returns that the target is halted.<para/>
+        /// Calling otherwise will always return HaltUnknown.
+        /// </summary>
         public HaltReason HaltReason
         {
             get
@@ -37,11 +44,19 @@
         #endregion
         #region NotifyOnChange
 
+        /// <summary>
+        /// Called to setup a callback on state change of the step controller more generally. Such a state change may or may not be the result of an operation.<para/>
+        /// Note that more than one notification can be registered (though one is most typical).
+        /// </summary>
         public void NotifyOnChange(ISvcTargetStateChangeNotification pNotify)
         {
             TryNotifyOnChange(pNotify).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Called to setup a callback on state change of the step controller more generally. Such a state change may or may not be the result of an operation.<para/>
+        /// Note that more than one notification can be registered (though one is most typical).
+        /// </summary>
         public HRESULT TryNotifyOnChange(ISvcTargetStateChangeNotification pNotify)
         {
             /*HRESULT NotifyOnChange(
@@ -52,11 +67,17 @@
         #endregion
         #region RemoveOnChange
 
+        /// <summary>
+        /// RemoveNotifyOnChange() Called to remove a notification callback as registered via NotifyOnChange.
+        /// </summary>
         public void RemoveOnChange(ISvcTargetStateChangeNotification pNotify)
         {
             TryRemoveOnChange(pNotify).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// RemoveNotifyOnChange() Called to remove a notification callback as registered via NotifyOnChange.
+        /// </summary>
         public HRESULT TryRemoveOnChange(ISvcTargetStateChangeNotification pNotify)
         {
             /*HRESULT RemoveOnChange(
@@ -67,6 +88,11 @@
         #endregion
         #region Run
 
+        /// <summary>
+        /// Causes the underlying target to resume execution. A handle to the run operation is returned. If the requested operation cannot be performed (e.g.: a requested "Run backward" call is made on a target which can only "Run forward"), the implementation may legally return E_NOTIMPL.<para/>
+        /// A run operation is considered completed when the underlying target has *STARTED* running. This call may only be made when the target is in a halted status.<para/>
+        /// Calling in other circumstnaces will result in E_ILLEGAL_METHOD_CALL.
+        /// </summary>
         public SvcTargetOperation Run(TargetOperationDirection dir, ISvcTargetOperationStatusNotification pNotify)
         {
             SvcTargetOperation ppRunHandleResult;
@@ -75,6 +101,11 @@
             return ppRunHandleResult;
         }
 
+        /// <summary>
+        /// Causes the underlying target to resume execution. A handle to the run operation is returned. If the requested operation cannot be performed (e.g.: a requested "Run backward" call is made on a target which can only "Run forward"), the implementation may legally return E_NOTIMPL.<para/>
+        /// A run operation is considered completed when the underlying target has *STARTED* running. This call may only be made when the target is in a halted status.<para/>
+        /// Calling in other circumstnaces will result in E_ILLEGAL_METHOD_CALL.
+        /// </summary>
         public HRESULT TryRun(TargetOperationDirection dir, ISvcTargetOperationStatusNotification pNotify, out SvcTargetOperation ppRunHandleResult)
         {
             /*HRESULT Run(
@@ -95,6 +126,10 @@
         #endregion
         #region Halt
 
+        /// <summary>
+        /// Causes the underlying target to halt execution (break in). A handle to the halt operation is returned. A halt operation is considered completed when the underlying target has completely halted.<para/>
+        /// This call may only be made when the target is in a running status. Calling in other circumstances will result in E_ILLEGAL_METHOD_CALL.
+        /// </summary>
         public SvcTargetOperation Halt(ISvcTargetOperationStatusNotification pNotify)
         {
             SvcTargetOperation ppHaltHandleResult;
@@ -103,6 +138,10 @@
             return ppHaltHandleResult;
         }
 
+        /// <summary>
+        /// Causes the underlying target to halt execution (break in). A handle to the halt operation is returned. A halt operation is considered completed when the underlying target has completely halted.<para/>
+        /// This call may only be made when the target is in a running status. Calling in other circumstances will result in E_ILLEGAL_METHOD_CALL.
+        /// </summary>
         public HRESULT TryHalt(ISvcTargetOperationStatusNotification pNotify, out SvcTargetOperation ppHaltHandleResult)
         {
             /*HRESULT Halt(
@@ -122,6 +161,12 @@
         #endregion
         #region Step
 
+        /// <summary>
+        /// Causes the underlying target to step a particular execution unit by 'steps' fundamental units (e.g.: instructions).<para/>
+        /// If the requested operation cannot be performed (e.g.: a requeted "Step backward" call is made on a target which can only "Step forward"), the implementation may legally return E_NOTIMPL.<para/>
+        /// A step operation is considered completed when the step has completed and the target has successfully halted. This call may only be made when the target is in a halted status.<para/>
+        /// Calling in other circumstances will result in E_ILLEGAL_METHOD_CALL.
+        /// </summary>
         public SvcTargetOperation Step(ISvcExecutionUnit pStepUnit, TargetOperationDirection dir, long steps, ISvcTargetOperationStatusNotification pNotify)
         {
             SvcTargetOperation ppStepHandleResult;
@@ -130,6 +175,12 @@
             return ppStepHandleResult;
         }
 
+        /// <summary>
+        /// Causes the underlying target to step a particular execution unit by 'steps' fundamental units (e.g.: instructions).<para/>
+        /// If the requested operation cannot be performed (e.g.: a requeted "Step backward" call is made on a target which can only "Step forward"), the implementation may legally return E_NOTIMPL.<para/>
+        /// A step operation is considered completed when the step has completed and the target has successfully halted. This call may only be made when the target is in a halted status.<para/>
+        /// Calling in other circumstances will result in E_ILLEGAL_METHOD_CALL.
+        /// </summary>
         public HRESULT TryStep(ISvcExecutionUnit pStepUnit, TargetOperationDirection dir, long steps, ISvcTargetOperationStatusNotification pNotify, out SvcTargetOperation ppStepHandleResult)
         {
             /*HRESULT Step(

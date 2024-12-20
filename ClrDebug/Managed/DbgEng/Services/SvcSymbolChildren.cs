@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Any symbol which supports the enumeration of children supports this interface. Simple symbol providers which only do basic address -&gt; name and name -&gt; address mapping need not implement this interface.
+    /// </summary>
     public class SvcSymbolChildren : ComObject<ISvcSymbolChildren>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcSymbolChildren
         #region EnumerateChildren
 
+        /// <summary>
+        /// Enumerates all children of the given symbol.
+        /// </summary>
         public SvcSymbolSetEnumerator EnumerateChildren(SvcSymbolKind kind, string name, SvcSymbolSearchInfo pSearchInfo)
         {
             SvcSymbolSetEnumerator childEnumResult;
@@ -21,6 +27,9 @@
             return childEnumResult;
         }
 
+        /// <summary>
+        /// Enumerates all children of the given symbol.
+        /// </summary>
         public HRESULT TryEnumerateChildren(SvcSymbolKind kind, string name, SvcSymbolSearchInfo pSearchInfo, out SvcSymbolSetEnumerator childEnumResult)
         {
             /*HRESULT EnumerateChildren(

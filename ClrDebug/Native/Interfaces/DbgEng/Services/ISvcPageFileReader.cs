@@ -8,12 +8,18 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcPageFileReader
     {
+        /// <summary>
+        /// Indicates whether a page can be read by the page file reader.
+        /// </summary>
         [PreserveSig]
         HRESULT IsPageAvailable(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcAddressContext AddressContext,
             [In] long TranslationEntry,
             [Out, MarshalAs(UnmanagedType.U1)] out bool PageIsAvailable);
-        
+
+        /// <summary>
+        /// Reads data from the page file (or another backing store).
+        /// </summary>
         [PreserveSig]
         HRESULT ReadPage(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcAddressContext AddressContext,

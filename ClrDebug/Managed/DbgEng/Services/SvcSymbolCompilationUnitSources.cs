@@ -13,6 +13,9 @@
         #region ISvcSymbolCompilationUnitSources
         #region EnumerateSourceFiles
 
+        /// <summary>
+        /// Enumerates all of the source files which contribute to this compilation unit.
+        /// </summary>
         public SvcSourceFileEnumerator EnumerateSourceFiles(string fileName, SvcSymbolSearchInfo pSearchInfo)
         {
             SvcSourceFileEnumerator sourceFileEnumResult;
@@ -21,6 +24,9 @@
             return sourceFileEnumResult;
         }
 
+        /// <summary>
+        /// Enumerates all of the source files which contribute to this compilation unit.
+        /// </summary>
         public HRESULT TryEnumerateSourceFiles(string fileName, SvcSymbolSearchInfo pSearchInfo, out SvcSourceFileEnumerator sourceFileEnumResult)
         {
             /*HRESULT EnumerateSourceFiles(

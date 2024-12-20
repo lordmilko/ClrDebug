@@ -26,6 +26,10 @@ namespace ClrDebug.DbgEng
         #region ISvcModule
         #region ContainingProcessKey
 
+        /// <summary>
+        /// Gets the unique key of the process to which this thread belongs. This is the same key returned from the containing ISvcProcess's GetKey method.<para/>
+        /// This method may return S_FALSE and a process key of zero for modules which do not logically belong to any process (e.g.: they are kernel modules / drivers that are mapped into every process).
+        /// </summary>
         public long ContainingProcessKey
         {
             get
@@ -37,6 +41,10 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Gets the unique key of the process to which this thread belongs. This is the same key returned from the containing ISvcProcess's GetKey method.<para/>
+        /// This method may return S_FALSE and a process key of zero for modules which do not logically belong to any process (e.g.: they are kernel modules / drivers that are mapped into every process).
+        /// </summary>
         public HRESULT TryGetContainingProcessKey(out long containingProcessKey)
         {
             /*HRESULT GetContainingProcessKey(
@@ -47,6 +55,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region Key
 
+        /// <summary>
+        /// Gets the unique "per-process" module key. The interpretation of this key is dependent upon the service which provides this interface.<para/>
+        /// This may be the base address of the module.
+        /// </summary>
         public long Key
         {
             get
@@ -58,6 +70,10 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Gets the unique "per-process" module key. The interpretation of this key is dependent upon the service which provides this interface.<para/>
+        /// This may be the base address of the module.
+        /// </summary>
         public HRESULT TryGetKey(out long moduleKey)
         {
             /*HRESULT GetKey(
@@ -68,6 +84,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region BaseAddress
 
+        /// <summary>
+        /// Gets the base address of the module.
+        /// </summary>
         public long BaseAddress
         {
             get
@@ -79,6 +98,9 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Gets the base address of the module.
+        /// </summary>
         public HRESULT TryGetBaseAddress(out long moduleBaseAddress)
         {
             /*HRESULT GetBaseAddress(
@@ -89,6 +111,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region Size
 
+        /// <summary>
+        /// Gets the size of the module.
+        /// </summary>
         public long Size
         {
             get
@@ -100,6 +125,9 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Gets the size of the module.
+        /// </summary>
         public HRESULT TryGetSize(out long moduleSize)
         {
             /*HRESULT GetSize(
@@ -110,6 +138,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region Name
 
+        /// <summary>
+        /// Gets the name of the module.
+        /// </summary>
         public string Name
         {
             get
@@ -121,6 +152,9 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Gets the name of the module.
+        /// </summary>
         public HRESULT TryGetName(out string moduleName)
         {
             /*HRESULT GetName(
@@ -131,6 +165,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region Path
 
+        /// <summary>
+        /// Gets the load path of the module.
+        /// </summary>
         public string Path
         {
             get
@@ -142,6 +179,9 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Gets the load path of the module.
+        /// </summary>
         public HRESULT TryGetPath(out string modulePath)
         {
             /*HRESULT GetPath(

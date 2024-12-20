@@ -1,4 +1,4 @@
-namespace ClrDebug.DbgEng
+﻿namespace ClrDebug.DbgEng
 {
     public enum TargetOperationDirection : uint
     {

@@ -13,6 +13,9 @@
         #region IClrDacAndSosProvider
         #region IsClrImage
 
+        /// <summary>
+        /// Determines if an image/module is a CLR image and if it can provide (retrieve/download/etc.) the CLR DAC and SOS for it.
+        /// </summary>
         public IsClrImageResult IsClrImage(ISvcModule module)
         {
             IsClrImageResult result;
@@ -21,6 +24,9 @@
             return result;
         }
 
+        /// <summary>
+        /// Determines if an image/module is a CLR image and if it can provide (retrieve/download/etc.) the CLR DAC and SOS for it.
+        /// </summary>
         public HRESULT TryIsClrImage(ISvcModule module, out IsClrImageResult result)
         {
             /*HRESULT IsClrImage(
@@ -44,6 +50,9 @@
         #endregion
         #region ProvideClrDac
 
+        /// <summary>
+        /// Retrieves/downloads/etc. the CLR DAC.
+        /// </summary>
         public string ProvideClrDac(ISvcModule pModule, string forcePath)
         {
             string pDacPath;
@@ -52,6 +61,9 @@
             return pDacPath;
         }
 
+        /// <summary>
+        /// Retrieves/downloads/etc. the CLR DAC.
+        /// </summary>
         public HRESULT TryProvideClrDac(ISvcModule pModule, string forcePath, out string pDacPath)
         {
             /*HRESULT ProvideClrDac(
@@ -64,6 +76,9 @@
         #endregion
         #region ProvideClrSos
 
+        /// <summary>
+        /// Retrieves/downloads/etc. the CLR SOS.
+        /// </summary>
         public string ProvideClrSos(ISvcModule pModule, string forcePath)
         {
             string pSosPath;
@@ -72,6 +87,9 @@
             return pSosPath;
         }
 
+        /// <summary>
+        /// Retrieves/downloads/etc. the CLR SOS.
+        /// </summary>
         public HRESULT TryProvideClrSos(ISvcModule pModule, string forcePath, out string pSosPath)
         {
             /*HRESULT ProvideClrSos(

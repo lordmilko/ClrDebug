@@ -13,6 +13,9 @@
         #region ISvcAddressContextHardware
         #region PagingLevels
 
+        /// <summary>
+        /// Gets the number of paging levels mode that the hardware is utilizing.
+        /// </summary>
         public int PagingLevels
         {
             get
@@ -24,6 +27,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the number of paging levels mode that the hardware is utilizing.
+        /// </summary>
         public HRESULT TryGetPagingLevels(out int pagingLevels)
         {
             /*HRESULT GetPagingLevels(
@@ -34,6 +40,9 @@
         #endregion
         #region GetDirectoryBase
 
+        /// <summary>
+        /// Gets the directory base for this address context (represented as hardware -- e.g.: a processor) e.g.: For a AMD64 processor, this interface would return the CR3 value.
+        /// </summary>
         public long GetDirectoryBase(DirectoryBaseKind dirKind)
         {
             long directoryBase;
@@ -42,6 +51,9 @@
             return directoryBase;
         }
 
+        /// <summary>
+        /// Gets the directory base for this address context (represented as hardware -- e.g.: a processor) e.g.: For a AMD64 processor, this interface would return the CR3 value.
+        /// </summary>
         public HRESULT TryGetDirectoryBase(DirectoryBaseKind dirKind, out long directoryBase)
         {
             /*HRESULT GetDirectoryBase(

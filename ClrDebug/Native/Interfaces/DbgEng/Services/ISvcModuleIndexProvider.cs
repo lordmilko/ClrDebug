@@ -8,6 +8,9 @@ namespace ClrDebug.DbgEng
     [ComImport]
     public interface ISvcModuleIndexProvider
     {
+        /// <summary>
+        /// Gets a key for the given module which is used as an index on the symbol server.
+        /// </summary>
         [PreserveSig]
         HRESULT GetModuleIndexKey(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule pModule,

@@ -1,5 +1,9 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Represents a "simple interface" around the enumeration of source files that contribute to a particular binary and their association to compilation units / compilands.<para/>
+    /// This is an optional interface for symbol sets to implement.
+    /// </summary>
     public class SvcSymbolSetSimpleSourceFileInformation : ComObject<ISvcSymbolSetSimpleSourceFileInformation>
     {
         /// <summary>
@@ -13,6 +17,9 @@
         #region ISvcSymbolSetSimpleSourceFileInformation
         #region GetSourceFileById
 
+        /// <summary>
+        /// Gets a source file by its unique identifier.
+        /// </summary>
         public SvcSourceFile GetSourceFileById(long id)
         {
             SvcSourceFile sourceFileResult;
@@ -21,6 +28,9 @@
             return sourceFileResult;
         }
 
+        /// <summary>
+        /// Gets a source file by its unique identifier.
+        /// </summary>
         public HRESULT TryGetSourceFileById(long id, out SvcSourceFile sourceFileResult)
         {
             /*HRESULT GetSourceFileById(
@@ -40,6 +50,9 @@
         #endregion
         #region EnumerateSourceFiles
 
+        /// <summary>
+        /// Enumerates all of the source files which contribute to the image.
+        /// </summary>
         public SvcSourceFileEnumerator EnumerateSourceFiles(string fileName, SvcSymbolSearchInfo pSearchInfo)
         {
             SvcSourceFileEnumerator sourceFileEnumResult;
@@ -48,6 +61,9 @@
             return sourceFileEnumResult;
         }
 
+        /// <summary>
+        /// Enumerates all of the source files which contribute to the image.
+        /// </summary>
         public HRESULT TryEnumerateSourceFiles(string fileName, SvcSymbolSearchInfo pSearchInfo, out SvcSourceFileEnumerator sourceFileEnumResult)
         {
             /*HRESULT EnumerateSourceFiles(

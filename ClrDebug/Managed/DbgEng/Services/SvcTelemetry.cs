@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Provided By: DEBUG_SERVICE_TELEMETRY.
+    /// </summary>
     public class SvcTelemetry : ComObject<ISvcTelemetry>
     {
         /// <summary>
@@ -13,11 +16,17 @@
         #region ISvcTelemetry
         #region NotifyUsage
 
+        /// <summary>
+        /// Notify usage of a particular feature (with an optional "action" and "parameter").
+        /// </summary>
         public void NotifyUsage(string product, string feature, string action)
         {
             TryNotifyUsage(product, feature, action).ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Notify usage of a particular feature (with an optional "action" and "parameter").
+        /// </summary>
         public HRESULT TryNotifyUsage(string product, string feature, string action)
         {
             /*HRESULT NotifyUsage(

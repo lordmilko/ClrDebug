@@ -2,6 +2,9 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Enumerates all of the services in a container.
+    /// </summary>
     public class DebugServiceEnumerator : ComObject<IDebugServiceEnumerator>
     {
         /// <summary>
@@ -15,6 +18,9 @@ namespace ClrDebug.DbgEng
         #region IDebugServiceEnumerator
         #region Next
 
+        /// <summary>
+        /// Gets the next service in the container and the service GUID under which it was registered.
+        /// </summary>
         public DebugServiceEnumerator_GetNextResult Next
         {
             get
@@ -26,6 +32,9 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        /// <summary>
+        /// Gets the next service in the container and the service GUID under which it was registered.
+        /// </summary>
         public HRESULT TryGetNext(out DebugServiceEnumerator_GetNextResult result)
         {
             /*HRESULT GetNext(
@@ -46,11 +55,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region Reset
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public void Reset()
         {
             TryReset().ThrowDbgEngNotOK();
         }
 
+        /// <summary>
+        /// Resets the enumerator.
+        /// </summary>
         public HRESULT TryReset()
         {
             /*HRESULT Reset();*/

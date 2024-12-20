@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// ISvcImageMemoryRegion Describes a "memory veiw region" of an executable. This might be called a "segment" in some parlances.
+    /// </summary>
     public class SvcImageMemoryViewRegion : ComObject<ISvcImageMemoryViewRegion>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcImageMemoryViewRegion
         #region MemoryOffset
 
+        /// <summary>
+        /// Gets the memory offset of the memory region. This corresponds to an offset from the load base of the image (or a "relative virtual address" as some might call it).
+        /// </summary>
         public long MemoryOffset
         {
             get
@@ -25,6 +31,9 @@
         #endregion
         #region Size
 
+        /// <summary>
+        /// Gets the size of the memory region.
+        /// </summary>
         public long Size
         {
             get
@@ -37,6 +46,9 @@
         #endregion
         #region Id
 
+        /// <summary>
+        /// Gets a numeric id for the region. This may correspond to a segment number or may simply be an invented ID by the provider (e.g.: an index into the program header table).
+        /// </summary>
         public long Id
         {
             get
@@ -49,6 +61,9 @@
         #endregion
         #region IsReadable
 
+        /// <summary>
+        /// Indicates whether this region of the image is mapped as readable. If the implementation cannot make a determination of whether the range is readable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public bool IsReadable
         {
             get
@@ -60,6 +75,9 @@
             }
         }
 
+        /// <summary>
+        /// Indicates whether this region of the image is mapped as readable. If the implementation cannot make a determination of whether the range is readable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public HRESULT TryIsReadable(out bool isReadable)
         {
             /*HRESULT IsReadable(
@@ -70,6 +88,9 @@
         #endregion
         #region IsWriteable
 
+        /// <summary>
+        /// Indicates whether this region of the image is mapped as writeable. If the implementation cannot make a determination of whether the range is writeable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public bool IsWriteable
         {
             get
@@ -81,6 +102,9 @@
             }
         }
 
+        /// <summary>
+        /// Indicates whether this region of the image is mapped as writeable. If the implementation cannot make a determination of whether the range is writeable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public HRESULT TryIsWriteable(out bool isWriteable)
         {
             /*HRESULT IsWriteable(
@@ -91,6 +115,9 @@
         #endregion
         #region IsExecutable
 
+        /// <summary>
+        /// Indicates whether this region of the image is mapped as executable. If the implementation cannot make a determination of whether the range is executable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public bool IsExecutable
         {
             get
@@ -102,6 +129,9 @@
             }
         }
 
+        /// <summary>
+        /// Indicates whether this region of the image is mapped as executable. If the implementation cannot make a determination of whether the range is executable or not, E_NOTIMPL may legally be returned.
+        /// </summary>
         public HRESULT TryIsExecutable(out bool isExecutable)
         {
             /*HRESULT IsExecutable(
@@ -112,6 +142,9 @@
         #endregion
         #region Alignment
 
+        /// <summary>
+        /// Gets the required alignment for this mapping. If the implementation cannot make a determination of alignment, E_NOTIMPL may legally be returned.
+        /// </summary>
         public int Alignment
         {
             get
@@ -123,6 +156,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the required alignment for this mapping. If the implementation cannot make a determination of alignment, E_NOTIMPL may legally be returned.
+        /// </summary>
         public HRESULT TryGetAlignment(out int alignment)
         {
             /*HRESULT GetAlignment(
@@ -133,6 +169,10 @@
         #endregion
         #region FileViewAssociation
 
+        /// <summary>
+        /// Gets the association of this memory view region to the file view. If this memory section is *NOT* associated with the file view (it is uninitialized data, zero-fill, etc...), S_FALSE is returned with a 0/0 mapping and pExtraByteMapping filled in.<para/>
+        /// By default, this will return a singular mapping (of the start of the memory view region).
+        /// </summary>
         public GetFileViewAssociationResult FileViewAssociation
         {
             get
@@ -144,6 +184,10 @@
             }
         }
 
+        /// <summary>
+        /// Gets the association of this memory view region to the file view. If this memory section is *NOT* associated with the file view (it is uninitialized data, zero-fill, etc...), S_FALSE is returned with a 0/0 mapping and pExtraByteMapping filled in.<para/>
+        /// By default, this will return a singular mapping (of the start of the memory view region).
+        /// </summary>
         public HRESULT TryGetFileViewAssociation(out GetFileViewAssociationResult result)
         {
             /*HRESULT GetFileViewAssociation(

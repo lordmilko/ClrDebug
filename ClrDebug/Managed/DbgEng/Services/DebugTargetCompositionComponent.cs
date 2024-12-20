@@ -13,6 +13,9 @@
         #region IDebugTargetCompositionComponent
         #region CreateInstance
 
+        /// <summary>
+        /// Create a new instance of this component which is not yet bound to any service manager.
+        /// </summary>
         public DebugServiceLayer CreateInstance()
         {
             DebugServiceLayer componentServiceResult;
@@ -21,6 +24,9 @@
             return componentServiceResult;
         }
 
+        /// <summary>
+        /// Create a new instance of this component which is not yet bound to any service manager.
+        /// </summary>
         public HRESULT TryCreateInstance(out DebugServiceLayer componentServiceResult)
         {
             /*HRESULT CreateInstance(

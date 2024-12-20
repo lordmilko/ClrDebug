@@ -1,5 +1,8 @@
 ﻿namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// Private bridge interface to symbol providers which return the checksum for a source file.
+    /// </summary>
     public class SvcSymbolSetSourceFileChecksums : ComObject<ISvcSymbolSetSourceFileChecksums>
     {
         /// <summary>
@@ -13,6 +16,9 @@
         #region ISvcSymbolSetSourceFileChecksums
         #region GetLegacySourceFileChecksumInformation
 
+        /// <summary>
+        /// Returns the source file checksum kind and the buffer length needed for it.
+        /// </summary>
         public GetLegacySourceFileChecksumInformationResult GetLegacySourceFileChecksumInformation(string fileName)
         {
             GetLegacySourceFileChecksumInformationResult result;
@@ -21,6 +27,9 @@
             return result;
         }
 
+        /// <summary>
+        /// Returns the source file checksum kind and the buffer length needed for it.
+        /// </summary>
         public HRESULT TryGetLegacySourceFileChecksumInformation(string fileName, out GetLegacySourceFileChecksumInformationResult result)
         {
             /*HRESULT GetLegacySourceFileChecksumInformation(
@@ -42,6 +51,9 @@
         #endregion
         #region GetLegacySourceFileChecksum
 
+        /// <summary>
+        /// Reads the source file checksum.
+        /// </summary>
         public GetLegacySourceFileChecksumResult GetLegacySourceFileChecksum(string fileName)
         {
             GetLegacySourceFileChecksumResult result;
@@ -50,6 +62,9 @@
             return result;
         }
 
+        /// <summary>
+        /// Reads the source file checksum.
+        /// </summary>
         public HRESULT TryGetLegacySourceFileChecksum(string fileName, out GetLegacySourceFileChecksumResult result)
         {
             /*HRESULT GetLegacySourceFileChecksum(
