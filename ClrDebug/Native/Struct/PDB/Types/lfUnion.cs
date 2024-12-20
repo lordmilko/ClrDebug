@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for LF_UNION
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, count = {count}, property = {property.ToString(),nq}, field = {field.ToString(),nq}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfUnion
     {
         /// <summary>

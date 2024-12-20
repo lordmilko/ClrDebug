@@ -39,6 +39,10 @@ namespace ClrDebug
     public static partial class Extensions
     {
         internal const string DiaVariantWarning = "DiaVariant objects returned from this method must be manually freed. Consider using the DiaExtensions.get_value(this IDiaSymbol symbol, out object pRetVal) extension method instead.";
+
+        //The specific issue here is that DbgEng requires input parameters to be statically castable to the required interface type. We can't do that from managed code without taking control of the marshalling ourselves. This is by design for CreateIntrinsicObject
+        //(https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/dbgmodel/nf-dbgmodel-idatamodelmanager2-createintrinsicobject). I don't know if it affects CreateTypedIntrinsicObject as well.
+        //(the docs don't say) but for now we'll assume it does
         internal const string DbgEngNoQueryInterfaceWarning = "This method does not QueryInterface the object passed to it, resulting in it using the default CCW VTable which contains entries for IDispatch immediately after IUnknown. Consider using the DbgEngExtensions extension method that handles the required marshalling for you.";
 
         public const int DAC_NUM_GC_DATA_POINTS = 9;
@@ -82,6 +86,7 @@ namespace ClrDebug
         public static readonly Guid CLSID_DiaStackWalker = new Guid("CE4A85DB-5768-475B-A4E1-C0BCA2112A6B");
 
         public static readonly Guid IID_IUnknown = new Guid("00000000-0000-0000-C000-000000000046");
+        public static readonly Guid IID_IDispatch = new Guid("00020400-0000-0000-C000-000000000046");
 
         private const string ClrLibDesktop = "clr.dll";
         private const string ClrLibWinCore = "coreclr.dll";
@@ -560,9 +565,9 @@ namespace ClrDebug
             return new string(
                 charArray,
                 0,
-                length < charArray.Length && charArray[length - 1] != '\0'
-                    ? length     //The length already precludes a null terminator
-                    : length - 1 //We're expecting the last character should be a null terminator
+                length <= charArray.Length && charArray[length - 1] == '\0'
+                    ? length - 1 //The last character is a null, so exclude it
+                    : length     //The last character is not a null, use all available characters
                 );
         }
 

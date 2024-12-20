@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// enumeration for LF_MODIFIER values
     /// </summary>
     [DebuggerDisplay("MOD_const = {MOD_const}, MOD_volatile = {MOD_volatile}, MOD_unaligned = {MOD_unaligned}, MOD_unused = {MOD_unused}, flags = {flags}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_modifier_t
     {
         public bool MOD_const
@@ -35,6 +35,9 @@ namespace ClrDebug.PDB
             set => SetBits(ref flags, 3, 13, value);
         }
 
-        public short flags;
+        private short flags;
+
+        public static implicit operator CV_modifier_t(short value) => new CV_modifier_t {flags = value};
+        public static implicit operator short(CV_modifier_t value) => value.flags;
     }
 }

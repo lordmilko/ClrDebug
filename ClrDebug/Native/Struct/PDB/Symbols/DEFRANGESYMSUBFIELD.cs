@@ -7,13 +7,13 @@ namespace ClrDebug.PDB
     /// A live range of sub field of variable. like locala.i
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, program = {program.ToString(),nq}, offParent = {offParent.ToString(),nq}, range = {range.ToString(),nq}, gaps = {gaps}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct DEFRANGESYMSUBFIELD
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_DEFRANGE_SUBFIELD

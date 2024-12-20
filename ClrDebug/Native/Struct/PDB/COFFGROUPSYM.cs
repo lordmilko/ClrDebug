@@ -3,13 +3,13 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct COFFGROUPSYM
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_COFFGROUP
@@ -17,7 +17,7 @@ namespace ClrDebug.PDB
         public SYM_ENUM_e rectyp;
 
         public int cb;
-        public int characteristics;
+        public int characteristics; //todo: enum?
 
         /// <summary>
         /// Symbol offset

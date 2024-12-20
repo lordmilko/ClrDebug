@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// representation of a 16 bit pointer to member functions of a class with no virtual bases and multiple address points
     /// </summary>
     [DebuggerDisplay("off = {off.ToString(),nq}, disp = {disp}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_PMFR16_NEARNVMA
     {
         /// <summary>

@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// matrix flags
     /// </summary>
     [DebuggerDisplay("row_major = {row_major}, unused = {unused}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_matrixattr_t
     {
         /// <summary>
@@ -29,6 +29,9 @@ namespace ClrDebug.PDB
             set => SetBits(ref data, 2, 7, value);
         }
 
-        public byte data;
+        private byte data;
+
+        public static implicit operator CV_matrixattr_t(byte value) => new CV_matrixattr_t { data = value };
+        public static implicit operator byte(CV_matrixattr_t value) => value.data;
     }
 }

@@ -55,7 +55,7 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The managed token of the symbol. If the token value is not known or the symbol does not have a token, Token is zero.
         /// </summary>
-        public int Token;
+        public mdToken Token;
 
         /// <summary>
         /// The symbol tag for the type of the symbol. This is a value from the SymTagEnum enumeration.

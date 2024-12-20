@@ -2,7 +2,7 @@
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfEasy
     {
         /// <summary>

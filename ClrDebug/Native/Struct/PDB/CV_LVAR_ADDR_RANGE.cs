@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// defines a range of addresses
     /// </summary>
     [DebuggerDisplay("offStart = {offStart.ToString(),nq}, isectStart = {isectStart}, cbRange = {cbRange}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_LVAR_ADDR_RANGE
     {
         public CV_uoff32_t offStart;

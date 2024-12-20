@@ -1,6 +1,15 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
+//In netstandard2.0 we don't have a type to represent a 128 bit value, so the caller will need to do *(Int128*)(&context.Xmm0) themselves,
+//or use some other mechanism of accessing the hidden upper values of the numbers. Even though there are no explicit fields that touch this data,
+//the data is still inside the struct, and can be accessed using pointer arithmetic
+#if GENERATED_MARSHALLING
+using Integer128 = System.Int128;
+#else
+using Integer128 = System.Int64;
+#endif
+
 namespace ClrDebug
 {
     //This is 100% right, theres some items which should be arrays,
@@ -99,41 +108,41 @@ namespace ClrDebug
 
         // Floating Point State
         [FieldOffset(0x100)]
-        public long FltSave;
+        public Integer128 FltSave;
         [FieldOffset(0x120)]
-        public long Legacy;
+        public Integer128 Legacy;
         [FieldOffset(0x1a0)]
-        public long Xmm0;
+        public Integer128 Xmm0;
         [FieldOffset(0x1b0)]
-        public long Xmm1;
+        public Integer128 Xmm1;
         [FieldOffset(0x1c0)]
-        public long Xmm2;
+        public Integer128 Xmm2;
         [FieldOffset(0x1d0)]
-        public long Xmm3;
+        public Integer128 Xmm3;
         [FieldOffset(0x1e0)]
-        public long Xmm4;
+        public Integer128 Xmm4;
         [FieldOffset(0x1f0)]
-        public long Xmm5;
+        public Integer128 Xmm5;
         [FieldOffset(0x200)]
-        public long Xmm6;
+        public Integer128 Xmm6;
         [FieldOffset(0x210)]
-        public long Xmm7;
+        public Integer128 Xmm7;
         [FieldOffset(0x220)]
-        public long Xmm8;
+        public Integer128 Xmm8;
         [FieldOffset(0x230)]
-        public long Xmm9;
+        public Integer128 Xmm9;
         [FieldOffset(0x240)]
-        public long Xmm10;
+        public Integer128 Xmm10;
         [FieldOffset(0x250)]
-        public long Xmm11;
+        public Integer128 Xmm11;
         [FieldOffset(0x260)]
-        public long Xmm12;
+        public Integer128 Xmm12;
         [FieldOffset(0x270)]
-        public long Xmm13;
+        public Integer128 Xmm13;
         [FieldOffset(0x280)]
-        public long Xmm14;
+        public Integer128 Xmm14;
         [FieldOffset(0x290)]
-        public long Xmm15;
+        public Integer128 Xmm15;
 
         // Vector Registers
         [FieldOffset(0x300)]

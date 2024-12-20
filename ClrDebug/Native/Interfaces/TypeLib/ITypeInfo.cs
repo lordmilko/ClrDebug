@@ -8,7 +8,8 @@ using System.Runtime.InteropServices.Marshalling;
 namespace ClrDebug.TypeLib
 {
     /// <summary>
-    /// Provides the managed definition of the Component Automation ITypeInfo interface.
+    /// This section describes ITypeInfo, an interface typically used for reading information about objects. For example, an object
+    /// browser tool can use ITypeInfo to extract information about the characteristics and capabilities of objects from type libraries.
     /// </summary>
     [Guid("00020401-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

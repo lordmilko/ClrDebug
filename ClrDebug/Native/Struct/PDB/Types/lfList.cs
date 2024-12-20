@@ -10,7 +10,7 @@ namespace ClrDebug.PDB
     /// it is.  New specific leaf indices should be used instead.
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfList
     {
         /// <summary>

@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
-using static ClrDebug.HRESULT;
 
 namespace ClrDebug.PDB
 {
@@ -17,7 +16,8 @@ namespace ClrDebug.PDB
 
         #region QueryInterfaceVersion
 
-        public delegate PDBINTV QueryInterfaceVersionDelegate(
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate PDBINTV QueryInterfaceVersionDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -37,7 +37,8 @@ namespace ClrDebug.PDB
         #endregion
         #region QueryImplementationVersion
 
-        public delegate DBIImpv QueryImplementationVersionDelegate(
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate DBIImpv QueryImplementationVersionDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -56,6 +57,7 @@ namespace ClrDebug.PDB
         #endregion
         #region NextSym
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate SYMTYPE* NextSymDelegate(
             [In] IntPtr @this,
             [In] SYMTYPE* pbSym);
@@ -75,6 +77,7 @@ namespace ClrDebug.PDB
 
         //virtual BYTE* HashSym(_In_z_ const char* szName, BYTE* pbSym) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate SYMTYPE* HashSymDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStr)] string szName,
@@ -95,6 +98,7 @@ namespace ClrDebug.PDB
 
         //virtual BYTE* NearestSym(USHORT isect, long off, OUT long* pdisp) pure;      //currently only supported for publics
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool NearestSymDelegate(
         //    [In] IntPtr @this);
 
@@ -113,6 +117,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Close() pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool CloseDelegate(
             [In] IntPtr @this);
 
@@ -132,6 +137,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL getEnumThunk(USHORT isect, long off, OUT EnumThunk** ppenum) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool getEnumThunkDelegate(
         //    [In] IntPtr @this);
 
@@ -150,6 +156,7 @@ namespace ClrDebug.PDB
 
         //virtual int OffForSym(BYTE *pbSym) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate int OffForSymDelegate(
             [In] IntPtr @this,
             [In] SYMTYPE* pbSym);
@@ -169,6 +176,7 @@ namespace ClrDebug.PDB
 
         //virtual BYTE* SymForOff(int off) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate SYMTYPE* SymForOffDelegate(
             [In] IntPtr @this,
             [In] int off);
@@ -188,6 +196,7 @@ namespace ClrDebug.PDB
 
         //virtual BYTE* HashSymW(_In_z_ const wchar_t *wcsName, BYTE* pbSym) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate SYMTYPE* HashSymWDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPWStr)] string wcsName,
@@ -208,6 +217,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL getEnumByAddr(EnumSyms **ppEnum) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool getEnumByAddrDelegate(
             [In] IntPtr @this,
             [Out] out IntPtr ppEnum);
@@ -239,18 +249,24 @@ namespace ClrDebug.PDB
 
         //GSI1::setPfnMiniPDBNHBuildStatusCallback(void *,int (*)(void *,int))
 
-        //delegate bool setPfnMiniPDBNHBuildStatusCallbackDelegate(
-        //    [In] IntPtr @this);
+        //Guessed name
+        public delegate int MiniPDBNHBuildStatusCallback(IntPtr a1, int a2);
 
-        //private setPfnMiniPDBNHBuildStatusCallbackDelegate setPfnMiniPDBNHBuildStatusCallback;
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate void setPfnMiniPDBNHBuildStatusCallbackDelegate(
+            [In] IntPtr @this,
+            [In] IntPtr a2,
+            [In, MarshalAs(UnmanagedType.FunctionPtr)] MiniPDBNHBuildStatusCallback a3);
 
-        //public bar setPfnMiniPDBNHBuildStatusCallback()
-        //{
-        //    InitDelegate(ref setPfnMiniPDBNHBuildStatusCallback, vtbl->setPfnMiniPDBNHBuildStatusCallback);
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private setPfnMiniPDBNHBuildStatusCallbackDelegate setPfnMiniPDBNHBuildStatusCallback;
 
-        //    if (!setPfnMiniPDBNHBuildStatusCallback(Raw))
-        //        throw new NotImplementedException();
-        //}
+        public void SetPfnMiniPDBNHBuildStatusCallback(IntPtr a2, MiniPDBNHBuildStatusCallback a3)
+        {
+            InitDelegate(ref setPfnMiniPDBNHBuildStatusCallback, vtbl->setPfnMiniPDBNHBuildStatusCallback);
+
+            setPfnMiniPDBNHBuildStatusCallback(Raw, a2, a3);
+        }
 
         #endregion
         #region _Missing1
@@ -260,6 +276,7 @@ namespace ClrDebug.PDB
 
         //GSI1::QueryMiniPDBForTiDefnUDT2(char const *,ushort,ushort *)
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryMiniPDBForTiDefnUDT2Delegate(
         //    [In] IntPtr @this);
 
@@ -278,6 +295,7 @@ namespace ClrDebug.PDB
 
         //GSI1::BinarySearchGSNameInModule(ushort,char const *,uchar * *,int *)
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool BinarySearchGSNameInModuleDelegate(
         //    [In] IntPtr @this);
 
@@ -294,6 +312,7 @@ namespace ClrDebug.PDB
         #endregion
         #region getEnumSyms
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool getEnumSymsDelegate(
             [In] IntPtr @this,
             [Out] out IntPtr ppEnum,

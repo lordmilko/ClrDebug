@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for skip record
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, type = {type.ToString(),nq}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfSkip_16t
     {
         /// <summary>

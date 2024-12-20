@@ -34,10 +34,10 @@ namespace ClrDebug.PDB
             /// <summary>
             /// ordinal specifying pointer type (CV_ptrtype_e)
             /// </summary>
-            public int ptrtype
+            public CV_ptrtype_e ptrtype
             {
-                get => GetBits(data, 0, 5); //0-4
-                set => SetBits(ref data, 0, 5, value);
+                get => (CV_ptrtype_e) GetBits(data, 0, 5); //0-4
+                set => SetBits(ref data, 0, 5, (int) value);
             }
 
             /// <summary>

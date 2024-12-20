@@ -11,7 +11,7 @@ namespace ClrDebug.PDB
     /// A live range of variable related to a register.
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, baseReg = {baseReg}, spilledUdtMember = {spilledUdtMember}, padding = {padding}, offsetParent = {offsetParent}, flags = {flags}, offBasePointer = {offBasePointer.ToString(),nq}, range = {range.ToString(),nq}, gaps = {gaps}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct DEFRANGESYMREGISTERREL
     {
         internal const int CV_OFFSET_PARENT_LENGTH_LIMIT = 12;
@@ -19,7 +19,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_DEFRANGE_REGISTER_REL

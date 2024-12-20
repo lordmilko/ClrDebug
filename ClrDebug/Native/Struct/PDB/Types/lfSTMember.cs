@@ -6,7 +6,7 @@ namespace ClrDebug.PDB
     /// <summary>
     /// type record for static data members
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfSTMember
     {
         /// <summary>

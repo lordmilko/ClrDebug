@@ -1,7 +1,8 @@
 ﻿namespace ClrDebug.TypeLib
 {
     /// <summary>
-    /// Provides the managed definition of the ITypeComp interface.
+    /// The ITypeComp interface provides a fast way to access information that compilers need when binding to and instantiating structures
+    /// and interfaces. Binding is the process of mapping names to types and type members.
     /// </summary>
     public class TypeComp : ComObject<ITypeComp>
     {

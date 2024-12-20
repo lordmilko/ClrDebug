@@ -128,7 +128,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] ISymUnmanagedDocument[] docs,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] int[] lines,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] int[] columns,
-            [Out] out int pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Gets all the sequence points within this method.

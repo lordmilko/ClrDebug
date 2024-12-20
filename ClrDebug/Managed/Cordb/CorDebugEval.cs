@@ -149,7 +149,6 @@ namespace ClrDebug
         /// If the function is virtual, CallFunction will perform virtual dispatch. If the function is in a different application
         /// domain, a transition will occur as long as all arguments are also in that application domain.
         /// </remarks>
-        [Obsolete]
         public void CallFunction(ICorDebugFunction pFunction, int nArgs, ICorDebugValue[] ppArgs)
         {
             TryCallFunction(pFunction, nArgs, ppArgs).ThrowOnNotOK();
@@ -165,7 +164,6 @@ namespace ClrDebug
         /// If the function is virtual, CallFunction will perform virtual dispatch. If the function is in a different application
         /// domain, a transition will occur as long as all arguments are also in that application domain.
         /// </remarks>
-        [Obsolete]
         public HRESULT TryCallFunction(ICorDebugFunction pFunction, int nArgs, ICorDebugValue[] ppArgs)
         {
             /*HRESULT CallFunction(
@@ -185,7 +183,6 @@ namespace ClrDebug
         /// <param name="pConstructor">[in] The constructor to be called.</param>
         /// <param name="nArgs">[in] The size of the ppArgs array.</param>
         /// <param name="ppArgs">[in] An array of <see cref="ICorDebugValue"/> objects, each of which represents an argument to be passed to the constructor.</param>
-        [Obsolete]
         public void NewObject(ICorDebugFunction pConstructor, int nArgs, ICorDebugValue[] ppArgs)
         {
             TryNewObject(pConstructor, nArgs, ppArgs).ThrowOnNotOK();
@@ -198,7 +195,6 @@ namespace ClrDebug
         /// <param name="pConstructor">[in] The constructor to be called.</param>
         /// <param name="nArgs">[in] The size of the ppArgs array.</param>
         /// <param name="ppArgs">[in] An array of <see cref="ICorDebugValue"/> objects, each of which represents an argument to be passed to the constructor.</param>
-        [Obsolete]
         public HRESULT TryNewObject(ICorDebugFunction pConstructor, int nArgs, ICorDebugValue[] ppArgs)
         {
             /*HRESULT NewObject(
@@ -216,7 +212,6 @@ namespace ClrDebug
         /// Use <see cref="NewParameterizedObjectNoConstructor"/> instead.
         /// </summary>
         /// <param name="pClass">[in] Pointer to an <see cref="ICorDebugClass"/> object that represents the type of object to be instantiated.</param>
-        [Obsolete]
         public void NewObjectNoConstructor(ICorDebugClass pClass)
         {
             TryNewObjectNoConstructor(pClass).ThrowOnNotOK();
@@ -227,7 +222,6 @@ namespace ClrDebug
         /// Use <see cref="NewParameterizedObjectNoConstructor"/> instead.
         /// </summary>
         /// <param name="pClass">[in] Pointer to an <see cref="ICorDebugClass"/> object that represents the type of object to be instantiated.</param>
-        [Obsolete]
         public HRESULT TryNewObjectNoConstructor(ICorDebugClass pClass)
         {
             /*HRESULT NewObjectNoConstructor(
@@ -279,7 +273,6 @@ namespace ClrDebug
         /// <remarks>
         /// The array is always created in the application domain in which the thread is currently executing.
         /// </remarks>
-        [Obsolete]
         public void NewArray(CorElementType elementType, ICorDebugClass pElementClass, int rank, int[] dims, int[] lowBounds)
         {
             TryNewArray(elementType, pElementClass, rank, dims, lowBounds).ThrowOnNotOK();
@@ -297,7 +290,6 @@ namespace ClrDebug
         /// <remarks>
         /// The array is always created in the application domain in which the thread is currently executing.
         /// </remarks>
-        [Obsolete]
         public HRESULT TryNewArray(CorElementType elementType, ICorDebugClass pElementClass, int rank, int[] dims, int[] lowBounds)
         {
             /*HRESULT NewArray(
@@ -348,13 +340,12 @@ namespace ClrDebug
         /// <remarks>
         /// CreateValue creates an <see cref="ICorDebugValue"/> object of the given type for the sole purpose of using it in a function evaluation.
         /// This value object can be used to pass user constants as parameters. If the type of the value is a primitive type,
-        /// its initial value is zero or null. Use <see cref="CorDebugGenericValue.Value"/> to set the value of a primitive
+        /// its initial value is zero or null. Use <see cref="CorDebugGenericValue.SetValue"/> to set the value of a primitive
         /// type. If the value of elementType is ELEMENT_TYPE_CLASS, you get an "ICorDebugReferenceValue" (returned in ppValue)
         /// representing the null object reference. You can use this object to pass null to a function evaluation that has
         /// object reference parameters. You cannot set the <see cref="ICorDebugValue"/> to anything; it always remains null.
         /// </remarks>
-        [Obsolete]
-        public CorDebugValue CreateValue(int elementType, ICorDebugClass pElementClass)
+        public CorDebugValue CreateValue(CorElementType elementType, ICorDebugClass pElementClass)
         {
             CorDebugValue ppValueResult;
             TryCreateValue(elementType, pElementClass, out ppValueResult).ThrowOnNotOK();
@@ -372,16 +363,15 @@ namespace ClrDebug
         /// <remarks>
         /// CreateValue creates an <see cref="ICorDebugValue"/> object of the given type for the sole purpose of using it in a function evaluation.
         /// This value object can be used to pass user constants as parameters. If the type of the value is a primitive type,
-        /// its initial value is zero or null. Use <see cref="CorDebugGenericValue.Value"/> to set the value of a primitive
+        /// its initial value is zero or null. Use <see cref="CorDebugGenericValue.SetValue"/> to set the value of a primitive
         /// type. If the value of elementType is ELEMENT_TYPE_CLASS, you get an "ICorDebugReferenceValue" (returned in ppValue)
         /// representing the null object reference. You can use this object to pass null to a function evaluation that has
         /// object reference parameters. You cannot set the <see cref="ICorDebugValue"/> to anything; it always remains null.
         /// </remarks>
-        [Obsolete]
-        public HRESULT TryCreateValue(int elementType, ICorDebugClass pElementClass, out CorDebugValue ppValueResult)
+        public HRESULT TryCreateValue(CorElementType elementType, ICorDebugClass pElementClass, out CorDebugValue ppValueResult)
         {
             /*HRESULT CreateValue(
-            [In] int elementType,
+            [In] CorElementType elementType,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pElementClass,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;

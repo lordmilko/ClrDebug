@@ -7,13 +7,13 @@ namespace ClrDebug.PDB
     /// Trampoline thunk symbol
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, trampType = {trampType}, cbThunk = {cbThunk}, offThunk = {offThunk.ToString(),nq}, offTarget = {offTarget.ToString(),nq}, sectThunk = {sectThunk}, sectTarget = {sectTarget}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct TRAMPOLINESYM
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_TRAMPOLINE
@@ -23,7 +23,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// trampoline sym subtype
         /// </summary>
-        public short trampType;
+        public TRAMP_e trampType;
 
         /// <summary>
         /// size of the thunk

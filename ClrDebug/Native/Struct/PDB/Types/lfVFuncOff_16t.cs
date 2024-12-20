@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// subfield record for virtual function table pointer with offset
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, type = {type.ToString(),nq}, offset = {offset.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfVFuncOff_16t
     {
         /// <summary>

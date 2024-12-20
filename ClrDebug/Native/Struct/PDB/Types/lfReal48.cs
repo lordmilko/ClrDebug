@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// real 48-bit leaf
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, val = {val}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfReal48
     {
         /// <summary>

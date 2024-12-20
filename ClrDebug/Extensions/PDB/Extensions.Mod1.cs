@@ -18,7 +18,8 @@ namespace ClrDebug.PDB
 
         #region QueryInterfaceVersion
 
-        public delegate PDBINTV QueryInterfaceVersionDelegate(
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate PDBINTV QueryInterfaceVersionDelegate(
             [In] IntPtr @this);
 
         QueryInterfaceVersionDelegate queryInterfaceVersion;
@@ -37,7 +38,8 @@ namespace ClrDebug.PDB
         #endregion
         #region QueryImplementationVersion
 
-        public delegate DBIImpv QueryImplementationVersionDelegate(
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate DBIImpv QueryImplementationVersionDelegate(
             [In] IntPtr @this);
 
         QueryImplementationVersionDelegate queryImplementationVersion;
@@ -57,6 +59,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddTypes(BYTE* pbTypes, int cb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddTypesDelegate(
         //    [In] IntPtr @this);
 
@@ -75,6 +78,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddSymbols(BYTE* pbSym, int cb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddSymbolsDelegate(
         //    [In] IntPtr @this);
 
@@ -93,6 +97,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddPublic(_In_z_ const char* szPublic, USHORT isect, int off) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddPublicDelegate(
         //    [In] IntPtr @this);
 
@@ -111,6 +116,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddLines(_In_z_ const char* szSrc, USHORT isect, int offCon, int cbCon, int doff, USHORT lineStart, BYTE* pbCoff, int cbCoff) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddLinesDelegate(
         //    [In] IntPtr @this);
 
@@ -129,6 +135,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddSecContrib(USHORT isect, int off, int cb, UINT dwCharacteristics) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddSecContribDelegate(
         //    [In] IntPtr @this);
 
@@ -147,6 +154,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryCBName(OUT int* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryCBNameDelegate(
         //    [In] IntPtr @this);
 
@@ -165,6 +173,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryName(_Out_z_cap_(PDB_MAX_PATH) OUT char szName[PDB_MAX_PATH], OUT int* pcb) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QueryNameDelegate(
             [In] IntPtr @this,
             [Out, MarshalAs(UnmanagedType.LPArray)] byte[] szName,
@@ -206,6 +215,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QuerySymbols(BYTE* pbSym, int* pcb) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QuerySymbolsDelegate(
             [In] IntPtr @this,
             [In] IntPtr pbSym,
@@ -226,6 +236,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryLines(BYTE* pbLines, int* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryLinesDelegate(
         //    [In] IntPtr @this);
 
@@ -244,6 +255,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL SetPvClient(void *pvClient) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool SetPvClientDelegate(
         //    [In] IntPtr @this);
 
@@ -262,6 +274,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL GetPvClient(OUT void** ppvClient) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool GetPvClientDelegate(
         //    [In] IntPtr @this);
 
@@ -280,6 +293,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryFirstCodeSecContrib(OUT USHORT* pisect, OUT int* poff, OUT int* pcb, OUT UINT* pdwCharacteristics) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryFirstCodeSecContribDelegate(
         //    [In] IntPtr @this);
 
@@ -298,6 +312,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryImod(OUT USHORT* pimod) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryImodDelegate(
         //    [In] IntPtr @this);
 
@@ -316,6 +331,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryDBI(OUT DBI** ppdbi) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryDBIDelegate(
         //    [In] IntPtr @this);
 
@@ -334,6 +350,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Close() pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool CloseDelegate(
         //    [In] IntPtr @this);
 
@@ -352,6 +369,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryCBFile(OUT int* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryCBFileDelegate(
         //    [In] IntPtr @this);
 
@@ -370,6 +388,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryFile(_Out_z_cap_(PDB_MAX_PATH) OUT char szFile[PDB_MAX_PATH], OUT int* pcb) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QueryFileDelegate(
             [In] IntPtr @this,
             [Out, MarshalAs(UnmanagedType.LPArray)] byte[] szFile,
@@ -411,6 +430,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryTpi(OUT TPI** pptpi) pure; // return this Mod's Tpi
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryTpiDelegate(
         //    [In] IntPtr @this);
 
@@ -429,6 +449,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddSecContribEx(USHORT isect, int off, int cb, UINT dwCharacteristics, DWORD dwDataCrc, DWORD dwRelocCrc) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddSecContribExDelegate(
         //    [In] IntPtr @this);
 
@@ -447,6 +468,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryItsm(OUT USHORT* pitsm) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryItsmDelegate(
         //    [In] IntPtr @this);
 
@@ -465,6 +487,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QuerySrcFile(_Out_z_cap_(PDB_MAX_PATH) OUT char szFile[PDB_MAX_PATH], OUT int* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QuerySrcFileDelegate(
         //    [In] IntPtr @this);
 
@@ -483,24 +506,29 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QuerySupportsEC() pure;
 
-        //delegate bool QuerySupportsECDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QuerySupportsECDelegate(
+            [In] IntPtr @this);
 
-        //private QuerySupportsECDelegate querySupportsEC;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private QuerySupportsECDelegate querySupportsEC;
 
-        //public bar QuerySupportsEC()
-        //{
-        //    InitDelegate(ref querySupportsEC, vtbl->QuerySupportsEC);
+        public bool SupportsEC
+        {
+            get
+            {
+                InitDelegate(ref querySupportsEC, vtbl->QuerySupportsEC);
 
-        //    if (!querySupportsEC(Raw))
-        //        throw new NotImplementedException();
-        //}
+                return querySupportsEC(Raw);
+            }
+        }
 
         #endregion
         #region QueryPdbFile
 
         //virtual BOOL QueryPdbFile(_Out_z_cap_(PDB_MAX_PATH) OUT char szFile[PDB_MAX_PATH], OUT int* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryPdbFileDelegate(
         //    [In] IntPtr @this);
 
@@ -519,6 +547,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL ReplaceLines(BYTE* pbLines, int cb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool ReplaceLinesDelegate(
         //    [In] IntPtr @this);
 
@@ -537,6 +566,7 @@ namespace ClrDebug.PDB
 
         //virtual bool GetEnumLines( EnumLines** ppenum ) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool GetEnumLinesDelegate(
         //    [In] IntPtr @this);
 
@@ -555,6 +585,7 @@ namespace ClrDebug.PDB
 
         //virtual bool QueryLineFlags( OUT DWORD* pdwFlags ) pure;    // what data is present?
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryLineFlagsDelegate(
         //    [In] IntPtr @this);
 
@@ -573,6 +604,7 @@ namespace ClrDebug.PDB
 
         //virtual bool QueryFileNameInfo(IN DWORD        fileId, _Out_opt_capcount_(*pccFilename) OUT wchar_t*    szFilename, IN OUT DWORD*   pccFilename, OUT DWORD*      pChksumType, OUT BYTE*       pbChksum, IN OUT DWORD*   pcbChksum) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryFileNameInfoDelegate(
         //    [In] IntPtr @this);
 
@@ -591,6 +623,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddPublicW(_In_z_ const wchar_t* szPublic, USHORT isect, int off, CV_pubsymflag_t cvpsf =0) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddPublicWDelegate(
         //    [In] IntPtr @this);
 
@@ -609,6 +642,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddLinesW(_In_z_ const wchar_t* szSrc, USHORT isect, int offCon, int cbCon, int doff, UINT lineStart, BYTE* pbCoff, int cbCoff) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddLinesWDelegate(
         //    [In] IntPtr @this);
 
@@ -627,6 +661,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryNameW(_Out_z_cap_(PDB_MAX_PATH) OUT wchar_t szName[PDB_MAX_PATH], OUT int* pcb) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QueryNameWDelegate(
             [In] IntPtr @this,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] szName,
@@ -668,6 +703,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryFileW(_Out_z_cap_(PDB_MAX_PATH) OUT wchar_t szFile[PDB_MAX_PATH], OUT int* pcb) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QueryFileWDelegate(
             [In] IntPtr @this,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] szFile,
@@ -709,42 +745,91 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QuerySrcFileW(_Out_z_cap_(PDB_MAX_PATH) OUT wchar_t szFile[PDB_MAX_PATH], OUT int* pcb) pure;
 
-        //delegate bool QuerySrcFileWDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QuerySrcFileWDelegate(
+            [In] IntPtr @this,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] szFile,
+            [In, Out] ref int pcb);
 
-        //private QuerySrcFileWDelegate querySrcFileW;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private QueryFileWDelegate querySrcFileW;
 
-        //public bar QuerySrcFileW()
-        //{
-        //    InitDelegate(ref querySrcFileW, vtbl->QuerySrcFileW);
+        public string SrcFileW
+        {
+            get
+            {
+                if (!TryQuerySrcFileW(out var szFile))
+                    throw PDB1.GetUnknownError(MethodBase.GetCurrentMethod());
 
-        //    if (!querySrcFileW(Raw))
-        //        throw new NotImplementedException();
-        //}
+                return szFile;
+            }
+        }
+
+        public bool TryQuerySrcFileW(out string szFile)
+        {
+            InitDelegate(ref querySrcFileW, vtbl->QuerySrcFileW);
+
+            var pcb = PDB1.PDB_MAX_PATH;
+            var szFileRaw = new char[pcb];
+
+            if (querySrcFileW(Raw, szFileRaw, ref pcb))
+            {
+                szFile = CreateString(szFileRaw, pcb);
+                return true;
+            }
+
+            szFile = null;
+            return false;
+        }
 
         #endregion
         #region QueryPdbFileW
 
         //virtual BOOL QueryPdbFileW(_Out_z_cap_(PDB_MAX_PATH) OUT wchar_t szFile[PDB_MAX_PATH], OUT int* pcb) pure;
 
-        //delegate bool QueryPdbFileWDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryPdbFileWDelegate(
+            [In] IntPtr @this,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] szFile,
+            [In, Out] ref int pcb);
 
-        //private QueryPdbFileWDelegate queryPdbFileW;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private QueryFileWDelegate queryPdbFileW;
 
-        //public bar QueryPdbFileW()
-        //{
-        //    InitDelegate(ref queryPdbFileW, vtbl->QueryPdbFileW);
+        public string PdbFileW
+        {
+            get
+            {
+                if (!TryQueryPdbFileW(out var szFile))
+                    throw PDB1.GetUnknownError(MethodBase.GetCurrentMethod());
 
-        //    if (!queryPdbFileW(Raw))
-        //        throw new NotImplementedException();
-        //}
+                return szFile;
+            }
+        }
+
+        public bool TryQueryPdbFileW(out string szFile)
+        {
+            InitDelegate(ref queryPdbFileW, vtbl->QueryPdbFileW);
+
+            var pcb = PDB1.PDB_MAX_PATH;
+            var szFileRaw = new char[pcb];
+
+            if (queryPdbFileW(Raw, szFileRaw, ref pcb))
+            {
+                szFile = CreateString(szFileRaw, pcb);
+                return true;
+            }
+
+            szFile = null;
+            return false;
+        }
 
         #endregion
         #region AddPublic2
 
         //virtual BOOL AddPublic2(_In_z_ const char* szPublic, USHORT isect, int off, CV_pubsymflag_t cvpsf =0) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddPublic2Delegate(
         //    [In] IntPtr @this);
 
@@ -763,6 +848,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL InsertLines(BYTE* pbLines, int cb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool InsertLinesDelegate(
         //    [In] IntPtr @this);
 
@@ -781,6 +867,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryLines2(IN int cbLines, OUT BYTE *pbLines, OUT int *pcbLines) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryLines2Delegate(
         //    [In] IntPtr @this);
 
@@ -799,6 +886,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryCrossScopeExports(DWORD cb, BYTE* pb, DWORD* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryCrossScopeExportsDelegate(
         //    [In] IntPtr @this);
 
@@ -817,6 +905,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryCrossScopeImports(DWORD cb, BYTE* pb, DWORD* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryCrossScopeImportsDelegate(
         //    [In] IntPtr @this);
 
@@ -835,6 +924,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryInlineeLines(DWORD cb, BYTE* pb, DWORD* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryInlineeLinesDelegate(
         //          [In] IntPtr @this);
 
@@ -853,6 +943,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL TranslateFileId(DWORD id, DWORD* pid) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool TranslateFileIdDelegate(
         //    [In] IntPtr @this);
 
@@ -871,6 +962,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryFuncMDTokenMap(DWORD cb, BYTE* pb, DWORD* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryFuncMDTokenMapDelegate(
         //    [In] IntPtr @this);
 
@@ -889,6 +981,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryTypeMDTokenMap(DWORD cb, BYTE* pb, DWORD* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryTypeMDTokenMapDelegate(
         //    [In] IntPtr @this);
 
@@ -907,6 +1000,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryMergedAssemblyInput(DWORD cb, BYTE* pb, DWORD* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryMergedAssemblyInputDelegate(
         //    [In] IntPtr @this);
 
@@ -925,6 +1019,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryILLines(DWORD cb, BYTE* pb, DWORD* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryILLinesDelegate(
         //    [In] IntPtr @this);
 
@@ -943,6 +1038,7 @@ namespace ClrDebug.PDB
 
         //virtual bool GetEnumILLines(EnumLines** ppenum) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool GetEnumILLinesDelegate(
         //    [In] IntPtr @this);
 
@@ -961,6 +1057,7 @@ namespace ClrDebug.PDB
 
         //virtual bool QueryILLineFlags(OUT DWORD* pdwFlags) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryILLineFlagsDelegate(
         //    [In] IntPtr @this);
 
@@ -979,6 +1076,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL MergeTypes(BYTE *pb, DWORD cb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool MergeTypesDelegate(
         //    [In] IntPtr @this);
 
@@ -997,6 +1095,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL IsTypeServed(DWORD index, BOOL fID) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool IsTypeServedDelegate(
         //    [In] IntPtr @this);
 
@@ -1015,6 +1114,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryTypes(BYTE* pb, DWORD* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryTypesDelegate(
         //    [In] IntPtr @this);
 
@@ -1033,6 +1133,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryIDs(BYTE* pb, DWORD* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryIDsDelegate(
         //    [In] IntPtr @this);
 
@@ -1051,6 +1152,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryCVRecordForTi(DWORD index, BOOL fID, OUT BYTE* pb, IN OUT DWORD* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryCVRecordForTiDelegate(
         //    [In] IntPtr @this);
 
@@ -1069,6 +1171,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryPbCVRecordForTi(DWORD index, BOOL fID, OUT BYTE** ppb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryPbCVRecordForTiDelegate(
         //    [In] IntPtr @this);
 
@@ -1087,6 +1190,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryTiForUDT(_In_z_ const char *sz, BOOL fCase, OUT TI *pti) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryTiForUDTDelegate(
         //    [In] IntPtr @this);
 
@@ -1105,6 +1209,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryCoffSymRVAs(BYTE *pb, DWORD *pcb) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QueryCoffSymRVAsDelegate(
             [In] IntPtr @this,
             [In] IntPtr pb,
@@ -1125,6 +1230,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddSecContrib2(USHORT isect, DWORD off, DWORD isectCoff, DWORD cb, DWORD dwCharacteristics) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddSecContrib2Delegate(
         //    [In] IntPtr @this);
 
@@ -1143,6 +1249,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddSecContrib2Ex(USHORT isect, DWORD off, DWORD isecfCoff, DWORD cb, DWORD dwCharacteristics, DWORD dwDataCrc, DWORD dwRelocCrc) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddSecContrib2ExDelegate(
         //    [In] IntPtr @this);
 
@@ -1161,6 +1268,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddSymbols2(BYTE* pbSym, DWORD cb, DWORD isectCoff) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddSymbols2Delegate(
         //    [In] IntPtr @this);
 
@@ -1179,6 +1287,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL RemoveGlobalRefs() pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool RemoveGlobalRefsDelegate(
         //    [In] IntPtr @this);
 
@@ -1197,6 +1306,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QuerySrcLineForUDT(TI ti, _Deref_out_z_ char **pszSrc, DWORD *pLine) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QuerySrcLineForUDTDelegate(
         //    [In] IntPtr @this);
 
@@ -1215,6 +1325,7 @@ namespace ClrDebug.PDB
 
         //Mod1::NeedReloadCompilerGeneratedPDB(void)
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool NeedReloadCompilerGeneratedPDBDelegate(
         //    [In] IntPtr @this);
 
@@ -1233,6 +1344,7 @@ namespace ClrDebug.PDB
 
         //Mod1::EnCReleaseCompilerGeneratedPDB(uchar *,uint)
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool EnCReleaseCompilerGeneratedPDBDelegate(
         //    [In] IntPtr @this);
 
@@ -1251,6 +1363,7 @@ namespace ClrDebug.PDB
 
         //Mod1::QueryInlineeMDTokenMap(uint,uchar *,uint *)
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryInlineeMDTokenMapDelegate(
         //    [In] IntPtr @this);
 
@@ -1269,17 +1382,16 @@ namespace ClrDebug.PDB
 
         //Mod1::GetErrorCode(void)
 
-        //delegate bool GetErrorCodeDelegate(
+        //delegate int GetErrorCodeDelegate(
         //    [In] IntPtr @this);
 
         //private GetErrorCodeDelegate getErrorCode;
 
-        //public bar GetErrorCode()
+        //public int GetErrorCode()
         //{
         //    InitDelegate(ref getErrorCode, vtbl->GetErrorCode);
 
-        //    if (!getErrorCode(Raw))
-        //        throw new NotImplementedException();
+        //    return getErrorCode(Raw);
         //}
 
         #endregion
@@ -1287,6 +1399,7 @@ namespace ClrDebug.PDB
 
         //Mod1::AddCoffTypeSectionChecksum(unsigned __int64)
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AddCoffTypeSectionChecksumDelegate(
         //    [In] IntPtr @this);
 

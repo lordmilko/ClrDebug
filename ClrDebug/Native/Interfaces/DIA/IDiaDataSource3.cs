@@ -146,6 +146,7 @@ namespace ClrDebug.DIA
             [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 5)] byte[] pbMiscInfo,
             [MarshalAs(UnmanagedType.Interface), In] object pCallback);
 
+        //Gets the PDB1 object that is being used internally. Use with ClrDebug.PDB1.
         [PreserveSig]
         new HRESULT getRawPDBPtr(
             [Out] out IntPtr pppdb);

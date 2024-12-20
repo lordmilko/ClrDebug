@@ -25,7 +25,8 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        HRESULT IsAsyncMethod();
+        HRESULT IsAsyncMethod(
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineKickoffMethod"/>.
@@ -33,14 +34,15 @@ namespace ClrDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         HRESULT GetKickoffMethod(
-            [Out] out mdToken kickoffMethod);
+            [Out] out mdMethodDef kickoffMethod);
 
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        HRESULT HasCatchHandlerILOffset();
+        HRESULT HasCatchHandlerILOffset(
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.

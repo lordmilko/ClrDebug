@@ -7,6 +7,9 @@ using System.Runtime.InteropServices.Marshalling;
 
 namespace ClrDebug
 {
+    /// <summary>
+    /// Describes a debugging event.
+    /// </summary>
     [DebuggerDisplay("{dwDebugEventCode.ToString(),nq} (dwProcessId = {dwProcessId}, dwThreadId = {dwThreadId})")]
     [StructLayout(LayoutKind.Sequential)]
 #if GENERATED_MARSHALLING
@@ -45,6 +48,9 @@ namespace ClrDebug
             }
         }
 
+        /// <summary>
+        /// The code that identifies the type of debugging event.
+        /// </summary>
         public DebugEventType dwDebugEventCode;
 
         public int dwProcessId;

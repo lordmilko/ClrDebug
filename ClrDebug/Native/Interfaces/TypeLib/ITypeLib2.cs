@@ -8,7 +8,10 @@ using System.Runtime.InteropServices.Marshalling;
 namespace ClrDebug.TypeLib
 {
     /// <summary>
-    /// Provides a managed definition of the <see cref="ITypeLib2"/> interface.
+    /// Represents a type library, the data that describes a set of objects.<para/>
+    ///
+    /// The ITypeLib2 interface inherits from the ITypeLib interface. This allows ITypeLib to cast to an ITypeLib2 in
+    /// performance-sensitive cases, rather than perform extra QueryInterface and Release calls.
     /// </summary>
     [Guid("00020411-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -180,6 +183,6 @@ namespace ClrDebug.TypeLib
         /// <param name="pCustData">A pointer to <see cref="CUSTDATA"/>, which holds all custom data items.</param>
         [PreserveSig]
         HRESULT GetAllCustData(
-            [In] IntPtr pCustData);
+            [Out] out CUSTDATA pCustData); //This needs to be cleared with oleaut32!ClearCustData
     }
 }

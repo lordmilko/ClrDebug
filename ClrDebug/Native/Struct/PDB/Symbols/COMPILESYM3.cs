@@ -3,13 +3,13 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct COMPILESYM3
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_COMPILE3
@@ -151,7 +151,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// target processor
         /// </summary>
-        public short machine;
+        public short machine; //todo: enum?
 
         /// <summary>
         /// front end major version #

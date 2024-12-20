@@ -8,5 +8,6 @@ namespace ClrDebug.DbgEng
         DEFAULT = 0,
         RAW_VIEW = 1,
         NODERIVED = 4,
+        UNLIMITED = 8
     }
 }

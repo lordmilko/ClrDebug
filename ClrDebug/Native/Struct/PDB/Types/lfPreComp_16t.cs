@@ -6,7 +6,7 @@ namespace ClrDebug.PDB
     /// <summary>
     /// type record describing inclusion of precompiled types
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfPreComp_16t
     {
         /// <summary>

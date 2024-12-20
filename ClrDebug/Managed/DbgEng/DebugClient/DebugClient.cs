@@ -4368,5 +4368,16 @@ namespace ClrDebug.DbgEng
 
         #endregion
         #endregion
+
+        protected override void ReleaseSubInterfaces()
+        {
+            ReleaseInterface(ref raw2);
+            ReleaseInterface(ref raw3);
+            ReleaseInterface(ref raw4);
+            ReleaseInterface(ref raw5);
+            ReleaseInterface(ref raw6);
+            ReleaseInterface(ref raw7);
+            ReleaseInterface(ref raw8);
+        }
     }
 }

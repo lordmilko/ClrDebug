@@ -5564,7 +5564,7 @@ namespace ClrDebug.DbgEng
         /// <param name="moduleBase">[in] The base of the module.</param>
         /// <param name="token">[in] The token to use to look up the symbol.</param>
         /// <returns>[out] A pointer to the module as a <see cref="DEBUG_MODULE_AND_ID"/> structure.</returns>
-        public DEBUG_MODULE_AND_ID GetSymbolEntryByToken(long moduleBase, int token)
+        public DEBUG_MODULE_AND_ID GetSymbolEntryByToken(long moduleBase, mdToken token)
         {
             DEBUG_MODULE_AND_ID id;
             TryGetSymbolEntryByToken(moduleBase, token, out id).ThrowDbgEngNotOK();
@@ -5579,13 +5579,13 @@ namespace ClrDebug.DbgEng
         /// <param name="token">[in] The token to use to look up the symbol.</param>
         /// <param name="id">[out] A pointer to the module as a <see cref="DEBUG_MODULE_AND_ID"/> structure.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetSymbolEntryByToken(long moduleBase, int token, out DEBUG_MODULE_AND_ID id)
+        public HRESULT TryGetSymbolEntryByToken(long moduleBase, mdToken token, out DEBUG_MODULE_AND_ID id)
         {
             InitDelegate(ref getSymbolEntryByToken, Vtbl3->GetSymbolEntryByToken);
 
             /*HRESULT GetSymbolEntryByToken(
             [In] long ModuleBase,
-            [In] int Token,
+            [In] mdToken Token,
             [Out] out DEBUG_MODULE_AND_ID Id);*/
             return getSymbolEntryByToken(Raw3, moduleBase, token, out id);
         }
@@ -6454,12 +6454,12 @@ namespace ClrDebug.DbgEng
         /// Gets a line by inline context.
         /// </summary>
         /// <param name="offset">[in] An offset for the line.</param>
-        /// <param name="fileBufferSize">[in] The size of the file buffer.</param>
+        /// <param name="inlineContext">[in] The inline context.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetLineByInlineContextResult GetLineByInlineContext(long offset, int fileBufferSize)
+        public GetLineByInlineContextResult GetLineByInlineContext(long offset, int inlineContext)
         {
             GetLineByInlineContextResult result;
-            TryGetLineByInlineContext(offset, fileBufferSize, out result).ThrowDbgEngNotOK();
+            TryGetLineByInlineContext(offset, inlineContext, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -6468,23 +6468,23 @@ namespace ClrDebug.DbgEng
         /// Gets a line by inline context.
         /// </summary>
         /// <param name="offset">[in] An offset for the line.</param>
-        /// <param name="fileBufferSize">[in] The size of the file buffer.</param>
+        /// <param name="inlineContext">[in] The inline context.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetLineByInlineContext(long offset, int fileBufferSize, out GetLineByInlineContextResult result)
+        public HRESULT TryGetLineByInlineContext(long offset, int inlineContext, out GetLineByInlineContextResult result)
         {
             InitDelegate(ref getLineByInlineContext, Vtbl4->GetLineByInlineContext);
             /*HRESULT GetLineByInlineContext(
             [In] long Offset,
             [In] int InlineContext,
             [Out] out int Line,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] FileBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] FileBuffer,
             [In] int FileBufferSize,
             [Out] out int FileSize,
             [Out] out long Displacement);*/
-            int inlineContext = 0;
             int line;
             char[] fileBuffer;
+            int fileBufferSize = 0;
             int fileSize;
             long displacement;
             HRESULT hr = getLineByInlineContext(Raw4, offset, inlineContext, out line, null, fileBufferSize, out fileSize, out displacement);
@@ -6492,13 +6492,13 @@ namespace ClrDebug.DbgEng
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            inlineContext = line;
-            fileBuffer = new char[inlineContext];
+            fileBufferSize = fileSize;
+            fileBuffer = new char[fileBufferSize];
             hr = getLineByInlineContext(Raw4, offset, inlineContext, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLineByInlineContextResult(CreateString(fileBuffer, line), fileSize, displacement);
+                result = new GetLineByInlineContextResult(line, CreateString(fileBuffer, fileSize), displacement);
 
                 return hr;
             }
@@ -6516,12 +6516,12 @@ namespace ClrDebug.DbgEng
         /// Gets a line by inline context.
         /// </summary>
         /// <param name="offset">[in] An offset for the line.</param>
-        /// <param name="fileBufferSize">[in] The size of the file buffer.</param>
+        /// <param name="inlineContext">[in] The inline context.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetLineByInlineContextWideResult GetLineByInlineContextWide(long offset, int fileBufferSize)
+        public GetLineByInlineContextWideResult GetLineByInlineContextWide(long offset, int inlineContext)
         {
             GetLineByInlineContextWideResult result;
-            TryGetLineByInlineContextWide(offset, fileBufferSize, out result).ThrowDbgEngNotOK();
+            TryGetLineByInlineContextWide(offset, inlineContext, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -6530,23 +6530,23 @@ namespace ClrDebug.DbgEng
         /// Gets a line by inline context.
         /// </summary>
         /// <param name="offset">[in] An offset for the line.</param>
-        /// <param name="fileBufferSize">[in] The size of the file buffer.</param>
+        /// <param name="inlineContext">[in] The inline context.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetLineByInlineContextWide(long offset, int fileBufferSize, out GetLineByInlineContextWideResult result)
+        public HRESULT TryGetLineByInlineContextWide(long offset, int inlineContext, out GetLineByInlineContextWideResult result)
         {
             InitDelegate(ref getLineByInlineContextWide, Vtbl4->GetLineByInlineContextWide);
             /*HRESULT GetLineByInlineContextWide(
             [In] long Offset,
             [In] int InlineContext,
             [Out] out int Line,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] FileBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] FileBuffer,
             [In] int FileBufferSize,
             [Out] out int FileSize,
             [Out] out long Displacement);*/
-            int inlineContext = 0;
             int line;
             char[] fileBuffer;
+            int fileBufferSize = 0;
             int fileSize;
             long displacement;
             HRESULT hr = getLineByInlineContextWide(Raw4, offset, inlineContext, out line, null, fileBufferSize, out fileSize, out displacement);
@@ -6554,13 +6554,13 @@ namespace ClrDebug.DbgEng
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            inlineContext = line;
-            fileBuffer = new char[inlineContext];
+            fileBufferSize = fileSize;
+            fileBuffer = new char[fileBufferSize];
             hr = getLineByInlineContextWide(Raw4, offset, inlineContext, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLineByInlineContextWideResult(CreateString(fileBuffer, line), fileSize, displacement);
+                result = new GetLineByInlineContextWideResult(line, CreateString(fileBuffer, fileSize), displacement);
 
                 return hr;
             }
@@ -7093,7 +7093,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetSymbolEntriesByOffsetDelegate(IntPtr self, [In] long Offset, [In] int Flags, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_MODULE_AND_ID[] Ids, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] long[] Displacements, [In] int IdsCount, [Out] out int Entries);
         private delegate HRESULT GetSymbolEntriesByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [In] int Flags, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids, [In] int IdsCount, [Out] out int Entries);
         private delegate HRESULT GetSymbolEntriesByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [In] int Flags, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids, [In] int IdsCount, [Out] out int Entries);
-        private delegate HRESULT GetSymbolEntryByTokenDelegate(IntPtr self, [In] long ModuleBase, [In] int Token, [Out] out DEBUG_MODULE_AND_ID Id);
+        private delegate HRESULT GetSymbolEntryByTokenDelegate(IntPtr self, [In] long ModuleBase, [In] mdToken Token, [Out] out DEBUG_MODULE_AND_ID Id);
         private delegate HRESULT GetSymbolEntryInformationDelegate(IntPtr self, [In] ref DEBUG_MODULE_AND_ID Id, [Out] out DEBUG_SYMBOL_ENTRY Info);
         private delegate HRESULT GetSymbolEntryStringDelegate(IntPtr self, [In] ref DEBUG_MODULE_AND_ID Id, [In] int Which, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int StringSize);
         private delegate HRESULT GetSymbolEntryStringWideDelegate(IntPtr self, [In] ref DEBUG_MODULE_AND_ID Id, [In] int Which, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int StringSize);
@@ -7114,8 +7114,8 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetScopeExDelegate(IntPtr self, [In] long InstructionOffset, [In] ref DEBUG_STACK_FRAME_EX ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
         private delegate HRESULT GetNameByInlineContextDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long Displacement);
         private delegate HRESULT GetNameByInlineContextWideDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long Displacement);
-        private delegate HRESULT GetLineByInlineContextDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [Out] out int Line, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] FileBuffer, [In] int FileBufferSize, [Out] out int FileSize, [Out] out long Displacement);
-        private delegate HRESULT GetLineByInlineContextWideDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [Out] out int Line, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] FileBuffer, [In] int FileBufferSize, [Out] out int FileSize, [Out] out long Displacement);
+        private delegate HRESULT GetLineByInlineContextDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [Out] out int Line, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] FileBuffer, [In] int FileBufferSize, [Out] out int FileSize, [Out] out long Displacement);
+        private delegate HRESULT GetLineByInlineContextWideDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [Out] out int Line, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] FileBuffer, [In] int FileBufferSize, [Out] out int FileSize, [Out] out long Displacement);
         private delegate HRESULT OutputSymbolByInlineContextDelegate(IntPtr self, [In] int OutputControl, [In] int Flags, [In] long Offset, [In] int InlineContext);
 
         #endregion
@@ -7126,5 +7126,13 @@ namespace ClrDebug.DbgEng
 
         #endregion
         #endregion
+
+        protected override void ReleaseSubInterfaces()
+        {
+            ReleaseInterface(ref raw2);
+            ReleaseInterface(ref raw3);
+            ReleaseInterface(ref raw4);
+            ReleaseInterface(ref raw5);
+        }
     }
 }

@@ -404,9 +404,9 @@ namespace ClrDebug
         /// <param name="lines">[in] The starting and ending lines in the corresponding source documents.</param>
         /// <param name="columns">[in] The starting and ending columns in the corresponding source documents.</param>
         /// <returns>[out] true if positions were defined; otherwise, false.</returns>
-        public int GetSourceStartEnd(ISymUnmanagedDocument[] docs, int[] lines, int[] columns)
+        public bool GetSourceStartEnd(ISymUnmanagedDocument[] docs, int[] lines, int[] columns)
         {
-            int pRetVal;
+            bool pRetVal;
             TryGetSourceStartEnd(docs, lines, columns, out pRetVal).ThrowOnNotOK();
 
             return pRetVal;
@@ -420,13 +420,13 @@ namespace ClrDebug
         /// <param name="columns">[in] The starting and ending columns in the corresponding source documents.</param>
         /// <param name="pRetVal">[out] true if positions were defined; otherwise, false.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSourceStartEnd(ISymUnmanagedDocument[] docs, int[] lines, int[] columns, out int pRetVal)
+        public HRESULT TryGetSourceStartEnd(ISymUnmanagedDocument[] docs, int[] lines, int[] columns, out bool pRetVal)
         {
             /*HRESULT GetSourceStartEnd(
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] ISymUnmanagedDocument[] docs,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] int[] lines,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] int[] columns,
-            [Out] out int pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.GetSourceStartEnd(docs, lines, columns, out pRetVal);
         }
 

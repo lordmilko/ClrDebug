@@ -15,6 +15,7 @@ namespace ClrDebug.PDB
 
         #region Release
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate void ReleaseDelegate(
             [In] IntPtr @this);
 
@@ -31,6 +32,7 @@ namespace ClrDebug.PDB
         #endregion
         #region Reset
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate void ResetDelegate(
             [In] IntPtr @this);
 
@@ -47,6 +49,7 @@ namespace ClrDebug.PDB
         #endregion
         #region Next
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool NextDelegate(
             [In] IntPtr @this);
 

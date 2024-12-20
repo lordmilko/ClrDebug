@@ -24,35 +24,41 @@ namespace ClrDebug
 
         public new ICorDebugGenericValue Raw => (ICorDebugGenericValue) base.Raw;
 
-        #region Value
+        #region GetValue
 
         /// <summary>
         /// Copies the value of this generic into the specified buffer.
         /// </summary>
-        public IntPtr Value
+        /// <param name="pTo">[out] A pointer to the value that is represented by this <see cref="ICorDebugGenericValue"/> object. The value may be a simple type or a reference type (that is, a pointer).</param>
+        public void GetValue(IntPtr pTo)
         {
-            get
-            {
-                IntPtr pTo;
-                TryGetValue(out pTo).ThrowOnNotOK();
-
-                return pTo;
-            }
-            set
-            {
-                TrySetValue(value).ThrowOnNotOK();
-            }
+            TryGetValue(pTo).ThrowOnNotOK();
         }
 
         /// <summary>
         /// Copies the value of this generic into the specified buffer.
         /// </summary>
         /// <param name="pTo">[out] A pointer to the value that is represented by this <see cref="ICorDebugGenericValue"/> object. The value may be a simple type or a reference type (that is, a pointer).</param>
-        public HRESULT TryGetValue(out IntPtr pTo)
+        public HRESULT TryGetValue(IntPtr pTo)
         {
             /*HRESULT GetValue(
-            [Out] out IntPtr pTo);*/
-            return Raw.GetValue(out pTo);
+            [In] IntPtr pTo);*/
+            return Raw.GetValue(pTo);
+        }
+
+        #endregion
+        #region SetValue
+
+        /// <summary>
+        /// Copies a new value from the specified buffer.
+        /// </summary>
+        /// <param name="pFrom">[in] A pointer to the buffer from which to copy the value.</param>
+        /// <remarks>
+        /// For reference types, the value is the reference, not the content.
+        /// </remarks>
+        public void SetValue(IntPtr pFrom)
+        {
+            TrySetValue(pFrom).ThrowOnNotOK();
         }
 
         /// <summary>

@@ -19,7 +19,7 @@
         /// <summary>
         /// Sets the starting method that initiates the async operation.
         /// </summary>
-        public void DefineKickoffMethod(int kickoffMethod)
+        public void DefineKickoffMethod(mdMethodDef kickoffMethod)
         {
             TryDefineKickoffMethod(kickoffMethod).ThrowOnNotOK();
         }
@@ -28,10 +28,10 @@
         /// Sets the starting method that initiates the async operation.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryDefineKickoffMethod(int kickoffMethod)
+        public HRESULT TryDefineKickoffMethod(mdMethodDef kickoffMethod)
         {
             /*HRESULT DefineKickoffMethod(
-            [In] int kickoffMethod);*/
+            [In] mdMethodDef kickoffMethod);*/
             return Raw.DefineKickoffMethod(kickoffMethod);
         }
 

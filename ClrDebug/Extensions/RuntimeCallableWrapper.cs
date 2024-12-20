@@ -26,10 +26,8 @@ namespace ClrDebug
 
 #if DEBUG
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private int remainingRefs;
+        protected int remainingRefs;
 #endif
-
-        public static readonly Guid IID_IUnknown = new Guid("00000000-0000-0000-C000-000000000046");
 
         /// <summary>
         /// Gets the reference count of the underlying COM object.
@@ -60,7 +58,7 @@ namespace ClrDebug
             {
                 lock (lockObj)
                 {
-                    var hr = QueryInterface(IID_IUnknown, out var _);
+                    var hr = QueryInterface(Extensions.IID_IUnknown, out var _);
 
                     if (hr != HRESULT.S_OK)
                         return null;
@@ -117,6 +115,7 @@ namespace ClrDebug
 
         ~RuntimeCallableWrapper()
         {
+            Debug.Assert(false, "In order to ensure that native modules can be safely unloaded, RCW's should be manually disposed and should never be processed by the finalizer thread");
             Dispose(false);
         }
 
@@ -141,6 +140,23 @@ namespace ClrDebug
         {
             if (ptr == IntPtr.Zero)
                 QueryInterface(riid, out ptr).ThrowOnNotOK();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected void ReleaseInterface(ref IntPtr ptr)
+        {
+            /* It is assumed that all subinterfaces share a common native refcount,
+             * and that only interfaces with a completely different name (and therefore
+             * a completely different RCW) may be underpinned by a different object.
+             * In the event that an interface requires a new object, its refcount
+             * will have been incrementd by 1 as part of the QueryInterface to it,
+             * so we won't have any risk of a "double free" scenario in either RCW's
+             * Dispose method */
+            if (ptr != IntPtr.Zero)
+            {
+                Release();
+                ptr = IntPtr.Zero;
+            }
         }
 
         /// <summary>
@@ -179,6 +195,8 @@ namespace ClrDebug
                     //Free managed references
                 }
 
+                ReleaseSubInterfaces();
+
                 if (Raw != IntPtr.Zero)
                 {
                     //When this RCW was constructed, the reference count was already 1. When we QI'd for the interface type that this RCW encapsulates,
@@ -197,13 +215,16 @@ namespace ClrDebug
                     if (Release() == 1)
                         Release();
 #endif
-
                 }
 
                 Raw = IntPtr.Zero;
 
                 disposed = true;
             }
+        }
+
+        protected virtual void ReleaseSubInterfaces()
+        {
         }
 
         #region IUnknown

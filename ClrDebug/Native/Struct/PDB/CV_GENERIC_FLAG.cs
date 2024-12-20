@@ -5,7 +5,7 @@ using static ClrDebug.Extensions;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("cstyle = {cstyle}, rsclean = {rsclean}, unused = {unused}, flags = {flags}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_GENERIC_FLAG
     {
         /// <summary>

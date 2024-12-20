@@ -38,6 +38,6 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The exception code for the exception filter.
         /// </summary>
-        public int ExceptionCode;
+        public NTSTATUS ExceptionCode;
     }
 }

@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for assembler labels
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, mode = {mode}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfLabel
     {
         /// <summary>
@@ -18,6 +18,6 @@ namespace ClrDebug.PDB
         /// <summary>
         /// addressing mode of label
         /// </summary>
-        public short mode;
+        public short mode; //todo: enum?
     }
 }

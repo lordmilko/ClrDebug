@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// subfield record for base class field
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, attr = {attr.ToString(),nq}, index = {index.ToString(),nq}, offset = {offset}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfBClass
     {
         /// <summary>

@@ -144,7 +144,7 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         new HRESULT GetSymAttribute(
-            [In] int parent,
+            [In] mdToken parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
             [Out] out int pcBuffer,
@@ -286,7 +286,7 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         HRESULT GetSymAttributePreRemap(
-            [In] int parent,
+            [In] mdToken parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
             [Out] out int pcBuffer,

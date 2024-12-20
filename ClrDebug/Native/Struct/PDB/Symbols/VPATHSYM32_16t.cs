@@ -4,13 +4,13 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, off = {off.ToString(),nq}, seg = {seg}, root = {root.ToString(),nq}, path = {path.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct VPATHSYM32_16t
     {
         /// <summary>
         /// record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_VFTABLE32_16t

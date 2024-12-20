@@ -10,13 +10,13 @@ namespace ClrDebug.PDB
     /// A live range of sub field of variable. like locala.i
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, reg = {reg}, attr = {attr.ToString(),nq}, offParent = {offParent.ToString(),nq}, paddingdata = {paddingdata}, range = {range.ToString(),nq}, gaps = {gaps}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct DEFRANGESYMSUBFIELDREGISTER
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_DEFRANGE_SUBFIELD_REGISTER
@@ -26,14 +26,14 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Register to hold the value of the symbol
         /// </summary>
-        public short reg;
+        public short reg; //todo: enum?
 
         /// <summary>
         /// Attribute of the register range.
         /// </summary>
         public CV_RANGEATTR attr;
 
-        #region BitFIeld
+        #region BitField
 
         /// <summary>
         /// Offset in parent variable.

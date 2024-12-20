@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// Type record for LF_MODIFIER
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, attr = {attr.ToString(),nq}, type = {type.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfModifier_16t
     {
         /// <summary>

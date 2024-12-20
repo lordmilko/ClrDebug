@@ -2914,7 +2914,7 @@ namespace ClrDebug
             [Out] out CorParamAttr pdwAttr,
             [Out] out CorElementType pdwCPlusTypeFlag,
             [Out] out IntPtr ppValue,
-            [Out] out IntPtr pcchValue);*/
+            [Out] out int pcchValue);*/
             mdMethodDef pmd;
             int pulSequence;
             char[] szName;
@@ -2923,7 +2923,7 @@ namespace ClrDebug
             CorParamAttr pdwAttr;
             CorElementType pdwCPlusTypeFlag;
             IntPtr ppValue;
-            IntPtr pcchValue;
+            int pcchValue;
             HRESULT hr = Raw.GetParamProps(tk, out pmd, out pulSequence, null, cchName, out pchName, out pdwAttr, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)

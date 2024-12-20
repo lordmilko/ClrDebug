@@ -4,13 +4,13 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, sumName = {sumName}, ibSym = {ibSym}, imod = {imod}, usFill = {usFill}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct REFSYM
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_PROCREF_ST, S_DATAREF_ST, or S_LPROCREF_ST

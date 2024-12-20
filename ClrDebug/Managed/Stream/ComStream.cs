@@ -1,6 +1,6 @@
 ﻿namespace ClrDebug
 {
-    public class ComStream : SequentialStream
+    public unsafe class ComStream : SequentialStream
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ComStream"/> class.
@@ -16,21 +16,21 @@
 
         #region Seek
 
-        public ULARGE_INTEGER Seek(LARGE_INTEGER dlibMove, int dwOrigin)
+        public ULARGE_INTEGER Seek(LARGE_INTEGER dlibMove, STREAM_SEEK dwOrigin)
         {
             ULARGE_INTEGER plibNewPosition;
-            TrySeek(dlibMove, dwOrigin, out plibNewPosition).ThrowOnNotOK();
+            TrySeek(dlibMove, dwOrigin, &plibNewPosition).ThrowOnNotOK();
 
             return plibNewPosition;
         }
 
-        public HRESULT TrySeek(LARGE_INTEGER dlibMove, int dwOrigin, out ULARGE_INTEGER plibNewPosition)
+        public HRESULT TrySeek(LARGE_INTEGER dlibMove, STREAM_SEEK dwOrigin, ULARGE_INTEGER* plibNewPosition)
         {
             /*HRESULT Seek(
             [In] LARGE_INTEGER dlibMove,
-            [In] int dwOrigin,
+            [In] STREAM_SEEK dwOrigin,
             [Out] out ULARGE_INTEGER plibNewPosition);*/
-            return Raw.Seek(dlibMove, dwOrigin, out plibNewPosition);
+            return Raw.Seek(dlibMove, dwOrigin, plibNewPosition);
         }
 
         #endregion

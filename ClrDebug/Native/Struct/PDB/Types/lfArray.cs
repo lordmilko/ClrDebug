@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for LF_ARRAY
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, elemtype = {elemtype.ToString(),nq}, idxtype = {idxtype.ToString(),nq}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfArray
     {
         /// <summary>

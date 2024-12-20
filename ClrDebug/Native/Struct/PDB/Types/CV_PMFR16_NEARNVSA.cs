@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// representation of a 16:16 pointer to near member function for a class with no virtual functions or bases and a single address point
     /// </summary>
     [DebuggerDisplay("off = {off.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_PMFR16_NEARNVSA
     {
         /// <summary>

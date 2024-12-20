@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// subfield record for virtual function table pointer
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, pad0 = {pad0}, type = {type.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfVFuncTab
     {
         /// <summary>

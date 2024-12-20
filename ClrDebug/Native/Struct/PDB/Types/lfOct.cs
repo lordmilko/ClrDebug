@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// signed int128 leaf
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, val = {val}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfOct
     {
         /// <summary>

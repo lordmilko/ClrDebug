@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.TypeLib
 {
@@ -7,6 +8,8 @@ namespace ClrDebug.TypeLib
     public struct CUSTDATAITEM
     {
         public Guid guid;
+
+        [MarshalAs(UnmanagedType.Struct)]
         public object varValue;
     }
 }

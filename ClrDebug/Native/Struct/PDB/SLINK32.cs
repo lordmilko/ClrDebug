@@ -4,13 +4,13 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, framesize = {framesize}, off = {off.ToString(),nq}, reg = {reg}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct SLINK32
     {
         /// <summary>
         /// record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_SLINK32
@@ -27,6 +27,6 @@ namespace ClrDebug.PDB
         /// </summary>
         public CV_off32_t off;
 
-        public short reg;
+        public short reg; //todo: enum?
     }
 }

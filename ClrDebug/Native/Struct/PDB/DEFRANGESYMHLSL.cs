@@ -8,13 +8,13 @@ namespace ClrDebug.PDB
     /// // A live range of variable related to a symbol in HLSL code.
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, regType = {regType}, regIndices = {regIndices}, spilledUdtMember = {spilledUdtMember}, memorySpace = {memorySpace}, padding = {padding}, data1 = {data1}, offsetParent = {offsetParent}, sizeInParent = {sizeInParent}, range = {range.ToString(),nq}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct DEFRANGESYMHLSL
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_DEFRANGE_HLSL or S_DEFRANGE_DPC_PTR_TAG
@@ -24,7 +24,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// register type from CV_HLSLREG_e
         /// </summary>
-        public short regType;
+        public short regType; //todo: enum?
 
         #region BitField
 

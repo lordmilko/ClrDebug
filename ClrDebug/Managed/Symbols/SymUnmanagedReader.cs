@@ -494,7 +494,7 @@ namespace ClrDebug
         /// <param name="cBuffer">[in] The size of the buffer array.</param>
         /// <param name="buffer">[out] A pointer to the variable that receives the attribute data.</param>
         /// <returns>[out] A pointer to the variable that receives the length of the attribute data.</returns>
-        public int GetSymAttribute(int parent, string name, int cBuffer, IntPtr buffer)
+        public int GetSymAttribute(mdToken parent, string name, int cBuffer, IntPtr buffer)
         {
             int pcBuffer;
             TryGetSymAttribute(parent, name, cBuffer, out pcBuffer, buffer).ThrowOnNotOK();
@@ -511,10 +511,10 @@ namespace ClrDebug
         /// <param name="pcBuffer">[out] A pointer to the variable that receives the length of the attribute data.</param>
         /// <param name="buffer">[out] A pointer to the variable that receives the attribute data.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSymAttribute(int parent, string name, int cBuffer, out int pcBuffer, IntPtr buffer)
+        public HRESULT TryGetSymAttribute(mdToken parent, string name, int cBuffer, out int pcBuffer, IntPtr buffer)
         {
             /*HRESULT GetSymAttribute(
-            [In] int parent,
+            [In] mdToken parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
             [Out] out int pcBuffer,
@@ -807,7 +807,7 @@ namespace ClrDebug
         /// <param name="cBuffer">[in] A ULONG32 that indicates the size of the buffer array.</param>
         /// <param name="buffer">[out] A pointer to the buffer that receives the attribute bytes.</param>
         /// <returns>[out] A pointer to a ULONG32 that receives the size of the buffer required to contain the attribute bytes.</returns>
-        public int GetSymAttributePreRemap(int parent, string name, int cBuffer, IntPtr buffer)
+        public int GetSymAttributePreRemap(mdToken parent, string name, int cBuffer, IntPtr buffer)
         {
             int pcBuffer;
             TryGetSymAttributePreRemap(parent, name, cBuffer, out pcBuffer, buffer).ThrowOnNotOK();
@@ -824,10 +824,10 @@ namespace ClrDebug
         /// <param name="pcBuffer">[out] A pointer to a ULONG32 that receives the size of the buffer required to contain the attribute bytes.</param>
         /// <param name="buffer">[out] A pointer to the buffer that receives the attribute bytes.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSymAttributePreRemap(int parent, string name, int cBuffer, out int pcBuffer, IntPtr buffer)
+        public HRESULT TryGetSymAttributePreRemap(mdToken parent, string name, int cBuffer, out int pcBuffer, IntPtr buffer)
         {
             /*HRESULT GetSymAttributePreRemap(
-            [In] int parent,
+            [In] mdToken parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
             [Out] out int pcBuffer,

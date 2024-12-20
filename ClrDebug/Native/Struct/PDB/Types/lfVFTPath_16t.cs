@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record describing path to virtual function table
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, count = {count}, @base = {@base}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfVFTPath_16t
     {
         /// <summary>

@@ -21,7 +21,7 @@ namespace ClrDebug.DbgEng
     /// An extension can come in and add itself into the list of parent models for another object. Doing this extends the object.<para/>
     /// In this manner, it is possible to add capabilities onto anything: a particular instance of an object or value, a native type, the debugger's concept of what a process or thread is, or even the notion of "all iterable objects".
     /// </summary>
-    public class ModelObject : ComObject<IModelObject>
+    public partial class ModelObject : ComObject<IModelObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ModelObject"/> class.

@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// function flags
     /// </summary>
     [DebuggerDisplay("cxxreturnudt = {cxxreturnudt}, ctor = {ctor}, ctorvbase = {ctorvbase}, unused = {unused}, flags = {flags}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_funcattr_t
     {
         /// <summary>
@@ -47,6 +47,9 @@ namespace ClrDebug.PDB
             set => SetBits(ref flags, 3, 5, value);
         }
 
-        public byte flags;
+        private byte flags;
+
+        public static implicit operator CV_funcattr_t(byte value) => new CV_funcattr_t { flags = value };
+        public static implicit operator byte(CV_funcattr_t value) => value.flags;
     }
 }

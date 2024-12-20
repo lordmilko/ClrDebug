@@ -275,6 +275,10 @@ namespace ClrDebug.DbgEng
             systemObjects = null;
 
             base.Dispose(disposing);
+
+#if DEBUG
+            Debug.Assert(remainingRefs == 0, $"RCW leak has occurred in DebugClient {GetHashCode()}: object was disposed but COM RefCount was still {remainingRefs}");
+#endif
         }
     }
 }

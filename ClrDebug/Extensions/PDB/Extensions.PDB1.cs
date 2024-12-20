@@ -32,6 +32,7 @@ namespace ClrDebug.PDB
 
         #region QueryInterfaceVersion
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate PDBINTV QueryInterfaceVersionDelegate(
             [In] IntPtr @this);
 
@@ -52,6 +53,7 @@ namespace ClrDebug.PDB
         #endregion
         #region QueryImplementationVersion
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate PDBIMPV QueryImplementationVersionDelegate(
             [In] IntPtr @this);
 
@@ -71,7 +73,9 @@ namespace ClrDebug.PDB
         #endregion
         #region QueryLastError
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate EC QueryLastErrorDelegate(
+            [In] IntPtr @this,
             [Out, MarshalAs(UnmanagedType.LPArray)] byte[] szError);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -85,7 +89,7 @@ namespace ClrDebug.PDB
 
                 var bytes = new byte[cbErrMax];
 
-                var err = queryLastError(bytes);
+                var err = queryLastError(Raw, bytes);
 
                 var str = CreateString(bytes);
 
@@ -96,6 +100,7 @@ namespace ClrDebug.PDB
         #endregion
         #region QueryPDBName
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate IntPtr QueryPDBNameDelegate(
             [In] IntPtr @this,
             [Out, MarshalAs(UnmanagedType.LPArray)] byte[] szPDB); //Return value is just the input buffer
@@ -121,6 +126,7 @@ namespace ClrDebug.PDB
 
         //virtual SIG  QuerySignature() pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate int QuerySignatureDelegate(
             [In] IntPtr @this);
 
@@ -142,6 +148,7 @@ namespace ClrDebug.PDB
 
         //virtual AGE  QueryAge() pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate int QueryAgeDelegate(
             [In] IntPtr @this);
 
@@ -163,6 +170,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL CreateDBI(_In_z_ const char* szTarget, OUT DBI** ppdbi) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool CreateDBIDelegate(
         //    [In] IntPtr @this);
 
@@ -179,6 +187,7 @@ namespace ClrDebug.PDB
         #endregion
         #region OpenDBI
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool OpenDBIDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStr)] string szTarget,
@@ -201,6 +210,7 @@ namespace ClrDebug.PDB
         #endregion
         #region OpenTpi
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool OpenTpiDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStr)] string szMode,
@@ -222,6 +232,7 @@ namespace ClrDebug.PDB
         #endregion
         #region OpenIpi
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool OpenIpiDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStr)] string szMode,
@@ -243,6 +254,7 @@ namespace ClrDebug.PDB
         #endregion
         #region Commit
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool CommitDelegate(
             [In] IntPtr @this);
 
@@ -260,6 +272,7 @@ namespace ClrDebug.PDB
         #endregion
         #region Close
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool CloseDelegate(
             [In] IntPtr @this);
 
@@ -279,6 +292,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL OpenStream(_In_z_ const char* szStream, OUT Stream** ppstream) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool OpenStreamDelegate(
         //    [In] IntPtr @this);
 
@@ -297,6 +311,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL GetEnumStreamNameMap(OUT Enum** ppenum) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool GetEnumStreamNameMapDelegate(
         //    [In] IntPtr @this);
 
@@ -315,6 +330,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL GetRawBytes(PFNfReadPDBRawBytes pfnfSnarfRawBytes) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool GetRawBytesDelegate(
         //    [In] IntPtr @this);
 
@@ -331,7 +347,8 @@ namespace ClrDebug.PDB
         #endregion
         #region QueryPdbImplementationVersion
 
-        public delegate PDBIMPV QueryPdbImplementationVersionDelegate(
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate PDBIMPV QueryPdbImplementationVersionDelegate(
             [In] IntPtr @this);
 
         QueryPdbImplementationVersionDelegate queryPdbImplementationVersion;
@@ -349,6 +366,7 @@ namespace ClrDebug.PDB
         #endregion
         #region OpenDBIEx
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool OpenDBIExDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStr)] string szTarget,
@@ -363,6 +381,8 @@ namespace ClrDebug.PDB
         {
             InitDelegate(ref openDBIEx, vtbl->OpenDBIEx);
 
+            //todo: need to cache last pfn so it doesnt gc
+
             var result = openDBIEx(Raw, szTarget, szMode, out var ppdbiRaw, pfn);
 
             ppdbi = ppdbiRaw != IntPtr.Zero ? new DBI1(ppdbiRaw) : null;
@@ -375,6 +395,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL CopyTo( _Pre_notnull_ _Post_z_ const char *szDst, DWORD dwCopyFilter, DWORD dwReserved) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool CopyToDelegate(
         //    [In] IntPtr @this);
 
@@ -393,6 +414,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL OpenSrc(OUT Src** ppsrc) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool OpenSrcDelegate(
         //    [In] IntPtr @this);
 
@@ -411,6 +433,7 @@ namespace ClrDebug.PDB
 
         //virtual EC   QueryLastErrorExW(_Out_opt_cap_(cchMax) OUT wchar_t *wszError, size_t cchMax) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate EC QueryLastErrorExWDelegate(
             [In] IntPtr @this,
             [Out, MarshalAs(UnmanagedType.LPArray)] char[] szError,
@@ -435,6 +458,7 @@ namespace ClrDebug.PDB
         #endregion
         #region QueryPDBNameExW
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate IntPtr QueryPDBNameExWDelegate(
             [In] IntPtr @this,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] wszPDB,
@@ -459,6 +483,7 @@ namespace ClrDebug.PDB
         #endregion
         #region QuerySignature2
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QuerySignature2Delegate(
             [In] IntPtr @this,
             [Out] out Guid psig70);
@@ -485,6 +510,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL CopyToW( _Pre_notnull_ _Post_z_ const wchar_t *szDst, DWORD dwCopyFilter, DWORD dwReserved) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool CopyToWDelegate(
         //    [In] IntPtr @this);
 
@@ -501,6 +527,7 @@ namespace ClrDebug.PDB
         #endregion
         #region fIsSZPDB
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool fIsSZPDBDelegate(
             [In] IntPtr @this);
 
@@ -522,6 +549,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL OpenStreamW(_In_z_ const wchar_t * szStream, OUT Stream** ppstream) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool OpenStreamWDelegate(
         //    [In] IntPtr @this);
 
@@ -540,6 +568,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL CopyToW2(_In_z_ const wchar_t *  szDst, DWORD dwCopyFilter, PfnPDBCopyQueryCallback pfnCallBack, void *                  pvClientContext) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool CopyToW2Delegate(
         //    [In] IntPtr @this);
 
@@ -558,6 +587,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL OpenStreamEx(_In_z_ const char * szStream, _In_z_ const char *szMode, Stream **ppStream) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool OpenStreamExDelegate(
         //    [In] IntPtr @this);
 
@@ -576,6 +606,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL RegisterPDBMapping(_In_z_ const wchar_t *wszPDBFrom, _In_z_ const wchar_t *wszPDBTo) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool RegisterPDBMappingDelegate(
         //    [In] IntPtr @this);
 
@@ -592,6 +623,7 @@ namespace ClrDebug.PDB
         #endregion
         #region EnablePrefetching
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool EnablePrefetchingDelegate(
             [In] IntPtr @this);
 
@@ -608,6 +640,7 @@ namespace ClrDebug.PDB
         #endregion
         #region FLazy
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool FLazyDelegate(
             [In] IntPtr @this);
 
@@ -627,6 +660,7 @@ namespace ClrDebug.PDB
         #endregion
         #region FMinimal
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool FMinimalDelegate(
             [In] IntPtr @this);
 
@@ -648,6 +682,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL ResetGUID(BYTE *pb, DWORD cb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool ResetGUIDDelegate(
         //    [In] IntPtr @this);
 
@@ -666,6 +701,7 @@ namespace ClrDebug.PDB
 
         //bool PDB1::FReleaseGlobalSymbolBuffer(void)
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool FReleaseGlobalSymbolBufferDelegate(
             [In] IntPtr @this);
 
@@ -685,6 +721,7 @@ namespace ClrDebug.PDB
 
         //bool PDB1::UpdateSignature(int,_GUID*,int)
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool UpdateSignatureDelegate(
         //    [In] IntPtr @this);
 
@@ -701,6 +738,7 @@ namespace ClrDebug.PDB
         #endregion
         #region FRepro
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool FReproDelegate(
             [In] IntPtr @this);
 
@@ -720,6 +758,7 @@ namespace ClrDebug.PDB
         #endregion
         #region FPortablePDB
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool FPortablePDBDelegate(
             [In] IntPtr @this);
 

@@ -3,13 +3,13 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct PROCSYMMIPS
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_GPROCMIPS or S_LPROCMIPS
@@ -49,12 +49,12 @@ namespace ClrDebug.PDB
         /// <summary>
         /// int register save mask
         /// </summary>
-        public int regSave;
+        public int regSave; //todo: enum?
 
         /// <summary>
         /// fp register save mask
         /// </summary>
-        public int fpSave;
+        public int fpSave; //todo: enum?
 
         /// <summary>
         /// int register save offset
@@ -84,12 +84,12 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Register return value is in
         /// </summary>
-        public byte retReg;
+        public byte retReg; //todo: enum?
 
         /// <summary>
         /// Frame pointer register
         /// </summary>
-        public byte frameReg;
+        public byte frameReg; //todo: enum?
 
         /// <summary>
         /// Length-prefixed name

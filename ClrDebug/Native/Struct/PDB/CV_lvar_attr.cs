@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// extended attributes common to all local variables
     /// </summary>
     [DebuggerDisplay("off = {off.ToString(),nq}, seg = {seg}, flags = {flags.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_lvar_attr
     {
         /// <summary>

@@ -5,13 +5,13 @@ using static ClrDebug.Extensions;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, iLanguage = {iLanguage}, fEC = {fEC}, fNoDbgInfo = {fNoDbgInfo}, fLTCG = {fLTCG}, fNoDataAlign = {fNoDataAlign}, fManagedPresent = {fManagedPresent}, fSecurityChecks = {fSecurityChecks}, fHotPatch = {fHotPatch}, fCVTCIL = {fCVTCIL}, fMSILModule = {fMSILModule}, pad = {pad}, flags = {flags}, machine = {machine}, verFEMajor = {verFEMajor}, verFEMinor = {verFEMinor}, verFEBuild = {verFEBuild}, verMajor = {verMajor}, verMinor = {verMinor}, verBuild = {verBuild}, verSt = {verSt}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct COMPILESYM
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_COMPILE2
@@ -126,7 +126,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// target processor
         /// </summary>
-        public short machine;
+        public short machine; //todo: enum?
 
         /// <summary>
         /// front end major version #

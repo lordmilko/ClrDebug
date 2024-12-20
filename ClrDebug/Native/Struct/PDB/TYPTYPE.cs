@@ -2,10 +2,10 @@
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct TYPTYPE
     {
-        public short len;
+        public ushort len;
         public LEAF_ENUM_e leaf;
         public fixed byte data[1];
 

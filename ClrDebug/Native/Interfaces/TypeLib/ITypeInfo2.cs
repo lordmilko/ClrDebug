@@ -8,7 +8,8 @@ using System.Runtime.InteropServices.Marshalling;
 namespace ClrDebug.TypeLib
 {
     /// <summary>
-    /// Provides the managed definition of the ITypeInfo2 interface.
+    /// Used for reading information about objects. Can be cast to an ITypeInfo instead of using the calls QueryInterface and
+    /// Release to allow quick opens and allocs. This only works for in-process cases.
     /// </summary>
     [Guid("00020412-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -399,7 +400,7 @@ namespace ClrDebug.TypeLib
         /// <param name="pCustData">A pointer to <see cref="CUSTDATA"/>, which holds all custom data items.</param>
         [PreserveSig]
         HRESULT GetAllCustData(
-            [Out] out CUSTDATA pCustData);
+            [Out] out CUSTDATA pCustData); //todo: make this not a property, cos you have to free it
 
         /// <summary>
         /// Gets all custom data from the specified function.

@@ -90,8 +90,8 @@ namespace ClrDebug.DbgEng.Vtbl
         public readonly IntPtr SetEventFilterCommand;
         public readonly IntPtr GetSpecificFilterParameters;
         public readonly IntPtr SetSpecificFilterParameters;
-        public readonly IntPtr GetSpecificEventFilterArgument;
-        public readonly IntPtr SetSpecificEventFilterArgument;
+        public readonly IntPtr GetSpecificFilterArgument;
+        public readonly IntPtr SetSpecificFilterArgument;
         public readonly IntPtr GetExceptionFilterParameters;
         public readonly IntPtr SetExceptionFilterParameters;
         public readonly IntPtr GetExceptionFilterSecondCommand;

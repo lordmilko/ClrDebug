@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("Flags = {Flags.ToString(),nq}, TryStartPC = {TryStartPC}, TryEndPC = {TryEndPC}, HandlerStartPC = {HandlerStartPC}, HandlerEndPC = {HandlerEndPC}, ClassToken = {ClassToken.ToString(),nq}, FilterOffset = {FilterOffset}")]
     [StructLayout(LayoutKind.Explicit)]
-    struct READYTORUN_EXCEPTION_CLAUSE
+    public struct READYTORUN_EXCEPTION_CLAUSE
     {
         [FieldOffset(0)]
         public CorExceptionFlag Flags;

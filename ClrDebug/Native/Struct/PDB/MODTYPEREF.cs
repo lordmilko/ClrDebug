@@ -5,13 +5,13 @@ using static ClrDebug.Extensions;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, fNone = {fNone}, fRefTMPCT = {fRefTMPCT}, fOwnTMPCT = {fOwnTMPCT}, fOwnTMR = {fOwnTMR}, fOwnTM = {fOwnTM}, fRefTM = {fRefTM}, reserved = {reserved}, data = {data}, word0 = {word0}, word1 = {word1}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct MODTYPEREF
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_MOD_TYPEREF
@@ -86,13 +86,9 @@ namespace ClrDebug.PDB
         #endregion
 
         /// <summary>
-        /// these two words contain SN or module index depending
+        /// these two words contain SN or module index depending on above flags
         /// </summary>
         public short word0;
-
-        /// <summary>
-        /// on above flags
-        /// </summary>
         public short word1;
     }
 }

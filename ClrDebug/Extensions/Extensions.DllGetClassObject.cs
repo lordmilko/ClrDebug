@@ -16,7 +16,7 @@ namespace ClrDebug
                 this.dllGetClassObject = dllGetClassObject;
             }
 
-            public IClassFactory ClassFactory(Guid rclsid) => CreateInstance<IClassFactory>(rclsid);
+            public IClassFactory GetClassFactory(Guid rclsid) => CreateInstance<IClassFactory>(rclsid);
 
             private T CreateInstance<T>(Guid rclsid)
             {

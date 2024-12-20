@@ -1219,7 +1219,7 @@ namespace ClrDebug
             [Out] out CorParamAttr pdwAttr,
             [Out] out CorElementType pdwCPlusTypeFlag,
             [Out] out IntPtr ppValue,
-            [Out] out IntPtr pcchValue);
+            [Out] out int pcchValue);
 
         /// <summary>
         /// Gets the custom attribute, given its name and owner.

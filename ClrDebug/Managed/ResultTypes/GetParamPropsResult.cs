@@ -6,7 +6,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetParamProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pmd = {pmd.ToString(),nq}, pulSequence = {pulSequence}, szName = {szName}, pdwAttr = {pdwAttr.ToString(),nq}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag.ToString(),nq}, ppValue = {ppValue.ToString(),nq}, pcchValue = {pcchValue.ToString(),nq}")]
+    [DebuggerDisplay("pmd = {pmd.ToString(),nq}, pulSequence = {pulSequence}, szName = {szName}, pdwAttr = {pdwAttr.ToString(),nq}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag.ToString(),nq}, ppValue = {ppValue.ToString(),nq}, pcchValue = {pcchValue}")]
     public struct GetParamPropsResult
     {
         /// <summary>
@@ -42,9 +42,9 @@ namespace ClrDebug
         /// <summary>
         /// The size of ppValue in wide characters, or zero if ppValue does not hold a string.
         /// </summary>
-        public IntPtr pcchValue { get; }
+        public int pcchValue { get; }
 
-        public GetParamPropsResult(mdMethodDef pmd, int pulSequence, string szName, CorParamAttr pdwAttr, CorElementType pdwCPlusTypeFlag, IntPtr ppValue, IntPtr pcchValue)
+        public GetParamPropsResult(mdMethodDef pmd, int pulSequence, string szName, CorParamAttr pdwAttr, CorElementType pdwCPlusTypeFlag, IntPtr ppValue, int pcchValue)
         {
             this.pmd = pmd;
             this.pulSequence = pulSequence;

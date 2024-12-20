@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// argument list leaf
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, count = {count}, arg = {arg}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfArgList
     {
         /// <summary>

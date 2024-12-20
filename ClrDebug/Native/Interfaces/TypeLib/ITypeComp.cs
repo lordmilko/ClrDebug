@@ -6,7 +6,8 @@ using System.Runtime.InteropServices.Marshalling;
 namespace ClrDebug.TypeLib
 {
     /// <summary>
-    /// Provides the managed definition of the ITypeComp interface.
+    /// The ITypeComp interface provides a fast way to access information that compilers need when binding to and instantiating structures
+    /// and interfaces. Binding is the process of mapping names to types and type members.
     /// </summary>
     [Guid("00020403-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

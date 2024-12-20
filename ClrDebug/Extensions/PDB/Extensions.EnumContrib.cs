@@ -15,6 +15,7 @@ namespace ClrDebug.PDB
 
         //virtual void get(OUT USHORT* pimod, OUT USHORT* pisect, OUT long* poff, OUT long* pcb, OUT ULONG* pdwCharacteristics) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate void GetDelegate(
             [In] IntPtr @this,
             [Out] out short pimod,
@@ -43,6 +44,7 @@ namespace ClrDebug.PDB
 
         //virtual void getCrcs(OUT DWORD* pcrcData, OUT DWORD* pcrcReloc ) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate void GetCrcsDelegate(
         //    [In] IntPtr @this,
         //    [Out] out IntPtr pcrcData,
@@ -67,6 +69,7 @@ namespace ClrDebug.PDB
 
         //virtual bool fUpdate(IN long off, IN long cb) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool fUpdateDelegate(
             [In] IntPtr @this,
             [In] int off,
@@ -85,6 +88,7 @@ namespace ClrDebug.PDB
         #endregion
         #region Prev
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool PrevDelegate(
             [In] IntPtr @this);
 
@@ -101,6 +105,7 @@ namespace ClrDebug.PDB
         #endregion
         #region Clone
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool CloneDelegate(
             [In] IntPtr @this,
             [Out] out IntPtr ppEnum);
@@ -122,6 +127,7 @@ namespace ClrDebug.PDB
         #endregion
         #region Locate
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool LocateDelegate(
             [In] IntPtr @this,
             [In] int isect,
@@ -148,6 +154,7 @@ namespace ClrDebug.PDB
 
         //virtual void get2(OUT USHORT* pimod, OUT USHORT* pisect, OUT DWORD* poff, OUT DWORD* pisectCoff, OUT DWORD* pcb, OUT ULONG* pdwCharacteristics) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate void Get2Delegate(
             [In] IntPtr @this,
             [Out] out short pimod,

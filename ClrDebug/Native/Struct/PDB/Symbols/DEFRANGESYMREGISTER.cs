@@ -7,13 +7,13 @@ namespace ClrDebug.PDB
     /// A live range of en-registed variable
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, reg = {reg}, attr = {attr.ToString(),nq}, range = {range.ToString(),nq}, gaps = {gaps}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct DEFRANGESYMREGISTER
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_DEFRANGE_REGISTER
@@ -23,7 +23,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Register to hold the value of the symbol
         /// </summary>
-        public short reg;
+        public short reg; //todo: enum?
 
         /// <summary>
         /// Attribute of the register range.

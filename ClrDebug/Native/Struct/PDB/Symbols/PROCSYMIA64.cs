@@ -3,13 +3,13 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct PROCSYMIA64
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_GPROCIA64 or S_LPROCIA64
@@ -64,7 +64,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Register return value is in
         /// </summary>
-        public short retReg;
+        public short retReg; //todo: enum?
 
         /// <summary>
         /// Proc flags

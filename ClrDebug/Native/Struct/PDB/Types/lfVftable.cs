@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for a virtual function table
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, type = {type.ToString(),nq}, baseVftable = {baseVftable.ToString(),nq}, offsetInObjectLayout = {offsetInObjectLayout}, len = {len}, Names = {Names}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfVftable
     {
         /// <summary>

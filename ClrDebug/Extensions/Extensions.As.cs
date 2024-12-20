@@ -196,6 +196,7 @@ namespace ClrDebug
         /// <typeparam name="T">A type that wraps one of the interfaces a type derived from CordbValue supports.</typeparam>
         /// <param name="corDebugValue">The existing wrapper to create the new wrapper from.</param>
         /// <returns>A wrapper of type <typeparamref name="T"/>.</returns>
+        /// <exception cref="NotSupportedException">A type is specified that is not known to this function.</exception>
         public static T As<T>(this CorDebugValue corDebugValue)
         {
             var t = typeof(T);
@@ -208,25 +209,25 @@ namespace ClrDebug
             //and is never instantiated
 
             if (t == typeof(CorDebugArrayValue))
-                result = new CorDebugArrayValue((ICorDebugArrayValue) raw);
+                result = corDebugValue as CorDebugArrayValue ?? new CorDebugArrayValue((ICorDebugArrayValue) raw);
             else if (t == typeof(CorDebugBoxValue))
-                result = new CorDebugBoxValue((ICorDebugBoxValue) raw);
+                result = corDebugValue as CorDebugBoxValue ?? new CorDebugBoxValue((ICorDebugBoxValue) raw);
             else if (t == typeof(CorDebugComObjectValue))
-                result = new CorDebugComObjectValue((ICorDebugComObjectValue) raw);
+                result = new CorDebugComObjectValue((ICorDebugComObjectValue) raw); //Doesn't derive from CorDebugValue
             else if (t == typeof(CorDebugDelegateObjectValue))
-                result = new CorDebugDelegateObjectValue((ICorDebugDelegateObjectValue) raw);
+                result = new CorDebugDelegateObjectValue((ICorDebugDelegateObjectValue) raw); //Doesn't derive from CorDebugValue
             else if (t == typeof(CorDebugGenericValue))
-                result = new CorDebugGenericValue((ICorDebugGenericValue) raw);
+                result = corDebugValue as CorDebugGenericValue ?? new CorDebugGenericValue((ICorDebugGenericValue) raw);
             else if (t == typeof(CorDebugHandleValue))
-                result = new CorDebugHandleValue((ICorDebugHandleValue) raw);
+                result = corDebugValue as CorDebugHandleValue ?? new CorDebugHandleValue((ICorDebugHandleValue) raw);
             else if (t == typeof(CorDebugHeapValue))
-                result = CorDebugHeapValue.New((ICorDebugHeapValue) raw);
+                result = corDebugValue as CorDebugHeapValue ?? CorDebugHeapValue.New((ICorDebugHeapValue) raw);
             else if (t == typeof(CorDebugObjectValue))
-                result = new CorDebugObjectValue((ICorDebugObjectValue) raw);
+                result = corDebugValue as CorDebugObjectValue ?? new CorDebugObjectValue((ICorDebugObjectValue) raw);
             else if (t == typeof(CorDebugReferenceValue))
-                result = new CorDebugReferenceValue((ICorDebugReferenceValue) raw);
+                result = corDebugValue as CorDebugReferenceValue ?? new CorDebugReferenceValue((ICorDebugReferenceValue) raw);
             else if (t == typeof(CorDebugStringValue))
-                result = new CorDebugStringValue((ICorDebugStringValue) raw);
+                result = corDebugValue as CorDebugStringValue ?? new CorDebugStringValue((ICorDebugStringValue) raw);
             else if (t == typeof(CorDebugValue))
                 result = CorDebugValue.New(corDebugValue.Raw);
             else

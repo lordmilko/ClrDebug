@@ -3697,20 +3697,20 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
-        #region GetSpecificEventFilterArgument
+        #region GetSpecificFilterArgument
 
-        public string GetSpecificEventFilterArgument(int index)
+        public string GetSpecificFilterArgument(int index)
         {
             string bufferResult;
-            TryGetSpecificEventFilterArgument(index, out bufferResult).ThrowDbgEngNotOK();
+            TryGetSpecificFilterArgument(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
 
-        public HRESULT TryGetSpecificEventFilterArgument(int index, out string bufferResult)
+        public HRESULT TryGetSpecificFilterArgument(int index, out string bufferResult)
         {
-            InitDelegate(ref getSpecificEventFilterArgument, Vtbl->GetSpecificEventFilterArgument);
-            /*HRESULT GetSpecificEventFilterArgument(
+            InitDelegate(ref getSpecificFilterArgument, Vtbl->GetSpecificFilterArgument);
+            /*HRESULT GetSpecificFilterArgument( //todo: rename this in all other idebugcontrol files and also regenerate method help
             [In] int Index,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
@@ -3718,14 +3718,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int argumentSize;
-            HRESULT hr = getSpecificEventFilterArgument(Raw, index, null, bufferSize, out argumentSize);
+            HRESULT hr = getSpecificFilterArgument(Raw, index, null, bufferSize, out argumentSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = argumentSize;
             buffer = new char[bufferSize];
-            hr = getSpecificEventFilterArgument(Raw, index, buffer, bufferSize, out argumentSize);
+            hr = getSpecificFilterArgument(Raw, index, buffer, bufferSize, out argumentSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3741,21 +3741,21 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
-        #region SetSpecificEventFilterArgument
+        #region SetSpecificFilterArgument
 
-        public void SetSpecificEventFilterArgument(int index, string argument)
+        public void SetSpecificFilterArgument(int index, string argument)
         {
-            TrySetSpecificEventFilterArgument(index, argument).ThrowDbgEngNotOK();
+            TrySetSpecificFilterArgument(index, argument).ThrowDbgEngNotOK();
         }
 
-        public HRESULT TrySetSpecificEventFilterArgument(int index, string argument)
+        public HRESULT TrySetSpecificFilterArgument(int index, string argument)
         {
-            InitDelegate(ref setSpecificEventFilterArgument, Vtbl->SetSpecificEventFilterArgument);
+            InitDelegate(ref setSpecificFilterArgument, Vtbl->SetSpecificFilterArgument);
 
-            /*HRESULT SetSpecificEventFilterArgument(
+            /*HRESULT SetSpecificFilterArgument( //todo: rename this in all other idebugcontrol files and also regenerate method help
             [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Argument);*/
-            return setSpecificEventFilterArgument(Raw, index, argument);
+            return setSpecificFilterArgument(Raw, index, argument);
         }
 
         #endregion
@@ -4160,6 +4160,68 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetNumberTextReplacements(
             [Out] out int NumRepl);*/
             return getNumberTextReplacements(Raw2, out numRepl);
+        }
+
+        #endregion
+        #region GetSpecificEventFilterArgument
+
+        public string GetSpecificEventFilterArgument(int index)
+        {
+            string bufferResult;
+            TryGetSpecificEventFilterArgument(index, out bufferResult).ThrowDbgEngNotOK();
+
+            return bufferResult;
+        }
+
+        public HRESULT TryGetSpecificEventFilterArgument(int index, out string bufferResult)
+        {
+            InitDelegate(ref getSpecificEventFilterArgument, Vtbl2->GetSpecificEventFilterArgument);
+            /*HRESULT GetSpecificEventFilterArgument(
+            [In] int Index,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [In] int BufferSize,
+            [Out] out int ArgumentSize);*/
+            char[] buffer;
+            int bufferSize = 0;
+            int argumentSize;
+            HRESULT hr = getSpecificEventFilterArgument(Raw2, index, null, bufferSize, out argumentSize);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            bufferSize = argumentSize;
+            buffer = new char[bufferSize];
+            hr = getSpecificEventFilterArgument(Raw2, index, buffer, bufferSize, out argumentSize);
+
+            if (hr == HRESULT.S_OK)
+            {
+                bufferResult = CreateString(buffer, argumentSize);
+
+                return hr;
+            }
+
+            fail:
+            bufferResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
+        #region SetSpecificEventFilterArgument
+
+        public void SetSpecificEventFilterArgument(int index, string argument)
+        {
+            TrySetSpecificEventFilterArgument(index, argument).ThrowDbgEngNotOK();
+        }
+
+        public HRESULT TrySetSpecificEventFilterArgument(int index, string argument)
+        {
+            InitDelegate(ref setSpecificEventFilterArgument, Vtbl2->SetSpecificEventFilterArgument);
+
+            /*HRESULT SetSpecificEventFilterArgument(
+            [In] int Index,
+            [In, MarshalAs(UnmanagedType.LPStr)] string Argument);*/
+            return setSpecificEventFilterArgument(Raw2, index, argument);
         }
 
         #endregion
@@ -8313,9 +8375,9 @@ namespace ClrDebug.DbgEng
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetSpecificFilterParametersDelegate setSpecificFilterParameters;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSpecificEventFilterArgumentDelegate getSpecificEventFilterArgument;
+        private GetSpecificFilterArgumentDelegate getSpecificFilterArgument;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetSpecificEventFilterArgumentDelegate setSpecificEventFilterArgument;
+        private SetSpecificFilterArgumentDelegate setSpecificFilterArgument;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetExceptionFilterParametersDelegate getExceptionFilterParameters;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -8338,6 +8400,10 @@ namespace ClrDebug.DbgEng
         private GetDumpFormatFlagsDelegate getDumpFormatFlags;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetNumberTextReplacementsDelegate getNumberTextReplacements;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private GetSpecificEventFilterArgumentDelegate getSpecificEventFilterArgument;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private SetSpecificEventFilterArgumentDelegate setSpecificEventFilterArgument;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetTextReplacementDelegate getTextReplacement;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -8610,8 +8676,8 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetEventFilterCommandDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
         private delegate HRESULT GetSpecificFilterParametersDelegate(IntPtr self, [In] int Start, [In] int Count, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
         private delegate HRESULT SetSpecificFilterParametersDelegate(IntPtr self, [In] int Start, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
-        private delegate HRESULT GetSpecificEventFilterArgumentDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int ArgumentSize);
-        private delegate HRESULT SetSpecificEventFilterArgumentDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Argument);
+        private delegate HRESULT GetSpecificFilterArgumentDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int ArgumentSize);
+        private delegate HRESULT SetSpecificFilterArgumentDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Argument);
         private delegate HRESULT GetExceptionFilterParametersDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Codes, [In] int Start, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
         private delegate HRESULT SetExceptionFilterParametersDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
         private delegate HRESULT GetExceptionFilterSecondCommandDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int CommandSize);
@@ -8625,6 +8691,8 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetCurrentSystemUpTimeDelegate(IntPtr self, [Out] out int UpTime);
         private delegate HRESULT GetDumpFormatFlagsDelegate(IntPtr self, [Out] out DEBUG_FORMAT FormatFlags);
         private delegate HRESULT GetNumberTextReplacementsDelegate(IntPtr self, [Out] out int NumRepl);
+        private delegate HRESULT GetSpecificEventFilterArgumentDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int ArgumentSize);
+        private delegate HRESULT SetSpecificEventFilterArgumentDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Argument);
         private delegate HRESULT GetTextReplacementDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string SrcText, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] SrcBuffer, [In] int SrcBufferSize, [Out] out int SrcSize, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 6)] char[] DstBuffer, [In] int DstBufferSize, [Out] out int DstSize);
         private delegate HRESULT SetTextReplacementDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string SrcText, [In, MarshalAs(UnmanagedType.LPStr)] string DstText);
         private delegate HRESULT RemoveTextReplacementsDelegate(IntPtr self);
@@ -8731,5 +8799,15 @@ namespace ClrDebug.DbgEng
 
         #endregion
         #endregion
+
+        protected override void ReleaseSubInterfaces()
+        {
+            ReleaseInterface(ref raw2);
+            ReleaseInterface(ref raw3);
+            ReleaseInterface(ref raw4);
+            ReleaseInterface(ref raw5);
+            ReleaseInterface(ref raw6);
+            ReleaseInterface(ref raw7);
+        }
     }
 }

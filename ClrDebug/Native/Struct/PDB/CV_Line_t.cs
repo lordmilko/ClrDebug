@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// Line flags (data present)
     /// </summary>
     [DebuggerDisplay("offset = {offset}, linenumStart = {linenumStart}, deltaLineEnd = {deltaLineEnd}, fStatement = {fStatement}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_Line_t
     {
         /// <summary>

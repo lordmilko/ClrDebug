@@ -3,13 +3,13 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct REGSYM
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_REGISTER
@@ -24,7 +24,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// register enumerate
         /// </summary>
-        public short reg;
+        public short reg; //todo: enum?
 
         /// <summary>
         /// Length-prefixed name

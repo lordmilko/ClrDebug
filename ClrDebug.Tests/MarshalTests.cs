@@ -270,6 +270,53 @@ namespace ClrDebug.Tests
         }
 #endif
 
+        [TestMethod]
+        public void Marshal_String_WithNullTerminator_LengthIncludesNullTerminator()
+        {
+            var charArray = new[]
+            {
+                'c',
+                'a',
+                't',
+                '\0'
+            };
+
+            var str = CreateString(charArray, 4);
+
+            Assert.AreEqual("cat", str);
+        }
+
+        [TestMethod]
+        public void Marshal_String_WithNullTerminator_LengthExcludesNullTerminator()
+        {
+            var charArray = new[]
+            {
+                'c',
+                'a',
+                't',
+                '\0'
+            };
+
+            var str = CreateString(charArray, 3);
+
+            Assert.AreEqual("cat", str);
+        }
+
+        [TestMethod]
+        public void Marshal_String_WithoutNullTerminator_LengthExcludesNullTerminator()
+        {
+            var charArray = new[]
+            {
+                'c',
+                'a',
+                't'
+            };
+
+            var str = CreateString(charArray, 3);
+
+            Assert.AreEqual("cat", str);
+        }
+
         #region DIA
 
         /* DIA has very complex string marshalling logic. The documented API contact for all DIA interfaces is that all strings are BSTRs, however in reality

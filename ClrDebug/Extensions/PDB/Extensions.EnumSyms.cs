@@ -15,6 +15,7 @@ namespace ClrDebug.PDB
 
         //virtual void get( BYTE** ppbSym ) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate void GetDelegate(
             [In] IntPtr @this,
             [Out] out SYMTYPE* ppbSym);
@@ -38,6 +39,7 @@ namespace ClrDebug.PDB
         #endregion
         #region Prev
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool PrevDelegate(
             [In] IntPtr @this);
 
@@ -56,6 +58,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL clone( OUT EnumSyms **ppEnum ) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool CloneDelegate(
             [In] IntPtr @this,
             [Out] out IntPtr ppEnum);
@@ -77,6 +80,7 @@ namespace ClrDebug.PDB
         #endregion
         #region Locate
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool LocateDelegate(
             [In] IntPtr @this,
             [In] int isect,

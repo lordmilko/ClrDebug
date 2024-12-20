@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// Type record for member function
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, rvtype = {rvtype.ToString(),nq}, classtype = {classtype.ToString(),nq}, thistype = {thistype.ToString(),nq}, calltype = {calltype}, funcattr = {funcattr.ToString(),nq}, parmcount = {parmcount}, arglist = {arglist.ToString(),nq}, thisadjust = {thisadjust}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfMFunc_16t
     {
         /// <summary>
@@ -33,7 +33,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// calling convention (call_t)
         /// </summary>
-        public byte calltype;
+        public byte calltype; //todo: enum?
 
         /// <summary>
         /// attributes

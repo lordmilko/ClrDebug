@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// representation of a 32 bit pointer to member function for a class with no virtual bases and multiple address points
     /// </summary>
     [DebuggerDisplay("off = {off.ToString(),nq}, disp = {disp.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_PMFR32_NVMA
     {
         /// <summary>

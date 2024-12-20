@@ -8,10 +8,10 @@ namespace ClrDebug.PDB
     /// bit field structure describing class/struct/union/enum properties
     /// </summary>
     [DebuggerDisplay("data = {data}, packed = {packed}, ctor = {ctor}, ovlops = {ovlops}, isnested = {isnested}, cnested = {cnested}, opassign = {opassign}, opcast = {opcast}, fwdref = {fwdref}, scoped = {scoped}, hasuniquename = {hasuniquename}, @sealed = {@sealed}, intrinsic = {intrinsic}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_prop_t
     {
-        public short data;
+        private short data;
 
         /// <summary>
         /// true if structure is packed
@@ -138,5 +138,8 @@ namespace ClrDebug.PDB
             get => (CV_MOCOM_UDT_e) GetBits(data, 14, 2); //14-15
             set => SetBits(ref data, 14, 2, (short) value);
         }
+
+        public static implicit operator CV_prop_t(short value) => new CV_prop_t { data = value };
+        public static implicit operator short(CV_prop_t value) => value.data;
     }
 }

@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// leaf for default arguments
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, type = {type.ToString(),nq}, expr = {expr}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfDefArg_16t
     {
         /// <summary>

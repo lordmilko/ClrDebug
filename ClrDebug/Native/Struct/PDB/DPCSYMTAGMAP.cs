@@ -7,13 +7,13 @@ namespace ClrDebug.PDB
     /// A map for DPC pointer tag values to symbol records.
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, mapEntries = {mapEntries}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct DPCSYMTAGMAP
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_DPC_SYM_TAG_MAP

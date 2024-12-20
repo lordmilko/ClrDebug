@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// It is for compress and reduce the amount of relocations need.
     /// </summary>
     [DebuggerDisplay("gapStartOffset = {gapStartOffset}, cbRange = {cbRange}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_LVAR_ADDR_GAP
     {
         /// <summary>

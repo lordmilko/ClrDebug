@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// subfield record for non-static data members
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, index = {index.ToString(),nq}, attr = {attr.ToString(),nq}, offset = {offset}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfMember_16t
     {
         /// <summary>

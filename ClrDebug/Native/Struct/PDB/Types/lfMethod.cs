@@ -6,7 +6,7 @@ namespace ClrDebug.PDB
     /// <summary>
     /// subfield record for overloaded method list
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfMethod
     {
         /// <summary>

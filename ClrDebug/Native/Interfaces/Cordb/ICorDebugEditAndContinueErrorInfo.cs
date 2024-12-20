@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
@@ -34,7 +33,7 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         HRESULT GetToken(
-            [Out] out int pToken);
+            [Out] out mdToken pToken);
 
         /// <summary>
         /// GetErrorCode is obsolete. Do not call this method.

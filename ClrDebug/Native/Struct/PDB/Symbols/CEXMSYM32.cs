@@ -11,7 +11,7 @@ namespace ClrDebug.PDB
         /// Record length
         /// </summary>
         [FieldOffset(0)]
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_CEXMODEL32
@@ -35,7 +35,7 @@ namespace ClrDebug.PDB
         /// execution model
         /// </summary>
         [FieldOffset(10)]
-        public short model;
+        public short model; //todo: enum?
 
         //Union
 
@@ -62,7 +62,7 @@ namespace ClrDebug.PDB
         public CV_COBOL_e subtype;
 
         [FieldOffset(14)]
-        public short flag;
+        public short flag; //todo: enum?
 
         //Struct 3
 

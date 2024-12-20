@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// This is the header leaf for a complex list of class and structure subfields.
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfFieldList_16t
     {
         /// <summary>

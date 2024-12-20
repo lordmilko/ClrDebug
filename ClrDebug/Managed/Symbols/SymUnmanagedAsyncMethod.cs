@@ -24,10 +24,10 @@
         {
             get
             {
-                HRESULT hr = TryIsAsyncMethod();
-                hr.ThrowOnFailed();
+                bool pRetVal;
+                TryIsAsyncMethod(out pRetVal).ThrowOnNotOK();
 
-                return hr == HRESULT.S_OK;
+                return pRetVal;
             }
         }
 
@@ -36,10 +36,11 @@
         /// They will all return E_UNEXPECTED in this case.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryIsAsyncMethod()
+        public HRESULT TryIsAsyncMethod(out bool pRetVal)
         {
-            /*HRESULT IsAsyncMethod();*/
-            return Raw.IsAsyncMethod();
+            /*HRESULT IsAsyncMethod(
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
+            return Raw.IsAsyncMethod(out pRetVal);
         }
 
         #endregion
@@ -48,11 +49,11 @@
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineKickoffMethod"/>.
         /// </summary>
-        public mdToken KickoffMethod
+        public mdMethodDef KickoffMethod
         {
             get
             {
-                mdToken kickoffMethod;
+                mdMethodDef kickoffMethod;
                 TryGetKickoffMethod(out kickoffMethod).ThrowOnNotOK();
 
                 return kickoffMethod;
@@ -63,10 +64,10 @@
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineKickoffMethod"/>.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryGetKickoffMethod(out mdToken kickoffMethod)
+        public HRESULT TryGetKickoffMethod(out mdMethodDef kickoffMethod)
         {
             /*HRESULT GetKickoffMethod(
-            [Out] out mdToken kickoffMethod);*/
+            [Out] out mdMethodDef kickoffMethod);*/
             return Raw.GetKickoffMethod(out kickoffMethod);
         }
 
@@ -190,19 +191,23 @@
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
         /// </summary>
-        public void HasCatchHandlerILOffset()
+        public bool HasCatchHandlerILOffset()
         {
-            TryHasCatchHandlerILOffset().ThrowOnNotOK();
+            bool pRetVal;
+            TryHasCatchHandlerILOffset(out pRetVal).ThrowOnNotOK();
+
+            return pRetVal;
         }
 
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryHasCatchHandlerILOffset()
+        public HRESULT TryHasCatchHandlerILOffset(out bool pRetVal)
         {
-            /*HRESULT HasCatchHandlerILOffset();*/
-            return Raw.HasCatchHandlerILOffset();
+            /*HRESULT HasCatchHandlerILOffset(
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
+            return Raw.HasCatchHandlerILOffset(out pRetVal);
         }
 
         #endregion

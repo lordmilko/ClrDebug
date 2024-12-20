@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// <summary>
     /// type record describing using of a type server with v7 (GUID) signatures
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfTypeServer2
     {
         /// <summary>

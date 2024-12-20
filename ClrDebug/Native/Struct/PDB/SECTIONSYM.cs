@@ -3,13 +3,13 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct SECTIONSYM
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_SECTION
@@ -33,7 +33,7 @@ namespace ClrDebug.PDB
 
         public int rva;
         public int cb;
-        public int characteristics;
+        public int characteristics; //todo: enum?
 
         /// <summary>
         /// name

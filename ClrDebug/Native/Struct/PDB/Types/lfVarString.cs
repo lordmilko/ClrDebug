@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// variable length numeric field
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, len = {len}, value = {value}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfVarString
     {
         /// <summary>

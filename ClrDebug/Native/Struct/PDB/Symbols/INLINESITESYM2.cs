@@ -4,13 +4,13 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, pParent = {pParent}, pEnd = {pEnd}, inlinee = {inlinee.ToString(),nq}, invocations = {invocations}, binaryAnnotations = {binaryAnnotations}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct INLINESITESYM2
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_INLINESITE2

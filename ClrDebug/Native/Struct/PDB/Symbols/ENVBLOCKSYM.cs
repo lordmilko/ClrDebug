@@ -1,17 +1,19 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, rev = {rev}, pad = {pad}, flags = {flags}, rgsz = {rgsz}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct ENVBLOCKSYM
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_ENVBLOCK
@@ -46,5 +48,56 @@ namespace ClrDebug.PDB
         /// Sequence of zero-terminated strings
         /// </summary>
         public fixed byte rgsz[1];
+
+        public string[] Strings
+        {
+            get
+            {
+                //From dumpsym7.cpp!C7Envblock, we can see that the array will end in a \0
+
+                var results = new List<string>();
+
+                fixed (byte* local = rgsz)
+                {
+                    var ptr = local;
+
+                    while (true)
+                    {
+                        if (*ptr == 0)
+                            break;
+
+                        var str = CreateString(ptr, true);
+
+                        results.Add(str);
+
+                        ptr += Encoding.UTF8.GetByteCount(str) + 1; //Skip the \0 as well
+                    }
+                }
+
+                return results.ToArray();
+            }
+        }
+
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+
+            var strs = Strings;
+
+            for (var i = 0; i < strs.Length; i += 2)
+            {
+                builder.Append(strs[i]).Append(" = ");
+
+                if (i < strs.Length - 1)
+                    builder.Append(strs[i + 1]);
+                else
+                    builder.Append("null");
+
+                if (i < strs.Length - 2)
+                    builder.Append(", ");
+            }
+
+            return builder.ToString();
+        }
     }
 }

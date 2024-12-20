@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("offFile = {offFile.ToString(),nq}, nLines = {nLines.ToString(),nq}, cbBlock = {cbBlock.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_DebugSLinesFileBlockHeader_t
     {
         public CV_off32_t offFile;

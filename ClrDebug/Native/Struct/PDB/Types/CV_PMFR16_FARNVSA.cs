@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// representation of a 16:16 pointer to far member function for a class with no virtual bases and a single address point
     /// </summary>
     [DebuggerDisplay("off = {off.ToString(),nq}, seg = {seg}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_PMFR16_FARNVSA
     {
         /// <summary>

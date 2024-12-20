@@ -4,13 +4,13 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, offsetBase = {offsetBase.ToString(),nq}, sectBase = {sectBase}, switchType = {switchType}, offsetBranch = {offsetBranch.ToString(),nq}, offsetTable = {offsetTable.ToString(),nq}, sectBranch = {sectBranch}, sectTable = {sectTable}, cEntries = {cEntries}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct ARMSWITCHTABLE
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_ARMSWITCHTABLE
@@ -30,7 +30,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// type of each entry
         /// </summary>
-        public short switchType;
+        public short switchType; //todo: enum?
 
         /// <summary>
         /// Section-relative offset to the table branch instruction

@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// derived class list leaf
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, count = {count}, drvdcls = {drvdcls}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfDerived
     {
         /// <summary>

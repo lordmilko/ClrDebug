@@ -5,7 +5,8 @@ using System.Linq;
 namespace ClrDebug.TypeLib
 {
     /// <summary>
-    /// Provides the managed definition of the <see cref="ITypeLib"/> interface.
+    /// Represents a type library, the data that describes a set of objects. A type library can be a stand-alone binary file (.TLB),
+    /// a resource in a dynamic link library or executable file (.DLL, .OLB, or .EXE).
     /// </summary>
     public class ComTypeLib : ComObject<ITypeLib>
     {
@@ -454,21 +455,23 @@ namespace ClrDebug.TypeLib
         /// <summary>
         /// Gets all custom data items for the library.
         /// </summary>
-        /// <param name="pCustData">A pointer to <see cref="CUSTDATA"/>, which holds all custom data items.</param>
-        public void GetAllCustData(IntPtr pCustData)
+        /// <returns>A pointer to <see cref="CUSTDATA"/>, which holds all custom data items.</returns>
+        public CUSTDATA GetAllCustData()
         {
-            TryGetAllCustData(pCustData).ThrowOnNotOK();
+            CUSTDATA pCustData;
+            TryGetAllCustData(out pCustData).ThrowOnNotOK();
+            return pCustData;
         }
 
         /// <summary>
         /// Gets all custom data items for the library.
         /// </summary>
         /// <param name="pCustData">A pointer to <see cref="CUSTDATA"/>, which holds all custom data items.</param>
-        public HRESULT TryGetAllCustData(IntPtr pCustData)
+        public HRESULT TryGetAllCustData(out CUSTDATA pCustData)
         {
             /*HRESULT GetAllCustData(
-            [In] IntPtr pCustData);*/
-            return Raw2.GetAllCustData(pCustData);
+            [Out] out CUSTDATA* pCustData);*/
+            return Raw2.GetAllCustData(out pCustData);
         }
 
         #endregion

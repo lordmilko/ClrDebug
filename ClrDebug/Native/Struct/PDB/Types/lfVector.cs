@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for LF_VECTOR
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, elemtype = {elemtype.ToString(),nq}, count = {count}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfVector
     {
         /// <summary>

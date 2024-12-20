@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for pad leaf
     /// </summary>
     [DebuggerDisplay("leaf = {leaf}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfPad
     {
         public byte leaf;

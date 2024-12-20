@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// real 32-bit leaf
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, val = {val}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfReal32
     {
         /// <summary>

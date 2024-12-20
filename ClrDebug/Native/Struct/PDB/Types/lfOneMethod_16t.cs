@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// subfield record for nonoverloaded method
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, attr = {attr.ToString(),nq}, index = {index.ToString(),nq}, vbaseoff = {vbaseoff}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfOneMethod_16t
     {
         /// <summary>

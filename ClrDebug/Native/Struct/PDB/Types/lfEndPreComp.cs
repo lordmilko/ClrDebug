@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record describing end of precompiled types that can be included by another file
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, signature = {signature}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfEndPreComp
     {
         /// <summary>

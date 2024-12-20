@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct XFIXUP_DATA
     {
-        public short wType;
+        public short wType; //todo: enum?
         public short wExtra;
         public int rva;
         public int rvaTarget;

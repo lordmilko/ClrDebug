@@ -86,19 +86,37 @@ namespace ClrDebug
         WSAECONNREFUSED = 0x8007274d,
 
         //0x8000
+        E_BOUNDS = 0x8000000B,
         COR_E_AMBIGUOUSMATCH = 0x8000211D,
+        CO_E_NOT_SUPPORTED = 0x80004021,
 
         //0x8001
+
+        /// <summary>
+        /// The caller is dispatching an asynchronous call and cannot make an outgoing call on behalf of this call.
+        /// </summary>
+        RPC_E_CANTCALLOUT_INASYNCCALL = 0x80010004,
+
         RPC_E_CLIENT_DIED           = 0x80010008,
         RPC_E_NOT_REGISTERED        = 0x80010103,
+        RPC_E_SERVERFAULT           = 0x80010105,
         RPC_E_INVALIDMETHOD         = 0x80010107,
         RPC_E_SERVERCALL_RETRYLATER = 0x8001010A,
         RPC_E_WRONG_THREAD          = 0x8001010E,
+        RPC_E_INVALID_OBJREF        = 0x8001011D,
 
         //0x8002
         COR_E_TARGETPARAMCOUNT = 0x8002000E,
         COR_E_DIVIDEBYZERO = 0x80020012,
         TYPE_E_ELEMENTNOTFOUND = 0x8002802B,
+        TYPE_E_NAMECONFLICT = 0x8002802D,
+        TYPE_E_BADMODULEKIND = 0x800288BD,
+        TYPE_E_DUPLICATEID = 0x800288C6,
+        TYPE_E_INVALIDID = 0x800288CF,
+        TYPE_E_CANTLOADLIBRARY = 0x80029C4A,
+
+        //0x8003
+        STG_E_READFAULT = 0x8003001E,
 
         //0x8004
         CLASS_E_CLASSNOTAVAILABLE = 0x80040111,
@@ -137,11 +155,17 @@ namespace ClrDebug
         ERROR_ARITHMETIC_OVERFLOW = 0x80070216, //COR_E_ARITHMETIC
         ERROR_NOACCESS = 0x800703E6,
         ERROR_STACK_OVERFLOW = 0x800703e9, //COR_E_STACKOVERFLOW
-        ERROR_NOT_FOUND = 0x80070490,
+        ERROR_NOT_FOUND = 0x80070490, //E_NOT_SET
         ERROR_CANCELLED = 0x800704C7,
         ERROR_SERVER_DISABLED = 0x8007053d,
         ERROR_DYNAMIC_CODE_BLOCKED = 0x80070677,
+        RPC_S_SERVER_UNAVAILABLE = 0x800706BA,
+        RPC_S_CALL_FAILED = 0x800706BE,
+        RPC_S_INVALID_BOUND = 0x800706C6,
+        RPC_X_NULL_REF_POINTER = 0x800706F4,
+        RPC_X_BAD_STUB_DATA = 0x800706F7,
         ERROR_INVALID_OPERATION = 0x800710dd,
+        ERROR_SXS_CANT_GEN_ACTCTX = 0x800736B1,
 
         //0x8013
         #region Execution Engine
@@ -1397,8 +1421,8 @@ namespace ClrDebug
         CLR_E_GC_BAD_REGION_SIZE = 0x8013200f,
 
         //0x806d
-        E_PDB_OK = 0x806d001,
-        E_PDB_USAGE = 0x806d002,
+        E_PDB_OK = 0x806d0001,
+        E_PDB_USAGE = 0x806d0002,
         E_PDB_OUT_OF_MEMORY = 0x806d0003,
         E_PDB_FILE_SYSTEM = 0x806d0004,
         E_PDB_NOT_FOUND = 0x806d0005,
@@ -1429,7 +1453,13 @@ namespace ClrDebug
         E_DIA_FRAME_ACCESS = 0x806D0066,
         E_DIA_VALUE = 0x806D0067,
 
+        //0x807f (DbgServices)
+        E_UNHANDLED_REQUEST_TYPE = 0x807f377e,
+        S_UNATTRIBUTABLE_RESULT  = 0x007f377f,
+
         //0xD000 (HRESULT_FROM_NT)
+        //This does not have every single NTSTATUS; only statuses that have been shown to leak into usermode
+
         STATUS_SUCCESS                  = NTSTATUS.STATUS_SUCCESS                  | FACILITY_NT_BIT,
         STATUS_MORE_ENTRIES             = NTSTATUS.STATUS_MORE_ENTRIES             | FACILITY_NT_BIT,
 

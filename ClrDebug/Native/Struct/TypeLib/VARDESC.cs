@@ -33,7 +33,7 @@ namespace ClrDebug.TypeLib
         /// <summary>
         /// Defines the properties of a variable.
         /// </summary>
-        public short wVarFlags;
+        public VARFLAGS wVarFlags;
 
         /// <summary>
         /// Defines how to marshal a variable.

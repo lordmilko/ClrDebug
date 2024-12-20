@@ -7,13 +7,13 @@ namespace ClrDebug.PDB
     /// Symbol for describing security cookie's position and type (raw, xor'd with esp, xor'd with ebp).
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, off = {off.ToString(),nq}, reg = {reg}, cookietype = {cookietype.ToString(),nq}, flags = {flags}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct FRAMECOOKIE
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_FRAMECOOKIE
@@ -28,7 +28,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Register index
         /// </summary>
-        public short reg;
+        public short reg; //todo: enum?
 
         /// <summary>
         /// Type of the cookie
@@ -38,6 +38,6 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Flags describing this cookie
         /// </summary>
-        public byte flags;
+        public byte flags; //todo: enum?
     }
 }

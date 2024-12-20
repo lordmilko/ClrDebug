@@ -5,7 +5,7 @@ using static ClrDebug.Extensions;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("ulRvaStart = {ulRvaStart}, cbBlock = {cbBlock}, cbLocals = {cbLocals}, cbParams = {cbParams}, cbStkMax = {cbStkMax}, frameFunc = {frameFunc}, cbProlog = {cbProlog}, cbSavedRegs = {cbSavedRegs}, fHasSEH = {fHasSEH}, fHasEH = {fHasEH}, fIsFunctionStart = {fIsFunctionStart}, reserved = {reserved}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct FRAMEDATA
     {
         public int ulRvaStart;

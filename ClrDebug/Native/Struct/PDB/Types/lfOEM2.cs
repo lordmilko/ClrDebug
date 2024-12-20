@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
@@ -7,7 +8,7 @@ namespace ClrDebug.PDB
     /// type record for OEM definable type strings
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, idOem = {idOem}, count = {count}, index = {index}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfOEM2
     {
         /// <summary>
@@ -18,7 +19,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// an oem ID (GUID)
         /// </summary>
-        public fixed byte idOem[16];
+        public Guid idOem;
 
         /// <summary>
         /// count of type indices to follow

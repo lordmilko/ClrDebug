@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for OEM definable type strings
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, cvOEM = {cvOEM}, recOEM = {recOEM}, count = {count}, index = {index}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfOEM
     {
         /// <summary>
@@ -18,12 +18,12 @@ namespace ClrDebug.PDB
         /// <summary>
         /// MS assigned OEM identified
         /// </summary>
-        public short cvOEM;
+        public short cvOEM; //todo: enum?
 
         /// <summary>
         /// OEM assigned type identifier
         /// </summary>
-        public short recOEM;
+        public short recOEM; //todo: enum?
 
         /// <summary>
         /// count of type indices to follow

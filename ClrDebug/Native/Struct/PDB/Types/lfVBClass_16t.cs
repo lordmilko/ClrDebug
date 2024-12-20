@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// subfield record for direct and indirect virtual base class field
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, index = {index.ToString(),nq}, vbptr = {vbptr.ToString(),nq}, attr = {attr.ToString(),nq}, vbpoff = {vbpoff}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfVBClass_16t
     {
         /// <summary>

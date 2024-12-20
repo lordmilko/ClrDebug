@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for cobol1
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfCobol1
     {
         /// <summary>

@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// representation of a 32 bit pointer to member function for a class with virtual bases
     /// </summary>
     [DebuggerDisplay("off = {off.ToString(),nq}, mdisp = {mdisp.ToString(),nq}, pdisp = {pdisp.ToString(),nq}, vdisp = {vdisp.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_PMFR32_VBASE
     {
         /// <summary>

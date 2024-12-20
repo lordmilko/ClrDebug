@@ -2,13 +2,13 @@
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct SYMTYPE
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen; //reclen is the length of the record (excluding this field). You can have very big records with the signed bit set, so this should be ushort
 
         /// <summary>
         /// Record type

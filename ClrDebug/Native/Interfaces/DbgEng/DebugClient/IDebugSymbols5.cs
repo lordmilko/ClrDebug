@@ -2152,7 +2152,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSymbolEntryByToken(
             [In] long ModuleBase,
-            [In] int Token,
+            [In] mdToken Token,
             [Out] out DEBUG_MODULE_AND_ID Id);
 
         /// <summary>

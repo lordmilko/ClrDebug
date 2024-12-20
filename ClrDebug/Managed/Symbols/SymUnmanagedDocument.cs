@@ -295,9 +295,9 @@ namespace ClrDebug
         /// Returns true if the document has source embedded in the debugging symbols; otherwise, returns false.
         /// </summary>
         /// <returns>[out] A pointer to a variable that indicates whether the document has source embedded in the debugging symbols.</returns>
-        public int HasEmbeddedSource()
+        public bool HasEmbeddedSource()
         {
-            int pRetVal;
+            bool pRetVal;
             TryHasEmbeddedSource(out pRetVal).ThrowOnNotOK();
 
             return pRetVal;
@@ -308,10 +308,10 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a variable that indicates whether the document has source embedded in the debugging symbols.</param>
         /// <returns>S_OK if the method succeeds.</returns>
-        public HRESULT TryHasEmbeddedSource(out int pRetVal)
+        public HRESULT TryHasEmbeddedSource(out bool pRetVal)
         {
             /*HRESULT HasEmbeddedSource(
-            [Out] out int pRetVal);*/
+            [Out] out bool pRetVal);*/
             return Raw.HasEmbeddedSource(out pRetVal);
         }
 

@@ -10,24 +10,24 @@ namespace ClrDebug.PDB
         /// Record length
         /// </summary>
         [FieldOffset(0)]
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_REF_MINIPDB
         /// </summary>
-        [FieldOffset(4)]
+        [FieldOffset(2)]
         public SYM_ENUM_e rectyp;
 
         /// <summary>
         /// coff section
         /// </summary>
-        [FieldOffset(6)]
+        [FieldOffset(4)]
         public int isectCoff;
 
         /// <summary>
         /// type index
         /// </summary>
-        [FieldOffset(6)]
+        [FieldOffset(4)]
         public CV_typ_t typind;
 
         /// <summary>
@@ -43,8 +43,8 @@ namespace ClrDebug.PDB
         /// </summary>
         public bool fLocal
         {
-            get => GetBitFlag(data2, 0);
-            set => SetBitFlag(ref data2, 0, value);
+            get => GetBitFlag(data, 0);
+            set => SetBitFlag(ref data, 0, value);
         }
 
         /// <summary>
@@ -52,8 +52,8 @@ namespace ClrDebug.PDB
         /// </summary>
         public bool fData
         {
-            get => GetBitFlag(data2, 1);
-            set => SetBitFlag(ref data2, 1, value);
+            get => GetBitFlag(data, 1);
+            set => SetBitFlag(ref data, 1, value);
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace ClrDebug.PDB
         /// </summary>
         public bool fUDT
         {
-            get => GetBitFlag(data2, 2);
-            set => SetBitFlag(ref data2, 2, value);
+            get => GetBitFlag(data, 2);
+            set => SetBitFlag(ref data, 2, value);
         }
 
         /// <summary>
@@ -70,8 +70,8 @@ namespace ClrDebug.PDB
         /// </summary>
         public bool fLabel
         {
-            get => GetBitFlag(data2, 3);
-            set => SetBitFlag(ref data2, 3, value);
+            get => GetBitFlag(data, 3);
+            set => SetBitFlag(ref data, 3, value);
         }
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace ClrDebug.PDB
         /// </summary>
         public bool fConst
         {
-            get => GetBitFlag(data2, 4);
-            set => SetBitFlag(ref data2, 4, value);
+            get => GetBitFlag(data, 4);
+            set => SetBitFlag(ref data, 4, value);
         }
 
         /// <summary>
@@ -88,12 +88,12 @@ namespace ClrDebug.PDB
         /// </summary>
         public short reserved
         {
-            get => GetBits(data2, 5, 11); //5-15
-            set => SetBits(ref data2, 5, 11, value);
+            get => GetBits(data, 5, 11); //5-15
+            set => SetBits(ref data, 5, 11, value);
         }
 
         [FieldOffset(10)]
-        public short data2;
+        public short data;
 
         #endregion
 

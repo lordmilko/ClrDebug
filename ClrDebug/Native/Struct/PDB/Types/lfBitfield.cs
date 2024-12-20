@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for LF_BITFIELD
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, type = {type.ToString(),nq}, length = {length}, position = {position}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfBitfield
     {
         /// <summary>

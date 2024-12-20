@@ -150,7 +150,7 @@ namespace ClrDebug.DbgEng
                 return result;
             }
 
-            public unsafe IoctlDumpError TryDumpSymbolInfo(
+            public IoctlDumpError TryDumpSymbolInfo(
                 string name = null,
                 DBG_DUMP options = 0,
                 long addr = 0,
@@ -483,10 +483,46 @@ namespace ClrDebug.DbgEng
                 throw new NotImplementedException();
             }
 
-            private void QueryTargetInterface()
+            #endregion
+
+            public IntPtr QueryTargetInterface(Guid iid)
             {
-                throw new NotImplementedException();
+                if (!TryQueryTargetInterface(iid, out var result))
+                    throw new InvalidOperationException($"Failed to retrieve interface with IID {iid}");
+
+                return result;
             }
+
+            public unsafe bool TryQueryTargetInterface(Guid iid, out IntPtr result)
+            {
+                var size = Marshal.SizeOf<WDBGEXTS_QUERY_INTERFACE>();
+
+                var buffer = (WDBGEXTS_QUERY_INTERFACE*) Marshal.AllocHGlobal(size);
+                var guid = GCHandle.Alloc(iid, GCHandleType.Pinned);
+
+                try
+                {
+                    buffer->Iid = guid.AddrOfPinnedObject();
+
+                    if (api.Ioctl(IG.QUERY_TARGET_INTERFACE, new IntPtr(buffer), size) == 1)
+                    {
+                        result = buffer->Iface;
+                        return true;
+                    }
+                    else
+                    {
+                        result = default;
+                        return false;
+                    }
+                }
+                finally
+                {
+                    Marshal.FreeHGlobal(new IntPtr(buffer));
+                    guid.Free();
+                }
+            }
+
+            #region
 
             private void ReadControlSpace()
             {

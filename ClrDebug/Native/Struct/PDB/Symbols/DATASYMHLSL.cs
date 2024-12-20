@@ -3,13 +3,13 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct DATASYMHLSL
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_GDATA_HLSL, S_LDATA_HLSL
@@ -24,7 +24,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// register type from CV_HLSLREG_e
         /// </summary>
-        public short regType;
+        public short regType; //todo: enum?
 
         /// <summary>
         /// Base data (cbuffer, groupshared, etc.) slot

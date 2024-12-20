@@ -5,10 +5,10 @@ using static ClrDebug.Extensions;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("grfFlags = {grfFlags}, fCode = {fCode}, fFunction = {fFunction}, fManaged = {fManaged}, fMSIL = {fMSIL}, __unused = {__unused}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_PUBSYMFLAGS
     {
-        public int grfFlags;
+        private int grfFlags;
 
         //Bitfields in grfFlags
 
@@ -56,5 +56,8 @@ namespace ClrDebug.PDB
             get => GetBits(grfFlags, 4, 28); //4-31
             set => SetBits(ref grfFlags, 4, 28, value);
         }
+
+        public static implicit operator CV_PUBSYMFLAGS(int value) => new CV_PUBSYMFLAGS { grfFlags = value };
+        public static implicit operator int(CV_PUBSYMFLAGS value) => value.grfFlags;
     }
 }

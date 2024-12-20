@@ -181,7 +181,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
         [PreserveSig]
         HRESULT findSymbolByToken(
-            [In] int token,
+            [In] mdToken token,
             [In] SymTagEnum symTag,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol ppSymbol);
 

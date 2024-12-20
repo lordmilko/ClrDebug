@@ -24,7 +24,7 @@ namespace ClrDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         HRESULT DefineKickoffMethod(
-            [In] int kickoffMethod);
+            [In] mdMethodDef kickoffMethod);
 
         /// <summary>
         /// Sets the IL offset for the compiler-generated catch handler that wraps an async method. The IL offset of the generated catch is used by the debugger to handle the catch as if it were non-user code even though it might occur in a user code method.<para/>

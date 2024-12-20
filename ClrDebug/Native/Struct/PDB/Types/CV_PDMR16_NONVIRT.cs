@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// representation of a 16:16 pointer to data for a class with no virtual functions or virtual bases
     /// </summary>
     [DebuggerDisplay("mdisp = {mdisp.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_PDMR16_NONVIRT
     {
         /// <summary>

@@ -4,13 +4,13 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, flags = {flags.ToString(),nq}, style = {style}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct RETURNSYM
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_RETURN
@@ -25,6 +25,6 @@ namespace ClrDebug.PDB
         /// <summary>
         /// CV_GENERIC_STYLE_e return style followed by return method data
         /// </summary>
-        public byte style;
+        public CV_GENERIC_STYLE_e style;
     }
 }

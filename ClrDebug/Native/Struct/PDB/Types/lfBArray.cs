@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for basic array
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, utype = {utype.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfBArray
     {
         /// <summary>

@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// a major use of this leaf is to allow the compilers to emit a long complex list (LF_FIELD) in smaller pieces.
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, index = {index.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfIndex_16t
     {
         /// <summary>

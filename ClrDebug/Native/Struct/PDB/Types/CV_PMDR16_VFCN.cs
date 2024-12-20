@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// representation of a 16:16 pointer to data for a class with virtual functions
     /// </summary>
     [DebuggerDisplay("mdisp = {mdisp.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_PMDR16_VFCN
     {
         /// <summary>

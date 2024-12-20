@@ -3,13 +3,13 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct CFLAGSYM
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_COMPILE
@@ -19,7 +19,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// target processor
         /// </summary>
-        public byte machine;
+        public byte machine; //todo: enum?
 
         #region BitField
 

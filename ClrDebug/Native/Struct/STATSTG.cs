@@ -24,7 +24,7 @@ namespace ClrDebug
         /// <summary>
         /// Indicates the type of storage object. This is one of the values from the STGTY enumeration.
         /// </summary>
-        public int type;
+        public STGTY type;
 
         /// <summary>
         /// Specifies the size, in bytes, of the stream or byte array.

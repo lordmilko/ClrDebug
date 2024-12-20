@@ -374,7 +374,7 @@ namespace ClrDebug
         /// <param name="addr1">[in] The first address for the field specification.</param>
         /// <param name="addr2">[in] The second address for the field specification.</param>
         /// <param name="addr3">[in] The third address for the field specification.</param>
-        public void DefineField(int parent, string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3)
+        public void DefineField(mdToken parent, string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3)
         {
             TryDefineField(parent, name, attributes, cSig, signature, addrKind, addr1, addr2, addr3).ThrowOnNotOK();
         }
@@ -392,10 +392,10 @@ namespace ClrDebug
         /// <param name="addr2">[in] The second address for the field specification.</param>
         /// <param name="addr3">[in] The third address for the field specification.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineField(int parent, string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3)
+        public HRESULT TryDefineField(mdToken parent, string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3)
         {
             /*HRESULT DefineField(
-            [In] int parent,
+            [In] mdToken parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] int cSig,
@@ -491,7 +491,7 @@ namespace ClrDebug
         /// <param name="name">[in] A pointer to a WCHAR that contains the attribute name.</param>
         /// <param name="cData">[in] A ULONG32 that indicates the size of the data array.</param>
         /// <param name="data">[in] The attribute value.</param>
-        public void SetSymAttribute(int parent, string name, int cData, IntPtr data)
+        public void SetSymAttribute(mdToken parent, string name, int cData, IntPtr data)
         {
             TrySetSymAttribute(parent, name, cData, data).ThrowOnNotOK();
         }
@@ -504,10 +504,10 @@ namespace ClrDebug
         /// <param name="cData">[in] A ULONG32 that indicates the size of the data array.</param>
         /// <param name="data">[in] The attribute value.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TrySetSymAttribute(int parent, string name, int cData, IntPtr data)
+        public HRESULT TrySetSymAttribute(mdToken parent, string name, int cData, IntPtr data)
         {
             /*HRESULT SetSymAttribute(
-            [In] int parent,
+            [In] mdToken parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cData,
             [In] IntPtr data);*/

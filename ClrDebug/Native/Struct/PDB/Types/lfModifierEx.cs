@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for a generalized built-in type modifier
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, type = {type.ToString(),nq}, count = {count}, mods = {mods}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfModifierEx
     {
         /// <summary>

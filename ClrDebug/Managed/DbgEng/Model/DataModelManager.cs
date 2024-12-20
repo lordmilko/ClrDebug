@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace ClrDebug.DbgEng
 {
@@ -356,7 +357,7 @@ namespace ClrDebug.DbgEng
         /// For others which are effectively IUnknown derived interfaces, the object type is one of the values in the ModelObjectKind enumeration and the interface in the VARIANT must match.</param>
         /// <param name="intrinsicData">A VARIANT containing the value which is going to be boxed inside an <see cref="IModelObject"/> container.</param>
         /// <returns>The newly boxed value (as an <see cref="IModelObject"/>) will be returned here.</returns>
-        public ModelObject CreateIntrinsicObject(ModelObjectKind objectKind, object intrinsicData)
+        public ModelObject CreateIntrinsicObject(ModelObjectKind objectKind, IntPtr intrinsicData)
         {
             ModelObject objectResult;
             TryCreateIntrinsicObject(objectKind, intrinsicData, out objectResult).ThrowDbgEngNotOK();
@@ -376,7 +377,7 @@ namespace ClrDebug.DbgEng
         /// <param name="intrinsicData">A VARIANT containing the value which is going to be boxed inside an <see cref="IModelObject"/> container.</param>
         /// <param name="objectResult">The newly boxed value (as an <see cref="IModelObject"/>) will be returned here.</param>
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
-        public HRESULT TryCreateIntrinsicObject(ModelObjectKind objectKind, object intrinsicData, out ModelObject objectResult)
+        public HRESULT TryCreateIntrinsicObject(ModelObjectKind objectKind, IntPtr intrinsicData, out ModelObject objectResult)
         {
             /*HRESULT CreateIntrinsicObject(
             [In] ModelObjectKind objectKind,
@@ -406,7 +407,7 @@ namespace ClrDebug.DbgEng
         /// Anything passed to this method must be expressable as ObjectIntrinsic.</param>
         /// <param name="type">The native/language type of the value.</param>
         /// <returns>The newly boxed value (as an <see cref="IModelObject"/>) will be returned here.</returns>
-        public ModelObject CreateTypedIntrinsicObject(object intrinsicData, IDebugHostType type)
+        public ModelObject CreateTypedIntrinsicObject(IntPtr intrinsicData, IDebugHostType type)
         {
             ModelObject objectResult;
             TryCreateTypedIntrinsicObject(intrinsicData, type, out objectResult).ThrowDbgEngNotOK();
@@ -425,7 +426,7 @@ namespace ClrDebug.DbgEng
         /// <param name="type">The native/language type of the value.</param>
         /// <param name="objectResult">The newly boxed value (as an <see cref="IModelObject"/>) will be returned here.</param>
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
-        public HRESULT TryCreateTypedIntrinsicObject(object intrinsicData, IDebugHostType type, out ModelObject objectResult)
+        public HRESULT TryCreateTypedIntrinsicObject(IntPtr intrinsicData, IDebugHostType type, out ModelObject objectResult)
         {
             /*HRESULT CreateTypedIntrinsicObject(
             [In, MarshalAs(UnmanagedType.Struct)] object intrinsicData,
@@ -922,7 +923,7 @@ namespace ClrDebug.DbgEng
         /// Anything passed to this method must be expressable as ObjectIntrinsic</param>
         /// <param name="type">The native/language type of the value.</param>
         /// <returns>The newly boxed value (as an <see cref="IModelObject"/>) will be returned here.</returns>
-        public ModelObject CreateTypedIntrinsicObjectEx(IDebugHostContext context, object intrinsicData, IDebugHostType type)
+        public ModelObject CreateTypedIntrinsicObjectEx(IDebugHostContext context, IntPtr intrinsicData, IDebugHostType type)
         {
             ModelObject objectResult;
             TryCreateTypedIntrinsicObjectEx(context, intrinsicData, type, out objectResult).ThrowDbgEngNotOK();
@@ -942,7 +943,7 @@ namespace ClrDebug.DbgEng
         /// <param name="type">The native/language type of the value.</param>
         /// <param name="objectResult">The newly boxed value (as an <see cref="IModelObject"/>) will be returned here.</param>
         /// <returns>This method returns HRESULT which indicates success or failure.</returns>
-        public HRESULT TryCreateTypedIntrinsicObjectEx(IDebugHostContext context, object intrinsicData, IDebugHostType type, out ModelObject objectResult)
+        public HRESULT TryCreateTypedIntrinsicObjectEx(IDebugHostContext context, IntPtr intrinsicData, IDebugHostType type, out ModelObject objectResult)
         {
             /*HRESULT CreateTypedIntrinsicObjectEx(
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostContext context,

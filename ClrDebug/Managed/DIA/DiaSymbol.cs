@@ -1297,9 +1297,7 @@ namespace ClrDebug.DIA
         public HRESULT TryGetValue(out object pRetVal)
         {
             /*HRESULT get_value(
-            [Out, MarshalAs(UnmanagedType.Struct)] out object pRetVal);*/
-
-            //Extension method
+            out object pRetVal);*/
             return Raw.get_value(out pRetVal);
         }
 
@@ -1342,11 +1340,11 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the metadata token of a managed function or variable.
         /// </summary>
-        public int Token
+        public mdToken Token
         {
             get
             {
-                int pRetVal;
+                mdToken pRetVal;
                 TryGetToken(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
@@ -1358,10 +1356,10 @@ namespace ClrDebug.DIA
         /// </summary>
         /// <param name="pRetVal">[out] Returns the metadata token of a managed function or variable.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
-        public HRESULT TryGetToken(out int pRetVal)
+        public HRESULT TryGetToken(out mdToken pRetVal)
         {
             /*HRESULT get_token(
-            [Out] out int pRetVal);*/
+            [Out] out mdToken pRetVal);*/
             return Raw.get_token(out pRetVal);
         }
 

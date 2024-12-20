@@ -20,6 +20,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Close() pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool CloseDelegate(
             [In] IntPtr @this);
 
@@ -44,6 +45,7 @@ namespace ClrDebug.PDB
 
         //virtual long QuerySize() pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate int QuerySizeDelegate(
             [In] IntPtr @this);
 
@@ -65,6 +67,7 @@ namespace ClrDebug.PDB
 
         //virtual void Reset() pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate void ResetDelegate(
             [In] IntPtr @this);
 
@@ -81,6 +84,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Skip(ULONG celt) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool SkipDelegate(
             [In] IntPtr @this);
 
@@ -99,6 +103,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryNext(ULONG celt, OUT void* rgelt) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QueryNextDelegate(
             [In] IntPtr @this,
             [In] int celt,
@@ -125,6 +130,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Find(IN OUT void* pelt) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool FindDelegate(
             [In] IntPtr @this,
             [In, Out] IntPtr pelt);
@@ -144,6 +150,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Clear() pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool ClearDelegate(
             [In] IntPtr @this);
 
@@ -162,6 +169,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Append(ULONG celt, const void* rgelt) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool AppendDelegate(
             [In] IntPtr @this,
             [In] int celt,
@@ -182,6 +190,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL ReplaceNext(ULONG celt, const void* rgelt) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool ReplaceNextDelegate(
             [In] IntPtr @this,
             [In] int celt,
@@ -202,6 +211,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Clone(Dbg** ppDbg) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool CloneDelegate(
             [In] IntPtr @this,
             [Out] out IntPtr ppDbg);
@@ -225,6 +235,7 @@ namespace ClrDebug.PDB
 
         //virtual long QueryElementSize() pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate int QueryElementSizeDelegate(
             [In] IntPtr @this);
 

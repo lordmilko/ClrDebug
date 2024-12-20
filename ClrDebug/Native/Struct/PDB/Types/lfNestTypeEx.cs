@@ -6,7 +6,7 @@ namespace ClrDebug.PDB
     /// <summary>
     /// type record for nested (scoped) type definition, with attributes new records for vC v5.0, no need to have 16-bit ti versions.
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfNestTypeEx
     {
         /// <summary>

@@ -7,11 +7,11 @@ namespace ClrDebug.PDB
     /// type record for LF_CLASS, LF_STRUCTURE
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, count = {count}, field = {field.ToString(),nq}, property = {property.ToString(),nq}, derived = {derived.ToString(),nq}, vshape = {vshape.ToString(),nq}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfClass_16t
     {
         /// <summary>
-        /// LF_CLASS_16t, LF_STRUCT_16t
+        /// LF_CLASS_16t, LF_STRUCTURE_16t
         /// </summary>
         public LEAF_ENUM_e leaf;
 

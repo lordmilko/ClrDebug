@@ -7,13 +7,13 @@ namespace ClrDebug.PDB
     /// A frame variable valid in all function scope
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, offFramePointer = {offFramePointer.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct DEFRANGESYMFRAMEPOINTERREL_FULL_SCOPE
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_DEFRANGE_FRAMEPOINTER_REL

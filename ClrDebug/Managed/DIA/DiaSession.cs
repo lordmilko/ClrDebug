@@ -1,4 +1,7 @@
-﻿namespace ClrDebug.DIA
+﻿using System;
+using System.Diagnostics;
+
+namespace ClrDebug.DIA
 {
     /// <summary>
     /// Provides a query context for debug symbols.
@@ -699,7 +702,7 @@
         /// <param name="token">[in] Specifies the token.</param>
         /// <param name="symTag">[in] Symbol type to be found. Values are taken from the <see cref="SymTagEnum"/> enumeration.</param>
         /// <returns>[out] Returns an <see cref="IDiaSymbol"/> object that represents the symbol retrieved.</returns>
-        public DiaSymbol FindSymbolByToken(int token, SymTagEnum symTag)
+        public DiaSymbol FindSymbolByToken(mdToken token, SymTagEnum symTag)
         {
             DiaSymbol ppSymbolResult;
             TryFindSymbolByToken(token, symTag, out ppSymbolResult).ThrowOnNotOK();
@@ -714,10 +717,10 @@
         /// <param name="symTag">[in] Symbol type to be found. Values are taken from the <see cref="SymTagEnum"/> enumeration.</param>
         /// <param name="ppSymbolResult">[out] Returns an <see cref="IDiaSymbol"/> object that represents the symbol retrieved.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
-        public HRESULT TryFindSymbolByToken(int token, SymTagEnum symTag, out DiaSymbol ppSymbolResult)
+        public HRESULT TryFindSymbolByToken(mdToken token, SymTagEnum symTag, out DiaSymbol ppSymbolResult)
         {
             /*HRESULT findSymbolByToken(
-            [In] int token,
+            [In] mdToken token,
             [In] SymTagEnum symTag,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol ppSymbol);*/
             IDiaSymbol ppSymbol;
@@ -2134,6 +2137,720 @@
                 ppResultResult = ppResult == null ? null : new DiaInputAssemblyFile(ppResult);
             else
                 ppResultResult = default(DiaInputAssemblyFile);
+
+            return hr;
+        }
+
+        #endregion
+        #endregion
+        #region IDiaSession11
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IDiaSession11 Raw11 => (IDiaSession11) Raw;
+
+        #region PdbMappingsForMiniPDB
+
+        public unsafe GetPdbMappingsForMiniPDBResult PdbMappingsForMiniPDB
+        {
+            get
+            {
+                GetPdbMappingsForMiniPDBResult result;
+                TryGetPdbMappingsForMiniPDB(out result).ThrowOnNotOK();
+
+                return result;
+            }
+        }
+
+        public unsafe HRESULT TryGetPdbMappingsForMiniPDB(out GetPdbMappingsForMiniPDBResult result)
+        {
+            /*unsafe HRESULT getPdbMappingsForMiniPDB(
+            [Out] out long _a,
+            [Out] out ushort* _b,
+            [Out] out ushort* _c);*/
+            long _a;
+            ushort* _b;
+            ushort* _c;
+            HRESULT hr = Raw11.getPdbMappingsForMiniPDB(out _a, out _b, out _c);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetPdbMappingsForMiniPDBResult(_a, _b, _c);
+            else
+                result = default(GetPdbMappingsForMiniPDBResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region InlineeMDTokenMapSize
+
+        public long InlineeMDTokenMapSize
+        {
+            get
+            {
+                long pRetVal;
+                TryGetInlineeMDTokenMapSize(out pRetVal).ThrowOnNotOK();
+
+                return pRetVal;
+            }
+        }
+
+        public HRESULT TryGetInlineeMDTokenMapSize(out long pRetVal)
+        {
+            /*HRESULT getInlineeMDTokenMapSize(
+            [Out] out long pRetVal);*/
+            return Raw11.getInlineeMDTokenMapSize(out pRetVal);
+        }
+
+        #endregion
+        #region AddPublicSymbol
+
+        public DiaSymbol AddPublicSymbol(string _a, long _b, long _c, long _d, long _e, long _f, IDiaSymbol _g)
+        {
+            DiaSymbol _hResult;
+            TryAddPublicSymbol(_a, _b, _c, _d, _e, _f, _g, out _hResult).ThrowOnNotOK();
+
+            return _hResult;
+        }
+
+        public HRESULT TryAddPublicSymbol(string _a, long _b, long _c, long _d, long _e, long _f, IDiaSymbol _g, out DiaSymbol _hResult)
+        {
+            /*HRESULT addPublicSymbol(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string _a,
+            [In] long _b,
+            [In] long _c,
+            [In] long _d,
+            [In] long _e,
+            [In] long _f,
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _g,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol _h);*/
+            IDiaSymbol _h;
+            HRESULT hr = Raw11.addPublicSymbol(_a, _b, _c, _d, _e, _f, _g, out _h);
+
+            if (hr == HRESULT.S_OK)
+                _hResult = _h == null ? null : new DiaSymbol(_h);
+            else
+                _hResult = default(DiaSymbol);
+
+            return hr;
+        }
+
+        #endregion
+        #region AddStaticSymbol
+
+        public void AddStaticSymbol(string _a, long _b, long _c, long _d, long _e, long _f, IDiaSymbol _g)
+        {
+            TryAddStaticSymbol(_a, _b, _c, _d, _e, _f, _g).ThrowOnNotOK();
+        }
+
+        public HRESULT TryAddStaticSymbol(string _a, long _b, long _c, long _d, long _e, long _f, IDiaSymbol _g)
+        {
+            /*HRESULT addStaticSymbol(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string _a,
+            [In] long _b,
+            [In] long _c,
+            [In] long _d,
+            [In] long _e,
+            [In] long _f,
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _g);*/
+            return Raw11.addStaticSymbol(_a, _b, _c, _d, _e, _f, _g);
+        }
+
+        #endregion
+        #region FindSectionAddressByCrc
+
+        public FindSectionAddressByCrcResult FindSectionAddressByCrc(long _a, long _b, long _c, long _d, IDiaSymbol _e)
+        {
+            FindSectionAddressByCrcResult result;
+            TryFindSectionAddressByCrc(_a, _b, _c, _d, _e, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        public HRESULT TryFindSectionAddressByCrc(long _a, long _b, long _c, long _d, IDiaSymbol _e, out FindSectionAddressByCrcResult result)
+        {
+            /*HRESULT findSectionAddressByCrc(
+            [In] long _a,
+            [In] long _b,
+            [In] long _c,
+            [In] long _d,
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _e,
+            [Out] out long _f,
+            [Out] out long _g,
+            [Out] out long _h);*/
+            long _f;
+            long _g;
+            long _h;
+            HRESULT hr = Raw11.findSectionAddressByCrc(_a, _b, _c, _d, _e, out _f, out _g, out _h);
+
+            if (hr == HRESULT.S_OK)
+                result = new FindSectionAddressByCrcResult(_f, _g, _h);
+            else
+                result = default(FindSectionAddressByCrcResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region FindThunkSymbol
+
+        public DiaSymbol FindThunkSymbol(IDiaSymbol _a)
+        {
+            DiaSymbol _bResult;
+            TryFindThunkSymbol(_a, out _bResult).ThrowOnNotOK();
+
+            return _bResult;
+        }
+
+        public HRESULT TryFindThunkSymbol(IDiaSymbol _a, out DiaSymbol _bResult)
+        {
+            /*HRESULT findThunkSymbol(
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol _b);*/
+            IDiaSymbol _b;
+            HRESULT hr = Raw11.findThunkSymbol(_a, out _b);
+
+            if (hr == HRESULT.S_OK)
+                _bResult = _b == null ? null : new DiaSymbol(_b);
+            else
+                _bResult = default(DiaSymbol);
+
+            return hr;
+        }
+
+        #endregion
+        #region MakeThunkSymbol
+
+        public DiaSymbol MakeThunkSymbol(long _a, long _b)
+        {
+            DiaSymbol _cResult;
+            TryMakeThunkSymbol(_a, _b, out _cResult).ThrowOnNotOK();
+
+            return _cResult;
+        }
+
+        public HRESULT TryMakeThunkSymbol(long _a, long _b, out DiaSymbol _cResult)
+        {
+            /*HRESULT makeThunkSymbol(
+            [In] long _a,
+            [In] long _b,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol _c);*/
+            IDiaSymbol _c;
+            HRESULT hr = Raw11.makeThunkSymbol(_a, _b, out _c);
+
+            if (hr == HRESULT.S_OK)
+                _cResult = _c == null ? null : new DiaSymbol(_c);
+            else
+                _cResult = default(DiaSymbol);
+
+            return hr;
+        }
+
+        #endregion
+        #region MergeObjPDB
+
+        public void MergeObjPDB(IDiaSymbol _a)
+        {
+            TryMergeObjPDB(_a).ThrowOnNotOK();
+        }
+
+        public HRESULT TryMergeObjPDB(IDiaSymbol _a)
+        {
+            /*HRESULT mergeObjPDB(
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a);*/
+            return Raw11.mergeObjPDB(_a);
+        }
+
+        #endregion
+        #region CommitObjPDBMerge
+
+        public void CommitObjPDBMerge(IDiaSymbol _a)
+        {
+            TryCommitObjPDBMerge(_a).ThrowOnNotOK();
+        }
+
+        public HRESULT TryCommitObjPDBMerge(IDiaSymbol _a)
+        {
+            /*HRESULT commitObjPDBMerge(
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a);*/
+            return Raw11.commitObjPDBMerge(_a);
+        }
+
+        #endregion
+        #region CancelObjPDBMerge
+
+        public void CancelObjPDBMerge(IDiaSymbol _a)
+        {
+            TryCancelObjPDBMerge(_a).ThrowOnNotOK();
+        }
+
+        public HRESULT TryCancelObjPDBMerge(IDiaSymbol _a)
+        {
+            /*HRESULT cancelObjPDBMerge(
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a);*/
+            return Raw11.cancelObjPDBMerge(_a);
+        }
+
+        #endregion
+        #region GetLinkInfo
+
+        public GetLinkInfoResult GetLinkInfo(IntPtr _a)
+        {
+            GetLinkInfoResult result;
+            TryGetLinkInfo(_a, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        public HRESULT TryGetLinkInfo(IntPtr _a, out GetLinkInfoResult result)
+        {
+            /*HRESULT getLinkInfo(
+            [In] IntPtr _a,
+            [Out] out long _b,
+            [Out] out long _c,
+            [Out] out long _d,
+            [Out] out long _e,
+            [Out] out long _f);*/
+            long _b;
+            long _c;
+            long _d;
+            long _e;
+            long _f;
+            HRESULT hr = Raw11.getLinkInfo(_a, out _b, out _c, out _d, out _e, out _f);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetLinkInfoResult(_b, _c, _d, _e, _f);
+            else
+                result = default(GetLinkInfoResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region IsMiniPDB
+
+        public bool IsMiniPDB()
+        {
+            bool pRetVal;
+            TryIsMiniPDB(out pRetVal).ThrowOnNotOK();
+
+            return pRetVal;
+        }
+
+        public HRESULT TryIsMiniPDB(out bool pRetVal)
+        {
+            /*HRESULT isMiniPDB(
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
+            return Raw11.isMiniPDB(out pRetVal);
+        }
+
+        #endregion
+        #region PrepareEnCRebuild
+
+        public void PrepareEnCRebuild(IDiaSymbol _a)
+        {
+            TryPrepareEnCRebuild(_a).ThrowOnNotOK();
+        }
+
+        public HRESULT TryPrepareEnCRebuild(IDiaSymbol _a)
+        {
+            /*HRESULT prepareEnCRebuild(
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a);*/
+            return Raw11.prepareEnCRebuild(_a);
+        }
+
+        #endregion
+        #region Dispose
+
+        public void Dispose()
+        {
+            TryDispose().ThrowOnNotOK();
+        }
+
+        public HRESULT TryDispose()
+        {
+            /*HRESULT dispose();*/
+            return Raw11.dispose();
+        }
+
+        #endregion
+        #region GetRawSymbolsFromMiniPDB
+
+        public GetRawSymbolsFromMiniPDBResult GetRawSymbolsFromMiniPDB(long _a, long _b)
+        {
+            GetRawSymbolsFromMiniPDBResult result;
+            TryGetRawSymbolsFromMiniPDB(_a, _b, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        public HRESULT TryGetRawSymbolsFromMiniPDB(long _a, long _b, out GetRawSymbolsFromMiniPDBResult result)
+        {
+            /*HRESULT getRawSymbolsFromMiniPDB(
+            [In] long _a,
+            [In] long _b,
+            [Out] out long _c,
+            [Out] out IntPtr _d);*/
+            long _c;
+            IntPtr _d;
+            HRESULT hr = Raw11.getRawSymbolsFromMiniPDB(_a, _b, out _c, out _d);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetRawSymbolsFromMiniPDBResult(_c, _d);
+            else
+                result = default(GetRawSymbolsFromMiniPDBResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region GetRawTypesFromMiniPDB
+
+        public GetRawTypesFromMiniPDBResult GetRawTypesFromMiniPDB(long _a)
+        {
+            GetRawTypesFromMiniPDBResult result;
+            TryGetRawTypesFromMiniPDB(_a, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        public HRESULT TryGetRawTypesFromMiniPDB(long _a, out GetRawTypesFromMiniPDBResult result)
+        {
+            /*HRESULT getRawTypesFromMiniPDB(
+            [In] long _a,
+            [Out] out long _b,
+            [Out] out IntPtr _c);*/
+            long _b;
+            IntPtr _c;
+            HRESULT hr = Raw11.getRawTypesFromMiniPDB(_a, out _b, out _c);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetRawTypesFromMiniPDBResult(_b, _c);
+            else
+                result = default(GetRawTypesFromMiniPDBResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region DisposeObjForMiniPDB
+
+        public void DisposeObjForMiniPDB(long _a)
+        {
+            TryDisposeObjForMiniPDB(_a).ThrowOnNotOK();
+        }
+
+        public HRESULT TryDisposeObjForMiniPDB(long _a)
+        {
+            /*HRESULT disposeObjForMiniPDB(
+            [In] long _a);*/
+            return Raw11.disposeObjForMiniPDB(_a);
+        }
+
+        #endregion
+        #region EnablePrefetching
+
+        public void EnablePrefetching()
+        {
+            TryEnablePrefetching().ThrowOnNotOK();
+        }
+
+        public HRESULT TryEnablePrefetching()
+        {
+            /*HRESULT EnablePrefetching();*/
+            return Raw11.EnablePrefetching();
+        }
+
+        #endregion
+        #region IsPCTModuleFromMiniPDB
+
+        public bool IsPCTModuleFromMiniPDB(long _a)
+        {
+            bool _b;
+            TryIsPCTModuleFromMiniPDB(_a, out _b).ThrowOnNotOK();
+
+            return _b;
+        }
+
+        public HRESULT TryIsPCTModuleFromMiniPDB(long _a, out bool _b)
+        {
+            /*HRESULT isPCTModuleFromMiniPDB(
+            [In] long _a,
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool _b);*/
+            return Raw11.isPCTModuleFromMiniPDB(_a, out _b);
+        }
+
+        #endregion
+        #region EnableMemoryMappedFileIO
+
+        public void EnableMemoryMappedFileIO()
+        {
+            TryEnableMemoryMappedFileIO().ThrowOnNotOK();
+        }
+
+        public HRESULT TryEnableMemoryMappedFileIO()
+        {
+            /*HRESULT EnableMemoryMappedFileIO();*/
+            return Raw11.EnableMemoryMappedFileIO();
+        }
+
+        #endregion
+        #region VSDebuggerPreloadPDBDone
+
+        public void VSDebuggerPreloadPDBDone()
+        {
+            TryVSDebuggerPreloadPDBDone().ThrowOnNotOK();
+        }
+
+        public HRESULT TryVSDebuggerPreloadPDBDone()
+        {
+            /*HRESULT VSDebuggerPreloadPDBDone();*/
+            return Raw11.VSDebuggerPreloadPDBDone();
+        }
+
+        #endregion
+        #region IsLinkerGeneratedModuleInMiniPDB
+
+        public bool IsLinkerGeneratedModuleInMiniPDB(long _a)
+        {
+            bool _b;
+            TryIsLinkerGeneratedModuleInMiniPDB(_a, out _b).ThrowOnNotOK();
+
+            return _b;
+        }
+
+        public HRESULT TryIsLinkerGeneratedModuleInMiniPDB(long _a, out bool _b)
+        {
+            /*HRESULT isLinkerGeneratedModuleInMiniPDB(
+            [In] long _a,
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool _b);*/
+            return Raw11.isLinkerGeneratedModuleInMiniPDB(_a, out _b);
+        }
+
+        #endregion
+        #region GetInlineeMDTokenMap
+
+        public long GetInlineeMDTokenMap(long _a, IntPtr _c)
+        {
+            long _b;
+            TryGetInlineeMDTokenMap(_a, out _b, _c).ThrowOnNotOK();
+
+            return _b;
+        }
+
+        public HRESULT TryGetInlineeMDTokenMap(long _a, out long _b, IntPtr _c)
+        {
+            /*HRESULT getInlineeMDTokenMap(
+            [In] long _a,
+            [Out] out long _b,
+            IntPtr _c);*/
+            return Raw11.getInlineeMDTokenMap(_a, out _b, _c);
+        }
+
+        #endregion
+        #region IsPortablePDB
+
+        public bool IsPortablePDB()
+        {
+            bool pRetVal;
+            TryIsPortablePDB(out pRetVal).ThrowOnNotOK();
+
+            return pRetVal;
+        }
+
+        public HRESULT TryIsPortablePDB(out bool pRetVal)
+        {
+            /*HRESULT isPortablePDB(
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
+            return Raw11.isPortablePDB(out pRetVal);
+        }
+
+        #endregion
+        #region FindChildrenHelper
+
+        public DiaEnumSymbols FindChildrenHelper(IDiaSymbol _a, SymTagEnum _b, string _c, long _d, long _e, bool _f, bool _g)
+        {
+            DiaEnumSymbols _hResult;
+            TryFindChildrenHelper(_a, _b, _c, _d, _e, _f, _g, out _hResult).ThrowOnNotOK();
+
+            return _hResult;
+        }
+
+        public HRESULT TryFindChildrenHelper(IDiaSymbol _a, SymTagEnum _b, string _c, long _d, long _e, bool _f, bool _g, out DiaEnumSymbols _hResult)
+        {
+            /*HRESULT findChildrenHelper(
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a,
+            [In] SymTagEnum _b,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string _c,
+            [In] long _d,
+            [In] long _e,
+            [In, MarshalAs(UnmanagedType.Bool)] bool _f,
+            [In, MarshalAs(UnmanagedType.Bool)] bool _g,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols _h);*/
+            IDiaEnumSymbols _h;
+            HRESULT hr = Raw11.findChildrenHelper(_a, _b, _c, _d, _e, _f, _g, out _h);
+
+            if (hr == HRESULT.S_OK)
+                _hResult = _h == null ? null : new DiaEnumSymbols(_h);
+            else
+                _hResult = default(DiaEnumSymbols);
+
+            return hr;
+        }
+
+        #endregion
+        #region FindLinesByLinenumHelper
+
+        public DiaEnumLineNumbers FindLinesByLinenumHelper(bool _a, IDiaSymbol _b, IDiaSourceFile _c, long _d, long _e)
+        {
+            DiaEnumLineNumbers _fResult;
+            TryFindLinesByLinenumHelper(_a, _b, _c, _d, _e, out _fResult).ThrowOnNotOK();
+
+            return _fResult;
+        }
+
+        public HRESULT TryFindLinesByLinenumHelper(bool _a, IDiaSymbol _b, IDiaSourceFile _c, long _d, long _e, out DiaEnumLineNumbers _fResult)
+        {
+            /*HRESULT findLinesByLinenumHelper(
+            [In, MarshalAs(UnmanagedType.Bool)] bool _a,
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _b,
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSourceFile _c,
+            [In] long _d,
+            [In] long _e,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumLineNumbers _f);*/
+            IDiaEnumLineNumbers _f;
+            HRESULT hr = Raw11.findLinesByLinenumHelper(_a, _b, _c, _d, _e, out _f);
+
+            if (hr == HRESULT.S_OK)
+                _fResult = _f == null ? null : new DiaEnumLineNumbers(_f);
+            else
+                _fResult = default(DiaEnumLineNumbers);
+
+            return hr;
+        }
+
+        #endregion
+        #region FindSymbolsForAcceleratorPointerTagHelper
+
+        public DiaEnumSymbols FindSymbolsForAcceleratorPointerTagHelper(IDiaSymbol _a, long _b, long _c, bool _d)
+        {
+            DiaEnumSymbols _eResult;
+            TryFindSymbolsForAcceleratorPointerTagHelper(_a, _b, _c, _d, out _eResult).ThrowOnNotOK();
+
+            return _eResult;
+        }
+
+        public HRESULT TryFindSymbolsForAcceleratorPointerTagHelper(IDiaSymbol _a, long _b, long _c, bool _d, out DiaEnumSymbols _eResult)
+        {
+            /*HRESULT findSymbolsForAcceleratorPointerTagHelper(
+            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a,
+            [In] long _b,
+            [In] long _c,
+            [In, MarshalAs(UnmanagedType.Bool)] bool _d,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols _e);*/
+            IDiaEnumSymbols _e;
+            HRESULT hr = Raw11.findSymbolsForAcceleratorPointerTagHelper(_a, _b, _c, _d, out _e);
+
+            if (hr == HRESULT.S_OK)
+                _eResult = _e == null ? null : new DiaEnumSymbols(_e);
+            else
+                _eResult = default(DiaEnumSymbols);
+
+            return hr;
+        }
+
+        #endregion
+        #region GetMDTokenMapHelper
+
+        public long GetMDTokenMapHelper(int _a, long _b, IntPtr _d)
+        {
+            long _c;
+            TryGetMDTokenMapHelper(_a, _b, out _c, _d).ThrowOnNotOK();
+
+            return _c;
+        }
+
+        public HRESULT TryGetMDTokenMapHelper(int _a, long _b, out long _c, IntPtr _d)
+        {
+            /*HRESULT getMDTokenMapHelper(
+            [In] int _a, //CDiaSession::MDTokenMapKind
+            [In] long _b,
+            [Out] out long _c,
+            [In] IntPtr _d);*/
+            return Raw11.getMDTokenMapHelper(_a, _b, out _c, _d);
+        }
+
+        #endregion
+        #region GetMDTokenMapHelper2
+
+        public long GetMDTokenMapHelper2(long _a, int _b, long _c, IntPtr _e)
+        {
+            long _d;
+            TryGetMDTokenMapHelper2(_a, _b, _c, out _d, _e).ThrowOnNotOK();
+
+            return _d;
+        }
+
+        public HRESULT TryGetMDTokenMapHelper2(long _a, int _b, long _c, out long _d, IntPtr _e)
+        {
+            /*HRESULT getMDTokenMapHelper2(
+            [In] long _a,
+            [In] int _b, //CDiaSession::MDTokenMapKind
+            [In] long _c,
+            [Out] out long _d,
+            [In] IntPtr _e);*/
+            return Raw11.getMDTokenMapHelper2(_a, _b, _c, out _d, _e);
+        }
+
+        #endregion
+        #region GetMDTokenRemapHelper
+
+        public long GetMDTokenRemapHelper(int _a, long _b, IntPtr _d)
+        {
+            long _c;
+            TryGetMDTokenRemapHelper(_a, _b, out _c, _d).ThrowOnNotOK();
+
+            return _c;
+        }
+
+        public HRESULT TryGetMDTokenRemapHelper(int _a, long _b, out long _c, IntPtr _d)
+        {
+            /*HRESULT getMDTokenRemapHelper(
+            [In] int _a, //CDiaSession::MDTokenMapKind
+            [In] long _b,
+            [Out] out long _c,
+            [In] IntPtr _d);*/
+            return Raw11.getMDTokenRemapHelper(_a, _b, out _c, _d);
+        }
+
+        #endregion
+        #region GetFunctionFragmentsHelper
+
+        public GetFunctionFragmentsHelperResult GetFunctionFragmentsHelper(long _a, long _b, long _c)
+        {
+            GetFunctionFragmentsHelperResult result;
+            TryGetFunctionFragmentsHelper(_a, _b, _c, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        public HRESULT TryGetFunctionFragmentsHelper(long _a, long _b, long _c, out GetFunctionFragmentsHelperResult result)
+        {
+            /*HRESULT getFunctionFragmentsHelper(
+            [In] long _a,
+            [In] long _b,
+            [In] long _c,
+            [Out] out long _d,
+            [Out] out long _e,
+            [Out] out long _f);*/
+            long _d;
+            long _e;
+            long _f;
+            HRESULT hr = Raw11.getFunctionFragmentsHelper(_a, _b, _c, out _d, out _e, out _f);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetFunctionFragmentsHelperResult(_d, _e, _f);
+            else
+                result = default(GetFunctionFragmentsHelperResult);
 
             return hr;
         }

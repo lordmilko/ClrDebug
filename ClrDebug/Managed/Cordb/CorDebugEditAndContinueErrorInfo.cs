@@ -60,11 +60,11 @@ namespace ClrDebug
         /// GetToken is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public int Token
+        public mdToken Token
         {
             get
             {
-                int pToken;
+                mdToken pToken;
                 TryGetToken(out pToken).ThrowOnNotOK();
 
                 return pToken;
@@ -75,10 +75,10 @@ namespace ClrDebug
         /// GetToken is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public HRESULT TryGetToken(out int pToken)
+        public HRESULT TryGetToken(out mdToken pToken)
         {
             /*HRESULT GetToken(
-            [Out] out int pToken);*/
+            [Out] out mdToken pToken);*/
             return Raw.GetToken(out pToken);
         }
 

@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for dimensioned array with constant bounds
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, rank = {rank}, typ = {typ.ToString(),nq}, dim = {dim}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfDimCon_16t
     {
         /// <summary>

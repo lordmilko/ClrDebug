@@ -18,7 +18,8 @@ namespace ClrDebug.PDB
 
         #region QueryInterfaceVersion
 
-        public delegate PDBINTV QueryInterfaceVersionDelegate(
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate PDBINTV QueryInterfaceVersionDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -38,7 +39,8 @@ namespace ClrDebug.PDB
         #endregion
         #region QueryImplementationVersion
 
-        public delegate DBIImpv QueryImplementationVersionDelegate(
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate DBIImpv QueryImplementationVersionDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -59,24 +61,35 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryTi16ForCVRecord(BYTE* pb, OUT TI16* pti) pure;
 
-        //delegate bool QueryTi16ForCVRecordDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryTi16ForCVRecordDelegate(
+            [In] IntPtr @this,
+            [In] TYPTYPE* pb,
+            [Out] out CV_typ16_t pti);
 
-        //private QueryTi16ForCVRecordDelegate queryTi16ForCVRecord;
+        private QueryTi16ForCVRecordDelegate queryTi16ForCVRecord;
 
-        //public bar QueryTi16ForCVRecord()
-        //{
-        //    InitDelegate(ref queryTi16ForCVRecord, vtbl->QueryTi16ForCVRecord);
+        public CV_typ16_t QueryTi16ForCVRecord(TYPTYPE* pb)
+        {
+            if (!queryTi16ForCVRecord(Raw, pb, out var pti))
+                throw PDB1.GetUnknownError(MethodBase.GetCurrentMethod());
 
-        //    if (!queryTi16ForCVRecord(Raw))
-        //        throw new NotImplementedException();
-        //}
+            return pti;
+        }
+
+        public bool TryQueryTi16ForCVRecord(TYPTYPE* pb, out CV_typ16_t pti)
+        {
+            InitDelegate(ref queryTi16ForCVRecord, vtbl->QueryTi16ForCVRecord);
+
+            return queryTi16ForCVRecord(Raw, pb, out pti);
+        }
 
         #endregion
         #region QueryCVRecordForTi16
 
         //virtual BOOL QueryCVRecordForTi16(TI16 ti, OUT BYTE* pb, IN OUT long* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryCVRecordForTi16Delegate(
         //    [In] IntPtr @this);
 
@@ -95,6 +108,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryPbCVRecordForTi16(TI16 ti, OUT BYTE** ppb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryPbCVRecordForTi16Delegate(
         //    [In] IntPtr @this);
 
@@ -113,6 +127,7 @@ namespace ClrDebug.PDB
 
         //virtual TI16 QueryTi16Min() pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryTi16MinDelegate(
         //    [In] IntPtr @this);
 
@@ -131,6 +146,7 @@ namespace ClrDebug.PDB
 
         //virtual TI16 QueryTi16Mac() pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryTi16MacDelegate(
         //    [In] IntPtr @this);
 
@@ -149,6 +165,7 @@ namespace ClrDebug.PDB
 
         //virtual long QueryCb() pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryCbDelegate(
         //    [In] IntPtr @this);
 
@@ -167,6 +184,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Close() pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool CloseDelegate(
             [In] IntPtr @this);
 
@@ -185,6 +203,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Commit() pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool CommitDelegate(
         //    [In] IntPtr @this);
 
@@ -203,6 +222,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryTi16ForUDT(_In_z_ const char *sz, BOOL fCase, OUT TI16* pti) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryTi16ForUDTDelegate(
         //    [In] IntPtr @this);
 
@@ -221,6 +241,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL SupportQueryTiForUDT() pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool SupportQueryTiForUDTDelegate(
         //    [In] IntPtr @this);
 
@@ -239,6 +260,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL fIs16bitTypePool() pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool fIs16bitTypePoolDelegate(
         //    [In] IntPtr @this);
 
@@ -257,6 +279,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryTiForUDT(_In_z_ const char *sz, BOOL fCase, OUT TI* pti) pure;
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QueryTiForUDTDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStr)] string sz,
@@ -277,24 +300,35 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryTiForCVRecord(BYTE* pb, OUT TI* pti) pure;
 
-        //delegate bool QueryTiForCVRecordDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryTiForCVRecordDelegate(
+            [In] IntPtr @this,
+            [In] TYPTYPE* pb,
+            [Out] out CV_typ_t pti);
 
-        //private QueryTiForCVRecordDelegate queryTiForCVRecord;
+        private QueryTiForCVRecordDelegate queryTiForCVRecord;
 
-        //public bar QueryTiForCVRecord()
-        //{
-        //    InitDelegate(ref queryTiForCVRecord, vtbl->QueryTiForCVRecord);
+        public CV_typ_t QueryTiForCVRecord(TYPTYPE* pb)
+        {
+            if (!TryQueryTiForCVRecord(pb, out var pti))
+                throw PDB1.GetUnknownError(MethodBase.GetCurrentMethod());
 
-        //    if (!queryTiForCVRecord(Raw))
-        //        throw new NotImplementedException();
-        //}
+            return pti;
+        }
+
+        public bool TryQueryTiForCVRecord(TYPTYPE* pb, out CV_typ_t pti)
+        {
+            InitDelegate(ref queryTiForCVRecord, vtbl->QueryTiForCVRecord);
+
+            return queryTiForCVRecord(Raw, pb, out pti);
+        }
 
         #endregion
         #region QueryCVRecordForTi
 
         //virtual BOOL QueryCVRecordForTi(TI ti, OUT BYTE* pb, IN OUT long* pcb) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryCVRecordForTiDelegate(
         //    [In] IntPtr @this);
 
@@ -311,6 +345,7 @@ namespace ClrDebug.PDB
         #endregion
         #region QueryPbCVRecordForTi
 
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QueryPbCVRecordForTiDelegate(
             [In] IntPtr @this,
             [In] CV_typ_t ti,
@@ -331,7 +366,8 @@ namespace ClrDebug.PDB
         #endregion
         #region QueryTiMin
 
-        private delegate CV_typ_t QueryTiMinDelegate(
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate CV_typ_t QueryTiMinDelegate(
             [In] IntPtr @this);
 
         private QueryTiMinDelegate queryTiMin;
@@ -349,7 +385,8 @@ namespace ClrDebug.PDB
         #endregion
         #region QueryTiMac
 
-        private delegate CV_typ_t QueryTiMacDelegate(
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate CV_typ_t QueryTiMacDelegate(
             [In] IntPtr @this);
 
         private QueryTiMacDelegate queryTiMac;
@@ -369,6 +406,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AreTypesEqual( TI ti1, TI ti2 ) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool AreTypesEqualDelegate(
         //    [In] IntPtr @this);
 
@@ -387,6 +425,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL IsTypeServed( TI ti ) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool IsTypeServedDelegate(
         //    [In] IntPtr @this);
 
@@ -405,6 +444,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryTiForUDTW(_In_z_ const wchar_t *wcs, BOOL fCase, OUT TI* pti) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryTiForUDTWDelegate(
         //    [In] IntPtr @this);
 
@@ -423,6 +463,7 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryModSrcLineForUDTDefn(const TI tiUdt, USHORT *pimod, OUT NI* psrcId, OUT DWORD* pline) pure;
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryModSrcLineForUDTDefnDelegate(
         //    [In] IntPtr @this);
 
@@ -441,6 +482,7 @@ namespace ClrDebug.PDB
 
         //TPI1::QueryTIsForCVRecords(uchar *,int,int,int,int *)
 
+        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryTIsForCVRecordsDelegate(
         //    [In] IntPtr @this);
 

@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// type record for generic HLSL type
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, subtype = {subtype.ToString(),nq}, kind = {kind}, numprops = {numprops}, unused = {unused}, propdata = {propdata}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfHLSL
     {
         /// <summary>
@@ -24,7 +24,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// kind of built-in type from CV_builtin_e
         /// </summary>
-        public short kind;
+        public short kind; //todo: enum?
 
         #region BitField
 

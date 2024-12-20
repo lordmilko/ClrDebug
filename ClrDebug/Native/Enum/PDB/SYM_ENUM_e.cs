@@ -774,6 +774,7 @@
         S_MANCONSTANT = 0x112d,
 
         // native attributed local/parms
+
         /// <summary>
         /// relative to virtual frame ptr.<para/>
         /// Type: <see cref="FRAMERELSYM"/> (also known as ATTRFRAMERELSYM)

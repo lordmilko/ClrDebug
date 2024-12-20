@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for non-static methods and friends in overloaded method list
     /// </summary>
     [DebuggerDisplay("attr = {attr.ToString(),nq}, index = {index.ToString(),nq}, vbaseoff = {vbaseoff}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct mlMethod_16t
     {
         /// <summary>

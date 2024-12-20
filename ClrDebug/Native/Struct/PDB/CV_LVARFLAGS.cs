@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// local variable flags
     /// </summary>
     [DebuggerDisplay("fIsParam = {fIsParam}, fAddrTaken = {fAddrTaken}, fCompGenx = {fCompGenx}, fIsAggregate = {fIsAggregate}, fIsAggregated = {fIsAggregated}, fIsAliased = {fIsAliased}, fIsAlias = {fIsAlias}, fIsRetValue = {fIsRetValue}, fIsOptimizedOut = {fIsOptimizedOut}, fIsEnregGlob = {fIsEnregGlob}, fIsEnregStat = {fIsEnregStat}, unused = {unused}, flags = {flags}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_LVARFLAGS
     {
         /// <summary>
@@ -122,6 +122,9 @@ namespace ClrDebug.PDB
             set => SetBits(ref flags, 11, 5, value);
         }
 
-        public short flags;
+        private short flags;
+
+        public static implicit operator CV_LVARFLAGS(short value) => new CV_LVARFLAGS { flags = value };
+        public static implicit operator short(CV_LVARFLAGS value) => value.flags;
     }
 }

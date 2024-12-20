@@ -25,11 +25,6 @@ namespace ClrDebug.TypeLib
         public SYSKIND syskind;
 
         /// <summary>
-        /// Represents library flags.
-        /// </summary>
-        public LIBFLAGS wLibFlags;
-
-        /// <summary>
         /// Represents the major version number of a type library.
         /// </summary>
         public short wMajorVerNum;
@@ -38,5 +33,10 @@ namespace ClrDebug.TypeLib
         /// Represents the minor version number of a type library.
         /// </summary>
         public short wMinorVerNum;
+
+        /// <summary>
+        /// Represents library flags.
+        /// </summary>
+        public LIBFLAGS wLibFlags;
     }
 }

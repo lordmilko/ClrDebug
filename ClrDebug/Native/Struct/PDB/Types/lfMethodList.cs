@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for non-static methods and friends in overloaded method list
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, mList = {mList}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfMethodList
     {
         public LEAF_ENUM_e leaf;

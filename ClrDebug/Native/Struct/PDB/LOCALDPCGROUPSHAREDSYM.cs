@@ -6,13 +6,13 @@ namespace ClrDebug.PDB
     /// <summary>
     /// Defines a local DPC group shared variable and its location.
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct LOCALDPCGROUPSHAREDSYM
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_LOCAL_DPC_GROUPSHARED

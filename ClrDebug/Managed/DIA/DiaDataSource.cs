@@ -366,6 +366,15 @@ namespace ClrDebug.DIA
 
         #region GetStreamSize
 
+        /// <summary>
+        /// Retrieves the size, in bytes, of the named stream.
+        /// </summary>
+        /// <param name="stream">[in] The name of the stream within the debug information.</param>
+        /// <returns>[out] The size in bytes of the named stream.</returns>
+        /// <remarks>
+        /// Program Databases are made up of multiple streams of data. Some of those streams are named. You can use this method to gather information about these named streams.
+        /// To get the data of the stream, use the <see cref="GetStreamRawData"/> method.
+        /// </remarks>
         public int GetStreamSize(string stream)
         {
             int pcb;
@@ -374,6 +383,16 @@ namespace ClrDebug.DIA
             return pcb;
         }
 
+        /// <summary>
+        /// Retrieves the size, in bytes, of the named stream.
+        /// </summary>
+        /// <param name="stream">[in] The name of the stream within the debug information.</param>
+        /// <param name="pcb">[out] The size in bytes of the named stream.</param>
+        /// <returns>If successful, returns S_OK. If the named stream does not exist within the PDB, the API might fail, or it i might return a length of 0.</returns>
+        /// <remarks>
+        /// Program Databases are made up of multiple streams of data. Some of those streams are named. You can use this method to gather information about these named streams.
+        /// To get the data of the stream, use the <see cref="GetStreamRawData"/> method.
+        /// </remarks>
         public HRESULT TryGetStreamSize(string stream, out int pcb)
         {
             /*HRESULT getStreamSize(
@@ -385,11 +404,32 @@ namespace ClrDebug.DIA
         #endregion
         #region GetStreamRawData
 
+        /// <summary>
+        /// Retrieves the raw bytes of the named stream.
+        /// </summary>
+        /// <param name="stream">[in] The name of the stream within the debug information.</param>
+        /// <param name="cbRead">[in] The number of bytes to retrieve.</param>
+        /// <param name="pbData">[out] The location to store the read data. On input must be at least cbRead bytes in size. Upon successful return *pcbRead bytes will be valid.</param>
+        /// <remarks>
+        /// Program Databases are made up of multiple streams of data. Some of those streams are named. You can use this method to gather information about these named streams.
+        /// To get the size of the stream, use the <see cref="GetStreamSize"/> method.
+        /// </remarks>
         public void GetStreamRawData(string stream, int cbRead, IntPtr pbData)
         {
             TryGetStreamRawData(stream, cbRead, pbData).ThrowOnNotOK();
         }
 
+        /// <summary>
+        /// Retrieves the raw bytes of the named stream.
+        /// </summary>
+        /// <param name="stream">[in] The name of the stream within the debug information.</param>
+        /// <param name="cbRead">[in] The number of bytes to retrieve.</param>
+        /// <param name="pbData">[out] The location to store the read data. On input must be at least cbRead bytes in size. Upon successful return *pcbRead bytes will be valid.</param>
+        /// <returns>If successful, returns S_OK. If the named stream does not exist within the PDB, the API might fail, or it might return a length of 0.</returns>
+        /// <remarks>
+        /// Program Databases are made up of multiple streams of data. Some of those streams are named. You can use this method to gather information about these named streams.
+        /// To get the size of the stream, use the <see cref="GetStreamSize"/> method.
+        /// </remarks>
         public HRESULT TryGetStreamRawData(string stream, int cbRead, IntPtr pbData)
         {
             /*HRESULT getStreamRawData(
@@ -397,6 +437,448 @@ namespace ClrDebug.DIA
             [In] int cbRead,
             [Out] IntPtr pbData);*/
             return Raw3.getStreamRawData(stream, cbRead, pbData);
+        }
+
+        #endregion
+        #endregion
+        #region IDiaDataSource10
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public IDiaDataSource10 Raw10 => (IDiaDataSource10) Raw;
+
+        #region LoadDataFromPdbEx
+
+        /// <summary>
+        /// Opens and prepares a program database (.pdb) file as a debug data source with optional record prefetching.
+        /// </summary>
+        /// <param name="pdbPath">[in] The path to the .pdb file.</param>
+        /// <param name="fPdbPrefetching">[in] If set to TRUE, adjacent debug records are prefetched into memory, potentially replacing many smaller file I/O operations with fewer,
+        /// larger operations, and thus improving overall throughput as those records are subsequently accessed, at the expense of potentially increased memory usage.
+        /// If set to FALSE, this behaves identically to IDiaDataSource::loadDataFromPdb. If set to some other value, behavior is unspecified.</param>
+        /// <remarks>
+        /// This method loads the debug data directly from a .pdb file. To validate the.pdb file against specific criteria, use the <see cref="LoadAndValidateDataFromPdbEx"/> method.
+        /// To gain access to the data load process (through a callback mechanism), use the <see cref="LoadDataForExeEx"/> method. To load a .pdb file directly from memory, use the
+        /// <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// </remarks>
+        public void LoadDataFromPdbEx(string pdbPath, bool fPdbPrefetching)
+        {
+            TryLoadDataFromPdbEx(pdbPath, fPdbPrefetching).ThrowOnNotOK();
+        }
+
+        /// <summary>
+        /// Opens and prepares a program database (.pdb) file as a debug data source with optional record prefetching.
+        /// </summary>
+        /// <param name="pdbPath">[in] The path to the .pdb file.</param>
+        /// <param name="fPdbPrefetching">[in] If set to TRUE, adjacent debug records are prefetched into memory, potentially replacing many smaller file I/O operations with fewer,
+        /// larger operations, and thus improving overall throughput as those records are subsequently accessed, at the expense of potentially increased memory usage.
+        /// If set to FALSE, this behaves identically to IDiaDataSource::loadDataFromPdb. If set to some other value, behavior is unspecified.</param>
+        /// <returns>
+        /// If successful, returns S_OK; otherwise, returns an error code. The following table shows the possible return values for this method.
+        /// 
+        /// | HRESULT         | Description                                                                 |
+        /// | --------------- | --------------------------------------------------------------------------- |
+        /// | E_PDB_NOT_FOUND | Failed to open the file, or determined that the file has an invalid format. |
+        /// | E_PDB_FORMAT    | Attempted to access a file with an incompatible or unsupported format.      |
+        /// | E_INVALIDARG    | Invalid parameter.                                                          |
+        /// | E_UNEXPECTED    | Data source has already been prepared.                                      |
+        /// </returns>
+        /// <remarks>
+        /// This method loads the debug data directly from a .pdb file. To validate the.pdb file against specific criteria, use the <see cref="LoadAndValidateDataFromPdbEx"/> method.
+        /// To gain access to the data load process (through a callback mechanism), use the <see cref="LoadDataForExeEx"/> method. To load a .pdb file directly from memory, use the
+        /// <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// </remarks>
+        public HRESULT TryLoadDataFromPdbEx(string pdbPath, bool fPdbPrefetching)
+        {
+            /*HRESULT loadDataFromPdbEx(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pdbPath,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPdbPrefetching);*/
+            return Raw10.loadDataFromPdbEx(pdbPath, fPdbPrefetching);
+        }
+
+        #endregion
+        #region LoadAndValidateDataFromPdbEx
+
+        /// <summary>
+        /// Opens and verifies that the program database (.pdb) file matches the signature information provided, and prepares the .pdb file as a debug data source, with optional record prefetching.
+        /// </summary>
+        /// <param name="pdbPath">[in] The path to the .pdb file.</param>
+        /// <param name="pcsig70">[in] The globally unique identifier (GUID) signature to verify against the .pdb file signature. Only .pdb files in Visual C++ and later have GUID signatures.</param>
+        /// <param name="sig">[in] The 32-bit signature to verify against the .pdb file signature.</param>
+        /// <param name="age">[in] Age value to verify. The age does not necessarily correspond to any known time value, it is used to determine whether a .pdb file is out of sync with a corresponding .exe file.</param>
+        /// <param name="fPdbPrefetching">[in] If set to TRUE, adjacent debug records are prefetched into memory, potentially replacing many smaller file I/O operations with fewer, larger operations, and thus improving
+        /// overall throughput as those records are subsequently accessed, at the expense of potentially increased memory usage. If set to FALSE, this behaves identically to IDiaDataSource::loadAndValidateDataFromPdb.
+        /// If set to some other value, behavior is unspecified.</param>
+        /// <remarks>
+        /// A .pdb file contains both signature and age values. These values are replicated in the .exe or .dll file that matches the .pdb file. Before preparing the data source,
+        /// this method verifies that the named .pdb file's signature and age match the values provided. To load a .pdb file without validation, use the <see cref="LoadDataFromPdbEx"/>
+        /// method. To gain access to the data load process (through a callback mechanism), use the <see cref="LoadDataForExeEx"/> method. To load a .pdb file directly from memory,
+        /// use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// </remarks>
+        public void LoadAndValidateDataFromPdbEx(string pdbPath, Guid pcsig70, int sig, int age, bool fPdbPrefetching)
+        {
+            TryLoadAndValidateDataFromPdbEx(pdbPath, pcsig70, sig, age, fPdbPrefetching).ThrowOnNotOK();
+        }
+
+        /// <summary>
+        /// Opens and verifies that the program database (.pdb) file matches the signature information provided, and prepares the .pdb file as a debug data source, with optional record prefetching.
+        /// </summary>
+        /// <param name="pdbPath">[in] The path to the .pdb file.</param>
+        /// <param name="pcsig70">[in] The globally unique identifier (GUID) signature to verify against the .pdb file signature. Only .pdb files in Visual C++ and later have GUID signatures.</param>
+        /// <param name="sig">[in] The 32-bit signature to verify against the .pdb file signature.</param>
+        /// <param name="age">[in] Age value to verify. The age does not necessarily correspond to any known time value, it is used to determine whether a .pdb file is out of sync with a corresponding .exe file.</param>
+        /// <param name="fPdbPrefetching">[in] If set to TRUE, adjacent debug records are prefetched into memory, potentially replacing many smaller file I/O operations with fewer, larger operations, and thus improving
+        /// overall throughput as those records are subsequently accessed, at the expense of potentially increased memory usage. If set to FALSE, this behaves identically to IDiaDataSource::loadAndValidateDataFromPdb.
+        /// If set to some other value, behavior is unspecified.</param>
+        /// <returns>
+        /// If successful, returns S_OK; otherwise, returns an error code. The following table shows the possible return values for this method.
+        /// 
+        /// | HRESULT           | Description                                                 |
+        /// | ----------------- | ----------------------------------------------------------- |
+        /// | E_PDB_NOT_FOUND   | Failed to open the file, or the file has an invalid format. |
+        /// | E_PDB_FORMAT      | Attempted to access a file with an obsolete format.         |
+        /// | E_PDB_INVALID_SIG | Signature does not match.                                   |
+        /// | E_PDB_INVALID_AGE | Age does not match.                                         |
+        /// | E_INVALIDARG      | Invalid parameter.                                          |
+        /// | E_UNEXPECTED      | The data source has already been prepared.                  |
+        /// </returns>
+        /// <remarks>
+        /// A .pdb file contains both signature and age values. These values are replicated in the .exe or .dll file that matches the .pdb file. Before preparing the data source,
+        /// this method verifies that the named .pdb file's signature and age match the values provided. To load a .pdb file without validation, use the <see cref="LoadDataFromPdbEx"/>
+        /// method. To gain access to the data load process (through a callback mechanism), use the <see cref="LoadDataForExeEx"/> method. To load a .pdb file directly from memory,
+        /// use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// </remarks>
+        public HRESULT TryLoadAndValidateDataFromPdbEx(string pdbPath, Guid pcsig70, int sig, int age, bool fPdbPrefetching)
+        {
+            /*HRESULT loadAndValidateDataFromPdbEx(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pdbPath,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid pcsig70,
+            [In] int sig,
+            [In] int age,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPdbPrefetching);*/
+            return Raw10.loadAndValidateDataFromPdbEx(pdbPath, pcsig70, sig, age, fPdbPrefetching);
+        }
+
+        #endregion
+        #region LoadDataForExeEx
+
+        /// <summary>
+        /// Opens and prepares the debug data associated with the .exe/.dll file, with optional record prefetching.
+        /// </summary>
+        /// <param name="executable">[in] Path to the .exe or .dll file.</param>
+        /// <param name="searchPath">[in] Alternate path to search for debug data. Multiple paths should be semicolon delimited. Paths may contain a trailing \.</param>
+        /// <param name="pCallback">[in] An IUnknown interface for an object that supports a debug callback interface, such as the IDiaLoadCallback, IDiaLoadCallback2, the IDiaReadExeAtOffsetCallback,
+        /// and/or the IDiaReadExeAtRVACallback interfaces.</param>
+        /// <param name="fPdbPrefetching">[in] If set to TRUE, adjacent debug records are prefetched into memory, potentially replacing many smaller file I/O operations with fewer, larger operations, and thus
+        /// improving overall throughput as those records are subsequently accessed, at the expense of potentially increased memory usage. If set to FALSE, this behaves identically to IDiaDataSource::loadDataForExe.
+        /// If set to some other value, behavior is unspecified.</param>
+        /// <remarks>
+        /// The debug header of the .exe/.dll file names the associated debug data location. If you are loading debug data from a symbol server, symsrv.dll must be present in the same directory where either the user's
+        /// application or msdia140.dll is installed, or it must be present in the system directory. This method reads the debug header and then searches for and prepares the debug data.The progress of the search may,
+        /// optionally, be reported and controlled through callbacks.For example, the <see cref="IDiaLoadCallback.NotifyDebugDir"/> is invoked when the <see cref="LoadDataForExeEx"/> method finds and processes a debug directory.
+        /// The <see cref="IDiaReadExeAtOffsetCallback"/> and <see cref="IDiaReadExeAtRVACallback"/> interfaces allow the client application to provide alternative methods for reading data from the executable file when the file cannot be accessed
+        /// directly through standard file I/O. To load a .pdb file without validation, use the <see cref="LoadDataFromPdbEx"/> method. To validate the.pdb file against specific criteria, use the <see cref="LoadAndValidateDataFromPdbEx"/>
+        /// method. To load a .pdb file directly from memory, use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// </remarks>
+        public void LoadDataForExeEx(string executable, string searchPath, object pCallback, bool fPdbPrefetching)
+        {
+            TryLoadDataForExeEx(executable, searchPath, pCallback, fPdbPrefetching).ThrowOnNotOK();
+        }
+
+        /// <summary>
+        /// Opens and prepares the debug data associated with the .exe/.dll file, with optional record prefetching.
+        /// </summary>
+        /// <param name="executable">[in] Path to the .exe or .dll file.</param>
+        /// <param name="searchPath">[in] Alternate path to search for debug data. Multiple paths should be semicolon delimited. Paths may contain a trailing \.</param>
+        /// <param name="pCallback">[in] An IUnknown interface for an object that supports a debug callback interface, such as the IDiaLoadCallback, IDiaLoadCallback2, the IDiaReadExeAtOffsetCallback,
+        /// and/or the IDiaReadExeAtRVACallback interfaces.</param>
+        /// <param name="fPdbPrefetching">[in] If set to TRUE, adjacent debug records are prefetched into memory, potentially replacing many smaller file I/O operations with fewer, larger operations, and thus
+        /// improving overall throughput as those records are subsequently accessed, at the expense of potentially increased memory usage. If set to FALSE, this behaves identically to IDiaDataSource::loadDataForExe.
+        /// If set to some other value, behavior is unspecified.</param>
+        /// <returns>
+        /// If successful, returns S_OK; otherwise, returns an error code. The following table shows some of the possible error codes for this method.
+        /// 
+        /// | HRESULT           | Description                                                 |
+        /// | ----------------- | ----------------------------------------------------------- |
+        /// | E_PDB_NOT_FOUND   | Failed to open the file, or the file has an invalid format. |
+        /// | E_PDB_FORMAT      | Attempted to access a file with an obsolete format.         |
+        /// | E_PDB_INVALID_SIG | Signature does not match.                                   |
+        /// | E_PDB_INVALID_AGE | Age does not match.                                         |
+        /// | E_INVALIDARG      | Invalid parameter.                                          |
+        /// | E_UNEXPECTED      | Data source has already been prepared.                      |
+        /// </returns>
+        /// <remarks>
+        /// The debug header of the .exe/.dll file names the associated debug data location. If you are loading debug data from a symbol server, symsrv.dll must be present in the same directory where either the user's
+        /// application or msdia140.dll is installed, or it must be present in the system directory. This method reads the debug header and then searches for and prepares the debug data.The progress of the search may,
+        /// optionally, be reported and controlled through callbacks.For example, the <see cref="IDiaLoadCallback.NotifyDebugDir"/> is invoked when the <see cref="LoadDataForExeEx"/> method finds and processes a debug directory.
+        /// The <see cref="IDiaReadExeAtOffsetCallback"/> and <see cref="IDiaReadExeAtRVACallback"/> interfaces allow the client application to provide alternative methods for reading data from the executable file when the file cannot be accessed
+        /// directly through standard file I/O. To load a .pdb file without validation, use the <see cref="LoadDataFromPdbEx"/> method. To validate the.pdb file against specific criteria, use the <see cref="LoadAndValidateDataFromPdbEx"/>
+        /// method. To load a .pdb file directly from memory, use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// </remarks>
+        public HRESULT TryLoadDataForExeEx(string executable, string searchPath, object pCallback, bool fPdbPrefetching)
+        {
+            /*HRESULT loadDataForExeEx(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string executable,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
+            [In, MarshalAs(UnmanagedType.Interface)] object pCallback,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPdbPrefetching);*/
+            return Raw10.loadDataForExeEx(executable, searchPath, pCallback, fPdbPrefetching);
+        }
+
+        #endregion
+        #region LoadDataFromIStreamEx
+
+        /// <summary>
+        /// Prepares the debug data stored in a program database (.pdb) file accessed through a potentially in-memory data stream, with optional record prefetching.
+        /// </summary>
+        /// <param name="pIStream">[in] An <see cref="IStream"/> object representing the data stream to use.</param>
+        /// <param name="fPdbPrefetching">[in] If set to TRUE, adjacent debug records are prefetched into memory, potentially replacing many smaller file I/O operations with fewer, larger operations, and thus
+        /// improving overall throughput as those records are subsequently accessed, at the expense of potentially increased memory usage. If set to FALSE, this behaves identically to <see cref="LoadDataFromIStream"/>.
+        /// If set to some other value, behavior is unspecified.</param>
+        /// <remarks>
+        /// This method allows the debug data for an executable to be obtained from memory through an IStream object. To load a .pdb file without validation, use the <see cref="LoadDataFromPdbEx"/> method.
+        /// To validate the .pdb file against specific criteria, use the <see cref="LoadAndValidateDataFromPdbEx"/> method. To gain access to the data load process (through a callback mechanism),
+        /// use the <see cref="LoadDataForExeEx"/> method.
+        /// </remarks>
+        public void LoadDataFromIStreamEx(IStream pIStream, bool fPdbPrefetching)
+        {
+            TryLoadDataFromIStreamEx(pIStream, fPdbPrefetching).ThrowOnNotOK();
+        }
+
+        /// <summary>
+        /// Prepares the debug data stored in a program database (.pdb) file accessed through a potentially in-memory data stream, with optional record prefetching.
+        /// </summary>
+        /// <param name="pIStream">[in] An <see cref="IStream"/> object representing the data stream to use.</param>
+        /// <param name="fPdbPrefetching">[in] If set to TRUE, adjacent debug records are prefetched into memory, potentially replacing many smaller file I/O operations with fewer, larger operations, and thus
+        /// improving overall throughput as those records are subsequently accessed, at the expense of potentially increased memory usage. If set to FALSE, this behaves identically to <see cref="LoadDataFromIStream"/>.
+        /// If set to some other value, behavior is unspecified.</param>
+        /// <returns>
+        /// If successful, returns S_OK; otherwise, returns an error code. The following table shows the possible return values for this method.
+        /// 
+        /// | HRESULT           | Description                                         |
+        /// | ----------------- | ----------------------------------------------------|
+        /// | E_PDB_FORMAT      | Attempted to access a file with an obsolete format. |
+        /// | E_INVALIDARG      | Invalid parameter.                                  |
+        /// | E_UNEXPECTED      | Data source has already been prepared.              |
+        /// </returns>
+        /// <remarks>
+        /// This method allows the debug data for an executable to be obtained from memory through an IStream object. To load a .pdb file without validation, use the <see cref="LoadDataFromPdbEx"/> method.
+        /// To validate the .pdb file against specific criteria, use the <see cref="LoadAndValidateDataFromPdbEx"/> method. To gain access to the data load process (through a callback mechanism),
+        /// use the <see cref="LoadDataForExeEx"/> method.
+        /// </remarks>
+        public HRESULT TryLoadDataFromIStreamEx(IStream pIStream, bool fPdbPrefetching)
+        {
+            /*HRESULT loadDataFromIStreamEx(
+            [In, MarshalAs(UnmanagedType.Interface)] IStream pIStream,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPdbPrefetching);*/
+            return Raw10.loadDataFromIStreamEx(pIStream, fPdbPrefetching);
+        }
+
+        #endregion
+        #region _Missing1
+
+        public void _Missing1()
+        {
+            Try_Missing1().ThrowOnNotOK();
+        }
+
+        public HRESULT Try_Missing1()
+        {
+            /*HRESULT _Missing1();*/
+            return Raw10._Missing1();
+        }
+
+        #endregion
+        #region SetPfnMiniPDBErrorCallback2
+
+        public void SetPfnMiniPDBErrorCallback2(IntPtr pvContext, PFNMINIPDBERRORCALLBACK2 pfn)
+        {
+            TrySetPfnMiniPDBErrorCallback2(pvContext, pfn).ThrowOnNotOK();
+        }
+
+        public HRESULT TrySetPfnMiniPDBErrorCallback2(IntPtr pvContext, PFNMINIPDBERRORCALLBACK2 pfn)
+        {
+            /*HRESULT setPfnMiniPDBErrorCallback2(
+            IntPtr pvContext,
+            [In, MarshalAs(UnmanagedType.FunctionPtr)] PFNMINIPDBERRORCALLBACK2 pfn);*/
+            return Raw10.setPfnMiniPDBErrorCallback2(pvContext, pfn);
+        }
+
+        #endregion
+        #region SetPfnMiniPDBNHBuildStatusCallback
+
+        public void SetPfnMiniPDBNHBuildStatusCallback(IntPtr _a, setPfnMiniPDBNHBuildStatusCallbackUnknownDelegate _b)
+        {
+            TrySetPfnMiniPDBNHBuildStatusCallback(_a, _b).ThrowOnNotOK();
+        }
+
+        public HRESULT TrySetPfnMiniPDBNHBuildStatusCallback(IntPtr _a, setPfnMiniPDBNHBuildStatusCallbackUnknownDelegate _b)
+        {
+            /*HRESULT setPfnMiniPDBNHBuildStatusCallback(
+            [In] IntPtr _a,
+            [In, MarshalAs(UnmanagedType.FunctionPtr)] setPfnMiniPDBNHBuildStatusCallbackUnknownDelegate _b);*/
+            return Raw10.setPfnMiniPDBNHBuildStatusCallback(_a, _b);
+        }
+
+        #endregion
+        #region LoadDataFromPdbEx2
+
+        public void LoadDataFromPdbEx2(string pdbPath, bool fPdbPrefetching, bool _rdMode)
+        {
+            TryLoadDataFromPdbEx2(pdbPath, fPdbPrefetching, _rdMode).ThrowOnNotOK();
+        }
+
+        public HRESULT TryLoadDataFromPdbEx2(string pdbPath, bool fPdbPrefetching, bool _rdMode)
+        {
+            /*HRESULT loadDataFromPdbEx2(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pdbPath,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPdbPrefetching,
+            [In, MarshalAs(UnmanagedType.Bool)] bool _rdMode);*/
+            return Raw10.loadDataFromPdbEx2(pdbPath, fPdbPrefetching, _rdMode);
+        }
+
+        #endregion
+        #region LoadAndValidateDataFromPdbEx2
+
+        public void LoadAndValidateDataFromPdbEx2(string pdbPath, Guid pcsig70, int sig, int age, bool fPdbPrefetching, bool _rdMode)
+        {
+            TryLoadAndValidateDataFromPdbEx2(pdbPath, pcsig70, sig, age, fPdbPrefetching, _rdMode).ThrowOnNotOK();
+        }
+
+        public HRESULT TryLoadAndValidateDataFromPdbEx2(string pdbPath, Guid pcsig70, int sig, int age, bool fPdbPrefetching, bool _rdMode)
+        {
+            /*HRESULT loadAndValidateDataFromPdbEx2(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pdbPath,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid pcsig70,
+            [In] int sig, //The symbols say its a ulong, but they say the same thing about loadAndValidateDataFromPdb.sig
+            [In] int age, //Same as above
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPdbPrefetching,
+            [In, MarshalAs(UnmanagedType.Bool)] bool _rdMode);*/
+            return Raw10.loadAndValidateDataFromPdbEx2(pdbPath, pcsig70, sig, age, fPdbPrefetching, _rdMode);
+        }
+
+        #endregion
+        #region LoadDataForExeEx2
+
+        public void LoadDataForExeEx2(string executable, string searchPath, object pCallback, bool fPdbPrefetching, bool _rdMode)
+        {
+            TryLoadDataForExeEx2(executable, searchPath, pCallback, fPdbPrefetching, _rdMode).ThrowOnNotOK();
+        }
+
+        public HRESULT TryLoadDataForExeEx2(string executable, string searchPath, object pCallback, bool fPdbPrefetching, bool _rdMode)
+        {
+            /*HRESULT loadDataForExeEx2(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string executable,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
+            [In, MarshalAs(UnmanagedType.Interface)] object pCallback,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPdbPrefetching,
+            [In, MarshalAs(UnmanagedType.Bool)] bool _rdMode);*/
+            return Raw10.loadDataForExeEx2(executable, searchPath, pCallback, fPdbPrefetching, _rdMode);
+        }
+
+        #endregion
+        #region LoadDataFromIStreamEx2
+
+        public void LoadDataFromIStreamEx2(IStream pIStream, bool fPdbPrefetching, bool _rdMode)
+        {
+            TryLoadDataFromIStreamEx2(pIStream, fPdbPrefetching, _rdMode).ThrowOnNotOK();
+        }
+
+        public HRESULT TryLoadDataFromIStreamEx2(IStream pIStream, bool fPdbPrefetching, bool _rdMode)
+        {
+            /*HRESULT loadDataFromIStreamEx2(
+            [In, MarshalAs(UnmanagedType.Interface)] IStream pIStream,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPdbPrefetching,
+            [In, MarshalAs(UnmanagedType.Bool)] bool _rdMode);*/
+            return Raw10.loadDataFromIStreamEx2(pIStream, fPdbPrefetching, _rdMode);
+        }
+
+        #endregion
+        #region LoadDataFromCodeViewInfoEx
+
+        public void LoadDataFromCodeViewInfoEx(string executable, string searchPath, int cbCvInfo, byte[] pbCvInfo, object pCallback, bool _rdMode)
+        {
+            TryLoadDataFromCodeViewInfoEx(executable, searchPath, cbCvInfo, pbCvInfo, pCallback, _rdMode).ThrowOnNotOK();
+        }
+
+        public HRESULT TryLoadDataFromCodeViewInfoEx(string executable, string searchPath, int cbCvInfo, byte[] pbCvInfo, object pCallback, bool _rdMode)
+        {
+            /*HRESULT loadDataFromCodeViewInfoEx(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string executable,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
+            [In] int cbCvInfo, //The symbols say its a ulong, but they say the same thing about loadDataFromCodeViewInfo.cbCvInfo too
+            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] pbCvInfo,
+            [In, MarshalAs(UnmanagedType.Interface)] object pCallback,
+            [In, MarshalAs(UnmanagedType.Bool)] bool _rdMode);*/
+            return Raw10.loadDataFromCodeViewInfoEx(executable, searchPath, cbCvInfo, pbCvInfo, pCallback, _rdMode);
+        }
+
+        #endregion
+        #region VSDebuggerPreloadPDBDone
+
+        public void VSDebuggerPreloadPDBDone()
+        {
+            TryVSDebuggerPreloadPDBDone().ThrowOnNotOK();
+        }
+
+        public HRESULT TryVSDebuggerPreloadPDBDone()
+        {
+            /*HRESULT VSDebuggerPreloadPDBDone();*/
+            return Raw10.VSDebuggerPreloadPDBDone();
+        }
+
+        #endregion
+        #region LoadDataForExeEx3
+
+        public void LoadDataForExeEx3(string executable, string searchPath, object pCallback, bool fPdbPrefetching, bool _rdMode, bool _searchInBinaryDirectoryOnly)
+        {
+            TryLoadDataForExeEx3(executable, searchPath, pCallback, fPdbPrefetching, _rdMode, _searchInBinaryDirectoryOnly).ThrowOnNotOK();
+        }
+
+        public HRESULT TryLoadDataForExeEx3(string executable, string searchPath, object pCallback, bool fPdbPrefetching, bool _rdMode, bool _searchInBinaryDirectoryOnly)
+        {
+            /*HRESULT loadDataForExeEx3(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string executable,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
+            [In, MarshalAs(UnmanagedType.Interface)] object pCallback,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fPdbPrefetching,
+            [In, MarshalAs(UnmanagedType.Bool)] bool _rdMode,
+            [In, MarshalAs(UnmanagedType.Bool)] bool _searchInBinaryDirectoryOnly);*/
+            return Raw10.loadDataForExeEx3(executable, searchPath, pCallback, fPdbPrefetching, _rdMode, _searchInBinaryDirectoryOnly);
+        }
+
+        #endregion
+        #region UsePdb
+
+        public void UsePdb(IntPtr _ppdb)
+        {
+            TryUsePdb(_ppdb).ThrowOnNotOK();
+        }
+
+        public HRESULT TryUsePdb(IntPtr _ppdb)
+        {
+            /*HRESULT usePdb(
+            [In] IntPtr _ppdb);*/
+            return Raw10.usePdb(_ppdb);
+        }
+
+        #endregion
+        #region LoadDataFromCodeViewInfoHelper
+
+        public void LoadDataFromCodeViewInfoHelper(string executable, string searchPath, int cbCvInfo, byte[] pbCvInfo, object pCallback, string _pdbOpenMode)
+        {
+            TryLoadDataFromCodeViewInfoHelper(executable, searchPath, cbCvInfo, pbCvInfo, pCallback, _pdbOpenMode).ThrowOnNotOK();
+        }
+
+        public HRESULT TryLoadDataFromCodeViewInfoHelper(string executable, string searchPath, int cbCvInfo, byte[] pbCvInfo, object pCallback, string _pdbOpenMode)
+        {
+            /*HRESULT loadDataFromCodeViewInfoHelper(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string executable,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
+            [In] int cbCvInfo, //The symbols say its a ulong, but they say the same thing about loadDataFromCodeViewInfo.cbCvInfo too
+            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] pbCvInfo,
+            [In, MarshalAs(UnmanagedType.Interface)] object pCallback,
+            [In, MarshalAs(UnmanagedType.LPStr)] string _pdbOpenMode);*/
+            return Raw10.loadDataFromCodeViewInfoHelper(executable, searchPath, cbCvInfo, pbCvInfo, pCallback, _pdbOpenMode);
         }
 
         #endregion

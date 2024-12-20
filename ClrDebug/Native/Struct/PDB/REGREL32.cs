@@ -3,13 +3,13 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct REGREL32
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_REGREL32
@@ -29,7 +29,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// register index for symbol
         /// </summary>
-        public short reg;
+        public short reg; //CV_HREG_e (multiple enum members share the same value across different architectures) //todo: enum?
 
         /// <summary>
         /// Length-prefixed name

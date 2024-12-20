@@ -9,7 +9,7 @@ namespace ClrDebug.PDB
     /// class field attribute
     /// </summary>
     [DebuggerDisplay("access = {access.ToString(),nq}, pseudo = {pseudo}, noinherit = {noinherit}, noconstruct = {noconstruct}, compgenx = {compgenx}, @sealed = {@sealed}, unused = {unused}, data = {data}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_fldattr_t
     {
         /// <summary>
@@ -84,6 +84,9 @@ namespace ClrDebug.PDB
             set => SetBits(ref data, 10, 6, value);
         }
 
-        public short data;
+        private short data;
+
+        public static implicit operator CV_fldattr_t(short value) => new CV_fldattr_t { data = value };
+        public static implicit operator short(CV_fldattr_t value) => value.data;
     }
 }

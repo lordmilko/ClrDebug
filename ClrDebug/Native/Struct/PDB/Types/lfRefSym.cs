@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// type record for referenced symbol
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, Sym = {Sym}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfRefSym
     {
         /// <summary>

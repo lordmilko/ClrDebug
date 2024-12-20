@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// Type record for LF_PROCEDURE
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, rvtype = {rvtype.ToString(),nq}, calltype = {calltype}, funcattr = {funcattr.ToString(),nq}, parmcount = {parmcount}, arglist = {arglist.ToString(),nq}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfProc
     {
         /// <summary>
@@ -23,7 +23,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// calling convention (CV_call_t)
         /// </summary>
-        public byte calltype;
+        public byte calltype; //todo: enum?
 
         /// <summary>
         /// attributes

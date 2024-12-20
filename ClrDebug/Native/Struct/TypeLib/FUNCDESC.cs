@@ -6,8 +6,8 @@ namespace ClrDebug.TypeLib
     /// <summary>
     /// Defines a function description.
     /// </summary>
-    [DebuggerDisplay("memid = {memid}, lprgscode = {lprgscode.ToString(),nq}, lprgelemdescParam = {lprgelemdescParam.ToString(),nq}, funckind = {funckind.ToString(),nq}, invkind = {invkind.ToString(),nq}, callconv = {callconv.ToString(),nq}, cParams = {cParams}, cParamsOpt = {cParamsOpt}, oVft = {oVft}, cScodes = {cScodes}, elemdescFunc = {elemdescFunc.ToString(),nq}, wFuncFlags = {wFuncFlags.ToString(),nq}")]
-    public struct FUNCDESC
+    [DebuggerDisplay("memid = {memid}, lprgscode = {lprgscode->ToString(),nq}, lprgelemdescParam = {lprgelemdescParam->ToString(),nq}, funckind = {funckind.ToString(),nq}, invkind = {invkind.ToString(),nq}, callconv = {callconv.ToString(),nq}, cParams = {cParams}, cParamsOpt = {cParamsOpt}, oVft = {oVft}, cScodes = {cScodes}, elemdescFunc = {elemdescFunc.ToString(),nq}, wFuncFlags = {wFuncFlags.ToString(),nq}")]
+    public unsafe struct FUNCDESC
     {
         /// <summary>
         /// Identifies the function member ID.
@@ -17,12 +17,12 @@ namespace ClrDebug.TypeLib
         /// <summary>
         /// Stores the count of errors a function can return on a 16-bit system.
         /// </summary>
-        public IntPtr lprgscode;
+        public HRESULT* lprgscode;
 
         /// <summary>
         /// Description of the element.
         /// </summary>
-        public IntPtr lprgelemdescParam;
+        public ELEMDESC* lprgelemdescParam;
 
         /// <summary>
         /// Specifies whether the function is virtual, static, or dispatch-only.

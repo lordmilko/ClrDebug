@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// enum describing function return method
     /// </summary>
     [DebuggerDisplay("CV_PFLAG_NOFPO = {CV_PFLAG_NOFPO}, CV_PFLAG_INT = {CV_PFLAG_INT}, CV_PFLAG_FAR = {CV_PFLAG_FAR}, CV_PFLAG_NEVER = {CV_PFLAG_NEVER}, CV_PFLAG_NOTREACHED = {CV_PFLAG_NOTREACHED}, CV_PFLAG_CUST_CALL = {CV_PFLAG_CUST_CALL}, CV_PFLAG_NOINLINE = {CV_PFLAG_NOINLINE}, CV_PFLAG_OPTDBGINFO = {CV_PFLAG_OPTDBGINFO}, bAll = {bAll}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_PROCFLAGS
     {
         /// <summary>
@@ -83,6 +83,9 @@ namespace ClrDebug.PDB
             set => SetBitFlag(ref bAll, 7, value);
         }
 
-        public byte bAll;
+        private byte bAll;
+
+        public static implicit operator CV_PROCFLAGS(byte value) => new CV_PROCFLAGS { bAll = value };
+        public static implicit operator byte(CV_PROCFLAGS value) => value.bAll;
     }
 }

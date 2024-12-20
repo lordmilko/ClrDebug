@@ -33,7 +33,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT Seek(
             [In] LARGE_INTEGER dlibMove,
-            [In] int dwOrigin,
+            [In] STREAM_SEEK dwOrigin,
             [Out] out ULARGE_INTEGER plibNewPosition);
 
         [PreserveSig]

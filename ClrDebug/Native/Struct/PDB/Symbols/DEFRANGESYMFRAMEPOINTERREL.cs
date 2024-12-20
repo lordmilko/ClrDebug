@@ -7,13 +7,13 @@ namespace ClrDebug.PDB
     /// A live range of frame variable
     /// </summary>
     [DebuggerDisplay("reclen = {reclen}, rectyp = {rectyp.ToString(),nq}, offFramePointer = {offFramePointer.ToString(),nq}, range = {range.ToString(),nq}, gaps = {gaps}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct DEFRANGESYMFRAMEPOINTERREL
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_DEFRANGE_FRAMEPOINTER_REL

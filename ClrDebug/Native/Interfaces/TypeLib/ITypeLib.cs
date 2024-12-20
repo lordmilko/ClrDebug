@@ -8,7 +8,8 @@ using System.Runtime.InteropServices.Marshalling;
 namespace ClrDebug.TypeLib
 {
     /// <summary>
-    /// Provides the managed definition of the <see cref="ITypeLib"/> interface.
+    /// Represents a type library, the data that describes a set of objects. A type library can be a stand-alone binary file (.TLB),
+    /// a resource in a dynamic link library or executable file (.DLL, .OLB, or .EXE).
     /// </summary>
     [Guid("00020402-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

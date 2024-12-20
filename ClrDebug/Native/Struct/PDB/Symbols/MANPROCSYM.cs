@@ -3,13 +3,13 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct MANPROCSYM
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_GMANPROC, S_LMANPROC, S_GMANPROCIA64 or S_LMANPROCIA64
@@ -61,7 +61,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Register return value is in (may not be used for all archs)
         /// </summary>
-        public short retReg;
+        public short retReg; //todo: enum?
 
         /// <summary>
         /// optional name field

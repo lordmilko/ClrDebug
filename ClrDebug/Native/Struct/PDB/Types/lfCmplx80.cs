@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// complex 80-bit leaf
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, val_real = {val_real}, val_imag = {val_imag}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfCmplx80
     {
         /// <summary>

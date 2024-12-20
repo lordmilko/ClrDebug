@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// subfield record for enumerate
     /// </summary>
     [DebuggerDisplay("leaf = {leaf.ToString(),nq}, attr = {attr.ToString(),nq}, value = {value}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct lfEnumerate
     {
         /// <summary>

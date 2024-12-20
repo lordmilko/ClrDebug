@@ -3,13 +3,13 @@ using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct REFSYM2
     {
         /// <summary>
         /// Record length
         /// </summary>
-        public short reclen;
+        public ushort reclen;
 
         /// <summary>
         /// S_PROCREF, S_DATAREF, or S_LPROCREF
@@ -24,7 +24,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Offset of actual symbol in $$Symbols
         /// </summary>
-        public int ibSym;
+        public int ibSym; //Offset into the symbol buffer returned from Mod1.QuerySymbols()
 
         /// <summary>
         /// Module containing the actual symbol
