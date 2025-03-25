@@ -3,7 +3,7 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="SymUnmanagedMethod.SequencePoints"/> property.
+    /// Encapsulates the results of the <see cref="SymUnmanagedMethod.GetSequencePoints"/> method.
     /// </summary>
     [DebuggerDisplay("offsets = {offsets}, documents = {documents}, lines = {lines}, columns = {columns}, endLines = {endLines}, endColumns = {endColumns}")]
     public struct GetSequencePointsResult

@@ -910,7 +910,7 @@ namespace ClrDebug.PDB
         #region QueryMachineType
 
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        delegate short QueryMachineTypeDelegate(
+        delegate ushort QueryMachineTypeDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -1195,11 +1195,13 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryFileInfo2(BYTE *pb, int *pcb) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryFileInfo2Delegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryFileInfo2Delegate(
+            [In] IntPtr @this,
+            [In] IntPtr pb,
+            [In, Out] ref int pcb);
 
-        //private QueryFileInfo2Delegate queryFileInfo2;
+        private QueryFileInfo2Delegate queryFileInfo2;
 
         //public bar QueryFileInfo2()
         //{
@@ -1208,6 +1210,14 @@ namespace ClrDebug.PDB
         //    if (!queryFileInfo2(Raw))
         //        throw new NotImplementedException();
         //}
+
+        //Note: this method does NOT return an OMFFileIndex; the first two members are int, not short
+        public bool QueryFileInfo2(IntPtr pb, ref int pcb)
+        {
+            InitDelegate(ref queryFileInfo2, vtbl->QueryFileInfo2);
+
+            return queryFileInfo2(Raw, pb, ref pcb);
+        }
 
         #endregion
         #region FSetPfnQueryCallback

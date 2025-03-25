@@ -1,5 +1,8 @@
-﻿namespace ClrDebug
+﻿using System;
+
+namespace ClrDebug
 {
+    [Flags]
     public enum ReadyToRunMethodSigFlags
     {
         READYTORUN_METHOD_SIG_UnboxingStub = 0x01,

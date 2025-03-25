@@ -8,7 +8,9 @@ using System.Runtime.InteropServices.Marshalling;
 namespace ClrDebug
 {
     /// <summary>
-    /// Provides metadata information to the debugger.
+    /// Provides metadata information to the debugger.<para/>
+    /// This interface may be implemented by your <see cref="ICorDebugDataTarget"/> to tell the CLR how metadata interfaces
+    /// should be retrieved.
     /// </summary>
     [Guid("7CEF8BA9-2EF7-42BF-973F-4171474F87D9")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

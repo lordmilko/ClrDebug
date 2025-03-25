@@ -994,33 +994,22 @@ namespace ClrDebug
 
         #region Filter
 
-        public CorDebugDebugEvent Filter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, CorDebugDecodeEventFlagsWindows dwFlags, int dwThreadId, ref NTSTATUS pContinueStatus)
+        public void Filter(IntPtr pRecord, int countBytes, CorDebugRecordFormat format, CorDebugDecodeEventFlagsWindows dwFlags, int dwThreadId, ICorDebugManagedCallback pCallback, ref NTSTATUS pContinueStatus)
         {
-            CorDebugDebugEvent ppEventResult;
-            TryFilter(pRecord, countBytes, format, dwFlags, dwThreadId, ref pContinueStatus, out ppEventResult).ThrowOnNotOK();
-
-            return ppEventResult;
+            TryFilter(pRecord, countBytes, format, dwFlags, dwThreadId, pCallback, ref pContinueStatus).ThrowOnNotOK();
         }
 
-        public HRESULT TryFilter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, CorDebugDecodeEventFlagsWindows dwFlags, int dwThreadId, ref NTSTATUS pContinueStatus, out CorDebugDebugEvent ppEventResult)
+        public HRESULT TryFilter(IntPtr pRecord, int countBytes, CorDebugRecordFormat format, CorDebugDecodeEventFlagsWindows dwFlags, int dwThreadId, ICorDebugManagedCallback pCallback, ref NTSTATUS pContinueStatus)
         {
             /*HRESULT Filter(
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pRecord,
+            [In] IntPtr pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
             [In] CorDebugDecodeEventFlagsWindows dwFlags,
             [In] int dwThreadId,
-            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent,
+            [In, MarshalAs(UnmanagedType.Interface)] ICorDebugManagedCallback pCallback,
             [In, Out] ref NTSTATUS pContinueStatus);*/
-            ICorDebugDebugEvent ppEvent;
-            HRESULT hr = Raw4.Filter(pRecord, countBytes, format, dwFlags, dwThreadId, out ppEvent, ref pContinueStatus);
-
-            if (hr == HRESULT.S_OK)
-                ppEventResult = CorDebugDebugEvent.New(ppEvent);
-            else
-                ppEventResult = default(CorDebugDebugEvent);
-
-            return hr;
+            return Raw4.Filter(pRecord, countBytes, format, dwFlags, dwThreadId, pCallback, ref pContinueStatus);
         }
 
         #endregion

@@ -68,7 +68,7 @@ namespace ClrDebug.CoClass
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetSymAttribute(
-            [In] int parent,
+            [In] mdToken parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
             [Out] out int pcBuffer,

@@ -73,10 +73,8 @@ namespace ClrDebug
 
         protected bool disposed;
 
-        //Though we're only locking resources owned by a single RuntimeCallableWrapper, there's no point wasting memory
-        //on each object just to store this lock
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private static object lockObj = new object();
+        protected object lockObj = new object();
 
         public RuntimeCallableWrapper(object value) : this(GetIUnknownPointer(value), value.GetType().GUID)
         {
@@ -138,8 +136,12 @@ namespace ClrDebug
 
         protected void InitInterface(Guid riid, ref IntPtr ptr)
         {
-            if (ptr == IntPtr.Zero)
-                QueryInterface(riid, out ptr).ThrowOnNotOK();
+            //If two threads try and query an interface at once, we might double query and leak a reference
+            lock (lockObj)
+            {
+                if (ptr == IntPtr.Zero)
+                    QueryInterface(riid, out ptr).ThrowOnNotOK();
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -188,38 +190,41 @@ namespace ClrDebug
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            lock (lockObj)
             {
-                if (disposing)
+                if (!disposed)
                 {
-                    //Free managed references
-                }
+                    if (disposing)
+                    {
+                        //Free managed references
+                    }
 
-                ReleaseSubInterfaces();
+                    ReleaseSubInterfaces();
 
-                if (Raw != IntPtr.Zero)
-                {
-                    //When this RCW was constructed, the reference count was already 1. When we QI'd for the interface type that this RCW encapsulates,
-                    //the count jumped up to 2. Because we take ownership of the object that we encapsulate, when the count hits 1 again, we need to also
-                    //perform the final release 
+                    if (Raw != IntPtr.Zero)
+                    {
+                        //When this RCW was constructed, the reference count was already 1. When we QI'd for the interface type that this RCW encapsulates,
+                        //the count jumped up to 2. Because we take ownership of the object that we encapsulate, when the count hits 1 again, we need to also
+                        //perform the final release 
 
 #if DEBUG
-                    remainingRefs = Release();
+                        remainingRefs = Release();
 
-                    if (remainingRefs == 1)
-                    {
-                        Release();
-                        remainingRefs = 0;
-                    }
+                        if (remainingRefs == 1)
+                        {
+                            Release();
+                            remainingRefs = 0;
+                        }
 #else
                     if (Release() == 1)
                         Release();
 #endif
+                    }
+
+                    Raw = IntPtr.Zero;
+
+                    disposed = true;
                 }
-
-                Raw = IntPtr.Zero;
-
-                disposed = true;
             }
         }
 
@@ -273,6 +278,12 @@ namespace ClrDebug
         private delegate int ReleaseDelegate(IntPtr self);
 
         #endregion
+
+        private void ThrowIfDisposed()
+        {
+            if (disposed)
+                throw new ObjectDisposedException(GetType().Name);
+        }
 
 #if DEBUG
         public override string ToString()

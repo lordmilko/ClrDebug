@@ -4,12 +4,14 @@ namespace ClrDebug.DbgEng
 {
     public static partial class DbgEngExtensions
     {
+        #region DebugClient
+
         /// <summary>
         /// Creates a <see cref="ComObject{T}"/> around an interface supported by the dbgeng!DebugClient type.<para/>
         /// Possible conversions include <see cref="DebugAdvanced"/>, <see cref="DebugClient"/>, <see cref="DebugClientInternal"/>,
         /// <see cref="DebugControl"/>, <see cref="DebugDataModelScripting"/>, <see cref="DebugLinkableProcessServer"/>, <see cref="DebugModelQuery"/>,
         /// <see cref="DebugPlmClient"/>, <see cref="DebugRegisters"/>, <see cref="DebugServiceProvider"/>, <see cref="DebugSettings"/>, <see cref="DebugSymbols"/>,
-        /// <see cref="DebugSystemObjects"/>, <see cref="DebugTestHook"/> and <see cref="HostDataModelAccess"/>.
+        /// <see cref="DebugSystemObjects"/>, <see cref="DebugTestHook"/> and <see cref="HostDataModelAccess"/>, <see cref="DebugTargetCompositionBridge"/>.
         /// </summary>
         /// <typeparam name="T">A type that wraps one of the interfaces DebugClient supports.</typeparam>
         /// <param name="debugAdvanced">The existing wrapper to create the new wrapper from.</param>
@@ -88,6 +90,11 @@ namespace ClrDebug.DbgEng
         public static T As<T>(this HostDataModelAccess hostDataModelAccess) =>
             AsDebugClient<T, IHostDataModelAccess>(hostDataModelAccess.Raw);
 
+        /// <inheritdoc cref="As{T}(DebugAdvanced)"/>
+        /// <param name="debugTargetCompositionBridge">The existing wrapper to create the new wrapper from.</param>
+        public static T As<T>(this DebugTargetCompositionBridge debugTargetCompositionBridge) =>
+            AsDebugClient<T, IDebugTargetCompositionBridge>(debugTargetCompositionBridge.Raw);
+
         private static TResult AsDebugClient<TResult, TRaw>(TRaw raw) =>
             AsDebugClient<TResult, TRaw>(Extensions.GetIUnknownForObject(raw));
 
@@ -126,10 +133,14 @@ namespace ClrDebug.DbgEng
                 result = new DebugTestHook(Extensions.GetObjectForIUnknown<IDebugTestHook>(raw));
             else if (t == typeof(HostDataModelAccess))
                 result = new HostDataModelAccess(Extensions.GetObjectForIUnknown<IHostDataModelAccess>(raw));
+            else if (t == typeof(DebugTargetCompositionBridge))
+                result = new DebugTargetCompositionBridge(Extensions.GetObjectForIUnknown<IDebugTargetCompositionBridge>(raw));
             else
                 throw Extensions.GetAsNotSupportedException<TResult, TRaw>();
 
             return (TResult) result;
         }
+
+        #endregion
     }
 }

@@ -294,7 +294,7 @@ namespace ClrDebug.SourceGenerator
                 var arg = (UnmanagedType)marshalAs.ConstructorArguments.First(a => a.Type.Name == "UnmanagedType").Value;
 
                 if (arg != UnmanagedType.FunctionPtr)
-                    throw new NotImplementedException();
+                    throw new NotImplementedException($"Don't know how to handle an arg of type {arg}");
 
                 unmanagedName = "__retVal_native";
                 unmanagedType = "IntPtr";

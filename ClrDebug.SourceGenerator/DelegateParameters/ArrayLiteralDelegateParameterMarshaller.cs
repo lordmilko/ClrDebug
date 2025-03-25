@@ -23,6 +23,11 @@ namespace ClrDebug.SourceGenerator
         {
             switch (subType)
             {
+                case System.Runtime.InteropServices.UnmanagedType.U1:
+                    UnmanagedType = IdentifierName("void*");
+                    rawType = "byte";
+                    canPin = true;
+                    break;
                 case System.Runtime.InteropServices.UnmanagedType.U2:
                     UnmanagedType = IdentifierName("void*");
                     rawType = "char";
@@ -35,7 +40,7 @@ namespace ClrDebug.SourceGenerator
                     break;
 
                 default:
-                    throw new NotImplementedException();
+                    throw new NotImplementedException($"Don't know how to marshal an array of type '{subType}'");
             }
         }
 

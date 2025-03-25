@@ -21,11 +21,11 @@ namespace ClrDebug
         /// <summary>
         /// Returns the source server data for the module. The caller must free resources by using CoTaskMemFree.
         /// </summary>
-        public GetSourceServerDataResult SourceServerData
+        public SymUnmanagedSourceServerModule_GetSourceServerDataResult SourceServerData
         {
             get
             {
-                GetSourceServerDataResult result;
+                SymUnmanagedSourceServerModule_GetSourceServerDataResult result;
                 TryGetSourceServerData(out result).ThrowOnNotOK();
 
                 return result;
@@ -37,7 +37,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSourceServerData(out GetSourceServerDataResult result)
+        public HRESULT TryGetSourceServerData(out SymUnmanagedSourceServerModule_GetSourceServerDataResult result)
         {
             /*HRESULT GetSourceServerData(
             [Out] out int pDataByteCount,
@@ -47,9 +47,9 @@ namespace ClrDebug
             HRESULT hr = Raw.GetSourceServerData(out pDataByteCount, out ppData);
 
             if (hr == HRESULT.S_OK)
-                result = new GetSourceServerDataResult(pDataByteCount, ppData);
+                result = new SymUnmanagedSourceServerModule_GetSourceServerDataResult(pDataByteCount, ppData);
             else
-                result = default(GetSourceServerDataResult);
+                result = default(SymUnmanagedSourceServerModule_GetSourceServerDataResult);
 
             return hr;
         }

@@ -14,7 +14,7 @@ namespace ClrDebug
 #else
     [GeneratedComInterface]
 #endif
-    public partial interface IStream : ISequentialStream
+    public unsafe partial interface IStream : ISequentialStream
     {
 #if !GENERATED_MARSHALLING
         [PreserveSig]
@@ -34,7 +34,7 @@ namespace ClrDebug
         HRESULT Seek(
             [In] LARGE_INTEGER dlibMove,
             [In] STREAM_SEEK dwOrigin,
-            [Out] out ULARGE_INTEGER plibNewPosition);
+            [Out] ULARGE_INTEGER* plibNewPosition);
 
         [PreserveSig]
         HRESULT SetSize(

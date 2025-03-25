@@ -46,18 +46,18 @@ namespace ClrDebug
         #endregion
         #region RuntimeClassName
 
-        public string RuntimeClassName
+        public IntPtr RuntimeClassName
         {
             get
             {
-                string className;
+                IntPtr className;
                 TryGetRuntimeClassName(out className).ThrowOnNotOK();
 
                 return className;
             }
         }
 
-        public HRESULT TryGetRuntimeClassName(out string className)
+        public HRESULT TryGetRuntimeClassName(out IntPtr className)
         {
             /*HRESULT GetRuntimeClassName(
             [Out, MarshalAs(UnmanagedType.HString)] out string className);*/

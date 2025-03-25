@@ -1,5 +1,8 @@
-﻿namespace ClrDebug
+﻿using System;
+
+namespace ClrDebug
 {
+    [Flags]
     public enum ReadyToRunImportSectionFlags : short
     {
         None     = 0x0000,

@@ -388,7 +388,7 @@ namespace ClrDebug.TypeLib
             /*HRESULT SetCustData(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
             [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);*/
-            return Raw2.SetCustData(guid, ref pVarVal);
+            return Raw2.SetCustData(guid, pVarVal);
         }
 
         #endregion

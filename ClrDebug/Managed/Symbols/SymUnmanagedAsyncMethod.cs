@@ -1,4 +1,6 @@
-﻿namespace ClrDebug
+﻿using System;
+
+namespace ClrDebug
 {
     /// <summary>
     /// This interface is the reading complement to <see cref="ISymUnmanagedAsyncMethodPropertiesWriter"/>.
@@ -128,64 +130,6 @@
         }
 
         #endregion
-        #region AsyncStepInfo
-
-        /// <summary>
-        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
-        /// </summary>
-        public GetAsyncStepInfoResult AsyncStepInfo
-        {
-            get
-            {
-                GetAsyncStepInfoResult result;
-                TryGetAsyncStepInfo(out result).ThrowOnNotOK();
-
-                return result;
-            }
-        }
-
-        /// <summary>
-        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
-        /// </summary>
-        /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryGetAsyncStepInfo(out GetAsyncStepInfoResult result)
-        {
-            /*HRESULT GetAsyncStepInfo(
-            [In] int cStepInfo,
-            [Out] out int pcStepInfo,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] yieldOffsets,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointOffset,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointMethod);*/
-            int cStepInfo = 0;
-            int pcStepInfo;
-            int[] yieldOffsets;
-            int[] breakpointOffset;
-            int[] breakpointMethod;
-            HRESULT hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, null, null, null);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cStepInfo = pcStepInfo;
-            yieldOffsets = new int[cStepInfo];
-            breakpointOffset = new int[cStepInfo];
-            breakpointMethod = new int[cStepInfo];
-            hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);
-
-            if (hr == HRESULT.S_OK)
-            {
-                result = new GetAsyncStepInfoResult(yieldOffsets, breakpointOffset, breakpointMethod);
-
-                return hr;
-            }
-
-            fail:
-            result = default(GetAsyncStepInfoResult);
-
-            return hr;
-        }
-
-        #endregion
         #region HasCatchHandlerILOffset
 
         /// <summary>
@@ -208,6 +152,51 @@
             /*HRESULT HasCatchHandlerILOffset(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.HasCatchHandlerILOffset(out pRetVal);
+        }
+
+        #endregion
+        #region GetAsyncStepInfo
+
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
+        /// </summary>
+        public GetAsyncStepInfoResult GetAsyncStepInfo(int cStepInfo)
+        {
+            GetAsyncStepInfoResult result;
+            TryGetAsyncStepInfo(cStepInfo, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
+        public HRESULT TryGetAsyncStepInfo(int cStepInfo, out GetAsyncStepInfoResult result)
+        {
+            /*HRESULT GetAsyncStepInfo(
+            [In] int cStepInfo,
+            [Out] out int pcStepInfo,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] yieldOffsets,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointOffset,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdMethodDef[] breakpointMethod);*/
+            int pcStepInfo;
+            int[] yieldOffsets = new int[cStepInfo];
+            int[] breakpointOffset = new int[cStepInfo];
+            mdMethodDef[] breakpointMethod = new mdMethodDef[cStepInfo];
+            HRESULT hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);
+
+            if (hr == HRESULT.S_OK)
+            {
+                if (cStepInfo != pcStepInfo)
+                    Array.Resize(ref yieldOffsets, pcStepInfo);
+
+                result = new GetAsyncStepInfoResult(yieldOffsets, breakpointOffset, breakpointMethod);
+            }
+            else
+                result = default(GetAsyncStepInfoResult);
+
+            return hr;
         }
 
         #endregion

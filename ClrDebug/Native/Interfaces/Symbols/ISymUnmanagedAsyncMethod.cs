@@ -70,6 +70,6 @@ namespace ClrDebug
             [Out] out int pcStepInfo,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] yieldOffsets,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointOffset,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointMethod);
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdMethodDef[] breakpointMethod);
     }
 }

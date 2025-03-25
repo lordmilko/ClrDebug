@@ -22,7 +22,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetRuntimeClassName(
-            [Out] out IntPtr className);
+            [Out] out IntPtr className); //HSTRING. Not compatible with source generated COM
 
         [PreserveSig]
         HRESULT GetTrustLevel(

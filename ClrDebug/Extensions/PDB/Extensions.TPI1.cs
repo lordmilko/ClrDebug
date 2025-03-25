@@ -40,13 +40,13 @@ namespace ClrDebug.PDB
         #region QueryImplementationVersion
 
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        delegate DBIImpv QueryImplementationVersionDelegate(
+        delegate TPIImpv QueryImplementationVersionDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         QueryImplementationVersionDelegate queryImplementationVersion;
 
-        public DBIImpv ImplementationVersion
+        public TPIImpv ImplementationVersion
         {
             get
             {

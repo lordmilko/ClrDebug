@@ -9,7 +9,7 @@ namespace ClrDebug.PDB
     public unsafe class EnumSyms : Enum
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private EnumSymsVtbl* vtbl;
+        private new EnumSymsVtbl* vtbl;
 
         #region Get
 

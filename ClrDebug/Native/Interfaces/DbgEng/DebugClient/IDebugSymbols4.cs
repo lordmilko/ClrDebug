@@ -2471,7 +2471,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int InlineContext,
             [Out] out int Line,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] FileBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] FileBuffer,
             [In] int FileBufferSize,
             [Out] out int FileSize,
             [Out] out long Displacement);
@@ -2492,7 +2492,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int InlineContext,
             [Out] out int Line,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] FileBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] FileBuffer,
             [In] int FileBufferSize,
             [Out] out int FileSize,
             [Out] out long Displacement);

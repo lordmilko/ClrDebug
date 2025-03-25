@@ -9,6 +9,7 @@ namespace ClrDebug
     {
         [FieldOffset(0)]
         public CorExceptionFlag Flags; //We define the enum as a short for use in EH_CLAUSE_SMALL but in this struct it needs to be 4 bytes
+
         [FieldOffset(4)]
         public int TryOffset;
 

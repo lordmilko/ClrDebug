@@ -12,7 +12,7 @@ namespace ClrDebug
     /// zero.
     /// </remarks>
     [DebuggerDisplay("wStructVersion = {wStructVersion}, wMajor = {wMajor}, wMinor = {wMinor}, wBuild = {wBuild}, wRevision = {wRevision}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CLR_DEBUGGING_VERSION
     {
         /// <summary>

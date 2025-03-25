@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using ClrDebug.DIA;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -10,7 +11,7 @@ namespace ClrDebug.PDB
 
     //Note: some structures in the PDB1 API are misaligned, containing a short field immediately followed by an int. Normally this would
     //cause padding to be added which would cause our structs to misalign with the native data; to rectify this, all PDB1 structs are
-    //set to use Pack = 2. In the event we discover something _really_ wacky, we may need to even change this to Pack = 1
+    //set to use Pack = 1.
 
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
     public delegate bool PfnFindDebugInfoFile(IntPtr pSearchDebugInfo);
@@ -108,7 +109,15 @@ namespace ClrDebug.PDB
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryPDBNameDelegate queryPDBName;
 
-        //For Portable PDBs, this may just be the parent folder
+        //This does not work wih portable PDBs. msdia140!PortablePDB::ConvertPortablePDB calls PDB::OpenInStream which then calls the PDB1 ctor without a path,
+        //causing it to use the current directory as the current filename.
+
+        /// <summary>
+        /// Gets the name of the PDB file.<para/>
+        /// When the PDB file is opened from a stream, or the PDB file is a Portable PDB (which DIA converts into a stream internally),
+        /// this value will be the current working directory, not the name of the PDB file. Use <see cref="IDiaLoadCallback.NotifyOpenPDB"/>
+        /// to retrieve the name of the PDB.
+        /// </summary>
         public string PDBName
         {
             get
@@ -467,7 +476,15 @@ namespace ClrDebug.PDB
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryPDBNameExWDelegate queryPDBNameExW;
 
-        //For Portable PDBs, this may just be the parent folder
+        //This does not work wih portable PDBs. msdia140!PortablePDB::ConvertPortablePDB calls PDB::OpenInStream which then calls the PDB1 ctor without a path,
+        //causing it to use the current directory as the current filename.
+
+        /// <summary>
+        /// Gets the name of the PDB file.<para/>
+        /// When the PDB file is opened from a stream, or the PDB file is a Portable PDB (which DIA converts into a stream internally),
+        /// this value will be the current working directory, not the name of the PDB file. Use <see cref="IDiaLoadCallback.NotifyOpenPDB"/>
+        /// to retrieve the name of the PDB.
+        /// </summary>
         public string PDBNameExW
         {
             get

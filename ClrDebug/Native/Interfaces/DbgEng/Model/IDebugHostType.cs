@@ -9,7 +9,7 @@ namespace ClrDebug.DbgEng
     /// Note that some of the methods on these interfaces only apply for specific kinds of types.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [Guid("3AADC353-2B14-4ABB-9893-5E03458E07EE")]
+    [Guid("F219B848-63B2-4a43-A6C9-72ABF25A9711")]
     [ComImport]
     public interface IDebugHostType : IDebugHostSymbol
     {

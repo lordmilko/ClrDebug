@@ -22,7 +22,7 @@ namespace ClrDebug
 #else
     [GeneratedComInterface]
 #endif
-    public partial interface ICorDebugGenericValue : ICorDebugValue
+    public partial interface ICorDebugGenericValue : ICorDebugValue //ICorDebugGenericValue has nothing to do with "generics"; per mscordbi!CordbValue::CreateValueByType, it simply encapsulates a primative type
     {
 #if !GENERATED_MARSHALLING
         /// <summary>
@@ -78,7 +78,7 @@ namespace ClrDebug
         /// <param name="pTo">[out] A pointer to the value that is represented by this <see cref="ICorDebugGenericValue"/> object. The value may be a simple type or a reference type (that is, a pointer).</param>
         [PreserveSig]
         HRESULT GetValue(
-            [Out] out IntPtr pTo);
+            [In] IntPtr pTo);
 
         /// <summary>
         /// Copies a new value from the specified buffer.

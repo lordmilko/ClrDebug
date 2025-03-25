@@ -3,6 +3,9 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Diagnostics;
+using System.Linq;
+
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
 #endif
@@ -87,6 +90,7 @@ namespace ClrDebug
 
         public static readonly Guid IID_IUnknown = new Guid("00000000-0000-0000-C000-000000000046");
         public static readonly Guid IID_IDispatch = new Guid("00020400-0000-0000-C000-000000000046");
+        public static readonly Guid IID_IAgileObject = new Guid("94EA2B94-E9CC-49E0-C0FF-EE64CA8F5B90");
 
         private const string ClrLibDesktop = "clr.dll";
         private const string ClrLibWinCore = "coreclr.dll";

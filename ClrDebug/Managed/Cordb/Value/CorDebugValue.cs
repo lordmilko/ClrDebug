@@ -19,9 +19,6 @@ namespace ClrDebug
             if (value == null)
                 return null;
 
-            if (value is ICorDebugGenericValue)
-                return new CorDebugGenericValue((ICorDebugGenericValue) value);
-
             if (value is ICorDebugArrayValue)
                 return new CorDebugArrayValue((ICorDebugArrayValue) value);
 
@@ -42,6 +39,9 @@ namespace ClrDebug
 
             if (value is ICorDebugReferenceValue)
                 return new CorDebugReferenceValue((ICorDebugReferenceValue) value);
+
+            if (value is ICorDebugGenericValue)
+                return new CorDebugGenericValue((ICorDebugGenericValue) value);
 
             throw new NotImplementedException("Encountered an 'ICorDebugValue' interface of an unknown type. Cannot create wrapper type.");
         }

@@ -3,7 +3,7 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="SymUnmanagedAsyncMethod.AsyncStepInfo"/> property.
+    /// Encapsulates the results of the <see cref="SymUnmanagedAsyncMethod.GetAsyncStepInfo"/> method.
     /// </summary>
     [DebuggerDisplay("yieldOffsets = {yieldOffsets}, breakpointOffset = {breakpointOffset}, breakpointMethod = {breakpointMethod}")]
     public struct GetAsyncStepInfoResult
@@ -12,9 +12,9 @@ namespace ClrDebug
 
         public int[] breakpointOffset { get; }
 
-        public int[] breakpointMethod { get; }
+        public mdMethodDef[] breakpointMethod { get; }
 
-        public GetAsyncStepInfoResult(int[] yieldOffsets, int[] breakpointOffset, int[] breakpointMethod)
+        public GetAsyncStepInfoResult(int[] yieldOffsets, int[] breakpointOffset, mdMethodDef[] breakpointMethod)
         {
             this.yieldOffsets = yieldOffsets;
             this.breakpointOffset = breakpointOffset;

@@ -3,7 +3,9 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Provides metadata information to the debugger.
+    /// Provides metadata information to the debugger.<para/>
+    /// This interface may be implemented by your <see cref="ICorDebugDataTarget"/> to tell the CLR how metadata interfaces
+    /// should be retrieved.
     /// </summary>
     public class CorDebugMetaDataLocator : ComObject<ICorDebugMetaDataLocator>
     {

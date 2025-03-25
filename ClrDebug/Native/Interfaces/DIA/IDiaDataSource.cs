@@ -6,6 +6,20 @@ using System.Runtime.InteropServices.Marshalling;
 
 namespace ClrDebug.DIA
 {
+    /* IID's extracted from msdia140.dll
+     *
+     * IDiaDataSource4  : 27B468A6-229C-4248-8F5E-F326E7C62BA4
+     * IDiaDataSource5  : 6F9A508C-04A0-4C6F-8C61-8B964702311B
+     * IDiaDataSource6  : CEF240FE-C71C-4219-A876-A1B6B24F3820
+     * IDiaDataSource7  : 26289CA7-7E2E-4F8B-B4AF-CA3630D48834
+     * IDiaDataSource8  : D808F8D0-0F8D-4CA7-8A05-8963F7D5F9F1
+     * IDiaDataSource9  : D555708B-4EEE-45F5-8311-E18217D28B13
+     * IDiaDataSource10 : 5C7E382A-93B4-4677-A6B5-CC28C3ACCB96
+     *
+     * There is supposedly an IDiaDataSourceEx with 1A21EB69-962A-4BC4-8BD3-681797D38B23, however
+     * msdia140!CDiaDataSource::QueryInterface does not respond to this IID
+     */
+
     /// <summary>
     /// Initiates access to a source of debugging symbols.
     /// </summary>

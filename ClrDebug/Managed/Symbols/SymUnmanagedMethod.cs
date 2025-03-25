@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 
 namespace ClrDebug
 {
@@ -201,74 +203,6 @@ namespace ClrDebug
         }
 
         #endregion
-        #region SequencePoints
-
-        /// <summary>
-        /// Gets all the sequence points within this method.
-        /// </summary>
-        public GetSequencePointsResult SequencePoints
-        {
-            get
-            {
-                GetSequencePointsResult result;
-                TryGetSequencePoints(out result).ThrowOnNotOK();
-
-                return result;
-            }
-        }
-
-        /// <summary>
-        /// Gets all the sequence points within this method.
-        /// </summary>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSequencePoints(out GetSequencePointsResult result)
-        {
-            /*HRESULT GetSequencePoints(
-            [In] int cPoints,
-            [Out] out int pcPoints,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] offsets,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] lines,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] columns,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endLines,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endColumns);*/
-            int cPoints = 0;
-            int pcPoints;
-            int[] offsets;
-            ISymUnmanagedDocument[] documents;
-            int[] lines;
-            int[] columns;
-            int[] endLines;
-            int[] endColumns;
-            HRESULT hr = Raw.GetSequencePoints(cPoints, out pcPoints, null, null, null, null, null, null);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cPoints = pcPoints;
-            offsets = new int[cPoints];
-            documents = new ISymUnmanagedDocument[cPoints];
-            lines = new int[cPoints];
-            columns = new int[cPoints];
-            endLines = new int[cPoints];
-            endColumns = new int[cPoints];
-            hr = Raw.GetSequencePoints(cPoints, out pcPoints, offsets, documents, lines, columns, endLines, endColumns);
-
-            if (hr == HRESULT.S_OK)
-            {
-                result = new GetSequencePointsResult(offsets, documents, lines, columns, endLines, endColumns);
-
-                return hr;
-            }
-
-            fail:
-            result = default(GetSequencePointsResult);
-
-            return hr;
-        }
-
-        #endregion
         #region GetScopeFromOffset
 
         /// <summary>
@@ -428,6 +362,61 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] int[] columns,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.GetSourceStartEnd(docs, lines, columns, out pRetVal);
+        }
+
+        #endregion
+        #region GetSequencePoints
+
+        /// <summary>
+        /// Gets all the sequence points within this method.
+        /// </summary>
+        /// <param name="cPoints">[in] A ULONG32 that receives the size of the offsets, documents, lines, columns, endLines, and endColumns arrays.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        public GetSequencePointsResult GetSequencePoints(int cPoints)
+        {
+            GetSequencePointsResult result;
+            TryGetSequencePoints(cPoints, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets all the sequence points within this method.
+        /// </summary>
+        /// <param name="cPoints">[in] A ULONG32 that receives the size of the offsets, documents, lines, columns, endLines, and endColumns arrays.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        public HRESULT TryGetSequencePoints(int cPoints, out GetSequencePointsResult result)
+        {
+            /*HRESULT GetSequencePoints(
+            [In] int cPoints,
+            [Out] out int pcPoints,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] offsets,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] lines,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] columns,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endLines,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endColumns);*/
+            int pcPoints;
+            int[] offsets = new int[cPoints];
+            ISymUnmanagedDocument[] documents = new ISymUnmanagedDocument[cPoints];
+            int[] lines = new int[cPoints];
+            int[] columns = new int[cPoints];
+            int[] endLines = new int[cPoints];
+            int[] endColumns = new int[cPoints];
+            HRESULT hr = Raw.GetSequencePoints(cPoints, out pcPoints, offsets, documents, lines, columns, endLines, endColumns);
+
+            if (hr == HRESULT.S_OK)
+            {
+                if (cPoints != pcPoints)
+                    Array.Resize(ref offsets, pcPoints);
+
+                result = new GetSequencePointsResult(offsets, documents, lines, columns, endLines, endColumns);
+            }
+            else
+                result = default(GetSequencePointsResult);
+
+            return hr;
         }
 
         #endregion

@@ -679,7 +679,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT OutputIdentity(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] int Flags,
+            [In] DEBUG_OUTPUT_IDENTITY Flags,
             [In, MarshalAs(UnmanagedType.LPStr)] string Format);
 
         /// <summary>
@@ -1264,7 +1264,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="OutputControl">[in] Specifies where to send the output. For possible values, see DEBUG_OUTCTL_XXX.</param>
         /// <param name="Flags">[in] Set to zero.</param>
-        /// <param name="Machine">[in] Specifies a format string similar to the printf format string. However, this format string must only contain one formatting directive, %s, which will be replaced by a description of the computer and user this client represents.</param>
+        /// <param name="Format">[in] Specifies a format string similar to the printf format string. However, this format string must only contain one formatting directive, %s, which will be replaced by a description of the computer and user this client represents.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// The specific content of the string varies with the operating system. If the client is remotely connected, some
@@ -1273,8 +1273,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT OutputIdentityWide(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] int Flags,
-            [In, MarshalAs(UnmanagedType.LPWStr)] string Machine);
+            [In] DEBUG_OUTPUT_IDENTITY Flags,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string Format);
 
         /// <summary>
         /// The GetEventCallbacksWide method returns the event callbacks object registered with this client.

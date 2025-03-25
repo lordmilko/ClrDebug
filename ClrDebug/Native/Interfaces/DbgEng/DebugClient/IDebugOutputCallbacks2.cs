@@ -50,7 +50,7 @@ namespace ClrDebug.DbgEng
         /// <param name="which">[in] The kind of DEBUG_OUTCB_XXX notification that is coming in. The DEBUG_OUTCB_XXX notifications are defined in the dbgeng.h header using #defines.<para/>
         /// For more information, see DEBUG_OUTCB_XXX.</param>
         /// <param name="flags">[in] Flags that are part of the notification payload.</param>
-        /// <param name="arg">[in] Arguments that are part of the notification payload.</param>
+        /// <param name="arg">[in] Arguments that are part of the notification payload. This is typically a <see cref="DEBUG_OUTPUT"/> value.</param>
         /// <param name="text">[in, optional] A pointer to text that is part of the notification payload.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]

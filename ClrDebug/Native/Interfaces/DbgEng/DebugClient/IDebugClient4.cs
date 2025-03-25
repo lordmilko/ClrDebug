@@ -679,7 +679,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT OutputIdentity(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] int Flags,
+            [In] DEBUG_OUTPUT_IDENTITY Flags,
             [In, MarshalAs(UnmanagedType.LPStr)] string Format);
 
         /// <summary>

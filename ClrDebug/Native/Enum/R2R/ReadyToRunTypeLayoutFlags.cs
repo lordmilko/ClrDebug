@@ -1,5 +1,8 @@
-﻿namespace ClrDebug
+﻿using System;
+
+namespace ClrDebug
 {
+    [Flags]
     public enum ReadyToRunTypeLayoutFlags
     {
         READYTORUN_LAYOUT_HFA = 0x01,

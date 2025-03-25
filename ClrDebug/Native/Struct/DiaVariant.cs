@@ -31,13 +31,35 @@ namespace ClrDebug
         private IntPtr dummy1;
         private IntPtr dummy2;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public long llVal => *(long*)dummy1;               //V_I8          / VT_I8
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public int lVal => *(int*)dummy1;                 //V_I4          / VT_I4
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public byte bVal => *(byte*)dummy1;                //V_UI1         / VT_UI1
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public short iVal => *(short*)dummy1;               //V_I2          / VT_I2
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public float fltVal => *(float*)dummy1;             //V_R4          / VT_R4
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public double dblVal => *(double*)dummy1;            //V_R8          / VT_R8
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public bool boolVal => *(int*)dummy1 != 0;             //V_BOOL        / VT_BOOL
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public long llVal => (long)(long*)dummy1;               //V_I8          / VT_I8
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public int lVal => (int)(int*)dummy1;                 //V_I4          / VT_I4
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public byte bVal => (byte)(byte*)dummy1;                //V_UI1         / VT_UI1
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public short iVal => (short)(short*)dummy1;               //V_I2          / VT_I2
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public float fltVal
+        {
+            get
+            {
+                //V_R4          / VT_R4
+                fixed (DiaVariant* p = &this)
+                {
+                    return *(float*) (&p->dummy1);
+                }
+            }
+        }
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public double dblVal
+        {
+            get
+            {
+                //V_R8          / VT_R8
+                fixed (DiaVariant* p = &this)
+                {
+                    return *(double*) (&p->dummy1);
+                }
+            }
+        }
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public bool boolVal => ((int)(int*)dummy1) != 0;             //V_BOOL        / VT_BOOL
         //[DebuggerBrowsable(DebuggerBrowsableState.Never)] public HRESULT scode;          //V_ERROR       / VT_ERROR
         //[DebuggerBrowsable(DebuggerBrowsableState.Never)] public CY cyVal;               //V_CY          / VT_CY
         //[DebuggerBrowsable(DebuggerBrowsableState.Never)] public DATE date;              //V_DATE        / VT_DATE
@@ -61,10 +83,10 @@ namespace ClrDebug
         //[DebuggerBrowsable(DebuggerBrowsableState.Never)] public SAFEARRAY** pparray;    //V_ARRAYREF    /
         //[DebuggerBrowsable(DebuggerBrowsableState.Never)] public VARIANT* pvarVal;       //V_VARIANTREF  /
         //[DebuggerBrowsable(DebuggerBrowsableState.Never)] public IntPtr byref;           //V_BYREF       /
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public sbyte cVal => *(sbyte*)dummy1;               //V_I1          / VT_I1
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public ushort uiVal => *(ushort*)dummy1;             //V_UI2         / VT_UI2
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public uint ulVal => *(uint*)dummy1;               //V_UI4         / VT_UI4
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public ulong ullVal => *(ulong*)dummy1;             //V_UI8         / VT_UI8
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public sbyte cVal => (sbyte)(sbyte*)dummy1;               //V_I1          / VT_I1
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public ushort uiVal => (ushort)(ushort*)dummy1;             //V_UI2         / VT_UI2
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public uint ulVal => (uint)(uint*)dummy1;               //V_UI4         / VT_UI4
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] public ulong ullVal => (ulong)(ulong*)dummy1;             //V_UI8         / VT_UI8
         //[DebuggerBrowsable(DebuggerBrowsableState.Never)] public int intVal;             //V_INT         / VT_INT
         //[DebuggerBrowsable(DebuggerBrowsableState.Never)] public uint uintVal;           //V_UINT        / VT_UINT
         //[DebuggerBrowsable(DebuggerBrowsableState.Never)] public DECIMAL* pdecVal;       //V_DECIMALREF  /

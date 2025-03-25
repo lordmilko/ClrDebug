@@ -70,6 +70,10 @@ namespace ClrDebug.DbgEng
             if (hr == HRESULT.E_NOTIMPL)
                 throw new DbgEngNotImplementedException("DbgEng reported that the specified operation is not supported on the specified target.");
 
+            //dbgeng!ProcessCommandsAndCatch tries to execute the command, it threw a native exception, which was caught and converted into EVENT_E_INTERNALEXCEPTION
+            if (hr == HRESULT.EVENT_E_INTERNALEXCEPTION)
+                throw new DbgEngCommandException("DbgEng reported that a native exception occurred while executing a command. The specified command may be invalid");
+
             throw new DebugException(hr);
         }
     }

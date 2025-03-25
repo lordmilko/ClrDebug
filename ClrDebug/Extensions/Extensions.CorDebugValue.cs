@@ -38,6 +38,9 @@ namespace ClrDebug
                 if (Raw is ICorDebugDelegateObjectValue)
                     types.Add("DelegateObject");
 
+                if (Raw is ICorDebugExceptionObjectValue)
+                    types.Add("Exception");
+
                 if (Raw is ICorDebugGenericValue)
                     types.Add("Generic");
 

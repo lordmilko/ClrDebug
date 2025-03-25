@@ -18,6 +18,7 @@ ClrDebug aims to be a complete wrapper around all of the essential APIs you may 
 * DbgEng (`IDebug*`)
 * DIA
 * PDB1
+* TTD
 * and more
 
 ## Getting Started
@@ -37,7 +38,7 @@ var callback = new CorDebugManagedCallback();
 callback.OnAnyEvent += (s, e) =>
 {
     Console.WriteLine(e.Kind);
-    e.Continue();
+    e.Controller.Continue(false);
 };
 
 corDebug.SetManagedHandler(callback);
@@ -156,7 +157,7 @@ internal static extern bool SymGetDiaSession(
     [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSession session);
 ```
 
-Once you've loaded a module in DbgHelp, you can then grab a reference to these interfaces. Since DbgHelp will automatically create an `IDiaSession` for you, there isn't much point in obtaining the underlying `IDiaDataSource`. Unfortunately, there is no way of creating `IDiaDataSource` objects yourself. You have to go through DbgHelp's awful non-typesafe functions.
+Once you've loaded a module in DbgHelp, you can then grab a reference to these interfaces. Since DbgHelp will automatically create an `IDiaSession` for you, there isn't much point in obtaining the underlying `IDiaDataSource`. Unfortunately, there is no way of creating `IDiaDataSource` objects yourself. You have to go through DbgHelp's awful non-thread safe functions.
 
 DbgHelp exclusively uses fake `BSTR` strings with DIA. Prior to attempting to do anything with DIA, you must instruct ClrDebug to interpret all DIA strings as fake `BSTR` values. This can be done by setting the `ClrDebug.Extensions.DiaStringsUseComHeap` property to `false`
 
@@ -198,7 +199,7 @@ var hModule = LoadLibrary("C:\\msdia140.dll");
 DiaStringsUseComHeap = false;
 
 //Now retrieve an IClassFactory and create the IDiaDataSource
-var classFactory = DllGetClassObject(hModule).ClassFactory(DiaStringsUseComHeap ? CLSID_DiaSource : CLSID_DiaSourceAlt);
+var classFactory = DllGetClassObject(hModule).GetClassFactory(DiaStringsUseComHeap ? CLSID_DiaSource : CLSID_DiaSourceAlt);
 var dataSource = new DiaDataSource(classFactory.CreateInstance<IDiaDataSource>());
 ```
 
@@ -206,11 +207,13 @@ Once you have a `DiaDataSource`, you'll likely want to call either `LoadDataForE
 
 If you choose not to use ClrDebug's extension methods, watch out when using .NET 8! When a delegate emits an RCW, it specifically emits a "classic" `System.__ComObject` RCW. These RCWs are not compatible with source generated COM that is used in .NET 8/Native AOT. Thus, you must ensure that any delegates you use instead emit an `IntPtr`, and then use ClrDebug's `GetObjectForIUnknown` extension method to correctly create a source generated COM compatible RCW.
 
+Note: while it is commonly believed that DIA is a thread-safe alternative to DbgHelp, it seems like this this is only *mostly* true! DIA does use a number of critical sections internally, however, fatally, it forgets to do this on getters that pull data from `msdia140!SymRowImage::getDataFromGlobalSymbol`. If two threads try and retrieve symbol information under a given module at the same time, `msdia140!ModCache::LoadSymbols` can hit a race wherein one thread is attempting to fill data into the cache from `Mod1`, while another is attempting to destroy and recreate the buffer in order to resize it. If your application requires multiple threads to potentially interact with symbols belonging to a single module, you must write your own layer on top of ClrDebug that adds this locking where required. This is true as of msdia140.dll 14.30.30626.0 (from NuGet package Microsoft.Diagnostics.Tracing.TraceEvent.SupportFiles). msdia140.dll 14.38.33130.0 in Visual Studio 2022 does appear to have better locking, however from a cursory glance it's not 100% clear to me that the issue has been fully resolved.
+
 ### DbgEng
 
 Due to an oversight by Microsoft, the RPC proxy types that are created when using `DebugConnect` do not respond correctly to a `QueryInterface` for `IUnknown`. This completely violates the COM specification, and prevents the CLR from creating RCWs around these objects. To circumvent this, ClrDebug implements its own custom RCW/VTable definitions for use with DbgEng. A consequence of this is that ClrDebug's DbgEng wrappers are not (currently) compatible with NativeAOT.
 
-To start using DbgEng, use either `DebugCreate` or `DebugConnect` to create a `DebugClient. It is recommended to use a modern version of DbgEng, rather than the version located in system32. The `Microsoft.Debugging.Platform.DbgEng` NuGet package can be used to include a redistributable version of DbgEng in your project. (consider including `Microsoft.Debugging.Platform.SymSrv` as well for proper symbol resolution)
+To start using DbgEng, use either `DebugCreate` or `DebugConnect` to create a `DebugClient`. It is recommended to use a modern version of DbgEng, rather than the version located in system32. The `Microsoft.Debugging.Platform.DbgEng` NuGet package can be used to include a redistributable version of DbgEng in your project. (consider including `Microsoft.Debugging.Platform.SymSrv` as well for proper symbol resolution)
 
 ```c#
 var hModule = LoadLibrary("C:\\dbgeng.dll");

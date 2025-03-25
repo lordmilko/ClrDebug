@@ -19,6 +19,7 @@ namespace ClrDebug.TypeLib
 #endif
     public partial interface ICreateTypeLib2 : ICreateTypeLib
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Creates a new type description instance within the type library.
         /// </summary>
@@ -147,6 +148,7 @@ namespace ClrDebug.TypeLib
         /// </remarks>
         [PreserveSig]
         new HRESULT SaveAllChanges();
+#endif
 
         /// <summary>
         /// Deletes a specified type information from the type library.
@@ -171,7 +173,12 @@ namespace ClrDebug.TypeLib
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid guid,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#else
+            [In, MarshalAs(UnmanagedType.Struct)]
+#endif
+            object pVarVal);
 
         /// <summary>
         /// Sets the Help string context number.

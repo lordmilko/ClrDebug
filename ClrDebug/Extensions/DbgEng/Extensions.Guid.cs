@@ -100,7 +100,10 @@ namespace ClrDebug.DbgEng
         //service components, an aggregate component can be constructed to provide this set of services.
 
         /// <summary>
-        /// A component which provides the architecture specific definitions of the AMD64 architecture. Components Aggregated DEBUG_COMPONENTSVC_MACHINEARCH_AMD64_PAGETABLEREADER DEBUG_COMPONENTSVC_MACHINEARCH_AMD64_ARCHINFO
+        /// A component which provides the architecture specific definitions of the AMD64 architecture.<para/>
+        /// Components Aggregated:
+        ///     DEBUG_COMPONENTSVC_MACHINEARCH_AMD64_PAGETABLEREADER
+        ///     DEBUG_COMPONENTSVC_MACHINEARCH_AMD64_ARCHINFO
         /// </summary>
         public static readonly Guid DEBUG_COMPONENTAGGREGATE_MACHINEARCH_AMD64 = new Guid("4BC151FE-5096-47E3-8B1E-2093F20BB979");
 
@@ -110,27 +113,33 @@ namespace ClrDebug.DbgEng
         public static readonly Guid DEBUG_COMPONENTAGGREGATE_MACHINEARCH_X86 = new Guid("EDFD8AD0-1369-431D-B574-33E72CF1B12E");
 
         /// <summary>
-        /// A component which provides the architecture specific definitions of the ARM64 architecture. Components Aggregated DEBUG_COMPONENTSVC_MACHINEARCH_ARM64_PAGETABLEREADER DEBUG_COMPONENTSVC_MACHINEARCH_ARM64_ARCHINFO
+        /// A component which provides the architecture specific definitions of the ARM64 architecture.<para/>
+        /// Components Aggregated:
+        ///     DEBUG_COMPONENTSVC_MACHINEARCH_ARM64_PAGETABLEREADER
+        ///     DEBUG_COMPONENTSVC_MACHINEARCH_ARM64_ARCHINFO
         /// </summary>
         public static readonly Guid DEBUG_COMPONENTAGGREGATE_MACHINEARCH_ARM64 = new Guid("71DCF2FF-BBD0-4300-A37A-3B04F4F9713B");
 
         /// <summary>
-        /// A component which provides the architecture specific definitions of the ARM architecture. Components Aggregated DEBUG_COMPONENTSVC_MACHINEARCH_ARM32_PAGETABLEREADER DEBUG_COMPONENTSVC_MACHINEARCH_ARM32_ARCHINFO
+        /// A component which provides the architecture specific definitions of the ARM architecture.<para/>
+        /// Components Aggregated:
+        ///     DEBUG_COMPONENTSVC_MACHINEARCH_ARM32_PAGETABLEREADER
+        ///     DEBUG_COMPONENTSVC_MACHINEARCH_ARM32_ARCHINFO
         /// </summary>
         public static readonly Guid DEBUG_COMPONENTAGGREGATE_MACHINEARCH_ARM32 = new Guid("1C48E7A8-CD38-477E-8661-5718A315810D");
 
         /// <summary>
-        /// A base layer which understands the semantics of a 32-bit kernel full dump on top of a file service. Components Aggregated Services Provided
+        /// A base layer which understands the semantics of a 32-bit kernel full dump on top of a file service.
         /// </summary>
         public static readonly Guid DEBUG_COMPONENTAGGREGATE_BASE_KERNELFULLDUMP32 = new Guid("88D793FA-5DF5-43CC-A837-53C2144BF071");
 
         /// <summary>
-        /// A base layer which understands the semantics of a 64-bit kernel full dump on top of a file service. Components Aggregated Services Provided
+        /// A base layer which understands the semantics of a 64-bit kernel full dump on top of a file service.
         /// </summary>
         public static readonly Guid DEBUG_COMPONENTAGGREGATE_BASE_KERNELFULLDUMP64 = new Guid("E804FF5D-DC9A-45FF-845F-DEF1C40F788A");
 
         /// <summary>
-        /// A layer which understands the semantics of the Windows kernel and provides requisite services on top of it. Components Aggregated Services Provided
+        /// A layer which understands the semantics of the Windows kernel and provides requisite services on top of it.
         /// </summary>
         public static readonly Guid DEBUG_COMPONENTAGGREGATE_OS_KERNEL_WINDOWS = new Guid("30444EE1-97F6-4698-BFF3-6707BEFC0849");
 
@@ -206,14 +215,16 @@ namespace ClrDebug.DbgEng
         // of functionality in the target composition stack.
 
         /// <summary>
-        /// A component which provides a file debug source service on top of a file. Initializer Interface IComponentFileSourceInitializer<para/>
+        /// A component which provides a file debug source service on top of a file.<para/>
+        /// Initializer Interface: IComponentFileSourceInitializer<para/>
         /// Services Provided: DEBUG_PRIVATE_SERVICE_DEBUGSOURCE (ISvcDebugSourceFile)<para/>
         /// Services Depended On: None
         /// </summary>
         public static readonly Guid DEBUG_COMPONENTSVC_FILESOURCE = new Guid("5CE00BC6-2170-4F0D-B39E-0930C388D8B3");
 
         /// <summary>
-        /// A component which provides a view source debug service to another service manager. Initializer Interface IComponentViewSourceInitializer<para/>
+        /// A component which provides a view source debug service to another service manager.<para/>
+        /// Initializer Interface: IComponentViewSourceInitializer<para/>
         /// Services Provided: DEBUG_PRIVATE_SERVICE_DEBUGSOURCE (ISvcDebugSourceView)<para/>
         /// Services Depended On: None
         /// </summary>
@@ -221,7 +232,8 @@ namespace ClrDebug.DbgEng
 
         /// <summary>
         /// A component which stacks on top of a file source (DEBUG_PRIVATE_SERVICE_DEBUGSOURCE / ISvcDebugSourceFile) which does *NOT* support ISvcDebugSourceFileMapping and provides an implementation of "memory mapping" the stream.
-        /// This memory mapping is done via a **FULL AND IMMEDIATE** read of the entire stream into memory. Initializer Interface IComponentPseudoStreamMapperInitializer<para/>
+        /// This memory mapping is done via a **FULL AND IMMEDIATE** read of the entire stream into memory.<para/>
+        /// Initializer Interface: IComponentPseudoStreamMapperInitializer<para/>
         /// Services Provided: DEBUG_PRIVATE_SERVICE_DEBUGSOURCE (ISvcDebugSourceFile)<para/>
         /// Services Depended On: None
         /// </summary>
@@ -230,7 +242,8 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// A component which stacks on top of a file source (DEBUG_PRIVATE_SERVICE_DEBUGSOURCE / ISvcDebugSourceFile) which does *NOT* support ISvcDebugSourceFileMapping and provides an implementation of "memory mapping" the stream.
         /// This memory mapping is done via a reserved VA space in which faults trigger a demand read of a chunk of the stream. Using this component may lead to asynchronous SEH exceptions flowing out of memory accesses to the mapping if, for any reason,
-        /// the calls to read the stream fail. Initializer Interface IComponentPseudoStreamMapperInitializer<para/>
+        /// the calls to read the stream fail.<para/>
+        /// Initializer Interface: IComponentPseudoStreamMapperInitializer<para/>
         /// Services Provided: DEBUG_PRIVATE_SERVICE_DEBUGSOURCE (ISvcDebugSourceFile)<para/>
         /// Services Depended On: None
         /// </summary>
@@ -314,8 +327,8 @@ namespace ClrDebug.DbgEng
         /// A component which stacks atop another virtual memory service and overlays pages of image files (executables, DLLs, ELF shared objects, etc...) from disk images into the virtual address space.
         /// If pages are not available in the underlying virtual memory service (e.g.: the core file, dump file, etc...) and the original image can be located by an image provider service, the disk image will be used to provide those pages.
         /// If the full requirements of this service are not met, it will operate as a pass through to the underlying virtual memory service. In order for this service to provide image pages, there must be - An image provider which can locate
-        /// images from a search path or service (e.g.: symbol server) - An image parse provider which understands how to parse the image format and can translate between the on-disk file view and the in-memory loader view of the image format.
-        /// Initializer Interface IComponentImageBackedVirtualMemoryInitializer<para/>
+        /// images from a search path or service (e.g.: symbol server) - An image parse provider which understands how to parse the image format and can translate between the on-disk file view and the in-memory loader view of the image format.<para/>
+        /// Initializer Interface: IComponentImageBackedVirtualMemoryInitializer<para/>
         /// Services Provided: DEBUG_SERVICE_VIRTUAL_MEMORY<para/>
         /// Dependent Services: (soft) DEBUG_SERVICE_IMAGE_PROVIDER (soft) DEBUG_SERVICE_MODULE_ENUMERATOR (soft) DEBUG_SERVICE_IMAGE_PARSE_PROVIDER
         /// </summary>
@@ -324,7 +337,8 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// A default implementation of a stack provider which utilizes an underlying stack unwinder service to provider higher level abstract frames. This implementation will, by default, return one physical frame per frame returned from the unwinder.
         /// It can optionally also place inline stack frames above each physical frame for each inline method. Note that such requires access to the symbol provider and symbols which provide inlining information as a symbol set. Note that PDBs are presently not
-        /// accessible via a symbol set. Initializer Interface IComponentStackUnwinderStackProviderInitializer<para/>
+        /// accessible via a symbol set.<para/>
+        /// Initializer Interface<para/> IComponentStackUnwinderStackProviderInitializer<para/>
         /// Services Provided: DEBUG_SERVICE_STACK_PROVIDER<para/>
         /// Dependent Services: (hard) DEBUG_SERVICE_STACK_UNWINDER (hard) DEBUG_SERVICE_ARCHINFO (soft) DEBUG_SERVICE_MODULE_ENUMERATOR (soft) DEBUG_SERVICE_SYMBOL_PROVIDER
         /// </summary>
@@ -407,12 +421,13 @@ namespace ClrDebug.DbgEng
 
         /// <summary>
         /// Defines a higher level mechanism for getting at an abstract stack and its frames. The default stack provider is a thin shim over a physical stack unwinder. Other stack providers can present "logical call stacks" which have no relationship to a
-        /// set of physical frames in memory unwound by traditional
+        /// set of physical frames in memory unwound by traditional means.<para/>
+        /// Provides <see cref="ISvcStackProvider"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_STACK_PROVIDER = new Guid("62D97173-A8DD-44F7-8487-AC9EE6262EF4");
 
         /// <summary>
-        /// Defines the standard mecahnism for unwinding stack
+        /// Defines the standard mecahnism for unwinding stack frames.
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_STACK_UNWINDER = new Guid("B84A9083-8F92-4783-B6E1-187B53FFDABA");
 
@@ -421,138 +436,166 @@ namespace ClrDebug.DbgEng
 
         /// <summary>
         /// Defines the standard mechanism for getting an abstraction over architecture specific details of a debug target (e.g.: hardware page sizes, etc...). This service does not provide any configuration details (e.g.: number of CPUs) or hardware
-        /// debug capabilities. Every composition stack MUST have this service.
+        /// debug capabilities. Every composition stack MUST have this service.<para/>
+        /// Provides <see cref="ISvcMachineArchitecture"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_ARCHINFO = new Guid("1AAAE599-C167-42B5-B46F-D8B614DA622A");
 
         /// <summary>
-        /// Defines access to the disassembler. This service must provide ISvcBasicDisassembly and may provide other stacked disassembly interfaces to indicate progressively more capability.
+        /// Defines access to the disassembler. This service must provide ISvcBasicDisassembly and may provide other stacked disassembly interfaces to indicate progressively more capability.<para/>
+        /// Provides <see cref="ISvcBasicDisassembly"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_DISASSEMBLER = new Guid("03EBFBBC-8C0E-423B-97AF-91EF24045933");
 
         /// <summary>
-        /// Defines the standard mechanism for getting an abstraction over a machine configuration, possible hardware debugging, and the details which govern it.
+        /// Defines the standard mechanism for getting an abstraction over a machine configuration, possible hardware debugging, and the details which govern it.<para/>
+        /// Provides <see cref="ISvcMachineConfiguration"/>, <see cref="ISvcMachineConfiguration2"/>, <see cref="ISvcMachineDebug"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_MACHINE = new Guid("8514F5BC-5827-4794-BF0F-619C8FD2E84E");
 
         /// <summary>
         /// Defines the standard mechanism for accessing the virtual memory associated with a given process / address space. This service is always available on a given debug target. The implementation of this service may defer to a cache, may translate
-        /// to physical addresses, or may issue remote read requests. It is entirely up to the service. {0E1096D0-9E8D-46fe-94A5-FCD06B38FF21} @NOTE: If you query for this service, you are always reading memory of a process or address space. This means
-        /// that (on Windows), reading a user mode address passing a particular process will always perform that read to the best of the ability of the debugger regardless of the break state of the CPU. This may involve doing a virtual->physical
+        /// to physical addresses, or may issue remote read requests. It is entirely up to the service.
+        ///
+        /// NOTE: If you query for this service, you are always reading memory of a process or address space. This means
+        /// that (on Windows), reading a user mode address passing a particular process will always perform that read to the best of the ability of the debugger regardless of
+        /// the break state of the CPU. This may involve doing a virtual->physical<para/>
+        /// Provides <see cref="ISvcMemoryAccess"/>, <see cref="ISvcMemoryInformation"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_VIRTUAL_MEMORY = new Guid("0E1096D0-9E8D-46FE-94A5-FCD06B38FF21");
 
         /// <summary>
         /// Defines the standard mechanism for accessing the physical memory associated with a given target. This service is only available on targets which speak in terms of physical memory. A kernel debugger connection, a full kernel dump, and an EXDI
-        /// connection are all examples of this.
+        /// connection are all examples of this.<para/>
+        /// Provides <see cref="ISvcMemoryAccess"/>, <see cref="ISvcMemoryInformation"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_PHYSICAL_MEMORY = new Guid("0516BF7F-2644-4EA4-A151-B55AE016B213");
 
         /// <summary>
         /// Defines the standard mechanism for translating virtual addresses within a particular process or address space to physical addresses (if possible). This service is only available on targets which speak in terms of physical memory and have
-        /// services available to interpret the page tables.
+        /// services available to interpret the page tables.<para/>
+        /// Provides <see cref="ISvcMemoryTranslation"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_VIRTUAL_TO_PHYSICAL_TRANSLATION = new Guid("1B3DC04F-3027-4377-B440-7FA1146BDCFF");
 
         /// <summary>
         /// Defines the standard mechanism for reading data which has been paged out. The data read may come from an in-memory compressed store or may come from the actual page file (if available to the target). This service is only available on targets
-        /// which understand the paging hardware of the target (e.g.: kernel sessions).
+        /// which understand the paging hardware of the target (e.g.: kernel sessions).<para/>
+        /// Provides <see cref="ISvcPageFileReader"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_PAGEFILE_READER = new Guid("32C258DC-14EE-487E-9499-96FDDB3D3369");
 
         /// <summary>
         /// Defines the standard mechanism for enumerating processes which are actively "connected" (e.g.: being debugged). DEBUG_SERVICE_PROCESS_CONNECTOR is the service which represents the ability to connect to or start processes (as might be represented
-        /// by a dbgsrv or gdbserver --multi instance)
+        /// by a dbgsrv or gdbserver --multi instance)<para/>
+        /// Provides <see cref="ISvcProcessEnumerator"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_PROCESS_ENUMERATOR = new Guid("A3371693-C1EB-4ACD-A459-891AD2354F7E");
 
         /// <summary>
         /// Defines the standard mechanism for finding processes which are potential debug targets. If a container has a process connector, it is assumed to be a "process server" with the capability of creating new processes, attaching to existing ones, and
-        /// debugging multiple processes simultaneously.
+        /// debugging multiple processes simultaneously.<para/>
+        /// Provides <see cref="ISvcProcessConnector"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_PROCESS_CONNECTOR = new Guid("9922FEF0-69EA-4AB0-8331-92361374CCCE");
 
         /// <summary>
-        /// Defines the standard mechanism for enumerating threads.
+        /// Defines the standard mechanism for enumerating threads.<para/>
+        /// Provides <see cref="ISvcThreadEnumerator"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_THREAD_ENUMERATOR = new Guid("BFC2F315-AB73-4876-BCED-1D6CD5D3A8C3");
 
         /// <summary>
-        /// Defines the standard mechanism for enumerating modules.
+        /// Defines the standard mechanism for enumerating modules.<para/>
+        /// Provides <see cref="ISvcModuleEnumerator"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_MODULE_ENUMERATOR = new Guid("DA9DCFAE-3CB4-48A8-A5EA-6B63ABCB5CE7");
 
         /// <summary>
-        /// Defines the standard mechanism for providing an index key for a given module.
+        /// Defines the standard mechanism for providing an index key for a given module.<para/>
+        /// Provides <see cref="ISvcModuleIndexProvider"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_MODULE_INDEX_PROVIDER = new Guid("3BB7A2F9-EC02-458F-AB46-1B0C66FCDDB8");
 
         /// <summary>
-        /// Defines the standard mechanism for providing access to thread-local storage.
+        /// Defines the standard mechanism for providing access to thread-local storage.<para/>
+        /// Provides <see cref="ISvcThreadLocalStorageProvider"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_THREAD_LOCAL_STORAGE_PROVIDER = new Guid("4EFB2597-D280-4DDA-820B-14A07ED2D2D2");
 
         /// <summary>
-        /// Defines the standard mechanism for communicating with kernel infrastructure that is specific to the operating system of the machine.
+        /// Defines the standard mechanism for communicating with kernel infrastructure that is specific to the operating system of the machine.<para/>
+        /// Provides <see cref="ISvcOSKernelInfrastructure"/>, <see cref="ISvcOSKernelTypes"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_OS_KERNELINFRASTRUCTURE = new Guid("BCBAC4B1-ED84-4326-B062-21FB57556F4F");
 
         /// <summary>
-        /// Defines the standard mechanism for locating the kernel.
+        /// Defines the standard mechanism for locating the kernel.<para/>
+        /// Provides <see cref="ISvcOSKernelLocator"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_OS_KERNELLOCATOR = new Guid("037AC304-09CF-472A-B2FD-C0E69C881B75");
 
         /// <summary>
-        /// Defines the standard mechanism for locating symbols for the given composition stack.
+        /// Defines the standard mechanism for locating symbols for the given composition stack.<para/>
+        /// Provides <see cref="ISvcSymbolProvider"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_SYMBOL_PROVIDER = new Guid("088C65CF-5950-4C41-9F2E-82FF1F93EFB3");
 
         /// <summary>
-        /// {F656EC69-9E28-41ba-BC6A-CAF8A5CEC8ED} Defines the standard mechanism for locating image files from information read from a
+        /// Defines the standard mechanism for locating image files from information read from a target.<para/>
+        /// Provides <see cref="ISvcImageProvider"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_IMAGE_PROVIDER = new Guid("F656EC69-9E28-41BA-BC6A-CAF8A5CEC8ED");
 
         /// <summary>
-        /// {7B88E717-F162-4cfe-B643-54C1122D0670} Defines the standard mechanism for parsing various formats of image files in a
+        /// Defines the standard mechanism for parsing various formats of image files in a target.<para/>
+        /// Provides <see cref="ISvcImageParseProvider"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_IMAGE_PARSE_PROVIDER = new Guid("7B88E717-F162-4CFE-B643-54C1122D0670");
 
         /// <summary>
-        /// {C1E4D3BF-9F45-4f0c-B08D-1B993C438629} Defines the standard mechanism for trying to demangle mangled symbolic names (e.g.: C++ mangled
+        /// Defines the standard mechanism for trying to demangle mangled symbolic names (e.g.: C++ mangled names).<para/>
+        /// Provides <see cref="ISvcNameDemangler"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_NAME_DEMANGLER = new Guid("C1E4D3BF-9F45-4F0C-B08D-1B993C438629");
 
         /// <summary>
         /// Defines the standard mechanism for fetching context from execution units (software threads or physical cores) where that context might need to be translated. Such translation may occur due to the debugger providing a view on the actual target
         /// (e.g.: emulator versus emulate, WoW versus native, enclave versus host) The ::GetContext method on a given execution unit will *ALWAYS* return the *ACTUAL* context of the thread/core. It is expected that a client will fetch context through
-        /// this service. If not present in the service container, the underlying native context can be fetched directly from an execution unit.
+        /// this service. If not present in the service container, the underlying native context can be fetched directly from an execution unit.<para/>
+        /// Provides <see cref="ISvcContextTranslation"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_EXECUTION_CONTEXT_TRANSLATION = new Guid("AE987DC0-7D24-4C33-A5A6-312D96192C8E");
 
         /// <summary>
-        /// Defines a mechanism for fetching information about active exception like events (e.g.: exceptions, Linux signals, etc...) A post-mortem target can indicate information about the reason for the snapshot (dump, etc...) via this mechanism.
+        /// Defines a mechanism for fetching information about active exception like events (e.g.: exceptions, Linux signals, etc...) A post-mortem target can indicate information about the reason for the snapshot (dump, etc...) via this mechanism.<para/>
+        /// Provides <see cref="ISvcActiveExceptions"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_ACTIVE_EXCEPTIONS = new Guid("39B29A74-4608-4A1D-8102-D68F7391E8B5");
 
         /// <summary>
-        /// Defines a standard service for formatting exceptional events (e.g.: Win32 exceptions, Linux signals, etc...) from a target.
+        /// Defines a standard service for formatting exceptional events (e.g.: Win32 exceptions, Linux signals, etc...) from a target.<para/>
+        /// Provides <see cref="ISvcExceptionFormatter"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_EXCEPTION_FORMATTER = new Guid("46BD1681-384A-4FAA-B588-E5244E8BA65E");
 
         /// <summary>
-        /// Defines a standardized way to get information about the underlying OS platform that a given target is/was executing upon. This service is *OPTIONAL* and is not required in any target.
+        /// Defines a standardized way to get information about the underlying OS platform that a given target is/was executing upon. This service is *OPTIONAL* and is not required in any target.<para/>
+        /// Provides <see cref="ISvcOSPlatformInformation"/>, <see cref="ISvcOSPlatformInformation2"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_OS_INFORMATION = new Guid("43AFEC1D-7529-40E0-8BF3-F27469F40FEF");
 
         /// <summary>
         /// Defines the standardized way of controlling motion of a live target. A service container which contains DEBUG_SERVICE_STEP_CONTROLLER is considered to be a "live target" This service is *OPTIONAL*. It is only required for targets which wish
-        /// to present other than a static view.
+        /// to present other than a static view.<para/>
+        /// Provides <see cref="ISvcStepController"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_STEP_CONTROLLER = new Guid("D9FB31D3-5A02-49B5-8201-9F4365B70B2D");
 
         /// <summary>
         /// Defines the standardized way of controlling breakpoints within a live target. This service is *OPTIONAL*. It *SHOULD* be present for targets which wish to present other than a static view; however, some targets may only provide run/stop/step
-        /// and may not support breakpoints at all.
+        /// and may not support breakpoints at all.<para/>
+        /// Provides <see cref="ISvcBreakpointController"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_BREAKPOINT_CONTROLLER = new Guid("BDD79E78-891B-4857-A511-3D67C3B274B0");
 
@@ -565,7 +608,8 @@ namespace ClrDebug.DbgEng
         public static readonly Guid DEBUG_SERVICE_WINDOWS_KERNELINFRASTRUCTURE = new Guid("355ED9B0-8AF4-4B91-8AD0-C71AF8ADF5EC");
 
         /// <summary>
-        /// Defines a means of translating from one exception record to another (e.g.: native to WoW, emulator to emulate, etc...)
+        /// Defines a means of translating from one exception record to another (e.g.: native to WoW, emulator to emulate, etc...)<para/>
+        /// Provides <see cref="ISvcWindowsExceptionTranslation"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_WINDOWS_EXECUTION_EXCEPTION_TRANSLATION = new Guid("EB09BB33-9834-408A-B026-9B51EB901D1A");
 
@@ -586,12 +630,14 @@ namespace ClrDebug.DbgEng
         public static readonly Guid DEBUG_PRIVATE_SERVICE_DEBUGSOURCE = new Guid("4268D211-058A-4AFC-B5CD-68F1E210D03D");
 
         /// <summary>
-        /// Defines the standard mechanism for providing an CLR DAC and SOS for a given (CLR) module.
+        /// Defines the standard mechanism for providing an CLR DAC and SOS for a given (CLR) module.<para/>
+        /// Provides <see cref="IClrDacAndSosProvider"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_CLR_DAC_AND_SOS_PROVIDER = new Guid("8BBE9989-E330-4BDB-A774-35AD3547D583");
 
         /// <summary>
-        /// Defines the standard mechanism for providing download URL (or a list of URLs) for a source code file.
+        /// Defines the standard mechanism for providing download URL (or a list of URLs) for a source code file.<para/>
+        /// Provides <see cref="ISourceCodeDownloadUrlLinkProvider"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_SOURCE_CODE_FILE_DOWNLOAD_URL_LINK_PROVIDER = new Guid("89C3AA95-385D-4C1C-95BB-EF294E5BFD76");
 
@@ -599,18 +645,21 @@ namespace ClrDebug.DbgEng
         #region Secondary Services
 
         /// <summary>
-        /// Defines a mechanism for accessing the virtual memory associated with a given process or address space with a guarantee that the reads and writes are not serviced via a cache. This service is always available on a given debug target.
+        /// Defines a mechanism for accessing the virtual memory associated with a given process or address space with a guarantee that the reads and writes are not serviced via a cache. This service is always available on a given debug target.<para/>
+        /// Provides <see cref="ISvcMemoryAccess"/>, <see cref="ISvcMemoryInformation"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_VIRTUAL_MEMORY_UNCACHED = new Guid("C8ADD00A-A5C0-4CA2-8BD2-3D502443926C");
 
         /// <summary>
-        /// Defines a mechanism for accessing the physical memory associated with a given target with a guarantee that the reads and writes are not serviced via a cache. This service is available on any target which supports DEBUG_SERVICE_PHYSICAL_MEMORY.
+        /// Defines a mechanism for accessing the physical memory associated with a given target with a guarantee that the reads and writes are not serviced via a cache. This service is available on any target which supports DEBUG_SERVICE_PHYSICAL_MEMORY.<para/>
+        /// Provides <see cref="ISvcMemoryAccess"/>, <see cref="ISvcMemoryInformation"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_PHYSICAL_MEMORY_UNCACHED = new Guid("F98B6C17-09F1-45EC-B5A0-3B94682EBD8D");
 
         /// <summary>
         /// Denotes a service stack which accesses virtual memory via direct translation to physical memory addresses and physical reads. This service is only available on some debug targets. In particular, kernel targets which have access to the underlying
-        /// physical memory of the machine support this
+        /// physical memory of the machine support this<para/>
+        /// Provides <see cref="ISvcMemoryAccess"/>, <see cref="ISvcMemoryInformation"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_VIRTUAL_MEMORY_TRANSLATED = new Guid("C8ADD00A-A5C0-4CA2-8BD2-3D502443926C");
 
@@ -618,13 +667,15 @@ namespace ClrDebug.DbgEng
         #region Utility Services
 
         /// <summary>
-        /// A standard telemetry service to send diagnostic information.
+        /// A standard telemetry service to send diagnostic information.<para/>
+        /// Provides <see cref="ISvcTelemetry"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_TELEMETRY = new Guid("91D9084F-A8AC-4D4F-88E1-5E65E8A64C60");
 
         /// <summary>
         /// A standard logging service to send diagnostic information. The diagnostic logging service has special semantics placed upon it. Any implementation of the diagnostic logging service must be prepared to receive *Log* calls on
-        /// ISvcDiagnosticLogging **BEFORE** the service container is started and services are fully initialized. The service manager itself will begin to write diagnostics to this service immediately after it is placed in the service container.
+        /// ISvcDiagnosticLogging **BEFORE** the service container is started and services are fully initialized. The service manager itself will begin to write diagnostics to this service immediately after it is placed in the service container.<para/>
+        /// Provides <see cref="ISvcDiagnosticLoggableControl"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_DIAGNOSTIC_LOGGING = new Guid("507C628C-DDC3-4829-91AF-01E1BF541B7B");
 
@@ -633,19 +684,26 @@ namespace ClrDebug.DbgEng
 
         /// <summary>
         /// A service which is able to translate between canonical register IDs and a domain specific register numbering. This service is *NEVER* canonical. It is always conditional on two conditions Primary  : The DEBUG_ARCHDEF_* GUID for the architecture
-        /// of the context Secondary: The GUID which defines the domain specific context
+        /// of the context Secondary: The GUID which defines the domain specific context<para/>
+        /// Provides <see cref="ISvcRegisterTranslation"/>, <see cref="ISvcDwarfRegisterTranslation"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_REGISTERTRANSLATION = new Guid("95C5E296-C8CA-4BA2-A52A-FEF3C913AF8C");
 
         /// <summary>
         /// A service which is able to translate between the canonical context (ISvcRegisterContext) and a domain specific context (e.g.: the context record stored after a PRSTATUS record in a Linux ELF core dump) This service is *NEVER* canonical.
-        /// It is always conditional on two conditions Primary  : The DEBUG_ARCHDEF_* GUID for the architecture of the context Secondary: The GUID which defines the domain specific context
+        /// It is always conditional on two conditions
+        ///
+        /// Primary  : The DEBUG_ARCHDEF_* GUID for the architecture of the context
+        /// Secondary: The GUID which defines the domain specific context<para/>
+        /// 
+        /// Provides <see cref="ISvcRegisterContextTranslation"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_REGISTERCONTEXTTRANSLATION = new Guid("7319EEDD-828F-4995-8994-ED694805E84C");
 
         /// <summary>
         /// A service which is able to restore pre-trap state from the point of a trap handler (e.g.: a signal frame) This service is *NEVER* Canonical. It is always conditional on two conditions Primary  : The DEBUG_ARCHDEF_* GUID for the architecture
-        /// of the context Secondary: The DEBUG_PLATFDEF_* GUID for the platform of the context
+        /// of the context Secondary: The DEBUG_PLATFDEF_* GUID for the platform of the context<para/>
+        /// Provides <see cref="ISvcTrapContextRestoration"/>
         /// </summary>
         public static readonly Guid DEBUG_SERVICE_TRAPCONTEXTRESTORATION = new Guid("1AE71270-299C-417F-9608-E15912C229FB");
 
@@ -686,7 +744,7 @@ namespace ClrDebug.DbgEng
         #region Symbol Services
 
         /// <summary>
-        /// A set of capabilities that defines the general capabilities of a symbol set. The identifiers within this set are given by the SvcSymbolSetGeneralCaps enumeration. GUID:
+        /// A set of capabilities that defines the general capabilities of a symbol set. The identifiers within this set are given by the SvcSymbolSetGeneralCaps enumeration.
         /// </summary>
         public static readonly Guid DEBUG_SYMBOLSETCAPS_GENERAL = new Guid("591037BC-1C2C-4A0E-87EA-59F53581E787");
 
@@ -694,37 +752,37 @@ namespace ClrDebug.DbgEng
         #region Image Services
 
         /// <summary>
-        /// Identifies the package name associated with the image. GUID:
+        /// Identifies the package name associated with the image.
         /// </summary>
         public static readonly Guid DEBUG_VERSIONIDENTIFIER_PACKAGENAME = new Guid("F779EDF9-2F05-4E9D-A3DE-479BD2FCA1AC");
 
         /// <summary>
-        /// Identifies the copyright information associated with the image. GUID:
+        /// Identifies the copyright information associated with the image.
         /// </summary>
         public static readonly Guid DEBUG_VERSIONIDENTIFIER_COPYRIGHT = new Guid("00C9CB55-2134-455C-BD7A-A106A9F71884");
 
         /// <summary>
-        /// Identifies the distribution/product associated with the image. GUID:
+        /// Identifies the distribution/product associated with the image.
         /// </summary>
         public static readonly Guid DEBUG_VERSIONIDENTIFIER_DISTRIBUTION = new Guid("3A51BE14-3AD5-481F-871D-6F37CFFEEBA3");
 
         /// <summary>
-        /// Identifies the repository associated with the image. GUID:
+        /// Identifies the repository associated with the image.
         /// </summary>
         public static readonly Guid DEBUG_VERSIONIDENTIFIER_REPOSITORY = new Guid("2B32B734-ABC0-413F-973A-C2F114C8B40B");
 
         /// <summary>
-        /// Identifies the branch associated with the image. GUID:
+        /// Identifies the branch associated with the image.
         /// </summary>
         public static readonly Guid DEBUG_VERSIONIDENTIFIER_BRANCH = new Guid("A1C282C0-54D8-4AA7-BB18-3B83744DA9F7");
 
         /// <summary>
-        /// Identifies description information associated with the image. GUID:
+        /// Identifies description information associated with the image.
         /// </summary>
         public static readonly Guid DEBUG_VERSIONIDENTIFIER_DESCRIPTION = new Guid("218F0E9D-8B59-436A-AEEB-DF31B1A1A924");
 
         /// <summary>
-        /// Identifies a commit hash associated with the image. GUID:
+        /// Identifies a commit hash associated with the image.
         /// </summary>
         public static readonly Guid DEBUG_VERSIONIDENTIFIER_COMMIT_HASH = new Guid("365C64DE-26C5-469D-8698-0E41A7492AEB");
 
@@ -840,6 +898,24 @@ namespace ClrDebug.DbgEng
         /// Event Argument: ISvcEventArgumentsThreadDiscovery
         /// </summary>
         public static readonly Guid DEBUG_SVCEVENT_THREADEXIT = new Guid("89DD0121-CCEF-4D60-9E2F-53CC8D638608");
+
+        #endregion
+        #region Private Services
+
+        /// <summary>
+        /// An internal only component which bridges between legacy portions of the debugger and target composition
+        /// portions of the debugger. This should only be necessary until more components can be refactored.<para/>
+        /// Provides <see cref="ISvcLegacyClrDiscovery"/>, <see cref="ISvcLegacyClrInformation"/>
+        /// </summary>
+        public static readonly Guid DEBUG_PRIVATE_SERVICE_LEGACYBRIDGE = new Guid("FFFEAF0D-DA4A-485e-8C64-27C99659B628");
+
+        #endregion
+        #region Private Events
+
+        /// <summary>
+        /// An event which is fired when the legacy CLR discovery service determines that something about its ability to find the CLR has changed.
+        /// </summary>
+        public static readonly Guid DEBUG_PRIVATE_SVCEVENT_CLRINFORMATIONCHANGED = new Guid("2C51799C-F1E9-4d49-A883-6BB768FA41B3");
 
         #endregion
     }

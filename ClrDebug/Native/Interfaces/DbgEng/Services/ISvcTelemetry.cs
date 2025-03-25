@@ -3,7 +3,7 @@
 namespace ClrDebug.DbgEng
 {
     /// <summary>
-    /// Provided By : DEBUG_SERVICE_TELEMETRY.
+    /// Provided By: DEBUG_SERVICE_TELEMETRY.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("39BCF55E-9150-4BBA-9472-88C972DD7885")]

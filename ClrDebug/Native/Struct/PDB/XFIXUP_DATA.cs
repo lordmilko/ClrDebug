@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.PDB
 {
     [DebuggerDisplay("wType = {wType}, wExtra = {wExtra}, rva = {rva}, rvaTarget = {rvaTarget}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct XFIXUP_DATA
     {
         public short wType; //todo: enum?

@@ -4,25 +4,27 @@ using System.Diagnostics;
 namespace ClrDebug
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="SymUnmanagedSourceServerModule.SourceServerData"/> property.
+    /// Encapsulates the results of the <see cref="SymUnmanagedReader.SourceServerData"/> property.
     /// </summary>
-    [DebuggerDisplay("pDataByteCount = {pDataByteCount}, ppData = {ppData.ToString(),nq}")]
+    [DebuggerDisplay("data = {data.ToString(),nq}, size = {size}")]
     public struct GetSourceServerDataResult
     {
-        /// <summary>
-        /// A pointer to a ULONG32 that receives the size, in bytes, of the source server data.
+        /// <summary>A pointer to memory where Source Server data start. The memory is owned by the SymReader and
+        /// valid until <see cref="SymUnmanagedDispose.Destroy"/> is invoked.
+        /// 
+        /// Null if the PDB doesn't contain Source Server data.
         /// </summary>
-        public int pDataByteCount { get; }
+        public IntPtr data { get; }
 
         /// <summary>
-        /// A pointer to the returned pDataByteCount value.
+        /// Size of the data in bytes.
         /// </summary>
-        public IntPtr ppData { get; }
+        public int size { get; }
 
-        public GetSourceServerDataResult(int pDataByteCount, IntPtr ppData)
+        public GetSourceServerDataResult(IntPtr data, int size)
         {
-            this.pDataByteCount = pDataByteCount;
-            this.ppData = ppData;
+            this.data = data;
+            this.size = size;
         }
     }
 }

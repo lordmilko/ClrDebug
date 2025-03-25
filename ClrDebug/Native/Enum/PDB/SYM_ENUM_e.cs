@@ -888,31 +888,31 @@
 
         /// <summary>
         /// ranges for en-registered symbol.<para/>
-        /// Type: <see cref="DEFRANGESYM"/>
+        /// Type: <see cref="DEFRANGESYMREGISTER"/>
         /// </summary>
         S_DEFRANGE_REGISTER = 0x1141,
 
         /// <summary>
         /// range for stack symbol.<para/>
-        /// Type: <see cref="DEFRANGESYM"/>
+        /// Type: <see cref="DEFRANGESYMFRAMEPOINTERREL"/>
         /// </summary>
         S_DEFRANGE_FRAMEPOINTER_REL = 0x1142,
 
         /// <summary>
         /// ranges for en-registered field of symbol.<para/>
-        /// Type: <see cref="DEFRANGESYMSUBFIELD"/>
+        /// Type: <see cref="DEFRANGESYMSUBFIELDREGISTER"/>
         /// </summary>
         S_DEFRANGE_SUBFIELD_REGISTER = 0x1143,
 
         /// <summary>
         /// range for stack symbol span valid full scope of function body, gap might apply.<para/>
-        /// Type: <see cref="DEFRANGESYM"/>
+        /// Type: <see cref="DEFRANGESYMFRAMEPOINTERREL_FULL_SCOPE"/>
         /// </summary>
         S_DEFRANGE_FRAMEPOINTER_REL_FULL_SCOPE = 0x1144,
 
         /// <summary>
         /// range for symbol address as register + offset.<para/>
-        /// Type: <see cref="DEFRANGESYMSUBFIELD"/>
+        /// Type: <see cref="DEFRANGESYMREGISTERREL"/>
         /// </summary>
         S_DEFRANGE_REGISTER_REL = 0x1145,
 
@@ -1013,6 +1013,29 @@
         S_LDATA_HLSL32_EX = 0x1165, //DATASYMHLSL32_EX
 
         //There are additional types that are not known that are used by DIA internally, including 0x1172-0x1175
+
+        //Dispatched to from msdia140!SymDispatch::SymDispatcher
+        //Also see https://github.com/PascalBeyer/PDB-Documentation
+        //mspdbcore.dll has a list that's referenced from _dynamic_initializer_for__initHash__
+        //which has the numeric value of a given enum value around a pointer to its name.
+        //Types are taken from parameter types listed in msdia140!GetTheData::disp_S_ symbols
+
+        S_FRAMEREG = 0x1166,
+        S_REF_MINIPDB2 = 0x1167,
+        S_INLINEES = 0x1168,
+        S_HOTPATCHFUNC = 0x1169,
+        S_BPREL32_INDIR = 0x1170, //BPRELSYM32INDIR
+        S_REGREL32_INDIR = 0x1171, //REGREL32INDIR
+        S_GPROC32EX = 0x1172, //PROCSYM32EX
+        S_LPROC32EX = 0x1173, //PROCSYM32EX
+        S_GPROC32EX_ID = 0x1174, //PROCSYM32EX
+        S_LPROC32EX_ID = 0x1175, //PROCSYM32EX
+        S_STATICLOCAL = 0x1176, //STATICLOCAL
+        S_DEFRANGE_REGISTER_REL_INDIR = 0x1177,
+        S_BPREL32_ENCTMP = 0x1178,
+        S_REGREL32_ENCTMP = 0x1179,
+        S_BPREL32_INDIR_ENCTMP = 0x117a,
+        S_REGREL32_INDIR_ENCTMP = 0x117b,
 
         /// <summary>
         /// one greater than last

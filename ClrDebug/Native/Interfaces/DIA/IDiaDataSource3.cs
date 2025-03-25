@@ -156,11 +156,34 @@ namespace ClrDebug.DIA
             [In] IntPtr ppdb);
 #endif
 
+        /// <summary>
+        /// Retrieves the size, in bytes, of the named stream.
+        /// </summary>
+        /// <param name="stream">[in] The name of the stream within the debug information.</param>
+        /// <param name="pcb">[out] The size in bytes of the named stream.</param>
+        /// <returns>If successful, returns S_OK. If the named stream does not exist within the PDB, the API might fail, or it i might return a length of 0.</returns>
+        /// <remarks>
+        /// Program Databases are made up of multiple streams of data. Some of those streams are named. You can use this method to gather information about these named streams.
+        /// To get the data of the stream, use the <see cref="getStreamRawData"/> method.
+        /// </remarks>
         [PreserveSig]
         HRESULT getStreamSize(
             [MarshalAs(UnmanagedType.LPWStr), In] string stream,
-            [Out] out int pcb);
+            [Out] out int pcb); //Not sure if I can trust the documentation which says ULONGLONG, as DIA seems confident it's int
 
+        //The documentation suggests there's 5 parameters: stream, cbOffset, cbRead, pcbRead, pbData, but IDA says otherwise
+
+        /// <summary>
+        /// Retrieves the raw bytes of the named stream.
+        /// </summary>
+        /// <param name="stream">[in] The name of the stream within the debug information.</param>
+        /// <param name="cbRead">[in] The number of bytes to retrieve.</param>
+        /// <param name="pbData">[out] The location to store the read data. On input must be at least cbRead bytes in size. Upon successful return *pcbRead bytes will be valid.</param>
+        /// <returns>If successful, returns S_OK. If the named stream does not exist within the PDB, the API might fail, or it might return a length of 0.</returns>
+        /// <remarks>
+        /// Program Databases are made up of multiple streams of data. Some of those streams are named. You can use this method to gather information about these named streams.
+        /// To get the size of the stream, use the <see cref="getStreamSize"/> method.
+        /// </remarks>
         [PreserveSig]
         HRESULT getStreamRawData(
             [MarshalAs(UnmanagedType.LPWStr), In] string stream,

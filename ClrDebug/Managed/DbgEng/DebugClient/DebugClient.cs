@@ -1728,7 +1728,7 @@ namespace ClrDebug.DbgEng
         /// The specific content of the string varies with the operating system. If the client is remotely connected, some
         /// network information may also be present. For more information about client objects, see Client Objects.
         /// </remarks>
-        public void OutputIdentity(DEBUG_OUTCTL outputControl, int flags, string format)
+        public void OutputIdentity(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_IDENTITY flags, string format)
         {
             TryOutputIdentity(outputControl, flags, format).ThrowDbgEngNotOK();
         }
@@ -1744,13 +1744,13 @@ namespace ClrDebug.DbgEng
         /// The specific content of the string varies with the operating system. If the client is remotely connected, some
         /// network information may also be present. For more information about client objects, see Client Objects.
         /// </remarks>
-        public HRESULT TryOutputIdentity(DEBUG_OUTCTL outputControl, int flags, string format)
+        public HRESULT TryOutputIdentity(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_IDENTITY flags, string format)
         {
             InitDelegate(ref outputIdentity, Vtbl->OutputIdentity);
 
             /*HRESULT OutputIdentity(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] int Flags,
+            [In] DEBUG_OUTPUT_IDENTITY Flags,
             [In, MarshalAs(UnmanagedType.LPStr)] string Format);*/
             return outputIdentity(Raw, outputControl, flags, format);
         }
@@ -3451,14 +3451,14 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="outputControl">[in] Specifies where to send the output. For possible values, see DEBUG_OUTCTL_XXX.</param>
         /// <param name="flags">[in] Set to zero.</param>
-        /// <param name="machine">[in] Specifies a format string similar to the printf format string. However, this format string must only contain one formatting directive, %s, which will be replaced by a description of the computer and user this client represents.</param>
+        /// <param name="format">[in] Specifies a format string similar to the printf format string. However, this format string must only contain one formatting directive, %s, which will be replaced by a description of the computer and user this client represents.</param>
         /// <remarks>
         /// The specific content of the string varies with the operating system. If the client is remotely connected, some
         /// network information may also be present. For more information about client objects, see Client Objects.
         /// </remarks>
-        public void OutputIdentityWide(DEBUG_OUTCTL outputControl, int flags, string machine)
+        public void OutputIdentityWide(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_IDENTITY flags, string format)
         {
-            TryOutputIdentityWide(outputControl, flags, machine).ThrowDbgEngNotOK();
+            TryOutputIdentityWide(outputControl, flags, format).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3466,21 +3466,21 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="outputControl">[in] Specifies where to send the output. For possible values, see DEBUG_OUTCTL_XXX.</param>
         /// <param name="flags">[in] Set to zero.</param>
-        /// <param name="machine">[in] Specifies a format string similar to the printf format string. However, this format string must only contain one formatting directive, %s, which will be replaced by a description of the computer and user this client represents.</param>
+        /// <param name="format">[in] Specifies a format string similar to the printf format string. However, this format string must only contain one formatting directive, %s, which will be replaced by a description of the computer and user this client represents.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// The specific content of the string varies with the operating system. If the client is remotely connected, some
         /// network information may also be present. For more information about client objects, see Client Objects.
         /// </remarks>
-        public HRESULT TryOutputIdentityWide(DEBUG_OUTCTL outputControl, int flags, string machine)
+        public HRESULT TryOutputIdentityWide(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_IDENTITY flags, string format)
         {
             InitDelegate(ref outputIdentityWide, Vtbl5->OutputIdentityWide);
 
             /*HRESULT OutputIdentityWide(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] int Flags,
-            [In, MarshalAs(UnmanagedType.LPWStr)] string Machine);*/
-            return outputIdentityWide(Raw5, outputControl, flags, machine);
+            [In] DEBUG_OUTPUT_IDENTITY Flags,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string Format);*/
+            return outputIdentityWide(Raw5, outputControl, flags, format);
         }
 
         #endregion
@@ -4285,7 +4285,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT CreateClientDelegate(IntPtr self, [Out, ComAliasName("IDebugClient")] out IntPtr Client);
         private delegate HRESULT GetOtherOutputMaskDelegate(IntPtr self, [In] IntPtr Client, [Out] out DEBUG_OUTPUT Mask);
         private delegate HRESULT SetOtherOutputMaskDelegate(IntPtr self, [In] IntPtr Client, [In] DEBUG_OUTPUT Mask);
-        private delegate HRESULT OutputIdentityDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] int Flags, [In, MarshalAs(UnmanagedType.LPStr)] string Format);
+        private delegate HRESULT OutputIdentityDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT_IDENTITY Flags, [In, MarshalAs(UnmanagedType.LPStr)] string Format);
         private delegate HRESULT FlushCallbacksDelegate(IntPtr self);
 
         #endregion
@@ -4341,7 +4341,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT ConnectProcessServerWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string RemoteOptions, [Out] out long Server);
         private delegate HRESULT StartServerWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Options);
         private delegate HRESULT OutputServersWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string Machine, [In] DEBUG_SERVERS Flags);
-        private delegate HRESULT OutputIdentityWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] int Flags, [In, MarshalAs(UnmanagedType.LPWStr)] string Machine);
+        private delegate HRESULT OutputIdentityWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT_IDENTITY Flags, [In, MarshalAs(UnmanagedType.LPWStr)] string Format);
         private delegate HRESULT CreateProcess2Delegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] int OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPStr)] string Environment);
         private delegate HRESULT CreateProcess2WideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] int OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPWStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPWStr)] string Environment);
         private delegate HRESULT CreateProcessAndAttach2Delegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] int OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPStr)] string Environment, [In] int ProcessId, [In] DEBUG_ATTACH AttachFlags);

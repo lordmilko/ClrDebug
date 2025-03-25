@@ -14274,6 +14274,16 @@
         #endregion
 
         //Extra
+
+        //Special exception used to communicate with Visual Studio
+        MS_VC_EXCEPTION = 0x406D1388,
+
+        /// <summary>
+        /// Special Exception code for LS (clr!g_pDebugger) to communicate with RS (mscordbi)<para/>
+        /// LS will raise this exception to communicate managed debug events to the RS.
+        /// </summary>
+        CLRDBG_NOTIFICATION_EXCEPTION_CODE = 0x04242420,
+
         STATUS_VCPP_EXCEPTION = 0x406D1388,
         STATUS_APPLICATION_HANG = 0xCFFFFFFF,
 

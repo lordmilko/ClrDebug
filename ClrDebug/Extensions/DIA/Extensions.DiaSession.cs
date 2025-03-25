@@ -7,7 +7,7 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Locates the table that implements the specified enumerator type from the specified <see cref="DiaSession"/>.<para/>
         /// Possible tables include <see cref="DiaEnumSymbols"/>, <see cref="DiaEnumSourceFiles"/>, <see cref="DiaEnumLineNumbers"/>,
-        /// <see cref="DiaEnumSectionContribs"/>, <see cref="DiaEnumSegments"/>, <see cref="DiaEnumInjectedSources"/>
+        /// <see cref="DiaEnumSectionContribs"/>, <see cref="DiaEnumSegments"/>, <see cref="DiaEnumInjectedSources"/>, <see cref="DiaEnumInputAssemblyFiles"/>
         /// and <see cref="DiaEnumFrameData"/>.
         /// </summary>
         /// <typeparam name="T">The type of table to retrieve.</typeparam>
@@ -49,6 +49,8 @@ namespace ClrDebug.DIA
                 result = new DiaEnumSegments(getTableInternal<IDiaEnumSegments>(enumTables));
             else if (t == typeof(DiaEnumInjectedSources))
                 result = new DiaEnumInjectedSources(getTableInternal<IDiaEnumInjectedSources>(enumTables));
+            else if (t == typeof(DiaEnumInputAssemblyFiles))
+                result = new DiaEnumInputAssemblyFiles(getTableInternal<IDiaEnumInputAssemblyFiles>(enumTables));
             else if (t == typeof(DiaEnumFrameData))
                 result = new DiaEnumFrameData(getTableInternal<IDiaEnumFrameData>(enumTables));
             else

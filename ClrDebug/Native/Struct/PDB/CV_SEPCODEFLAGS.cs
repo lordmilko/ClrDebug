@@ -8,7 +8,7 @@ namespace ClrDebug.PDB
     /// flag bitfields for separated code attributes
     /// </summary>
     [DebuggerDisplay("fIsLexicalScope = {fIsLexicalScope}, fReturnsToParent = {fReturnsToParent}, pad = {pad}, flags = {flags}")]
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_SEPCODEFLAGS
     {
         /// <summary>

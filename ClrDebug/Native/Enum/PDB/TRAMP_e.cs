@@ -3,7 +3,7 @@
     /// <summary>
     /// Trampoline subtype
     /// </summary>
-    public enum TRAMP_e
+    public enum TRAMP_e : short
     {
         /// <summary>
         /// incremental thunks

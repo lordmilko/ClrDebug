@@ -1,3 +1,4 @@
+﻿using System;
 ﻿using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
@@ -118,9 +119,10 @@ namespace ClrDebug.DbgEng
         /// <param name="object">The newly boxed value (as an <see cref="IModelObject"/>) will be returned here.</param>
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
         [PreserveSig]
+        [Obsolete(Extensions.DbgEngNoQueryInterfaceWarning)]
         HRESULT CreateIntrinsicObject(
             [In] ModelObjectKind objectKind,
-            [In, MarshalAs(UnmanagedType.Struct)] object intrinsicData,
+            [In] IntPtr intrinsicData,
             [Out, MarshalAs(UnmanagedType.Interface)] out IModelObject @object);
 
         /// <summary>
@@ -135,8 +137,9 @@ namespace ClrDebug.DbgEng
         /// <param name="object">The newly boxed value (as an <see cref="IModelObject"/>) will be returned here.</param>
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
         [PreserveSig]
+        [Obsolete(Extensions.DbgEngNoQueryInterfaceWarning)]
         HRESULT CreateTypedIntrinsicObject(
-            [In, MarshalAs(UnmanagedType.Struct)] object intrinsicData,
+            [In] IntPtr intrinsicData,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostType type,
             [Out, MarshalAs(UnmanagedType.Interface)] out IModelObject @object);
 

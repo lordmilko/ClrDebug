@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents special stream numbers within a PDB.
     /// </summary>
-    public enum SN
+    public enum SN : ushort
     {
         snPDB = 1,
         snTpi = 2,

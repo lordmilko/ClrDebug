@@ -73,7 +73,7 @@ namespace ClrDebug.CoClass
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineField(
-            [In] int parent,
+            [In] mdToken parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] int cSig,
@@ -102,7 +102,7 @@ namespace ClrDebug.CoClass
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT SetSymAttribute(
-            [In] int parent,
+            [In] mdToken parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cData,
             [In] IntPtr data);

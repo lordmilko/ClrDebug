@@ -23,6 +23,13 @@ namespace ClrDebug
 
         private static ICorDebug Init()
         {
+            /* In C++, it doesn't technically matter what apartments a COM-style API implements when the objects themselves are implemented in C++: your COM object
+             * is simply a vtable into a C++ object. VTables can be called from any thread without issue, nobody is going to enforce unnecessary marshalling upon you.
+             * The real issue appears when consuming COM objects from C#: the CLR makes note of which apartment a given object is created on, and automatically "helpfully"
+             * attempts to marshal cross-apartment calls for you. When using ComWrappers in .NET 8, potentially you may be able to bypass these restrictions, but when using built-in
+             * COM marshalling, you're not going to be able to ignore the rules. And since the managed/unmanaged callback threads will occur on secondary threads, attempting to use
+             * any COM objects you already have from within a callback thread (which may be necessary in order to Continue, etc) will cause the CLR to explode. Thus, we enforce
+             * that these objects should simply be created from within an MTA thread */
             if (Thread.CurrentThread.GetApartmentState() == ApartmentState.STA)
                 throw new InvalidOperationException($"The ICorDebug API cannot be used from an STA thread. Please create a new thread and initialize ICorDebug from there. For more information, please see https://web.archive.org/web/20140422174916/http://blogs.msdn.com/b/jmstall/archive/2005/09/15/icordebug-mta-sta.aspx");
 

@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
@@ -25,12 +26,12 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT Filter(
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pRecord,
+            [In] IntPtr pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
             [In] CorDebugDecodeEventFlagsWindows dwFlags,
             [In] int dwThreadId,
-            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent,
+            [In, MarshalAs(UnmanagedType.Interface)] ICorDebugManagedCallback pCallback,
             [In, Out] ref NTSTATUS pContinueStatus);
 
         /// <summary>

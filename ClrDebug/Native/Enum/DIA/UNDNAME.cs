@@ -21,7 +21,8 @@ namespace ClrDebug.DIA
         UNDNAME_NO_MS_KEYWORDS = 0x0002,
 
         /// <summary>
-        /// Disables expansion of return type for primary declaration.
+        /// Disables expansion of return type for primary declaration.<para/>
+        /// Removes return type. e.g. <c>long Foo()</c> -> <c>Foo()</c>
         /// </summary>
         UNDNAME_NO_FUNCTION_RETURNS = 0x0004,
 
@@ -31,7 +32,8 @@ namespace ClrDebug.DIA
         UNDNAME_NO_ALLOCATION_MODEL = 0x0008,
 
         /// <summary>
-        /// Disables expansion of the declaration language specifier.
+        /// Disables expansion of the declaration language specifier.<para/>
+        /// Removes the calling convention. e.g. <c>__stdcall Foo()</c> -> <c>Foo()</c>
         /// </summary>
         UNDNAME_NO_ALLOCATION_LANGUAGE = 0x0010,
 
@@ -51,7 +53,8 @@ namespace ClrDebug.DIA
         UNDNAME_NO_THISTYPE = 0x0060,
 
         /// <summary>
-        /// Disables expansion of access specifiers for members.
+        /// Disables expansion of access specifiers for members.<para/>
+        /// Remove "public". e.g. <c>public Foo()</c> -> <c>Foo()</c>
         /// </summary>
         UNDNAME_NO_ACCESS_SPECIFIERS = 0x0080,
 
@@ -61,7 +64,8 @@ namespace ClrDebug.DIA
         UNDNAME_NO_THROW_SIGNATURES = 0x0100,
 
         /// <summary>
-        /// Disables expansion of static or virtual members.
+        /// Disables expansion of static or virtual members.<para/>
+        /// Remove "virtual". e.g. <c>virtual Foo()</c> -> <c>Foo()</c>
         /// </summary>
         UNDNAME_NO_MEMBER_TYPE = 0x0200,
 
@@ -80,6 +84,8 @@ namespace ClrDebug.DIA
         /// </summary>
         UNDNAME_NAME_ONLY = 0x1000,
 
+        //Note: DbgHelp's 0x2000 allows removing parameters, but it seems that DIA's 0x2000 has a different purpose
+
         /// <summary>
         /// Input is just a type encoding; composes an abstract declarator.
         /// </summary>
@@ -91,7 +97,8 @@ namespace ClrDebug.DIA
         UNDNAME_HAVE_PARAMETERS = 0x4000,
 
         /// <summary>
-        /// Suppresses enum/class/struct/union.
+        /// Suppresses enum/class/struct/union.<para/>
+        /// Removes "struct" prefixes from parameter types. e.g. <c>Foo(struct _GUID const &amp;)</c> -> <c>Foo(_GUID const &amp;)</c>
         /// </summary>
         UNDNAME_NO_ECSU = 0x8000,
 

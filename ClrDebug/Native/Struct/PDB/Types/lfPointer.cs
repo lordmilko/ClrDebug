@@ -6,13 +6,13 @@ namespace ClrDebug.PDB
     /// <summary>
     /// type record for LF_POINTER
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct lfPointer //20 bytes when aligned, 16 when unaligned
     {
         public lfPointerBody u;
         public BaseInfo pbase;
 
-        [StructLayout(LayoutKind.Sequential, Pack = 2)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct lfPointerBody
         {
             /// <summary>
@@ -28,7 +28,7 @@ namespace ClrDebug.PDB
             public lfPointerAttr attr;
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack = 2)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct lfPointerAttr
         {
             /// <summary>
@@ -164,7 +164,7 @@ namespace ClrDebug.PDB
             public BaseTypeInfo btype;
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack = 2)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct PointerMemberInfo
         {
             /// <summary>
@@ -178,7 +178,7 @@ namespace ClrDebug.PDB
             public CV_pmtype_e pmenum;
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack = 2)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public unsafe struct BaseTypeInfo
         {
             /// <summary>

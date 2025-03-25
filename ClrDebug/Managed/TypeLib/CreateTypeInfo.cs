@@ -892,8 +892,8 @@ namespace ClrDebug.TypeLib
         {
             /*HRESULT SetCustData(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);*/
-            return Raw2.SetCustData(guid, ref pVarVal);
+            [In, MarshalAs(UnmanagedType.Struct)] in object pVarVal);*/
+            return Raw2.SetCustData(guid, pVarVal);
         }
 
         #endregion
@@ -922,8 +922,8 @@ namespace ClrDebug.TypeLib
             /*HRESULT SetFuncCustData(
             [In] int index,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);*/
-            return Raw2.SetFuncCustData(index, guid, ref pVarVal);
+            [In, MarshalAs(UnmanagedType.Struct)] in object pVarVal);*/
+            return Raw2.SetFuncCustData(index, guid, pVarVal);
         }
 
         #endregion
@@ -955,8 +955,8 @@ namespace ClrDebug.TypeLib
             [In] int indexFunc,
             [In] int indexParam,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);*/
-            return Raw2.SetParamCustData(indexFunc, indexParam, guid, ref pVarVal);
+            [In, MarshalAs(UnmanagedType.Struct)] in object pVarVal);*/
+            return Raw2.SetParamCustData(indexFunc, indexParam, guid, pVarVal);
         }
 
         #endregion
@@ -985,8 +985,8 @@ namespace ClrDebug.TypeLib
             /*HRESULT SetVarCustData(
             [In] int index,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);*/
-            return Raw2.SetVarCustData(index, guid, ref pVarVal);
+            [In, MarshalAs(UnmanagedType.Struct)] in object pVarVal);*/
+            return Raw2.SetVarCustData(index, guid, pVarVal);
         }
 
         #endregion
@@ -1015,8 +1015,8 @@ namespace ClrDebug.TypeLib
             /*HRESULT SetImplTypeCustData(
             [In] int index,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);*/
-            return Raw2.SetImplTypeCustData(index, guid, ref pVarVal);
+            [In, MarshalAs(UnmanagedType.Struct)] in object pVarVal);*/
+            return Raw2.SetImplTypeCustData(index, guid, pVarVal);
         }
 
         #endregion

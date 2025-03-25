@@ -7,7 +7,7 @@ namespace ClrDebug
     /// <summary>
     /// A subclass of "ICorDebugValue" that represents an object that has been collected by the common language runtime (CLR) garbage collector.
     /// </summary>
-    public abstract class CorDebugHeapValue : CorDebugValue
+    public class CorDebugHeapValue : CorDebugValue
     {
         public static CorDebugHeapValue New(ICorDebugHeapValue value)
         {
@@ -23,7 +23,7 @@ namespace ClrDebug
             if (value is ICorDebugStringValue)
                 return new CorDebugStringValue((ICorDebugStringValue) value);
 
-            throw new NotImplementedException("Encountered an 'ICorDebugHeapValue' interface of an unknown type. Cannot create wrapper type.");
+            return new CorDebugHeapValue(value);
         }
 
         /// <summary>
@@ -264,6 +264,38 @@ namespace ClrDebug
                 ppThreadEnumResult = ppThreadEnum == null ? null : new CorDebugThreadEnum(ppThreadEnum);
             else
                 ppThreadEnumResult = default(CorDebugThreadEnum);
+
+            return hr;
+        }
+
+        #endregion
+        #endregion
+        #region ICorDebugHeapValue4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ICorDebugHeapValue4 Raw4 => (ICorDebugHeapValue4) Raw;
+
+        #region CreatePinnedHandle
+
+        public CorDebugHandleValue CreatePinnedHandle()
+        {
+            CorDebugHandleValue ppHandleResult;
+            TryCreatePinnedHandle(out ppHandleResult).ThrowOnNotOK();
+
+            return ppHandleResult;
+        }
+
+        public HRESULT TryCreatePinnedHandle(out CorDebugHandleValue ppHandleResult)
+        {
+            /*HRESULT CreatePinnedHandle(
+            [Out] out ICorDebugHandleValue ppHandle);*/
+            ICorDebugHandleValue ppHandle;
+            HRESULT hr = Raw4.CreatePinnedHandle(out ppHandle);
+
+            if (hr == HRESULT.S_OK)
+                ppHandleResult = ppHandle == null ? null : new CorDebugHandleValue(ppHandle);
+            else
+                ppHandleResult = default(CorDebugHandleValue);
 
             return hr;
         }

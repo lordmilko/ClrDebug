@@ -117,7 +117,7 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds.</returns>
         [PreserveSig]
         HRESULT HasEmbeddedSource(
-            [Out] out bool pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         /// <summary>
         /// Gets the length, in bytes, of the embedded source.

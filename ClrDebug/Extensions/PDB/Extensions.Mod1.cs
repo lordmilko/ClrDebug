@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using ClrDebug.DIA;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -566,11 +567,12 @@ namespace ClrDebug.PDB
 
         //virtual bool GetEnumLines( EnumLines** ppenum ) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool GetEnumLinesDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool GetEnumLinesDelegate(
+            [In] IntPtr @this,
+            [Out] out IntPtr ppenum);
 
-        //private GetEnumLinesDelegate getEnumLines;
+        private GetEnumLinesDelegate getEnumLines;
 
         //public bar GetEnumLines()
         //{
@@ -580,14 +582,29 @@ namespace ClrDebug.PDB
         //        throw new NotImplementedException();
         //}
 
+        public bool TryGetEnumLines(out EnumLines enumLines)
+        {
+            InitDelegate(ref getEnumLines, vtbl->GetEnumLines);
+
+            if (!getEnumLines(Raw, out var ppenum))
+            {
+                enumLines = null;
+                return false;
+            }
+
+            enumLines = new EnumLines(ppenum);
+            return true;
+        }
+
         #endregion
         #region QueryLineFlags
 
         //virtual bool QueryLineFlags( OUT DWORD* pdwFlags ) pure;    // what data is present?
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryLineFlagsDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryLineFlagsDelegate(
+            [In] IntPtr @this,
+            [Out] out CV_LINES pdwFlags);
 
         //private QueryLineFlagsDelegate queryLineFlags;
 
@@ -604,19 +621,30 @@ namespace ClrDebug.PDB
 
         //virtual bool QueryFileNameInfo(IN DWORD        fileId, _Out_opt_capcount_(*pccFilename) OUT wchar_t*    szFilename, IN OUT DWORD*   pccFilename, OUT DWORD*      pChksumType, OUT BYTE*       pbChksum, IN OUT DWORD*   pcbChksum) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryFileNameInfoDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryFileNameInfoDelegate(
+            [In] IntPtr @this,
+            [In] int fileId,
+            [In] IntPtr szFilename, //wchar_t*
+            [In] int* pccFilename, //in/out
+            [Out] out CV_SourceChksum_t pChksumType,
+            [Out] IntPtr pbChksum,
+            [In] int* pcbChksum); //in/out
 
-        //private QueryFileNameInfoDelegate queryFileNameInfo;
+        private QueryFileNameInfoDelegate queryFileNameInfo;
 
-        //public bar QueryFileNameInfo()
-        //{
-        //    InitDelegate(ref queryFileNameInfo, vtbl->QueryFileNameInfo);
+        public bool QueryFileNameInfo(
+            int fileId,
+            IntPtr szFilename, //wchar_t*
+            int* pccFilename,
+            out CV_SourceChksum_t pChksumType,
+            IntPtr pbChksum,
+            int* pcbChksum)
+        {
+            InitDelegate(ref queryFileNameInfo, vtbl->QueryFileNameInfo);
 
-        //    if (!queryFileNameInfo(Raw))
-        //        throw new NotImplementedException();
-        //}
+            return queryFileNameInfo(Raw, fileId, szFilename, pccFilename, out pChksumType, pbChksum, pcbChksum);
+        }
 
         #endregion
         #region AddPublicW
@@ -1059,7 +1087,8 @@ namespace ClrDebug.PDB
 
         //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryILLineFlagsDelegate(
-        //    [In] IntPtr @this);
+        //    [In] IntPtr @this,
+        //    [Out] out CV_LINES pdwFlags);
 
         //private QueryILLineFlagsDelegate queryILLineFlags;
 

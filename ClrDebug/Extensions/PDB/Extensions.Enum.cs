@@ -11,7 +11,7 @@ namespace ClrDebug.PDB
         public IntPtr Raw { get; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private EnumVtbl* vtbl;
+        internal EnumVtbl* vtbl;
 
         #region Release
 

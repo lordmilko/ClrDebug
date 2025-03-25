@@ -20,6 +20,7 @@ namespace ClrDebug.TypeLib
 #endif
     public unsafe partial interface ICreateTypeInfo2 : ICreateTypeInfo
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Sets the globally unique identifier (GUID) associated with the type description.
         /// </summary>
@@ -322,6 +323,7 @@ namespace ClrDebug.TypeLib
         /// </remarks>
         [PreserveSig]
         new HRESULT LayOut();
+#endif
 
         /// <summary>
         /// Deletes a function description specified by the index number.
@@ -384,7 +386,12 @@ namespace ClrDebug.TypeLib
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid guid,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#else
+            [In, MarshalAs(UnmanagedType.Struct)]
+#endif
+            in object pVarVal);
 
         /// <summary>
         /// Sets a value for custom data for the specified function.
@@ -402,7 +409,12 @@ namespace ClrDebug.TypeLib
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid guid,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#else
+            [In, MarshalAs(UnmanagedType.Struct)]
+#endif
+            in object pVarVal);
 
         /// <summary>
         ///  Sets a value for the custom data for the specified parameter.
@@ -422,7 +434,12 @@ namespace ClrDebug.TypeLib
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid guid,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#else
+            [In, MarshalAs(UnmanagedType.Struct)]
+#endif
+            in object pVarVal);
 
         /// <summary>
         /// Sets a value for custom data for the specified variable.
@@ -440,7 +457,12 @@ namespace ClrDebug.TypeLib
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid guid,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#else
+            [In, MarshalAs(UnmanagedType.Struct)]
+#endif
+            in object pVarVal);
 
         /// <summary>
         /// Sets a value for custom data for the specified implementation type.
@@ -458,7 +480,12 @@ namespace ClrDebug.TypeLib
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid guid,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pVarVal);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#else
+            [In, MarshalAs(UnmanagedType.Struct)]
+#endif
+            in object pVarVal);
 
         /// <summary>
         /// Sets the context number for the specified Help string.
