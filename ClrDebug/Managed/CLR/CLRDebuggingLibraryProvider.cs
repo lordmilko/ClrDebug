@@ -33,7 +33,7 @@ namespace ClrDebug
         /// method indicates that they may be freed, at which point it is the caller’s responsibility to free the handles.
         /// The debugger may use any available means to locate or procure the debugging module.
         /// </remarks>
-        public IntPtr ProvideLibrary(string pwszFileName, int dwTimestamp, int dwSizeOfImage)
+        public IntPtr ProvideLibrary(string pwszFileName, uint dwTimestamp, int dwSizeOfImage)
         {
             IntPtr phModule;
             TryProvideLibrary(pwszFileName, dwTimestamp, dwSizeOfImage, out phModule).ThrowOnNotOK();
@@ -61,11 +61,11 @@ namespace ClrDebug
         /// method indicates that they may be freed, at which point it is the caller’s responsibility to free the handles.
         /// The debugger may use any available means to locate or procure the debugging module.
         /// </remarks>
-        public HRESULT TryProvideLibrary(string pwszFileName, int dwTimestamp, int dwSizeOfImage, out IntPtr phModule)
+        public HRESULT TryProvideLibrary(string pwszFileName, uint dwTimestamp, int dwSizeOfImage, out IntPtr phModule)
         {
             /*HRESULT ProvideLibrary(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwszFileName,
-            [In] int dwTimestamp,
+            [In] uint dwTimestamp,
             [In] int dwSizeOfImage,
             [Out] out IntPtr phModule);*/
             return Raw.ProvideLibrary(pwszFileName, dwTimestamp, dwSizeOfImage, out phModule);
@@ -94,7 +94,7 @@ namespace ClrDebug
         /// ProvideLibrary2 allows the debugger to provide modules that are needed for debugging specific CLR files such as
         /// mscordbi.dll and mscordacwks.dll. The debugger may use any available means to locate or procure the debugging module.
         /// </remarks>
-        public IntPtr ProvideLibrary2(string pwszFileName, int dwTimestamp, int dwSizeOfImage)
+        public IntPtr ProvideLibrary2(string pwszFileName, uint dwTimestamp, int dwSizeOfImage)
         {
             IntPtr ppResolvedModulePath;
             TryProvideLibrary2(pwszFileName, dwTimestamp, dwSizeOfImage, out ppResolvedModulePath).ThrowOnNotOK();
@@ -123,11 +123,11 @@ namespace ClrDebug
         /// ProvideLibrary2 allows the debugger to provide modules that are needed for debugging specific CLR files such as
         /// mscordbi.dll and mscordacwks.dll. The debugger may use any available means to locate or procure the debugging module.
         /// </remarks>
-        public HRESULT TryProvideLibrary2(string pwszFileName, int dwTimestamp, int dwSizeOfImage, out IntPtr ppResolvedModulePath)
+        public HRESULT TryProvideLibrary2(string pwszFileName, uint dwTimestamp, int dwSizeOfImage, out IntPtr ppResolvedModulePath)
         {
             /*HRESULT ProvideLibrary2(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszFileName,
-            [In] int dwTimestamp,
+            [In] uint dwTimestamp,
             [In] int dwSizeOfImage,
             [Out] out IntPtr ppResolvedModulePath);*/
             return Raw2.ProvideLibrary2(pwszFileName, dwTimestamp, dwSizeOfImage, out ppResolvedModulePath);
@@ -158,7 +158,7 @@ namespace ClrDebug
         /// as mscordbi.dll and mscordacwks.dll. The debugger may use any available means to locate or procure the debugging
         /// module.
         /// </remarks>
-        public IntPtr ProvideWindowsLibrary(string pwszFileName, string pwszRuntimeModule, LIBRARY_PROVIDER_INDEX_TYPE indexType, int dwTimestamp, int dwSizeOfImage)
+        public IntPtr ProvideWindowsLibrary(string pwszFileName, string pwszRuntimeModule, LIBRARY_PROVIDER_INDEX_TYPE indexType, uint dwTimestamp, int dwSizeOfImage)
         {
             IntPtr ppResolvedModulePath;
             TryProvideWindowsLibrary(pwszFileName, pwszRuntimeModule, indexType, dwTimestamp, dwSizeOfImage, out ppResolvedModulePath).ThrowOnNotOK();
@@ -189,7 +189,7 @@ namespace ClrDebug
         /// as mscordbi.dll and mscordacwks.dll. The debugger may use any available means to locate or procure the debugging
         /// module.
         /// </remarks>
-        public HRESULT TryProvideWindowsLibrary(string pwszFileName, string pwszRuntimeModule, LIBRARY_PROVIDER_INDEX_TYPE indexType, int dwTimestamp, int dwSizeOfImage, out IntPtr ppResolvedModulePath)
+        public HRESULT TryProvideWindowsLibrary(string pwszFileName, string pwszRuntimeModule, LIBRARY_PROVIDER_INDEX_TYPE indexType, uint dwTimestamp, int dwSizeOfImage, out IntPtr ppResolvedModulePath)
         {
             /*HRESULT ProvideWindowsLibrary(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszFileName,

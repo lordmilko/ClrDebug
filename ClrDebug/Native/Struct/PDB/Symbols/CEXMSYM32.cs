@@ -29,7 +29,7 @@ namespace ClrDebug.PDB
         /// segment of symbol
         /// </summary>
         [FieldOffset(8)]
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// execution model

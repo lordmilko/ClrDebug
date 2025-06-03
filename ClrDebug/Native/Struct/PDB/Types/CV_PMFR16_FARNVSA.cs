@@ -18,6 +18,6 @@ namespace ClrDebug.PDB
         /// <summary>
         /// segment of function
         /// </summary>
-        public short seg;
+        public ushort seg;
     }
 }

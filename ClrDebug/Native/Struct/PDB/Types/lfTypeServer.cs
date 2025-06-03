@@ -10,7 +10,7 @@ namespace ClrDebug.PDB
     public unsafe struct lfTypeServer
     {
         /// <summary>
-        /// LF_TYPESERVER
+        /// LF_TYPESERVER or LF_TYPESERVER_ST
         /// </summary>
         public LEAF_ENUM_e leaf;
 

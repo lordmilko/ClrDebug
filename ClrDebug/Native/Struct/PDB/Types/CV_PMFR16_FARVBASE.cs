@@ -15,7 +15,7 @@ namespace ClrDebug.PDB
         /// </summary>
         public CV_uoff16_t off;
 
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// displacement to data

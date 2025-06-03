@@ -39,7 +39,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// segment of label
         /// </summary>
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// Length-prefixed expression string

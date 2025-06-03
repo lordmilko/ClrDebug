@@ -106,7 +106,8 @@
         LF_OEM_16t          = 0x0015,
 
         /// <summary>
-        /// not referenced from symbol
+        /// not referenced from symbol<para/>
+        /// Type: <see cref="lfTypeServer"/>
         /// </summary>
         LF_TYPESERVER_ST    = 0x0016,
 
@@ -351,6 +352,10 @@
         /// Type: <see cref="lfBitfield"/>
         /// </summary>
         LF_BITFIELD         = 0x1205,
+
+        /// <summary>
+        /// Type: <see cref="lfMethodList_16t"/>
+        /// </summary>
         LF_METHODLIST       = 0x1206,
 
         /// <summary>
@@ -580,6 +585,8 @@
         LF_TYPE_LAST,
 
         LF_TYPE_MAX         = LF_TYPE_LAST - 1,
+
+        LF_IFC_RECORD = 0x1522,
 
         /// <summary>
         /// global func ID<para/>

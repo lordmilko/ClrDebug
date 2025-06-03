@@ -22,7 +22,7 @@ namespace ClrDebug.PDB
         public CV_typ_t typind;
 
         public CV_uoff32_t off;
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// Length-prefixed name

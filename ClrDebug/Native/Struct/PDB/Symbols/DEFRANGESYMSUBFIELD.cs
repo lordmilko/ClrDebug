@@ -10,6 +10,12 @@ namespace ClrDebug.PDB
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct DEFRANGESYMSUBFIELD
     {
+        //#define CV_DEFRANGESYMSUBFIELD_GAPS_COUNT(x) \
+        //    (((x)->reclen + sizeof((x)->reclen) - sizeof(DEFRANGESYMSUBFIELD)) / sizeof(CV_LVAR_ADDR_GAP)) 
+
+        public static int CV_DEFRANGESYMSUBFIELD_GAPS_COUNT(SYMTYPE* symType) =>
+            (symType->reclen + sizeof(ushort) - sizeof(DEFRANGESYMSUBFIELD)) / sizeof(CV_LVAR_ADDR_GAP);
+
         /// <summary>
         /// Record length
         /// </summary>
@@ -36,7 +42,8 @@ namespace ClrDebug.PDB
         public CV_LVAR_ADDR_RANGE range;
 
         /// <summary>
-        /// The value is not available in following gaps.
+        /// The value is not available in following gaps.<para/>
+        /// Read this value using <see cref="DEFRANGESYMSUBFIELD.CV_DEFRANGESYMSUBFIELD_GAPS_COUNT"/>
         /// </summary>
         public fixed byte gaps[1]; //CV_LVAR_ADDR_GAP[]
     }

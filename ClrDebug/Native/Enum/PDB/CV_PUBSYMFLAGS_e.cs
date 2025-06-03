@@ -1,5 +1,6 @@
 ﻿namespace ClrDebug.PDB
 {
+    //There are 3 definitions of pub sym flags. CV_pubsymflag_t, CV_PUBSYMFLAGS and CV_PUBSYMFLAGS_e
     public enum CV_PUBSYMFLAGS_e
     {
         cvpsfNone = 0,

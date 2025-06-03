@@ -25,7 +25,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// segment of virtual function table
         /// </summary>
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// type index of the root of path

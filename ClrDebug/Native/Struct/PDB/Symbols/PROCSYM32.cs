@@ -51,7 +51,7 @@ namespace ClrDebug.PDB
         /// </summary>
         public CV_typ_t typind;
         public CV_uoff32_t off;
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// Proc flags

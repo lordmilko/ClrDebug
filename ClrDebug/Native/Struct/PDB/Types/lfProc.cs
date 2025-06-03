@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using ClrDebug.DIA;
 
 namespace ClrDebug.PDB
 {
@@ -15,15 +16,17 @@ namespace ClrDebug.PDB
         /// </summary>
         public LEAF_ENUM_e leaf;
 
+        //CV_typ_t. if its value is less than HDR.tiMin, its a primitive type
+
         /// <summary>
         /// type index of return value
         /// </summary>
         public CV_typ_t rvtype;
 
         /// <summary>
-        /// calling convention (CV_call_t)
+        /// calling convention (<see cref="CV_call_e"/>)
         /// </summary>
-        public byte calltype; //todo: enum?
+        public byte calltype; //microsoft-pdb erroneously says its CV_call_t, but its CV_call_e
 
         /// <summary>
         /// attributes

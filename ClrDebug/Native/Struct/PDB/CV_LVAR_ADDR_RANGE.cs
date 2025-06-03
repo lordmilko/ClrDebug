@@ -12,7 +12,7 @@ namespace ClrDebug.PDB
     public struct CV_LVAR_ADDR_RANGE
     {
         public CV_uoff32_t offStart;
-        public short isectStart;
-        public short cbRange;
+        public ushort isectStart;
+        public ushort cbRange;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using ClrDebug.DIA;
 
 namespace ClrDebug.PDB
 {
@@ -21,9 +22,10 @@ namespace ClrDebug.PDB
         public SYM_ENUM_e rectyp;
 
         /// <summary>
-        /// Register to hold the value of the symbol
+        /// Register to hold the value of the symbol<para/>
+        /// <see cref="CV_HREG_e"/>
         /// </summary>
-        public short reg; //todo: enum?
+        public short reg;
 
         /// <summary>
         /// Attribute of the register range.
@@ -36,7 +38,8 @@ namespace ClrDebug.PDB
         public CV_LVAR_ADDR_RANGE range;
 
         /// <summary>
-        /// The value is not available in following gaps.
+        /// The value is not available in following gaps.<para/>
+        /// Read this value using <see cref="DEFRANGESYM.CV_DEFRANGESYM_GAPS_COUNT"/>
         /// </summary>
         public fixed byte gaps[1]; //CV_LVAR_ADDR_GAP[]
     }

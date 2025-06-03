@@ -46,7 +46,7 @@ namespace ClrDebug.PDB
         /// </summary>
         public int DbgEnd;
         public CV_uoff32_t off;
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// Type index

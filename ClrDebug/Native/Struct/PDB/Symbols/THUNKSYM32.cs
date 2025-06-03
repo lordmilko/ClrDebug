@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using ClrDebug.DIA;
 
 namespace ClrDebug.PDB
 {
@@ -31,7 +32,7 @@ namespace ClrDebug.PDB
         public int pNext;
 
         public CV_uoff32_t off;
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// length of thunk
@@ -39,7 +40,7 @@ namespace ClrDebug.PDB
         public short len;
 
         /// <summary>
-        /// THUNK_ORDINAL specifying type of thunk
+        /// <see cref="THUNK_ORDINAL"/> specifying type of thunk
         /// </summary>
         public byte ord;
 

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static ClrDebug.Extensions;
 
@@ -43,7 +44,9 @@ namespace ClrDebug.PDB
             set => SetBits(ref data, 3, 29, value);
         }
 
-        public int data;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int data;
 
         #endregion
     }

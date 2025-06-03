@@ -42,7 +42,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT ProvideLibrary(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwszFileName,
-            [In] int dwTimestamp,
+            [In] uint dwTimestamp,
             [In] int dwSizeOfImage,
             [Out] out IntPtr phModule);
     }

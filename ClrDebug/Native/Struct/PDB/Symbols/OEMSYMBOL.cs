@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug.PDB
@@ -20,7 +21,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// an oem ID (GUID)
         /// </summary>
-        public fixed byte idOem[16];
+        public Guid idOem;
 
         /// <summary>
         /// Type index

@@ -31,6 +31,8 @@ namespace ClrDebug.PDB
         /// </summary>
         public fixed byte name[1];
 
+        //Note: according to dumpsym7.cpp!C7ConSym, name does not actually contain name; you have to skip over a type encoded value indicated by "value"
+
         public override string ToString()
         {
             //It seems strings are only length prefixed when they're not UTF 8 (pre-v7.0)

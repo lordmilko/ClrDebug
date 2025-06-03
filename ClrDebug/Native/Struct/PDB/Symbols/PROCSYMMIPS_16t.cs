@@ -74,7 +74,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Symbol segment
         /// </summary>
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// Type index

@@ -35,6 +35,6 @@ namespace ClrDebug.PDB
         /// <summary>
         /// segment of virtual function table
         /// </summary>
-        public short seg;
+        public ushort seg;
     }
 }

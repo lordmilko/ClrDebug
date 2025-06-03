@@ -107,7 +107,7 @@
 
         /// <summary>
         /// a public symbol.<para/>
-        /// Type: <see cref="DATASYM16"/>
+        /// Type: <see cref="DATASYM16"/> (aliased as "PUBSYM16")
         /// </summary>
         S_PUB16 = 0x0103,
 
@@ -1023,7 +1023,7 @@
         S_FRAMEREG = 0x1166,
         S_REF_MINIPDB2 = 0x1167,
         S_INLINEES = 0x1168,
-        S_HOTPATCHFUNC = 0x1169,
+        S_HOTPATCHFUNC = 0x1169, //based on pdb-rs, there's two fields: an ItemId and a name of the function
         S_BPREL32_INDIR = 0x1170, //BPRELSYM32INDIR
         S_REGREL32_INDIR = 0x1171, //REGREL32INDIR
         S_GPROC32EX = 0x1172, //PROCSYM32EX
@@ -1036,6 +1036,9 @@
         S_REGREL32_ENCTMP = 0x1179,
         S_BPREL32_INDIR_ENCTMP = 0x117a,
         S_REGREL32_INDIR_ENCTMP = 0x117b,
+        S_ASSOCIATION = 0x117C,
+        S_DEFRANGE_CONSTVAL_ON_ENTRY = 0x117F,
+        S_DEFRANGE_GLOBALSYM_ON_ENTRY = 0x1180,
 
         /// <summary>
         /// one greater than last

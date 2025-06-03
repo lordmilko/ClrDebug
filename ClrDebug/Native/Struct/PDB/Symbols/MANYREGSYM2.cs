@@ -28,8 +28,8 @@ namespace ClrDebug.PDB
         public short count;
 
         /// <summary>
-        /// count register enumerates followed by length-prefixed name.  Registers are most significant first.
+        /// count register enumerates followed by length-prefixed name. Registers are most significant first.
         /// </summary>
-        public fixed short reg[1]; //todo: enum?
+        public fixed short reg[1]; //CV_HREG_e?
     }
 }

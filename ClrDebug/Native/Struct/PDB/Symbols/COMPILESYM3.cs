@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using ClrDebug.DIA;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -21,10 +22,10 @@ namespace ClrDebug.PDB
         /// <summary>
         /// language index
         /// </summary>
-        public int iLanguage
+        public CV_CFL_LANG iLanguage
         {
-            get => GetBits(flags, 0, 8); //0-7
-            set => SetBits(ref flags, 0, 8, value);
+            get => (CV_CFL_LANG) GetBits(flags, 0, 8); //0-7
+            set => SetBits(ref flags, 0, 8, (int) value);
         }
 
         /// <summary>
@@ -149,9 +150,10 @@ namespace ClrDebug.PDB
         #endregion
 
         /// <summary>
-        /// target processor
+        /// target processor<para/>
+        /// <see cref="CV_CPU_TYPE_e"/>
         /// </summary>
-        public short machine; //todo: enum?
+        public short machine;
 
         /// <summary>
         /// front end major version #

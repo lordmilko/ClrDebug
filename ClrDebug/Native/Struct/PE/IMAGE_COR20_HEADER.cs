@@ -36,7 +36,7 @@ namespace ClrDebug
         public IMAGE_DATA_DIRECTORY VTableFixups;
         public IMAGE_DATA_DIRECTORY ExportAddressTableJumps;
 
-        // null for ordinary IL images.
+        // null for ordinary IL images. In NGEN images it points to a CORCOMPILE_HEADER structure.
         // In Ready2Run images it points to a READYTORUN_HEADER.
         public IMAGE_DATA_DIRECTORY ManagedNativeHeader;
     }

@@ -29,7 +29,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// segment of thread storage
         /// </summary>
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// length prefixed name

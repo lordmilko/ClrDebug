@@ -18,7 +18,7 @@ namespace ClrDebug.PDB
 
         public CV_PUBSYMFLAGS pubsymflags;
         public CV_uoff32_t off;
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// Length-prefixed name

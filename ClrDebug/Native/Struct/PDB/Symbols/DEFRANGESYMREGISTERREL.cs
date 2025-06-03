@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using ClrDebug.DIA;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -27,7 +28,8 @@ namespace ClrDebug.PDB
         public SYM_ENUM_e rectyp;
 
         /// <summary>
-        /// Register to hold the base pointer of the symbol
+        /// Register to hold the base pointer of the symbol<para/>
+        /// <see cref="CV_HREG_e"/>
         /// </summary>
         public short baseReg;
 
@@ -75,7 +77,8 @@ namespace ClrDebug.PDB
         public CV_LVAR_ADDR_RANGE range;
 
         /// <summary>
-        /// The value is not available in following gaps.
+        /// The value is not available in following gaps.<para/>
+        /// Read this value using <see cref="DEFRANGESYMSUBFIELD.CV_DEFRANGESYMSUBFIELD_GAPS_COUNT"/>
         /// </summary>
         public fixed byte gaps[1]; //CV_LVAR_ADDR_GAP[]
     }

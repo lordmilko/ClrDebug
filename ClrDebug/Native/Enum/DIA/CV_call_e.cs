@@ -8,12 +8,26 @@
     /// </remarks>
     public enum CV_call_e
     {
+        //Missing descriptions came from adapting the DIA descriptions to the descriptions given in microsoft-pdb
+
         /// <summary>
         /// Specifies a function-calling convention using a near right-to-left push. The calling function clears the stack.
         /// </summary>
         CV_CALL_NEAR_C = 0x00,
+
+        /// <summary>
+        /// Specifies a function-calling convention using a far right-to-left push. The calling function clears the stack.
+        /// </summary>
         CV_CALL_FAR_C = 0x01,
+
+        /// <summary>
+        /// Specifies a function-calling convention using a near left-to-right push. The called function clears the stack.
+        /// </summary>
         CV_CALL_NEAR_PASCAL = 0x02,
+
+        /// <summary>
+        /// Specifies a function-calling convention using a far left-to-right push. The called function clears the stack.
+        /// </summary>
         CV_CALL_FAR_PASCAL = 0x03,
 
         /// <summary>
@@ -21,6 +35,9 @@
         /// </summary>
         CV_CALL_NEAR_FAST = 0x04,
 
+        /// <summary>
+        /// Specifies a function-calling convention using a far left-to-right push with registers. The called function uses the sum of parameter bytes to clear the stack.
+        /// </summary>
         CV_CALL_FAR_FAST = 0x05,
         CV_CALL_SKIPPED = 0x06,
 
@@ -29,6 +46,9 @@
         /// </summary>
         CV_CALL_NEAR_STD = 0x07,
 
+        /// <summary>
+        /// Specifies a function-calling convention using a far standard call (right-to-left push).
+        /// </summary>
         CV_CALL_FAR_STD = 0x08,
 
         /// <summary>
@@ -36,6 +56,9 @@
         /// </summary>
         CV_CALL_NEAR_SYS = 0x09,
 
+        /// <summary>
+        /// Specifies a function-calling convention using a far system call.
+        /// </summary>
         CV_CALL_FAR_SYS = 0x0a,
 
         /// <summary>

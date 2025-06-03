@@ -71,7 +71,7 @@ namespace ClrDebug.PDB
         /// </summary>
         public mdToken token; //Modelled as CV_tkn_t by PDB1
         public CV_uoff32_t off;
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// Register return value is in

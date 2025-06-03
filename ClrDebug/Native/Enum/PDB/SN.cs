@@ -5,6 +5,7 @@
     /// </summary>
     public enum SN : ushort
     {
+        snST = 0,
         snPDB = 1,
         snTpi = 2,
         snDbi = 3,

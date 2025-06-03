@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using ClrDebug.DIA;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -17,16 +18,18 @@ namespace ClrDebug.PDB
         public SYM_ENUM_e rectyp;
 
         /// <summary>
-        /// target processor
+        /// target processor<para/>
+        /// <see cref="CV_CPU_TYPE_e"/>
         /// </summary>
-        public byte machine; //todo: enum?
-
-        #region BitField
+        public byte machine;
 
         /// <summary>
-        /// language index
+        /// language index<para/>
+        /// <see cref="CV_CFL_LANG"/>
         /// </summary>
         public byte language;
+
+        #region BitField
 
         /// <summary>
         /// true if pcode present
@@ -47,7 +50,8 @@ namespace ClrDebug.PDB
         }
 
         /// <summary>
-        /// float package
+        /// float package<para/>
+        /// <see cref="CV_CFL_FPKG_e"/>
         /// </summary>
         public byte floatpkg
         {
@@ -56,7 +60,8 @@ namespace ClrDebug.PDB
         }
 
         /// <summary>
-        /// ambient data model
+        /// ambient data model<para/>
+        /// <see cref="CV_CFL_DATA"/>
         /// </summary>
         public byte ambdata
         {
@@ -65,7 +70,8 @@ namespace ClrDebug.PDB
         }
 
         /// <summary>
-        /// ambient code model
+        /// ambient code model<para/>
+        /// <see cref="CV_CFL_CODE_e"/>
         /// </summary>
         public byte ambcode
         {

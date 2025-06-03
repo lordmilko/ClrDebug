@@ -32,7 +32,7 @@ namespace ClrDebug.PDB
         public byte count;
 
         /// <summary>
-        /// count register enumerates followed by length-prefixed name.  Registers are most significant first.
+        /// count register enumerates followed by length-prefixed name. Registers are most significant first.
         /// </summary>
         public fixed byte reg[1];
 

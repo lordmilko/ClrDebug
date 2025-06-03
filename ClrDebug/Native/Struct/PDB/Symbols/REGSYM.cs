@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using ClrDebug.DIA;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.PDB
@@ -22,9 +23,10 @@ namespace ClrDebug.PDB
         public CV_typ_t typind;
 
         /// <summary>
-        /// register enumerate
+        /// register enumerate<para/>
+        /// <see cref="CV_HREG_e"/>
         /// </summary>
-        public short reg; //todo: enum?
+        public short reg;
 
         /// <summary>
         /// Length-prefixed name

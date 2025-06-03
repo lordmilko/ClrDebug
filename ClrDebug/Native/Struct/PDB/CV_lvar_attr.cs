@@ -15,7 +15,7 @@ namespace ClrDebug.PDB
         /// </summary>
         public CV_uoff32_t off;
 
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// local var flags

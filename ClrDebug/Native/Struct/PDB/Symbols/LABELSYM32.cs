@@ -17,7 +17,7 @@ namespace ClrDebug.PDB
         public SYM_ENUM_e rectyp;
 
         public CV_uoff32_t off;
-        public short seg;
+        public ushort seg;
 
         /// <summary>
         /// flags

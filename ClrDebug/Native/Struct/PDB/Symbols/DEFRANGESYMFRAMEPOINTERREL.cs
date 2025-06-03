@@ -31,7 +31,8 @@ namespace ClrDebug.PDB
         public CV_LVAR_ADDR_RANGE range;
 
         /// <summary>
-        /// The value is not available in following gaps.
+        /// The value is not available in following gaps.<para/>
+        /// Read this value using <see cref="DEFRANGESYM.CV_DEFRANGESYM_GAPS_COUNT"/>
         /// </summary>
         public fixed byte gaps[1]; //CV_LVAR_ADDR_GAP[]
     }

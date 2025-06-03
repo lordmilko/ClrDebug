@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug.DIA
 {
+    //I would guess this is the same thing as OMAP_DATA
+
     /// <summary>
     /// Describes an entry in an address map.
     /// </summary>
