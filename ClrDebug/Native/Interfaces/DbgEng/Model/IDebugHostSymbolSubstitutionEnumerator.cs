@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D49EECE8-8D12-4CE1-AB73-E5B63DF4F9D3")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostSymbolSubstitutionEnumerator : IDebugHostSymbolEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostSymbolSubstitutionEnumerator : IDebugHostSymbolEnumerator
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Resets the enumerator to its initial state. A subsequent GetNext call will return the first symbol in the set in enumerator order.
         /// </summary>
@@ -22,6 +30,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetNext(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugHostSymbol symbol);
+#endif
         
         [PreserveSig]
         HRESULT GetNextWithSubstitutionText(

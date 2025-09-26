@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("31E53A5A-01EE-4BBB-B899-4B46AE7D595C")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostModuleSignature
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostModuleSignature
     {
         /// <summary>
         /// The IsMatch method compares a particular module (as given by an <see cref="IDebugHostModule"/> symbol) against a signature, comparing the module name and version to the name and version range indicated in the signature.<para/>

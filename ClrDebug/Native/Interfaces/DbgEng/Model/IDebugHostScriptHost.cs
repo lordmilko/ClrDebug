@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B70334A4-B92C-4570-93A1-D3EB686649A0")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostScriptHost
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostScriptHost
     {
         /// <summary>
         /// The CreateContext method is called by a script provider to create a new context in which to place the contents of the script.<para/>

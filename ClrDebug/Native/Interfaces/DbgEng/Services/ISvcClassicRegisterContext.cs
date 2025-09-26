@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -11,8 +14,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D9E1F476-4FAE-4051-89C9-45D25925DB41")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcClassicRegisterContext
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcClassicRegisterContext
     {
         /// <summary>
         /// Gets the size of the context structure (CONTEXT for the given architecture that this ISvcClassicRegisterContext represents).

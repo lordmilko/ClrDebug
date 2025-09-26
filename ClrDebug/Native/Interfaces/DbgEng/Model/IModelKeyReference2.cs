@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,9 +11,14 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("80E2F7C5-7159-4E92-887E-7E0347E88406")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IModelKeyReference2 : IModelKeyReference
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IModelKeyReference2 : IModelKeyReference
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetKeyName method returns the name of the key to which this key reference is a handle. The returned string is a standard BSTR and must be freed via a call to SysFreeString.
         /// </summary>
@@ -88,6 +96,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT SetKeyValue(
             [In, MarshalAs(UnmanagedType.Interface)] IModelObject @object);
+#endif
 
         /// <summary>
         /// The OverrideContextObject method (only present on <see cref="IModelKeyReference2"/>) is an advanced method which is used to permanently alter the context object which this key reference will pass to any underlying property accessor's GetValue or SetValue methods.<para/>

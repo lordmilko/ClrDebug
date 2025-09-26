@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("1A39F548-ECF8-4FFE-830D-C923F51E752D")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcAddressContextHardware
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcAddressContextHardware
     {
         /// <summary>
         /// Gets the directory base for this address context (represented as hardware -- e.g.: a processor) e.g.: For a AMD64 processor, this interface would return the CR3 value.

@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("F3E0DAE9-6385-41BE-9EA6-75BCFBF5B727")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSearchPaths
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSearchPaths
     {
         /// <summary>
         /// Provides a semicolon separated list of paths to the provider in which to search for the appropriate images/symbols.<para/>

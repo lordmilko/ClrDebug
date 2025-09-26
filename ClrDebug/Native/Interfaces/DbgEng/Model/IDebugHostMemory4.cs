@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FE6B3658-DA4B-44E3-8A58-6201322280E6")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostMemory4 : IDebugHostMemory3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostMemory4 : IDebugHostMemory3
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Reads a number of bytes from the address space of the target as defined by the inpassed context and location.The number of bytes read is returned in "bytesRead" upon success.
         /// </summary>
@@ -112,6 +120,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostContext context,
             [In] Location location,
             [Out] out Location pCanonicalizedLocation);
+#endif
         
         [PreserveSig]
         HRESULT GetPhysicalAddressLocation(

@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("862E028B-A31A-4AAA-9661-6470F3D50B25")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcBreakpoint
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcBreakpoint
     {
         /// <summary>
         /// Gets the kind of breakpoint that this ISvcBreakpoint represents.

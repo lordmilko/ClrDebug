@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("099FCD6F-0A4D-45CC-BD8B-C10C6ED53AC7")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugServiceManager2 : IDebugServiceManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugServiceManager2 : IDebugServiceManager
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called once by the owner of the service manager to initialize all bound services in topological order. After the initialization, services which come into or change the service stack must be prepared to deal with immediate initialization and handling NotifyServiceChange calls.
         /// </summary>
@@ -20,8 +28,18 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT QueryService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceInterface,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object interfaceUnknown);
 
         /// <summary>
@@ -30,7 +48,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT LocateService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer service);
 
         /// <summary>
@@ -39,7 +62,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT RegisterService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -47,7 +75,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT RegisterEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -55,7 +88,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT UnregisterEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -63,9 +101,15 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT FireEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] object eventArgument,
             [Out] out HRESULT pSinkResult);
+#endif
 
         /// <summary>
         /// Enumerates all of the services in the service manager.

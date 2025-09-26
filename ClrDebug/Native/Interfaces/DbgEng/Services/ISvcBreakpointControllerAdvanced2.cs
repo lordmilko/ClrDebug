@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2F2F8A27-B2FB-491A-B86F-5A4232F1EB23")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcBreakpointControllerAdvanced2 : ISvcBreakpointControllerAdvanced
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcBreakpointControllerAdvanced2 : ISvcBreakpointControllerAdvanced
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// ; Indicates whether or not the register context retrieved for a breakpoint trap reflects @pc as reported by the underlying hardware trap/fault.<para/>
         /// This should normally return *true* and, if this interface is not present, the assumption is that the value is true.<para/>
@@ -19,6 +27,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [return: MarshalAs(UnmanagedType.U1)]
         new bool DoesBreakpointTrapAddressReflectHardware();
+#endif
         
         [PreserveSig]
         HRESULT GetSoftwareBreakpointAddressDelta(

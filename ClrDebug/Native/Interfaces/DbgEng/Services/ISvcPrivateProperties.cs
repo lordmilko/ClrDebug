@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,15 +11,24 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("50DEB97A-25CC-41C1-B467-96C5E3F454CA")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcPrivateProperties
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcPrivateProperties
     {
         /// <summary>
         /// Indicates whether this object supports a private property.
         /// </summary>
         [PreserveSig]
         HRESULT HasProperty(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid set,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid set,
             [In] int id,
             [Out, MarshalAs(UnmanagedType.U1)] out bool hasProperty);
 
@@ -25,7 +37,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT GetProperty(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid set,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid set,
             [In] int id,
             [In] int bufferSize,
             [Out] IntPtr buffer);
@@ -35,7 +52,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT SetProperty(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid set,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid set,
             [In] int id,
             [In] int valueSize,
             [In] IntPtr valueBuffer);

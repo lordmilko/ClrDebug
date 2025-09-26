@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("20D4BA1D-BE37-4DC4-9F6A-90E3C373200E")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcModuleEnumeration
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcModuleEnumeration
     {
         /// <summary>
         /// Finds a module by a unique key. The interpretation and semantic meaning of the key is specific to the service which provides this.<para/>

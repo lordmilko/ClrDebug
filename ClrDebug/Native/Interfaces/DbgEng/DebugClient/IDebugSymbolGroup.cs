@@ -1,12 +1,19 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("f2528316-0f1a-4431-aeed-11d096e1e2ab")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugSymbolGroup
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugSymbolGroup
     {
         /// <summary>
         /// The GetNumberSymbols method returns the number of symbols that are contained in a symbol group.
@@ -73,7 +80,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolName(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 

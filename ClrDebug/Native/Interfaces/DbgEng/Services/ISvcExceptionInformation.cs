@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("8FCC28B1-3ADA-4876-A6D4-7BF9543DE30B")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcExceptionInformation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcExceptionInformation
     {
         /// <summary>
         /// Gets the kind of exception this represents.

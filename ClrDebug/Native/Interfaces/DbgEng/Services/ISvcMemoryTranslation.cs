@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("56373E0F-D615-487F-95B9-37931E2A9A90")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcMemoryTranslation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcMemoryTranslation
     {
         /// <summary>
         /// Translates an address from one address space to another. A service which provides virtual to physical memory mappings would implement this interface to do so.<para/>

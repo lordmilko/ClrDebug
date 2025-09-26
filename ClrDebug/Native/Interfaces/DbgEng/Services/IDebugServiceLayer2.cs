@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("12954378-FAFD-4749-ADD8-7A98A5A4B896")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugServiceLayer2 : IDebugServiceLayer
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugServiceLayer2 : IDebugServiceLayer
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Registers the services in a service layer / component with a service manager. This only registers any canonical services.<para/>
         /// Registration of conditional services is via a call to IDebugServiceLayer2::RegisterConditionalServices.
@@ -24,7 +32,12 @@ namespace ClrDebug.DbgEng
         new HRESULT GetServiceDependencies(
             [In] ServiceNotificationKind notificationKind,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceManager serviceManager,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [In] long sizeHardDependencies,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] Guid[] pHardDependencies,
             [Out] out long pNumHardDependencies,
@@ -39,7 +52,12 @@ namespace ClrDebug.DbgEng
         new HRESULT InitializeServices(
             [In] ServiceNotificationKind notificationKind,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceManager serviceManager,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid);
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid);
 
         /// <summary>
         /// Services in the services stack are notified of changes (the addition or removal of layers) via a call to this method.
@@ -48,7 +66,12 @@ namespace ClrDebug.DbgEng
         new HRESULT NotifyServiceChange(
             [In] ServiceNotificationKind notificationKind,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceManager serviceManager,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer priorService,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer newService);
 
@@ -58,8 +81,14 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT NotifyEvent(
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceManager serviceManager,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] object eventArgument);
+#endif
 
         /// <summary>
         /// Registers the conditional services in a service layer / component with a service manager. This o only registers any conditional services.<para/>

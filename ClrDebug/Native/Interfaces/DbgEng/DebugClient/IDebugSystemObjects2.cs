@@ -1,13 +1,21 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0ae9f5ff-1852-4679-b055-494bee6407ee")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugSystemObjects2 : IDebugSystemObjects
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugSystemObjects2 : IDebugSystemObjects
     {
+#if !GENERATED_MARSHALLING
         #region IDebugSystemObjects
 
         /// <summary>
@@ -425,11 +433,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCurrentProcessExecutableName(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int ExeSize);
 
         #endregion
+#endif
         #region IDebugSystemObjects2
 
         /// <summary>

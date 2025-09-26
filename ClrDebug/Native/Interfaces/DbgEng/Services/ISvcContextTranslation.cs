@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("BE5E232C-1D4B-4983-A520-383DA865DA1C")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcContextTranslation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcContextTranslation
     {
         /// <summary>
         /// Gets a translated context record for the given execution unit (thread or core).

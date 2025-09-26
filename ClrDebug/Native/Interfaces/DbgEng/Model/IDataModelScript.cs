@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("7B4D30FC-B14A-49F8-8D87-D9A1480C97F7")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScript
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScript
     {
         /// <summary>
         /// The GetName method returns the name of the script as an allocated string via the SysAllocString function. If the script does not yet have a name, the method should return a null BSTR.<para/>

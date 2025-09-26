@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("46329742-2733-41FA-A125-6EEF620998B1")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcStackProviderPartialPhysicalFrame
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcStackProviderPartialPhysicalFrame
     {
         /// <summary>
         /// Gets the instruction pointer for this partial physical frame. This is the *MINIMUM MUST* implement for a partial physical frame.<para/>

@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FF4713F1-74DD-4CBC-830C-7F13D7E31AA3")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcModuleWithTimestampAndChecksum : ISvcModule
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcModuleWithTimestampAndChecksum : ISvcModule
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the unique key of the process to which this thread belongs. This is the same key returned from the containing ISvcProcess's GetKey method.<para/>
         /// This method may return S_FALSE and a process key of zero for modules which do not logically belong to any process (e.g.: they are kernel modules / drivers that are mapped into every process).
@@ -50,6 +58,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetPath(
             [Out, MarshalAs(UnmanagedType.BStr)] out string modulePath);
+#endif
 
         /// <summary>
         /// Gets the time date stamp of the module.

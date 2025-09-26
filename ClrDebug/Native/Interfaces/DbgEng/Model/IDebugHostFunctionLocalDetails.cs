@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("89280EA8-B3B9-408C-BE16-32AB28F5C0AC")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostFunctionLocalDetails
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostFunctionLocalDetails
     {
         [PreserveSig]
         HRESULT GetName(

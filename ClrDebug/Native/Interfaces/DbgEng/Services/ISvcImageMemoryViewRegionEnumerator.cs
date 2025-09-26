@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("BF990D96-9D77-4A39-A611-74DE8F0F6B45")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcImageMemoryViewRegionEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcImageMemoryViewRegionEnumerator
     {
         /// <summary>
         /// Resets the enumerator.

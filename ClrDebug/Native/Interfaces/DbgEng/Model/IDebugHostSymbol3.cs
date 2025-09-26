@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("1B3FC1B3-D03D-43E0-8EB0-9AA4BAA21EDB")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostSymbol3 : IDebugHostSymbol2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostSymbol3 : IDebugHostSymbol2
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetContext method returns the context where the symbol is valid. While this will represent things such as the debug target and process/address space in which the symbol exists, it may not be as specific as a context retrieved from other means (e.g.: from an <see cref="IModelObject"/>).
         /// </summary>
@@ -107,6 +115,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetLanguage(
             [Out] out LanguageKind pKind);
+#endif
         
         [PreserveSig]
         HRESULT GetCompilerInformation(

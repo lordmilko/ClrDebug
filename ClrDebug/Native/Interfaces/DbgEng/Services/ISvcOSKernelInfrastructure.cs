@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("92F3C9F5-5B7B-4202-8163-44D86E4C051E")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcOSKernelInfrastructure
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcOSKernelInfrastructure
     {
         /// <summary>
         /// Gets the pointer to the top level paging structures for a particular process (e.g.: The PDE base that would go into CR3 on AMD64).<para/>

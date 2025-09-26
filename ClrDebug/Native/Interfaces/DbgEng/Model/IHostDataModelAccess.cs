@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("F2BCE54E-4835-4F8A-836E-7981E29904D1")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IHostDataModelAccess
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IHostDataModelAccess
     {
         /// <summary>
         /// The GetDataModel method is the method on the bridge interface which provides access to both sides of the data model: • The debug host (the lower edge of the debugger) is expressed by the returned <see cref="IDebugHost"/> interface • The data model's main component -- the data model manager is expressed by the returned <see cref="IDataModelManager"/> interface

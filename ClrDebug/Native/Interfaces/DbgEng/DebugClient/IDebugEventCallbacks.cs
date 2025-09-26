@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("337be28b-5036-4d72-b6bf-c45fbb9f2eaa")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugEventCallbacks
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugEventCallbacks
     {
         /// <summary>
         /// The GetInterestMask callback method is called to determine which events the IDebugEventCallbacks object is interested in.<para/>

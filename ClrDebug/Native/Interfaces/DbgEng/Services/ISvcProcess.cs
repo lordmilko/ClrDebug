@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B45C31AD-8149-4EA9-9DB8-F4468D710A36")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcProcess
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcProcess
     {
         /// <summary>
         /// Gets the unique "per-target" process key. The interpretation of this key is dependent upon the service which provides this interface.<para/>

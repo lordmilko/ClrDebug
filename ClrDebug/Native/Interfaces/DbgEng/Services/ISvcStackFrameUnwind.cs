@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("44CFC4B1-02B5-490A-A51A-AD34E49457F4")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcStackFrameUnwind
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcStackFrameUnwind
     {
         /// <summary>
         /// Unwinds the stack frame given the architecture specific register context. A stack unwind context must have been created and initialized prior to calling this method.<para/>

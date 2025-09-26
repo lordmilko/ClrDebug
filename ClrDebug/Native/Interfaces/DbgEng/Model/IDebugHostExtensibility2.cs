@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("91CC55E7-2A22-4494-9710-B729DAB48F71")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostExtensibility2 : IDebugHostExtensibility
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostExtensibility2 : IDebugHostExtensibility
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The CreateFunctionAlias method creates a "function alias", a "quick alias" for a method implemented in some extension.<para/>
         /// The meaning of this alias is host specific. It may extend the host's expression evaluator with the function or it may do something entirely different.<para/>
@@ -28,6 +36,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT DestroyFunctionAlias(
             [In, MarshalAs(UnmanagedType.LPWStr)] string aliasName);
+#endif
         
         [PreserveSig]
         HRESULT CreateFunctionAliasWithMetadata(

@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5bd9d474-5975-423a-b88b-65a8e7110e65")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugBreakpoint
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugBreakpoint
     {
         /// <summary>
         /// The GetId method returns a breakpoint ID, which is the engine's unique identifier for a breakpoint.
@@ -266,7 +273,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCommand(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);
 
@@ -304,7 +311,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetOffsetExpression(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int ExpressionSize);
 

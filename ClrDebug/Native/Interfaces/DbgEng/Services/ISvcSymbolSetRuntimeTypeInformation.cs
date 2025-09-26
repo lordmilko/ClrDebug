@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("F6B2366A-C094-4072-845D-A06E5C97F77F")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetRuntimeTypeInformation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetRuntimeTypeInformation
     {
         /// <summary>
         /// For an object of a given type at a given address within a specified address context (e.g.: process), utilize RTTI or other type system information to determine the actual runtime type of the object and its location.<para/>

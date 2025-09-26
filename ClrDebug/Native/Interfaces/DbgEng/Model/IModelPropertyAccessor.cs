@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5A0C63D9-0526-42B8-960C-9516A3254C85")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IModelPropertyAccessor
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IModelPropertyAccessor
     {
         /// <summary>
         /// The GetValue method is the getter for the property accessor. It is called whenever a client wishes to fetch the underlying value of the property.<para/>

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D2513438-18DA-4360-8242-49E0638FB2A4")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolAddressMapping
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolAddressMapping
     {
         /// <summary>
         /// Gets the base address range of this symbol. If the symbol is defined by a **SINGLE** linear address range, this method *MUST* return such address range and S_OK.<para/>

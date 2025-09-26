@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2946E095-F0D2-42D0-AE3E-8EEAFFC7EE39")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcLegacySourceLinkV2Index
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcLegacySourceLinkV2Index
     {
         /// <summary>
         /// Returns the number of streams in the legacy sourcelink v2 indexing information. If no such information is present for the given symbol set, then *pNumberOfStreams will be set to zero and S_OK will be returned.

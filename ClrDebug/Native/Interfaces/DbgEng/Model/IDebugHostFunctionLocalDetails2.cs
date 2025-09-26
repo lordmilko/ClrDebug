@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("199A57B0-1967-4363-B25E-90C7E8A07F22")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostFunctionLocalDetails2 : IDebugHostFunctionLocalDetails
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostFunctionLocalDetails2 : IDebugHostFunctionLocalDetails
     {
+#if !GENERATED_MARSHALLING
         [PreserveSig]
         new HRESULT GetName(
             [Out, MarshalAs(UnmanagedType.BStr)] out string name);
@@ -26,6 +34,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetArgumentPosition(
             [Out] out long argPosition);
+#endif
         
         [return: MarshalAs(UnmanagedType.U1)]
         bool IsInlineScope();

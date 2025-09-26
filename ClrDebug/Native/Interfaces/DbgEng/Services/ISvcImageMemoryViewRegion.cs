@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0DF8C531-ECA0-48F3-94BB-0964EC6EE3F0")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcImageMemoryViewRegion
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcImageMemoryViewRegion
     {
         /// <summary>
         /// Gets the memory offset of the memory region. This corresponds to an offset from the load base of the image (or a "relative virtual address" as some might call it).

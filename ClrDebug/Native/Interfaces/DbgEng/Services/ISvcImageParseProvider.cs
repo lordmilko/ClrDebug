@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("471934B0-B6B6-4259-B16B-0784CE0274A7")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcImageParseProvider
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcImageParseProvider
     {
         /// <summary>
         /// Parses an image which is in the target VA space of the process and is given by an ISvcModule. Not every method will work on an image parsed directly out of target VA space.<para/>

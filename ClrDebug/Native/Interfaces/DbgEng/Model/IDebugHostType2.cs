@@ -1,5 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using ClrDebug.TypeLib;
 
 namespace ClrDebug.DbgEng
@@ -11,9 +14,14 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B28632B9-8506-4676-87CE-8F7E05E59876")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostType2 : IDebugHostType
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostType2 : IDebugHostType
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetContext method returns the context where the symbol is valid. While this will represent things such as the debug target and process/address space in which the symbol exists, it may not be as specific as a context retrieved from other means (e.g.: from an <see cref="IModelObject"/>).
         /// </summary>
@@ -288,6 +296,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostSymbol pComparisonSymbol,
             [In] int comparisonFlags,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pMatches);
+#endif
 
         /// <summary>
         /// The IsTypedef method is the only method capable of seeing whether a type is a typedef. The GetTypeKind method will behave as if called on the underlying type.

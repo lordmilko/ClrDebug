@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FFD73BA2-D7E9-442D-ADA6-4EF1B07D951F")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetSimpleSourceFileInformation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetSimpleSourceFileInformation
     {
         /// <summary>
         /// Gets a source file by its unique identifier.

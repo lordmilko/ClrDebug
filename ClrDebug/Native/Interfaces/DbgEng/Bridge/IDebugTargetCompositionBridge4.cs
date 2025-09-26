@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E453C59B-ED09-4c25-B155-C70158CE5837")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugTargetCompositionBridge4 : IDebugTargetCompositionBridge3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugTargetCompositionBridge4 : IDebugTargetCompositionBridge3
     {
+#if !GENERATED_MARSHALLING
         [PreserveSig]
         new HRESULT CreateStaticView(
             [In] int systemId,
@@ -55,6 +63,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT ReparseActivation(
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceManager pServiceManager);
+#endif
 
         /// <summary>
         /// This method may *ONLY* be called during the ::InitializeServices call for a given activator *AFTER* performing some modification of the service container; it causes the debugger to walk through the activation path for the given service container once again.<para/>

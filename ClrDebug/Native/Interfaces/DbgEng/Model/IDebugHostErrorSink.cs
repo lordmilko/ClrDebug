@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C8FF0F0B-FCE9-467E-8BB3-5D69EF109C00")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostErrorSink
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostErrorSink
     {
         /// <summary>
         /// The ReportError method is a callback on the error sink to notify it that an error has occurred and allow the sink to route the error to whatever UI or mechanism is appropriate.

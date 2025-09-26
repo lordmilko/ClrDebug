@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("80600C1F-B90B-4896-82AD-1C00207909E8")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IModelMethod
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IModelMethod
     {
         /// <summary>
         /// The Call method is the way in which any method defined in the data model is invoked. The caller is responsible for passing an accurate instance object (this pointer) and an arbitrary set of arguments.<para/>

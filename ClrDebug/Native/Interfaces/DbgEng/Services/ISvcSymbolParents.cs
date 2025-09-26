@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D1B55D38-9B15-4287-BCF3-6032EC3480C2")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolParents
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolParents
     {
         /// <summary>
         /// Gets the lexical parent of the given symbol.

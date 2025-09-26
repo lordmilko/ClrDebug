@@ -1,13 +1,21 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("e9676e2f-e286-4ea3-b0f9-dfe5d9fc330e")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugSystemObjects3 : IDebugSystemObjects2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugSystemObjects3 : IDebugSystemObjects2
     {
+#if !GENERATED_MARSHALLING
         #region IDebugSystemObjects
 
         /// <summary>
@@ -425,7 +433,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCurrentProcessExecutableName(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int ExeSize);
 
@@ -500,6 +508,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset);
 
         #endregion
+#endif
         #region IDebugSystemObjects3
 
         /// <summary>
@@ -609,7 +618,7 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         HRESULT GetCurrentSystemServerName(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int Size,
             [Out] out int Needed);
 

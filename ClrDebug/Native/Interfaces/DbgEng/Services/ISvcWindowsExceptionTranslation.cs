@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2559B271-BFE2-4ECC-9FFB-DA5F49D17F3D")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcWindowsExceptionTranslation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcWindowsExceptionTranslation
     {
         /// <summary>
         /// Translates the exception from one record to another. It is legal for this method to do absolutely nothing other than succeed (or return an S_FALSE indication of no translation).

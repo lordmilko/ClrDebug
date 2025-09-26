@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("27F4290C-41B2-453D-9980-E34B9DAF8E34")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcImageParser
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcImageParser
     {
         /// <summary>
         /// Gets the architecture of the image. If the image is a multi-architecture image (for any definition of such -- whether a "fat binary", a "CHPE image", etc..., this method will return S_FALSE to indicate that it returned the *DEFAULT ARCHITECTURE* but that another "view" of the binary is available.

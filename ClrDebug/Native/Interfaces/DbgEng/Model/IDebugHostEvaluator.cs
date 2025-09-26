@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0FEF9A21-577E-4997-AC7B-1C4883241D99")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostEvaluator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostEvaluator
     {
         /// <summary>
         /// The EvaluateExpression method allows requests the debug host to evaluate a language (e.g.: C++) expression and return the resulting value of that expression evaluation boxed as an <see cref="IModelObject"/>.<para/>

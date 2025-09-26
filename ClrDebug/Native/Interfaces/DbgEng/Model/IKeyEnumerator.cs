@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("345FA92E-5E00-4319-9CAE-971F7601CDCF")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IKeyEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IKeyEnumerator
     {
         /// <summary>
         /// Resets the enumerator to its initial state. A subsequent GetNext call will return the first key in enumerator order.

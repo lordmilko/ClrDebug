@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3AADC353-2B14-4ABB-9893-5E03458E07EE")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostTypeSignature
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostTypeSignature
     {
         /// <summary>
         /// The GetHashCode method returns a 32-bit hash code for the type signature. The debug host guarantees that there is synchronization in implementation between the hash code returned for type instances and the hash code returned for type signatures.<para/>

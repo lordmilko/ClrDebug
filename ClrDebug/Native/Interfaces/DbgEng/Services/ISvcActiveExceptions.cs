@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("1579B0C9-A848-447D-BB65-0CFFE3F985FB")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcActiveExceptions
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcActiveExceptions
     {
         /// <summary>
         /// Gets the last exception event for a particular process. For a post-mortem target, this is often the "reason" for a snapshot.<para/>

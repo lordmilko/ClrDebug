@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("35AE8E40-F234-4EF1-B8EA-0DFBC58A2043")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostContextExtensibility
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostContextExtensibility
     {
         [return: MarshalAs(UnmanagedType.U1)]
         bool HasExtensionData(

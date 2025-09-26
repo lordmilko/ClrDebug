@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("58B61CE1-875D-421F-BA4F-B8FFF3DE0964")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetScopeFrame
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetScopeFrame
     {
         /// <summary>
         /// Gets the context for the scope frame.

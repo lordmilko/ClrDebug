@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0F0899B2-D399-41e1-A90B-49C9C078BF30")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugTargetCompositionBridge3 : IDebugTargetCompositionBridge2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugTargetCompositionBridge3 : IDebugTargetCompositionBridge2
     {
+#if !GENERATED_MARSHALLING
         [PreserveSig]
         new HRESULT CreateStaticView(
             [In] int systemId,
@@ -50,6 +58,7 @@ namespace ClrDebug.DbgEng
         new HRESULT UnregisterProtocolActivatorForProtocolString(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszProtocolName,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugTargetCompositionProtocolActivator pProtocolActivator);
+#endif
 
         /// <summary>
         /// This method may *ONLY* be called during the ::InitializeServices call for a given activator *AFTER* performing some modification of the service container; it causes the debugger to walk through the activation path for the given service container once again.<para/>

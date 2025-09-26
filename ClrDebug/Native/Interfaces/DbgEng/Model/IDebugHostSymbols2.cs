@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("6BAF1F48-65EE-4FF2-B3AF-10C7F21D38B2")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostSymbols2 : IDebugHostSymbols
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostSymbols2 : IDebugHostSymbols
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The CreateModuleSignature method creates a signature which can be used to match a set of specific modules by name and optionally, by version.<para/>
         /// There are three components to a module signature:
@@ -158,6 +166,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostType objectType,
             [Out] out Location derivedLocation,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugHostType derivedType);
+#endif
         
         [PreserveSig]
         HRESULT DemangleSymbolName(

@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("84069FCD-E8B0-48E5-8611-7F0A8FA130D2")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugServiceManager4 : IDebugServiceManager3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugServiceManager4 : IDebugServiceManager3
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Clients should call this before releasing their final reference to the service manager. This will remove and uninitialize any services still in the service container.
         /// </summary>
@@ -33,8 +41,18 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT QueryService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceInterface,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object interfaceUnknown);
 
         /// <summary>
@@ -43,7 +61,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT LocateService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer service);
 
         /// <summary>
@@ -52,7 +75,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT RegisterService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -60,7 +88,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT RegisterEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -68,7 +101,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT UnregisterEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -76,9 +114,15 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT FireEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] object eventArgument,
             [Out] out HRESULT pSinkResult);
+#endif
 
         /// <summary>
         /// Registers a conditional service with the service manager. If a service is already registered by the specified serviceGuid and conditions, this call will replace the underlying service.<para/>
@@ -99,7 +143,12 @@ namespace ClrDebug.DbgEng
         HRESULT QueryConditionalService(
             [In] ref SvcConditionalServiceInformation conditionalServiceInfo,
             [In, MarshalAs(UnmanagedType.U1)] bool dynamicAdd,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceInterface,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object serviceUnknown);
 
         /// <summary>

@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E92274A2-47F4-4538-A196-B83DB25FE403")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostContext2 : IDebugHostContext
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostContext2 : IDebugHostContext
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Returns whether two <see cref="IDebugHostContext"/> objects are equal by value. Note that there is no requirement for a debug host to have interface pointer equality for two contexts which are equivalent.<para/>
         /// The actual contexts can be compared through this method.
@@ -18,6 +26,7 @@ namespace ClrDebug.DbgEng
         new HRESULT IsEqualTo(
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostContext pContext,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pIsEqual);
+#endif
         
         [PreserveSig]
         HRESULT GetAddressSpaceRelation(

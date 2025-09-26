@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2F2F303B-39BE-4B6D-9BFB-4FAA49DBBD45")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostFunctionLocalStorage
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostFunctionLocalStorage
     {
         [PreserveSig]
         HRESULT GetValidRange(

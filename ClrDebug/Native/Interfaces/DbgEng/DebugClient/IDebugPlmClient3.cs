@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,9 +10,14 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D4A5DBD1-CA02-4D90-856A-2A92BFD0F20F")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugPlmClient3 : IDebugPlmClient2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugPlmClient3 : IDebugPlmClient2
     {
+#if !GENERATED_MARSHALLING
         #region IDebugPlmClient
 
         /// <summary>
@@ -56,6 +64,7 @@ namespace ClrDebug.DbgEng
             [Out] out int ThreadId);
 
         #endregion
+#endif
         #region IDebugPlmClient3
 
         /// <summary>

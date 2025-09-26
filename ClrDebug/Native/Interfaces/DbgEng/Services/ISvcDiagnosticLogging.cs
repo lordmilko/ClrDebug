@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("76EB9426-DAE9-4607-8822-45BE93081D6E")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcDiagnosticLogging
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcDiagnosticLogging
     {
         /// <summary>
         /// Sends a message to a diagnostic logging sink. What the host does with the log message is entirely up to it.

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0F819103-87DE-4E96-8277-E05CD441FB22")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostSymbol
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostSymbol
     {
         /// <summary>
         /// The GetContext method returns the context where the symbol is valid. While this will represent things such as the debug target and process/address space in which the symbol exists, it may not be as specific as a context retrieved from other means (e.g.: from an <see cref="IModelObject"/>).

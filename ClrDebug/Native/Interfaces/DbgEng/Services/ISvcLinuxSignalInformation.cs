@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("DE815F6F-5824-4555-A010-286791BC79AD")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcLinuxSignalInformation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcLinuxSignalInformation
     {
         /// <summary>
         /// Gets the Linux signal number associated with the signal represented by this interface.

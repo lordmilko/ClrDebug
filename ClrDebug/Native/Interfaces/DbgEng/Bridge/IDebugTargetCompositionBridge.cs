@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E7E438BB-E771-457a-96C9-1C58482C9174")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugTargetCompositionBridge
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugTargetCompositionBridge
     {
         /// <summary>
         /// Creates a new target which is a static view of an existing target.

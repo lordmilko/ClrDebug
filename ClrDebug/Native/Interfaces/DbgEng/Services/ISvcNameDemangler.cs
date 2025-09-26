@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("31C02035-D414-4BE0-9FE9-CFA8C88B33E9")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcNameDemangler
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcNameDemangler
     {
         /// <summary>
         /// Takes a (potentially) mangled name (e.g.: a C++ mangled name) and demangles it given a set of options. If this mangled name is not recognized, the demangler should return E_UNHANDLED_REQUEST_TYPE as it is often the case that multiple demanglers will be aggregated in one container.<para/>
@@ -20,7 +27,12 @@ namespace ClrDebug.DbgEng
         HRESULT DemangleName(
             [In] SvcDemanglerFlags demangleFlags,
             [In] SvcSourceLanguage sourceLanguage,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid machineArch,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid machineArch,
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszMangledName,
             [Out, MarshalAs(UnmanagedType.BStr)] out string pDemangledName);
     }

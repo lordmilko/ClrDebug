@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("051364DD-E449-443E-9762-FE578F4A5473")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptDebugStack
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptDebugStack
     {
         /// <summary>
         /// The GetFrameCount method returns the number of stack frames in this segment of the call stack. If the provider can detect frames in different script contexts or of different providers, it should indicate this to the caller by implementation of the IsTransitionPoint and GetTransition methods on the entry frame into this stack segment.

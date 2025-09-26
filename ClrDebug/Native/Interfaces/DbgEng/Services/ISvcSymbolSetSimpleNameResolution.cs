@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("733177E7-9C18-46B7-8D00-3D50A9119FC3")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetSimpleNameResolution
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetSimpleNameResolution
     {
         /// <summary>
         /// Finds symbolic information for a given name. The method fails if the symbol cannot be located.

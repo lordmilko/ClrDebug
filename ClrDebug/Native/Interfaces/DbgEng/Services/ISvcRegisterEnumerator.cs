@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("AE8EC624-52F6-43A4-BBAB-57A6C1C393C3")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcRegisterEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcRegisterEnumerator
     {
         /// <summary>
         /// Gets the next register for the architecture. Returns E_BOUNDS if there are no more.

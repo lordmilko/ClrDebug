@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3CFA6328-A170-4D90-BCE2-C9FDB898C1F5")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcProcessEnumeration
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcProcessEnumeration
     {
         /// <summary>
         /// Finds a process by a unique key. The interpretation and semantic meaning of the key is specific to the service which provides this.<para/>

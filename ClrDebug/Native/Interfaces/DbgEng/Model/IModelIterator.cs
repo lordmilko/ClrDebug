@@ -1,5 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E4622136-927D-4490-874F-581F3E4E3688")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IModelIterator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IModelIterator
     {
         /// <summary>
         /// The Reset method on an iterator returned from the iterable concept will restore the position of the iterator to where it was when the iterator was first created (before the first element).<para/>

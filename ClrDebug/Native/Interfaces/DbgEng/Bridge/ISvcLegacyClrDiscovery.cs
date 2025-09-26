@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("1BD06C4B-4E39-4517-B984-179B806A2705")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcLegacyClrDiscovery
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcLegacyClrDiscovery
     {
         /// <summary>
         /// Locates the appropriate DAC for the given process.
@@ -20,7 +27,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] ISvcProcess process,
             [Out, MarshalAs(UnmanagedType.BStr)] out string dacPath,
             [In, MarshalAs(UnmanagedType.LPWStr)] string requestedModuleName,
-            [In] int requestedModuleTimeStamp,
+            [In] uint requestedModuleTimeStamp,
             [In] int requestedModuleSize);
 
         /// <summary>
@@ -31,7 +38,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] ISvcProcess process,
             [Out, MarshalAs(UnmanagedType.BStr)] out string dbiPath,
             [In, MarshalAs(UnmanagedType.LPWStr)] string requestedModuleName,
-            [In] int requestedModuleTimeStamp,
+            [In] uint requestedModuleTimeStamp,
             [In] int requestedModuleSize);
 
         /// <summary>

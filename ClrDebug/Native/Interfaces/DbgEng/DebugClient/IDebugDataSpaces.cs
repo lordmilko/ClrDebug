@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("88f7dfab-3ea7-4c3a-aefb-c4e8106173aa")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugDataSpaces
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugDataSpaces
     {
         /// <summary>
         /// The ReadVirtual method reads memory from the target's virtual address space.

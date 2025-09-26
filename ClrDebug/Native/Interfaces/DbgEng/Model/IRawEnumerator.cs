@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E13613F9-3A3C-40B5-8F48-1E5EBFB9B21B")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IRawEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IRawEnumerator
     {
         /// <summary>
         /// Resets the enumerator to its initial state. A subsequent GetNext call will return the first raw element (native field, base class, etc...) in enumerator order.

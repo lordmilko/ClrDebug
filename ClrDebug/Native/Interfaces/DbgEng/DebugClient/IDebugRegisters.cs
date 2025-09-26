@@ -1,12 +1,19 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("ce289126-9e84-45a7-937e-67bb18691493")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugRegisters
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugRegisters
     {
         /// <summary>
         /// The GetNumberRegisters method returns the number of registers on the target computer.
@@ -36,7 +43,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetDescription(
             [In] int Register,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);

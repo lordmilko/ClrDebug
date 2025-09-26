@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2DDF4CC0-BBA8-4FB0-BD53-5F4C92218280")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcAddressContext
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcAddressContext
     {
         /// <summary>
         /// Gets the kind of address context.

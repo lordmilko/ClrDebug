@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("8E1CB118-AA83-409A-AAE9-C7FF78911A5F")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostFunctionIntrospection2 : IDebugHostFunctionIntrospection
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostFunctionIntrospection2 : IDebugHostFunctionIntrospection
     {
+#if !GENERATED_MARSHALLING
         [PreserveSig]
         new HRESULT EnumerateLocalsDetails(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugHostFunctionLocalDetailsEnumerator localsEnum);
@@ -27,6 +35,7 @@ namespace ClrDebug.DbgEng
             [In] long rva,
             [Out, MarshalAs(UnmanagedType.BStr)] out string sourceFile,
             [Out] out long sourceLine);
+#endif
         
         [PreserveSig]
         HRESULT EnumerateLocalsDetailsEx(

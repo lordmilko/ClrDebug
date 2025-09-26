@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("51A92871-F1D1-4DA2-9805-75A41731D636")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcEventArgumentsThreadDiscovery
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcEventArgumentsThreadDiscovery
     {
         /// <summary>
         /// Gets the thread which is (dis)appearing. For a thread arrival event, the returned thread must already be in the enumerator as of the firing of this event and must be fully valid.<para/>

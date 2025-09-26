@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,9 +10,14 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E5CFCBEE-E83D-451F-A26B-D687C72159DD")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcStackUnwindContext3 : ISvcStackUnwindContext2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcStackUnwindContext3 : ISvcStackUnwindContext2
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the execution unit that the stack unwind is occuring for. This method may legally return null/S_FALSE in cases where there is no associated execution unit for the stack walk.
         /// </summary>
@@ -46,6 +54,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetContextData(
             [In, MarshalAs(UnmanagedType.Interface)] object component,
             [Out, MarshalAs(UnmanagedType.Interface)] out object contextData);
+#endif
 
         /// <summary>
         /// Gets the address context for reading the stack and appropriate data. If the unwind context has a particular process context, this is the process context.<para/>

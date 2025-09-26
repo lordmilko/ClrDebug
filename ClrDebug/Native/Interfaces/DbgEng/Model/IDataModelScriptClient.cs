@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3B362B0E-89F0-46C6-A663-DFDC95194AEF")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptClient
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptClient
     {
         /// <summary>
         /// If an error occurs during execution or invocation of the script, the script provider calls the ReportError method to notify the user interface of the error.<para/>

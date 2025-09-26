@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("01C932D4-9F5E-4268-8B12-EC246582A82D")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcExecutionUnit
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcExecutionUnit
     {
         /// <summary>
         /// Gets the register context of the execution unit. Which categories of registers are retrieved is dependent upon the flags passed in.<para/>

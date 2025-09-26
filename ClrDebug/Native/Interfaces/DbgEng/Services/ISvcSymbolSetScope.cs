@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("99D912AF-630F-473E-9B4D-A55829753070")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetScope
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetScope
     {
         /// <summary>
         /// If the scope is a function scope (or is a lexical sub-scope of a function), this enumerates the arguments of the function.<para/>

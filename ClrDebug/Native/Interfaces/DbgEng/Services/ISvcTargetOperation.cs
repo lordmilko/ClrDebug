@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C06B2FD1-8D55-4705-8A68-1C32B2977E94")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcTargetOperation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcTargetOperation
     {
         /// <summary>
         /// Returns what kind of operation this is.

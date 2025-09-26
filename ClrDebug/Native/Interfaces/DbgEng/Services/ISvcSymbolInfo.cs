@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("949A8DE4-BFF9-4F84-A3EF-79B2F154415A")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolInfo
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolInfo
     {
         /// <summary>
         /// Gets the type of the symbol.
@@ -31,7 +38,10 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT GetValue(
-            [Out, MarshalAs(UnmanagedType.Struct)] out object pValue);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            [Out] out object pValue);
 
         /// <summary>
         /// Gets a simple attribute of the symbol. The type of a given attribute is defined by the attribute itself. If the symbol cannot logically provide a value for the attribute, E_NOT_SET should be returned.<para/>
@@ -40,6 +50,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetAttribute(
             [In] SvcSymbolAttribute attr,
-            [Out, MarshalAs(UnmanagedType.Struct)] out object pAttributeValue);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            [Out] out object pAttributeValue);
     }
 }

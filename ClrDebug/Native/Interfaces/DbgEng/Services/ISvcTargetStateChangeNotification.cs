@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("DF1323B9-3586-499F-94E2-F1AAA80EBBCD")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcTargetStateChangeNotification
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcTargetStateChangeNotification
     {
         /// <summary>
         /// Called by the step controller or step manager to notify a "client" that a state change has occurred. This may or may not be the result of a particular operation.<para/>

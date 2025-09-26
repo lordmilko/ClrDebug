@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E7983FA1-80A7-498C-988F-518DDC5D4025")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDynamicKeyProviderConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDynamicKeyProviderConcept
     {
         /// <summary>
         /// The GetKey method on a dynamic key provider is largely an override of the GetKey method on <see cref="IModelObject"/>.<para/>

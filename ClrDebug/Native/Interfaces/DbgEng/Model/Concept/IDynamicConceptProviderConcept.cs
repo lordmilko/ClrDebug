@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("95A7F7DD-602E-483F-9D06-A15C0EE13174")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDynamicConceptProviderConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDynamicConceptProviderConcept
     {
         /// <summary>
         /// The GetConcept method on a dynamic concept provider is effectively an override of the GetConcept method on <see cref="IModelObject"/>.<para/>
@@ -28,7 +35,12 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetConcept(
             [In, MarshalAs(UnmanagedType.Interface)] IModelObject contextObject,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid conceptId,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid conceptId,
             [Out, MarshalAs(UnmanagedType.Interface)] out object conceptInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out IKeyStore conceptMetadata,
             [Out, MarshalAs(UnmanagedType.U1)] out bool hasConcept);
@@ -47,7 +59,12 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT SetConcept(
             [In, MarshalAs(UnmanagedType.Interface)] IModelObject contextObject,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid conceptId,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid conceptId,
             [In, MarshalAs(UnmanagedType.Interface)] object conceptInterface,
             [In, MarshalAs(UnmanagedType.Interface)] IKeyStore conceptMetadata);
 

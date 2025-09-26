@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("d98ada1f-29e9-4ef5-a6c0-e53349883212")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugDataSpaces4 : IDebugDataSpaces3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugDataSpaces4 : IDebugDataSpaces3
     {
+#if !GENERATED_MARSHALLING
         #region IDebugDataSpaces
 
         /// <summary>
@@ -591,7 +599,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT ReadTagged(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid Tag,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid Tag,
             [In] int Offset,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
@@ -619,7 +632,11 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetNextTagged(
             [In] long Handle,
-            [Out] out Guid Tag,
+            [Out]
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(GuidMarshaller))]
+#endif
+            out Guid Tag,
             [Out] out int Size);
 
         /// <summary>
@@ -635,6 +652,7 @@ namespace ClrDebug.DbgEng
             [In] long Handle);
 
         #endregion
+#endif
         #region IDebugDataSpaces4
 
         /// <summary>
@@ -735,7 +753,7 @@ namespace ClrDebug.DbgEng
         HRESULT ReadMultiByteStringVirtual(
             [In] long Offset,
             [In] int MaxBytes,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);
 
@@ -786,7 +804,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);
 

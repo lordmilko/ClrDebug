@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("59C0BA4E-84E8-4A2E-8874-83DF03E3CFF5")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcMachineDebug
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcMachineDebug
     {
         /// <summary>
         /// If a default address context is available, this returns it. The machine implementor can decide what constitues a defualt address context.<para/>

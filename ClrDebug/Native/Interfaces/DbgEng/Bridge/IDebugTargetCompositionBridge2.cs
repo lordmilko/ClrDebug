@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("DEA2739F-401E-4ab6-BC62-2A85453F8C52")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugTargetCompositionBridge2 : IDebugTargetCompositionBridge
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugTargetCompositionBridge2 : IDebugTargetCompositionBridge
     {
+#if !GENERATED_MARSHALLING
         [PreserveSig]
         new HRESULT CreateStaticView(
             [In] int systemId,
@@ -40,6 +48,7 @@ namespace ClrDebug.DbgEng
         new HRESULT UnregisterFileActivatorForExtension(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszFileExtension,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugTargetCompositionFileActivator pFileActivator);
+#endif
 
         /// <summary>
         /// Registers a protocol activator for a particular protocol string. Whenever a protocol is opened from the debugger, the activator will be called to ensure the protocol string is valid and then subsequently to fill in the requisite services in order to establish debuggability on top of the file.<para/>

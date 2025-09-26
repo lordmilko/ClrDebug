@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C52D5D3D-609D-4D5D-8A82-46B0ACDEC4F4")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IEquatableConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IEquatableConcept
     {
         /// <summary>
         /// Compares this object to another (of arbitrary type) for equality. If the comparison cannot be performed, E_NOT_SET should be returned.<see cref="IEquatableConcept"/> is typically implemented by the object creators.<para/>

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("39BCF55E-9150-4BBA-9472-88C972DD7885")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcTelemetry
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcTelemetry
     {
         /// <summary>
         /// Notify usage of a particular feature (with an optional "action" and "parameter").

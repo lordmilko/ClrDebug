@@ -1,15 +1,23 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// If a given stack unwinder service implements this interface and is in an aggregate container, this interface will be asked if the stack unwinder wants to
+    /// "take over" unwinding -- even if the currently delegated stack unwinder would continue.<para/>
     /// This allows a given unwind service to transition between two unwinders or stacks or otherwise inject stack frames for a variety of purposes.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2ED57D21-39C8-4D09-9751-8A80E15DECF4")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcStackFrameUnwinderTransition
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcStackFrameUnwinderTransition
     {
         /// <summary>
         /// Given the information that would normally be passed to UnwindFrame, this asks an alternate unwinder if it would like to "take over" unwinding at a particular point.<para/>

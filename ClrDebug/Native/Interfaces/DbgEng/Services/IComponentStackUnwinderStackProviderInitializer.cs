@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E44474E7-99EC-40D5-9C94-7554EA45C4CF")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IComponentStackUnwinderStackProviderInitializer
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IComponentStackUnwinderStackProviderInitializer
     {
         /// <summary>
         /// Initializes the stack provider. If 'provideInlineFrames' is set to true, the stack provider will directly look at symbols for each stack frame, ask about inline information at each call site, and insert inline frames into the frames provided.<para/>

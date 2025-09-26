@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("83D68882-2AF7-408C-9B4E-FA5677F44C3E")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcStackFrameInjection
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcStackFrameInjection
     {
         /// <summary>
         /// InjectStackFrame Adds a stack frame with the given information and register context as the immediately next frame from the unwind.

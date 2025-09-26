@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("131E4723-1CC2-4EC7-BB12-9F40EDF63B66")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcDescription
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcDescription
     {
         /// <summary>
         /// Gets a description of the object on which the interface exists. This is intended for short textual display in some UI element.

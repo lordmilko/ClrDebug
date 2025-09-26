@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -14,8 +17,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2506F23D-C4B3-4248-9C37-7F80BB7E4893")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcMemoryInformation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcMemoryInformation
     {
         /// <summary>
         /// If Offset is contained within a valid memory region in the given address space, an ISvcMemoryRegion describing that memory region is returned along with an S_OK result.<para/>

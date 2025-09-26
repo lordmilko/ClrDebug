@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("6E8041B9-CB1B-4071-B789-D8A871124B57")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugTargetComposition3 : IDebugTargetComposition2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugTargetComposition3 : IDebugTargetComposition2
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Registers a given component by GUID such that an instance of the component can be created via Create[AndQuery]Component.<para/>
         /// In addition, registers the component as a conditional implementation of a given service as given by the conditional service information.<para/>
@@ -15,7 +23,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT RegisterComponentAsConditionalService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid componentGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugTargetCompositionComponent component,
             [In] ref SvcConditionalServiceInformation conditionalServiceInfo);
 
@@ -31,7 +44,12 @@ namespace ClrDebug.DbgEng
         new HRESULT CreateAndQueryConditionalService(
             [In] ref SvcConditionalServiceInformation conditionalServiceInfo,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer componentService,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceInterface,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object interfaceUnknown);
 
         /// <summary>
@@ -46,19 +64,39 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT RegisterComponent(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid componentGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugTargetCompositionComponent component);
         
         [PreserveSig]
         new HRESULT CreateComponent(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid componentGuid,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer componentService);
         
         [PreserveSig]
         new HRESULT CreateAndQueryComponent(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid componentGuid,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer componentService,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceInterface,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object interfaceUnknown);
 
         /// <summary>
@@ -66,8 +104,14 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT UnregisterComponent(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid componentGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugTargetCompositionComponent component);
+#endif
 
         /// <summary>
         /// Registers a given component by GUID such that it acts as the standard means of aggregation for another service as identified by GUID.<para/>
@@ -75,9 +119,19 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT RegisterComponentAsStandardAggregator(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid componentGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugTargetCompositionComponent component,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid aggregatedServiceGuid);
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid aggregatedServiceGuid);
 
         /// <summary>
         /// Finds the component registered as the standard implementation of an aggregator for a particular service and creates it.<para/>
@@ -85,7 +139,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT CreateServiceAggregatorComponent(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer componentService);
     }
 }

@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("4EA0C43F-8378-43D9-BE1C-E698F5508E58")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcImageVersionParser2 : ISvcImageVersionParser
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcImageVersionParser2 : ISvcImageVersionParser
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Returns a string representation of the version of the image the parser was created for. If such version information does not exist for the given file type, E_NOT_SET can be returned.<para/>
         /// A provider should always attempt to map some semantic onto VersionGeneric. VersionFile/VersionProduct has specific meaning for Windows and may or may not for other platforms.
@@ -35,9 +43,15 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT GetVersionDataString(
-            [In] Guid pVersionDataIdentifierGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid pVersionDataIdentifierGuid,
             [In, MarshalAs(UnmanagedType.LPWStr)] string pVersionDataIdentifierString,
             [Out, MarshalAs(UnmanagedType.BStr)] out string pVersionDataString);
+#endif
         
         [PreserveSig]
         HRESULT EnumerateVersionData(

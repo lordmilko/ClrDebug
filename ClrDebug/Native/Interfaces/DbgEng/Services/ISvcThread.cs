@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C6648B7C-F2E4-4304-9A3E-ED71CF0F26C6")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcThread
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcThread
     {
         /// <summary>
         /// Gets the unique key of the process to which this thread belongs. This is the same key returned from the containing ISvcProcess's GetKey method.

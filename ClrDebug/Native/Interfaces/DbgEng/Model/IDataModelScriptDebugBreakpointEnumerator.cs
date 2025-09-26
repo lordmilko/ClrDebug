@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("39484A75-B4F3-4799-86DA-691AFA57B299")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptDebugBreakpointEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptDebugBreakpointEnumerator
     {
         /// <summary>
         /// The Reset method resets the position of the enumerator to where it was just after the enumerator was created -- that is, before the first enumerated breakpoint.

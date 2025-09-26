@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("10545A55-D561-4119-BDBC-D885F23045DA")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcThreadEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcThreadEnumerator
     {
         /// <summary>
         /// Resets the enumerator.

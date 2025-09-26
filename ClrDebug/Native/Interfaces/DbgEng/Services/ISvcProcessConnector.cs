@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B751FDDF-3B41-4F4B-9EFE-EA310EEFE8D2")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcProcessConnector
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcProcessConnector
     {
         /// <summary>
         /// Enumerates all of the processes on the server which are connectable.

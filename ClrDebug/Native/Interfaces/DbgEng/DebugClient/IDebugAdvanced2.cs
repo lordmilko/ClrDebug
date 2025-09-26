@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("716d14c9-119b-4ba5-af1f-0890e672416a")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugAdvanced2 : IDebugAdvanced
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugAdvanced2 : IDebugAdvanced
     {
+#if !GENERATED_MARSHALLING
         #region IDebugAdvanced
 
         /// <summary>
@@ -42,6 +50,7 @@ namespace ClrDebug.DbgEng
             [In] int ContextSize);
 
         #endregion
+#endif
         #region IDebugAdvanced2
 
         /// <summary>
@@ -146,7 +155,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);
 
@@ -180,7 +189,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] StringBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] byte[] StringBuffer,
             [In] int StringBufferSize,
             [Out] out int StringSize);
 

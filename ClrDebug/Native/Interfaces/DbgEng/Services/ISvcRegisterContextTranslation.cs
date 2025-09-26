@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -10,8 +13,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("EDDC117F-50EB-48C6-B201-1B7CB9C675AB")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcRegisterContextTranslation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcRegisterContextTranslation
     {
         /// <summary>
         /// Translates from a domain specific context record to a canonical context record.

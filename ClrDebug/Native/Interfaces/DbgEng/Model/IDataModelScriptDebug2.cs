@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,9 +12,14 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("CBB10ED3-839E-426C-9243-E23535C1AE1A")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptDebug2 : IDataModelScriptDebug
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptDebug2 : IDataModelScriptDebug
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetDebugState method returns the current state of the script (e.g.: whether it is executing or not). The state is defined by a value within the ScriptDebugState enumeration which is defined as follows.
         /// </summary>
@@ -137,6 +145,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT StopDebugging(
             [In, MarshalAs(UnmanagedType.Interface)] IDataModelScriptDebugClient debugClient);
+#endif
 
         /// <summary>
         /// Sets a breakpoint on the function given by the supplied name.

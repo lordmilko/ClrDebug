@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A4D7D798-A4C1-40AD-9235-B80F0BF8E2AD")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcAddressRangeEnumeration
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcAddressRangeEnumeration
     {
         /// <summary>
         /// Enumerates a set of address ranges which define a memory layout. For modules Enumerates the set of address ranges which define the memory layout of the module.<para/>

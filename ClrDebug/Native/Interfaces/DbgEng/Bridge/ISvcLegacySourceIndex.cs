@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E39AA759-5041-4b55-9650-550E4EA8172C")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcLegacySourceIndex
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcLegacySourceIndex
     {
         /// <summary>
         /// Returns the size of any legacy source indexing information. If no such information is present for a given set, *pDataSize will be set to zero and S_OK will be returned.

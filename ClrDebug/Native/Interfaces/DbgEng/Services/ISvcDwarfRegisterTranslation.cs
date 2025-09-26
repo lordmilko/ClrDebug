@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A61B284D-EC7D-4EE7-A3B0-99B59F171F9A")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcDwarfRegisterTranslation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcDwarfRegisterTranslation
     {
         /// <summary>
         /// Translates from an abstract ID to a DWARF ID. Normally, one could take an abstract ID, translate it to a canonical one via ISvcMachineArchitecture and then ask ISvcRegisterTranslation to translate it to a DWARF ID via TranslateFromCanonicalId.<para/>

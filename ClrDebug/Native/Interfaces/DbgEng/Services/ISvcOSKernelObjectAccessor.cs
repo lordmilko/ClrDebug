@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("8E18CBC7-B80A-4C42-A10D-A56E17A555CE")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcOSKernelObjectAccessor
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcOSKernelObjectAccessor
     {
         /// <summary>
         /// From the address of a kernel object as returned from ISvcOSKernelObject::GetAssociatedKernelObject, return the ISvc* interface (* = Process, Thread, Module, etc...) for that object.<para/>

@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("4A168D3F-04D0-49C4-8F9A-7B5B3108C6C6")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostStatus2 : IDebugHostStatus
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostStatus2 : IDebugHostStatus
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The PollUserInterrupt method is used to inquire whether the user of the debug host has requested an interruption of the current operation.<para/>
         /// A property accessor in the data model may, for instance, call into arbitrary code (e.g.: a JavaScript method). That code may take an arbitrary amount of time.<para/>
@@ -21,6 +29,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT PollUserInterrupt(
             [Out, MarshalAs(UnmanagedType.U1)] out bool interruptRequested);
+#endif
         
         [PreserveSig]
         HRESULT SetUserInterrupt();

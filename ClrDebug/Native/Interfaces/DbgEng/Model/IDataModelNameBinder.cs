@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("AF352B7B-8292-4C01-B360-2DC3696C65E7")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelNameBinder
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelNameBinder
     {
         /// <summary>
         /// The BindValue method performs the equivalent of contextObject.name on the given object according to a set of binding rules.<para/>

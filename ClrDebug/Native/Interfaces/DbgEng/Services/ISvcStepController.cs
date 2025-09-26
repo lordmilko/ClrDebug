@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5CA0337C-80AD-471D-9B4F-37803E4087CC")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcStepController
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcStepController
     {
         /// <summary>
         /// Called to setup a callback on state change of the step controller more generally. Such a state change may or may not be the result of an operation.<para/>

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5D62C1F1-D49A-4749-90AA-C13443184C99")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcBreakpointController
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcBreakpointController
     {
         /// <summary>
         /// Enumerates all breakpoints known to the breakpoint controller. Note that this will *ONLY* enumerate breakpoints known to the controller.<para/>

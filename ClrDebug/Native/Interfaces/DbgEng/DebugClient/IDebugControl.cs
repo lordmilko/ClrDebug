@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5182e668-105e-416e-ad92-24ef800424ba")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugControl
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugControl
     {
         /// <summary>
         /// The GetInterrupt method checks whether a user interrupt was issued.
@@ -81,7 +88,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetLogFile(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int FileSize,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
@@ -148,7 +155,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT Input(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int InputSize);
 
@@ -313,7 +320,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetPromptText(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);
 
@@ -417,7 +424,7 @@ namespace ClrDebug.DbgEng
         HRESULT Disassemble(
             [In] long Offset,
             [In] DEBUG_DISASM Flags,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int DisassemblySize,
             [Out] out long EndOffset);
@@ -672,11 +679,11 @@ namespace ClrDebug.DbgEng
             [Out] out int PlatformId,
             [Out] out int Major,
             [Out] out int Minor,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] ServicePackString,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] byte[] ServicePackString,
             [In] int ServicePackStringSize,
             [Out] out int ServicePackStringUsed,
             [Out] out int ServicePackNumber,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] char[] BuildString,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] byte[] BuildString,
             [In] int BuildStringSize,
             [Out] out int BuildStringUsed);
 
@@ -765,10 +772,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetProcessorTypeNames(
             [In] IMAGE_FILE_MACHINE Type,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] FullNameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] FullNameBuffer,
             [In] int FullNameBufferSize,
             [Out] out int FullNameSize,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 5)] char[] AbbrevNameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 5)] byte[] AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out int AbbrevNameSize);
 
@@ -958,7 +965,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetTextMacro(
             [In] int Slot,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int MacroSize);
 
@@ -1349,7 +1356,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetEventFilterText(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);
 
@@ -1369,7 +1376,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetEventFilterCommand(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);
 
@@ -1424,7 +1431,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSpecificEventFilterArgument(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int ArgumentSize);
 
@@ -1488,7 +1495,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetExceptionFilterSecondCommand(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);
 
@@ -1556,7 +1563,7 @@ namespace ClrDebug.DbgEng
             [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation,
             [In] int ExtraInformationSize,
             [Out] out int ExtraInformationUsed,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] Description,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] byte[] Description,
             [In] int DescriptionSize,
             [Out] out int DescriptionUsed);
     }

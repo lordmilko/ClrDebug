@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0CA4DC6B-1070-4AA1-8C6C-1F626962A475")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcConnectableProcess
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcConnectableProcess
     {
         /// <summary>
         /// Gets the full path to the process executable.

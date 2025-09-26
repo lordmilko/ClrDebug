@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("4F3E1CE2-86B2-4C7A-9C65-D0A9D0EECF44")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostStatus
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostStatus
     {
         /// <summary>
         /// The PollUserInterrupt method is used to inquire whether the user of the debug host has requested an interruption of the current operation.<para/>

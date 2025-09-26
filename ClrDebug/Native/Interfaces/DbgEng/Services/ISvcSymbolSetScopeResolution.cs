@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E1EE646E-0480-4DB3-8982-7DE87ED5B174")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetScopeResolution
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetScopeResolution
     {
         /// <summary>
         /// Returns a scope representing the global scope of the module the symbol set represents. This may be an aggregation of other symbols one could discover through fully enumerating the symbol set.

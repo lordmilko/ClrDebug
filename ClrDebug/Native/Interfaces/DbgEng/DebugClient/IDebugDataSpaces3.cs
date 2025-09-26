@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("23f79d6c-8aaf-4f7c-a607-9995f5407e63")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugDataSpaces3 : IDebugDataSpaces2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugDataSpaces3 : IDebugDataSpaces2
     {
+#if !GENERATED_MARSHALLING
         #region IDebugDataSpaces
 
         /// <summary>
@@ -553,6 +561,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Info); //MEMORY_BASIC_INFORMATION64
 
         #endregion
+#endif
         #region IDebugDataSpaces3
 
         /// <summary>
@@ -591,7 +600,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT ReadTagged(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid Tag,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid Tag,
             [In] int Offset,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
@@ -619,7 +633,11 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetNextTagged(
             [In] long Handle,
-            [Out] out Guid Tag,
+            [Out]
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(GuidMarshaller))]
+#endif
+            out Guid Tag,
             [Out] out int Size);
 
         /// <summary>

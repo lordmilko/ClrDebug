@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,9 +11,14 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B51887E8-BCD0-4E8F-A8C7-434398B78C37")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostModule2 : IDebugHostModule
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostModule2 : IDebugHostModule
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetContext method returns the context where the symbol is valid. While this will represent things such as the debug target and process/address space in which the symbol exists, it may not be as specific as a context retrieved from other means (e.g.: from an <see cref="IModelObject"/>).
         /// </summary>
@@ -159,6 +167,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostSymbol pComparisonSymbol,
             [In] int comparisonFlags,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pMatches);
+#endif
 
         /// <summary>
         /// The FindSymbolByRVA method will find a single matching symbol at the given relative virtual address within the module.<para/>

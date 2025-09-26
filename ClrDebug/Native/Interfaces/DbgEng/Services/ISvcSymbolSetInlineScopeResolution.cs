@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("4760A68C-DCAA-432E-A787-1063C9FA0D3D")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetInlineScopeResolution
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetInlineScopeResolution
     {
         /// <summary>
         /// Finds a scope by an offset within the image and the inline function symbol representing a certain level of inlining at that location.<para/>

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3A0957C5-A583-4CE1-ACC4-DFE9CACE0CF0")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcProcessBasicInformation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcProcessBasicInformation
     {
         /// <summary>
         /// Gets the name of the process. This may or may not be the same as the name of the main executable (or may be truncated) depending on the underlying platform.<para/>

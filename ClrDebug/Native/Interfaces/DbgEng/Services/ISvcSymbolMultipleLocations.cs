@@ -1,12 +1,19 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FA7F393E-9A93-42DE-BF41-4ED9C8E46882")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolMultipleLocations
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolMultipleLocations
     {
         [PreserveSig]
         HRESULT GetLocations(
@@ -31,6 +38,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetConstantValueAtIndex(
             [In] long index,
-            [Out, MarshalAs(UnmanagedType.Struct)] out object pValue);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            [Out] out object pValue);
     }
 }

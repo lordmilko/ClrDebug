@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("9D6C1D7B-A76F-4618-8068-5F76BD9A4E8A")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IPreferredRuntimeTypeConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IPreferredRuntimeTypeConcept
     {
         /// <summary>
         /// The CastToPreferredRuntimeType method is called whenever a client wishes to attempt to convert from a static type instance to the runtime type of that instance.<para/>

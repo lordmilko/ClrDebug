@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("7782D8F2-2B85-4059-AB88-28CEDDCA1C80")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugOutputStream
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugOutputStream
     {
         /// <summary>
         /// Writes to the debug output stream.

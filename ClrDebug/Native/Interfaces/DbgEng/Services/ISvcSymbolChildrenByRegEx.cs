@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("92E1C85D-C0FB-4F37-8961-F6EF486BDF09")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolChildrenByRegEx
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolChildrenByRegEx
     {
         /// <summary>
         /// Enumerates all children of the given symbol whose name matches a given regular expression.

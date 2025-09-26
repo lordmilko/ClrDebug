@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("014D366A-1F23-4981-9219-B2DB8B402054")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptHostContext
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptHostContext
     {
         /// <summary>
         /// It is required that a script provider notify the debug host upon certain operations occurring with a method call to the NotifyScriptChange method on the associated context.<para/>

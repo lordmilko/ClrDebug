@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("1303DEC4-FA3B-4F1B-9224-B953D16BABB5")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptTemplate
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptTemplate
     {
         /// <summary>
         /// The GetName method returns a name of the template. This may fail with E_NOTIMPL if the template does not have a name.<para/>

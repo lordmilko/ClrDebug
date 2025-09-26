@@ -47,7 +47,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetMetaData(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszImagePath,
-            [In] int dwImageTimeStamp,
+            [In] uint dwImageTimeStamp,
             [In] int dwImageSize,
             [In] int cchPathBuffer,
             [Out] out int pcchPathBuffer,

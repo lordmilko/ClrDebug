@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D9351812-532F-48DC-8FA7-8D0D64E1441D")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcImageVersionParser
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcImageVersionParser
     {
         /// <summary>
         /// Returns a string representation of the version of the image the parser was created for. If such version information does not exist for the given file type, E_NOT_SET can be returned.<para/>
@@ -38,7 +45,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT GetVersionDataString(
-            [In] Guid pVersionDataIdentifierGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid pVersionDataIdentifierGuid,
             [In, MarshalAs(UnmanagedType.LPWStr)] string pVersionDataIdentifierString,
             [Out, MarshalAs(UnmanagedType.BStr)] out string pVersionDataString);
     }

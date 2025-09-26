@@ -1,13 +1,21 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("1656afa9-19c6-4e3a-97e7-5dc9160cf9c4")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugRegisters2 : IDebugRegisters
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugRegisters2 : IDebugRegisters
     {
+#if !GENERATED_MARSHALLING
         #region IDebugRegisters
 
         /// <summary>
@@ -38,7 +46,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetDescription(
             [In] int Register,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
@@ -204,6 +212,7 @@ namespace ClrDebug.DbgEng
             [Out] out long Offset);
 
         #endregion
+#endif
         #region IDebugRegisters2
 
         /// <summary>
@@ -277,7 +286,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetPseudoDescription(
             [In] int Register,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long TypeModule,

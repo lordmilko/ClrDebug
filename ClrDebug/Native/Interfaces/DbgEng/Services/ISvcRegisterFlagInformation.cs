@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5ED13135-FA5D-4D29-BB93-C80CB72ADFD4")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcRegisterFlagInformation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcRegisterFlagInformation
     {
         /// <summary>
         /// Gets the name of the flag (e.g.: carry, overflow, etc...).

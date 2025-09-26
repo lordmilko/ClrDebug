@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("05D19D56-C15E-4C1D-9125-BB14D61B9784")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetCapabilities
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetCapabilities
     {
         /// <summary>
         /// Asks the symbol set about a particular capability as identified by a set GUID and an ID within that set. Each GUID/ID identifies the type of data returned in the resulting buffer.<para/>
@@ -19,7 +26,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT QueryCapability(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid set,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid set,
             [In] int id,
             [In] int bufferSize,
             [Out] IntPtr buffer);

@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("1E020689-2351-432D-BDD2-C4DF5DB629E0")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcEventArgumentsSymbolLoad
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcEventArgumentsSymbolLoad
     {
         /// <summary>
         /// Gets the module for which symbols were loaded.

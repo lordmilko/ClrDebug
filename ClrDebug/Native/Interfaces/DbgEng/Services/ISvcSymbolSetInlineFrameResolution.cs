@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("CB416186-14D7-4DED-8EC2-9B45CBF06845")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetInlineFrameResolution
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetInlineFrameResolution
     {
         /// <summary>
         /// For a given offset representing a code location within the image, return the depth of inlining at this particular offset.

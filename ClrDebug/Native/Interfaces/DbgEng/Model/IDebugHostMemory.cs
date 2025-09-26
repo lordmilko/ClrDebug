@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("212149C9-9183-4A3E-B00E-4FD1DC95339B")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostMemory
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostMemory
     {
         /// <summary>
         /// Reads a number of bytes from the address space of the target as defined by the inpassed context and location.The number of bytes read is returned in "bytesRead" upon success.

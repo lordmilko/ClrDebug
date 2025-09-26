@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2F79D431-71BF-4F40-B959-96361E92AD04")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcStackProviderFrame
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcStackProviderFrame
     {
         /// <summary>
         /// Gets the kind of stack frame that this ISvcStackProviderFrame represents.

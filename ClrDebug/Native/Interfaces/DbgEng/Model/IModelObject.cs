@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using ClrDebug.TypeLib;
 
 namespace ClrDebug.DbgEng
@@ -23,8 +26,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E28C7893-3F4B-4B96-BACA-293CDC55F45D")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IModelObject
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IModelObject
     {
         /// <summary>
         /// The GetContext method returns the host context that is associated with the object. This represents which target, process, thread, etc...<para/>
@@ -54,7 +61,10 @@ namespace ClrDebug.DbgEng
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
         [PreserveSig]
         HRESULT GetIntrinsicValue(
-            [Out, MarshalAs(UnmanagedType.Struct)] out object intrinsicData);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            [Out] out object intrinsicData);
 
         /// <summary>
         /// The GetIntrinsicValueAs method behaves much as the GetIntrinsicValue method excepting that it converts the value to the specified variant type.<para/>
@@ -68,7 +78,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetIntrinsicValueAs(
             [In] VARENUM vt,
-            [Out, MarshalAs(UnmanagedType.Struct)] out object intrinsicData);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            [Out] out object intrinsicData);
 
         /// <summary>
         /// The GetKeyValue method is the first method a client will turn to in order to get the value of (and the metadata associated with) a given key by name.<para/>
@@ -176,7 +189,12 @@ namespace ClrDebug.DbgEng
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
         [PreserveSig]
         HRESULT GetConcept(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid conceptId,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid conceptId,
             [Out, MarshalAs(UnmanagedType.Interface)] out object conceptInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out IKeyStore conceptMetadata);
 
@@ -364,8 +382,13 @@ namespace ClrDebug.DbgEng
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
         [PreserveSig]
         HRESULT SetConcept(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid conceptId,
-            [In, MarshalAs(UnmanagedType.Interface)] object conceptInterface,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid conceptId,
+            [In, MarshalAs(UnmanagedType.Interface)] object conceptInterface, //There's no issues with the default CCW VTable layout with this method, indicating it does do a QI internally
             [In, MarshalAs(UnmanagedType.Interface)] IKeyStore conceptMetadata);
 
         /// <summary>

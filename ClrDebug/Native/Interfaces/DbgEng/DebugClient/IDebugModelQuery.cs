@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("4E7B1C9E-9D91-4054-9B9F-DABE4277D1EC")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugModelQuery
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugModelQuery
     {
         [PreserveSig]
         HRESULT QueryModel(

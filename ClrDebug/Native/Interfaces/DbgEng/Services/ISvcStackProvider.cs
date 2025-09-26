@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C11A8084-0BC4-45F8-AF3C-821FBC835312")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcStackProvider
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcStackProvider
     {
         /// <summary>
         /// Starts a stack walk for the execution unit given by the unwind context and returns a frame set enumerator representing the frames within that stack walk.

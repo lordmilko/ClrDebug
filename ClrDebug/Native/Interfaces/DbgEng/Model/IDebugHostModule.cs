@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,9 +10,14 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C9BA3E18-D070-4378-BBD0-34613B346E1E")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostModule : IDebugHostSymbol
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostModule : IDebugHostSymbol
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetContext method returns the context where the symbol is valid. While this will represent things such as the debug target and process/address space in which the symbol exists, it may not be as specific as a context retrieved from other means (e.g.: from an <see cref="IModelObject"/>).
         /// </summary>
@@ -81,6 +89,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostSymbol pComparisonSymbol,
             [In] int comparisonFlags,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pMatches);
+#endif
 
         /// <summary>
         /// The GetImageName method returns the image name of the module. Depending on the value of the allowPath argument, the returned image name may or may not include the full path to the image.

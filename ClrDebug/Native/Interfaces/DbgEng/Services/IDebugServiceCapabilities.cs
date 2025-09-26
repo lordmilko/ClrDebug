@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -10,8 +13,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("729CF17B-E82F-4FF8-B27C-F13693971FE3")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugServiceCapabilities
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugServiceCapabilities
     {
         /// <summary>
         /// QueryCapability() For the service identified by 'serviceGuid', ask whether the capability identified by the combination of 'capabilitySet' and 'capabilityId' is or is not supported.<para/>
@@ -22,8 +29,18 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT GetCapability(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid capabilitySet,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid capabilitySet,
             [In] int capabilityId,
             [In] int bufferSize,
             [Out] IntPtr buffer);

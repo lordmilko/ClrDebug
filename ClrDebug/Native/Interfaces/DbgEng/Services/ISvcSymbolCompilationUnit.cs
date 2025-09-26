@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("14C37CAC-496D-4916-AF75-02345E27DA3E")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolCompilationUnit
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolCompilationUnit
     {
         /// <summary>
         /// Gets the primary source file of the CU, if available.

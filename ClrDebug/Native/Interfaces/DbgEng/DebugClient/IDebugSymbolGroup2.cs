@@ -1,13 +1,21 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("6a7ccc5f-fb5e-4dcc-b41c-6c20307bccc7")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugSymbolGroup2 : IDebugSymbolGroup
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugSymbolGroup2 : IDebugSymbolGroup
     {
+#if !GENERATED_MARSHALLING
         #region IDebugSymbolGroup
 
         /// <summary>
@@ -75,7 +83,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSymbolName(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -170,6 +178,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPStr)] string Type);
 
         #endregion
+#endif
         #region IDebugSymbolGroup2
 
         /// <summary>
@@ -273,7 +282,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolTypeName(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -357,7 +366,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolValueText(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 

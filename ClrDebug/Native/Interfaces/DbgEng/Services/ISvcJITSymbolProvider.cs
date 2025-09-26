@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -12,8 +15,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("31C1B07E-745A-461C-90C0-8FBC5162AC86")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcJITSymbolProvider
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcJITSymbolProvider
     {
         /// <summary>
         /// LocateSymbolsForJITSegment For a given address within an address context (often a process), find a symbol set representing the JIT and (potentially) the module to which it belongs.<para/>

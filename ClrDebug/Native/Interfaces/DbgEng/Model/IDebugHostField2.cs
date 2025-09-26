@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("99468A0B-EA92-4BD4-9EFE-A266160578CA")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostField2 : IDebugHostField
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostField2 : IDebugHostField
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetContext method returns the context where the symbol is valid. While this will represent things such as the debug target and process/address space in which the symbol exists, it may not be as specific as a context retrieved from other means (e.g.: from an <see cref="IModelObject"/>).
         /// </summary>
@@ -99,7 +107,10 @@ namespace ClrDebug.DbgEng
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
         [PreserveSig]
         new HRESULT GetValue(
-            [Out, MarshalAs(UnmanagedType.Struct)] out object value);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            [Out] out object value);
 
         /// <summary>
         /// Compares two symbols for equality. A host is under no obligation to ensure that there is interface pointer equality for two identical symbols.<para/>
@@ -114,6 +125,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostSymbol pComparisonSymbol,
             [In] int comparisonFlags,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pMatches);
+#endif
         
         [PreserveSig]
         HRESULT GetContainingType(

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("6BB27B35-02E6-47CB-90A0-5371244032DE")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptDebugBreakpoint
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptDebugBreakpoint
     {
         /// <summary>
         /// The GetId method returns the unique identifier assigned by the script provider's debug engine to the breakpoint.<para/>

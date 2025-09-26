@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -10,15 +13,23 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("CA1AFE05-244C-4FA3-BED4-A355418587EF")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcRegisterContext
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcRegisterContext
     {
         /// <summary>
         /// Returns the architecture of the registers that this register context holds. This is either a DEBUG_ARCHDEF_* standard GUID or is a GUID defining a custom architecture.
         /// </summary>
         [PreserveSig]
         HRESULT GetArchitectureGuid(
-            [Out] out Guid architecture);
+            [Out]
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(GuidMarshaller))]
+#endif
+            out Guid architecture);
 
         /// <summary>
         /// Gets the value of a register as given by its canonical register number. The following error codes carry special meaning E_INSUFFICIENT_BUFFER: The in-passed buffer is not large enough to hold the register value.<para/>

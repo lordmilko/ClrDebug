@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("69CE6AE2-2268-4E6F-B062-20CE62BFE677")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptTemplateEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptTemplateEnumerator
     {
         /// <summary>
         /// The Reset method resets the enumerator to the position it was at when it was first created -- before the first template produced.

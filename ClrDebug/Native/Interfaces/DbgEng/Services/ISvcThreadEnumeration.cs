@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A4D4186A-CA0E-483B-BB2A-A83F9D3F3115")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcThreadEnumeration
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcThreadEnumeration
     {
         /// <summary>
         /// Finds a thread by a unique key. The interpretation and semantic meaning of the key is specific to the service which provides this.<para/>

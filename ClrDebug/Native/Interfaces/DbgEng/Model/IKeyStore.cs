@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0FC7557D-401D-4FCA-9365-DA1E9850697C")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IKeyStore
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IKeyStore
     {
         /// <summary>
         /// The GetKey method is analogous to the GetKey method on <see cref="IModelObject"/>. It will return the value of the specified key if it exists in the key store or the key store's parent store.<para/>

@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D492514F-7CFE-4876-96AC-7FAB627895AB")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcEventArgumentsModuleDiscovery
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcEventArgumentsModuleDiscovery
     {
         /// <summary>
         /// Gets the module which is (dis)appearing. For a module arrival event, the returned module must already be in the enumerator as of the firing of this event and must be fully valid.<para/>

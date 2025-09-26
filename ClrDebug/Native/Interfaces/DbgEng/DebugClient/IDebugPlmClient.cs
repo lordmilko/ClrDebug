@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A02B66C4-AEA3-4234-A9F7-FE4C383D4E29")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugPlmClient
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugPlmClient
     {
         /// <summary>
         /// Launches a suspended Process Lifecycle Management (PLM) application.

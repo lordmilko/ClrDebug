@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E327A72A-65D9-4545-9304-09F0104BB138")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcMemoryRegion
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcMemoryRegion
     {
         /// <summary>
         /// Gets the bounds of this memory region.

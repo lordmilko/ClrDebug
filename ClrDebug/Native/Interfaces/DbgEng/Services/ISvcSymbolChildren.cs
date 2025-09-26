@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("1B4FF8B8-BD87-43A2-8D53-C747C77716E0")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolChildren
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolChildren
     {
         /// <summary>
         /// Enumerates all children of the given symbol.

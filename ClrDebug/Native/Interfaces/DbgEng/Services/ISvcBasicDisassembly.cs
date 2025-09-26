@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FAFCA4B4-66DA-4AC0-86B6-AAC5C2498BC6")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcBasicDisassembly
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcBasicDisassembly
     {
         /// <summary>
         /// For an instruction/bundle at 'address' in a given address context (and with a given instructionNumber within the bundle), perform a disassembly and return a textual representation of the machine instruction.<para/>

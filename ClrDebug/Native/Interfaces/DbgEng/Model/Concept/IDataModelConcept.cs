@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FCB98D1D-1114-4FBF-B24C-EFFCB5DEF0D3")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelConcept
     {
         /// <summary>
         /// A data model can be registered as the canonical visualizer or as an extension for a given native type through the data model manager's RegisterModelForTypeSignature or RegisterExtensionForTypeSignature methods.<para/>

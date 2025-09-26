@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("76D4EDDF-282E-4381-8389-6FA9EEB067C2")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcImageProvider
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcImageProvider
     {
         /// <summary>
         /// Locate the file for a given image within the target.

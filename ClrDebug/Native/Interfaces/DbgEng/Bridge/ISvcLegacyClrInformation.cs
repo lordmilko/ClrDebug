@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,13 +10,18 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("25C75342-66A8-44cb-89A9-13751F662786")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcLegacyClrInformation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcLegacyClrInformation
     {
         /// <summary>
         /// Indicates whether or not there is specific unwinder support for managed stack unwinds.
         /// </summary>
         [PreserveSig]
+        [return: MarshalAs(UnmanagedType.Bool)]
         bool SupportsManagedStackUnwind();
     }
 }

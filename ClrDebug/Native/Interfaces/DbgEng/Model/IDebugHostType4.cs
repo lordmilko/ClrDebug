@@ -1,14 +1,22 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using ClrDebug.TypeLib;
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("77D3CDC6-BD55-42BF-A4FD-D9AA60E3C1E1")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostType4 : IDebugHostType3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostType4 : IDebugHostType3
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetContext method returns the context where the symbol is valid. While this will represent things such as the debug target and process/address space in which the symbol exists, it may not be as specific as a context retrieved from other means (e.g.: from an <see cref="IModelObject"/>).
         /// </summary>
@@ -342,6 +350,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostSymbol pComparisonSymbol,
             [In] int comparisonFlags,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pMatches);
+#endif
         
         [PreserveSig]
         HRESULT GetExtendedArrayHeaderSize(

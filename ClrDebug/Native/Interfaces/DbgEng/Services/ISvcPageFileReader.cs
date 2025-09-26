@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3603A7EE-E996-46E0-85BA-9CEA48EEF6E1")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcPageFileReader
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcPageFileReader
     {
         /// <summary>
         /// Indicates whether a page can be read by the page file reader.

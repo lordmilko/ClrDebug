@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,9 +10,14 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A3D64993-826C-44FA-897D-926F2FE7AD0B")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostData : IDebugHostSymbol
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostData : IDebugHostSymbol
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetContext method returns the context where the symbol is valid. While this will represent things such as the debug target and process/address space in which the symbol exists, it may not be as specific as a context retrieved from other means (e.g.: from an <see cref="IModelObject"/>).
         /// </summary>
@@ -81,6 +89,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostSymbol pComparisonSymbol,
             [In] int comparisonFlags,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pMatches);
+#endif
 
         /// <summary>
         /// The GetLocationKind method returns what kind of location the symbol is at according to the LocationKind enumeration.<para/>
@@ -108,6 +117,9 @@ namespace ClrDebug.DbgEng
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
         [PreserveSig]
         HRESULT GetValue(
-            [Out, MarshalAs(UnmanagedType.Struct)] out object value);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            [Out] out object value);
     }
 }

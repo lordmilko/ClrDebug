@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,15 +10,21 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("7B6FABD4-D271-413A-8475-31F8483179FD")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcOSPlatformInformation2 : ISvcOSPlatformInformation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcOSPlatformInformation2 : ISvcOSPlatformInformation
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the high level infromation about the platform that the target is running on. A component which runs on a platform that is not described by SvcOSPlatform may return SvcOSPlatUnknown.
         /// </summary>
         [PreserveSig]
         new HRESULT GetOSPlatform(
             [Out] out SvcOSPlatform pOSPlatform);
+#endif
 
         /// <summary>
         /// Gets the 1-4 digit version of the platform. When digits are not appropriate for the platform, use a 0 default. If the implementation cannot make a determination of the OS Version Number, E_NOT_SET may legally be returned.<para/>

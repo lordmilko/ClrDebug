@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E14E5358-56DD-4C71-98F8-EDED11398426")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcOSKernelObject
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcOSKernelObject
     {
         /// <summary>
         /// For any given object, this gets an object in the kernel that is used to manage such object.

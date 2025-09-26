@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("995F51EF-FE22-441E-BCE6-0F6FECFB9A0A")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcOSKernelLocator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcOSKernelLocator
     {
         /// <summary>
         /// Gets the base address of the kernel.

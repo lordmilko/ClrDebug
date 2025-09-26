@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -12,9 +15,14 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("67721fe9-56d2-4a44-a325-2b65513ce6eb")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugOutputCallbacks2 : IDebugOutputCallbacks
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugOutputCallbacks2 : IDebugOutputCallbacks
     {
+#if !GENERATED_MARSHALLING
         #region IDebugOutputCallbacks
 
         /// <summary>
@@ -33,6 +41,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPStr)] string text);
 
         #endregion
+#endif
         #region IDebugOutputCallbacks2
 
         /// <summary>

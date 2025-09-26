@@ -1,5 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("073DE56A-473E-4A8A-A059-DA7A185B2F90")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSourceFile
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSourceFile
     {
         /// <summary>
         /// Gets a unique identifier for the source file.

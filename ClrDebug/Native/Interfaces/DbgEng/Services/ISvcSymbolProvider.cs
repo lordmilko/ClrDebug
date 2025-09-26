@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("23ED1044-166C-4C62-91FC-B5656E4A74EF")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolProvider
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolProvider
     {
         /// <summary>
         /// For a given image (identified by an ISvcModule), find the set of symbolic information available for the image and return a symbol set.

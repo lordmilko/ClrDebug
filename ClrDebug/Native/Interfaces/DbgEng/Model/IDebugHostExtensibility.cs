@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3C2B24E1-11D0-4F86-8AE5-4DF166F73253")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostExtensibility
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostExtensibility
     {
         /// <summary>
         /// The CreateFunctionAlias method creates a "function alias", a "quick alias" for a method implemented in some extension.<para/>

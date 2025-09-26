@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("66403806-4988-4A0A-A552-F14B1B5E33D5")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugTargetComposition2 : IDebugTargetComposition
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugTargetComposition2 : IDebugTargetComposition
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Creates a service manager.
         /// </summary>
@@ -20,19 +28,39 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT RegisterComponent(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid componentGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugTargetCompositionComponent component);
         
         [PreserveSig]
         new HRESULT CreateComponent(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid componentGuid,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer componentService);
         
         [PreserveSig]
         new HRESULT CreateAndQueryComponent(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid componentGuid,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer componentService,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceInterface,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object interfaceUnknown);
 
         /// <summary>
@@ -40,8 +68,14 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT UnregisterComponent(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid componentGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugTargetCompositionComponent component);
+#endif
 
         /// <summary>
         /// Registers a given component by GUID such that an instance of the component can be created via Create[AndQuery]Component.<para/>
@@ -50,7 +84,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT RegisterComponentAsConditionalService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid componentGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid componentGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugTargetCompositionComponent component,
             [In] ref SvcConditionalServiceInformation conditionalServiceInfo);
 
@@ -66,7 +105,12 @@ namespace ClrDebug.DbgEng
         HRESULT CreateAndQueryConditionalService(
             [In] ref SvcConditionalServiceInformation conditionalServiceInfo,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer componentService,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceInterface,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object interfaceUnknown);
     }
 }

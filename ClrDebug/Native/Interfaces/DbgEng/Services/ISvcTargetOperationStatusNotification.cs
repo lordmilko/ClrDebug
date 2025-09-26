@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("F3F597C4-A43D-4057-A717-8E0F04E78820")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcTargetOperationStatusNotification
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcTargetOperationStatusNotification
     {
         /// <summary>
         /// Called by the step controller or step manager to notify a "client" that a requested operation has changed state (e.g.: completed or been canceled, etc...) The semantics of "pAffectedUnit" and "affectedAddress" depend on the type of operation.<para/>

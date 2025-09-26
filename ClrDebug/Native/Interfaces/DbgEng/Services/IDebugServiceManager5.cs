@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5637D1DE-5804-4AEE-A98B-9BA1E97A8A07")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugServiceManager5 : IDebugServiceManager4
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugServiceManager5 : IDebugServiceManager4
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Registers a conditional service with the service manager. If a service is already registered by the specified serviceGuid and conditions, this call will replace the underlying service.<para/>
         /// Unregistration of a service can be performed by registering a nullptr service layer. NOTE: If a component wishes to be both a conditional service and a canonical service, it must call both RegisterConditionalService and RegisterService and deal with the fact that it may be initialized twice.<para/>
@@ -27,7 +35,12 @@ namespace ClrDebug.DbgEng
         new HRESULT QueryConditionalService(
             [In] ref SvcConditionalServiceInformation conditionalServiceInfo,
             [In, MarshalAs(UnmanagedType.U1)] bool dynamicAdd,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceInterface,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object serviceUnknown);
 
         /// <summary>
@@ -65,8 +78,18 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT QueryService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceInterface,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object interfaceUnknown);
 
         /// <summary>
@@ -75,7 +98,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT LocateService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer service);
 
         /// <summary>
@@ -84,7 +112,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT RegisterService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -92,7 +125,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT RegisterEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -100,7 +138,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT UnregisterEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -108,9 +151,15 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT FireEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] object eventArgument,
             [Out] out HRESULT pSinkResult);
+#endif
 
         /// <summary>
         /// Adds a new service to an aggregate collection in the service manager. Instead of calling pService-&gt;RegisterServices(pServiceManager) to register the service, calling pServiceManager-&gt;AggregateService(DEBUG_SERVICE_XXX, pService) acts as a "helper method" with the following functionality - If there is no DEBUG_SERVICE_XXX in the service container, it behaves identically to calling pService-&gt;RegisterServices(pServiceManager).<para/>
@@ -120,7 +169,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT AggregateService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer newAggregateService);
     }
 }

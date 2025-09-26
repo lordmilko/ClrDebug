@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,9 +10,14 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("62787EDC-FA76-4690-BD71-5E8C3E2937EC")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostConstant : IDebugHostSymbol
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostConstant : IDebugHostSymbol
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetContext method returns the context where the symbol is valid. While this will represent things such as the debug target and process/address space in which the symbol exists, it may not be as specific as a context retrieved from other means (e.g.: from an <see cref="IModelObject"/>).
         /// </summary>
@@ -81,6 +89,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostSymbol pComparisonSymbol,
             [In] int comparisonFlags,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pMatches);
+#endif
 
         /// <summary>
         /// The GetValue method returns the value of the constant packed into a VARIANT. It is important to note that the GetType method on <see cref="IDebugHostSymbol"/> may return a specific type symbol for the constant.<para/>
@@ -90,6 +99,9 @@ namespace ClrDebug.DbgEng
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
         [PreserveSig]
         HRESULT GetValue(
-            [Out, MarshalAs(UnmanagedType.Struct)] out object value);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            [Out] out object value);
     }
 }

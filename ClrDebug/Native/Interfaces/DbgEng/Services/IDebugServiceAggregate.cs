@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -12,15 +15,24 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("6041DBC4-5BDA-4581-9BF4-0A6F74A643D4")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugServiceAggregate
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugServiceAggregate
     {
         /// <summary>
         /// Adds a new service to the aggregate.
         /// </summary>
         [PreserveSig]
         HRESULT AggregateService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer childService);
 
         /// <summary>
@@ -28,7 +40,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT DeaggregateService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer childService);
     }
 }

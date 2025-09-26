@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -10,9 +13,14 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("F412C5EA-2284-4622-A660-A697160D3312")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelManager2 : IDataModelManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelManager2 : IDataModelManager
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The Close method is called on the data model manager by an application (e.g.: debugger) hosting the data model in order to start the shutdown process of the data model manager.<para/>
         /// A host of the data model which does not the Close method prior to releasing its final reference on the data model manager may cause undefined behavior including, but not limited to, significant leaks of the management infrastructure for the data model.
@@ -325,6 +333,7 @@ namespace ClrDebug.DbgEng
         new HRESULT AcquireNamedModel(
             [In, MarshalAs(UnmanagedType.LPWStr)] string modelName,
             [Out, MarshalAs(UnmanagedType.Interface)] out IModelObject modelObject);
+#endif
 
         /// <summary>
         /// The AcquireSubNamespace method helps in the construction of something which might more traditionally look like a language namespace than a new object in a dynamic language.<para/>

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("DEC6ED5E-6360-4941-AB4C-A26409DE4F82")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptDebugStackFrame
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptDebugStackFrame
     {
         /// <summary>
         /// The GetName method returns the display name (e.g.: function name) of this frame. Such name will be displayed within the stack backtrace presented to the user in the debugger interface.

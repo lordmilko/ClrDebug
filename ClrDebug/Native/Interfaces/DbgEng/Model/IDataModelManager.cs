@@ -1,5 +1,8 @@
 ﻿using System;
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("73FE19F4-A110-4500-8ED9-3C28896F508C")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelManager
     {
         /// <summary>
         /// The Close method is called on the data model manager by an application (e.g.: debugger) hosting the data model in order to start the shutdown process of the data model manager.<para/>

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -6,8 +9,12 @@ namespace ClrDebug.DbgEng
 
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("046c9341-f0aa-400b-b1c3-617e1372d1a4")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugTestHook
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugTestHook
     {
         [PreserveSig]
         HRESULT SetValue(

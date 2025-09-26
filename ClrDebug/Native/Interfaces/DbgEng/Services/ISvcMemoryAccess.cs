@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -16,8 +19,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("7D42C7D1-B9D3-4DDF-B9F9-05694F013B86")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcMemoryAccess
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcMemoryAccess
     {
         /// <summary>
         /// Reads a series of bytes from the memory type this interface represents in the address space given by the first argument.<para/>

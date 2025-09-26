@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("7a5e852f-96e9-468f-ac1b-0b3addc4a049")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugDataSpaces2 : IDebugDataSpaces
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugDataSpaces2 : IDebugDataSpaces
     {
+#if !GENERATED_MARSHALLING
         #region IDebugDataSpaces
 
         /// <summary>
@@ -425,6 +433,7 @@ namespace ClrDebug.DbgEng
             [Out] out int DataSize);
 
         #endregion
+#endif
         #region IDebugDataSpaces2
 
         /// <summary>

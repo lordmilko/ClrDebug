@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C9CD3D26-2A2D-4E14-99CD-2196F08C921A")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcMachineArchitecture
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcMachineArchitecture
     {
         /// <summary>
         /// Gets an IMAGE_FILE_MACHINE_* constant definining the architecture described by this interface. Note that some machines cannot be described by an IMAGE_FILE_MACHINE constant and would return IMAGE_CUSTOM from this.<para/>
@@ -25,7 +32,11 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT GetArchitectureGuid(
-            [Out] out Guid architecture);
+            [Out]
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(GuidMarshaller))]
+#endif
+            out Guid architecture);
 
         /// <summary>
         /// Gets the bitness of the architecture (32/64/etc...).

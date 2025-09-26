@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B8C74943-6B2C-4EEB-B5C5-35D378A6D99D")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHost
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHost
     {
         /// <summary>
         /// The GetHostDefinedInterface method returns the host's main private interface, if such exists for the given host.<para/>

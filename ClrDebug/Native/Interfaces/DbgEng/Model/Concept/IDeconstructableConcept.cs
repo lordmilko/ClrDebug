@@ -1,12 +1,19 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("F798139E-1B2C-4077-8D87-9FA5D044F3EB")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDeconstructableConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDeconstructableConcept
     {
         [PreserveSig]
         HRESULT GetConstructableModelName(

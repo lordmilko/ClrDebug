@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("53FBB33A-2F42-4465-9F02-0899ABF13460")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcBreakpointEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcBreakpointEnumerator
     {
         /// <summary>
         /// Resets the enumerator so that the first breakpoint in the collection is returned from the subsequent GetNext call.

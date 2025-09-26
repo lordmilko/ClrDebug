@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("53159B6D-D4C4-471B-A863-5B110CA800CA")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptDebugClient
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptDebugClient
     {
         /// <summary>
         /// Whenever any event occurs which breaks into the script debugger, the debug code itself makes a call to the interface via the NotifyDebugEvent method.<para/>

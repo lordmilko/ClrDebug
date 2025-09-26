@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5253DCF8-5AFF-4C62-B302-56A289E00998")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IModelKeyReference
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IModelKeyReference
     {
         /// <summary>
         /// The GetKeyName method returns the name of the key to which this key reference is a handle. The returned string is a standard BSTR and must be freed via a call to SysFreeString.

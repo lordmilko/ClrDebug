@@ -1,5 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("078BB523-7C08-4390-8FA5-921A4A0D5E07")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetSourceFileChecksums
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetSourceFileChecksums
     {
         /// <summary>
         /// Returns the source file checksum kind and the buffer length needed for it.

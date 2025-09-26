@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A7DF185B-CBBF-4B0D-BBA6-C58D6F9240C0")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcAddressRangeEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcAddressRangeEnumerator
     {
         /// <summary>
         /// Resets the enumerator.

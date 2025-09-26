@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C7371568-5C78-4A00-A4AB-6EF8823184CB")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICodeAddressConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICodeAddressConcept
     {
         [PreserveSig]
         HRESULT GetContainingSymbol(

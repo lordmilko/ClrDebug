@@ -1,13 +1,21 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("489468E6-7D0F-4AF5-87AB-25207454D553")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugSystemObjects4 : IDebugSystemObjects3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugSystemObjects4 : IDebugSystemObjects3
     {
+#if !GENERATED_MARSHALLING
         #region IDebugSystemObjects
 
         /// <summary>
@@ -425,7 +433,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCurrentProcessExecutableName(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int ExeSize);
 
@@ -609,11 +617,12 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         new HRESULT GetCurrentSystemServerName(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int Size,
             [Out] out int Needed);
 
         #endregion
+#endif
         #region IDebugSystemObjects4
 
         /// <summary>

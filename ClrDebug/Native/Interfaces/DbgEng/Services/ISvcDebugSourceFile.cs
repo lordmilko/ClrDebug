@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A0E9E780-FE9A-4085-AB4B-8B4CC276266A")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcDebugSourceFile
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcDebugSourceFile
     {
         /// <summary>
         /// Attempts to read the number of bytes specified by the 'readSize' argument from the file offset supplied by 'byteOffset' into the buffer supplied by the 'buffer' argument.<para/>

@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("8F815608-A145-4CF9-8488-9E0EAEA1F2B9")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcEventArgumentsProcessDiscovery
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcEventArgumentsProcessDiscovery
     {
         /// <summary>
         /// Gets the process which is (dis)appearing. For a process arrival event, the returned process must already be in the enumerator as of the firing of this event and must be fully valid.<para/>

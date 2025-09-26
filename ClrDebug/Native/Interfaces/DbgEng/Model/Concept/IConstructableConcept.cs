@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("1A9409F1-F0E0-4B48-9A4E-5783548FB57A")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IConstructableConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IConstructableConcept
     {
         [PreserveSig]
         HRESULT CreateInstance(

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A7830646-9F0C-4A31-BA19-503F33E6C8A3")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IComparableConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IComparableConcept
     {
         /// <summary>
         /// Compares this object to another (of arbitrary type). If the comparison cannot be performed, E_NOT_SET should be returned.<para/>

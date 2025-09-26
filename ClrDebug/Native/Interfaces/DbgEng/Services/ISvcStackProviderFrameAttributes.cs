@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("96CE81F7-C6B9-4665-B2E5-6EB229079091")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcStackProviderFrameAttributes
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcStackProviderFrameAttributes
     {
         /// <summary>
         /// Gets the "textual representation" of this stack frame. The meaning of this can vary by stack provider. Conceptually, this is what a debugger would place in a "call stack" window representing this frame.<para/>

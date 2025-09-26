@@ -1,12 +1,19 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("6b86fe2c-2c4f-4f0c-9da2-174311acc327")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugSystemObjects
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugSystemObjects
     {
         /// <summary>
         /// The GetEventThread method returns the engine thread ID for the thread on which the last event occurred.
@@ -423,7 +430,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentProcessExecutableName(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int ExeSize);
     }

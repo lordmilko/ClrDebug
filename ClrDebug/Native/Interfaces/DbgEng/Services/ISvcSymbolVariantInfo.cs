@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B886A5F0-96CA-4086-B7EB-24458283C4C1")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolVariantInfo
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolVariantInfo
     {
         /// <summary>
         /// Indicates whether this *TYPE* has variant members or is a variant record.
@@ -38,8 +45,14 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT GetDiscriminatorValues(
-            [Out, MarshalAs(UnmanagedType.Struct)] out object pLowRange,
-            [Out, MarshalAs(UnmanagedType.Struct)] out object pHighRange);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            [Out] out object pLowRange,
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            [Out] out object pHighRange);
 
         /// <summary>
         /// Enumerates all discriminator values for which this field/member is valid. While this function always works, it only NEEDS to be used if GetDiscriminatorValues returns S_FALSE as an indication that there are disjoint values.

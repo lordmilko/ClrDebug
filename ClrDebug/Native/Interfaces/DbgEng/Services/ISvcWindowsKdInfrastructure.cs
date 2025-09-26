@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("F980577B-73FA-40FE-95A3-C4D44100FD68")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcWindowsKdInfrastructure
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcWindowsKdInfrastructure
     {
         /// <summary>
         /// Finds the KD version block and returns its address. If the version block is not located within the address space of the debug source, this may fail.<para/>

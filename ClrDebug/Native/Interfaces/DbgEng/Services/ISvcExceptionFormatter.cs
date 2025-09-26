@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B181A69C-9D85-4747-8CF8-2ADF53CF750A")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcExceptionFormatter
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcExceptionFormatter
     {
         /// <summary>
         /// Gets a description of the given exceptional event (Win32 exception, Linux signal, etc...).

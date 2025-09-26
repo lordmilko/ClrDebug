@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("71BE9D83-969F-428B-A28D-3A439D61FDE9")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugServiceEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugServiceEnumerator
     {
         /// <summary>
         /// Resets the enumerator.
@@ -22,7 +29,11 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         HRESULT GetNext(
-            [Out] out Guid serviceGuid,
+            [Out]
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(GuidMarshaller))]
+#endif
+            out Guid serviceGuid,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer service);
     }
 }

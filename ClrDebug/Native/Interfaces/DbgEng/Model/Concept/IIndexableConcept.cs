@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D1FAD99F-3F53-4457-850C-8051DF2D3FB5")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IIndexableConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IIndexableConcept
     {
         /// <summary>
         /// The GetDimensionality method returns the number of dimensions that the object is indexed in. Note that if the object is both iterable and indexable, the implementation of GetDefaultIndexDimensionality must agree with the implementation of GetDimensionality as to how many dimensions the indexer has.

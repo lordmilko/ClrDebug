@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("7D90CF81-BEE2-4B91-9D49-8FEC0F7D56D1")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScript2 : IDataModelScript
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScript2 : IDataModelScript
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetName method returns the name of the script as an allocated string via the SysAllocString function. If the script does not yet have a name, the method should return a null BSTR.<para/>
         /// It should not fail in this circumstance. If the script is explicitly renamed via a call to the Rename method, the GetName method should return the newly assigned name.
@@ -92,6 +100,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT InvokeMain(
             [In, MarshalAs(UnmanagedType.Interface)] IDataModelScriptClient client);
+#endif
         
         [PreserveSig]
         HRESULT GetScriptFullFilePathName(

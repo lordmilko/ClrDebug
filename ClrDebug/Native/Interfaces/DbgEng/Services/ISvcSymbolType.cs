@@ -1,12 +1,19 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("58AC3F3F-0886-4AA0-A074-9635CC0DDE95")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolType
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolType
     {
         /// <summary>
         /// Gets the kind of type symbol that this is (e.g.: base type, struct, array, etc...).

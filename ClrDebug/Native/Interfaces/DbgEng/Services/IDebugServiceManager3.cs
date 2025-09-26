@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("17B978DD-15C0-4318-A3D0-15305C6DD0D4")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugServiceManager3 : IDebugServiceManager2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugServiceManager3 : IDebugServiceManager2
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Enumerates all of the services in the service manager.
         /// </summary>
@@ -27,8 +35,18 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT QueryService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceInterface,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object interfaceUnknown);
 
         /// <summary>
@@ -37,7 +55,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT LocateService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer service);
 
         /// <summary>
@@ -46,7 +69,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT RegisterService(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -54,7 +82,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT RegisterEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -62,7 +95,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT UnregisterEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
 
         /// <summary>
@@ -70,9 +108,15 @@ namespace ClrDebug.DbgEng
         /// </summary>
         [PreserveSig]
         new HRESULT FireEventNotification(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] object eventArgument,
             [Out] out HRESULT pSinkResult);
+#endif
 
         /// <summary>
         /// Clients should call this before releasing their final reference to the service manager. This will remove and uninitialize any services still in the service container.

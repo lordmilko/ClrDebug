@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("f2df5f53-071f-47bd-9de6-5734c3fed689")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugAdvanced
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugAdvanced
     {
         /// <summary>
         /// The GetThreadContext method returns the current thread context.

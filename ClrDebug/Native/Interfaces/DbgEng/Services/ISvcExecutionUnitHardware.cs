@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("F272C72D-E794-498F-B169-2F74B38A2DAE")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcExecutionUnitHardware
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcExecutionUnitHardware
     {
         [PreserveSig]
         HRESULT GetSpecialContext(

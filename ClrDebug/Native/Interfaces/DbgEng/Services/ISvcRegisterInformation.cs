@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B91E34DE-6407-4583-BBAE-95FE20548363")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcRegisterInformation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcRegisterInformation
     {
         /// <summary>
         /// Gets the name of the register.

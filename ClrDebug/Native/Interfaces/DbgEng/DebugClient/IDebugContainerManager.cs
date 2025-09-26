@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
 
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("390a7e36-079a-4dbe-82d6-76c96fa040b2")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugContainerManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugContainerManager
     {
         [PreserveSig]
         HRESULT CreateContainer(
@@ -19,7 +26,12 @@ namespace ClrDebug.DbgEng
 
         [PreserveSig]
         HRESULT OpenContainer(
-            [MarshalAs(UnmanagedType.LPStruct), In] Guid id,
+#if !GENERATED_MARSHALLING
+            [MarshalAs(UnmanagedType.LPStruct), In]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid id,
             [Out] out long container);
 
         [PreserveSig]
@@ -43,14 +55,14 @@ namespace ClrDebug.DbgEng
             [In] long activity,
             [MarshalAs(UnmanagedType.LPWStr), In] string commandLine,
             [MarshalAs(UnmanagedType.LPWStr), In] string username,
-            [In] bool useExistingLoginSession);
+            [In, MarshalAs(UnmanagedType.Bool)] bool useExistingLoginSession);
 
         [PreserveSig]
         HRESULT RunProcessInContainer(
             [In] long activity,
             [MarshalAs(UnmanagedType.LPWStr), In] string commandLine,
             [MarshalAs(UnmanagedType.LPWStr), In] string username,
-            [In] bool useExistingLoginSession,
+            [In, MarshalAs(UnmanagedType.Bool)] bool useExistingLoginSession,
             [MarshalAs(UnmanagedType.Interface), In] IDebugOutputStream programOutput,
             [Out] out int exitCode);
 
@@ -59,7 +71,7 @@ namespace ClrDebug.DbgEng
             [In] long activity,
             [MarshalAs(UnmanagedType.LPWStr), In] string hostFolder,
             [MarshalAs(UnmanagedType.LPWStr), In] string containerFolder,
-            [In] bool readOnly);
+            [In, MarshalAs(UnmanagedType.Bool)] bool readOnly);
 
         [PreserveSig]
         HRESULT UnmapFolderFromContainer(

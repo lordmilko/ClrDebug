@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C809D0B1-4563-4577-BFDC-AF951FCE5308")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcOSKernelTypes
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcOSKernelTypes
     {
         /// <summary>
         /// If the kernel describes the notion of processes from a process enumerator and such objects have an object in the kernel associated with them, that object is of this type.<para/>

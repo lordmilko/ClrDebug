@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3DEC5C44-F63A-4CA6-90F0-FD5C269FDA59")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IActionEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IActionEnumerator
     {
         [PreserveSig]
         HRESULT Reset();

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("4C1BEC33-1B39-4708-AB0A-C8AE0E9DDB3E")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSegmentTranslation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSegmentTranslation
     {
         /// <summary>
         /// Translates a selector into a given linear address description. The caller must fill in the size of the descriptor request in SizeOfDescription.<para/>

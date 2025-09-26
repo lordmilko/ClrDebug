@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("04E3E600-9A10-48DF-A618-775B3E36A740")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcPrimaryModules
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcPrimaryModules
     {
         /// <summary>
         /// Finds the main executable module for the given process. This is the executable image which started the given process.<para/>

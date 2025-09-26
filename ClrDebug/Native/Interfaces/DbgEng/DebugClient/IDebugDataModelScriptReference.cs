@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FD5D43CB-9A6D-418E-8804-4EDE27CFC3A4")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugDataModelScriptReference
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugDataModelScriptReference
     {
         [PreserveSig]
         HRESULT Populate(

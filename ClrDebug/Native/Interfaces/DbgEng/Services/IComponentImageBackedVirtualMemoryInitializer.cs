@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2AD7F2CB-E309-4D5D-B97D-41436360B7D1")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IComponentImageBackedVirtualMemoryInitializer
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IComponentImageBackedVirtualMemoryInitializer
     {
         /// <summary>
         /// Initializes the image backed virtual memory service with an underlying virtual memory service. The given service must support ISvcMemoryAccess and *SHOULD* implement ISvcMemoryInformation.<para/>

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("81E83593-5AA9-43AA-8A5D-B964411E4B53")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcStackProviderFrameSetEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcStackProviderFrameSetEnumerator
     {
         /// <summary>
         /// Gets the unwinder context which is associated with this frame set.

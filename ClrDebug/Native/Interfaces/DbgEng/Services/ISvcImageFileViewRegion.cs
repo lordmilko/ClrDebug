@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E9BF1356-BA52-4B57-887F-2998499D5DCB")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcImageFileViewRegion
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcImageFileViewRegion
     {
         /// <summary>
         /// Gets the file offset of the file region.

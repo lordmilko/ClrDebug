@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("4bf58045-d654-4c40-b0af-683090f356dc")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugOutputCallbacks
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugOutputCallbacks
     {
         /// <summary>
         /// The Output callback method is called by the engine to send output from the client to the IDebugOutputCallbacks object that is registered with the client.

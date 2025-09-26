@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C5A05162-A375-48FC-AB00-3045C6386836")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcRegisterTranslation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcRegisterTranslation
     {
         /// <summary>
         /// Translates from a canonical register ID to a domain specific register ID. The canonical register ID is whatever the architecture service defines for a given architecture.<para/>

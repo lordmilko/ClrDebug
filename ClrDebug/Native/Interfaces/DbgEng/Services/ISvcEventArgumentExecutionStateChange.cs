@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("316D57FC-A856-400A-A259-93D9166955AF")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcEventArgumentExecutionStateChange
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcEventArgumentExecutionStateChange
     {
         /// <summary>
         /// Gets the kind of execution state change which has occurred.

@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3870640B-8D1E-469D-8552-F38D48E28766")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcTrapContextRestoration
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcTrapContextRestoration
     {
         /// <summary>
         /// Given a register context of a trap handler (e.g.: a signal frame), restores the register context at the trap point.<para/>

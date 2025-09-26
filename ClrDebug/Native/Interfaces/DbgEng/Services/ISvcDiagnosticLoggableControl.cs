@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("432BEA74-794D-46FB-AC50-EBECA9AA865C")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcDiagnosticLoggableControl
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcDiagnosticLoggableControl
     {
         /// <summary>
         /// Gets the current diagnostic logging level for this service.

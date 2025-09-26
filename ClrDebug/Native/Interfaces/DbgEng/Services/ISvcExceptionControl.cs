@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5A37C25E-4F8D-47BE-87F5-94A933824A83")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcExceptionControl
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcExceptionControl
     {
         /// <summary>
         /// Indicates whether this exception is the first or second chance. If the target cannot make a determination of first/second chance, E_NOTIMPL should be returned.

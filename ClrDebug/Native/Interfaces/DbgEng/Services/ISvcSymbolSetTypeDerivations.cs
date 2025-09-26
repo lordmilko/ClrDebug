@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5742B585-5542-4A5B-93E1-A05A6D9B6B89")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetTypeDerivations
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetTypeDerivations
     {
         /// <summary>
         /// Returns an ISvcSymbolType representing an array from a partial description of what that array may look like at a linguistic level.<para/>

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("31A3942E-E145-4112-9014-88DC7593028E")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcMappingInformation
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcMappingInformation
     {
         /// <summary>
         /// Gets the manner in which the object QI'd for this interface is mapped into memory.

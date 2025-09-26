@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("F5D49D0C-0B02-4301-9C9B-B3A6037628F3")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IIterableConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IIterableConcept
     {
         /// <summary>
         /// The GetDefaultIndexDimensionality method returns the number of dimensions to the default index. If an object is not indexable, this method should return 0 and succeed (S_OK).<para/>

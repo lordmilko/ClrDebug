@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("7947495F-383B-49C7-B1C5-1F959DD99D09")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbol
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbol
     {
         /// <summary>
         /// Gets the kind of symbol that this is (e.g.: a field, a base class, a type, etc...).

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("0F9FEED7-D045-4AC3-98A8-A98942CF6A35")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptDebugVariableSetEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptDebugVariableSetEnumerator
     {
         /// <summary>
         /// The Reset method resets the position of the enumerator to where it was immediately after creation -- that is, before the first element of the set.

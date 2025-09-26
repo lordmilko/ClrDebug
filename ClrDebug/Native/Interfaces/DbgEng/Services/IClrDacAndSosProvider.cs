@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("498CBE80-B1F4-4F55-91E1-477C507A1D9F")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IClrDacAndSosProvider
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IClrDacAndSosProvider
     {
         /// <summary>
         /// Determines if an image/module is a CLR image and if it can provide (retrieve/download/etc.) the CLR DAC and SOS for it.

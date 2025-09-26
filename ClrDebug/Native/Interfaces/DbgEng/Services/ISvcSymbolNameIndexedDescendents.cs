@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B76E15E2-132E-42ED-9EFA-D798ED6EA6A5")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolNameIndexedDescendents
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolNameIndexedDescendents
     {
         /// <summary>
         /// Enumerates the sub-tree rooted at the object implementing this interface for search criteria similar to ISvcSymbolChildren::EnumerateChildren.<para/>

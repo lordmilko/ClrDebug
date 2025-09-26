@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("6FA683AF-06AA-484D-87CF-137C1EA016BD")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSet
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSet
     {
         /// <summary>
         /// Returns the symbol for a given symbol ID (returned by ISvcSymbol::GetId).

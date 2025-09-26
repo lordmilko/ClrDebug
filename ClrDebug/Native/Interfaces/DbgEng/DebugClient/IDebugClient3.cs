@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("dd492d7f-71b8-4ad6-a8dc-1c887479ff91")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugClient3 : IDebugClient2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugClient3 : IDebugClient2
     {
+#if !GENERATED_MARSHALLING
         #region IDebugClient
 
         /// <summary>
@@ -43,7 +51,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetKernelConnectionOptions(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int OptionsSize);
 
@@ -175,10 +183,10 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] ExeName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] byte[] ExeName,
             [In] int ExeNameSize,
             [Out] out int ActualExeNameSize,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] Description,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] byte[] Description,
             [In] int DescriptionSize,
             [Out] out int ActualDescriptionSize);
 
@@ -632,7 +640,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetOutputLinePrefix(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int PrefixSize);
 
@@ -661,7 +669,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetIdentity(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int IdentitySize);
 
@@ -851,6 +859,7 @@ namespace ClrDebug.DbgEng
         new HRESULT AbandonCurrentProcess();
 
         #endregion
+#endif
         #region IDebugClient3
 
         /// <summary>

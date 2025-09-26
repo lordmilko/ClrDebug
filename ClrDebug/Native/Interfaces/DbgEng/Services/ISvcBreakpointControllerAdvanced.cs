@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("F1A32D9A-922A-41B6-ADFF-AC363BB982D5")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcBreakpointControllerAdvanced
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcBreakpointControllerAdvanced
     {
         /// <summary>
         /// ; Indicates whether or not the register context retrieved for a breakpoint trap reflects @pc as reported by the underlying hardware trap/fault.<para/>

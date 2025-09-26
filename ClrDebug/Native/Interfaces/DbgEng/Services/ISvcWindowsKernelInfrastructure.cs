@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C6B492DC-CBC1-4574-8E16-95BDFC06AEA0")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcWindowsKernelInfrastructure
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcWindowsKernelInfrastructure
     {
         /// <summary>
         /// Finds the KPCR for a given processor.

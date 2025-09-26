@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -17,8 +20,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("6BF32043-E2A9-462D-99B1-B2E6C15252A2")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugServiceLayer
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugServiceLayer
     {
         /// <summary>
         /// Registers the services in a service layer / component with a service manager. This only registers any canonical services.<para/>
@@ -35,7 +42,12 @@ namespace ClrDebug.DbgEng
         HRESULT GetServiceDependencies(
             [In] ServiceNotificationKind notificationKind,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceManager serviceManager,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [In] long sizeHardDependencies,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] Guid[] pHardDependencies,
             [Out] out long pNumHardDependencies,
@@ -50,7 +62,12 @@ namespace ClrDebug.DbgEng
         HRESULT InitializeServices(
             [In] ServiceNotificationKind notificationKind,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceManager serviceManager,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid);
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid);
 
         /// <summary>
         /// Services in the services stack are notified of changes (the addition or removal of layers) via a call to this method.
@@ -59,7 +76,12 @@ namespace ClrDebug.DbgEng
         HRESULT NotifyServiceChange(
             [In] ServiceNotificationKind notificationKind,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceManager serviceManager,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid serviceGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid serviceGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer priorService,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer newService);
 
@@ -69,7 +91,12 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT NotifyEvent(
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceManager serviceManager,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid eventGuid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] object eventArgument);
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -9,8 +12,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D15DF42A-5E14-4981-8DFE-3379D0198846")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetSimpleInlineSourceLineResolution
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetSimpleInlineSourceLineResolution
     {
         /// <summary>
         /// FindSourceLineByOffsetAndInlineSymbol Works similarly to ISvcSymbolSetSimpleLineResolution::FindSourceLineByOffset excepting that it passes a specific inline frame to indicate which of multiply nested inline functions to return the line of code for.<para/>

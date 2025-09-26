@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("55C7E6F4-D357-4209-ACF7-55D945AF3841")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcRegisterFlagsEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcRegisterFlagsEnumerator
     {
         /// <summary>
         /// Gets the next flag in the register. Returns E_BOUNDS if there are no more.

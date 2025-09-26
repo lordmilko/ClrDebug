@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D28E8D70-6C00-4205-940D-501016601EA3")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IStringDisplayableConcept
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IStringDisplayableConcept
     {
         /// <summary>
         /// The ToDisplayString method is called whenever a client wishes to convert an object into a string to display (to console, in the UI, etc...).<para/>

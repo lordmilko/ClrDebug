@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,8 +11,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("8803404F-DFE5-40C5-A8B8-F39AEB04CF86")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISvcSymbolSetSimpleSourceLineResolution
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISvcSymbolSetSimpleSourceLineResolution
     {
         /// <summary>
         /// Finds the offset for the given line within the image. If there are multiple mappings for the given line, this will return the first/best (depending on the underlying provider) and return S_FALSE as an indication that a more in-depth query with more advanced interfaces are required.<para/>

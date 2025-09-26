@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("6FD11E33-E5AD-410B-8011-68C6BC4BF80D")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptManager
     {
         /// <summary>
         /// The GetDefaultNameBinder method returns the data model's default script name binder. A name binder is a component which resolves a name within the context of an object.<para/>

@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("513461E0-4FCA-48CE-8658-32F3E2056F3B")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptProvider
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptProvider
     {
         /// <summary>
         /// The GetName method returns the name of the type of (or language of) scripts which the provider manages as a string allocated via the SysAllocString method.<para/>

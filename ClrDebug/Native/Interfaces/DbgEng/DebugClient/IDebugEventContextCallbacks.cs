@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -11,8 +14,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("61a4905b-23f9-4247-b3c5-53d087529ab7")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugEventContextCallbacks
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugEventContextCallbacks
     {
         [PreserveSig]
         HRESULT GetInterestMask(

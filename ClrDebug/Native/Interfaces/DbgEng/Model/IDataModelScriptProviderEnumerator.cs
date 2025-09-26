@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("95BA00E2-704A-4FE2-A8F1-A7E7D8FB0941")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelScriptProviderEnumerator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelScriptProviderEnumerator
     {
         /// <summary>
         /// Resets the enumerator to the first element.

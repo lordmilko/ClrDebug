@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("9f50e42c-f136-499e-9a97-73036c94ed2d")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugInputCallbacks
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugInputCallbacks
     {
         /// <summary>
         /// The StartInput callback method is called by the engine to indicate that it is waiting for a line of input.

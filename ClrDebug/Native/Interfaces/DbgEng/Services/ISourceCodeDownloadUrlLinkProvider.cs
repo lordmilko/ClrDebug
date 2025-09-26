@@ -1,12 +1,19 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B497B0C9-9572-4257-A156-792D3AF03D94")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISourceCodeDownloadUrlLinkProvider
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISourceCodeDownloadUrlLinkProvider
     {
         /// <summary>
         /// Retrieves the list of download URLs for the specified file. To the best knowledge of the provider this list is the location where the source file might be found.<para/>

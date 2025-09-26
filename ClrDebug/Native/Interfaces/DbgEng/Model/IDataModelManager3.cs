@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("8642DAF8-6EF5-4753-B53F-D83A5CEE8100")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDataModelManager3 : IDataModelManager2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDataModelManager3 : IDataModelManager2
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The Close method is called on the data model manager by an application (e.g.: debugger) hosting the data model in order to start the shutdown process of the data model manager.<para/>
         /// A host of the data model which does not the Close method prior to releasing its final reference on the data model manager may cause undefined behavior including, but not limited to, significant leaks of the management infrastructure for the data model.
@@ -347,6 +355,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr intrinsicData,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostType type,
             [Out, MarshalAs(UnmanagedType.Interface)] out IModelObject @object);
+#endif
         
         [PreserveSig]
         HRESULT AcquireFilteredSubNamespace(

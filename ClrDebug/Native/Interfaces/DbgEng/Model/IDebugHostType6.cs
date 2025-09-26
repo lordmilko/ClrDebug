@@ -1,14 +1,22 @@
 ﻿using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using ClrDebug.TypeLib;
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("08B431ED-F684-4480-8C44-B543AA32CEB0")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebugHostType6 : IDebugHostType5
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebugHostType6 : IDebugHostType5
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// The GetContext method returns the context where the symbol is valid. While this will represent things such as the debug target and process/address space in which the symbol exists, it may not be as specific as a context retrieved from other means (e.g.: from an <see cref="IModelObject"/>).
         /// </summary>
@@ -360,12 +368,16 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostSymbol pComparisonSymbol,
             [In] int comparisonFlags,
             [Out, MarshalAs(UnmanagedType.U1)] out bool pMatches);
+#endif
         
         [PreserveSig]
         HRESULT GetTaggedUnionTag(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugHostType pTagType,
             [Out] out int pTagOffset,
-            [Out, MarshalAs(UnmanagedType.Struct)] out object pTagMask);
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            [Out] out object pTagMask);
         
         [PreserveSig]
         HRESULT GetTaggedUnionTagRanges(

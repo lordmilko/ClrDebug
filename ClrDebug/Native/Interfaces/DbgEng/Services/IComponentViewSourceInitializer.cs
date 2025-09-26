@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("8CE08C3C-A860-4604-B73E-06813B5380F8")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IComponentViewSourceInitializer
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IComponentViewSourceInitializer
     {
         /// <summary>
         /// Initializes the DEBUG_COMPONENTSVC_VIEWSOURCE component.
