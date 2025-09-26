@@ -24,7 +24,7 @@ namespace ClrDebug.DIA
             [Out] out int pRetVal);
 
         [PreserveSig]
-        HRESULT get_timeStamp(
+        HRESULT get_timestamp(
             [Out] out int pRetVal);
 
         [PreserveSig]

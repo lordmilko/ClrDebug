@@ -15,7 +15,7 @@ namespace ClrDebug.DIA
     public partial interface IDiaEnumInputAssemblyFiles
     {
         [PreserveSig]
-        HRESULT NewEnum(
+        HRESULT get__NewEnum(
             [Out, MarshalAs(UnmanagedType.Interface)] out IEnumVARIANT pRetVal);
 
         [PreserveSig]

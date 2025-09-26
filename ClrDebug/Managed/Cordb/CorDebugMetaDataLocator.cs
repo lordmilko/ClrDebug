@@ -33,7 +33,7 @@ namespace ClrDebug
         /// dump was collected. The file may not exist at this location, or an incorrect file with the same name may be stored
         /// on the path.
         /// </remarks>
-        public string GetMetaData(string wszImagePath, int dwImageTimeStamp, int dwImageSize)
+        public string GetMetaData(string wszImagePath, uint dwImageTimeStamp, int dwImageSize)
         {
             string wszPathBufferResult;
             TryGetMetaData(wszImagePath, dwImageTimeStamp, dwImageSize, out wszPathBufferResult).ThrowOnNotOK();
@@ -62,11 +62,11 @@ namespace ClrDebug
         /// dump was collected. The file may not exist at this location, or an incorrect file with the same name may be stored
         /// on the path.
         /// </remarks>
-        public HRESULT TryGetMetaData(string wszImagePath, int dwImageTimeStamp, int dwImageSize, out string wszPathBufferResult)
+        public HRESULT TryGetMetaData(string wszImagePath, uint dwImageTimeStamp, int dwImageSize, out string wszPathBufferResult)
         {
             /*HRESULT GetMetaData(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszImagePath,
-            [In] int dwImageTimeStamp,
+            [In] uint dwImageTimeStamp,
             [In] int dwImageSize,
             [In] int cchPathBuffer,
             [Out] out int pcchPathBuffer,

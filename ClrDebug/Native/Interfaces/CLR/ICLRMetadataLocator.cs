@@ -41,7 +41,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetMetadata(
             [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
-            [In] int imageTimestamp,
+            [In] uint imageTimestamp,
             [In] int imageSize,
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]

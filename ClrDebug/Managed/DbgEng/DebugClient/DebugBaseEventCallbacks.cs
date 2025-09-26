@@ -1,4 +1,7 @@
 ﻿using System;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.DbgEng
 {
@@ -8,7 +11,10 @@ namespace ClrDebug.DbgEng
     /// and implement only the methods they are interested in.<para/>
     /// Programs must be careful to implement <see cref="GetInterestMask(out DEBUG_EVENT_TYPE)"/> appropriately.
     /// </summary>
-    public abstract class DebugBaseEventCallbacks : IDebugEventCallbacks
+#if GENERATED_MARSHALLING
+    [GeneratedComClass]
+#endif
+    public abstract partial class DebugBaseEventCallbacks : IDebugEventCallbacks
     {
         public abstract HRESULT GetInterestMask(out DEBUG_EVENT_TYPE mask);
 

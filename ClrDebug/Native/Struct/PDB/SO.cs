@@ -1,5 +1,8 @@
-﻿namespace ClrDebug.PDB
+﻿using System.Diagnostics;
+
+namespace ClrDebug.PDB
 {
+    [DebuggerDisplay("off = {off}, isect = {isect}")]
     public struct SO
     {
         public int off;

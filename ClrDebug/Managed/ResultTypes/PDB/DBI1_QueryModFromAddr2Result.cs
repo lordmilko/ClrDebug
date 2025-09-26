@@ -6,12 +6,12 @@ namespace ClrDebug.PDB
     public struct DBI1_QueryModFromAddr2Result
     {
         public Mod1 ppmod;
-        public short pisect;
+        public ushort pisect;
         public int poff;
         public int pcb;
-        public int pdwCharacteristics;
+        public IMAGE_SCN pdwCharacteristics;
 
-        public DBI1_QueryModFromAddr2Result(Mod1 ppmod, short pisect, int poff, int pcb, int pdwCharacteristics)
+        public DBI1_QueryModFromAddr2Result(Mod1 ppmod, ushort pisect, int poff, int pcb, IMAGE_SCN pdwCharacteristics)
         {
             this.ppmod = ppmod;
             this.pisect = pisect;

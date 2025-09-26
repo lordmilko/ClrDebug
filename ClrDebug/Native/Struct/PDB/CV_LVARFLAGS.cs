@@ -39,7 +39,7 @@ namespace ClrDebug.PDB
         }
 
         /// <summary>
-        /// the symbol is splitted in temporaries,
+        /// the symbol is splitted in temporaries, which are treated by compiler as independent entities
         /// </summary>
         public bool fIsAggregate
         {
@@ -47,10 +47,8 @@ namespace ClrDebug.PDB
             set => SetBitFlag(ref flags, 3, value);
         }
 
-        // which are treated by compiler as
-        // independent entities
         /// <summary>
-        /// Counterpart of fIsAggregate - tells
+        /// Counterpart of fIsAggregate - tells that it is a part of a fIsAggregate symbol
         /// </summary>
         public bool fIsAggregated
         {
@@ -58,7 +56,6 @@ namespace ClrDebug.PDB
             set => SetBitFlag(ref flags, 4, value);
         }
 
-        // that it is a part of a fIsAggregate symbol
         /// <summary>
         /// variable has multiple simultaneous lifetimes
         /// </summary>

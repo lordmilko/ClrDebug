@@ -5,13 +5,13 @@ namespace ClrDebug.PDB
     [DebuggerDisplay("pimod = {pimod}, pisect = {pisect}, poff = {poff}, pcb = {pcb}, pdwCharacteristics = {pdwCharacteristics}")]
     public struct DBI1_QueryImodFromAddrResult
     {
-        public short pimod;
-        public short pisect;
+        public ushort pimod;
+        public ushort pisect;
         public int poff;
         public int pcb;
-        public int pdwCharacteristics;
+        public IMAGE_SCN pdwCharacteristics;
 
-        public DBI1_QueryImodFromAddrResult(short pimod, short pisect, int poff, int pcb, int pdwCharacteristics)
+        public DBI1_QueryImodFromAddrResult(ushort pimod, ushort pisect, int poff, int pcb, IMAGE_SCN pdwCharacteristics)
         {
             this.pimod = pimod;
             this.pisect = pisect;

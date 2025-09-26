@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using ClrDebug.PDB;
 using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
@@ -99,7 +100,7 @@ namespace ClrDebug.DIA
         /// </remarks>
         [PreserveSig]
         HRESULT get_sourceCompression(
-            [Out] out int pRetVal);
+            [Out] out SrcCompress pRetVal);
 
         /// <summary>
         /// Retrieves the source code bytes.

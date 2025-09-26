@@ -393,7 +393,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="parent">[in] The parent of the variable.</param>
         /// <returns>[out] A pointer to the variable that receives the variables.</returns>
-        public SymUnmanagedVariable[] GetVariables(int parent)
+        public SymUnmanagedVariable[] GetVariables(mdToken parent)
         {
             SymUnmanagedVariable[] pVarsResult;
             TryGetVariables(parent, out pVarsResult).ThrowOnNotOK();
@@ -407,7 +407,7 @@ namespace ClrDebug
         /// <param name="parent">[in] The parent of the variable.</param>
         /// <param name="pVarsResult">[out] A pointer to the variable that receives the variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetVariables(int parent, out SymUnmanagedVariable[] pVarsResult)
+        public HRESULT TryGetVariables(mdToken parent, out SymUnmanagedVariable[] pVarsResult)
         {
             /*HRESULT GetVariables(
             [In] int parent,
@@ -885,6 +885,231 @@ namespace ClrDebug
 
             fail:
             pRetValResult = default(SymUnmanagedMethod[]);
+
+            return hr;
+        }
+
+        #endregion
+        #endregion
+        #region ISymUnmanagedReader3
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ISymUnmanagedReader3 Raw3 => (ISymUnmanagedReader3) Raw;
+
+        #region GetSymAttributeByVersion
+
+        /// <summary>
+        /// Gets a custom debug information based upon its name and an EnC 1-based version number.
+        /// </summary>
+        public int GetSymAttributeByVersion(mdToken methodToken, int version, string name, int bufferLength, IntPtr customDebugInformation)
+        {
+            int count;
+            TryGetSymAttributeByVersion(methodToken, version, name, bufferLength, out count, customDebugInformation).ThrowOnNotOK();
+
+            return count;
+        }
+
+        /// <summary>
+        /// Gets a custom debug information based upon its name and an EnC 1-based version number.
+        /// </summary>
+        public HRESULT TryGetSymAttributeByVersion(mdToken methodToken, int version, string name, int bufferLength, out int count, IntPtr customDebugInformation)
+        {
+            /*HRESULT GetSymAttributeByVersion(
+            [In] mdToken methodToken,
+            [In] int version,
+            [MarshalAs(UnmanagedType.LPWStr), In] string name,
+            [In] int bufferLength,
+            [Out] out int count,
+            [Out] IntPtr customDebugInformation);*/
+            return Raw3.GetSymAttributeByVersion(methodToken, version, name, bufferLength, out count, customDebugInformation);
+        }
+
+        #endregion
+        #region GetSymAttributeByVersionPreRemap
+
+        /// <summary>
+        /// Gets a custom debug information based upon its name and an EnC 1-based version number.
+        /// </summary>
+        public int GetSymAttributeByVersionPreRemap(mdToken methodToken, int version, string name, int bufferLength, IntPtr customDebugInformation)
+        {
+            int count;
+            TryGetSymAttributeByVersionPreRemap(methodToken, version, name, bufferLength, out count, customDebugInformation).ThrowOnNotOK();
+
+            return count;
+        }
+
+        /// <summary>
+        /// Gets a custom debug information based upon its name and an EnC 1-based version number.
+        /// </summary>
+        public HRESULT TryGetSymAttributeByVersionPreRemap(mdToken methodToken, int version, string name, int bufferLength, out int count, IntPtr customDebugInformation)
+        {
+            /*HRESULT GetSymAttributeByVersionPreRemap(
+            [In] mdToken methodToken,
+            [In] int version,
+            [MarshalAs(UnmanagedType.LPWStr), In] string name,
+            [In] int bufferLength,
+            [Out] out int count,
+            [Out] IntPtr customDebugInformation);*/
+            return Raw3.GetSymAttributeByVersionPreRemap(methodToken, version, name, bufferLength, out count, customDebugInformation);
+        }
+
+        #endregion
+        #endregion
+        #region ISymUnmanagedReader4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ISymUnmanagedReader4 Raw4 => (ISymUnmanagedReader4) Raw;
+
+        #region PortableDebugMetadata
+
+        /// <summary>
+        /// Returns a pointer to Portable Debug Metadata. Only available for Portable PDBs.
+        /// </summary>
+        public GetPortableDebugMetadataResult PortableDebugMetadata
+        {
+            get
+            {
+                GetPortableDebugMetadataResult result;
+                TryGetPortableDebugMetadata(out result).ThrowOnNotOK();
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Returns a pointer to Portable Debug Metadata. Only available for Portable PDBs.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        public HRESULT TryGetPortableDebugMetadata(out GetPortableDebugMetadataResult result)
+        {
+            /*HRESULT GetPortableDebugMetadata(
+            [Out] out IntPtr metadata,
+            [Out] out int size);*/
+            IntPtr metadata;
+            int size;
+            HRESULT hr = Raw4.GetPortableDebugMetadata(out metadata, out size);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetPortableDebugMetadataResult(metadata, size);
+            else
+                result = default(GetPortableDebugMetadataResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region SourceServerData
+
+        /// <summary>
+        /// Returns a pointer to Source Server data stored in the PDB (source link data for Portable PDB or srcsvr section for Windows PDB).
+        /// </summary>
+        public GetSourceServerDataResult SourceServerData
+        {
+            get
+            {
+                GetSourceServerDataResult result;
+                TryGetSourceServerData(out result).ThrowOnNotOK();
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Returns a pointer to Source Server data stored in the PDB (source link data for Portable PDB or srcsvr section for Windows PDB).
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// This method is a replacement for <see cref="M:ISymUnmanagedSourceServerModule.GetSourceServerData"/>.
+        /// The reader doesn't implement <see cref="M:ISymUnmanagedSourceServerModule.GetSourceServerData"/> since
+        /// the format of the returned data is completely different for Portable PDBs, which the callers wouldn't expect.
+        /// The native diasymreader may implement <see cref="SourceServerData"/> by simply calling
+        /// to <see cref="M:ISymUnmanagedSourceServerModule.GetSourceServerData"/>.
+        /// </remarks>
+        public HRESULT TryGetSourceServerData(out GetSourceServerDataResult result)
+        {
+            /*HRESULT GetSourceServerData(
+            [Out] out IntPtr data,
+            [Out] out int size);*/
+            IntPtr data;
+            int size;
+            HRESULT hr = Raw4.GetSourceServerData(out data, out size);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetSourceServerDataResult(data, size);
+            else
+                result = default(GetSourceServerDataResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region MatchesModule
+
+        /// <summary>
+        /// Checks whether the id stored in the PDB matches the PDB ID stored in the PE/COFF Debug Directory.
+        /// </summary>
+        public bool MatchesModule(Guid guid, uint timestamp, int age)
+        {
+            bool result;
+            TryMatchesModule(guid, timestamp, age, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Checks whether the id stored in the PDB matches the PDB ID stored in the PE/COFF Debug Directory.
+        /// </summary>
+        public HRESULT TryMatchesModule(Guid guid, uint timestamp, int age, out bool result)
+        {
+            /*HRESULT MatchesModule(
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [In] uint timestamp,
+            [In] int age,
+            [MarshalAs(UnmanagedType.Bool), Out] out bool result);*/
+            return Raw4.MatchesModule(guid, timestamp, age, out result);
+        }
+
+        #endregion
+        #endregion
+        #region ISymUnmanagedReader5
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ISymUnmanagedReader5 Raw5 => (ISymUnmanagedReader5) Raw;
+
+        #region GetPortableDebugMetadataByVersion
+
+        /// <summary>
+        /// Returns a pointer to Portable Debug Metadata of the specified version (EnC generation). Only available for Portable PDBs.
+        /// </summary>
+        /// <param name="version">EnC 1-based version number. Version 1 corresponds to the baseline.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        public GetPortableDebugMetadataByVersionResult GetPortableDebugMetadataByVersion(int version)
+        {
+            GetPortableDebugMetadataByVersionResult result;
+            TryGetPortableDebugMetadataByVersion(version, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a pointer to Portable Debug Metadata of the specified version (EnC generation). Only available for Portable PDBs.
+        /// </summary>
+        /// <param name="version">EnC 1-based version number. Version 1 corresponds to the baseline.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        public HRESULT TryGetPortableDebugMetadataByVersion(int version, out GetPortableDebugMetadataByVersionResult result)
+        {
+            /*HRESULT GetPortableDebugMetadataByVersion(
+            [In] int version,
+            [Out] out IntPtr metadata,
+            [Out] out int size);*/
+            IntPtr metadata;
+            int size;
+            HRESULT hr = Raw5.GetPortableDebugMetadataByVersion(version, out metadata, out size);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetPortableDebugMetadataByVersionResult(metadata, size);
+            else
+                result = default(GetPortableDebugMetadataByVersionResult);
 
             return hr;
         }

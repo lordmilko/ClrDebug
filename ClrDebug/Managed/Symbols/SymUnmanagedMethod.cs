@@ -421,5 +421,11 @@ namespace ClrDebug
 
         #endregion
         #endregion
+        #region ISymUnmanagedMethod2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ISymUnmanagedMethod2 Raw2 => (ISymUnmanagedMethod2) Raw;
+
+        #endregion
     }
 }

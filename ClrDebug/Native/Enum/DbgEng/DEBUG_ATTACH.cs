@@ -19,7 +19,7 @@ namespace ClrDebug.DbgEng
         EXDI_DRIVER = 2,
 
         /// <summary>
-        /// Just install client-side transpotr drivers
+        /// Just install client-side transport drivers
         /// </summary>
         INSTALL_DRIVER = 4,
 

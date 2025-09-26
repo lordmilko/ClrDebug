@@ -29,7 +29,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Module containing the actual symbol
         /// </summary>
-        public short imod;
+        public ushort imod;
 
         /// <summary>
         /// hidden name made a first class member

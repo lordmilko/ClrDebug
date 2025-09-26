@@ -1,4 +1,6 @@
-﻿namespace ClrDebug.DIA
+﻿using ClrDebug.PDB;
+
+namespace ClrDebug.DIA
 {
     /// <summary>
     /// Accesses injected source code stored in the DIA data source.
@@ -174,11 +176,11 @@
         /// <summary>
         /// Retrieves the indicator of the source compression used.
         /// </summary>
-        public int SourceCompression
+        public SrcCompress SourceCompression
         {
             get
             {
-                int pRetVal;
+                SrcCompress pRetVal;
                 TryGetSourceCompression(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
@@ -194,10 +196,10 @@
         /// The value returned by this method is specific to the compiler used. For example, a compiler might use Run-Length
         /// Encoding or Huffman-style compression.
         /// </remarks>
-        public HRESULT TryGetSourceCompression(out int pRetVal)
+        public HRESULT TryGetSourceCompression(out SrcCompress pRetVal)
         {
             /*HRESULT get_sourceCompression(
-            [Out] out int pRetVal);*/
+            [Out] out SrcCompress pRetVal);*/
             return Raw.get_sourceCompression(out pRetVal);
         }
 

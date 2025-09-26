@@ -100,7 +100,7 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         new HRESULT GetVariables(
-            [In] int parent,
+            [In] mdToken parent,
             [In] int cVars,
             [Out] out int pcVars,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] pVars);

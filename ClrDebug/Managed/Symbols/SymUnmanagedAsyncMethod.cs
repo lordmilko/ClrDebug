@@ -135,12 +135,15 @@ namespace ClrDebug
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
         /// </summary>
-        public bool HasCatchHandlerILOffset()
+        public bool HasCatchHandlerILOffset
         {
-            bool pRetVal;
-            TryHasCatchHandlerILOffset(out pRetVal).ThrowOnNotOK();
+            get
+            {
+                bool pRetVal;
+                TryHasCatchHandlerILOffset(out pRetVal).ThrowOnNotOK();
 
-            return pRetVal;
+                return pRetVal;
+            }
         }
 
         /// <summary>

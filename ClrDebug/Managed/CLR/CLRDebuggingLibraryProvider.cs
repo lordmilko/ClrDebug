@@ -195,7 +195,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszFileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszRuntimeModule,
             [In] LIBRARY_PROVIDER_INDEX_TYPE indexType,
-            [In] int dwTimestamp,
+            [In] uint dwTimestamp,
             [In] int dwSizeOfImage,
             [Out] out IntPtr ppResolvedModulePath);*/
             return Raw3.ProvideWindowsLibrary(pwszFileName, pwszRuntimeModule, indexType, dwTimestamp, dwSizeOfImage, out ppResolvedModulePath);

@@ -1697,7 +1697,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         new HRESULT get_paramBasePointerRegisterId(
-            [Out] out int pRetVal);
+            [Out] out CV_HREG_e pRetVal);
 
         /// <summary>
         /// Retrieves the ID of the register that holds a base pointer to local variables on the stack. Use when the <see cref="SymTagEnum"/> is set to SymTagFunction.
@@ -1706,7 +1706,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         new HRESULT get_localBasePointerRegisterId(
-            [Out] out int pRetVal);
+            [Out] out CV_HREG_e pRetVal);
 
         [PreserveSig]
         new HRESULT get_isLocationControlFlowDependent(
@@ -2270,7 +2270,7 @@ namespace ClrDebug.DIA
 
         [PreserveSig]
         new HRESULT get_noNameExport(
-            [Out] out int pRetVal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
         [PreserveSig]
         new HRESULT get_exportHasExplicitlyAssignedOrdinal(
@@ -2310,7 +2310,7 @@ namespace ClrDebug.DIA
 
         [PreserveSig]
         new HRESULT get_characteristics(
-            [Out] out int pRetVal);
+            [Out] out IMAGE_SCN pRetVal);
 
         [PreserveSig]
         new HRESULT get_coffGroup(

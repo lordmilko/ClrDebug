@@ -66,8 +66,8 @@ namespace ClrDebug.CoClass
         public virtual extern HRESULT loadDataFromMiscInfo(
             [MarshalAs(UnmanagedType.LPWStr), In] string executable,
             [MarshalAs(UnmanagedType.LPWStr), In] string searchPath,
-            [In] int timeStampExe,
-            [In] int timeStampDbg,
+            [In] uint timeStampExe,
+            [In] uint timeStampDbg,
             [In] int sizeOfExe,
             [In] int cbMiscInfo,
             [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 5)] byte[] pbMiscInfo,

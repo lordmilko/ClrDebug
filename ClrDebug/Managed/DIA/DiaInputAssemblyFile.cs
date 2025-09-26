@@ -55,22 +55,22 @@
         #endregion
         #region TimeStamp
 
-        public int TimeStamp
+        public int Timestamp
         {
             get
             {
                 int pRetVal;
-                TryGetTimeStamp(out pRetVal).ThrowOnNotOK();
+                TryGetTimestamp(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
         }
 
-        public HRESULT TryGetTimeStamp(out int pRetVal)
+        public HRESULT TryGetTimestamp(out int pRetVal)
         {
-            /*HRESULT get_timeStamp(
+            /*HRESULT get_timestamp(
             [Out] out int pRetVal);*/
-            return Raw.get_timeStamp(out pRetVal);
+            return Raw.get_timestamp(out pRetVal);
         }
 
         #endregion

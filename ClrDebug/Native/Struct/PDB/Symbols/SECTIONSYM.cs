@@ -33,7 +33,7 @@ namespace ClrDebug.PDB
 
         public int rva;
         public int cb;
-        public int characteristics; //todo: enum? image_scn?
+        public IMAGE_SCN characteristics;
 
         /// <summary>
         /// name

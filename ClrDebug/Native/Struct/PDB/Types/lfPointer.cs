@@ -145,11 +145,14 @@ namespace ClrDebug.PDB
         [StructLayout(LayoutKind.Explicit)]
         public unsafe struct BaseInfo
         {
+            /// <summary>
+            /// pointer to member if <see cref="lfPointerAttr.ptrmode"/> is <see cref="CV_ptrmode_e.CV_PTR_MODE_PMEM"/> or <see cref="CV_ptrmode_e.CV_PTR_MODE_PMFUNC"/>
+            /// </summary>
             [FieldOffset(0)]
-            public PointerMemberInfo pm;
+            public PointerMemberInfo pm; //XmlDoc based on pdbdump.cpp!StrForPtr
 
             /// <summary>
-            /// base segment if PTR_BASE_SEG
+            /// base segment if <see cref="lfPointerAttr.ptrtype"/> is <see cref="CV_ptrtype_e.CV_PTR_BASE_SEG"/>
             /// </summary>
             [FieldOffset(0)]
             public short bseg;
@@ -182,7 +185,7 @@ namespace ClrDebug.PDB
         public unsafe struct BaseTypeInfo
         {
             /// <summary>
-            /// type index if CV_PTR_BASE_TYPE
+            /// type index if <see cref="lfPointerAttr.ptrtype"/> is <see cref="CV_ptrtype_e.CV_PTR_BASE_TYPE"/>
             /// </summary>
             public CV_typ_t index;
 

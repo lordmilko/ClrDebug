@@ -295,12 +295,15 @@ namespace ClrDebug
         /// Returns true if the document has source embedded in the debugging symbols; otherwise, returns false.
         /// </summary>
         /// <returns>[out] A pointer to a variable that indicates whether the document has source embedded in the debugging symbols.</returns>
-        public bool HasEmbeddedSource()
+        public bool HasEmbeddedSource
         {
-            bool pRetVal;
-            TryHasEmbeddedSource(out pRetVal).ThrowOnNotOK();
+            get
+            {
+                bool pRetVal;
+                TryHasEmbeddedSource(out pRetVal).ThrowOnNotOK();
 
-            return pRetVal;
+                return pRetVal;
+            }
         }
 
         /// <summary>
@@ -311,7 +314,7 @@ namespace ClrDebug
         public HRESULT TryHasEmbeddedSource(out bool pRetVal)
         {
             /*HRESULT HasEmbeddedSource(
-            [Out] out bool pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.HasEmbeddedSource(out pRetVal);
         }
 
@@ -325,11 +328,12 @@ namespace ClrDebug
         /// <param name="startColumn">[in] The starting column in the current document.</param>
         /// <param name="endLine">[in] The final line in the current document.</param>
         /// <param name="endColumn">[in] The final column in the current document.</param>
+        /// <param name="cSourceBytes">[in] The size of the source, in bytes.</param>
         /// <returns>[out] The size and length of the specified range of the source document, in bytes.</returns>
-        public byte[] GetSourceRange(int startLine, int startColumn, int endLine, int endColumn)
+        public byte[] GetSourceRange(int startLine, int startColumn, int endLine, int endColumn, int cSourceBytes)
         {
             byte[] source;
-            TryGetSourceRange(startLine, startColumn, endLine, endColumn, out source).ThrowOnNotOK();
+            TryGetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out source).ThrowOnNotOK();
 
             return source;
         }
@@ -341,9 +345,10 @@ namespace ClrDebug
         /// <param name="startColumn">[in] The starting column in the current document.</param>
         /// <param name="endLine">[in] The final line in the current document.</param>
         /// <param name="endColumn">[in] The final column in the current document.</param>
+        /// <param name="cSourceBytes">[in] The size of the source, in bytes.</param>
         /// <param name="source">[out] The size and length of the specified range of the source document, in bytes.</param>
         /// <returns>S_OK if the method succeeds.</returns>
-        public HRESULT TryGetSourceRange(int startLine, int startColumn, int endLine, int endColumn, out byte[] source)
+        public HRESULT TryGetSourceRange(int startLine, int startColumn, int endLine, int endColumn, int cSourceBytes, out byte[] source)
         {
             /*HRESULT GetSourceRange(
             [In] int startLine,
@@ -353,22 +358,17 @@ namespace ClrDebug
             [In] int cSourceBytes,
             [Out] out int pcSourceBytes,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), SRI.Out] byte[] source);*/
-            int cSourceBytes = 0;
             int pcSourceBytes;
-            source = null;
-            HRESULT hr = Raw.GetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out pcSourceBytes, null);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cSourceBytes = pcSourceBytes;
             source = new byte[cSourceBytes];
-            hr = Raw.GetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out pcSourceBytes, source);
-            fail:
-            return hr;
+            return  Raw.GetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out pcSourceBytes, source);
         }
 
         #endregion
         #endregion
+
+        public override string ToString()
+        {
+            return URL;
+        }
     }
 }

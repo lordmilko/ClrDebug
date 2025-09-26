@@ -1589,7 +1589,7 @@ namespace ClrDebug.DIA
         /// <param name="name">[in] Specifies the name to use for comparison.</param>
         /// <param name="option">[in] Specifies the comparison options applied to name searching. Values from the <see cref="NameSearchOptions"/> enumeration can be used alone or in combination.</param>
         /// <returns>[out] Returns an <see cref="IDiaEnumLineNumbers"/> object that contains a list of the line numbers that were retrieved.</returns>
-        public DiaEnumSymbols FindInlineesByName(string name, int option)
+        public DiaEnumSymbols FindInlineesByName(string name, NameSearchOptions option)
         {
             DiaEnumSymbols ppResultResult;
             TryFindInlineesByName(name, option, out ppResultResult).ThrowOnNotOK();
@@ -1604,11 +1604,11 @@ namespace ClrDebug.DIA
         /// <param name="option">[in] Specifies the comparison options applied to name searching. Values from the <see cref="NameSearchOptions"/> enumeration can be used alone or in combination.</param>
         /// <param name="ppResultResult">[out] Returns an <see cref="IDiaEnumLineNumbers"/> object that contains a list of the line numbers that were retrieved.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns an error code.</returns>
-        public HRESULT TryFindInlineesByName(string name, int option, out DiaEnumSymbols ppResultResult)
+        public HRESULT TryFindInlineesByName(string name, NameSearchOptions option, out DiaEnumSymbols ppResultResult)
         {
             /*HRESULT findInlineesByName(
             [MarshalAs(UnmanagedType.LPWStr), In] string name,
-            [In] int option,
+            [In] NameSearchOptions option,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols ppResult);*/
             IDiaEnumSymbols ppResult;
             HRESULT hr = Raw.findInlineesByName(name, option, out ppResult);
@@ -1754,7 +1754,7 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// This function searches for inlinees only within Accelerator stub functions. It ignores native C++ procedure records.
         /// </remarks>
-        public DiaEnumSymbols FindAcceleratorInlineesByName(string name, int option)
+        public DiaEnumSymbols FindAcceleratorInlineesByName(string name, NameSearchOptions option)
         {
             DiaEnumSymbols ppResultResult;
             TryFindAcceleratorInlineesByName(name, option, out ppResultResult).ThrowOnNotOK();
@@ -1772,11 +1772,11 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// This function searches for inlinees only within Accelerator stub functions. It ignores native C++ procedure records.
         /// </remarks>
-        public HRESULT TryFindAcceleratorInlineesByName(string name, int option, out DiaEnumSymbols ppResultResult)
+        public HRESULT TryFindAcceleratorInlineesByName(string name, NameSearchOptions option, out DiaEnumSymbols ppResultResult)
         {
             /*HRESULT findAcceleratorInlineesByName(
             [MarshalAs(UnmanagedType.LPWStr), In] string name,
-            [In] int option,
+            [In] NameSearchOptions option,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols ppResult);*/
             IDiaEnumSymbols ppResult;
             HRESULT hr = Raw.findAcceleratorInlineesByName(name, option, out ppResult);
@@ -2662,197 +2662,6 @@ namespace ClrDebug.DIA
             /*HRESULT isPortablePDB(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw11.isPortablePDB(out pRetVal);
-        }
-
-        #endregion
-        #region FindChildrenHelper
-
-        public DiaEnumSymbols FindChildrenHelper(IDiaSymbol _a, SymTagEnum _b, string _c, long _d, long _e, bool _f, bool _g)
-        {
-            DiaEnumSymbols _hResult;
-            TryFindChildrenHelper(_a, _b, _c, _d, _e, _f, _g, out _hResult).ThrowOnNotOK();
-
-            return _hResult;
-        }
-
-        public HRESULT TryFindChildrenHelper(IDiaSymbol _a, SymTagEnum _b, string _c, long _d, long _e, bool _f, bool _g, out DiaEnumSymbols _hResult)
-        {
-            /*HRESULT findChildrenHelper(
-            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a,
-            [In] SymTagEnum _b,
-            [In, MarshalAs(UnmanagedType.LPWStr)] string _c,
-            [In] long _d,
-            [In] long _e,
-            [In, MarshalAs(UnmanagedType.Bool)] bool _f,
-            [In, MarshalAs(UnmanagedType.Bool)] bool _g,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols _h);*/
-            IDiaEnumSymbols _h;
-            HRESULT hr = Raw11.findChildrenHelper(_a, _b, _c, _d, _e, _f, _g, out _h);
-
-            if (hr == HRESULT.S_OK)
-                _hResult = _h == null ? null : new DiaEnumSymbols(_h);
-            else
-                _hResult = default(DiaEnumSymbols);
-
-            return hr;
-        }
-
-        #endregion
-        #region FindLinesByLinenumHelper
-
-        public DiaEnumLineNumbers FindLinesByLinenumHelper(bool _a, IDiaSymbol _b, IDiaSourceFile _c, long _d, long _e)
-        {
-            DiaEnumLineNumbers _fResult;
-            TryFindLinesByLinenumHelper(_a, _b, _c, _d, _e, out _fResult).ThrowOnNotOK();
-
-            return _fResult;
-        }
-
-        public HRESULT TryFindLinesByLinenumHelper(bool _a, IDiaSymbol _b, IDiaSourceFile _c, long _d, long _e, out DiaEnumLineNumbers _fResult)
-        {
-            /*HRESULT findLinesByLinenumHelper(
-            [In, MarshalAs(UnmanagedType.Bool)] bool _a,
-            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _b,
-            [In, MarshalAs(UnmanagedType.Interface)] IDiaSourceFile _c,
-            [In] long _d,
-            [In] long _e,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumLineNumbers _f);*/
-            IDiaEnumLineNumbers _f;
-            HRESULT hr = Raw11.findLinesByLinenumHelper(_a, _b, _c, _d, _e, out _f);
-
-            if (hr == HRESULT.S_OK)
-                _fResult = _f == null ? null : new DiaEnumLineNumbers(_f);
-            else
-                _fResult = default(DiaEnumLineNumbers);
-
-            return hr;
-        }
-
-        #endregion
-        #region FindSymbolsForAcceleratorPointerTagHelper
-
-        public DiaEnumSymbols FindSymbolsForAcceleratorPointerTagHelper(IDiaSymbol _a, long _b, long _c, bool _d)
-        {
-            DiaEnumSymbols _eResult;
-            TryFindSymbolsForAcceleratorPointerTagHelper(_a, _b, _c, _d, out _eResult).ThrowOnNotOK();
-
-            return _eResult;
-        }
-
-        public HRESULT TryFindSymbolsForAcceleratorPointerTagHelper(IDiaSymbol _a, long _b, long _c, bool _d, out DiaEnumSymbols _eResult)
-        {
-            /*HRESULT findSymbolsForAcceleratorPointerTagHelper(
-            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a,
-            [In] long _b,
-            [In] long _c,
-            [In, MarshalAs(UnmanagedType.Bool)] bool _d,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols _e);*/
-            IDiaEnumSymbols _e;
-            HRESULT hr = Raw11.findSymbolsForAcceleratorPointerTagHelper(_a, _b, _c, _d, out _e);
-
-            if (hr == HRESULT.S_OK)
-                _eResult = _e == null ? null : new DiaEnumSymbols(_e);
-            else
-                _eResult = default(DiaEnumSymbols);
-
-            return hr;
-        }
-
-        #endregion
-        #region GetMDTokenMapHelper
-
-        public long GetMDTokenMapHelper(int _a, long _b, IntPtr _d)
-        {
-            long _c;
-            TryGetMDTokenMapHelper(_a, _b, out _c, _d).ThrowOnNotOK();
-
-            return _c;
-        }
-
-        public HRESULT TryGetMDTokenMapHelper(int _a, long _b, out long _c, IntPtr _d)
-        {
-            /*HRESULT getMDTokenMapHelper(
-            [In] int _a, //CDiaSession::MDTokenMapKind
-            [In] long _b,
-            [Out] out long _c,
-            [In] IntPtr _d);*/
-            return Raw11.getMDTokenMapHelper(_a, _b, out _c, _d);
-        }
-
-        #endregion
-        #region GetMDTokenMapHelper2
-
-        public long GetMDTokenMapHelper2(long _a, int _b, long _c, IntPtr _e)
-        {
-            long _d;
-            TryGetMDTokenMapHelper2(_a, _b, _c, out _d, _e).ThrowOnNotOK();
-
-            return _d;
-        }
-
-        public HRESULT TryGetMDTokenMapHelper2(long _a, int _b, long _c, out long _d, IntPtr _e)
-        {
-            /*HRESULT getMDTokenMapHelper2(
-            [In] long _a,
-            [In] int _b, //CDiaSession::MDTokenMapKind
-            [In] long _c,
-            [Out] out long _d,
-            [In] IntPtr _e);*/
-            return Raw11.getMDTokenMapHelper2(_a, _b, _c, out _d, _e);
-        }
-
-        #endregion
-        #region GetMDTokenRemapHelper
-
-        public long GetMDTokenRemapHelper(int _a, long _b, IntPtr _d)
-        {
-            long _c;
-            TryGetMDTokenRemapHelper(_a, _b, out _c, _d).ThrowOnNotOK();
-
-            return _c;
-        }
-
-        public HRESULT TryGetMDTokenRemapHelper(int _a, long _b, out long _c, IntPtr _d)
-        {
-            /*HRESULT getMDTokenRemapHelper(
-            [In] int _a, //CDiaSession::MDTokenMapKind
-            [In] long _b,
-            [Out] out long _c,
-            [In] IntPtr _d);*/
-            return Raw11.getMDTokenRemapHelper(_a, _b, out _c, _d);
-        }
-
-        #endregion
-        #region GetFunctionFragmentsHelper
-
-        public GetFunctionFragmentsHelperResult GetFunctionFragmentsHelper(long _a, long _b, long _c)
-        {
-            GetFunctionFragmentsHelperResult result;
-            TryGetFunctionFragmentsHelper(_a, _b, _c, out result).ThrowOnNotOK();
-
-            return result;
-        }
-
-        public HRESULT TryGetFunctionFragmentsHelper(long _a, long _b, long _c, out GetFunctionFragmentsHelperResult result)
-        {
-            /*HRESULT getFunctionFragmentsHelper(
-            [In] long _a,
-            [In] long _b,
-            [In] long _c,
-            [Out] out long _d,
-            [Out] out long _e,
-            [Out] out long _f);*/
-            long _d;
-            long _e;
-            long _f;
-            HRESULT hr = Raw11.getFunctionFragmentsHelper(_a, _b, _c, out _d, out _e, out _f);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetFunctionFragmentsHelperResult(_d, _e, _f);
-            else
-                result = default(GetFunctionFragmentsHelperResult);
-
-            return hr;
         }
 
         #endregion

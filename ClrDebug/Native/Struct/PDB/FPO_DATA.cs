@@ -7,9 +7,9 @@ namespace ClrDebug.PDB
     //This type is in dia.h as "FPODATA" but isn't explicitly referenced anywhere.
     //It seems it's really just meant to be the FPO_DATA type
 
-    [DebuggerDisplay("ulOffStart = {ulOffStart}, cbProcSize = {cbProcSize}, cdwLocals = {cdwLocals}, cdwParams = {cdwParams}, cdwFlags = {cdwFlags}")]
+    [DebuggerDisplay("ulOffStart = {ulOffStart}, cbProcSize = {cbProcSize}, cdwLocals = {cdwLocals}, cdwParams = {cdwParams}, flags = {flags}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct FPO_DATA //Internal so that users don't confuse it with FPO_DATA until we know what it's meant to be used for
+    public struct FPO_DATA
     {
         /// <summary>
         /// offset 1st byte of function code

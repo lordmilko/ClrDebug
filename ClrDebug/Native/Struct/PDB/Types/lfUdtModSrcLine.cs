@@ -30,6 +30,6 @@ namespace ClrDebug.PDB
         /// <summary>
         /// module that contributes this UDT definition
         /// </summary>
-        public short imod;
+        public ushort imod;
     }
 }

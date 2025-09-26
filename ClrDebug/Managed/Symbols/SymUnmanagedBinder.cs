@@ -231,5 +231,103 @@ namespace ClrDebug
 
         #endregion
         #endregion
+        #region ISymUnmanagedBinder4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ISymUnmanagedBinder4 Raw4 => (ISymUnmanagedBinder4) Raw;
+
+        #region GetReaderFromPdbFile
+
+        /// <summary>
+        /// Creates a new <see cref="ISymUnmanagedReader"/> for the specified PDB file.
+        /// </summary>
+        /// <param name="metadataImportProvider">Provider of a metadata importer for the corresponding PE file.
+        /// The importer is only constructed if the operation performed on the SymReader requires access to the metadata.
+        /// </param>
+        /// <param name="pdbFilePath">PDB file path.</param>
+        /// <returns>The new reader instance.</returns>
+        public SymUnmanagedReader GetReaderFromPdbFile(IMetadataImportProvider metadataImportProvider, string pdbFilePath)
+        {
+            SymUnmanagedReader readerResult;
+            TryGetReaderFromPdbFile(metadataImportProvider, pdbFilePath, out readerResult).ThrowOnNotOK();
+
+            return readerResult;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="ISymUnmanagedReader"/> for the specified PDB file.
+        /// </summary>
+        /// <param name="metadataImportProvider">Provider of a metadata importer for the corresponding PE file.
+        /// The importer is only constructed if the operation performed on the SymReader requires access to the metadata.
+        /// </param>
+        /// <param name="pdbFilePath">PDB file path.</param>
+        /// <param name="readerResult">The new reader instance.</param>
+        /// <returns>E_INVALIDARG if <paramref name="metadataImportProvider"/> is null, or <paramref name="pdbFilePath"/> is null or empty.<para/>
+        /// Another error code describing failure to open the file.</returns>
+        public HRESULT TryGetReaderFromPdbFile(IMetadataImportProvider metadataImportProvider, string pdbFilePath, out SymUnmanagedReader readerResult)
+        {
+            /*HRESULT GetReaderFromPdbFile(
+            [MarshalAs(UnmanagedType.Interface)] IMetadataImportProvider metadataImportProvider,
+            [MarshalAs(UnmanagedType.LPWStr)] string pdbFilePath,
+            [MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader reader);*/
+            ISymUnmanagedReader reader;
+            HRESULT hr = Raw4.GetReaderFromPdbFile(metadataImportProvider, pdbFilePath, out reader);
+
+            if (hr == HRESULT.S_OK)
+                readerResult = reader == null ? null : new SymUnmanagedReader(reader);
+            else
+                readerResult = default(SymUnmanagedReader);
+
+            return hr;
+        }
+
+        #endregion
+        #region GetReaderFromPdbStream
+
+        /// <summary>
+        /// Creates a new <see cref="ISymUnmanagedReader"/> for the specified PDB file.
+        /// </summary>
+        /// <param name="metadataImportProvider">Provider of a metadata importer for the corresponding PE file.
+        /// The importer is only constructed if the operation performed on the SymReader requires access to the metadata.
+        /// </param>
+        /// <param name="stream">PDB stream.</param>
+        /// <returns>The new reader instance.</returns>
+        public SymUnmanagedReader GetReaderFromPdbStream(IMetadataImportProvider metadataImportProvider, IStream stream)
+        {
+            SymUnmanagedReader readerResult;
+            TryGetReaderFromPdbStream(metadataImportProvider, stream, out readerResult).ThrowOnNotOK();
+
+            return readerResult;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="ISymUnmanagedReader"/> for the specified PDB file.
+        /// </summary>
+        /// <param name="metadataImportProvider">Provider of a metadata importer for the corresponding PE file.
+        /// The importer is only constructed if the operation performed on the SymReader requires access to the metadata.
+        /// </param>
+        /// <param name="stream">PDB stream.</param>
+        /// <param name="readerResult">The new reader instance.</param>
+        /// <returns>E_INVALIDARG if <paramref name="metadataImportProvider"/> is null, or <paramref name="stream"/> is null.
+        /// Another error code describing failure to open the file.</returns>
+        public HRESULT TryGetReaderFromPdbStream(IMetadataImportProvider metadataImportProvider, IStream stream, out SymUnmanagedReader readerResult)
+        {
+            /*HRESULT GetReaderFromPdbStream(
+            [MarshalAs(UnmanagedType.Interface)] IMetadataImportProvider metadataImportProvider,
+            [MarshalAs(UnmanagedType.Interface)] IStream stream,
+            [MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader reader);*/
+            ISymUnmanagedReader reader;
+            HRESULT hr = Raw4.GetReaderFromPdbStream(metadataImportProvider, stream, out reader);
+
+            if (hr == HRESULT.S_OK)
+                readerResult = reader == null ? null : new SymUnmanagedReader(reader);
+            else
+                readerResult = default(SymUnmanagedReader);
+
+            return hr;
+        }
+
+        #endregion
+        #endregion
     }
 }

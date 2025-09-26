@@ -23,6 +23,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        HRESULT Destroy();
+        HRESULT Destroy(); //Both SymReader Portable and DiaSymReader seem to have a strange behavior wherein on success it returns S_FALSE. SymReader Portable has an additional behavior not present in DiaSymReader wherein if it is destroyed once it's already disposed it returns S_OK
     }
 }

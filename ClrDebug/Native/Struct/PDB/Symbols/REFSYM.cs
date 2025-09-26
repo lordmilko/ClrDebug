@@ -30,7 +30,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Module containing the actual symbol
         /// </summary>
-        public short imod;
+        public ushort imod;
 
         /// <summary>
         /// align this record

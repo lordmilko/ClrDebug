@@ -4571,11 +4571,11 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the ID of the register that holds a base pointer to the parameters. Use when the <see cref="SymTagEnum"/> is set to SymTagFunction.
         /// </summary>
-        public int ParamBasePointerRegisterId
+        public CV_HREG_e ParamBasePointerRegisterId
         {
             get
             {
-                int pRetVal;
+                CV_HREG_e pRetVal;
                 TryGetParamBasePointerRegisterId(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
@@ -4587,10 +4587,10 @@ namespace ClrDebug.DIA
         /// </summary>
         /// <param name="pRetVal">[out] Returns the ID of the register that holds a base pointer to the parameters.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
-        public HRESULT TryGetParamBasePointerRegisterId(out int pRetVal)
+        public HRESULT TryGetParamBasePointerRegisterId(out CV_HREG_e pRetVal)
         {
             /*HRESULT get_paramBasePointerRegisterId(
-            [Out] out int pRetVal);*/
+            [Out] out CV_HREG_e pRetVal);*/
             return Raw.get_paramBasePointerRegisterId(out pRetVal);
         }
 
@@ -4600,11 +4600,11 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the ID of the register that holds a base pointer to local variables on the stack. Use when the <see cref="SymTagEnum"/> is set to SymTagFunction.
         /// </summary>
-        public int LocalBasePointerRegisterId
+        public CV_HREG_e LocalBasePointerRegisterId
         {
             get
             {
-                int pRetVal;
+                CV_HREG_e pRetVal;
                 TryGetLocalBasePointerRegisterId(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
@@ -4616,10 +4616,10 @@ namespace ClrDebug.DIA
         /// </summary>
         /// <param name="pRetVal">[out] Returns the ID of the register that holds a base pointer to local variables on the stack.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
-        public HRESULT TryGetLocalBasePointerRegisterId(out int pRetVal)
+        public HRESULT TryGetLocalBasePointerRegisterId(out CV_HREG_e pRetVal)
         {
             /*HRESULT get_localBasePointerRegisterId(
-            [Out] out int pRetVal);*/
+            [Out] out CV_HREG_e pRetVal);*/
             return Raw.get_localBasePointerRegisterId(out pRetVal);
         }
 
@@ -6223,21 +6223,21 @@ namespace ClrDebug.DIA
         #endregion
         #region NoNameExport
 
-        public int NoNameExport
+        public bool NoNameExport
         {
             get
             {
-                int pRetVal;
+                bool pRetVal;
                 TryGetNoNameExport(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
         }
 
-        public HRESULT TryGetNoNameExport(out int pRetVal)
+        public HRESULT TryGetNoNameExport(out bool pRetVal)
         {
             /*HRESULT get_noNameExport(
-            [Out] out int pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);*/
             return Raw.get_noNameExport(out pRetVal);
         }
 
@@ -6412,21 +6412,21 @@ namespace ClrDebug.DIA
         #endregion
         #region Characteristics
 
-        public int Characteristics
+        public IMAGE_SCN Characteristics
         {
             get
             {
-                int pRetVal;
+                IMAGE_SCN pRetVal;
                 TryGetCharacteristics(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
         }
 
-        public HRESULT TryGetCharacteristics(out int pRetVal)
+        public HRESULT TryGetCharacteristics(out IMAGE_SCN pRetVal)
         {
             /*HRESULT get_characteristics(
-            [Out] out int pRetVal);*/
+            [Out] out IMAGE_SCN pRetVal);*/
             return Raw.get_characteristics(out pRetVal);
         }
 
@@ -7450,42 +7450,42 @@ namespace ClrDebug.DIA
 
         #region CoroutineKind
 
-        public int CoroutineKind
+        public CV_CoroutineKind_e CoroutineKind
         {
             get
             {
-                int pRetVal;
+                CV_CoroutineKind_e pRetVal;
                 TryGetCoroutineKind(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
         }
 
-        public HRESULT TryGetCoroutineKind(out int pRetVal)
+        public HRESULT TryGetCoroutineKind(out CV_CoroutineKind_e pRetVal)
         {
             /*HRESULT get_coroutineKind(
-            [Out] out int pRetVal);*/
+            [Out] out CV_CoroutineKind_e pRetVal);*/
             return Raw8.get_coroutineKind(out pRetVal);
         }
 
         #endregion
         #region AssociatedSymbolKind
 
-        public int AssociatedSymbolKind
+        public CV_AssociationKind_e AssociatedSymbolKind
         {
             get
             {
-                int pRetVal;
+                CV_AssociationKind_e pRetVal;
                 TryGetAssociatedSymbolKind(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
         }
 
-        public HRESULT TryGetAssociatedSymbolKind(out int pRetVal)
+        public HRESULT TryGetAssociatedSymbolKind(out CV_AssociationKind_e pRetVal)
         {
             /*HRESULT get_associatedSymbolKind(
-            [Out] out int pRetVal);*/
+            [Out] out CV_AssociationKind_e pRetVal);*/
             return Raw8.get_associatedSymbolKind(out pRetVal);
         }
 

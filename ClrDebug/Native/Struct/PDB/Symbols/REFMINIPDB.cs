@@ -34,7 +34,7 @@ namespace ClrDebug.PDB
         /// mod index
         /// </summary>
         [FieldOffset(8)]
-        public short imod;
+        public ushort imod;
 
         #region BitField
 

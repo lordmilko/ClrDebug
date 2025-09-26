@@ -44,7 +44,7 @@ namespace ClrDebug.CoClass
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetVariables(
-            [In] int parent,
+            [In] mdToken parent,
             [In] int cVars,
             [Out] out int pcVars,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);

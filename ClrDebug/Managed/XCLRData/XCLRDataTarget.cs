@@ -15,7 +15,7 @@ namespace ClrDebug
         #region IXCLRDataTarget3
         #region GetMetaData
 
-        public int GetMetaData(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
+        public int GetMetaData(string imagePath, uint imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
         {
             int dataSize;
             TryGetMetaData(imagePath, imageTimestamp, imageSize, mvid, mdRva, flags, bufferSize, buffer, out dataSize).ThrowOnNotOK();
@@ -23,11 +23,11 @@ namespace ClrDebug
             return dataSize;
         }
 
-        public HRESULT TryGetMetaData(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer, out int dataSize)
+        public HRESULT TryGetMetaData(string imagePath, uint imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer, out int dataSize)
         {
             /*HRESULT GetMetaData(
             [In, MarshalAs(UnmanagedType.LPWStr)] string imagePath,
-            [In] int imageTimestamp,
+            [In] uint imageTimestamp,
             [In] int imageSize,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid mvid,
             [In] int mdRva,

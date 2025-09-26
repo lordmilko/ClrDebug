@@ -51,10 +51,8 @@ namespace ClrDebug.PDB
         #endregion
 
         /// <summary>
-        /// variable-length array of numeric properties
+        /// variable-length array of numeric properties followed by byte size
         /// </summary>
         public fixed byte data[1];
-
-        // followed by byte size
     }
 }

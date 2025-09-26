@@ -22,7 +22,7 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Locates the appropriate DAC for the given process.
         /// </summary>
-        public string LocateDacForProcess(ISvcProcess process, string requestedModuleName, int requestedModuleTimeStamp, int requestedModuleSize)
+        public string LocateDacForProcess(ISvcProcess process, string requestedModuleName, uint requestedModuleTimeStamp, int requestedModuleSize)
         {
             string dacPath;
             TryLocateDacForProcess(process, out dacPath, requestedModuleName, requestedModuleTimeStamp, requestedModuleSize).ThrowDbgEngNotOK();
@@ -33,13 +33,13 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Locates the appropriate DAC for the given process.
         /// </summary>
-        public HRESULT TryLocateDacForProcess(ISvcProcess process, out string dacPath, string requestedModuleName, int requestedModuleTimeStamp, int requestedModuleSize)
+        public HRESULT TryLocateDacForProcess(ISvcProcess process, out string dacPath, string requestedModuleName, uint requestedModuleTimeStamp, int requestedModuleSize)
         {
             /*HRESULT LocateDacForProcess(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcProcess process,
             [Out, MarshalAs(UnmanagedType.BStr)] out string dacPath,
             [In, MarshalAs(UnmanagedType.LPWStr)] string requestedModuleName,
-            [In] int requestedModuleTimeStamp,
+            [In] uint requestedModuleTimeStamp,
             [In] int requestedModuleSize);*/
             return Raw.LocateDacForProcess(process, out dacPath, requestedModuleName, requestedModuleTimeStamp, requestedModuleSize);
         }
@@ -50,7 +50,7 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Locates the appropriate DBI for the given process.
         /// </summary>
-        public string LocateDbiForProcess(ISvcProcess process, string requestedModuleName, int requestedModuleTimeStamp, int requestedModuleSize)
+        public string LocateDbiForProcess(ISvcProcess process, string requestedModuleName, uint requestedModuleTimeStamp, int requestedModuleSize)
         {
             string dbiPath;
             TryLocateDbiForProcess(process, out dbiPath, requestedModuleName, requestedModuleTimeStamp, requestedModuleSize).ThrowDbgEngNotOK();
@@ -61,13 +61,13 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Locates the appropriate DBI for the given process.
         /// </summary>
-        public HRESULT TryLocateDbiForProcess(ISvcProcess process, out string dbiPath, string requestedModuleName, int requestedModuleTimeStamp, int requestedModuleSize)
+        public HRESULT TryLocateDbiForProcess(ISvcProcess process, out string dbiPath, string requestedModuleName, uint requestedModuleTimeStamp, int requestedModuleSize)
         {
             /*HRESULT LocateDbiForProcess(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcProcess process,
             [Out, MarshalAs(UnmanagedType.BStr)] out string dbiPath,
             [In, MarshalAs(UnmanagedType.LPWStr)] string requestedModuleName,
-            [In] int requestedModuleTimeStamp,
+            [In] uint requestedModuleTimeStamp,
             [In] int requestedModuleSize);*/
             return Raw.LocateDbiForProcess(process, out dbiPath, requestedModuleName, requestedModuleTimeStamp, requestedModuleSize);
         }

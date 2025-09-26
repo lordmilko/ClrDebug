@@ -53,7 +53,7 @@ namespace ClrDebug.DIA
             /*HRESULT NewEnum(
             [Out, MarshalAs(UnmanagedType.Interface)] out IEnumVARIANT pRetVal);*/
             IEnumVARIANT pRetVal;
-            HRESULT hr = Raw.NewEnum(out pRetVal);
+            HRESULT hr = Raw.get__NewEnum(out pRetVal);
 
             if (hr == HRESULT.S_OK)
                 pRetValResult = pRetVal == null ? null : new EnumVARIANT(pRetVal);

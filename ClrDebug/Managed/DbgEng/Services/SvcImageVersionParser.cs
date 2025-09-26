@@ -106,7 +106,7 @@ namespace ClrDebug.DbgEng
         public HRESULT TryGetVersionDataString(Guid pVersionDataIdentifierGuid, string pVersionDataIdentifierString, out string pVersionDataString)
         {
             /*HRESULT GetVersionDataString(
-            [In] Guid pVersionDataIdentifierGuid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] pVersionDataIdentifierGuid,
             [In, MarshalAs(UnmanagedType.LPWStr)] string pVersionDataIdentifierString,
             [Out, MarshalAs(UnmanagedType.BStr)] out string pVersionDataString);*/
             return Raw.GetVersionDataString(pVersionDataIdentifierGuid, pVersionDataIdentifierString, out pVersionDataString);

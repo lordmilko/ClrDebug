@@ -7,7 +7,7 @@ namespace ClrDebug.PDB
     /// <summary>
     /// Line flags (data present)
     /// </summary>
-    [DebuggerDisplay("offset = {offset}, linenumStart = {linenumStart}, deltaLineEnd = {deltaLineEnd}, fStatement = {fStatement}, data = {data}")]
+    [DebuggerDisplay("offset = {offset}, linenumStart = {linenumStart}, deltaLineEnd = {deltaLineEnd}, fStatement = {fStatement}")]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CV_Line_t
     {
@@ -45,7 +45,7 @@ namespace ClrDebug.PDB
             set => SetBitFlag(ref data, 31, value);
         }
 
-        public int data;
+        private int data;
 
         #endregion
     }

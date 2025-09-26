@@ -8,7 +8,7 @@ namespace ClrDebug.DbgEng
     /// </summary>
     [DebuggerDisplay("InstructionOffset = {InstructionOffset.ToString(\"X\"),nq}, ReturnOffset = {ReturnOffset.ToString(\"X\"),nq}, FrameOffset = {FrameOffset.ToString(\"X\"),nq}, StackOffset = {StackOffset.ToString(\"X\"),nq}, FuncTableEntry = {FuncTableEntry.ToString(\"X\"),nq}, Params = {Params}, Reserved = {Reserved}, Virtual = {Virtual}, FrameNumber = {FrameNumber}")]
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct DEBUG_STACK_FRAME
+    public unsafe partial struct DEBUG_STACK_FRAME
     {
         /// <summary>
         /// The location in the process's virtual address space of the related instruction for the stack frame. This is typically the return address for the next stack frame, or the current instruction pointer if the frame is at the top of the stack.

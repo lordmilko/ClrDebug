@@ -17,7 +17,7 @@ namespace ClrDebug.PDB
         public SYM_ENUM_e rectyp;
 
         public int cb;
-        public int characteristics; //todo: enum?
+        public IMAGE_SCN characteristics;
 
         /// <summary>
         /// Symbol offset

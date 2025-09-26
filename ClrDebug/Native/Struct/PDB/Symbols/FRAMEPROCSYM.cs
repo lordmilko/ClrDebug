@@ -179,7 +179,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// record function's local pointer explicitly.
         /// </summary>
-        public int encodedLocalBasePointer
+        public int encodedLocalBasePointer //You have to decode this to get the CV_HREG_e (ExpandEncodedBasePointerReg)
         {
             get => GetBits(flags, 14, 2); //14-15
             set => SetBits(ref flags, 14, 2, value);
@@ -188,7 +188,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// record function's parameter pointer explicitly.
         /// </summary>
-        public int encodedParamBasePointer
+        public int encodedParamBasePointer //You have to decode this to get the CV_HREG_e (ExpandEncodedBasePointerReg)
         {
             get => GetBits(flags, 16, 2); //16-17
             set => SetBits(ref flags, 16, 2, value);

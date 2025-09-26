@@ -1,4 +1,6 @@
-﻿namespace ClrDebug.DbgEng
+﻿using System;
+
+namespace ClrDebug.DbgEng
 {
     public class SourceCodeDownloadUrlLinkProvider : ComObject<ISourceCodeDownloadUrlLinkProvider>
     {
@@ -20,9 +22,9 @@
         /// The method receives the following parameters - sourceCodeFileSpec - The file spacification of the file to be downloade (for ex:shell\osshell\accesory\notepad\notepad.cpp) The separator may be '\' or '/' character - algorithmRetrievalName - it may be something like "DebugInfoD", "srv", etc.<para/>
         /// - algorithmParameters - optional parameters needed for the regrieval alroithm.
         /// </summary>
-        public object[] ProvideSourceCodeFileUrlList(ISvcModule pModule, string sourceCodeFileSpec, string algorithmRetrievalName, string algorithmParameters)
+        public IntPtr ProvideSourceCodeFileUrlList(ISvcModule pModule, string sourceCodeFileSpec, string algorithmRetrievalName, string algorithmParameters)
         {
-            object[] ppUrlList;
+            IntPtr ppUrlList;
             TryProvideSourceCodeFileUrlList(pModule, sourceCodeFileSpec, algorithmRetrievalName, algorithmParameters, out ppUrlList).ThrowDbgEngNotOK();
 
             return ppUrlList;
@@ -35,7 +37,7 @@
         /// The method receives the following parameters - sourceCodeFileSpec - The file spacification of the file to be downloade (for ex:shell\osshell\accesory\notepad\notepad.cpp) The separator may be '\' or '/' character - algorithmRetrievalName - it may be something like "DebugInfoD", "srv", etc.<para/>
         /// - algorithmParameters - optional parameters needed for the regrieval alroithm.
         /// </summary>
-        public HRESULT TryProvideSourceCodeFileUrlList(ISvcModule pModule, string sourceCodeFileSpec, string algorithmRetrievalName, string algorithmParameters, out object[] ppUrlList)
+        public HRESULT TryProvideSourceCodeFileUrlList(ISvcModule pModule, string sourceCodeFileSpec, string algorithmRetrievalName, string algorithmParameters, out IntPtr ppUrlList)
         {
             /*HRESULT ProvideSourceCodeFileUrlList(
             [In, MarshalAs(UnmanagedType.Interface)] ISvcModule pModule,
@@ -43,10 +45,7 @@
             [In, MarshalAs(UnmanagedType.LPWStr)] string algorithmRetrievalName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string algorithmParameters,
             [SRI.Out, MarshalAs(UnmanagedType.SafeArray)] out object[] ppUrlList);*/
-            ppUrlList = null;
-            HRESULT hr = Raw.ProvideSourceCodeFileUrlList(pModule, sourceCodeFileSpec, algorithmRetrievalName, algorithmParameters, out ppUrlList);
-
-            return hr;
+            return Raw.ProvideSourceCodeFileUrlList(pModule, sourceCodeFileSpec, algorithmRetrievalName, algorithmParameters, out ppUrlList);
         }
 
         #endregion

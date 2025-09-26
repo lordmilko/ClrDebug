@@ -544,9 +544,6 @@ namespace ClrDebug
         /// <param name="pCookie">[in] A value that corresponds with the value provided in <see cref="RemotingServerReceivingMessage"/> under these conditions: This allows easy pairing of remoting calls and the creation of a logical call stack.</param>
         /// <param name="fIsAsync">[in] A value that is true if the call is asynchronous; otherwise, false.</param>
         public virtual HRESULT RemotingClientSendingMessage(
-#if GENERATED_MARSHALLING
-            in
-#endif
             Guid pCookie,
             bool fIsAsync)
         {
@@ -559,9 +556,6 @@ namespace ClrDebug
         /// <param name="pCookie">[in] A value that will correspond with the value provided in <see cref="RemotingServerSendingReply"/> under these conditions: This allows easy pairing of remoting calls.</param>
         /// <param name="fIsAsync">[in] A value that is true if the call is asynchronous; otherwise, false.</param>
         public virtual HRESULT RemotingClientReceivingReply(
-#if GENERATED_MARSHALLING
-            in
-#endif
             Guid pCookie,
             bool fIsAsync)
         {
@@ -592,9 +586,6 @@ namespace ClrDebug
         /// If the message request is asynchronous, the request can be serviced by any arbitrary thread.
         /// </remarks>
         public virtual HRESULT RemotingServerReceivingMessage(
-#if GENERATED_MARSHALLING
-            in
-#endif
             Guid pCookie,
             bool fIsAsync)
         {
@@ -623,9 +614,6 @@ namespace ClrDebug
         /// <param name="pCookie">[in] A pointer to a GUID that will correspond with the value provided in <see cref="RemotingClientReceivingReply"/> under these conditions: This allows easy pairing of remoting calls and the creation of a logical call stack.</param>
         /// <param name="fIsAsync">[in] A value that is true if the call is asynchronous; otherwise, false.</param>
         public virtual HRESULT RemotingServerSendingReply(
-#if GENERATED_MARSHALLING
-            in
-#endif
             Guid pCookie,
             bool fIsAsync)
         {
@@ -1071,9 +1059,6 @@ namespace ClrDebug
         /// </remarks>
         public virtual HRESULT COMClassicVTableCreated(
             ClassID wrappedClassId,
-#if GENERATED_MARSHALLING
-            in
-#endif
             Guid implementedIID,
             IntPtr pVTable,
             int cSlots)
@@ -1095,9 +1080,6 @@ namespace ClrDebug
         /// </remarks>
         public virtual HRESULT COMClassicVTableDestroyed(
             ClassID wrappedClassId,
-#if GENERATED_MARSHALLING
-            in
-#endif
             Guid implementedIID,
             IntPtr pVTable)
         {
@@ -1646,13 +1628,7 @@ namespace ClrDebug
             IntPtr metadataBlob,
             int cbEventData,
             IntPtr eventData,
-#if GENERATED_MARSHALLING
-            in
-#endif
             Guid pActivityId,
-#if GENERATED_MARSHALLING
-            in
-#endif
             Guid pRelatedActivityId,
             ThreadID eventThread,
             int numStackFrames,

@@ -296,12 +296,12 @@ namespace ClrDebug.DIA
         #endregion
         #region LoadDataFromMiscInfo
 
-        public void LoadDataFromMiscInfo(string executable, string searchPath, int timeStampExe, int timeStampDbg, int sizeOfExe, int cbMiscInfo, byte[] pbMiscInfo, object pCallback)
+        public void LoadDataFromMiscInfo(string executable, string searchPath, uint timeStampExe, uint timeStampDbg, int sizeOfExe, int cbMiscInfo, byte[] pbMiscInfo, object pCallback)
         {
             TryLoadDataFromMiscInfo(executable, searchPath, timeStampExe, timeStampDbg, sizeOfExe, cbMiscInfo, pbMiscInfo, pCallback).ThrowOnNotOK();
         }
 
-        public HRESULT TryLoadDataFromMiscInfo(string executable, string searchPath, int timeStampExe, int timeStampDbg, int sizeOfExe, int cbMiscInfo, byte[] pbMiscInfo, object pCallback)
+        public HRESULT TryLoadDataFromMiscInfo(string executable, string searchPath, uint timeStampExe, uint timeStampDbg, int sizeOfExe, int cbMiscInfo, byte[] pbMiscInfo, object pCallback)
         {
             /*HRESULT loadDataFromMiscInfo(
             [MarshalAs(UnmanagedType.LPWStr), In] string executable,

@@ -487,7 +487,7 @@ namespace ClrDebug.DIA
         [PreserveSig]
         HRESULT findInlineesByName(
             [MarshalAs(UnmanagedType.LPWStr), In] string name,
-            [In] int option,
+            [In] NameSearchOptions option,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols ppResult);
 
         [PreserveSig]
@@ -542,7 +542,7 @@ namespace ClrDebug.DIA
         [PreserveSig]
         HRESULT findAcceleratorInlineesByName(
             [MarshalAs(UnmanagedType.LPWStr), In] string name,
-            [In] int option,
+            [In] NameSearchOptions option,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols ppResult);
 
         [PreserveSig]

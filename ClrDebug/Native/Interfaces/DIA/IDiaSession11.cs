@@ -479,7 +479,7 @@ namespace ClrDebug.DIA
         [PreserveSig]
         new HRESULT findInlineesByName(
             [MarshalAs(UnmanagedType.LPWStr), In] string name,
-            [In] int option,
+            [In] NameSearchOptions option,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols ppResult);
 
         [PreserveSig]
@@ -534,7 +534,7 @@ namespace ClrDebug.DIA
         [PreserveSig]
         new HRESULT findAcceleratorInlineesByName(
             [MarshalAs(UnmanagedType.LPWStr), In] string name,
-            [In] int option,
+            [In] NameSearchOptions option,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols ppResult);
 
         [PreserveSig]
@@ -700,7 +700,7 @@ namespace ClrDebug.DIA
             [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a);
 
         [PreserveSig]
-        HRESULT getLinkInfo(
+        HRESULT getLinkInfo( //Simply calls into DBI1::QueryLinkInfo. The definition of LinkInfo in microsoft-pdb may tell us what this returns
             [In] IntPtr _a,
             [Out] out long _b,
             [Out] out long _c,
@@ -775,63 +775,9 @@ namespace ClrDebug.DIA
         HRESULT isPortablePDB(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pRetVal);
 
-        [PreserveSig]
-        HRESULT findChildrenHelper(
-            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a,
-            [In] SymTagEnum _b,
-            [In, MarshalAs(UnmanagedType.LPWStr)] string _c,
-            [In] long _d,
-            [In] long _e,
-            [In, MarshalAs(UnmanagedType.Bool)] bool _f,
-            [In, MarshalAs(UnmanagedType.Bool)] bool _g,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols _h);
-
-        [PreserveSig]
-        HRESULT findLinesByLinenumHelper(
-            [In, MarshalAs(UnmanagedType.Bool)] bool _a,
-            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _b,
-            [In, MarshalAs(UnmanagedType.Interface)] IDiaSourceFile _c,
-            [In] long _d,
-            [In] long _e,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumLineNumbers _f);
-
-        [PreserveSig]
-        HRESULT findSymbolsForAcceleratorPointerTagHelper(
-            [In, MarshalAs(UnmanagedType.Interface)] IDiaSymbol _a,
-            [In] long _b,
-            [In] long _c,
-            [In, MarshalAs(UnmanagedType.Bool)] bool _d,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDiaEnumSymbols _e);
-
-        [PreserveSig]
-        HRESULT getMDTokenMapHelper(
-            [In] int _a, //CDiaSession::MDTokenMapKind
-            [In] long _b,
-            [Out] out long _c,
-            [In] IntPtr _d);
-
-        [PreserveSig]
-        HRESULT getMDTokenMapHelper2(
-            [In] long _a,
-            [In] int _b, //CDiaSession::MDTokenMapKind
-            [In] long _c,
-            [Out] out long _d,
-            [In] IntPtr _e);
-
-        [PreserveSig]
-        HRESULT getMDTokenRemapHelper(
-            [In] int _a, //CDiaSession::MDTokenMapKind
-            [In] long _b,
-            [Out] out long _c,
-            [In] IntPtr _d);
-
-        [PreserveSig]
-        HRESULT getFunctionFragmentsHelper(
-            [In] long _a,
-            [In] long _b,
-            [In] long _c,
-            [Out] out long _d,
-            [Out] out long _e,
-            [Out] out long _f);
+        //Microsoft has done some naughty things with IDiaSession interface versioning. In IDiaSession11 (found in Microsoft.Diagnostics.Tracing.TraceEvent.SupportFiles)
+        //after isPortablePDB is findChildrenHelper. However, in the msdia140 that ships with Visual Studio 2022, it supports up to IDiaSession13,
+        //and has additional methods getSourceLinkInfo, getEnumXfgTypeHashes and getXfgTypeHash before findChildrenHelper. As such, we will say
+        //that all methods after isPortablePDB belong to IDiaSession13 (which isn't strictly true) but solves this issue. VS2019 only has IDiaSession11
     }
 }
