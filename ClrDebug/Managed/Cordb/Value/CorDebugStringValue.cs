@@ -78,7 +78,7 @@ namespace ClrDebug
             HRESULT hr = Raw.GetString(cchString, out pcchString, szString);
 
             if (hr == HRESULT.S_OK)
-                szStringResult = CreateString(szString, pcchString);
+                szStringResult = new string(szString, 0, pcchString);
             else
                 szStringResult = default(string);
 

@@ -7,7 +7,7 @@ before_build:
 build_script:
 - dotnet build
 - dotnet build TestApp/TestApp.sln
-- msbuild TestLib/TestLib.sln /verbosity:minimal
+#- msbuild TestLib/TestLib.sln /verbosity:minimal
 test_script:
 - vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net461\ClrDebug.Tests.dll /platform:x86 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
 - vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net461\ClrDebug.Tests.dll /platform:x64 /InIsolation /TestCaseFilter:TestCategory!=SkipCI

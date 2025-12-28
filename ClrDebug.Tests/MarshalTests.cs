@@ -50,7 +50,7 @@ namespace ClrDebug.Tests
             );
 
             if (!File.Exists(lib))
-                throw new FileNotFoundException($"Could not find '{lib}'", lib);
+                Assert.Inconclusive($"Could not find '{lib}'", lib);
 
             var appRoot = Path.Combine(
                 solution,

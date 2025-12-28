@@ -16,7 +16,7 @@ $normalArgs = @{
     NotAbstract = "ICorDebugReferenceValue","ICorDebugObjectValue*","IMetaDataDispenser","IInspectable","IEnumUnknown"
 
     # Indicates that the string is not null terminated and that we should convert to a string by specifying the specific number of characters to read
-    NonNullString = "IMetaDataImport.GetUserString"
+    NonNullString = "IMetaDataImport.GetUserString","ICorDebugStringValue.GetString"
 
     ComPrefix = "IStream","ITypeLib"
     MirrorNamespace = $true
