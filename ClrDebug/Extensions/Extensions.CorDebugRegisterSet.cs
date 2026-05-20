@@ -11,7 +11,7 @@ namespace ClrDebug
         /// <param name="registerSet">The <see cref="CorDebugRegisterSet"/> whose context should be retrieved.</param>
         /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
         /// <returns>The thread context that was read.</returns>
-        public static T GetThreadContext<T>(this CorDebugRegisterSet registerSet, ContextFlags contextFlags) where T : struct
+        public static unsafe T GetThreadContext<T>(this CorDebugRegisterSet registerSet, ContextFlags contextFlags) where T : unmanaged
         {
             T context;
             TryGetThreadContext(registerSet, contextFlags, out context).ThrowOnNotOK();
@@ -26,9 +26,9 @@ namespace ClrDebug
         /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
         /// <param name="context">The thread context that was read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryGetThreadContext<T>(this CorDebugRegisterSet registerSet, ContextFlags contextFlags, out T context) where T : struct
+        public static unsafe HRESULT TryGetThreadContext<T>(this CorDebugRegisterSet registerSet, ContextFlags contextFlags, out T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
 
             var buffer = AllocAndInitContext<T>(size, contextFlags);
 
@@ -37,7 +37,7 @@ namespace ClrDebug
                 var hr = registerSet.TryGetThreadContext(size, buffer);
 
                 if (hr == HRESULT.S_OK)
-                    context = Marshal.PtrToStructure<T>(buffer);
+                    context = *(T*) buffer;
                 else
                     context = default(T);
 

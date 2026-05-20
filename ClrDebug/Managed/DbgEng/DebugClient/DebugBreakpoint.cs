@@ -1,33 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using SRI = System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
-    public unsafe class DebugBreakpoint : RuntimeCallableWrapper
+    public class DebugBreakpoint : ComObject<IDebugBreakpoint>
     {
-        public static readonly Guid IID_IDebugBreakpoint = new Guid("5bd9d474-5975-423a-b88b-65a8e7110e65");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugBreakpointVtbl* Vtbl => (IDebugBreakpointVtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugBreakpoint2Vtbl* Vtbl2 => (IDebugBreakpoint2Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugBreakpoint3Vtbl* Vtbl3 => (IDebugBreakpoint3Vtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugBreakpoint(IntPtr raw) : base(raw, IID_IDebugBreakpoint)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugBreakpoint"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugBreakpoint(IDebugBreakpoint raw) : base(raw)
         {
         }
@@ -61,11 +43,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetId(out int id)
         {
-            InitDelegate(ref getId, Vtbl->GetId);
-
             /*HRESULT GetId(
             [Out] out int Id);*/
-            return getId(Raw, out id);
+            return Raw.GetId(out id);
         }
 
         #endregion
@@ -97,13 +77,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetType(out GetTypeResult result)
         {
-            InitDelegate(ref getType, Vtbl->GetType);
             /*HRESULT GetType(
             [Out] out DEBUG_BREAKPOINT_TYPE BreakType,
             [Out] out int ProcType);*/
             DEBUG_BREAKPOINT_TYPE breakType;
             int procType;
-            HRESULT hr = getType(Raw, out breakType, out procType);
+            HRESULT hr = Raw.GetType(out breakType, out procType);
 
             if (hr == HRESULT.S_OK)
                 result = new GetTypeResult(breakType, procType);
@@ -142,14 +121,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetAdder(out DebugClient adderResult)
         {
-            InitDelegate(ref getAdder, Vtbl->GetAdder);
             /*HRESULT GetAdder(
-            [Out, ComAliasName("IDebugClient")] out IntPtr Adder);*/
-            IntPtr adder;
-            HRESULT hr = getAdder(Raw, out adder);
+            [Out, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugClient")] out IDebugClient Adder);*/
+            IDebugClient adder;
+            HRESULT hr = Raw.GetAdder(out adder);
 
             if (hr == HRESULT.S_OK)
-                adderResult = adder == IntPtr.Zero ? null : new DebugClient(adder);
+                adderResult = adder == null ? null : new DebugClient(adder);
             else
                 adderResult = default(DebugClient);
 
@@ -188,11 +166,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetFlags(out DEBUG_BREAKPOINT_FLAG flags)
         {
-            InitDelegate(ref getFlags, Vtbl->GetFlags);
-
             /*HRESULT GetFlags(
             [Out] out DEBUG_BREAKPOINT_FLAG Flags);*/
-            return getFlags(Raw, out flags);
+            return Raw.GetFlags(out flags);
         }
 
         /// <summary>
@@ -206,11 +182,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetFlags(DEBUG_BREAKPOINT_FLAG flags)
         {
-            InitDelegate(ref setFlags, Vtbl->SetFlags);
-
             /*HRESULT SetFlags(
             [In] DEBUG_BREAKPOINT_FLAG Flags);*/
-            return setFlags(Raw, flags);
+            return Raw.SetFlags(flags);
         }
 
         #endregion
@@ -245,11 +219,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetOffset(out long offset)
         {
-            InitDelegate(ref getOffset, Vtbl->GetOffset);
-
             /*HRESULT GetOffset(
             [Out] out long Offset);*/
-            return getOffset(Raw, out offset);
+            return Raw.GetOffset(out offset);
         }
 
         /// <summary>
@@ -262,11 +234,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetOffset(long offset)
         {
-            InitDelegate(ref setOffset, Vtbl->SetOffset);
-
             /*HRESULT SetOffset(
             [In] long Offset);*/
-            return setOffset(Raw, offset);
+            return Raw.SetOffset(offset);
         }
 
         #endregion
@@ -297,13 +267,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetDataParameters(out GetDataParametersResult result)
         {
-            InitDelegate(ref getDataParameters, Vtbl->GetDataParameters);
             /*HRESULT GetDataParameters(
             [Out] out int Size,
             [Out] out DEBUG_BREAK AccessType);*/
             int size;
             DEBUG_BREAK accessType;
-            HRESULT hr = getDataParameters(Raw, out size, out accessType);
+            HRESULT hr = Raw.GetDataParameters(out size, out accessType);
 
             if (hr == HRESULT.S_OK)
                 result = new GetDataParametersResult(size, accessType);
@@ -354,11 +323,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetPassCount(out int count)
         {
-            InitDelegate(ref getPassCount, Vtbl->GetPassCount);
-
             /*HRESULT GetPassCount(
             [Out] out int Count);*/
-            return getPassCount(Raw, out count);
+            return Raw.GetPassCount(out count);
         }
 
         /// <summary>
@@ -376,11 +343,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetPassCount(int count)
         {
-            InitDelegate(ref setPassCount, Vtbl->SetPassCount);
-
             /*HRESULT SetPassCount(
             [In] int Count);*/
-            return setPassCount(Raw, count);
+            return Raw.SetPassCount(count);
         }
 
         #endregion
@@ -419,11 +384,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetCurrentPassCount(out int count)
         {
-            InitDelegate(ref getCurrentPassCount, Vtbl->GetCurrentPassCount);
-
             /*HRESULT GetCurrentPassCount(
             [Out] out int Count);*/
-            return getCurrentPassCount(Raw, out count);
+            return Raw.GetCurrentPassCount(out count);
         }
 
         #endregion
@@ -460,11 +423,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetMatchThreadId(out int id)
         {
-            InitDelegate(ref getMatchThreadId, Vtbl->GetMatchThreadId);
-
             /*HRESULT GetMatchThreadId(
             [Out] out int Id);*/
-            return getMatchThreadId(Raw, out id);
+            return Raw.GetMatchThreadId(out id);
         }
 
         /// <summary>
@@ -480,11 +441,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetMatchThreadId(int thread)
         {
-            InitDelegate(ref setMatchThreadId, Vtbl->SetMatchThreadId);
-
             /*HRESULT SetMatchThreadId(
             [In] int Thread);*/
-            return setMatchThreadId(Raw, thread);
+            return Raw.SetMatchThreadId(thread);
         }
 
         #endregion
@@ -521,22 +480,21 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetCommand(out string bufferResult)
         {
-            InitDelegate(ref getCommand, Vtbl->GetCommand);
             /*HRESULT GetCommand(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int commandSize;
-            HRESULT hr = getCommand(Raw, null, bufferSize, out commandSize);
+            HRESULT hr = Raw.GetCommand(null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = commandSize;
-            buffer = new char[bufferSize];
-            hr = getCommand(Raw, buffer, bufferSize, out commandSize);
+            buffer = new byte[bufferSize];
+            hr = Raw.GetCommand(buffer, bufferSize, out commandSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -566,11 +524,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetCommand(string command)
         {
-            InitDelegate(ref setCommand, Vtbl->SetCommand);
-
             /*HRESULT SetCommand(
             [In, MarshalAs(UnmanagedType.LPStr)] string Command);*/
-            return setCommand(Raw, command);
+            return Raw.SetCommand(command);
         }
 
         #endregion
@@ -609,22 +565,21 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetOffsetExpression(out string bufferResult)
         {
-            InitDelegate(ref getOffsetExpression, Vtbl->GetOffsetExpression);
             /*HRESULT GetOffsetExpression(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int ExpressionSize);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int expressionSize;
-            HRESULT hr = getOffsetExpression(Raw, null, bufferSize, out expressionSize);
+            HRESULT hr = Raw.GetOffsetExpression(null, bufferSize, out expressionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = expressionSize;
-            buffer = new char[bufferSize];
-            hr = getOffsetExpression(Raw, buffer, bufferSize, out expressionSize);
+            buffer = new byte[bufferSize];
+            hr = Raw.GetOffsetExpression(buffer, bufferSize, out expressionSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -650,11 +605,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetOffsetExpression(string expression)
         {
-            InitDelegate(ref setOffsetExpression, Vtbl->SetOffsetExpression);
-
             /*HRESULT SetOffsetExpression(
             [In, MarshalAs(UnmanagedType.LPStr)] string Expression);*/
-            return setOffsetExpression(Raw, expression);
+            return Raw.SetOffsetExpression(expression);
         }
 
         #endregion
@@ -686,11 +639,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetParameters(out DEBUG_BREAKPOINT_PARAMETERS @params)
         {
-            InitDelegate(ref getParameters, Vtbl->GetParameters);
-
             /*HRESULT GetParameters(
             [Out] out DEBUG_BREAKPOINT_PARAMETERS Params);*/
-            return getParameters(Raw, out @params);
+            return Raw.GetParameters(out @params);
         }
 
         #endregion
@@ -722,11 +673,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryAddFlags(DEBUG_BREAKPOINT_FLAG flags)
         {
-            InitDelegate(ref addFlags, Vtbl->AddFlags);
-
             /*HRESULT AddFlags(
             [In] DEBUG_BREAKPOINT_FLAG Flags);*/
-            return addFlags(Raw, flags);
+            return Raw.AddFlags(flags);
         }
 
         #endregion
@@ -758,11 +707,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryRemoveFlags(DEBUG_BREAKPOINT_FLAG flags)
         {
-            InitDelegate(ref removeFlags, Vtbl->RemoveFlags);
-
             /*HRESULT RemoveFlags(
             [In] DEBUG_BREAKPOINT_FLAG Flags);*/
-            return removeFlags(Raw, flags);
+            return Raw.RemoveFlags(flags);
         }
 
         #endregion
@@ -792,12 +739,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetDataParameters(int size, DEBUG_BREAK accessType)
         {
-            InitDelegate(ref setDataParameters, Vtbl->SetDataParameters);
-
             /*HRESULT SetDataParameters(
             [In] int Size,
             [In] DEBUG_BREAK AccessType);*/
-            return setDataParameters(Raw, size, accessType);
+            return Raw.SetDataParameters(size, accessType);
         }
 
         #endregion
@@ -805,18 +750,7 @@ namespace ClrDebug.DbgEng
         #region IDebugBreakpoint2
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw2;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw2
-        {
-            get
-            {
-                InitInterface(typeof(IDebugBreakpoint2).GUID, ref raw2);
-
-                return raw2;
-            }
-        }
+        public IDebugBreakpoint2 Raw2 => (IDebugBreakpoint2) Raw;
 
         #region CommandWide
 
@@ -851,7 +785,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetCommandWide(out string bufferResult)
         {
-            InitDelegate(ref getCommandWide, Vtbl2->GetCommandWide);
             /*HRESULT GetCommandWide(
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
@@ -859,14 +792,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int commandSize;
-            HRESULT hr = getCommandWide(Raw2, null, bufferSize, out commandSize);
+            HRESULT hr = Raw2.GetCommandWide(null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = commandSize;
             buffer = new char[bufferSize];
-            hr = getCommandWide(Raw2, buffer, bufferSize, out commandSize);
+            hr = Raw2.GetCommandWide(buffer, bufferSize, out commandSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -896,11 +829,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetCommandWide(string command)
         {
-            InitDelegate(ref setCommandWide, Vtbl2->SetCommandWide);
-
             /*HRESULT SetCommandWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Command);*/
-            return setCommandWide(Raw2, command);
+            return Raw2.SetCommandWide(command);
         }
 
         #endregion
@@ -939,7 +870,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetOffsetExpressionWide(out string bufferResult)
         {
-            InitDelegate(ref getOffsetExpressionWide, Vtbl2->GetOffsetExpressionWide);
             /*HRESULT GetOffsetExpressionWide(
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
@@ -947,14 +877,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int expressionSize;
-            HRESULT hr = getOffsetExpressionWide(Raw2, null, bufferSize, out expressionSize);
+            HRESULT hr = Raw2.GetOffsetExpressionWide(null, bufferSize, out expressionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = expressionSize;
             buffer = new char[bufferSize];
-            hr = getOffsetExpressionWide(Raw2, buffer, bufferSize, out expressionSize);
+            hr = Raw2.GetOffsetExpressionWide(buffer, bufferSize, out expressionSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -979,11 +909,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetOffsetExpressionWide(string command)
         {
-            InitDelegate(ref setOffsetExpressionWide, Vtbl2->SetOffsetExpressionWide);
-
             /*HRESULT SetOffsetExpressionWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Command);*/
-            return setOffsetExpressionWide(Raw2, command);
+            return Raw2.SetOffsetExpressionWide(command);
         }
 
         #endregion
@@ -991,18 +919,7 @@ namespace ClrDebug.DbgEng
         #region IDebugBreakpoint3
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw3;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw3
-        {
-            get
-            {
-                InitInterface(typeof(IDebugBreakpoint3).GUID, ref raw3);
-
-                return raw3;
-            }
-        }
+        public IDebugBreakpoint3 Raw3 => (IDebugBreakpoint3) Raw;
 
         #region Guid
 
@@ -1027,126 +944,12 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryGetGuid(out Guid guid)
         {
-            InitDelegate(ref getGuid, Vtbl3->GetGuid);
-
             /*HRESULT GetGuid(
             [Out] out Guid Guid);*/
-            return getGuid(Raw3, out guid);
+            return Raw3.GetGuid(out guid);
         }
 
         #endregion
         #endregion
-        #region Cached Delegates
-        #region IDebugBreakpoint
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetIdDelegate getId;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetTypeDelegate getType;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetAdderDelegate getAdder;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetFlagsDelegate getFlags;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetFlagsDelegate setFlags;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOffsetDelegate getOffset;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetOffsetDelegate setOffset;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetDataParametersDelegate getDataParameters;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetPassCountDelegate getPassCount;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetPassCountDelegate setPassCount;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetCurrentPassCountDelegate getCurrentPassCount;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetMatchThreadIdDelegate getMatchThreadId;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetMatchThreadIdDelegate setMatchThreadId;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetCommandDelegate getCommand;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetCommandDelegate setCommand;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOffsetExpressionDelegate getOffsetExpression;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetOffsetExpressionDelegate setOffsetExpression;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetParametersDelegate getParameters;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private AddFlagsDelegate addFlags;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private RemoveFlagsDelegate removeFlags;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetDataParametersDelegate setDataParameters;
-
-        #endregion
-        #region IDebugBreakpoint2
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetCommandWideDelegate getCommandWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetCommandWideDelegate setCommandWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOffsetExpressionWideDelegate getOffsetExpressionWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetOffsetExpressionWideDelegate setOffsetExpressionWide;
-
-        #endregion
-        #region IDebugBreakpoint3
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetGuidDelegate getGuid;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugBreakpoint
-
-        private delegate HRESULT GetIdDelegate(IntPtr self, [Out] out int Id);
-        private delegate HRESULT GetTypeDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_TYPE BreakType, [Out] out int ProcType);
-        private delegate HRESULT GetAdderDelegate(IntPtr self, [Out, ComAliasName("IDebugClient")] out IntPtr Adder);
-        private delegate HRESULT GetFlagsDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_FLAG Flags);
-        private delegate HRESULT SetFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
-        private delegate HRESULT GetOffsetDelegate(IntPtr self, [Out] out long Offset);
-        private delegate HRESULT SetOffsetDelegate(IntPtr self, [In] long Offset);
-        private delegate HRESULT GetDataParametersDelegate(IntPtr self, [Out] out int Size, [Out] out DEBUG_BREAK AccessType);
-        private delegate HRESULT GetPassCountDelegate(IntPtr self, [Out] out int Count);
-        private delegate HRESULT SetPassCountDelegate(IntPtr self, [In] int Count);
-        private delegate HRESULT GetCurrentPassCountDelegate(IntPtr self, [Out] out int Count);
-        private delegate HRESULT GetMatchThreadIdDelegate(IntPtr self, [Out] out int Id);
-        private delegate HRESULT SetMatchThreadIdDelegate(IntPtr self, [In] int Thread);
-        private delegate HRESULT GetCommandDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int CommandSize);
-        private delegate HRESULT SetCommandDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
-        private delegate HRESULT GetOffsetExpressionDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int ExpressionSize);
-        private delegate HRESULT SetOffsetExpressionDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Expression);
-        private delegate HRESULT GetParametersDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_PARAMETERS Params);
-        private delegate HRESULT AddFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
-        private delegate HRESULT RemoveFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
-        private delegate HRESULT SetDataParametersDelegate(IntPtr self, [In] int Size, [In] DEBUG_BREAK AccessType);
-
-        #endregion
-        #region IDebugBreakpoint2
-
-        private delegate HRESULT GetCommandWideDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int CommandSize);
-        private delegate HRESULT SetCommandWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
-        private delegate HRESULT GetOffsetExpressionWideDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int ExpressionSize);
-        private delegate HRESULT SetOffsetExpressionWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
-
-        #endregion
-        #region IDebugBreakpoint3
-
-        private delegate HRESULT GetGuidDelegate(IntPtr self, [Out] out Guid Guid);
-
-        #endregion
-        #endregion
-
-        protected override void ReleaseSubInterfaces()
-        {
-            ReleaseInterface(ref raw2);
-            ReleaseInterface(ref raw3);
-        }
     }
 }

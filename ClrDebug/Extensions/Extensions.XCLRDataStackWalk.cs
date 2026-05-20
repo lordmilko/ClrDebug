@@ -6,16 +6,16 @@ namespace ClrDebug
     {
         #region GetContext
 
-        public static T GetContext<T>(this XCLRDataStackWalk stackWalk, ContextFlags contextFlags) where T : struct
+        public static unsafe T GetContext<T>(this XCLRDataStackWalk stackWalk, ContextFlags contextFlags) where T : unmanaged
         {
             T context;
             TryGetContext(stackWalk, contextFlags, out context).ThrowOnNotOK();
             return context;
         }
 
-        public static HRESULT TryGetContext<T>(this XCLRDataStackWalk stackWalk, ContextFlags contextFlags, out T context) where T : struct
+        public static unsafe HRESULT TryGetContext<T>(this XCLRDataStackWalk stackWalk, ContextFlags contextFlags, out T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -23,7 +23,7 @@ namespace ClrDebug
                 var hr = stackWalk.TryGetContext(contextFlags, size, out var actualSize, buffer);
 
                 if (hr == HRESULT.S_OK)
-                    context = Marshal.PtrToStructure<T>(buffer);
+                    context = *(T*) buffer;
                 else
                     context = default(T);
 
@@ -38,14 +38,14 @@ namespace ClrDebug
         #endregion
         #region SetContext
 
-        public static void SetContext<T>(this XCLRDataStackWalk stackWalk, T context) where T : struct
+        public static unsafe void SetContext<T>(this XCLRDataStackWalk stackWalk, T context) where T : unmanaged
         {
             TrySetContext(stackWalk, context).ThrowOnNotOK();
         }
 
-        public static HRESULT TrySetContext<T>(this XCLRDataStackWalk stackWalk, T context) where T : struct
+        public static unsafe HRESULT TrySetContext<T>(this XCLRDataStackWalk stackWalk, T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try

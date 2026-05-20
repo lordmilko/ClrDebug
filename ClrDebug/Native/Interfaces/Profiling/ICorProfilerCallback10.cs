@@ -476,7 +476,7 @@ namespace ClrDebug
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid pCookie,
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
@@ -491,7 +491,7 @@ namespace ClrDebug
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid pCookie,
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
@@ -522,7 +522,7 @@ namespace ClrDebug
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid pCookie,
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
@@ -549,7 +549,7 @@ namespace ClrDebug
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid pCookie,
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
@@ -941,7 +941,7 @@ namespace ClrDebug
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid implementedIID,
             [In] IntPtr pVTable,
@@ -965,7 +965,7 @@ namespace ClrDebug
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid implementedIID,
             [In] IntPtr pVTable);
@@ -1440,13 +1440,13 @@ namespace ClrDebug
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid pActivityId,
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid pRelatedActivityId,
             [In] ThreadID eventThread,

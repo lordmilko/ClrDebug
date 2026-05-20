@@ -192,7 +192,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid conceptId,
             [Out, MarshalAs(UnmanagedType.Interface)] out object conceptInterface,
@@ -334,7 +334,7 @@ namespace ClrDebug.DbgEng
         /// <returns>This method returns HRESULT that indicates success or failure.</returns>
         [PreserveSig]
         HRESULT SetKey(
-            [In, MarshalAs(UnmanagedType.LPWStr)] string key,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string key, //todo: they say its a lpwstr but i think its really meant to be a bstr cos otherwise keyenumerator spits out garbage cos it DOES take a bstr
             [In, MarshalAs(UnmanagedType.Interface)] IModelObject @object,
             [In, MarshalAs(UnmanagedType.Interface)] IKeyStore metadata);
 
@@ -385,7 +385,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid conceptId,
             [In, MarshalAs(UnmanagedType.Interface)] object conceptInterface, //There's no issues with the default CCW VTable layout with this method, indicating it does do a QI internally

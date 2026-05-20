@@ -38,7 +38,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object serviceUnknown);
@@ -81,13 +81,13 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid serviceGuid,
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid serviceInterface,
             [Out, MarshalAs(UnmanagedType.Interface)] out object interfaceUnknown);
@@ -101,7 +101,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid serviceGuid,
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugServiceLayer service);
@@ -115,7 +115,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid serviceGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
@@ -128,7 +128,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
@@ -141,7 +141,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer service);
@@ -154,7 +154,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid eventGuid,
             [In, MarshalAs(UnmanagedType.Interface)] object eventArgument,
@@ -172,7 +172,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid serviceGuid,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugServiceLayer newAggregateService);

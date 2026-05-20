@@ -176,7 +176,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid conceptId,
             [Out, MarshalAs(UnmanagedType.Interface)] out object conceptInterface,
@@ -369,7 +369,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid conceptId,
             [In, MarshalAs(UnmanagedType.Interface)] object conceptInterface,

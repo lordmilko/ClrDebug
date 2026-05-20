@@ -1,28 +1,14 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
-
-namespace ClrDebug.DbgEng
+﻿namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// Supports the debug output stream.
     /// </summary>
-    public unsafe class DebugOutputStream : RuntimeCallableWrapper
+    public class DebugOutputStream : ComObject<IDebugOutputStream>
     {
-        public static readonly Guid IID_IDebugOutputStream = new Guid("7782D8F2-2B85-4059-AB88-28CEDDCA1C80");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugOutputStreamVtbl* Vtbl => (IDebugOutputStreamVtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugOutputStream(IntPtr raw) : base(raw, IID_IDebugOutputStream)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugOutputStream"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugOutputStream(IDebugOutputStream raw) : base(raw)
         {
         }
@@ -46,27 +32,10 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryWrite(string text)
         {
-            InitDelegate(ref write, Vtbl->Write);
-
             /*HRESULT Write(
             [MarshalAs(UnmanagedType.LPWStr), In] string text);*/
-            return write(Raw, text);
+            return Raw.Write(text);
         }
-
-        #endregion
-        #endregion
-        #region Cached Delegates
-        #region IDebugOutputStream
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteDelegate write;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugOutputStream
-
-        private delegate HRESULT WriteDelegate(IntPtr self, [MarshalAs(UnmanagedType.LPWStr), In] string text);
 
         #endregion
         #endregion

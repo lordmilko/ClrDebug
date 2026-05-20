@@ -1,36 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using SRI = System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
-    public unsafe class DebugAdvanced : RuntimeCallableWrapper
+    public class DebugAdvanced : ComObject<IDebugAdvanced>
     {
-        public static readonly Guid IID_IDebugAdvanced = new Guid("f2df5f53-071f-47bd-9de6-5734c3fed689");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugAdvancedVtbl* Vtbl => (IDebugAdvancedVtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugAdvanced2Vtbl* Vtbl2 => (IDebugAdvanced2Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugAdvanced3Vtbl* Vtbl3 => (IDebugAdvanced3Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugAdvanced4Vtbl* Vtbl4 => (IDebugAdvanced4Vtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugAdvanced(IntPtr raw) : base(raw, IID_IDebugAdvanced)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugAdvanced"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugAdvanced(IDebugAdvanced raw) : base(raw)
         {
         }
@@ -64,12 +43,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetThreadContext(IntPtr context, int contextSize)
         {
-            InitDelegate(ref getThreadContext, Vtbl->GetThreadContext);
-
             /*HRESULT GetThreadContext(
             [In] IntPtr Context,
             [In] int ContextSize);*/
-            return getThreadContext(Raw, context, contextSize);
+            return Raw.GetThreadContext(context, contextSize);
         }
 
         #endregion
@@ -101,12 +78,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetThreadContext(IntPtr context, int contextSize)
         {
-            InitDelegate(ref setThreadContext, Vtbl->SetThreadContext);
-
             /*HRESULT SetThreadContext(
             [In] IntPtr Context,
             [In] int ContextSize);*/
-            return setThreadContext(Raw, context, contextSize);
+            return Raw.SetThreadContext(context, contextSize);
         }
 
         #endregion
@@ -114,18 +89,7 @@ namespace ClrDebug.DbgEng
         #region IDebugAdvanced2
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw2;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw2
-        {
-            get
-            {
-                InitInterface(typeof(IDebugAdvanced2).GUID, ref raw2);
-
-                return raw2;
-            }
-        }
+        public IDebugAdvanced2 Raw2 => (IDebugAdvanced2) Raw;
 
         #region Request
 
@@ -163,8 +127,6 @@ namespace ClrDebug.DbgEng
         /// This method may also return error values. See Return Values for more details.</returns>
         public HRESULT TryRequest(DEBUG_REQUEST request, IntPtr inBuffer, int inBufferSize, IntPtr outBuffer, int outBufferSize, out int outSize)
         {
-            InitDelegate(ref this.request, Vtbl2->Request);
-
             /*HRESULT Request(
             [In] DEBUG_REQUEST Request,
             [In] IntPtr InBuffer,
@@ -172,7 +134,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr OutBuffer,
             [In] int OutBufferSize,
             [Out] out int OutSize);*/
-            return this.request(Raw2, request, inBuffer, inBufferSize, outBuffer, outBufferSize, out outSize);
+            return Raw2.Request(request, inBuffer, inBufferSize, outBuffer, outBufferSize, out outSize);
         }
 
         #endregion
@@ -225,8 +187,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSourceFileInformation(DEBUG_SRCFILE which, string sourceFile, long arg64, int arg32, IntPtr buffer, int bufferSize, out int infoSize)
         {
-            InitDelegate(ref getSourceFileInformation, Vtbl2->GetSourceFileInformation);
-
             /*HRESULT GetSourceFileInformation(
             [In] DEBUG_SRCFILE Which,
             [In, MarshalAs(UnmanagedType.LPStr)] string SourceFile,
@@ -235,7 +195,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);*/
-            return getSourceFileInformation(Raw2, which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize);
+            return Raw2.GetSourceFileInformation(which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize);
         }
 
         #endregion
@@ -316,7 +276,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryFindSourceFileAndToken(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int fileTokenSize, out FindSourceFileAndTokenResult result)
         {
-            InitDelegate(ref findSourceFileAndToken, Vtbl2->FindSourceFileAndToken);
             /*HRESULT FindSourceFileAndToken(
             [In] int StartElement,
             [In] long ModAddr,
@@ -325,21 +284,21 @@ namespace ClrDebug.DbgEng
             [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);*/
             int foundElement;
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int foundSize;
-            HRESULT hr = findSourceFileAndToken(Raw2, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
+            HRESULT hr = Raw2.FindSourceFileAndToken(startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = foundSize;
-            buffer = new char[bufferSize];
-            hr = findSourceFileAndToken(Raw2, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
+            buffer = new byte[bufferSize];
+            hr = Raw2.FindSourceFileAndToken(startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -398,7 +357,6 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         public HRESULT TryGetSymbolInformation(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize, out GetSymbolInformationResult result)
         {
-            InitDelegate(ref getSymbolInformation, Vtbl2->GetSymbolInformation);
             /*HRESULT GetSymbolInformation(
             [In] DEBUG_SYMINFO Which,
             [In] long Arg64,
@@ -406,21 +364,21 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] StringBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] byte[] StringBuffer,
             [In] int StringBufferSize,
             [Out] out int StringSize);*/
             int infoSize;
-            char[] stringBuffer;
+            byte[] stringBuffer;
             int stringBufferSize = 0;
             int stringSize;
-            HRESULT hr = getSymbolInformation(Raw2, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
+            HRESULT hr = Raw2.GetSymbolInformation(which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             stringBufferSize = stringSize;
-            stringBuffer = new char[stringBufferSize];
-            hr = getSymbolInformation(Raw2, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
+            stringBuffer = new byte[stringBufferSize];
+            hr = Raw2.GetSymbolInformation(which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -469,8 +427,6 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         public HRESULT TryGetSystemObjectInformation(DEBUG_SYSOBJINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize, out int infoSize)
         {
-            InitDelegate(ref getSystemObjectInformation, Vtbl2->GetSystemObjectInformation);
-
             /*HRESULT GetSystemObjectInformation(
             [In] DEBUG_SYSOBJINFO Which,
             [In] long Arg64,
@@ -478,7 +434,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);*/
-            return getSystemObjectInformation(Raw2, which, arg64, arg32, buffer, bufferSize, out infoSize);
+            return Raw2.GetSystemObjectInformation(which, arg64, arg32, buffer, bufferSize, out infoSize);
         }
 
         #endregion
@@ -486,18 +442,7 @@ namespace ClrDebug.DbgEng
         #region IDebugAdvanced3
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw3;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw3
-        {
-            get
-            {
-                InitInterface(typeof(IDebugAdvanced3).GUID, ref raw3);
-
-                return raw3;
-            }
-        }
+        public IDebugAdvanced3 Raw3 => (IDebugAdvanced3) Raw;
 
         #region GetSourceFileInformationWide
 
@@ -548,8 +493,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSourceFileInformationWide(DEBUG_SRCFILE which, string sourceFile, long arg64, int arg32, IntPtr buffer, int bufferSize, out int infoSize)
         {
-            InitDelegate(ref getSourceFileInformationWide, Vtbl3->GetSourceFileInformationWide);
-
             /*HRESULT GetSourceFileInformationWide(
             [In] DEBUG_SRCFILE Which,
             [In, MarshalAs(UnmanagedType.LPWStr)] string SourceFile,
@@ -558,7 +501,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);*/
-            return getSourceFileInformationWide(Raw3, which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize);
+            return Raw3.GetSourceFileInformationWide(which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize);
         }
 
         #endregion
@@ -629,7 +572,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryFindSourceFileAndTokenWide(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int fileTokenSize, out FindSourceFileAndTokenWideResult result)
         {
-            InitDelegate(ref findSourceFileAndTokenWide, Vtbl3->FindSourceFileAndTokenWide);
             /*HRESULT FindSourceFileAndTokenWide(
             [In] int StartElement,
             [In] long ModAddr,
@@ -645,14 +587,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int foundSize;
-            HRESULT hr = findSourceFileAndTokenWide(Raw3, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
+            HRESULT hr = Raw3.FindSourceFileAndTokenWide(startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = foundSize;
             buffer = new char[bufferSize];
-            hr = findSourceFileAndTokenWide(Raw3, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
+            hr = Raw3.FindSourceFileAndTokenWide(startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -711,7 +653,6 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         public HRESULT TryGetSymbolInformationWide(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize, out GetSymbolInformationWideResult result)
         {
-            InitDelegate(ref getSymbolInformationWide, Vtbl3->GetSymbolInformationWide);
             /*HRESULT GetSymbolInformationWide(
             [In] DEBUG_SYMINFO Which,
             [In] long Arg64,
@@ -726,14 +667,14 @@ namespace ClrDebug.DbgEng
             char[] stringBuffer;
             int stringBufferSize = 0;
             int stringSize;
-            HRESULT hr = getSymbolInformationWide(Raw3, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
+            HRESULT hr = Raw3.GetSymbolInformationWide(which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             stringBufferSize = stringSize;
             stringBuffer = new char[stringBufferSize];
-            hr = getSymbolInformationWide(Raw3, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
+            hr = Raw3.GetSymbolInformationWide(which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -753,18 +694,7 @@ namespace ClrDebug.DbgEng
         #region IDebugAdvanced4
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw4;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw4
-        {
-            get
-            {
-                InitInterface(typeof(IDebugAdvanced4).GUID, ref raw4);
-
-                return raw4;
-            }
-        }
+        public IDebugAdvanced4 Raw4 => (IDebugAdvanced4) Raw;
 
         #region GetSymbolInformationWideEx
 
@@ -809,7 +739,6 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         public HRESULT TryGetSymbolInformationWideEx(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize, out GetSymbolInformationWideExResult result)
         {
-            InitDelegate(ref getSymbolInformationWideEx, Vtbl4->GetSymbolInformationWideEx);
             /*HRESULT GetSymbolInformationWideEx(
             [In] DEBUG_SYMINFO Which,
             [In] long Arg64,
@@ -826,14 +755,14 @@ namespace ClrDebug.DbgEng
             int stringBufferSize = 0;
             int stringSize;
             SYMBOL_INFO_EX pInfoEx;
-            HRESULT hr = getSymbolInformationWideEx(Raw4, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize, out pInfoEx);
+            HRESULT hr = Raw4.GetSymbolInformationWideEx(which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize, out pInfoEx);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             stringBufferSize = stringSize;
             stringBuffer = new char[stringBufferSize];
-            hr = getSymbolInformationWideEx(Raw4, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize, out pInfoEx);
+            hr = Raw4.GetSymbolInformationWideEx(which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize, out pInfoEx);
 
             if (hr == HRESULT.S_OK)
             {
@@ -850,81 +779,5 @@ namespace ClrDebug.DbgEng
 
         #endregion
         #endregion
-        #region Cached Delegates
-        #region IDebugAdvanced
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetThreadContextDelegate getThreadContext;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetThreadContextDelegate setThreadContext;
-
-        #endregion
-        #region IDebugAdvanced2
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private RequestDelegate request;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSourceFileInformationDelegate getSourceFileInformation;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private FindSourceFileAndTokenDelegate findSourceFileAndToken;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolInformationDelegate getSymbolInformation;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSystemObjectInformationDelegate getSystemObjectInformation;
-
-        #endregion
-        #region IDebugAdvanced3
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSourceFileInformationWideDelegate getSourceFileInformationWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private FindSourceFileAndTokenWideDelegate findSourceFileAndTokenWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolInformationWideDelegate getSymbolInformationWide;
-
-        #endregion
-        #region IDebugAdvanced4
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolInformationWideExDelegate getSymbolInformationWideEx;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugAdvanced
-
-        private delegate HRESULT GetThreadContextDelegate(IntPtr self, [In] IntPtr Context, [In] int ContextSize);
-        private delegate HRESULT SetThreadContextDelegate(IntPtr self, [In] IntPtr Context, [In] int ContextSize);
-
-        #endregion
-        #region IDebugAdvanced2
-
-        private delegate HRESULT RequestDelegate(IntPtr self, [In] DEBUG_REQUEST Request, [In] IntPtr InBuffer, [In] int InBufferSize, [Out] IntPtr OutBuffer, [In] int OutBufferSize, [Out] out int OutSize);
-        private delegate HRESULT GetSourceFileInformationDelegate(IntPtr self, [In] DEBUG_SRCFILE Which, [In, MarshalAs(UnmanagedType.LPStr)] string SourceFile, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
-        private delegate HRESULT FindSourceFileAndTokenDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [In] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] char[] Buffer, [In] int BufferSize, [Out] out int FoundSize);
-        private delegate HRESULT GetSymbolInformationDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
-        private delegate HRESULT GetSystemObjectInformationDelegate(IntPtr self, [In] DEBUG_SYSOBJINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
-
-        #endregion
-        #region IDebugAdvanced3
-
-        private delegate HRESULT GetSourceFileInformationWideDelegate(IntPtr self, [In] DEBUG_SRCFILE Which, [In, MarshalAs(UnmanagedType.LPWStr)] string SourceFile, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
-        private delegate HRESULT FindSourceFileAndTokenWideDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [In] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 8)] char[] Buffer, [In] int BufferSize, [Out] out int FoundSize);
-        private delegate HRESULT GetSymbolInformationWideDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
-
-        #endregion
-        #region IDebugAdvanced4
-
-        private delegate HRESULT GetSymbolInformationWideExDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] StringBuffer, [In] int StringBufferSize, [Out] out int StringSize, [Out] out SYMBOL_INFO_EX pInfoEx);
-
-        #endregion
-        #endregion
-
-        protected override void ReleaseSubInterfaces()
-        {
-            ReleaseInterface(ref raw2);
-            ReleaseInterface(ref raw3);
-            ReleaseInterface(ref raw4);
-        }
     }
 }

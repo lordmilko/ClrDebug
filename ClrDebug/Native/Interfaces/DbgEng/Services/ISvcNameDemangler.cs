@@ -30,7 +30,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid machineArch,
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszMangledName,

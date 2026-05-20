@@ -61,7 +61,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetAdder(
-            [Out, ComAliasName("IDebugClient")] out IntPtr Adder);
+            [Out, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugClient")] out IDebugClient Adder);
 
         /// <summary>
         /// The GetFlags method returns the flags for a breakpoint.

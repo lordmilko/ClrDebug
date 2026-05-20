@@ -1,25 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
-
-namespace ClrDebug.DbgEng
+﻿namespace ClrDebug.DbgEng
 {
-    public unsafe class DebugLinkableProcessServer : RuntimeCallableWrapper
+    public class DebugLinkableProcessServer : ComObject<IDebugLinkableProcessServer>
     {
-        public static readonly Guid IID_IDebugLinkableProcessServer = new Guid("4DE9A876-D3C5-4313-9D8F-660C29CBEB9A");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugLinkableProcessServerVtbl* Vtbl => (IDebugLinkableProcessServerVtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugLinkableProcessServer(IntPtr raw) : base(raw, IID_IDebugLinkableProcessServer)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugLinkableProcessServer"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugLinkableProcessServer(IDebugLinkableProcessServer raw) : base(raw)
         {
         }
@@ -37,29 +23,12 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryConnectLinkedProcessServer(long server, string remoteOptions, out long newServer)
         {
-            InitDelegate(ref connectLinkedProcessServer, Vtbl->ConnectLinkedProcessServer);
-
             /*HRESULT ConnectLinkedProcessServer(
             [In] long server,
             [MarshalAs(UnmanagedType.LPWStr), In] string remoteOptions,
             [Out] out long newServer);*/
-            return connectLinkedProcessServer(Raw, server, remoteOptions, out newServer);
+            return Raw.ConnectLinkedProcessServer(server, remoteOptions, out newServer);
         }
-
-        #endregion
-        #endregion
-        #region Cached Delegates
-        #region IDebugLinkableProcessServer
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ConnectLinkedProcessServerDelegate connectLinkedProcessServer;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugLinkableProcessServer
-
-        private delegate HRESULT ConnectLinkedProcessServerDelegate(IntPtr self, [In] long server, [MarshalAs(UnmanagedType.LPWStr), In] string remoteOptions, [Out] out long newServer);
 
         #endregion
         #endregion

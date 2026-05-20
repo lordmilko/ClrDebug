@@ -39,9 +39,9 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid languageVendor,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid documentType,
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in Guid language,
-            [MarshalUsing(typeof(GuidMarshaller))] in Guid languageVendor,
-            [MarshalUsing(typeof(GuidMarshaller))] in Guid documentType,
+            [MarshalUsing(typeof(GuidMarshaller))] Guid language,
+            [MarshalUsing(typeof(GuidMarshaller))] Guid languageVendor,
+            [MarshalUsing(typeof(GuidMarshaller))] Guid documentType,
 #endif
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedDocumentWriter pRetVal);
 

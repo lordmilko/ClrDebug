@@ -488,7 +488,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT CreateClient(
-            [Out, ComAliasName("IDebugClient")] out IntPtr Client);
+            [Out, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugClient")] out IDebugClient Client);
 
         /// <summary>
         /// The GetInputCallbacks method returns the input callbacks object registered with this client.

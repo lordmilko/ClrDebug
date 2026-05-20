@@ -16,11 +16,11 @@ namespace ClrDebug
         /// <param name="contextFlags">Flags that specify which parts of the context are defined in initialContext.</param>
         /// <param name="initialContext">The initial context to pass to the unwinder.</param>
         /// <returns>A <see cref="CorDebugVirtualUnwinder"/> object.</returns>
-        public static CorDebugVirtualUnwinder CreateVirtualUnwinder<T>(
+        public static unsafe CorDebugVirtualUnwinder CreateVirtualUnwinder<T>(
             this ICorDebugDataTarget2 dataTarget,
             int nativeThreadID,
             ContextFlags contextFlags,
-            T initialContext)
+            T initialContext) where T : unmanaged
         {
             CorDebugVirtualUnwinder ppUnwinderResult;
             TryCreateVirtualUnwinder<T>(dataTarget, nativeThreadID, contextFlags, initialContext, out ppUnwinderResult).ThrowOnNotOK();
@@ -37,14 +37,14 @@ namespace ClrDebug
         /// <param name="initialContext">The initial context to pass to the unwinder.</param>
         /// <param name="ppUnwinderResult">A <see cref="CorDebugVirtualUnwinder"/> object.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryCreateVirtualUnwinder<T>(
+        public static unsafe HRESULT TryCreateVirtualUnwinder<T>(
             this ICorDebugDataTarget2 dataTarget,
             int nativeThreadID,
             ContextFlags contextFlags,
             T initialContext,
-            out CorDebugVirtualUnwinder ppUnwinderResult)
+            out CorDebugVirtualUnwinder ppUnwinderResult) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -78,7 +78,7 @@ namespace ClrDebug
         /// <param name="dataTarget">The <see cref="ICorDebugDataTarget"/> whose memory should be read.</param>
         /// <param name="address">The start address of requested memory.</param>
         /// <returns>The value that was read.</returns>
-        public static T ReadVirtual<T>(this ICorDebugDataTarget dataTarget, CORDB_ADDRESS address) where T : struct
+        public static unsafe T ReadVirtual<T>(this ICorDebugDataTarget dataTarget, CORDB_ADDRESS address) where T : unmanaged
         {
             T value;
             TryReadVirtual(dataTarget, address, out value).ThrowOnNotOK();
@@ -93,9 +93,9 @@ namespace ClrDebug
         /// <param name="address">The start address of requested memory.</param>
         /// <param name="value">The value that was read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadVirtual<T>(this ICorDebugDataTarget dataTarget, CORDB_ADDRESS address, out T value) where T : struct
+        public static unsafe HRESULT TryReadVirtual<T>(this ICorDebugDataTarget dataTarget, CORDB_ADDRESS address, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -104,7 +104,7 @@ namespace ClrDebug
                 var hr = dataTarget.ReadVirtual(address, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -176,7 +176,7 @@ namespace ClrDebug
         /// <param name="dataTarget">The <see cref="ICorDebugMutableDataTarget"/> whose memory should be written to.</param>
         /// <param name="address">The address at which to write the specified value.</param>
         /// <param name="value">The value to be written.</param>
-        public static void WriteVirtual<T>(this ICorDebugMutableDataTarget dataTarget, CORDB_ADDRESS address, T value) where T : struct
+        public static unsafe void WriteVirtual<T>(this ICorDebugMutableDataTarget dataTarget, CORDB_ADDRESS address, T value) where T : unmanaged
         {
             TryWriteVirtual(dataTarget, address, value).ThrowOnNotOK();
         }
@@ -189,9 +189,9 @@ namespace ClrDebug
         /// <param name="address">The address at which to write the specified value.</param>
         /// <param name="value">The value to be written.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWriteVirtual<T>(this ICorDebugMutableDataTarget dataTarget, CORDB_ADDRESS address, T value) where T : struct
+        public static unsafe HRESULT TryWriteVirtual<T>(this ICorDebugMutableDataTarget dataTarget, CORDB_ADDRESS address, T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -269,7 +269,7 @@ namespace ClrDebug
         /// <param name="threadId">The identifier of the thread whose context is to be retrieved. The identifier is defined by the operating system.</param>
         /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
         /// <returns>The thread context that was read.</returns>
-        public static T GetThreadContext<T>(this ICorDebugDataTarget dataTarget, int threadId, ContextFlags contextFlags) where T : struct
+        public static unsafe T GetThreadContext<T>(this ICorDebugDataTarget dataTarget, int threadId, ContextFlags contextFlags) where T : unmanaged
         {
             T context;
             TryGetThreadContext(dataTarget, threadId, contextFlags, out context).ThrowOnNotOK();
@@ -287,9 +287,9 @@ namespace ClrDebug
         /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
         /// <param name="context">The thread context that was read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryGetThreadContext<T>(this ICorDebugDataTarget dataTarget, int threadId, ContextFlags contextFlags, out T context) where T : struct
+        public static unsafe HRESULT TryGetThreadContext<T>(this ICorDebugDataTarget dataTarget, int threadId, ContextFlags contextFlags, out T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -297,7 +297,7 @@ namespace ClrDebug
                 var hr = dataTarget.GetThreadContext(threadId, contextFlags, size, buffer);
 
                 if (hr == HRESULT.S_OK)
-                    context = Marshal.PtrToStructure<T>(buffer);
+                    context = *(T*) buffer;
                 else
                     context = default(T);
 
@@ -319,7 +319,7 @@ namespace ClrDebug
         /// <param name="dataTarget">The <see cref="ICorDebugMutableDataTarget"/> containing the thread whose context should be modified.</param>
         /// <param name="threadId">The operating system-defined thread identifier.</param>
         /// <param name="context">The context to set. The context specifies the architecture of the processor on which the thread is executing.</param>
-        public static void SetThreadContext<T>(this ICorDebugMutableDataTarget dataTarget, int threadId, T context) where T : struct
+        public static unsafe void SetThreadContext<T>(this ICorDebugMutableDataTarget dataTarget, int threadId, T context) where T : unmanaged
         {
             TrySetThreadContext(dataTarget, threadId, context).ThrowOnNotOK();
         }
@@ -332,9 +332,9 @@ namespace ClrDebug
         /// <param name="threadId">The operating system-defined thread identifier.</param>
         /// <param name="context">The context to set. The context specifies the architecture of the processor on which the thread is executing.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TrySetThreadContext<T>(this ICorDebugMutableDataTarget dataTarget, int threadId, T context) where T : struct
+        public static unsafe HRESULT TrySetThreadContext<T>(this ICorDebugMutableDataTarget dataTarget, int threadId, T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try

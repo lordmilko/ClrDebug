@@ -108,7 +108,10 @@ namespace ClrDebug.DbgEng
         public static readonly Guid DEBUG_COMPONENTAGGREGATE_MACHINEARCH_AMD64 = new Guid("4BC151FE-5096-47E3-8B1E-2093F20BB979");
 
         /// <summary>
-        /// A component which provides the architecture specific definitions of the X86 architecture. Components Aggregated DEBUG_COMPONENTSVC_MACHINEARCH_X86_PAGETABLEREADER DEBUG_COMPONENTSVC_MACHINEARCH_X86_ARCHINFO
+        /// A component which provides the architecture specific definitions of the X86 architecture.<para/>
+        /// Components Aggregated:
+        ///     DEBUG_COMPONENTSVC_MACHINEARCH_X86_PAGETABLEREADER
+        ///     DEBUG_COMPONENTSVC_MACHINEARCH_X86_ARCHINFO
         /// </summary>
         public static readonly Guid DEBUG_COMPONENTAGGREGATE_MACHINEARCH_X86 = new Guid("EDFD8AD0-1369-431D-B574-33E72CF1B12E");
 

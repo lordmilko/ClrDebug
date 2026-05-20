@@ -14,7 +14,7 @@ namespace ClrDebug
         /// <param name="dataTarget">The <see cref="CLRDataTarget"/> whose memory should be read.</param>
         /// <param name="address">A CLRDATA_ADDRESS that stores the virtual memory address.</param>
         /// <returns>The value that was read.</returns>
-        public static T ReadVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address) where T : struct
+        public static unsafe T ReadVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address) where T : unmanaged
         {
             T value;
             TryReadVirtual(dataTarget, address, out value).ThrowOnNotOK();
@@ -29,9 +29,9 @@ namespace ClrDebug
         /// <param name="address">A CLRDATA_ADDRESS that stores the virtual memory address.</param>
         /// <param name="value">The value that was read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, out T value) where T : struct
+        public static unsafe HRESULT TryReadVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -40,7 +40,7 @@ namespace ClrDebug
                 var hr = dataTarget.ReadVirtual(address, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -113,7 +113,7 @@ namespace ClrDebug
         /// <param name="address">The address at which to write the specified value.</param>
         /// <param name="value">The value to be written.</param>
         /// <returns>The actual number of bytes that were written.</returns>
-        public static int WriteVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, T value) where T : struct
+        public static unsafe int WriteVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, T value) where T : unmanaged
         {
             int bytesWritten;
             TryWriteVirtual(dataTarget, address, value, out bytesWritten).ThrowOnNotOK();
@@ -129,9 +129,9 @@ namespace ClrDebug
         /// <param name="value">The value to be written.</param>
         /// <param name="bytesWritten">The actual number of bytes that were written.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWriteVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, T value, out int bytesWritten) where T : struct
+        public static unsafe HRESULT TryWriteVirtual<T>(this ICLRDataTarget dataTarget, CLRDATA_ADDRESS address, T value, out int bytesWritten) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -213,7 +213,7 @@ namespace ClrDebug
         /// <param name="threadId">The operating system identifier of a thread in the target process.</param>
         /// <param name="contextFlags">Flags that specify which parts of the context to return. The implementation will return at least these parts of the context.</param>
         /// <returns>The thread context that was read.</returns>
-        public static T GetThreadContext<T>(this ICLRDataTarget dataTarget, int threadId, ContextFlags contextFlags) where T : struct
+        public static unsafe T GetThreadContext<T>(this ICLRDataTarget dataTarget, int threadId, ContextFlags contextFlags) where T : unmanaged
         {
             T context;
             TryGetThreadContext(dataTarget, threadId, contextFlags, out context).ThrowOnNotOK();
@@ -231,9 +231,9 @@ namespace ClrDebug
         /// <param name="contextFlags">Flags that specify which parts of the context to return. The implementation will return at least these parts of the context.</param>
         /// <param name="context">The thread context that was read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryGetThreadContext<T>(this ICLRDataTarget dataTarget, int threadId, ContextFlags contextFlags, out T context) where T : struct
+        public static unsafe HRESULT TryGetThreadContext<T>(this ICLRDataTarget dataTarget, int threadId, ContextFlags contextFlags, out T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -241,7 +241,7 @@ namespace ClrDebug
                 var hr = dataTarget.GetThreadContext(threadId, contextFlags, size, buffer);
 
                 if (hr == HRESULT.S_OK)
-                    context = Marshal.PtrToStructure<T>(buffer);
+                    context = *(T*) buffer;
                 else
                     context = default(T);
 
@@ -263,7 +263,7 @@ namespace ClrDebug
         /// <param name="dataTarget">The <see cref="ICLRDataTarget"/> containing the thread whose context should be modified.</param>
         /// <param name="threadId">The operating system identifier of a thread in the target process.</param>
         /// <param name="context">The context to set. The data in the context buffer will be in the format of the Win32 CONTEXT structure.</param>
-        public static void SetThreadContext<T>(this ICLRDataTarget dataTarget, int threadId, T context) where T : struct
+        public static unsafe void SetThreadContext<T>(this ICLRDataTarget dataTarget, int threadId, T context) where T : unmanaged
         {
             TrySetThreadContext(dataTarget, threadId, context).ThrowOnNotOK();
         }
@@ -276,9 +276,9 @@ namespace ClrDebug
         /// <param name="threadId">The operating system identifier of a thread in the target process.</param>
         /// <param name="context">The context to set. The data in the context buffer will be in the format of the Win32 CONTEXT structure.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TrySetThreadContext<T>(this ICLRDataTarget dataTarget, int threadId, T context) where T : struct
+        public static unsafe HRESULT TrySetThreadContext<T>(this ICLRDataTarget dataTarget, int threadId, T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try

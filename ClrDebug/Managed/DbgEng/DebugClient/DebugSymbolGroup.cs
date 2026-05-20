@@ -1,30 +1,14 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using SRI = System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
+﻿using System.Diagnostics;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
-    public unsafe class DebugSymbolGroup : RuntimeCallableWrapper
+    public class DebugSymbolGroup : ComObject<IDebugSymbolGroup>
     {
-        public static readonly Guid IID_IDebugSymbolGroup = new Guid("f2528316-0f1a-4431-aeed-11d096e1e2ab");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugSymbolGroupVtbl* Vtbl => (IDebugSymbolGroupVtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugSymbolGroup2Vtbl* Vtbl2 => (IDebugSymbolGroup2Vtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugSymbolGroup(IntPtr raw) : base(raw, IID_IDebugSymbolGroup)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugSymbolGroup"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugSymbolGroup(IDebugSymbolGroup raw) : base(raw)
         {
         }
@@ -59,11 +43,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetNumberSymbols(out int number)
         {
-            InitDelegate(ref getNumberSymbols, Vtbl->GetNumberSymbols);
-
             /*HRESULT GetNumberSymbols(
             [Out] out int Number);*/
-            return getNumberSymbols(Raw, out number);
+            return Raw.GetNumberSymbols(out number);
         }
 
         #endregion
@@ -103,12 +85,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryAddSymbol(string name, ref int index)
         {
-            InitDelegate(ref addSymbol, Vtbl->AddSymbol);
-
             /*HRESULT AddSymbol(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
             [In, Out] ref int Index);*/
-            return addSymbol(Raw, name, ref index);
+            return Raw.AddSymbol(name, ref index);
         }
 
         #endregion
@@ -138,11 +118,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryRemoveSymbolByName(string name)
         {
-            InitDelegate(ref removeSymbolByName, Vtbl->RemoveSymbolByName);
-
             /*HRESULT RemoveSymbolByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name);*/
-            return removeSymbolByName(Raw, name);
+            return Raw.RemoveSymbolByName(name);
         }
 
         #endregion
@@ -155,11 +133,9 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryRemoveSymbolsByIndex(int index)
         {
-            InitDelegate(ref removeSymbolsByIndex, Vtbl->RemoveSymbolsByIndex);
-
             /*HRESULT RemoveSymbolsByIndex(
             [In] int Index);*/
-            return removeSymbolsByIndex(Raw, index);
+            return Raw.RemoveSymbolsByIndex(index);
         }
 
         #endregion
@@ -192,23 +168,22 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSymbolName(int index, out string bufferResult)
         {
-            InitDelegate(ref getSymbolName, Vtbl->GetSymbolName);
             /*HRESULT GetSymbolName(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getSymbolName(Raw, index, null, bufferSize, out nameSize);
+            HRESULT hr = Raw.GetSymbolName(index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new char[bufferSize];
-            hr = getSymbolName(Raw, index, buffer, bufferSize, out nameSize);
+            buffer = new byte[bufferSize];
+            hr = Raw.GetSymbolName(index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -257,13 +232,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSymbolParameters(int start, int count, out DEBUG_SYMBOL_PARAMETERS[] @params)
         {
-            InitDelegate(ref getSymbolParameters, Vtbl->GetSymbolParameters);
             /*HRESULT GetSymbolParameters(
             [In] int Start,
             [In] int Count,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SYMBOL_PARAMETERS[] Params);*/
             @params = new DEBUG_SYMBOL_PARAMETERS[count];
-            HRESULT hr = getSymbolParameters(Raw, start, count, @params);
+            HRESULT hr = Raw.GetSymbolParameters(start, count, @params);
 
             return hr;
         }
@@ -299,12 +273,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryExpandSymbol(int index, bool expand)
         {
-            InitDelegate(ref expandSymbol, Vtbl->ExpandSymbol);
-
             /*HRESULT ExpandSymbol(
             [In] int Index,
             [In, MarshalAs(UnmanagedType.Bool)] bool Expand);*/
-            return expandSymbol(Raw, index, expand);
+            return Raw.ExpandSymbol(index, expand);
         }
 
         #endregion
@@ -344,14 +316,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOutputSymbols(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_SYMBOLS flags, int start, int count)
         {
-            InitDelegate(ref outputSymbols, Vtbl->OutputSymbols);
-
             /*HRESULT OutputSymbols(
             [In] DEBUG_OUTCTL OutputControl,
             [In] DEBUG_OUTPUT_SYMBOLS Flags,
             [In] int Start,
             [In] int Count);*/
-            return outputSymbols(Raw, outputControl, flags, start, count);
+            return Raw.OutputSymbols(outputControl, flags, start, count);
         }
 
         #endregion
@@ -385,12 +355,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWriteSymbol(int index, string value)
         {
-            InitDelegate(ref writeSymbol, Vtbl->WriteSymbol);
-
             /*HRESULT WriteSymbol(
             [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Value);*/
-            return writeSymbol(Raw, index, value);
+            return Raw.WriteSymbol(index, value);
         }
 
         #endregion
@@ -432,12 +400,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOutputAsType(int index, string type)
         {
-            InitDelegate(ref outputAsType, Vtbl->OutputAsType);
-
             /*HRESULT OutputAsType(
             [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Type);*/
-            return outputAsType(Raw, index, type);
+            return Raw.OutputAsType(index, type);
         }
 
         #endregion
@@ -445,18 +411,7 @@ namespace ClrDebug.DbgEng
         #region IDebugSymbolGroup2
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw2;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw2
-        {
-            get
-            {
-                InitInterface(typeof(IDebugSymbolGroup2).GUID, ref raw2);
-
-                return raw2;
-            }
-        }
+        public IDebugSymbolGroup2 Raw2 => (IDebugSymbolGroup2) Raw;
 
         #region AddSymbolWide
 
@@ -494,12 +449,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryAddSymbolWide(string name, ref int index)
         {
-            InitDelegate(ref addSymbolWide, Vtbl2->AddSymbolWide);
-
             /*HRESULT AddSymbolWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
             [In, Out] ref int Index);*/
-            return addSymbolWide(Raw2, name, ref index);
+            return Raw2.AddSymbolWide(name, ref index);
         }
 
         #endregion
@@ -529,11 +482,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryRemoveSymbolByNameWide(string name)
         {
-            InitDelegate(ref removeSymbolByNameWide, Vtbl2->RemoveSymbolByNameWide);
-
             /*HRESULT RemoveSymbolByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name);*/
-            return removeSymbolByNameWide(Raw2, name);
+            return Raw2.RemoveSymbolByNameWide(name);
         }
 
         #endregion
@@ -566,7 +517,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSymbolNameWide(int index, out string bufferResult)
         {
-            InitDelegate(ref getSymbolNameWide, Vtbl2->GetSymbolNameWide);
             /*HRESULT GetSymbolNameWide(
             [In] int Index,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
@@ -575,14 +525,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getSymbolNameWide(Raw2, index, null, bufferSize, out nameSize);
+            HRESULT hr = Raw2.GetSymbolNameWide(index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getSymbolNameWide(Raw2, index, buffer, bufferSize, out nameSize);
+            hr = Raw2.GetSymbolNameWide(index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -628,12 +578,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWriteSymbolWide(int index, string value)
         {
-            InitDelegate(ref writeSymbolWide, Vtbl2->WriteSymbolWide);
-
             /*HRESULT WriteSymbolWide(
             [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Value);*/
-            return writeSymbolWide(Raw2, index, value);
+            return Raw2.WriteSymbolWide(index, value);
         }
 
         #endregion
@@ -675,12 +623,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOutputAsTypeWide(int index, string type)
         {
-            InitDelegate(ref outputAsTypeWide, Vtbl2->OutputAsTypeWide);
-
             /*HRESULT OutputAsTypeWide(
             [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Type);*/
-            return outputAsTypeWide(Raw2, index, type);
+            return Raw2.OutputAsTypeWide(index, type);
         }
 
         #endregion
@@ -713,23 +659,22 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSymbolTypeName(int index, out string bufferResult)
         {
-            InitDelegate(ref getSymbolTypeName, Vtbl2->GetSymbolTypeName);
             /*HRESULT GetSymbolTypeName(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getSymbolTypeName(Raw2, index, null, bufferSize, out nameSize);
+            HRESULT hr = Raw2.GetSymbolTypeName(index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new char[bufferSize];
-            hr = getSymbolTypeName(Raw2, index, buffer, bufferSize, out nameSize);
+            buffer = new byte[bufferSize];
+            hr = Raw2.GetSymbolTypeName(index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -774,7 +719,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSymbolTypeNameWide(int index, out string bufferResult)
         {
-            InitDelegate(ref getSymbolTypeNameWide, Vtbl2->GetSymbolTypeNameWide);
             /*HRESULT GetSymbolTypeNameWide(
             [In] int Index,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
@@ -783,14 +727,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getSymbolTypeNameWide(Raw2, index, null, bufferSize, out nameSize);
+            HRESULT hr = Raw2.GetSymbolTypeNameWide(index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getSymbolTypeNameWide(Raw2, index, buffer, bufferSize, out nameSize);
+            hr = Raw2.GetSymbolTypeNameWide(index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -837,12 +781,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSymbolSize(int index, out int size)
         {
-            InitDelegate(ref getSymbolSize, Vtbl2->GetSymbolSize);
-
             /*HRESULT GetSymbolSize(
             [In] int Index,
             [Out] out int Size);*/
-            return getSymbolSize(Raw2, index, out size);
+            return Raw2.GetSymbolSize(index, out size);
         }
 
         #endregion
@@ -875,12 +817,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSymbolOffset(int index, out long offset)
         {
-            InitDelegate(ref getSymbolOffset, Vtbl2->GetSymbolOffset);
-
             /*HRESULT GetSymbolOffset(
             [In] int Index,
             [Out] out long Offset);*/
-            return getSymbolOffset(Raw2, index, out offset);
+            return Raw2.GetSymbolOffset(index, out offset);
         }
 
         #endregion
@@ -915,12 +855,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSymbolRegister(int index, out int register)
         {
-            InitDelegate(ref getSymbolRegister, Vtbl2->GetSymbolRegister);
-
             /*HRESULT GetSymbolRegister(
             [In] int Index,
             [Out] out int Register);*/
-            return getSymbolRegister(Raw2, index, out register);
+            return Raw2.GetSymbolRegister(index, out register);
         }
 
         #endregion
@@ -957,23 +895,22 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSymbolValueText(int index, out string bufferResult)
         {
-            InitDelegate(ref getSymbolValueText, Vtbl2->GetSymbolValueText);
             /*HRESULT GetSymbolValueText(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getSymbolValueText(Raw2, index, null, bufferSize, out nameSize);
+            HRESULT hr = Raw2.GetSymbolValueText(index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new char[bufferSize];
-            hr = getSymbolValueText(Raw2, index, buffer, bufferSize, out nameSize);
+            buffer = new byte[bufferSize];
+            hr = Raw2.GetSymbolValueText(index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1022,7 +959,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSymbolValueTextWide(int index, out string bufferResult)
         {
-            InitDelegate(ref getSymbolValueTextWide, Vtbl2->GetSymbolValueTextWide);
             /*HRESULT GetSymbolValueTextWide(
             [In] int Index,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
@@ -1031,14 +967,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int nameSize;
-            HRESULT hr = getSymbolValueTextWide(Raw2, index, null, bufferSize, out nameSize);
+            HRESULT hr = Raw2.GetSymbolValueTextWide(index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getSymbolValueTextWide(Raw2, index, buffer, bufferSize, out nameSize);
+            hr = Raw2.GetSymbolValueTextWide(index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1083,109 +1019,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetSymbolEntryInformation(int index, out DEBUG_SYMBOL_ENTRY info)
         {
-            InitDelegate(ref getSymbolEntryInformation, Vtbl2->GetSymbolEntryInformation);
-
             /*HRESULT GetSymbolEntryInformation(
             [In] int Index,
             [Out] out DEBUG_SYMBOL_ENTRY Info);*/
-            return getSymbolEntryInformation(Raw2, index, out info);
+            return Raw2.GetSymbolEntryInformation(index, out info);
         }
 
         #endregion
         #endregion
-        #region Cached Delegates
-        #region IDebugSymbolGroup
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetNumberSymbolsDelegate getNumberSymbols;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private AddSymbolDelegate addSymbol;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private RemoveSymbolByNameDelegate removeSymbolByName;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private RemoveSymbolsByIndexDelegate removeSymbolsByIndex;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolNameDelegate getSymbolName;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolParametersDelegate getSymbolParameters;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ExpandSymbolDelegate expandSymbol;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OutputSymbolsDelegate outputSymbols;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteSymbolDelegate writeSymbol;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OutputAsTypeDelegate outputAsType;
-
-        #endregion
-        #region IDebugSymbolGroup2
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private AddSymbolWideDelegate addSymbolWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private RemoveSymbolByNameWideDelegate removeSymbolByNameWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolNameWideDelegate getSymbolNameWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteSymbolWideDelegate writeSymbolWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OutputAsTypeWideDelegate outputAsTypeWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolTypeNameDelegate getSymbolTypeName;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolTypeNameWideDelegate getSymbolTypeNameWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolSizeDelegate getSymbolSize;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolOffsetDelegate getSymbolOffset;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolRegisterDelegate getSymbolRegister;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolValueTextDelegate getSymbolValueText;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolValueTextWideDelegate getSymbolValueTextWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSymbolEntryInformationDelegate getSymbolEntryInformation;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugSymbolGroup
-
-        private delegate HRESULT GetNumberSymbolsDelegate(IntPtr self, [Out] out int Number);
-        private delegate HRESULT AddSymbolDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In, Out] ref int Index);
-        private delegate HRESULT RemoveSymbolByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name);
-        private delegate HRESULT RemoveSymbolsByIndexDelegate(IntPtr self, [In] int Index);
-        private delegate HRESULT GetSymbolNameDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
-        private delegate HRESULT GetSymbolParametersDelegate(IntPtr self, [In] int Start, [In] int Count, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SYMBOL_PARAMETERS[] Params);
-        private delegate HRESULT ExpandSymbolDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.Bool)] bool Expand);
-        private delegate HRESULT OutputSymbolsDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT_SYMBOLS Flags, [In] int Start, [In] int Count);
-        private delegate HRESULT WriteSymbolDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Value);
-        private delegate HRESULT OutputAsTypeDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Type);
-
-        #endregion
-        #region IDebugSymbolGroup2
-
-        private delegate HRESULT AddSymbolWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In, Out] ref int Index);
-        private delegate HRESULT RemoveSymbolByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name);
-        private delegate HRESULT GetSymbolNameWideDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
-        private delegate HRESULT WriteSymbolWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Value);
-        private delegate HRESULT OutputAsTypeWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Type);
-        private delegate HRESULT GetSymbolTypeNameDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
-        private delegate HRESULT GetSymbolTypeNameWideDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
-        private delegate HRESULT GetSymbolSizeDelegate(IntPtr self, [In] int Index, [Out] out int Size);
-        private delegate HRESULT GetSymbolOffsetDelegate(IntPtr self, [In] int Index, [Out] out long Offset);
-        private delegate HRESULT GetSymbolRegisterDelegate(IntPtr self, [In] int Index, [Out] out int Register);
-        private delegate HRESULT GetSymbolValueTextDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
-        private delegate HRESULT GetSymbolValueTextWideDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
-        private delegate HRESULT GetSymbolEntryInformationDelegate(IntPtr self, [In] int Index, [Out] out DEBUG_SYMBOL_ENTRY Info);
-
-        #endregion
-        #endregion
-
-        protected override void ReleaseSubInterfaces()
-        {
-            ReleaseInterface(ref raw2);
-        }
     }
 }

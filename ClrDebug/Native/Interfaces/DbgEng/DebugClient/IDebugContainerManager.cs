@@ -29,7 +29,7 @@ namespace ClrDebug.DbgEng
 #if !GENERATED_MARSHALLING
             [MarshalAs(UnmanagedType.LPStruct), In]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid id,
             [Out] out long container);

@@ -14,7 +14,7 @@ namespace ClrDebug.DbgEng
         /// <param name="dataSpaces">The object on which this method operates.</param>
         /// <param name="offset">Specifies the location in the target's virtual address space to be read.</param>
         /// <returns>Specifies the buffer to read the memory into.</returns>
-        public static T ReadVirtual<T>(this DebugDataSpaces dataSpaces, long offset)
+        public static unsafe T ReadVirtual<T>(this DebugDataSpaces dataSpaces, long offset) where T : unmanaged
         {
             T value;
             TryReadVirtual(dataSpaces, offset, out value).ThrowDbgEngNotOK();
@@ -30,9 +30,9 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the location in the target's virtual address space to be read.</param>
         /// <param name="value">Specifies the buffer to read the memory into.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadVirtual<T>(this DebugDataSpaces dataSpaces, long offset, out T value)
+        public static unsafe HRESULT TryReadVirtual<T>(this DebugDataSpaces dataSpaces, long offset, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -41,7 +41,7 @@ namespace ClrDebug.DbgEng
                 var hr = dataSpaces.TryReadVirtual(offset, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -115,7 +115,7 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the location in the target's virtual address space to be written.</param>
         /// <param name="value">Specifies the buffer to write the memory from.</param>
         /// <returns>Receives the number of bytes that were written. If it is set to NULL, this information is not returned.</returns>
-        public static int WriteVirtual<T>(this DebugDataSpaces dataSpaces, long offset, T value)
+        public static unsafe int WriteVirtual<T>(this DebugDataSpaces dataSpaces, long offset, T value) where T : unmanaged
         {
             int read;
             TryWriteVirtual(dataSpaces, offset, value, out read).ThrowDbgEngNotOK();
@@ -132,9 +132,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the buffer to write the memory from.</param>
         /// <param name="read">Receives the number of bytes that were written. If it is set to NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWriteVirtual<T>(this DebugDataSpaces dataSpaces, long offset, T value, out int read)
+        public static unsafe HRESULT TryWriteVirtual<T>(this DebugDataSpaces dataSpaces, long offset, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -216,7 +216,7 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the pattern to search for.</param>
         /// <param name="patternGranularity">Specifies the granularity of the pattern. For a successful match the pattern must occur a multiple of this value after the start location.</param>
         /// <returns>Receives the location in the target's virtual address space of the pattern, if it was found.</returns>
-        public static long SearchVirtual<T>(this DebugDataSpaces dataSpaces, long offset, long length, T value, int patternGranularity)
+        public static unsafe long SearchVirtual<T>(this DebugDataSpaces dataSpaces, long offset, long length, T value, int patternGranularity) where T : unmanaged
         {
             long matchOffset;
             TrySearchVirtual(dataSpaces, offset, length, value, patternGranularity, out matchOffset).ThrowDbgEngNotOK();
@@ -235,9 +235,9 @@ namespace ClrDebug.DbgEng
         /// <param name="patternGranularity">Specifies the granularity of the pattern. For a successful match the pattern must occur a multiple of this value after the start location.</param>
         /// <param name="matchOffset">Receives the location in the target's virtual address space of the pattern, if it was found.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TrySearchVirtual<T>(this DebugDataSpaces dataSpaces, long offset, long length, T value, int patternGranularity, out long matchOffset)
+        public static unsafe HRESULT TrySearchVirtual<T>(this DebugDataSpaces dataSpaces, long offset, long length, T value, int patternGranularity, out long matchOffset) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -320,7 +320,7 @@ namespace ClrDebug.DbgEng
         /// <param name="dataSpaces">The object on which this method operates.</param>
         /// <param name="offset">Specifies the location in the target's virtual address space to be read.</param>
         /// <returns>Specifies the buffer to read the memory into.</returns>
-        public static T ReadVirtualUncached<T>(this DebugDataSpaces dataSpaces, long offset)
+        public static unsafe T ReadVirtualUncached<T>(this DebugDataSpaces dataSpaces, long offset) where T : unmanaged
         {
             T value;
             TryReadVirtualUncached(dataSpaces, offset, out value).ThrowDbgEngNotOK();
@@ -336,9 +336,9 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the location in the target's virtual address space to be read.</param>
         /// <param name="value">Specifies the buffer to read the memory into.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadVirtualUncached<T>(this DebugDataSpaces dataSpaces, long offset, out T value)
+        public static unsafe HRESULT TryReadVirtualUncached<T>(this DebugDataSpaces dataSpaces, long offset, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -347,7 +347,7 @@ namespace ClrDebug.DbgEng
                 var hr = dataSpaces.TryReadVirtualUncached(offset, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -421,7 +421,7 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the location in the target's virtual address space to be written.</param>
         /// <param name="value">Specifies the buffer to write the memory from.</param>
         /// <returns>Receives the number of bytes that were actually written. If it is set to NULL, this information is not returned.</returns>
-        public static int WriteVirtualUncached<T>(this DebugDataSpaces dataSpaces, long offset, T value)
+        public static unsafe int WriteVirtualUncached<T>(this DebugDataSpaces dataSpaces, long offset, T value) where T : unmanaged
         {
             int read;
             TryWriteVirtualUncached(dataSpaces, offset, value, out read).ThrowDbgEngNotOK();
@@ -438,9 +438,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the buffer to write the memory from.</param>
         /// <param name="read">Receives the number of bytes that were actually written. If it is set to NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWriteVirtualUncached<T>(this DebugDataSpaces dataSpaces, long offset, T value, out int read)
+        public static unsafe HRESULT TryWriteVirtualUncached<T>(this DebugDataSpaces dataSpaces, long offset, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -519,7 +519,7 @@ namespace ClrDebug.DbgEng
         /// <param name="dataSpaces">The object on which this method operates.</param>
         /// <param name="offset">Specifies the physical address of the memory to read.</param>
         /// <returns>Receives the memory that is read.</returns>
-        public static T ReadPhysical<T>(this DebugDataSpaces dataSpaces, long offset)
+        public static unsafe T ReadPhysical<T>(this DebugDataSpaces dataSpaces, long offset) where T : unmanaged
         {
             T value;
             TryReadPhysical(dataSpaces, offset, out value).ThrowDbgEngNotOK();
@@ -535,9 +535,9 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the physical address of the memory to read.</param>
         /// <param name="value">Receives the memory that is read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadPhysical<T>(this DebugDataSpaces dataSpaces, long offset, out T value)
+        public static unsafe HRESULT TryReadPhysical<T>(this DebugDataSpaces dataSpaces, long offset, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -546,7 +546,7 @@ namespace ClrDebug.DbgEng
                 var hr = dataSpaces.TryReadPhysical(offset, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -620,7 +620,7 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the physical address of the memory to write the data to.</param>
         /// <param name="value">Specifies the data to write.</param>
         /// <returns>Receives the number of bytes written to the target's memory. If BytesWritten is NULL, this information is not returned.</returns>
-        public static int WritePhysical<T>(this DebugDataSpaces dataSpaces, long offset, T value)
+        public static unsafe int WritePhysical<T>(this DebugDataSpaces dataSpaces, long offset, T value) where T : unmanaged
         {
             int read;
             TryWritePhysical(dataSpaces, offset, value, out read).ThrowDbgEngNotOK();
@@ -637,9 +637,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the data to write.</param>
         /// <param name="read">Receives the number of bytes written to the target's memory. If BytesWritten is NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWritePhysical<T>(this DebugDataSpaces dataSpaces, long offset, T value, out int read)
+        public static unsafe HRESULT TryWritePhysical<T>(this DebugDataSpaces dataSpaces, long offset, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -719,7 +719,7 @@ namespace ClrDebug.DbgEng
         /// <param name="processor">Specifies the processor whose information is to be read.</param>
         /// <param name="offset">Specifies the offset in the control space of the memory to read.</param>
         /// <returns>Receives the data read from the control-space memory.</returns>
-        public static T ReadControl<T>(this DebugDataSpaces dataSpaces, int processor, long offset)
+        public static unsafe T ReadControl<T>(this DebugDataSpaces dataSpaces, int processor, long offset) where T : unmanaged
         {
             T value;
             TryReadControl(dataSpaces, processor, offset, out value).ThrowDbgEngNotOK();
@@ -736,9 +736,9 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the offset in the control space of the memory to read.</param>
         /// <param name="value">Receives the data read from the control-space memory.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadControl<T>(this DebugDataSpaces dataSpaces, int processor, long offset, out T value)
+        public static unsafe HRESULT TryReadControl<T>(this DebugDataSpaces dataSpaces, int processor, long offset, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -747,7 +747,7 @@ namespace ClrDebug.DbgEng
                 var hr = dataSpaces.TryReadControl(processor, offset, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -824,7 +824,7 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the offset of the control space of the memory to write.</param>
         /// <param name="value">Specifies the data to write to the control-space memory.</param>
         /// <returns>Receives the number of bytes returned in the buffer Buffer. If BytesWritten is NULL, this information is not returned.</returns>
-        public static int WriteControl<T>(this DebugDataSpaces dataSpaces, int processor, long offset, T value)
+        public static unsafe int WriteControl<T>(this DebugDataSpaces dataSpaces, int processor, long offset, T value) where T : unmanaged
         {
             int read;
             TryWriteControl(dataSpaces, processor, offset, value, out read).ThrowDbgEngNotOK();
@@ -842,9 +842,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the data to write to the control-space memory.</param>
         /// <param name="read">Receives the number of bytes returned in the buffer Buffer. If BytesWritten is NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWriteControl<T>(this DebugDataSpaces dataSpaces, int processor, long offset, T value, out int read)
+        public static unsafe HRESULT TryWriteControl<T>(this DebugDataSpaces dataSpaces, int processor, long offset, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -928,7 +928,7 @@ namespace ClrDebug.DbgEng
         /// <param name="addressSpace">This parameter must be equal to one.</param>
         /// <param name="offset">Specifies the I/O address within the address space.</param>
         /// <returns>Receives the data read from the I/O bus.</returns>
-        public static T ReadIo<T>(this DebugDataSpaces dataSpaces, INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset)
+        public static unsafe T ReadIo<T>(this DebugDataSpaces dataSpaces, INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset) where T : unmanaged
         {
             T value;
             TryReadIo(dataSpaces, interfaceType, busNumber, addressSpace, offset, out value).ThrowDbgEngNotOK();
@@ -947,9 +947,9 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the I/O address within the address space.</param>
         /// <param name="value">Receives the data read from the I/O bus.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadIo<T>(this DebugDataSpaces dataSpaces, INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, out T value)
+        public static unsafe HRESULT TryReadIo<T>(this DebugDataSpaces dataSpaces, INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -958,7 +958,7 @@ namespace ClrDebug.DbgEng
                 var hr = dataSpaces.TryReadIo(interfaceType, busNumber, addressSpace, offset, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -1041,7 +1041,7 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the location of the requested data.</param>
         /// <param name="value">Specifies the data to write to the I/O bus.</param>
         /// <returns>Receives the number of bytes written to I/O bus. If BytesWritten is NULL, this information is not returned.</returns>
-        public static int WriteIo<T>(this DebugDataSpaces dataSpaces, INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, T value)
+        public static unsafe int WriteIo<T>(this DebugDataSpaces dataSpaces, INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, T value) where T : unmanaged
         {
             int read;
             TryWriteIo(dataSpaces, interfaceType, busNumber, addressSpace, offset, value, out read).ThrowDbgEngNotOK();
@@ -1061,9 +1061,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the data to write to the I/O bus.</param>
         /// <param name="read">Receives the number of bytes written to I/O bus. If BytesWritten is NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWriteIo<T>(this DebugDataSpaces dataSpaces, INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, T value, out int read)
+        public static unsafe HRESULT TryWriteIo<T>(this DebugDataSpaces dataSpaces, INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -1151,7 +1151,7 @@ namespace ClrDebug.DbgEng
         /// <param name="slotNumber">Specifies the logical slot number on the bus.</param>
         /// <param name="offset">Specifies the offset in the bus data to start reading from.</param>
         /// <returns>Receives the data from the bus.</returns>
-        public static T ReadBusData<T>(this DebugDataSpaces dataSpaces, BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset)
+        public static unsafe T ReadBusData<T>(this DebugDataSpaces dataSpaces, BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset) where T : unmanaged
         {
             T value;
             TryReadBusData(dataSpaces, busDataType, busNumber, slotNumber, offset, out value).ThrowDbgEngNotOK();
@@ -1170,9 +1170,9 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the offset in the bus data to start reading from.</param>
         /// <param name="value">Receives the data from the bus.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadBusData<T>(this DebugDataSpaces dataSpaces, BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, out T value)
+        public static unsafe HRESULT TryReadBusData<T>(this DebugDataSpaces dataSpaces, BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -1181,7 +1181,7 @@ namespace ClrDebug.DbgEng
                 var hr = dataSpaces.TryReadBusData(busDataType, busNumber, slotNumber, offset, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -1264,7 +1264,7 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the offset in the bus data to start writing to.</param>
         /// <param name="value">Specifies the data to write to the bus.</param>
         /// <returns>Receives the number of bytes written to the bus. If BytesWritten is NULL, this information is not returned.</returns>
-        public static int WriteBusData<T>(this DebugDataSpaces dataSpaces, BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, T value)
+        public static unsafe int WriteBusData<T>(this DebugDataSpaces dataSpaces, BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, T value) where T : unmanaged
         {
             int read;
             TryWriteBusData(dataSpaces, busDataType, busNumber, slotNumber, offset, value, out read).ThrowDbgEngNotOK();
@@ -1284,9 +1284,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the data to write to the bus.</param>
         /// <param name="read">Receives the number of bytes written to the bus. If BytesWritten is NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWriteBusData<T>(this DebugDataSpaces dataSpaces, BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, T value, out int read)
+        public static unsafe HRESULT TryWriteBusData<T>(this DebugDataSpaces dataSpaces, BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -1377,7 +1377,7 @@ namespace ClrDebug.DbgEng
         /// For all other processors: Returns the offset of the VendorString field in the KPRCB structure.</param>
         /// <returns>Receives the value of the specified debugger data. The "Return Type" column in the above table specifies the data type that is returned.<para/>
         /// The data can be accessed by casting Buffer to a pointer to that type.</returns>
-        public static T ReadDebuggerData<T>(this DebugDataSpaces dataSpaces, DEBUG_DATA index)
+        public static unsafe T ReadDebuggerData<T>(this DebugDataSpaces dataSpaces, DEBUG_DATA index) where T : unmanaged
         {
             T value;
             TryReadDebuggerData(dataSpaces, index, out value).ThrowDbgEngNotOK();
@@ -1399,9 +1399,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Receives the value of the specified debugger data. The "Return Type" column in the above table specifies the data type that is returned.<para/>
         /// The data can be accessed by casting Buffer to a pointer to that type.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadDebuggerData<T>(this DebugDataSpaces dataSpaces, DEBUG_DATA index, out T value)
+        public static unsafe HRESULT TryReadDebuggerData<T>(this DebugDataSpaces dataSpaces, DEBUG_DATA index, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -1410,7 +1410,7 @@ namespace ClrDebug.DbgEng
                 var hr = dataSpaces.TryReadDebuggerData(index, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -1499,7 +1499,7 @@ namespace ClrDebug.DbgEng
         /// In this case, the argument Buffer can be considered to have type PULONG64. In this case, the argument Buffer can be considered to have type PULONG64.<para/>
         /// In this case, the argument Buffer can be considered to have type PDEBUG_PROCESSOR_IDENTIFICATION_ALL . In this case, the argument Buffer can be considered to have type PULONG.</param>
         /// <returns>Receives the processor data. Upon successful completion of the method, the contents of this buffer may be accessed by casting Buffer to the type specified in the above table.</returns>
-        public static T ReadProcessorSystemData<T>(this DebugDataSpaces dataSpaces, int processor, DEBUG_DATA index)
+        public static unsafe T ReadProcessorSystemData<T>(this DebugDataSpaces dataSpaces, int processor, DEBUG_DATA index) where T : unmanaged
         {
             T value;
             TryReadProcessorSystemData(dataSpaces, processor, index, out value).ThrowDbgEngNotOK();
@@ -1519,9 +1519,9 @@ namespace ClrDebug.DbgEng
         /// In this case, the argument Buffer can be considered to have type PDEBUG_PROCESSOR_IDENTIFICATION_ALL . In this case, the argument Buffer can be considered to have type PULONG.</param>
         /// <param name="value">Receives the processor data. Upon successful completion of the method, the contents of this buffer may be accessed by casting Buffer to the type specified in the above table.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadProcessorSystemData<T>(this DebugDataSpaces dataSpaces, int processor, DEBUG_DATA index, out T value)
+        public static unsafe HRESULT TryReadProcessorSystemData<T>(this DebugDataSpaces dataSpaces, int processor, DEBUG_DATA index, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -1530,7 +1530,7 @@ namespace ClrDebug.DbgEng
                 var hr = dataSpaces.TryReadProcessorSystemData(processor, index, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -1615,7 +1615,7 @@ namespace ClrDebug.DbgEng
         /// In this case, the argument Buffer can be considered to have type PULONG. In this case, the argument Buffer can be considered to have type PWSTR In this case, the argument Buffer can be considered to have type PWSTR.</param>
         /// <returns>Receives the object data. Upon successful completion of the method, the contents of this buffer may be accessed by casting Buffer to the type specified in the above table.<para/>
         /// If Buffer is NULL, this information is not returned.</returns>
-        public static T ReadHandleData<T>(this DebugDataSpaces dataSpaces, long handle, DEBUG_HANDLE_DATA_TYPE dataType)
+        public static unsafe T ReadHandleData<T>(this DebugDataSpaces dataSpaces, long handle, DEBUG_HANDLE_DATA_TYPE dataType) where T : unmanaged
         {
             T value;
             TryReadHandleData(dataSpaces, handle, dataType, out value).ThrowDbgEngNotOK();
@@ -1635,9 +1635,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Receives the object data. Upon successful completion of the method, the contents of this buffer may be accessed by casting Buffer to the type specified in the above table.<para/>
         /// If Buffer is NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadHandleData<T>(this DebugDataSpaces dataSpaces, long handle, DEBUG_HANDLE_DATA_TYPE dataType, out T value)
+        public static unsafe HRESULT TryReadHandleData<T>(this DebugDataSpaces dataSpaces, long handle, DEBUG_HANDLE_DATA_TYPE dataType, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -1646,7 +1646,7 @@ namespace ClrDebug.DbgEng
                 var hr = dataSpaces.TryReadHandleData(handle, dataType, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -1729,7 +1729,7 @@ namespace ClrDebug.DbgEng
         /// <param name="size">Specifies how many bytes to write to the target's memory.</param>
         /// <param name="value">Specifies the memory location of the pattern.</param>
         /// <returns>Receives the number of bytes written. If it is set to NULL, this information isn't returned.</returns>
-        public static int FillVirtual<T>(this DebugDataSpaces dataSpaces, long start, int size, T value)
+        public static unsafe int FillVirtual<T>(this DebugDataSpaces dataSpaces, long start, int size, T value) where T : unmanaged
         {
             int read;
             TryFillVirtual(dataSpaces, start, size, value, out read).ThrowDbgEngNotOK();
@@ -1747,9 +1747,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the memory location of the pattern.</param>
         /// <param name="read">Receives the number of bytes written. If it is set to NULL, this information isn't returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryFillVirtual<T>(this DebugDataSpaces dataSpaces, long start, int size, T value, out int read)
+        public static unsafe HRESULT TryFillVirtual<T>(this DebugDataSpaces dataSpaces, long start, int size, T value, out int read) where T : unmanaged
         {
-            var patternSize = Marshal.SizeOf<T>();
+            var patternSize = sizeof(T);
             var buffer = Marshal.AllocHGlobal(patternSize);
 
             try
@@ -1832,7 +1832,7 @@ namespace ClrDebug.DbgEng
         /// <param name="size">Specifies how many bytes to write to the target's memory.</param>
         /// <param name="value">Specifies the pattern to write.</param>
         /// <returns>Receives the number of bytes written. If it is set to NULL, this information isn't returned.</returns>
-        public static int FillPhysical<T>(this DebugDataSpaces dataSpaces, long start, int size, T value)
+        public static unsafe int FillPhysical<T>(this DebugDataSpaces dataSpaces, long start, int size, T value) where T : unmanaged
         {
             int read;
             TryFillPhysical(dataSpaces, start, size, value, out read).ThrowDbgEngNotOK();
@@ -1850,9 +1850,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the pattern to write.</param>
         /// <param name="read">Receives the number of bytes written. If it is set to NULL, this information isn't returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryFillPhysical<T>(this DebugDataSpaces dataSpaces, long start, int size, T value, out int read)
+        public static unsafe HRESULT TryFillPhysical<T>(this DebugDataSpaces dataSpaces, long start, int size, T value, out int read) where T : unmanaged
         {
-            var patternSize = Marshal.SizeOf<T>();
+            var patternSize = sizeof(T);
             var buffer = Marshal.AllocHGlobal(patternSize);
 
             try
@@ -1934,7 +1934,7 @@ namespace ClrDebug.DbgEng
         /// <param name="tag">Specifies the GUID identifying the data requested.</param>
         /// <param name="offset">Specifies the offset within the data to read.</param>
         /// <returns>Receives the data. If Buffer is NULL, the data is not returned.</returns>
-        public static T ReadTagged<T>(this DebugDataSpaces dataSpaces, Guid tag, int offset)
+        public static unsafe T ReadTagged<T>(this DebugDataSpaces dataSpaces, Guid tag, int offset) where T : unmanaged
         {
             T value;
             TryReadTagged(dataSpaces, tag, offset, out value).ThrowDbgEngNotOK();
@@ -1951,9 +1951,9 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">Specifies the offset within the data to read.</param>
         /// <param name="value">Receives the data. If Buffer is NULL, the data is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadTagged<T>(this DebugDataSpaces dataSpaces, Guid tag, int offset, out T value)
+        public static unsafe HRESULT TryReadTagged<T>(this DebugDataSpaces dataSpaces, Guid tag, int offset, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -1962,7 +1962,7 @@ namespace ClrDebug.DbgEng
                 var hr = dataSpaces.TryReadTagged(tag, offset, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -2044,7 +2044,7 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the buffer to receive the information. The type of the data returned depends on the value of Which.<para/>
         /// If Buffer is NULL, this information is not returned.</param>
         /// <returns>Receives the size, in bytes, of the information that is returned. If InfoSize is NULL, this information is not returned.</returns>
-        public static int GetOffsetInformation<T>(this DebugDataSpaces dataSpaces, DEBUG_DATA_SPACE space, DEBUG_OFFSINFO which, long offset, T value)
+        public static unsafe int GetOffsetInformation<T>(this DebugDataSpaces dataSpaces, DEBUG_DATA_SPACE space, DEBUG_OFFSINFO which, long offset, T value) where T : unmanaged
         {
             int read;
             TryGetOffsetInformation(dataSpaces, space, which, offset, value, out read).ThrowDbgEngNotOK();
@@ -2067,9 +2067,9 @@ namespace ClrDebug.DbgEng
         /// If Buffer is NULL, this information is not returned.</param>
         /// <param name="read">Receives the size, in bytes, of the information that is returned. If InfoSize is NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryGetOffsetInformation<T>(this DebugDataSpaces dataSpaces, DEBUG_DATA_SPACE space, DEBUG_OFFSINFO which, long offset, T value, out int read)
+        public static unsafe HRESULT TryGetOffsetInformation<T>(this DebugDataSpaces dataSpaces, DEBUG_DATA_SPACE space, DEBUG_OFFSINFO which, long offset, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -2164,7 +2164,7 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the pattern to search for.</param>
         /// <param name="patternGranularity">Specifies the granularity of the pattern. For a successful match, the difference between the location of the found pattern and Offset must be a multiple of PatternGranularity.</param>
         /// <returns>Receives the location in the process's virtual address space of the pattern, if it was found.</returns>
-        public static long SearchVirtual2<T>(this DebugDataSpaces dataSpaces, long offset, long length, DEBUG_VSEARCH flags, T value, int patternGranularity)
+        public static unsafe long SearchVirtual2<T>(this DebugDataSpaces dataSpaces, long offset, long length, DEBUG_VSEARCH flags, T value, int patternGranularity) where T : unmanaged
         {
             long matchOffset;
             TrySearchVirtual2(dataSpaces, offset, length, flags, value, patternGranularity, out matchOffset).ThrowDbgEngNotOK();
@@ -2184,9 +2184,9 @@ namespace ClrDebug.DbgEng
         /// <param name="patternGranularity">Specifies the granularity of the pattern. For a successful match, the difference between the location of the found pattern and Offset must be a multiple of PatternGranularity.</param>
         /// <param name="matchOffset">Receives the location in the process's virtual address space of the pattern, if it was found.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TrySearchVirtual2<T>(this DebugDataSpaces dataSpaces, long offset, long length, DEBUG_VSEARCH flags, T value, int patternGranularity, out long matchOffset)
+        public static unsafe HRESULT TrySearchVirtual2<T>(this DebugDataSpaces dataSpaces, long offset, long length, DEBUG_VSEARCH flags, T value, int patternGranularity, out long matchOffset) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -2273,7 +2273,7 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">Specifies the properties of the physical memory to be read. This must match the way the physical memory was advertised to the operating system on the target.<para/>
         /// Possible values are listed in the following table.</param>
         /// <returns>Receives the memory that is read.</returns>
-        public static T ReadPhysical2<T>(this DebugDataSpaces dataSpaces, long offset, DEBUG_PHYSICAL flags)
+        public static unsafe T ReadPhysical2<T>(this DebugDataSpaces dataSpaces, long offset, DEBUG_PHYSICAL flags) where T : unmanaged
         {
             T value;
             TryReadPhysical2(dataSpaces, offset, flags, out value).ThrowDbgEngNotOK();
@@ -2291,9 +2291,9 @@ namespace ClrDebug.DbgEng
         /// Possible values are listed in the following table.</param>
         /// <param name="value">Receives the memory that is read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadPhysical2<T>(this DebugDataSpaces dataSpaces, long offset, DEBUG_PHYSICAL flags, out T value)
+        public static unsafe HRESULT TryReadPhysical2<T>(this DebugDataSpaces dataSpaces, long offset, DEBUG_PHYSICAL flags, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -2302,7 +2302,7 @@ namespace ClrDebug.DbgEng
                 var hr = dataSpaces.TryReadPhysical2(offset, flags, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -2382,7 +2382,7 @@ namespace ClrDebug.DbgEng
         /// Possible values are listed in the following table.</param>
         /// <param name="value">Specifies the data to write.</param>
         /// <returns>Receives the number of bytes written to the target's memory. If BytesWritten is NULL, this information is not returned.</returns>
-        public static int WritePhysical2<T>(this DebugDataSpaces dataSpaces, long offset, DEBUG_PHYSICAL flags, T value)
+        public static unsafe int WritePhysical2<T>(this DebugDataSpaces dataSpaces, long offset, DEBUG_PHYSICAL flags, T value) where T : unmanaged
         {
             int read;
             TryWritePhysical2(dataSpaces, offset, flags, value, out read).ThrowDbgEngNotOK();
@@ -2401,9 +2401,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the data to write.</param>
         /// <param name="read">Receives the number of bytes written to the target's memory. If BytesWritten is NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWritePhysical2<T>(this DebugDataSpaces dataSpaces, long offset, DEBUG_PHYSICAL flags, T value, out int read)
+        public static unsafe HRESULT TryWritePhysical2<T>(this DebugDataSpaces dataSpaces, long offset, DEBUG_PHYSICAL flags, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try

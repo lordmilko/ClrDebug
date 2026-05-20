@@ -35,7 +35,7 @@ namespace ClrDebug.TypeLib
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid guid);
 
@@ -383,7 +383,7 @@ namespace ClrDebug.TypeLib
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid guid,
 #if GENERATED_MARSHALLING
@@ -406,7 +406,7 @@ namespace ClrDebug.TypeLib
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid guid,
 #if GENERATED_MARSHALLING
@@ -431,7 +431,7 @@ namespace ClrDebug.TypeLib
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid guid,
 #if GENERATED_MARSHALLING
@@ -454,7 +454,7 @@ namespace ClrDebug.TypeLib
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid guid,
 #if GENERATED_MARSHALLING
@@ -477,7 +477,7 @@ namespace ClrDebug.TypeLib
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid guid,
 #if GENERATED_MARSHALLING

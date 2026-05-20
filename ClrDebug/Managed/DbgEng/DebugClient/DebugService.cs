@@ -1,25 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
-
-namespace ClrDebug.DbgEng
+﻿namespace ClrDebug.DbgEng
 {
-    public unsafe class DebugService : RuntimeCallableWrapper
+    public class DebugService : ComObject<IDebugService>
     {
-        public static readonly Guid IID_IDebugService = new Guid("5DDDE86F-9560-4A23-9592-8E69B92CDF4D");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugServiceVtbl* Vtbl => (IDebugServiceVtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugService(IntPtr raw) : base(raw, IID_IDebugService)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugService"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugService(IDebugService raw) : base(raw)
         {
         }

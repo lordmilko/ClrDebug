@@ -6,16 +6,16 @@ namespace ClrDebug
     {
         #region GetContext
 
-        public static T GetContext<T>(this XCLRDataFrame dataFrame, ContextFlags contextFlags) where T : struct
+        public static unsafe T GetContext<T>(this XCLRDataFrame dataFrame, ContextFlags contextFlags) where T : unmanaged
         {
             T context;
             TryGetContext(dataFrame, contextFlags, out context).ThrowOnNotOK();
             return context;
         }
 
-        public static HRESULT TryGetContext<T>(this XCLRDataFrame dataFrame, ContextFlags contextFlags, out T context) where T : struct
+        public static unsafe HRESULT TryGetContext<T>(this XCLRDataFrame dataFrame, ContextFlags contextFlags, out T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -23,7 +23,7 @@ namespace ClrDebug
                 var hr = dataFrame.TryGetContext(contextFlags, size, out var actualSize, buffer);
 
                 if (hr == HRESULT.S_OK)
-                    context = Marshal.PtrToStructure<T>(buffer);
+                    context = *(T*) buffer;
                 else
                     context = default(T);
 

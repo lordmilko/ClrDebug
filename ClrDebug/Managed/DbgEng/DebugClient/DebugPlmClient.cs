@@ -1,34 +1,16 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
+﻿using System.Diagnostics;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// This interface supports Process Lifecycle Management (PLM) for the debug client.
     /// </summary>
-    public unsafe class DebugPlmClient : RuntimeCallableWrapper
+    public class DebugPlmClient : ComObject<IDebugPlmClient>
     {
-        public static readonly Guid IID_IDebugPlmClient = new Guid("A02B66C4-AEA3-4234-A9F7-FE4C383D4E29");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugPlmClientVtbl* Vtbl => (IDebugPlmClientVtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugPlmClient2Vtbl* Vtbl2 => (IDebugPlmClient2Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugPlmClient3Vtbl* Vtbl3 => (IDebugPlmClient3Vtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugPlmClient(IntPtr raw) : base(raw, IID_IDebugPlmClient)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugPlmClient"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugPlmClient(IDebugPlmClient raw) : base(raw)
         {
         }
@@ -65,7 +47,6 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryLaunchPlmPackageForDebugWide(long server, int timeout, string packageFullName, string appName, string arguments, out LaunchPlmPackageForDebugWideResult result)
         {
-            InitDelegate(ref launchPlmPackageForDebugWide, Vtbl->LaunchPlmPackageForDebugWide);
             /*HRESULT LaunchPlmPackageForDebugWide(
             [In] long Server,
             [In] int Timeout,
@@ -76,7 +57,7 @@ namespace ClrDebug.DbgEng
             [Out] out int ThreadId);*/
             int processId;
             int threadId;
-            HRESULT hr = launchPlmPackageForDebugWide(Raw, server, timeout, packageFullName, appName, arguments, out processId, out threadId);
+            HRESULT hr = Raw.LaunchPlmPackageForDebugWide(server, timeout, packageFullName, appName, arguments, out processId, out threadId);
 
             if (hr == HRESULT.S_OK)
                 result = new LaunchPlmPackageForDebugWideResult(processId, threadId);
@@ -91,18 +72,7 @@ namespace ClrDebug.DbgEng
         #region IDebugPlmClient2
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw2;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw2
-        {
-            get
-            {
-                InitInterface(typeof(IDebugPlmClient2).GUID, ref raw2);
-
-                return raw2;
-            }
-        }
+        public IDebugPlmClient2 Raw2 => (IDebugPlmClient2) Raw;
 
         #region LaunchPlmBgTaskForDebugWide
 
@@ -133,7 +103,6 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryLaunchPlmBgTaskForDebugWide(long server, int timeout, string packageFullName, string backgroundTaskId, out LaunchPlmBgTaskForDebugWideResult result)
         {
-            InitDelegate(ref launchPlmBgTaskForDebugWide, Vtbl2->LaunchPlmBgTaskForDebugWide);
             /*HRESULT LaunchPlmBgTaskForDebugWide(
             [In] long Server,
             [In] int Timeout,
@@ -143,7 +112,7 @@ namespace ClrDebug.DbgEng
             [Out] out int ThreadId);*/
             int processId;
             int threadId;
-            HRESULT hr = launchPlmBgTaskForDebugWide(Raw2, server, timeout, packageFullName, backgroundTaskId, out processId, out threadId);
+            HRESULT hr = Raw2.LaunchPlmBgTaskForDebugWide(server, timeout, packageFullName, backgroundTaskId, out processId, out threadId);
 
             if (hr == HRESULT.S_OK)
                 result = new LaunchPlmBgTaskForDebugWideResult(processId, threadId);
@@ -158,18 +127,7 @@ namespace ClrDebug.DbgEng
         #region IDebugPlmClient3
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw3;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw3
-        {
-            get
-            {
-                InitInterface(typeof(IDebugPlmClient3).GUID, ref raw3);
-
-                return raw3;
-            }
-        }
+        public IDebugPlmClient3 Raw3 => (IDebugPlmClient3) Raw;
 
         #region QueryPlmPackageWide
 
@@ -193,13 +151,11 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryQueryPlmPackageWide(long server, string packageFullName, IDebugOutputStream stream)
         {
-            InitDelegate(ref queryPlmPackageWide, Vtbl3->QueryPlmPackageWide);
-
             /*HRESULT QueryPlmPackageWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugOutputStream Stream);*/
-            return queryPlmPackageWide(Raw3, server, packageFullName, stream);
+            return Raw3.QueryPlmPackageWide(server, packageFullName, stream);
         }
 
         #endregion
@@ -223,12 +179,10 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryQueryPlmPackageList(long server, IDebugOutputStream stream)
         {
-            InitDelegate(ref queryPlmPackageList, Vtbl3->QueryPlmPackageList);
-
             /*HRESULT QueryPlmPackageList(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.Interface)] IDebugOutputStream Stream);*/
-            return queryPlmPackageList(Raw3, server, stream);
+            return Raw3.QueryPlmPackageList(server, stream);
         }
 
         #endregion
@@ -252,12 +206,10 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryEnablePlmPackageDebugWide(long server, string packageFullName)
         {
-            InitDelegate(ref enablePlmPackageDebugWide, Vtbl3->EnablePlmPackageDebugWide);
-
             /*HRESULT EnablePlmPackageDebugWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);*/
-            return enablePlmPackageDebugWide(Raw3, server, packageFullName);
+            return Raw3.EnablePlmPackageDebugWide(server, packageFullName);
         }
 
         #endregion
@@ -281,12 +233,10 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryDisablePlmPackageDebugWide(ulong server, string packageFullName)
         {
-            InitDelegate(ref disablePlmPackageDebugWide, Vtbl3->DisablePlmPackageDebugWide);
-
             /*HRESULT DisablePlmPackageDebugWide(
             [In] ulong Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);*/
-            return disablePlmPackageDebugWide(Raw3, server, packageFullName);
+            return Raw3.DisablePlmPackageDebugWide(server, packageFullName);
         }
 
         #endregion
@@ -310,12 +260,10 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TrySuspendPlmPackageWide(long server, string packageFullName)
         {
-            InitDelegate(ref suspendPlmPackageWide, Vtbl3->SuspendPlmPackageWide);
-
             /*HRESULT SuspendPlmPackageWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);*/
-            return suspendPlmPackageWide(Raw3, server, packageFullName);
+            return Raw3.SuspendPlmPackageWide(server, packageFullName);
         }
 
         #endregion
@@ -339,12 +287,10 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryResumePlmPackageWide(long server, string packageFullName)
         {
-            InitDelegate(ref resumePlmPackageWide, Vtbl3->ResumePlmPackageWide);
-
             /*HRESULT ResumePlmPackageWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);*/
-            return resumePlmPackageWide(Raw3, server, packageFullName);
+            return Raw3.ResumePlmPackageWide(server, packageFullName);
         }
 
         #endregion
@@ -368,12 +314,10 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryTerminatePlmPackageWide(long server, string packageFullName)
         {
-            InitDelegate(ref terminatePlmPackageWide, Vtbl3->TerminatePlmPackageWide);
-
             /*HRESULT TerminatePlmPackageWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);*/
-            return terminatePlmPackageWide(Raw3, server, packageFullName);
+            return Raw3.TerminatePlmPackageWide(server, packageFullName);
         }
 
         #endregion
@@ -395,14 +339,12 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. If a debugger session is not already started, this method starts one.</returns>
         public HRESULT TryLaunchAndDebugPlmAppWide(long server, string packageFullName, string appName, string arguments)
         {
-            InitDelegate(ref launchAndDebugPlmAppWide, Vtbl3->LaunchAndDebugPlmAppWide);
-
             /*HRESULT LaunchAndDebugPlmAppWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string AppName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Arguments);*/
-            return launchAndDebugPlmAppWide(Raw3, server, packageFullName, appName, arguments);
+            return Raw3.LaunchAndDebugPlmAppWide(server, packageFullName, appName, arguments);
         }
 
         #endregion
@@ -422,83 +364,14 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. If a debugger session is not already started, this method starts one.</returns>
         public HRESULT TryActivateAndDebugPlmBgTaskWide(long server, string packageFullName, string backgroundTaskId)
         {
-            InitDelegate(ref activateAndDebugPlmBgTaskWide, Vtbl3->ActivateAndDebugPlmBgTaskWide);
-
             /*HRESULT ActivateAndDebugPlmBgTaskWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string BackgroundTaskId);*/
-            return activateAndDebugPlmBgTaskWide(Raw3, server, packageFullName, backgroundTaskId);
+            return Raw3.ActivateAndDebugPlmBgTaskWide(server, packageFullName, backgroundTaskId);
         }
 
         #endregion
         #endregion
-        #region Cached Delegates
-        #region IDebugPlmClient
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private LaunchPlmPackageForDebugWideDelegate launchPlmPackageForDebugWide;
-
-        #endregion
-        #region IDebugPlmClient2
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private LaunchPlmBgTaskForDebugWideDelegate launchPlmBgTaskForDebugWide;
-
-        #endregion
-        #region IDebugPlmClient3
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private QueryPlmPackageWideDelegate queryPlmPackageWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private QueryPlmPackageListDelegate queryPlmPackageList;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private EnablePlmPackageDebugWideDelegate enablePlmPackageDebugWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private DisablePlmPackageDebugWideDelegate disablePlmPackageDebugWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SuspendPlmPackageWideDelegate suspendPlmPackageWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ResumePlmPackageWideDelegate resumePlmPackageWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private TerminatePlmPackageWideDelegate terminatePlmPackageWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private LaunchAndDebugPlmAppWideDelegate launchAndDebugPlmAppWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ActivateAndDebugPlmBgTaskWideDelegate activateAndDebugPlmBgTaskWide;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugPlmClient
-
-        private delegate HRESULT LaunchPlmPackageForDebugWideDelegate(IntPtr self, [In] long Server, [In] int Timeout, [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName, [In, MarshalAs(UnmanagedType.LPWStr)] string AppName, [In, MarshalAs(UnmanagedType.LPWStr)] string Arguments, [Out] out int ProcessId, [Out] out int ThreadId);
-
-        #endregion
-        #region IDebugPlmClient2
-
-        private delegate HRESULT LaunchPlmBgTaskForDebugWideDelegate(IntPtr self, [In] long Server, [In] int Timeout, [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName, [In, MarshalAs(UnmanagedType.LPWStr)] string BackgroundTaskId, [Out] out int ProcessId, [Out] out int ThreadId);
-
-        #endregion
-        #region IDebugPlmClient3
-
-        private delegate HRESULT QueryPlmPackageWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName, [In, MarshalAs(UnmanagedType.Interface)] IDebugOutputStream Stream);
-        private delegate HRESULT QueryPlmPackageListDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.Interface)] IDebugOutputStream Stream);
-        private delegate HRESULT EnablePlmPackageDebugWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);
-        private delegate HRESULT DisablePlmPackageDebugWideDelegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);
-        private delegate HRESULT SuspendPlmPackageWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);
-        private delegate HRESULT ResumePlmPackageWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);
-        private delegate HRESULT TerminatePlmPackageWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName);
-        private delegate HRESULT LaunchAndDebugPlmAppWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName, [In, MarshalAs(UnmanagedType.LPWStr)] string AppName, [In, MarshalAs(UnmanagedType.LPWStr)] string Arguments);
-        private delegate HRESULT ActivateAndDebugPlmBgTaskWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string PackageFullName, [In, MarshalAs(UnmanagedType.LPWStr)] string BackgroundTaskId);
-
-        #endregion
-        #endregion
-
-        protected override void ReleaseSubInterfaces()
-        {
-            ReleaseInterface(ref raw2);
-            ReleaseInterface(ref raw3);
-        }
     }
 }

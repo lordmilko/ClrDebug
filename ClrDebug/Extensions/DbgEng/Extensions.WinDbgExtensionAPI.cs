@@ -8,9 +8,9 @@ namespace ClrDebug.DbgEng
         #region Ioctl
 
         //Executes an Ioctl that merely returns a value
-        public static bool Ioctl<T>(this WinDbgExtensionAPI api, IG IoctlType, out T data) where T : struct
+        public static unsafe bool Ioctl<T>(this WinDbgExtensionAPI api, IG IoctlType, out T data) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -18,7 +18,7 @@ namespace ClrDebug.DbgEng
                 var result = api.Ioctl(IoctlType, buffer, size) == 1;
 
                 if (result)
-                    data = Marshal.PtrToStructure<T>(buffer);
+                    data = *(T*) buffer;
                 else
                     data = default(T);
 
@@ -31,9 +31,9 @@ namespace ClrDebug.DbgEng
         }
 
         //Executes an Ioctl that requires a value to be passed without any member of that value being modified that the caller would need to access afterwards
-        public static int Ioctl<T>(this WinDbgExtensionAPI api, IG IoctlType, T data) where T : struct
+        public static unsafe int Ioctl<T>(this WinDbgExtensionAPI api, IG IoctlType, T data) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -380,10 +380,37 @@ namespace ClrDebug.DbgEng
                 throw new NotImplementedException();
             }
 
-            private void GetExpressionEx()
+            #endregion
+
+            public unsafe bool TryGetExpressionEx(string expression)
             {
-                throw new NotImplementedException();
+                if (expression == null)
+                    throw new ArgumentNullException(nameof(expression));
+
+                var size = Marshal.SizeOf<GET_EXPRESSION_EX>();
+
+                var buffer = (GET_EXPRESSION_EX*) Marshal.AllocHGlobal(size);
+
+                buffer->Expression = Marshal.StringToHGlobalAnsi(expression);
+
+                try
+                {
+                    if (api.Ioctl(IG.GET_EXPRESSION_EX, (IntPtr) buffer, size) == 1)
+                    {
+                        throw new NotImplementedException(); //get the value and the remainder! need a result type for storing them
+                    }
+
+                    return false;
+                }
+                finally
+                {
+                    Marshal.FreeHGlobal(buffer->Expression);
+
+                    Marshal.FreeHGlobal((IntPtr) buffer);
+                }
             }
+
+            #region
 
             private void GetInputLine()
             {

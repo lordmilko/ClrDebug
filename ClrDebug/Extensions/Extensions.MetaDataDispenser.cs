@@ -32,7 +32,7 @@ namespace ClrDebug
         /// <typeparam name="T">The desired metadata interface to be returned. This can be either a raw interface or wrapper type.</typeparam>
         /// <param name="metaDataDispenser">The <see cref="MetaDataDispenser"/> in which the scope should be defined.</param>
         /// <returns>The pointer to the returned interface.</returns>
-        public static T DefineScope<T>(this MetaDataDispenser metaDataDispenser)
+        public static unsafe T DefineScope<T>(this MetaDataDispenser metaDataDispenser) where T : unmanaged
         {
             T ppIUnk;
             TryDefineScope(metaDataDispenser, out ppIUnk).ThrowOnNotOK();
@@ -47,7 +47,7 @@ namespace ClrDebug
         /// <param name="rclsid">The CLSID of the version of metadata structures to be created. This value must be CLSID_CorMetaDataRuntime for the .NET Framework version 2.0.</param>
         /// <param name="dwCreateFlags">Flags that specify options. This value must be zero for the .NET Framework 2.0.</param>
         /// <returns>The pointer to the returned interface.</returns>
-        public static T DefineScope<T>(this MetaDataDispenser metaDataDispenser, Guid rclsid, int dwCreateFlags)
+        public static unsafe T DefineScope<T>(this MetaDataDispenser metaDataDispenser, Guid rclsid, int dwCreateFlags) where T : unmanaged
         {
             T ppIUnk;
             TryDefineScope(metaDataDispenser, rclsid, dwCreateFlags, out ppIUnk).ThrowOnNotOK();
@@ -205,7 +205,7 @@ namespace ClrDebug
         /// <param name="optionId">A pointer to a GUID that specifies the option to be retrieved. For possible values see <see cref="MetaDataDispenserOption"/>.</param>
         /// <param name="value">The value of the returned option.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryGetOption<T>(this MetaDataDispenserEx metaDataDispenser, Guid optionId, out T value)
+        public static unsafe HRESULT TryGetOption<T>(this MetaDataDispenserEx metaDataDispenser, Guid optionId, out T value) where T : unmanaged
         {
             var hr = metaDataDispenser.TryGetOption(optionId, out var pValue);
 

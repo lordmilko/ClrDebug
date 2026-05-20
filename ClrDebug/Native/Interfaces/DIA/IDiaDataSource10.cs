@@ -85,7 +85,7 @@ namespace ClrDebug.DIA
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid pcsig70,
             [In] int sig,
@@ -278,7 +278,7 @@ namespace ClrDebug.DIA
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid pcsig70,
             [In] int sig,
@@ -373,7 +373,7 @@ namespace ClrDebug.DIA
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid pcsig70,
             [In] int sig, //The symbols say its a ulong, but they say the same thing about loadAndValidateDataFromPdb.sig

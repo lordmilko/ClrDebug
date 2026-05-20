@@ -1,48 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using SRI = System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
-    public unsafe partial class DebugClient : RuntimeCallableWrapper
+    public partial class DebugClient : ComObject<IDebugClient>
     {
-        public static readonly Guid IID_IDebugClient = new Guid("27fe5639-8407-4f47-8364-ee118fb08ac8");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugClientVtbl* Vtbl => (IDebugClientVtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugClient2Vtbl* Vtbl2 => (IDebugClient2Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugClient3Vtbl* Vtbl3 => (IDebugClient3Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugClient4Vtbl* Vtbl4 => (IDebugClient4Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugClient5Vtbl* Vtbl5 => (IDebugClient5Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugClient6Vtbl* Vtbl6 => (IDebugClient6Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugClient7Vtbl* Vtbl7 => (IDebugClient7Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugClient8Vtbl* Vtbl8 => (IDebugClient8Vtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugClient(IntPtr raw) : base(raw, IID_IDebugClient)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugClient"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugClient(IDebugClient raw) : base(raw)
         {
         }
@@ -80,22 +47,21 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetKernelConnectionOptions(out string bufferResult)
         {
-            InitDelegate(ref getKernelConnectionOptions, Vtbl->GetKernelConnectionOptions);
             /*HRESULT GetKernelConnectionOptions(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int OptionsSize);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int optionsSize;
-            HRESULT hr = getKernelConnectionOptions(Raw, null, bufferSize, out optionsSize);
+            HRESULT hr = Raw.GetKernelConnectionOptions(null, bufferSize, out optionsSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = optionsSize;
-            buffer = new char[bufferSize];
-            hr = getKernelConnectionOptions(Raw, buffer, bufferSize, out optionsSize);
+            buffer = new byte[bufferSize];
+            hr = Raw.GetKernelConnectionOptions(buffer, bufferSize, out optionsSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -121,11 +87,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetKernelConnectionOptions(string options)
         {
-            InitDelegate(ref setKernelConnectionOptions, Vtbl->SetKernelConnectionOptions);
-
             /*HRESULT SetKernelConnectionOptions(
             [In, MarshalAs(UnmanagedType.LPStr)] string Options);*/
-            return setKernelConnectionOptions(Raw, options);
+            return Raw.SetKernelConnectionOptions(options);
         }
 
         #endregion
@@ -161,11 +125,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetProcessOptions(out DEBUG_PROCESS options)
         {
-            InitDelegate(ref getProcessOptions, Vtbl->GetProcessOptions);
-
             /*HRESULT GetProcessOptions(
             [Out] out DEBUG_PROCESS Options);*/
-            return getProcessOptions(Raw, out options);
+            return Raw.GetProcessOptions(out options);
         }
 
         /// <summary>
@@ -181,11 +143,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetProcessOptions(DEBUG_PROCESS options)
         {
-            InitDelegate(ref setProcessOptions, Vtbl->SetProcessOptions);
-
             /*HRESULT SetProcessOptions(
             [In] DEBUG_PROCESS Options);*/
-            return setProcessOptions(Raw, options);
+            return Raw.SetProcessOptions(options);
         }
 
         #endregion
@@ -215,11 +175,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetExitCode(out int code)
         {
-            InitDelegate(ref getExitCode, Vtbl->GetExitCode);
-
             /*HRESULT GetExitCode(
             [Out] out int Code);*/
-            return getExitCode(Raw, out code);
+            return Raw.GetExitCode(out code);
         }
 
         #endregion
@@ -257,11 +215,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetInputCallbacks(out IDebugInputCallbacks callbacks)
         {
-            InitDelegate(ref getInputCallbacks, Vtbl->GetInputCallbacks);
-
             /*HRESULT GetInputCallbacks(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugInputCallbacks Callbacks);*/
-            return getInputCallbacks(Raw, out callbacks);
+            return Raw.GetInputCallbacks(out callbacks);
         }
 
         /// <summary>
@@ -277,11 +233,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetInputCallbacks(IDebugInputCallbacks callbacks)
         {
-            InitDelegate(ref setInputCallbacks, Vtbl->SetInputCallbacks);
-
             /*HRESULT SetInputCallbacks(
             [In, MarshalAs(UnmanagedType.Interface)] IDebugInputCallbacks Callbacks);*/
-            return setInputCallbacks(Raw, callbacks);
+            return Raw.SetInputCallbacks(callbacks);
         }
 
         #endregion
@@ -319,11 +273,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetOutputCallbacks(out IDebugOutputCallbacks callbacks)
         {
-            InitDelegate(ref getOutputCallbacks, Vtbl->GetOutputCallbacks);
-
             /*HRESULT GetOutputCallbacks(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugOutputCallbacks Callbacks);*/
-            return getOutputCallbacks(Raw, out callbacks);
+            return Raw.GetOutputCallbacks(out callbacks);
         }
 
         /// <summary>
@@ -340,11 +292,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetOutputCallbacks(IDebugOutputCallbacks callbacks)
         {
-            InitDelegate(ref setOutputCallbacks, Vtbl->SetOutputCallbacks);
-
             /*HRESULT SetOutputCallbacks(
             [In] IDebugOutputCallbacks Callbacks);*/
-            return setOutputCallbacks(Raw, callbacks);
+            return Raw.SetOutputCallbacks(callbacks);
         }
 
         #endregion
@@ -378,11 +328,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetOutputMask(out DEBUG_OUTPUT mask)
         {
-            InitDelegate(ref getOutputMask, Vtbl->GetOutputMask);
-
             /*HRESULT GetOutputMask(
             [Out] out DEBUG_OUTPUT Mask);*/
-            return getOutputMask(Raw, out mask);
+            return Raw.GetOutputMask(out mask);
         }
 
         /// <summary>
@@ -395,11 +343,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetOutputMask(DEBUG_OUTPUT mask)
         {
-            InitDelegate(ref setOutputMask, Vtbl->SetOutputMask);
-
             /*HRESULT SetOutputMask(
             [In] DEBUG_OUTPUT Mask);*/
-            return setOutputMask(Raw, mask);
+            return Raw.SetOutputMask(mask);
         }
 
         #endregion
@@ -433,11 +379,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetOutputWidth(out int columns)
         {
-            InitDelegate(ref getOutputWidth, Vtbl->GetOutputWidth);
-
             /*HRESULT GetOutputWidth(
             [Out] out int Columns);*/
-            return getOutputWidth(Raw, out columns);
+            return Raw.GetOutputWidth(out columns);
         }
 
         /// <param name="columns">[in] The number of columns in the output.</param>
@@ -447,11 +391,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetOutputWidth(int columns)
         {
-            InitDelegate(ref setOutputWidth, Vtbl->SetOutputWidth);
-
             /*HRESULT SetOutputWidth(
             [In] int Columns);*/
-            return setOutputWidth(Raw, columns);
+            return Raw.SetOutputWidth(columns);
         }
 
         #endregion
@@ -481,22 +423,21 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetOutputLinePrefix(out string bufferResult)
         {
-            InitDelegate(ref getOutputLinePrefix, Vtbl->GetOutputLinePrefix);
             /*HRESULT GetOutputLinePrefix(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int PrefixSize);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int prefixSize;
-            HRESULT hr = getOutputLinePrefix(Raw, null, bufferSize, out prefixSize);
+            HRESULT hr = Raw.GetOutputLinePrefix(null, bufferSize, out prefixSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = prefixSize;
-            buffer = new char[bufferSize];
-            hr = getOutputLinePrefix(Raw, buffer, bufferSize, out prefixSize);
+            buffer = new byte[bufferSize];
+            hr = Raw.GetOutputLinePrefix(buffer, bufferSize, out prefixSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -521,11 +462,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetOutputLinePrefix(string prefix)
         {
-            InitDelegate(ref setOutputLinePrefix, Vtbl->SetOutputLinePrefix);
-
             /*HRESULT SetOutputLinePrefix(
             [In, MarshalAs(UnmanagedType.LPStr)] string Prefix);*/
-            return setOutputLinePrefix(Raw, prefix);
+            return Raw.SetOutputLinePrefix(prefix);
         }
 
         #endregion
@@ -556,22 +495,21 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetIdentity(out string bufferResult)
         {
-            InitDelegate(ref getIdentity, Vtbl->GetIdentity);
             /*HRESULT GetIdentity(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int IdentitySize);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int identitySize;
-            HRESULT hr = getIdentity(Raw, null, bufferSize, out identitySize);
+            HRESULT hr = Raw.GetIdentity(null, bufferSize, out identitySize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = identitySize;
-            buffer = new char[bufferSize];
-            hr = getIdentity(Raw, buffer, bufferSize, out identitySize);
+            buffer = new byte[bufferSize];
+            hr = Raw.GetIdentity(buffer, bufferSize, out identitySize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -621,11 +559,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetEventCallbacks(out IDebugEventCallbacks callbacks)
         {
-            InitDelegate(ref getEventCallbacks, Vtbl->GetEventCallbacks);
-
             /*HRESULT GetEventCallbacks(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacks Callbacks);*/
-            return getEventCallbacks(Raw, out callbacks);
+            return Raw.GetEventCallbacks(out callbacks);
         }
 
         /// <summary>
@@ -644,11 +580,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetEventCallbacks(IDebugEventCallbacks callbacks)
         {
-            InitDelegate(ref setEventCallbacks, Vtbl->SetEventCallbacks);
-
             /*HRESULT SetEventCallbacks(
             [In] IDebugEventCallbacks Callbacks);*/
-            return setEventCallbacks(Raw, callbacks);
+            return Raw.SetEventCallbacks(callbacks);
         }
 
         #endregion
@@ -678,12 +612,10 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         public HRESULT TryAttachKernel(DEBUG_ATTACH flags, string connectOptions)
         {
-            InitDelegate(ref attachKernel, Vtbl->AttachKernel);
-
             /*HRESULT AttachKernel(
             [In] DEBUG_ATTACH Flags,
             [In, MarshalAs(UnmanagedType.LPStr)] string ConnectOptions);*/
-            return attachKernel(Raw, flags, connectOptions);
+            return Raw.AttachKernel(flags, connectOptions);
         }
 
         #endregion
@@ -729,13 +661,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryStartProcessServer(DEBUG_CLASS flags, string options, IntPtr reserved)
         {
-            InitDelegate(ref startProcessServer, Vtbl->StartProcessServer);
-
             /*HRESULT StartProcessServer(
             [In] DEBUG_CLASS Flags,
             [In, MarshalAs(UnmanagedType.LPStr)] string Options,
             [In] IntPtr Reserved);*/
-            return startProcessServer(Raw, flags, options, reserved);
+            return Raw.StartProcessServer(flags, options, reserved);
         }
 
         #endregion
@@ -772,12 +702,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryConnectProcessServer(string remoteOptions, out long server)
         {
-            InitDelegate(ref connectProcessServer, Vtbl->ConnectProcessServer);
-
             /*HRESULT ConnectProcessServer(
             [In, MarshalAs(UnmanagedType.LPStr)] string RemoteOptions,
             [Out] out long Server);*/
-            return connectProcessServer(Raw, remoteOptions, out server);
+            return Raw.ConnectProcessServer(remoteOptions, out server);
         }
 
         #endregion
@@ -807,11 +735,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryDisconnectProcessServer(long server)
         {
-            InitDelegate(ref disconnectProcessServer, Vtbl->DisconnectProcessServer);
-
             /*HRESULT DisconnectProcessServer(
             [In] long Server);*/
-            return disconnectProcessServer(Raw, server);
+            return Raw.DisconnectProcessServer(server);
         }
 
         #endregion
@@ -821,15 +747,16 @@ namespace ClrDebug.DbgEng
         /// The GetRunningProcessSystemIds method returns the process IDs for each running process.
         /// </summary>
         /// <param name="server">[in] Specifies the process server to query for process IDs. If Server is zero, the engine will return the process IDs of the processes running on the local computer.</param>
+        /// <param name="count">[in] Specifies the number of process IDs the array Ids can hold.</param>
         /// <returns>[out, optional] Receives the process IDs. The size of this array is Count. If Ids is NULL, this information is not returned.</returns>
         /// <remarks>
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public int[] GetRunningProcessSystemIds(long server)
+        public int[] GetRunningProcessSystemIds(long server, int count)
         {
             int[] ids;
-            TryGetRunningProcessSystemIds(server, out ids).ThrowDbgEngNotOK();
+            TryGetRunningProcessSystemIds(server, count, out ids).ThrowDbgEngNotOK();
 
             return ids;
         }
@@ -839,31 +766,26 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="server">[in] Specifies the process server to query for process IDs. If Server is zero, the engine will return the process IDs of the processes running on the local computer.</param>
         /// <param name="ids">[out, optional] Receives the process IDs. The size of this array is Count. If Ids is NULL, this information is not returned.</param>
+        /// <param name="count">[in] Specifies the number of process IDs the array Ids can hold.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public HRESULT TryGetRunningProcessSystemIds(long server, out int[] ids)
+        public HRESULT TryGetRunningProcessSystemIds(long server, int count, out int[] ids)
         {
-            InitDelegate(ref getRunningProcessSystemIds, Vtbl->GetRunningProcessSystemIds);
             /*HRESULT GetRunningProcessSystemIds(
             [In] long Server,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] Ids,
             [In] int Count,
             [Out] out int ActualCount);*/
-            ids = null;
-            int count = 0;
-            int actualCount;
-            HRESULT hr = getRunningProcessSystemIds(Raw, server, null, count, out actualCount);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            count = actualCount;
             ids = new int[count];
-            hr = getRunningProcessSystemIds(Raw, server, ids, count, out actualCount);
-            fail:
+            int actualCount;
+            HRESULT hr = Raw.GetRunningProcessSystemIds(server, ids, count, out actualCount);
+
+            if (count != actualCount)
+                Array.Resize(ref ids, actualCount);
+
             return hr;
         }
 
@@ -903,14 +825,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetRunningProcessSystemIdByExecutableName(long server, string exeName, DEBUG_GET_PROC flags, out int id)
         {
-            InitDelegate(ref getRunningProcessSystemIdByExecutableName, Vtbl->GetRunningProcessSystemIdByExecutableName);
-
             /*HRESULT GetRunningProcessSystemIdByExecutableName(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string ExeName,
             [In] DEBUG_GET_PROC Flags,
             [Out] out int Id);*/
-            return getRunningProcessSystemIdByExecutableName(Raw, server, exeName, flags, out id);
+            return Raw.GetRunningProcessSystemIdByExecutableName(server, exeName, flags, out id);
         }
 
         #endregion
@@ -949,33 +869,32 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetRunningProcessDescription(long server, int systemId, DEBUG_PROC_DESC flags, out GetRunningProcessDescriptionResult result)
         {
-            InitDelegate(ref getRunningProcessDescription, Vtbl->GetRunningProcessDescription);
             /*HRESULT GetRunningProcessDescription(
             [In] long Server,
             [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] ExeName,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] byte[] ExeName,
             [In] int ExeNameSize,
             [Out] out int ActualExeNameSize,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] Description,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] byte[] Description,
             [In] int DescriptionSize,
             [Out] out int ActualDescriptionSize);*/
-            char[] exeName;
+            byte[] exeName;
             int exeNameSize = 0;
             int actualExeNameSize;
-            char[] description;
+            byte[] description;
             int descriptionSize = 0;
             int actualDescriptionSize;
-            HRESULT hr = getRunningProcessDescription(Raw, server, systemId, flags, null, exeNameSize, out actualExeNameSize, null, descriptionSize, out actualDescriptionSize);
+            HRESULT hr = Raw.GetRunningProcessDescription(server, systemId, flags, null, exeNameSize, out actualExeNameSize, null, descriptionSize, out actualDescriptionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             exeNameSize = actualExeNameSize;
-            exeName = new char[exeNameSize];
+            exeName = new byte[exeNameSize];
             descriptionSize = actualDescriptionSize;
-            description = new char[descriptionSize];
-            hr = getRunningProcessDescription(Raw, server, systemId, flags, exeName, exeNameSize, out actualExeNameSize, description, descriptionSize, out actualDescriptionSize);
+            description = new byte[descriptionSize];
+            hr = Raw.GetRunningProcessDescription(server, systemId, flags, exeName, exeNameSize, out actualExeNameSize, description, descriptionSize, out actualDescriptionSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1031,13 +950,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryAttachProcess(long server, int processID, DEBUG_ATTACH attachFlags)
         {
-            InitDelegate(ref attachProcess, Vtbl->AttachProcess);
-
             /*HRESULT AttachProcess(
             [In] long Server,
             [In] int ProcessID,
             [In] DEBUG_ATTACH AttachFlags);*/
-            return attachProcess(Raw, server, processID, attachFlags);
+            return Raw.AttachProcess(server, processID, attachFlags);
         }
 
         #endregion
@@ -1075,13 +992,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryCreateProcess(long server, string commandLine, DEBUG_CREATE_PROCESS flags)
         {
-            InitDelegate(ref createProcess, Vtbl->CreateProcess);
-
             /*HRESULT CreateProcess(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS Flags);*/
-            return createProcess(Raw, server, commandLine, flags);
+            return Raw.CreateProcess(server, commandLine, flags);
         }
 
         #endregion
@@ -1123,15 +1038,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryCreateProcessAndAttach(long server, string commandLine, DEBUG_CREATE_PROCESS flags, int processId, DEBUG_ATTACH attachFlags)
         {
-            InitDelegate(ref createProcessAndAttach, Vtbl->CreateProcessAndAttach);
-
             /*HRESULT CreateProcessAndAttach(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS Flags,
             [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);*/
-            return createProcessAndAttach(Raw, server, commandLine, flags, processId, attachFlags);
+            return Raw.CreateProcessAndAttach(server, commandLine, flags, processId, attachFlags);
         }
 
         #endregion
@@ -1165,11 +1078,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryAddProcessOptions(DEBUG_PROCESS options)
         {
-            InitDelegate(ref addProcessOptions, Vtbl->AddProcessOptions);
-
             /*HRESULT AddProcessOptions(
             [In] DEBUG_PROCESS Options);*/
-            return addProcessOptions(Raw, options);
+            return Raw.AddProcessOptions(options);
         }
 
         #endregion
@@ -1203,11 +1114,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryRemoveProcessOptions(DEBUG_PROCESS options)
         {
-            InitDelegate(ref removeProcessOptions, Vtbl->RemoveProcessOptions);
-
             /*HRESULT RemoveProcessOptions(
             [In] DEBUG_PROCESS Options);*/
-            return removeProcessOptions(Raw, options);
+            return Raw.RemoveProcessOptions(options);
         }
 
         #endregion
@@ -1237,11 +1146,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOpenDumpFile(string dumpFile)
         {
-            InitDelegate(ref openDumpFile, Vtbl->OpenDumpFile);
-
             /*HRESULT OpenDumpFile(
             [In, MarshalAs(UnmanagedType.LPStr)] string DumpFile);*/
-            return openDumpFile(Raw, dumpFile);
+            return Raw.OpenDumpFile(dumpFile);
         }
 
         #endregion
@@ -1285,12 +1192,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWriteDumpFile(string dumpFile, DEBUG_DUMP qualifier)
         {
-            InitDelegate(ref writeDumpFile, Vtbl->WriteDumpFile);
-
             /*HRESULT WriteDumpFile(
             [In, MarshalAs(UnmanagedType.LPStr)] string DumpFile,
             [In] DEBUG_DUMP Qualifier);*/
-            return writeDumpFile(Raw, dumpFile, qualifier);
+            return Raw.WriteDumpFile(dumpFile, qualifier);
         }
 
         #endregion
@@ -1330,12 +1235,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryConnectSession(DEBUG_CONNECT_SESSION flags, int historyLimit)
         {
-            InitDelegate(ref connectSession, Vtbl->ConnectSession);
-
             /*HRESULT ConnectSession(
             [In] DEBUG_CONNECT_SESSION Flags,
             [In] int HistoryLimit);*/
-            return connectSession(Raw, flags, historyLimit);
+            return Raw.ConnectSession(flags, historyLimit);
         }
 
         #endregion
@@ -1367,11 +1270,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryStartServer(string options)
         {
-            InitDelegate(ref startServer, Vtbl->StartServer);
-
             /*HRESULT StartServer(
             [In, MarshalAs(UnmanagedType.LPStr)] string Options);*/
-            return startServer(Raw, options);
+            return Raw.StartServer(options);
         }
 
         #endregion
@@ -1403,13 +1304,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOutputServers(DEBUG_OUTCTL outputControl, string machine, DEBUG_SERVERS flags)
         {
-            InitDelegate(ref outputServers, Vtbl->OutputServers);
-
             /*HRESULT OutputServers(
             [In] DEBUG_OUTCTL OutputControl,
             [In, MarshalAs(UnmanagedType.LPStr)] string Machine,
             [In] DEBUG_SERVERS Flags);*/
-            return outputServers(Raw, outputControl, machine, flags);
+            return Raw.OutputServers(outputControl, machine, flags);
         }
 
         #endregion
@@ -1439,10 +1338,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryTerminateProcesses()
         {
-            InitDelegate(ref terminateProcesses, Vtbl->TerminateProcesses);
-
             /*HRESULT TerminateProcesses();*/
-            return terminateProcesses(Raw);
+            return Raw.TerminateProcesses();
         }
 
         #endregion
@@ -1470,10 +1367,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryDetachProcesses()
         {
-            InitDelegate(ref detachProcesses, Vtbl->DetachProcesses);
-
             /*HRESULT DetachProcesses();*/
-            return detachProcesses(Raw);
+            return Raw.DetachProcesses();
         }
 
         #endregion
@@ -1511,11 +1406,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryEndSession(DEBUG_END flags)
         {
-            InitDelegate(ref endSession, Vtbl->EndSession);
-
             /*HRESULT EndSession(
             [In] DEBUG_END Flags);*/
-            return endSession(Raw, flags);
+            return Raw.EndSession(flags);
         }
 
         #endregion
@@ -1553,11 +1446,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryDispatchCallbacks(int timeout)
         {
-            InitDelegate(ref dispatchCallbacks, Vtbl->DispatchCallbacks);
-
             /*HRESULT DispatchCallbacks(
             [In] int Timeout);*/
-            return dispatchCallbacks(Raw, timeout);
+            return Raw.DispatchCallbacks(timeout);
         }
 
         #endregion
@@ -1587,11 +1478,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryExitDispatch(IntPtr client)
         {
-            InitDelegate(ref exitDispatch, Vtbl->ExitDispatch);
-
             /*HRESULT ExitDispatch(
             [In] IntPtr Client);*/
-            return exitDispatch(Raw, client);
+            return Raw.ExitDispatch(client);
         }
 
         #endregion
@@ -1628,14 +1517,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryCreateClient(out DebugClient clientResult)
         {
-            InitDelegate(ref createClient, Vtbl->CreateClient);
             /*HRESULT CreateClient(
-            [Out, ComAliasName("IDebugClient")] out IntPtr Client);*/
-            IntPtr client;
-            HRESULT hr = createClient(Raw, out client);
+            [Out, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugClient")] out IDebugClient Client);*/
+            IDebugClient client;
+            HRESULT hr = Raw.CreateClient(out client);
 
             if (hr == HRESULT.S_OK)
-                clientResult = client == IntPtr.Zero ? null : new DebugClient(client);
+                clientResult = client == null ? null : new DebugClient(client);
             else
                 clientResult = default(DebugClient);
 
@@ -1672,12 +1560,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetOtherOutputMask(IntPtr client, out DEBUG_OUTPUT mask)
         {
-            InitDelegate(ref getOtherOutputMask, Vtbl->GetOtherOutputMask);
-
             /*HRESULT GetOtherOutputMask(
             [In] IntPtr Client,
             [Out] out DEBUG_OUTPUT Mask);*/
-            return getOtherOutputMask(Raw, client, out mask);
+            return Raw.GetOtherOutputMask(client, out mask);
         }
 
         #endregion
@@ -1707,12 +1593,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetOtherOutputMask(IntPtr client, DEBUG_OUTPUT mask)
         {
-            InitDelegate(ref setOtherOutputMask, Vtbl->SetOtherOutputMask);
-
             /*HRESULT SetOtherOutputMask(
             [In] IntPtr Client,
             [In] DEBUG_OUTPUT Mask);*/
-            return setOtherOutputMask(Raw, client, mask);
+            return Raw.SetOtherOutputMask(client, mask);
         }
 
         #endregion
@@ -1746,13 +1630,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOutputIdentity(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_IDENTITY flags, string format)
         {
-            InitDelegate(ref outputIdentity, Vtbl->OutputIdentity);
-
             /*HRESULT OutputIdentity(
             [In] DEBUG_OUTCTL OutputControl,
             [In] DEBUG_OUTPUT_IDENTITY Flags,
             [In, MarshalAs(UnmanagedType.LPStr)] string Format);*/
-            return outputIdentity(Raw, outputControl, flags, format);
+            return Raw.OutputIdentity(outputControl, flags, format);
         }
 
         #endregion
@@ -1786,10 +1668,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryFlushCallbacks()
         {
-            InitDelegate(ref flushCallbacks, Vtbl->FlushCallbacks);
-
             /*HRESULT FlushCallbacks();*/
-            return flushCallbacks(Raw);
+            return Raw.FlushCallbacks();
         }
 
         #endregion
@@ -1797,18 +1677,7 @@ namespace ClrDebug.DbgEng
         #region IDebugClient2
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw2;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw2
-        {
-            get
-            {
-                InitInterface(typeof(IDebugClient2).GUID, ref raw2);
-
-                return raw2;
-            }
-        }
+        public IDebugClient2 Raw2 => (IDebugClient2) Raw;
 
         #region IsKernelDebuggerEnabled
 
@@ -1839,10 +1708,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryIsKernelDebuggerEnabled()
         {
-            InitDelegate(ref isKernelDebuggerEnabled, Vtbl2->IsKernelDebuggerEnabled);
-
             /*HRESULT IsKernelDebuggerEnabled();*/
-            return isKernelDebuggerEnabled(Raw2);
+            return Raw2.IsKernelDebuggerEnabled();
         }
 
         #endregion
@@ -1886,14 +1753,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWriteDumpFile2(string dumpFile, DEBUG_DUMP qualifier, DEBUG_FORMAT formatFlags, string comment)
         {
-            InitDelegate(ref writeDumpFile2, Vtbl2->WriteDumpFile2);
-
             /*HRESULT WriteDumpFile2(
             [In, MarshalAs(UnmanagedType.LPStr)] string DumpFile,
             [In] DEBUG_DUMP Qualifier,
             [In] DEBUG_FORMAT FormatFlags,
             [In, MarshalAs(UnmanagedType.LPStr)] string Comment);*/
-            return writeDumpFile2(Raw2, dumpFile, qualifier, formatFlags, comment);
+            return Raw2.WriteDumpFile2(dumpFile, qualifier, formatFlags, comment);
         }
 
         #endregion
@@ -1929,12 +1794,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryAddDumpInformationFile(string infoFile, DEBUG_DUMP_FILE type)
         {
-            InitDelegate(ref addDumpInformationFile, Vtbl2->AddDumpInformationFile);
-
             /*HRESULT AddDumpInformationFile(
             [In, MarshalAs(UnmanagedType.LPStr)] string InfoFile,
             [In] DEBUG_DUMP_FILE Type);*/
-            return addDumpInformationFile(Raw2, infoFile, type);
+            return Raw2.AddDumpInformationFile(infoFile, type);
         }
 
         #endregion
@@ -1964,11 +1827,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryEndProcessServer(long server)
         {
-            InitDelegate(ref endProcessServer, Vtbl2->EndProcessServer);
-
             /*HRESULT EndProcessServer(
             [In] long Server);*/
-            return endProcessServer(Raw2, server);
+            return Raw2.EndProcessServer(server);
         }
 
         #endregion
@@ -2000,11 +1861,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWaitForProcessServerEnd(int timeout)
         {
-            InitDelegate(ref waitForProcessServerEnd, Vtbl2->WaitForProcessServerEnd);
-
             /*HRESULT WaitForProcessServerEnd(
             [In] int Timeout);*/
-            return waitForProcessServerEnd(Raw2, timeout);
+            return Raw2.WaitForProcessServerEnd(timeout);
         }
 
         #endregion
@@ -2034,10 +1893,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryTerminateCurrentProcess()
         {
-            InitDelegate(ref terminateCurrentProcess, Vtbl2->TerminateCurrentProcess);
-
             /*HRESULT TerminateCurrentProcess();*/
-            return terminateCurrentProcess(Raw2);
+            return Raw2.TerminateCurrentProcess();
         }
 
         #endregion
@@ -2065,10 +1922,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryDetachCurrentProcess()
         {
-            InitDelegate(ref detachCurrentProcess, Vtbl2->DetachCurrentProcess);
-
             /*HRESULT DetachCurrentProcess();*/
-            return detachCurrentProcess(Raw2);
+            return Raw2.DetachCurrentProcess();
         }
 
         #endregion
@@ -2100,10 +1955,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryAbandonCurrentProcess()
         {
-            InitDelegate(ref abandonCurrentProcess, Vtbl2->AbandonCurrentProcess);
-
             /*HRESULT AbandonCurrentProcess();*/
-            return abandonCurrentProcess(Raw2);
+            return Raw2.AbandonCurrentProcess();
         }
 
         #endregion
@@ -2111,18 +1964,7 @@ namespace ClrDebug.DbgEng
         #region IDebugClient3
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw3;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw3
-        {
-            get
-            {
-                InitInterface(typeof(IDebugClient3).GUID, ref raw3);
-
-                return raw3;
-            }
-        }
+        public IDebugClient3 Raw3 => (IDebugClient3) Raw;
 
         #region GetRunningProcessSystemIdByExecutableNameWide
 
@@ -2159,14 +2001,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetRunningProcessSystemIdByExecutableNameWide(long server, string exeName, DEBUG_GET_PROC flags, out int id)
         {
-            InitDelegate(ref getRunningProcessSystemIdByExecutableNameWide, Vtbl3->GetRunningProcessSystemIdByExecutableNameWide);
-
             /*HRESULT GetRunningProcessSystemIdByExecutableNameWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string ExeName,
             [In] DEBUG_GET_PROC Flags,
             [Out] out int Id);*/
-            return getRunningProcessSystemIdByExecutableNameWide(Raw3, server, exeName, flags, out id);
+            return Raw3.GetRunningProcessSystemIdByExecutableNameWide(server, exeName, flags, out id);
         }
 
         #endregion
@@ -2205,7 +2045,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetRunningProcessDescriptionWide(long server, int systemId, DEBUG_PROC_DESC flags, out GetRunningProcessDescriptionWideResult result)
         {
-            InitDelegate(ref getRunningProcessDescriptionWide, Vtbl3->GetRunningProcessDescriptionWide);
             /*HRESULT GetRunningProcessDescriptionWide(
             [In] long Server,
             [In] int SystemId,
@@ -2222,7 +2061,7 @@ namespace ClrDebug.DbgEng
             char[] description;
             int descriptionSize = 0;
             int actualDescriptionSize;
-            HRESULT hr = getRunningProcessDescriptionWide(Raw3, server, systemId, flags, null, exeNameSize, out actualExeNameSize, null, descriptionSize, out actualDescriptionSize);
+            HRESULT hr = Raw3.GetRunningProcessDescriptionWide(server, systemId, flags, null, exeNameSize, out actualExeNameSize, null, descriptionSize, out actualDescriptionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2231,7 +2070,7 @@ namespace ClrDebug.DbgEng
             exeName = new char[exeNameSize];
             descriptionSize = actualDescriptionSize;
             description = new char[descriptionSize];
-            hr = getRunningProcessDescriptionWide(Raw3, server, systemId, flags, exeName, exeNameSize, out actualExeNameSize, description, descriptionSize, out actualDescriptionSize);
+            hr = Raw3.GetRunningProcessDescriptionWide(server, systemId, flags, exeName, exeNameSize, out actualExeNameSize, description, descriptionSize, out actualDescriptionSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2285,13 +2124,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryCreateProcessWide(long server, string commandLine, DEBUG_CREATE_PROCESS createFlags)
         {
-            InitDelegate(ref createProcessWide, Vtbl3->CreateProcessWide);
-
             /*HRESULT CreateProcessWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS CreateFlags);*/
-            return createProcessWide(Raw3, server, commandLine, createFlags);
+            return Raw3.CreateProcessWide(server, commandLine, createFlags);
         }
 
         #endregion
@@ -2339,15 +2176,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryCreateProcessAndAttachWide(long server, string commandLine, DEBUG_CREATE_PROCESS createFlags, int processId, DEBUG_ATTACH attachFlags)
         {
-            InitDelegate(ref createProcessAndAttachWide, Vtbl3->CreateProcessAndAttachWide);
-
             /*HRESULT CreateProcessAndAttachWide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS CreateFlags,
             [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);*/
-            return createProcessAndAttachWide(Raw3, server, commandLine, createFlags, processId, attachFlags);
+            return Raw3.CreateProcessAndAttachWide(server, commandLine, createFlags, processId, attachFlags);
         }
 
         #endregion
@@ -2355,18 +2190,7 @@ namespace ClrDebug.DbgEng
         #region IDebugClient4
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw4;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw4
-        {
-            get
-            {
-                InitInterface(typeof(IDebugClient4).GUID, ref raw4);
-
-                return raw4;
-            }
-        }
+        public IDebugClient4 Raw4 => (IDebugClient4) Raw;
 
         #region NumberDumpFiles
 
@@ -2394,11 +2218,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetNumberDumpFiles(out int number)
         {
-            InitDelegate(ref getNumberDumpFiles, Vtbl4->GetNumberDumpFiles);
-
             /*HRESULT GetNumberDumpFiles(
             [Out] out int Number);*/
-            return getNumberDumpFiles(Raw4, out number);
+            return Raw4.GetNumberDumpFiles(out number);
         }
 
         #endregion
@@ -2434,12 +2256,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOpenDumpFileWide(string fileName, long fileHandle)
         {
-            InitDelegate(ref openDumpFileWide, Vtbl4->OpenDumpFileWide);
-
             /*HRESULT OpenDumpFileWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
             [In] long FileHandle);*/
-            return openDumpFileWide(Raw4, fileName, fileHandle);
+            return Raw4.OpenDumpFileWide(fileName, fileHandle);
         }
 
         #endregion
@@ -2479,15 +2299,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWriteDumpFileWide(string dumpFile, long fileHandle, DEBUG_DUMP qualifier, DEBUG_FORMAT formatFlags, string comment)
         {
-            InitDelegate(ref writeDumpFileWide, Vtbl4->WriteDumpFileWide);
-
             /*HRESULT WriteDumpFileWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string DumpFile,
             [In] long FileHandle,
             [In] DEBUG_DUMP Qualifier,
             [In] DEBUG_FORMAT FormatFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Comment);*/
-            return writeDumpFileWide(Raw4, dumpFile, fileHandle, qualifier, formatFlags, comment);
+            return Raw4.WriteDumpFileWide(dumpFile, fileHandle, qualifier, formatFlags, comment);
         }
 
         #endregion
@@ -2525,13 +2343,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryAddDumpInformationFileWide(string fileName, long fileHandle, DEBUG_DUMP_FILE type)
         {
-            InitDelegate(ref addDumpInformationFileWide, Vtbl4->AddDumpInformationFileWide);
-
             /*HRESULT AddDumpInformationFileWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
             [In] long FileHandle,
             [In] DEBUG_DUMP_FILE Type);*/
-            return addDumpInformationFileWide(Raw4, fileName, fileHandle, type);
+            return Raw4.AddDumpInformationFileWide(fileName, fileHandle, type);
         }
 
         #endregion
@@ -2564,27 +2380,26 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetDumpFile(int index, out GetDumpFileResult result)
         {
-            InitDelegate(ref getDumpFile, Vtbl4->GetDumpFile);
             /*HRESULT GetDumpFile(
             [In] int Index,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize,
             [Out] out long Handle,
             [Out] out int Type);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int nameSize;
             long handle;
             int type;
-            HRESULT hr = getDumpFile(Raw4, index, null, bufferSize, out nameSize, out handle, out type);
+            HRESULT hr = Raw4.GetDumpFile(index, null, bufferSize, out nameSize, out handle, out type);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new char[bufferSize];
-            hr = getDumpFile(Raw4, index, buffer, bufferSize, out nameSize, out handle, out type);
+            buffer = new byte[bufferSize];
+            hr = Raw4.GetDumpFile(index, buffer, bufferSize, out nameSize, out handle, out type);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2629,7 +2444,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetDumpFileWide(int index, out GetDumpFileWideResult result)
         {
-            InitDelegate(ref getDumpFileWide, Vtbl4->GetDumpFileWide);
             /*HRESULT GetDumpFileWide(
             [In] int Index,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
@@ -2642,14 +2456,14 @@ namespace ClrDebug.DbgEng
             int nameSize;
             long handle;
             int type;
-            HRESULT hr = getDumpFileWide(Raw4, index, null, bufferSize, out nameSize, out handle, out type);
+            HRESULT hr = Raw4.GetDumpFileWide(index, null, bufferSize, out nameSize, out handle, out type);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
             buffer = new char[bufferSize];
-            hr = getDumpFileWide(Raw4, index, buffer, bufferSize, out nameSize, out handle, out type);
+            hr = Raw4.GetDumpFileWide(index, buffer, bufferSize, out nameSize, out handle, out type);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2669,18 +2483,7 @@ namespace ClrDebug.DbgEng
         #region IDebugClient5
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw5;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw5
-        {
-            get
-            {
-                InitInterface(typeof(IDebugClient5).GUID, ref raw5);
-
-                return raw5;
-            }
-        }
+        public IDebugClient5 Raw5 => (IDebugClient5) Raw;
 
         #region KernelConnectionOptionsWide
 
@@ -2714,7 +2517,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetKernelConnectionOptionsWide(out string bufferResult)
         {
-            InitDelegate(ref getKernelConnectionOptionsWide, Vtbl5->GetKernelConnectionOptionsWide);
             /*HRESULT GetKernelConnectionOptionsWide(
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
@@ -2722,14 +2524,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int optionsSize;
-            HRESULT hr = getKernelConnectionOptionsWide(Raw5, null, bufferSize, out optionsSize);
+            HRESULT hr = Raw5.GetKernelConnectionOptionsWide(null, bufferSize, out optionsSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = optionsSize;
             buffer = new char[bufferSize];
-            hr = getKernelConnectionOptionsWide(Raw5, buffer, bufferSize, out optionsSize);
+            hr = Raw5.GetKernelConnectionOptionsWide(buffer, bufferSize, out optionsSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2755,11 +2557,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetKernelConnectionOptionsWide(string options)
         {
-            InitDelegate(ref setKernelConnectionOptionsWide, Vtbl5->SetKernelConnectionOptionsWide);
-
             /*HRESULT SetKernelConnectionOptionsWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Options);*/
-            return setKernelConnectionOptionsWide(Raw5, options);
+            return Raw5.SetKernelConnectionOptionsWide(options);
         }
 
         #endregion
@@ -2797,11 +2597,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetOutputCallbacksWide(out IDebugOutputCallbacksWide callbacks)
         {
-            InitDelegate(ref getOutputCallbacksWide, Vtbl5->GetOutputCallbacksWide);
-
             /*HRESULT GetOutputCallbacksWide(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugOutputCallbacksWide Callbacks);*/
-            return getOutputCallbacksWide(Raw5, out callbacks);
+            return Raw5.GetOutputCallbacksWide(out callbacks);
         }
 
         /// <summary>
@@ -2818,11 +2616,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetOutputCallbacksWide(IDebugOutputCallbacksWide callbacks)
         {
-            InitDelegate(ref setOutputCallbacksWide, Vtbl5->SetOutputCallbacksWide);
-
             /*HRESULT SetOutputCallbacksWide(
             [In] IDebugOutputCallbacksWide Callbacks);*/
-            return setOutputCallbacksWide(Raw5, callbacks);
+            return Raw5.SetOutputCallbacksWide(callbacks);
         }
 
         #endregion
@@ -2853,7 +2649,6 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryGetOutputLinePrefixWide(out string bufferResult)
         {
-            InitDelegate(ref getOutputLinePrefixWide, Vtbl5->GetOutputLinePrefixWide);
             /*HRESULT GetOutputLinePrefixWide(
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
@@ -2861,14 +2656,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int prefixSize;
-            HRESULT hr = getOutputLinePrefixWide(Raw5, null, bufferSize, out prefixSize);
+            HRESULT hr = Raw5.GetOutputLinePrefixWide(null, bufferSize, out prefixSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = prefixSize;
             buffer = new char[bufferSize];
-            hr = getOutputLinePrefixWide(Raw5, buffer, bufferSize, out prefixSize);
+            hr = Raw5.GetOutputLinePrefixWide(buffer, bufferSize, out prefixSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2890,11 +2685,9 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TrySetOutputLinePrefixWide(string prefix)
         {
-            InitDelegate(ref setOutputLinePrefixWide, Vtbl5->SetOutputLinePrefixWide);
-
             /*HRESULT SetOutputLinePrefixWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Prefix);*/
-            return setOutputLinePrefixWide(Raw5, prefix);
+            return Raw5.SetOutputLinePrefixWide(prefix);
         }
 
         #endregion
@@ -2925,7 +2718,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetIdentityWide(out string bufferResult)
         {
-            InitDelegate(ref getIdentityWide, Vtbl5->GetIdentityWide);
             /*HRESULT GetIdentityWide(
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
@@ -2933,14 +2725,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int identitySize;
-            HRESULT hr = getIdentityWide(Raw5, null, bufferSize, out identitySize);
+            HRESULT hr = Raw5.GetIdentityWide(null, bufferSize, out identitySize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = identitySize;
             buffer = new char[bufferSize];
-            hr = getIdentityWide(Raw5, buffer, bufferSize, out identitySize);
+            hr = Raw5.GetIdentityWide(buffer, bufferSize, out identitySize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2991,11 +2783,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetEventCallbacksWide(out IDebugEventCallbacksWide callbacks)
         {
-            InitDelegate(ref getEventCallbacksWide, Vtbl5->GetEventCallbacksWide);
-
             /*HRESULT GetEventCallbacksWide(
             [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacksWide Callbacks);*/
-            return getEventCallbacksWide(Raw5, out callbacks);
+            return Raw5.GetEventCallbacksWide(out callbacks);
         }
 
         /// <summary>
@@ -3014,11 +2804,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetEventCallbacksWide(IDebugEventCallbacksWide callbacks)
         {
-            InitDelegate(ref setEventCallbacksWide, Vtbl5->SetEventCallbacksWide);
-
             /*HRESULT SetEventCallbacksWide(
             [In] IDebugEventCallbacksWide Callbacks);*/
-            return setEventCallbacksWide(Raw5, callbacks);
+            return Raw5.SetEventCallbacksWide(callbacks);
         }
 
         #endregion
@@ -3048,11 +2836,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetNumberInputCallbacks(out int count)
         {
-            InitDelegate(ref getNumberInputCallbacks, Vtbl5->GetNumberInputCallbacks);
-
             /*HRESULT GetNumberInputCallbacks(
             [Out] out int Count);*/
-            return getNumberInputCallbacks(Raw5, out count);
+            return Raw5.GetNumberInputCallbacks(out count);
         }
 
         #endregion
@@ -3083,11 +2869,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetNumberOutputCallbacks(out int count)
         {
-            InitDelegate(ref getNumberOutputCallbacks, Vtbl5->GetNumberOutputCallbacks);
-
             /*HRESULT GetNumberOutputCallbacks(
             [Out] out int Count);*/
-            return getNumberOutputCallbacks(Raw5, out count);
+            return Raw5.GetNumberOutputCallbacks(out count);
         }
 
         #endregion
@@ -3121,22 +2905,21 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetQuitLockString(out string bufferResult)
         {
-            InitDelegate(ref getQuitLockString, Vtbl5->GetQuitLockString);
             /*HRESULT GetQuitLockString(
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getQuitLockString(Raw5, null, bufferSize, out stringSize);
+            HRESULT hr = Raw5.GetQuitLockString(null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
-            buffer = new char[bufferSize];
-            hr = getQuitLockString(Raw5, buffer, bufferSize, out stringSize);
+            buffer = new byte[bufferSize];
+            hr = Raw5.GetQuitLockString(buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3158,11 +2941,9 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TrySetQuitLockString(string lockString)
         {
-            InitDelegate(ref setQuitLockString, Vtbl5->SetQuitLockString);
-
             /*HRESULT SetQuitLockString(
             [In, MarshalAs(UnmanagedType.LPStr)] string LockString);*/
-            return setQuitLockString(Raw5, lockString);
+            return Raw5.SetQuitLockString(lockString);
         }
 
         #endregion
@@ -3196,7 +2977,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetQuitLockStringWide(out string bufferResult)
         {
-            InitDelegate(ref getQuitLockStringWide, Vtbl5->GetQuitLockStringWide);
             /*HRESULT GetQuitLockStringWide(
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
@@ -3204,14 +2984,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getQuitLockStringWide(Raw5, null, bufferSize, out stringSize);
+            HRESULT hr = Raw5.GetQuitLockStringWide(null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
             buffer = new char[bufferSize];
-            hr = getQuitLockStringWide(Raw5, buffer, bufferSize, out stringSize);
+            hr = Raw5.GetQuitLockStringWide(buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3233,11 +3013,9 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TrySetQuitLockStringWide(string lockString)
         {
-            InitDelegate(ref setQuitLockStringWide, Vtbl5->SetQuitLockStringWide);
-
             /*HRESULT SetQuitLockStringWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string LockString);*/
-            return setQuitLockStringWide(Raw5, lockString);
+            return Raw5.SetQuitLockStringWide(lockString);
         }
 
         #endregion
@@ -3267,12 +3045,10 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         public HRESULT TryAttachKernelWide(DEBUG_ATTACH flags, string connectOptions)
         {
-            InitDelegate(ref attachKernelWide, Vtbl5->AttachKernelWide);
-
             /*HRESULT AttachKernelWide(
             [In] DEBUG_ATTACH Flags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string ConnectOptions);*/
-            return attachKernelWide(Raw5, flags, connectOptions);
+            return Raw5.AttachKernelWide(flags, connectOptions);
         }
 
         #endregion
@@ -3318,13 +3094,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryStartProcessServerWide(DEBUG_CLASS flags, string options, IntPtr reserved)
         {
-            InitDelegate(ref startProcessServerWide, Vtbl5->StartProcessServerWide);
-
             /*HRESULT StartProcessServerWide(
             [In] DEBUG_CLASS Flags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Options,
             [In] IntPtr Reserved);*/
-            return startProcessServerWide(Raw5, flags, options, reserved);
+            return Raw5.StartProcessServerWide(flags, options, reserved);
         }
 
         #endregion
@@ -3361,12 +3135,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryConnectProcessServerWide(string remoteOptions, out long server)
         {
-            InitDelegate(ref connectProcessServerWide, Vtbl5->ConnectProcessServerWide);
-
             /*HRESULT ConnectProcessServerWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string RemoteOptions,
             [Out] out long Server);*/
-            return connectProcessServerWide(Raw5, remoteOptions, out server);
+            return Raw5.ConnectProcessServerWide(remoteOptions, out server);
         }
 
         #endregion
@@ -3398,11 +3170,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryStartServerWide(string options)
         {
-            InitDelegate(ref startServerWide, Vtbl5->StartServerWide);
-
             /*HRESULT StartServerWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Options);*/
-            return startServerWide(Raw5, options);
+            return Raw5.StartServerWide(options);
         }
 
         #endregion
@@ -3434,13 +3204,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOutputServersWide(DEBUG_OUTCTL outputControl, string machine, DEBUG_SERVERS flags)
         {
-            InitDelegate(ref outputServersWide, Vtbl5->OutputServersWide);
-
             /*HRESULT OutputServersWide(
             [In] DEBUG_OUTCTL OutputControl,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Machine,
             [In] DEBUG_SERVERS Flags);*/
-            return outputServersWide(Raw5, outputControl, machine, flags);
+            return Raw5.OutputServersWide(outputControl, machine, flags);
         }
 
         #endregion
@@ -3474,13 +3242,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOutputIdentityWide(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_IDENTITY flags, string format)
         {
-            InitDelegate(ref outputIdentityWide, Vtbl5->OutputIdentityWide);
-
             /*HRESULT OutputIdentityWide(
             [In] DEBUG_OUTCTL OutputControl,
             [In] DEBUG_OUTPUT_IDENTITY Flags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Format);*/
-            return outputIdentityWide(Raw5, outputControl, flags, format);
+            return Raw5.OutputIdentityWide(outputControl, flags, format);
         }
 
         #endregion
@@ -3528,8 +3294,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryCreateProcess2(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment)
         {
-            InitDelegate(ref createProcess2, Vtbl5->CreateProcess2);
-
             /*HRESULT CreateProcess2(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine,
@@ -3537,7 +3301,7 @@ namespace ClrDebug.DbgEng
             [In] int OptionsBufferSize,
             [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory,
             [In, MarshalAs(UnmanagedType.LPStr)] string Environment);*/
-            return createProcess2(Raw5, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment);
+            return Raw5.CreateProcess2(server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment);
         }
 
         #endregion
@@ -3585,8 +3349,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryCreateProcess2Wide(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment)
         {
-            InitDelegate(ref createProcess2Wide, Vtbl5->CreateProcess2Wide);
-
             /*HRESULT CreateProcess2Wide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine,
@@ -3594,7 +3356,7 @@ namespace ClrDebug.DbgEng
             [In] int OptionsBufferSize,
             [In, MarshalAs(UnmanagedType.LPWStr)] string InitialDirectory,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Environment);*/
-            return createProcess2Wide(Raw5, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment);
+            return Raw5.CreateProcess2Wide(server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment);
         }
 
         #endregion
@@ -3646,8 +3408,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryCreateProcessAndAttach2(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment, int processId, DEBUG_ATTACH attachFlags)
         {
-            InitDelegate(ref createProcessAndAttach2, Vtbl5->CreateProcessAndAttach2);
-
             /*HRESULT CreateProcessAndAttach2(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine,
@@ -3657,7 +3417,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPStr)] string Environment,
             [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);*/
-            return createProcessAndAttach2(Raw5, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags);
+            return Raw5.CreateProcessAndAttach2(server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags);
         }
 
         #endregion
@@ -3709,8 +3469,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryCreateProcessAndAttach2Wide(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment, int processId, DEBUG_ATTACH attachFlags)
         {
-            InitDelegate(ref createProcessAndAttach2Wide, Vtbl5->CreateProcessAndAttach2Wide);
-
             /*HRESULT CreateProcessAndAttach2Wide(
             [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine,
@@ -3720,7 +3478,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string Environment,
             [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);*/
-            return createProcessAndAttach2Wide(Raw5, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags);
+            return Raw5.CreateProcessAndAttach2Wide(server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags);
         }
 
         #endregion
@@ -3741,12 +3499,10 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryPushOutputLinePrefix(string newPrefix, out long handle)
         {
-            InitDelegate(ref pushOutputLinePrefix, Vtbl5->PushOutputLinePrefix);
-
             /*HRESULT PushOutputLinePrefix(
             [In, MarshalAs(UnmanagedType.LPStr)] string NewPrefix,
             [Out] out long Handle);*/
-            return pushOutputLinePrefix(Raw5, newPrefix, out handle);
+            return Raw5.PushOutputLinePrefix(newPrefix, out handle);
         }
 
         #endregion
@@ -3767,12 +3523,10 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryPushOutputLinePrefixWide(string newPrefix, out long handle)
         {
-            InitDelegate(ref pushOutputLinePrefixWide, Vtbl5->PushOutputLinePrefixWide);
-
             /*HRESULT PushOutputLinePrefixWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string NewPrefix,
             [Out] out long Handle);*/
-            return pushOutputLinePrefixWide(Raw5, newPrefix, out handle);
+            return Raw5.PushOutputLinePrefixWide(newPrefix, out handle);
         }
 
         #endregion
@@ -3794,11 +3548,9 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         public HRESULT TryPopOutputLinePrefix(long handle)
         {
-            InitDelegate(ref popOutputLinePrefix, Vtbl5->PopOutputLinePrefix);
-
             /*HRESULT PopOutputLinePrefix(
             [In] long Handle);*/
-            return popOutputLinePrefix(Raw5, handle);
+            return Raw5.PopOutputLinePrefix(handle);
         }
 
         #endregion
@@ -3837,12 +3589,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetNumberEventCallbacks(DEBUG_EVENT_TYPE flags, out int count)
         {
-            InitDelegate(ref getNumberEventCallbacks, Vtbl5->GetNumberEventCallbacks);
-
             /*HRESULT GetNumberEventCallbacks(
             [In] DEBUG_EVENT_TYPE Flags,
             [Out] out int Count);*/
-            return getNumberEventCallbacks(Raw5, flags, out count);
+            return Raw5.GetNumberEventCallbacks(flags, out count);
         }
 
         #endregion
@@ -3850,18 +3600,7 @@ namespace ClrDebug.DbgEng
         #region IDebugClient6
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw6;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw6
-        {
-            get
-            {
-                InitInterface(typeof(IDebugClient6).GUID, ref raw6);
-
-                return raw6;
-            }
-        }
+        public IDebugClient6 Raw6 => (IDebugClient6) Raw;
 
         #region SetEventContextCallbacks
 
@@ -3881,11 +3620,9 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This event interface replaces the use of <see cref="EventCallbacks"/>.</returns>
         public HRESULT TrySetEventContextCallbacks(IDebugEventContextCallbacks callbacks)
         {
-            InitDelegate(ref setEventContextCallbacks, Vtbl6->SetEventContextCallbacks);
-
             /*HRESULT SetEventContextCallbacks(
             [In] IDebugEventContextCallbacks Callbacks);*/
-            return setEventContextCallbacks(Raw6, callbacks);
+            return Raw6.SetEventContextCallbacks(callbacks);
         }
 
         #endregion
@@ -3893,18 +3630,7 @@ namespace ClrDebug.DbgEng
         #region IDebugClient7
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw7;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw7
-        {
-            get
-            {
-                InitInterface(typeof(IDebugClient7).GUID, ref raw7);
-
-                return raw7;
-            }
-        }
+        public IDebugClient7 Raw7 => (IDebugClient7) Raw;
 
         #region SetClientContext
 
@@ -3926,12 +3652,10 @@ namespace ClrDebug.DbgEng
         /// <returns>The SetClientContext method is reserved for internal use.</returns>
         public HRESULT TrySetClientContext(IntPtr context, int contextSize)
         {
-            InitDelegate(ref setClientContext, Vtbl7->SetClientContext);
-
             /*HRESULT SetClientContext(
             [In] IntPtr Context,
             [In] int ContextSize);*/
-            return setClientContext(Raw7, context, contextSize);
+            return Raw7.SetClientContext(context, contextSize);
         }
 
         #endregion
@@ -3939,18 +3663,7 @@ namespace ClrDebug.DbgEng
         #region IDebugClient8
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw8;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw8
-        {
-            get
-            {
-                InitInterface(typeof(IDebugClient8).GUID, ref raw8);
-
-                return raw8;
-            }
-        }
+        public IDebugClient8 Raw8 => (IDebugClient8) Raw;
 
         #region OpenDumpFileWide2
 
@@ -4004,380 +3717,14 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOpenDumpFileWide2(string fileName, long fileHandle, IMAGE_FILE_MACHINE alternateArch)
         {
-            InitDelegate(ref openDumpFileWide2, Vtbl8->OpenDumpFileWide2);
-
             /*HRESULT OpenDumpFileWide2(
             [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
             [In] long FileHandle,
             [In] IMAGE_FILE_MACHINE AlternateArch);*/
-            return openDumpFileWide2(Raw8, fileName, fileHandle, alternateArch);
+            return Raw8.OpenDumpFileWide2(fileName, fileHandle, alternateArch);
         }
 
         #endregion
         #endregion
-        #region Cached Delegates
-        #region IDebugClient
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetKernelConnectionOptionsDelegate getKernelConnectionOptions;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetKernelConnectionOptionsDelegate setKernelConnectionOptions;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetProcessOptionsDelegate getProcessOptions;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetProcessOptionsDelegate setProcessOptions;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetExitCodeDelegate getExitCode;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetInputCallbacksDelegate getInputCallbacks;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetInputCallbacksDelegate setInputCallbacks;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOutputCallbacksDelegate getOutputCallbacks;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetOutputCallbacksDelegate setOutputCallbacks;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOutputMaskDelegate getOutputMask;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetOutputMaskDelegate setOutputMask;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOutputWidthDelegate getOutputWidth;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetOutputWidthDelegate setOutputWidth;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOutputLinePrefixDelegate getOutputLinePrefix;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetOutputLinePrefixDelegate setOutputLinePrefix;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetIdentityDelegate getIdentity;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetEventCallbacksDelegate getEventCallbacks;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetEventCallbacksDelegate setEventCallbacks;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private AttachKernelDelegate attachKernel;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private StartProcessServerDelegate startProcessServer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ConnectProcessServerDelegate connectProcessServer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private DisconnectProcessServerDelegate disconnectProcessServer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetRunningProcessSystemIdsDelegate getRunningProcessSystemIds;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetRunningProcessSystemIdByExecutableNameDelegate getRunningProcessSystemIdByExecutableName;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetRunningProcessDescriptionDelegate getRunningProcessDescription;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private AttachProcessDelegate attachProcess;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CreateProcessDelegate createProcess;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CreateProcessAndAttachDelegate createProcessAndAttach;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private AddProcessOptionsDelegate addProcessOptions;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private RemoveProcessOptionsDelegate removeProcessOptions;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OpenDumpFileDelegate openDumpFile;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteDumpFileDelegate writeDumpFile;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ConnectSessionDelegate connectSession;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private StartServerDelegate startServer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OutputServersDelegate outputServers;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private TerminateProcessesDelegate terminateProcesses;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private DetachProcessesDelegate detachProcesses;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private EndSessionDelegate endSession;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private DispatchCallbacksDelegate dispatchCallbacks;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ExitDispatchDelegate exitDispatch;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CreateClientDelegate createClient;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOtherOutputMaskDelegate getOtherOutputMask;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetOtherOutputMaskDelegate setOtherOutputMask;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OutputIdentityDelegate outputIdentity;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private FlushCallbacksDelegate flushCallbacks;
-
-        #endregion
-        #region IDebugClient2
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IsKernelDebuggerEnabledDelegate isKernelDebuggerEnabled;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteDumpFile2Delegate writeDumpFile2;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private AddDumpInformationFileDelegate addDumpInformationFile;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private EndProcessServerDelegate endProcessServer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WaitForProcessServerEndDelegate waitForProcessServerEnd;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private TerminateCurrentProcessDelegate terminateCurrentProcess;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private DetachCurrentProcessDelegate detachCurrentProcess;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private AbandonCurrentProcessDelegate abandonCurrentProcess;
-
-        #endregion
-        #region IDebugClient3
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetRunningProcessSystemIdByExecutableNameWideDelegate getRunningProcessSystemIdByExecutableNameWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetRunningProcessDescriptionWideDelegate getRunningProcessDescriptionWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CreateProcessWideDelegate createProcessWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CreateProcessAndAttachWideDelegate createProcessAndAttachWide;
-
-        #endregion
-        #region IDebugClient4
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetNumberDumpFilesDelegate getNumberDumpFiles;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OpenDumpFileWideDelegate openDumpFileWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteDumpFileWideDelegate writeDumpFileWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private AddDumpInformationFileWideDelegate addDumpInformationFileWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetDumpFileDelegate getDumpFile;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetDumpFileWideDelegate getDumpFileWide;
-
-        #endregion
-        #region IDebugClient5
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetKernelConnectionOptionsWideDelegate getKernelConnectionOptionsWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetKernelConnectionOptionsWideDelegate setKernelConnectionOptionsWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOutputCallbacksWideDelegate getOutputCallbacksWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetOutputCallbacksWideDelegate setOutputCallbacksWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOutputLinePrefixWideDelegate getOutputLinePrefixWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetOutputLinePrefixWideDelegate setOutputLinePrefixWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetIdentityWideDelegate getIdentityWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetEventCallbacksWideDelegate getEventCallbacksWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetEventCallbacksWideDelegate setEventCallbacksWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetNumberInputCallbacksDelegate getNumberInputCallbacks;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetNumberOutputCallbacksDelegate getNumberOutputCallbacks;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetQuitLockStringDelegate getQuitLockString;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetQuitLockStringDelegate setQuitLockString;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetQuitLockStringWideDelegate getQuitLockStringWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetQuitLockStringWideDelegate setQuitLockStringWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private AttachKernelWideDelegate attachKernelWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private StartProcessServerWideDelegate startProcessServerWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ConnectProcessServerWideDelegate connectProcessServerWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private StartServerWideDelegate startServerWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OutputServersWideDelegate outputServersWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OutputIdentityWideDelegate outputIdentityWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CreateProcess2Delegate createProcess2;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CreateProcess2WideDelegate createProcess2Wide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CreateProcessAndAttach2Delegate createProcessAndAttach2;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CreateProcessAndAttach2WideDelegate createProcessAndAttach2Wide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private PushOutputLinePrefixDelegate pushOutputLinePrefix;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private PushOutputLinePrefixWideDelegate pushOutputLinePrefixWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private PopOutputLinePrefixDelegate popOutputLinePrefix;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetNumberEventCallbacksDelegate getNumberEventCallbacks;
-
-        #endregion
-        #region IDebugClient6
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetEventContextCallbacksDelegate setEventContextCallbacks;
-
-        #endregion
-        #region IDebugClient7
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetClientContextDelegate setClientContext;
-
-        #endregion
-        #region IDebugClient8
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OpenDumpFileWide2Delegate openDumpFileWide2;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugClient
-
-        private delegate HRESULT GetKernelConnectionOptionsDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int OptionsSize);
-        private delegate HRESULT SetKernelConnectionOptionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Options);
-        private delegate HRESULT GetProcessOptionsDelegate(IntPtr self, [Out] out DEBUG_PROCESS Options);
-        private delegate HRESULT SetProcessOptionsDelegate(IntPtr self, [In] DEBUG_PROCESS Options);
-        private delegate HRESULT GetExitCodeDelegate(IntPtr self, [Out] out int Code);
-        private delegate HRESULT GetInputCallbacksDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugInputCallbacks Callbacks);
-        private delegate HRESULT SetInputCallbacksDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.Interface)] IDebugInputCallbacks Callbacks);
-        private delegate HRESULT GetOutputCallbacksDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugOutputCallbacks Callbacks);
-        private delegate HRESULT SetOutputCallbacksDelegate(IntPtr self, [In] IDebugOutputCallbacks Callbacks);
-        private delegate HRESULT GetOutputMaskDelegate(IntPtr self, [Out] out DEBUG_OUTPUT Mask);
-        private delegate HRESULT SetOutputMaskDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask);
-        private delegate HRESULT GetOutputWidthDelegate(IntPtr self, [Out] out int Columns);
-        private delegate HRESULT SetOutputWidthDelegate(IntPtr self, [In] int Columns);
-        private delegate HRESULT GetOutputLinePrefixDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int PrefixSize);
-        private delegate HRESULT SetOutputLinePrefixDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Prefix);
-        private delegate HRESULT GetIdentityDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int IdentitySize);
-        private delegate HRESULT GetEventCallbacksDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacks Callbacks);
-        private delegate HRESULT SetEventCallbacksDelegate(IntPtr self, [In] IDebugEventCallbacks Callbacks);
-        private delegate HRESULT AttachKernelDelegate(IntPtr self, [In] DEBUG_ATTACH Flags, [In, MarshalAs(UnmanagedType.LPStr)] string ConnectOptions);
-        private delegate HRESULT StartProcessServerDelegate(IntPtr self, [In] DEBUG_CLASS Flags, [In, MarshalAs(UnmanagedType.LPStr)] string Options, [In] IntPtr Reserved);
-        private delegate HRESULT ConnectProcessServerDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string RemoteOptions, [Out] out long Server);
-        private delegate HRESULT DisconnectProcessServerDelegate(IntPtr self, [In] long Server);
-        private delegate HRESULT GetRunningProcessSystemIdsDelegate(IntPtr self, [In] long Server, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] Ids, [In] int Count, [Out] out int ActualCount);
-        private delegate HRESULT GetRunningProcessSystemIdByExecutableNameDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string ExeName, [In] DEBUG_GET_PROC Flags, [Out] out int Id);
-        private delegate HRESULT GetRunningProcessDescriptionDelegate(IntPtr self, [In] long Server, [In] int SystemId, [In] DEBUG_PROC_DESC Flags, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] ExeName, [In] int ExeNameSize, [Out] out int ActualExeNameSize, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] Description, [In] int DescriptionSize, [Out] out int ActualDescriptionSize);
-        private delegate HRESULT AttachProcessDelegate(IntPtr self, [In] long Server, [In] int ProcessID, [In] DEBUG_ATTACH AttachFlags);
-        private delegate HRESULT CreateProcessDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS Flags);
-        private delegate HRESULT CreateProcessAndAttachDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS Flags, [In] int ProcessId, [In] DEBUG_ATTACH AttachFlags);
-        private delegate HRESULT AddProcessOptionsDelegate(IntPtr self, [In] DEBUG_PROCESS Options);
-        private delegate HRESULT RemoveProcessOptionsDelegate(IntPtr self, [In] DEBUG_PROCESS Options);
-        private delegate HRESULT OpenDumpFileDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string DumpFile);
-        private delegate HRESULT WriteDumpFileDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string DumpFile, [In] DEBUG_DUMP Qualifier);
-        private delegate HRESULT ConnectSessionDelegate(IntPtr self, [In] DEBUG_CONNECT_SESSION Flags, [In] int HistoryLimit);
-        private delegate HRESULT StartServerDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Options);
-        private delegate HRESULT OutputServersDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string Machine, [In] DEBUG_SERVERS Flags);
-        private delegate HRESULT TerminateProcessesDelegate(IntPtr self);
-        private delegate HRESULT DetachProcessesDelegate(IntPtr self);
-        private delegate HRESULT EndSessionDelegate(IntPtr self, [In] DEBUG_END Flags);
-        private delegate HRESULT DispatchCallbacksDelegate(IntPtr self, [In] int Timeout);
-        private delegate HRESULT ExitDispatchDelegate(IntPtr self, [In] IntPtr Client);
-        private delegate HRESULT CreateClientDelegate(IntPtr self, [Out, ComAliasName("IDebugClient")] out IntPtr Client);
-        private delegate HRESULT GetOtherOutputMaskDelegate(IntPtr self, [In] IntPtr Client, [Out] out DEBUG_OUTPUT Mask);
-        private delegate HRESULT SetOtherOutputMaskDelegate(IntPtr self, [In] IntPtr Client, [In] DEBUG_OUTPUT Mask);
-        private delegate HRESULT OutputIdentityDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT_IDENTITY Flags, [In, MarshalAs(UnmanagedType.LPStr)] string Format);
-        private delegate HRESULT FlushCallbacksDelegate(IntPtr self);
-
-        #endregion
-        #region IDebugClient2
-
-        private delegate HRESULT IsKernelDebuggerEnabledDelegate(IntPtr self);
-        private delegate HRESULT WriteDumpFile2Delegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string DumpFile, [In] DEBUG_DUMP Qualifier, [In] DEBUG_FORMAT FormatFlags, [In, MarshalAs(UnmanagedType.LPStr)] string Comment);
-        private delegate HRESULT AddDumpInformationFileDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string InfoFile, [In] DEBUG_DUMP_FILE Type);
-        private delegate HRESULT EndProcessServerDelegate(IntPtr self, [In] long Server);
-        private delegate HRESULT WaitForProcessServerEndDelegate(IntPtr self, [In] int Timeout);
-        private delegate HRESULT TerminateCurrentProcessDelegate(IntPtr self);
-        private delegate HRESULT DetachCurrentProcessDelegate(IntPtr self);
-        private delegate HRESULT AbandonCurrentProcessDelegate(IntPtr self);
-
-        #endregion
-        #region IDebugClient3
-
-        private delegate HRESULT GetRunningProcessSystemIdByExecutableNameWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string ExeName, [In] DEBUG_GET_PROC Flags, [Out] out int Id);
-        private delegate HRESULT GetRunningProcessDescriptionWideDelegate(IntPtr self, [In] long Server, [In] int SystemId, [In] DEBUG_PROC_DESC Flags, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] ExeName, [In] int ExeNameSize, [Out] out int ActualExeNameSize, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] Description, [In] int DescriptionSize, [Out] out int ActualDescriptionSize);
-        private delegate HRESULT CreateProcessWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS CreateFlags);
-        private delegate HRESULT CreateProcessAndAttachWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS CreateFlags, [In] int ProcessId, [In] DEBUG_ATTACH AttachFlags);
-
-        #endregion
-        #region IDebugClient4
-
-        private delegate HRESULT GetNumberDumpFilesDelegate(IntPtr self, [Out] out int Number);
-        private delegate HRESULT OpenDumpFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string FileName, [In] long FileHandle);
-        private delegate HRESULT WriteDumpFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string DumpFile, [In] long FileHandle, [In] DEBUG_DUMP Qualifier, [In] DEBUG_FORMAT FormatFlags, [In, MarshalAs(UnmanagedType.LPWStr)] string Comment);
-        private delegate HRESULT AddDumpInformationFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string FileName, [In] long FileHandle, [In] DEBUG_DUMP_FILE Type);
-        private delegate HRESULT GetDumpFileDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize, [Out] out long Handle, [Out] out int Type);
-        private delegate HRESULT GetDumpFileWideDelegate(IntPtr self, [In] int Index, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize, [Out] out long Handle, [Out] out int Type);
-
-        #endregion
-        #region IDebugClient5
-
-        private delegate HRESULT GetKernelConnectionOptionsWideDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int OptionsSize);
-        private delegate HRESULT SetKernelConnectionOptionsWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Options);
-        private delegate HRESULT GetOutputCallbacksWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugOutputCallbacksWide Callbacks);
-        private delegate HRESULT SetOutputCallbacksWideDelegate(IntPtr self, [In] IDebugOutputCallbacksWide Callbacks);
-        private delegate HRESULT GetOutputLinePrefixWideDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int PrefixSize);
-        private delegate HRESULT SetOutputLinePrefixWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Prefix);
-        private delegate HRESULT GetIdentityWideDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int IdentitySize);
-        private delegate HRESULT GetEventCallbacksWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugEventCallbacksWide Callbacks);
-        private delegate HRESULT SetEventCallbacksWideDelegate(IntPtr self, [In] IDebugEventCallbacksWide Callbacks);
-        private delegate HRESULT GetNumberInputCallbacksDelegate(IntPtr self, [Out] out int Count);
-        private delegate HRESULT GetNumberOutputCallbacksDelegate(IntPtr self, [Out] out int Count);
-        private delegate HRESULT GetQuitLockStringDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int StringSize);
-        private delegate HRESULT SetQuitLockStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string LockString);
-        private delegate HRESULT GetQuitLockStringWideDelegate(IntPtr self, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int StringSize);
-        private delegate HRESULT SetQuitLockStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string LockString);
-        private delegate HRESULT AttachKernelWideDelegate(IntPtr self, [In] DEBUG_ATTACH Flags, [In, MarshalAs(UnmanagedType.LPWStr)] string ConnectOptions);
-        private delegate HRESULT StartProcessServerWideDelegate(IntPtr self, [In] DEBUG_CLASS Flags, [In, MarshalAs(UnmanagedType.LPWStr)] string Options, [In] IntPtr Reserved);
-        private delegate HRESULT ConnectProcessServerWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string RemoteOptions, [Out] out long Server);
-        private delegate HRESULT StartServerWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Options);
-        private delegate HRESULT OutputServersWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string Machine, [In] DEBUG_SERVERS Flags);
-        private delegate HRESULT OutputIdentityWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT_IDENTITY Flags, [In, MarshalAs(UnmanagedType.LPWStr)] string Format);
-        private delegate HRESULT CreateProcess2Delegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] int OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPStr)] string Environment);
-        private delegate HRESULT CreateProcess2WideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] int OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPWStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPWStr)] string Environment);
-        private delegate HRESULT CreateProcessAndAttach2Delegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] int OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPStr)] string Environment, [In] int ProcessId, [In] DEBUG_ATTACH AttachFlags);
-        private delegate HRESULT CreateProcessAndAttach2WideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] int OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPWStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPWStr)] string Environment, [In] int ProcessId, [In] DEBUG_ATTACH AttachFlags);
-        private delegate HRESULT PushOutputLinePrefixDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string NewPrefix, [Out] out long Handle);
-        private delegate HRESULT PushOutputLinePrefixWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string NewPrefix, [Out] out long Handle);
-        private delegate HRESULT PopOutputLinePrefixDelegate(IntPtr self, [In] long Handle);
-        private delegate HRESULT GetNumberEventCallbacksDelegate(IntPtr self, [In] DEBUG_EVENT_TYPE Flags, [Out] out int Count);
-
-        #endregion
-        #region IDebugClient6
-
-        private delegate HRESULT SetEventContextCallbacksDelegate(IntPtr self, [In] IDebugEventContextCallbacks Callbacks);
-
-        #endregion
-        #region IDebugClient7
-
-        private delegate HRESULT SetClientContextDelegate(IntPtr self, [In] IntPtr Context, [In] int ContextSize);
-
-        #endregion
-        #region IDebugClient8
-
-        private delegate HRESULT OpenDumpFileWide2Delegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string FileName, [In] long FileHandle, [In] IMAGE_FILE_MACHINE AlternateArch);
-
-        #endregion
-        #endregion
-
-        protected override void ReleaseSubInterfaces()
-        {
-            ReleaseInterface(ref raw2);
-            ReleaseInterface(ref raw3);
-            ReleaseInterface(ref raw4);
-            ReleaseInterface(ref raw5);
-            ReleaseInterface(ref raw6);
-            ReleaseInterface(ref raw7);
-            ReleaseInterface(ref raw8);
-        }
     }
 }

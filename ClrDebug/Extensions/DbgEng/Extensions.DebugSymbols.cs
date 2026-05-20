@@ -16,7 +16,7 @@ namespace ClrDebug.DbgEng
         /// <param name="module">Specifies the base address of the module containing the type of the variable.</param>
         /// <param name="typeId">Specifies the type ID of the type.</param>
         /// <returns>Receives the data that is read.</returns>
-        public static T ReadTypedDataVirtual<T>(this DebugSymbols symbols, long offset, long module, int typeId)
+        public static unsafe T ReadTypedDataVirtual<T>(this DebugSymbols symbols, long offset, long module, int typeId) where T : unmanaged
         {
             T value;
             TryReadTypedDataVirtual(symbols, offset, module, typeId, out value).ThrowDbgEngNotOK();
@@ -34,9 +34,9 @@ namespace ClrDebug.DbgEng
         /// <param name="typeId">Specifies the type ID of the type.</param>
         /// <param name="value">Receives the data that is read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadTypedDataVirtual<T>(this DebugSymbols symbols, long offset, long module, int typeId, out T value)
+        public static unsafe HRESULT TryReadTypedDataVirtual<T>(this DebugSymbols symbols, long offset, long module, int typeId, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -45,7 +45,7 @@ namespace ClrDebug.DbgEng
                 var hr = symbols.TryReadTypedDataVirtual(offset, module, typeId, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK || hr == HRESULT.S_FALSE)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -125,7 +125,7 @@ namespace ClrDebug.DbgEng
         /// <param name="typeId">Specifies the type ID of the type.</param>
         /// <param name="value">Specifies the buffer containing the data to be written.</param>
         /// <returns>Receives the number of bytes that were written. If BytesWritten is NULL, this information is not returned.</returns>
-        public static int WriteTypedDataVirtual<T>(this DebugSymbols symbols, long offset, long module, int typeId, T value)
+        public static unsafe int WriteTypedDataVirtual<T>(this DebugSymbols symbols, long offset, long module, int typeId, T value) where T : unmanaged
         {
             int read;
             TryWriteTypedDataVirtual(symbols, offset, module, typeId, value, out read).ThrowDbgEngNotOK();
@@ -144,9 +144,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the buffer containing the data to be written.</param>
         /// <param name="read">Receives the number of bytes that were written. If BytesWritten is NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWriteTypedDataVirtual<T>(this DebugSymbols symbols, long offset, long module, int typeId, T value, out int read)
+        public static unsafe HRESULT TryWriteTypedDataVirtual<T>(this DebugSymbols symbols, long offset, long module, int typeId, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -231,7 +231,7 @@ namespace ClrDebug.DbgEng
         /// <param name="module">Specifies the base address of the module containing the type of the variable.</param>
         /// <param name="typeId">Specifies the type ID of the type of the variable.</param>
         /// <returns>Receives the data that was read.</returns>
-        public static T ReadTypedDataPhysical<T>(this DebugSymbols symbols, long offset, long module, int typeId)
+        public static unsafe T ReadTypedDataPhysical<T>(this DebugSymbols symbols, long offset, long module, int typeId) where T : unmanaged
         {
             T value;
             TryReadTypedDataPhysical(symbols, offset, module, typeId, out value).ThrowDbgEngNotOK();
@@ -249,9 +249,9 @@ namespace ClrDebug.DbgEng
         /// <param name="typeId">Specifies the type ID of the type of the variable.</param>
         /// <param name="value">Receives the data that was read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryReadTypedDataPhysical<T>(this DebugSymbols symbols, long offset, long module, int typeId, out T value)
+        public static unsafe HRESULT TryReadTypedDataPhysical<T>(this DebugSymbols symbols, long offset, long module, int typeId, out T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -260,7 +260,7 @@ namespace ClrDebug.DbgEng
                 var hr = symbols.TryReadTypedDataPhysical(offset, module, typeId, buffer, size, out read);
 
                 if (hr == HRESULT.S_OK || hr == HRESULT.S_FALSE)
-                    value = Marshal.PtrToStructure<T>(buffer);
+                    value = *(T*) buffer;
                 else
                     value = default(T);
 
@@ -340,7 +340,7 @@ namespace ClrDebug.DbgEng
         /// <param name="typeId">Specifies the type ID of the type of the variable.</param>
         /// <param name="value">Specifies the buffer containing the data to be written.</param>
         /// <returns>Receives the number of bytes that were written. If BytesWritten is NULL, this information is not returned.</returns>
-        public static int WriteTypedDataPhysical<T>(this DebugSymbols symbols, long offset, long module, int typeId, T value)
+        public static unsafe int WriteTypedDataPhysical<T>(this DebugSymbols symbols, long offset, long module, int typeId, T value) where T : unmanaged
         {
             int read;
             TryWriteTypedDataPhysical(symbols, offset, module, typeId, value, out read).ThrowDbgEngNotOK();
@@ -359,9 +359,9 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Specifies the buffer containing the data to be written.</param>
         /// <param name="read">Receives the number of bytes that were written. If BytesWritten is NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryWriteTypedDataPhysical<T>(this DebugSymbols symbols, long offset, long module, int typeId, T value, out int read)
+        public static unsafe HRESULT TryWriteTypedDataPhysical<T>(this DebugSymbols symbols, long offset, long module, int typeId, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -443,7 +443,7 @@ namespace ClrDebug.DbgEng
         /// <typeparam name="T">The type of a processor specific CONTEXT structure that stores the thread context.</typeparam>
         /// <param name="symbols">The object on which this method operates.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public static GetScopeResult<T> GetScope<T>(this DebugSymbols symbols)
+        public static unsafe GetScopeResult<T> GetScope<T>(this DebugSymbols symbols) where T : unmanaged
         {
             GetScopeResult<T> result;
             TryGetScope(symbols, out result).ThrowDbgEngNotOK();
@@ -457,9 +457,9 @@ namespace ClrDebug.DbgEng
         /// <param name="symbols">The object on which this method operates.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryGetScope<T>(this DebugSymbols symbols, out GetScopeResult<T> result)
+        public static unsafe HRESULT TryGetScope<T>(this DebugSymbols symbols, out GetScopeResult<T> result) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
 
             var buffer = Marshal.AllocHGlobal(size);
 
@@ -470,7 +470,7 @@ namespace ClrDebug.DbgEng
                 var hr = symbols.TryGetScope(buffer, size, out var rawResult);
 
                 if (hr == HRESULT.S_OK)
-                    context = Marshal.PtrToStructure<T>(buffer);
+                    context = *(T*) buffer;
                 else
                     context = default(T);
 
@@ -495,7 +495,7 @@ namespace ClrDebug.DbgEng
         /// <param name="instructionOffset">Specifies the location in the process's virtual address space for the scope's current instruction. This is only used if both ScopeFrame and ScopeContext are NULL; otherwise, it is ignored.</param>
         /// <param name="scopeFrame">Specifies the scope's stack frame. For information about this structure, see <see cref="DEBUG_STACK_FRAME"/>.</param>
         /// <param name="context">Specifies the scope's thread context. The type of the thread context is the CONTEXT structure for the target's effective processor.</param>
-        public static void SetScope<T>(this DebugSymbols symbols, long instructionOffset, DEBUG_STACK_FRAME scopeFrame, in T context) =>
+        public static void SetScope<T>(this DebugSymbols symbols, long instructionOffset, DEBUG_STACK_FRAME scopeFrame, in T context) where T : unmanaged =>
             TrySetScope(symbols, instructionOffset, scopeFrame, context).ThrowDbgEngNotOK();
 
         /// <summary>
@@ -507,9 +507,9 @@ namespace ClrDebug.DbgEng
         /// <param name="scopeFrame">Specifies the scope's stack frame. For information about this structure, see <see cref="DEBUG_STACK_FRAME"/>.</param>
         /// <param name="context">Specifies the scope's thread context. The type of the thread context is the CONTEXT structure for the target's effective processor.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TrySetScope<T>(this DebugSymbols symbols, long instructionOffset, DEBUG_STACK_FRAME scopeFrame, in T context)
+        public static unsafe HRESULT TrySetScope<T>(this DebugSymbols symbols, long instructionOffset, DEBUG_STACK_FRAME scopeFrame, in T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -535,7 +535,7 @@ namespace ClrDebug.DbgEng
         /// <typeparam name="T">The type of a processor specific CONTEXT structure that stores the thread context.</typeparam>
         /// <param name="symbols">The object on which this method operates.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public static GetScopeExResult<T> GetScopeEx<T>(this DebugSymbols symbols)
+        public static unsafe GetScopeExResult<T> GetScopeEx<T>(this DebugSymbols symbols) where T : unmanaged
         {
             GetScopeExResult<T> result;
             TryGetScopeEx(symbols, out result).ThrowDbgEngNotOK();
@@ -549,9 +549,9 @@ namespace ClrDebug.DbgEng
         /// <param name="symbols">The object on which this method operates.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public static HRESULT TryGetScopeEx<T>(this DebugSymbols symbols, out GetScopeExResult<T> result)
+        public static unsafe HRESULT TryGetScopeEx<T>(this DebugSymbols symbols, out GetScopeExResult<T> result) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
 
             var buffer = Marshal.AllocHGlobal(size);
 
@@ -562,7 +562,7 @@ namespace ClrDebug.DbgEng
                 var hr = symbols.TryGetScopeEx(buffer, size, out var rawResult);
 
                 if (hr == HRESULT.S_OK)
-                    context = Marshal.PtrToStructure<T>(buffer);
+                    context = *(T*) buffer;
                 else
                     context = default(T);
 
@@ -587,7 +587,7 @@ namespace ClrDebug.DbgEng
         /// <param name="instructionOffset">[in] The offset of the instruction for the scope.</param>
         /// <param name="scopeFrame">[in, optional] The scope frame to set as a <see cref="DEBUG_STACK_FRAME_EX"/> structure.</param>
         /// <param name="context">Specifies the scope's thread context. The type of the thread context is the CONTEXT structure for the target's effective processor.</param>
-        public static void SetScopeEx<T>(this DebugSymbols symbols, long instructionOffset, DEBUG_STACK_FRAME_EX scopeFrame, in T context) =>
+        public static void SetScopeEx<T>(this DebugSymbols symbols, long instructionOffset, DEBUG_STACK_FRAME_EX scopeFrame, in T context) where T : unmanaged =>
             TrySetScopeEx(symbols, instructionOffset, scopeFrame, context).ThrowDbgEngNotOK();
 
         /// <summary>
@@ -599,9 +599,9 @@ namespace ClrDebug.DbgEng
         /// <param name="scopeFrame">[in, optional] The scope frame to set as a <see cref="DEBUG_STACK_FRAME_EX"/> structure.</param>
         /// <param name="context">Specifies the scope's thread context. The type of the thread context is the CONTEXT structure for the target's effective processor.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public static HRESULT TrySetScopeEx<T>(this DebugSymbols symbols, long instructionOffset, DEBUG_STACK_FRAME_EX scopeFrame, in T context)
+        public static unsafe HRESULT TrySetScopeEx<T>(this DebugSymbols symbols, long instructionOffset, DEBUG_STACK_FRAME_EX scopeFrame, in T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -633,7 +633,7 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Receives the requested version information. If Buffer is NULL, this information is not returned.</param>
         /// <returns>Receives the size in characters of the version information. This size includes the space for the '\0' terminating character.<para/>
         /// If VerInfoSize is NULL, this information is not returned.</returns>
-        public static int GetModuleVersionInformation<T>(this DebugSymbols symbols, int index, long @base, string item, T value)
+        public static unsafe int GetModuleVersionInformation<T>(this DebugSymbols symbols, int index, long @base, string item, T value) where T : unmanaged
         {
             int read;
             TryGetModuleVersionInformation(symbols, index, @base, item, value, out read).ThrowDbgEngNotOK();
@@ -655,9 +655,9 @@ namespace ClrDebug.DbgEng
         /// <param name="read">Receives the size in characters of the version information. This size includes the space for the '\0' terminating character.<para/>
         /// If VerInfoSize is NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryGetModuleVersionInformation<T>(this DebugSymbols symbols, int index, long @base, string item, T value, out int read)
+        public static unsafe HRESULT TryGetModuleVersionInformation<T>(this DebugSymbols symbols, int index, long @base, string item, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -752,7 +752,7 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Receives the requested version information. If Buffer is NULL, this information is not returned.</param>
         /// <returns>Receives the size in characters of the version information. This size includes the space for the '\0' terminating character.<para/>
         /// If VerInfoSize is NULL, this information is not returned.</returns>
-        public static int GetModuleVersionInformationWide<T>(this DebugSymbols symbols, int index, long @base, string item, T value)
+        public static unsafe int GetModuleVersionInformationWide<T>(this DebugSymbols symbols, int index, long @base, string item, T value) where T : unmanaged
         {
             int read;
             TryGetModuleVersionInformationWide(symbols, index, @base, item, value, out read).ThrowDbgEngNotOK();
@@ -774,9 +774,9 @@ namespace ClrDebug.DbgEng
         /// <param name="read">Receives the size in characters of the version information. This size includes the space for the '\0' terminating character.<para/>
         /// If VerInfoSize is NULL, this information is not returned.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryGetModuleVersionInformationWide<T>(this DebugSymbols symbols, int index, long @base, string item, T value, out int read)
+        public static unsafe HRESULT TryGetModuleVersionInformationWide<T>(this DebugSymbols symbols, int index, long @base, string item, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -869,7 +869,7 @@ namespace ClrDebug.DbgEng
         /// <param name="value">Receives the function entry information. If the effective processor is an x86, this is the FPO_DATA structure for the function.<para/>
         /// For all other architectures, this is the IMAGE_FUNCTION_ENTRY structure for that architecture.</param>
         /// <returns>Specifies the size of the function entry information.</returns>
-        public static int GetFunctionEntryByOffset<T>(this DebugSymbols symbols, long offset, DEBUG_GETFNENT flags, T value)
+        public static unsafe int GetFunctionEntryByOffset<T>(this DebugSymbols symbols, long offset, DEBUG_GETFNENT flags, T value) where T : unmanaged
         {
             int read;
             TryGetFunctionEntryByOffset(symbols, offset, flags, value, out read).ThrowDbgEngNotOK();
@@ -889,9 +889,9 @@ namespace ClrDebug.DbgEng
         /// For all other architectures, this is the IMAGE_FUNCTION_ENTRY structure for that architecture.</param>
         /// <param name="read">Specifies the size of the function entry information.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryGetFunctionEntryByOffset<T>(this DebugSymbols symbols, long offset, DEBUG_GETFNENT flags, T value, out int read)
+        public static unsafe HRESULT TryGetFunctionEntryByOffset<T>(this DebugSymbols symbols, long offset, DEBUG_GETFNENT flags, T value, out int read) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try

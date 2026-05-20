@@ -1,30 +1,14 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using SRI = System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
+﻿using System.Diagnostics;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
-    public unsafe class DebugRegisters : RuntimeCallableWrapper
+    public class DebugRegisters : ComObject<IDebugRegisters>
     {
-        public static readonly Guid IID_IDebugRegisters = new Guid("ce289126-9e84-45a7-937e-67bb18691493");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugRegistersVtbl* Vtbl => (IDebugRegistersVtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugRegisters2Vtbl* Vtbl2 => (IDebugRegisters2Vtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugRegisters(IntPtr raw) : base(raw, IID_IDebugRegisters)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugRegisters"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugRegisters(IDebugRegisters raw) : base(raw)
         {
         }
@@ -56,11 +40,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetNumberRegisters(out int number)
         {
-            InitDelegate(ref getNumberRegisters, Vtbl->GetNumberRegisters);
-
             /*HRESULT GetNumberRegisters(
             [Out] out int Number);*/
-            return getNumberRegisters(Raw, out number);
+            return Raw.GetNumberRegisters(out number);
         }
 
         #endregion
@@ -93,11 +75,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetInstructionOffset(out long offset)
         {
-            InitDelegate(ref getInstructionOffset, Vtbl->GetInstructionOffset);
-
             /*HRESULT GetInstructionOffset(
             [Out] out long Offset);*/
-            return getInstructionOffset(Raw, out offset);
+            return Raw.GetInstructionOffset(out offset);
         }
 
         #endregion
@@ -129,11 +109,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetStackOffset(out long offset)
         {
-            InitDelegate(ref getStackOffset, Vtbl->GetStackOffset);
-
             /*HRESULT GetStackOffset(
             [Out] out long Offset);*/
-            return getStackOffset(Raw, out offset);
+            return Raw.GetStackOffset(out offset);
         }
 
         #endregion
@@ -165,11 +143,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetFrameOffset(out long offset)
         {
-            InitDelegate(ref getFrameOffset, Vtbl->GetFrameOffset);
-
             /*HRESULT GetFrameOffset(
             [Out] out long Offset);*/
-            return getFrameOffset(Raw, out offset);
+            return Raw.GetFrameOffset(out offset);
         }
 
         #endregion
@@ -202,25 +178,24 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetDescription(int register, out GetDescriptionResult result)
         {
-            InitDelegate(ref getDescription, Vtbl->GetDescription);
             /*HRESULT GetDescription(
             [In] int Register,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);*/
-            char[] nameBuffer;
+            byte[] nameBuffer;
             int nameBufferSize = 0;
             int nameSize;
             DEBUG_REGISTER_DESCRIPTION desc;
-            HRESULT hr = getDescription(Raw, register, null, nameBufferSize, out nameSize, out desc);
+            HRESULT hr = Raw.GetDescription(register, null, nameBufferSize, out nameSize, out desc);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
-            nameBuffer = new char[nameBufferSize];
-            hr = getDescription(Raw, register, nameBuffer, nameBufferSize, out nameSize, out desc);
+            nameBuffer = new byte[nameBufferSize];
+            hr = Raw.GetDescription(register, nameBuffer, nameBufferSize, out nameSize, out desc);
 
             if (hr == HRESULT.S_OK)
             {
@@ -265,12 +240,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetIndexByName(string name, out int index)
         {
-            InitDelegate(ref getIndexByName, Vtbl->GetIndexByName);
-
             /*HRESULT GetIndexByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
             [Out] out int Index);*/
-            return getIndexByName(Raw, name, out index);
+            return Raw.GetIndexByName(name, out index);
         }
 
         #endregion
@@ -305,12 +278,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetValue(int register, out DEBUG_VALUE value)
         {
-            InitDelegate(ref getValue, Vtbl->GetValue);
-
             /*HRESULT GetValue(
             [In] int Register,
             [Out] out DEBUG_VALUE Value);*/
-            return getValue(Raw, register, out value);
+            return Raw.GetValue(register, out value);
         }
 
         #endregion
@@ -350,12 +321,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetValue(int register, DEBUG_VALUE value)
         {
-            InitDelegate(ref setValue, Vtbl->SetValue);
-
             /*HRESULT SetValue(
             [In] int Register,
             [In] ref DEBUG_VALUE Value);*/
-            return setValue(Raw, register, ref value);
+            return Raw.SetValue(register, ref value);
         }
 
         #endregion
@@ -408,14 +377,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetValues(int count, int[] indices, int start, out DEBUG_VALUE[] values)
         {
-            InitDelegate(ref getValues, Vtbl->GetValues);
             /*HRESULT GetValues(
             [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices,
             [In] int Start,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);*/
             values = new DEBUG_VALUE[count];
-            HRESULT hr = getValues(Raw, count, indices, start, values);
+            HRESULT hr = Raw.GetValues(count, indices, start, values);
 
             return hr;
         }
@@ -469,14 +437,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetValues(int count, int[] indices, int start, DEBUG_VALUE[] values)
         {
-            InitDelegate(ref setValues, Vtbl->SetValues);
-
             /*HRESULT SetValues(
             [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices,
             [In] int Start,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);*/
-            return setValues(Raw, count, indices, start, values);
+            return Raw.SetValues(count, indices, start, values);
         }
 
         #endregion
@@ -512,12 +478,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOutputRegisters(DEBUG_OUTCTL outputControl, DEBUG_REGISTERS flags)
         {
-            InitDelegate(ref outputRegisters, Vtbl->OutputRegisters);
-
             /*HRESULT OutputRegisters(
             [In] DEBUG_OUTCTL OutputControl,
             [In] DEBUG_REGISTERS Flags);*/
-            return outputRegisters(Raw, outputControl, flags);
+            return Raw.OutputRegisters(outputControl, flags);
         }
 
         #endregion
@@ -525,18 +489,7 @@ namespace ClrDebug.DbgEng
         #region IDebugRegisters2
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw2;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw2
-        {
-            get
-            {
-                InitInterface(typeof(IDebugRegisters2).GUID, ref raw2);
-
-                return raw2;
-            }
-        }
+        public IDebugRegisters2 Raw2 => (IDebugRegisters2) Raw;
 
         #region NumberPseudoRegisters
 
@@ -566,11 +519,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetNumberPseudoRegisters(out int number)
         {
-            InitDelegate(ref getNumberPseudoRegisters, Vtbl2->GetNumberPseudoRegisters);
-
             /*HRESULT GetNumberPseudoRegisters(
             [Out] out int Number);*/
-            return getNumberPseudoRegisters(Raw2, out number);
+            return Raw2.GetNumberPseudoRegisters(out number);
         }
 
         #endregion
@@ -603,7 +554,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetDescriptionWide(int register, out GetDescriptionWideResult result)
         {
-            InitDelegate(ref getDescriptionWide, Vtbl2->GetDescriptionWide);
             /*HRESULT GetDescriptionWide(
             [In] int Register,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
@@ -614,14 +564,14 @@ namespace ClrDebug.DbgEng
             int nameBufferSize = 0;
             int nameSize;
             DEBUG_REGISTER_DESCRIPTION desc;
-            HRESULT hr = getDescriptionWide(Raw2, register, null, nameBufferSize, out nameSize, out desc);
+            HRESULT hr = Raw2.GetDescriptionWide(register, null, nameBufferSize, out nameSize, out desc);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
             nameBuffer = new char[nameBufferSize];
-            hr = getDescriptionWide(Raw2, register, nameBuffer, nameBufferSize, out nameSize, out desc);
+            hr = Raw2.GetDescriptionWide(register, nameBuffer, nameBufferSize, out nameSize, out desc);
 
             if (hr == HRESULT.S_OK)
             {
@@ -666,12 +616,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetIndexByNameWide(string name, out int index)
         {
-            InitDelegate(ref getIndexByNameWide, Vtbl2->GetIndexByNameWide);
-
             /*HRESULT GetIndexByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
             [Out] out int Index);*/
-            return getIndexByNameWide(Raw2, name, out index);
+            return Raw2.GetIndexByNameWide(name, out index);
         }
 
         #endregion
@@ -710,27 +658,26 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetPseudoDescription(int register, out GetPseudoDescriptionResult result)
         {
-            InitDelegate(ref getPseudoDescription, Vtbl2->GetPseudoDescription);
             /*HRESULT GetPseudoDescription(
             [In] int Register,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long TypeModule,
             [Out] out int TypeId);*/
-            char[] nameBuffer;
+            byte[] nameBuffer;
             int nameBufferSize = 0;
             int nameSize;
             long typeModule;
             int typeId;
-            HRESULT hr = getPseudoDescription(Raw2, register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
+            HRESULT hr = Raw2.GetPseudoDescription(register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
-            nameBuffer = new char[nameBufferSize];
-            hr = getPseudoDescription(Raw2, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
+            nameBuffer = new byte[nameBufferSize];
+            hr = Raw2.GetPseudoDescription(register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr == HRESULT.S_OK)
             {
@@ -781,7 +728,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetPseudoDescriptionWide(int register, out GetPseudoDescriptionWideResult result)
         {
-            InitDelegate(ref getPseudoDescriptionWide, Vtbl2->GetPseudoDescriptionWide);
             /*HRESULT GetPseudoDescriptionWide(
             [In] int Register,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
@@ -794,14 +740,14 @@ namespace ClrDebug.DbgEng
             int nameSize;
             long typeModule;
             int typeId;
-            HRESULT hr = getPseudoDescriptionWide(Raw2, register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
+            HRESULT hr = Raw2.GetPseudoDescriptionWide(register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             nameBufferSize = nameSize;
             nameBuffer = new char[nameBufferSize];
-            hr = getPseudoDescriptionWide(Raw2, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
+            hr = Raw2.GetPseudoDescriptionWide(register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr == HRESULT.S_OK)
             {
@@ -848,12 +794,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetPseudoIndexByName(string name, out int index)
         {
-            InitDelegate(ref getPseudoIndexByName, Vtbl2->GetPseudoIndexByName);
-
             /*HRESULT GetPseudoIndexByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
             [Out] out int Index);*/
-            return getPseudoIndexByName(Raw2, name, out index);
+            return Raw2.GetPseudoIndexByName(name, out index);
         }
 
         #endregion
@@ -888,12 +832,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetPseudoIndexByNameWide(string name, out int index)
         {
-            InitDelegate(ref getPseudoIndexByNameWide, Vtbl2->GetPseudoIndexByNameWide);
-
             /*HRESULT GetPseudoIndexByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
             [Out] out int Index);*/
-            return getPseudoIndexByNameWide(Raw2, name, out index);
+            return Raw2.GetPseudoIndexByNameWide(name, out index);
         }
 
         #endregion
@@ -938,7 +880,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetPseudoValues(DEBUG_REGSRC source, int count, int[] indices, int start, out DEBUG_VALUE[] values)
         {
-            InitDelegate(ref getPseudoValues, Vtbl2->GetPseudoValues);
             /*HRESULT GetPseudoValues(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
@@ -946,7 +887,7 @@ namespace ClrDebug.DbgEng
             [In] int Start,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
             values = new DEBUG_VALUE[count];
-            HRESULT hr = getPseudoValues(Raw2, source, count, indices, start, values);
+            HRESULT hr = Raw2.GetPseudoValues(source, count, indices, start, values);
 
             return hr;
         }
@@ -988,15 +929,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetPseudoValues(DEBUG_REGSRC source, int count, int[] indices, int start, DEBUG_VALUE[] values)
         {
-            InitDelegate(ref setPseudoValues, Vtbl2->SetPseudoValues);
-
             /*HRESULT SetPseudoValues(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
-            return setPseudoValues(Raw2, source, count, indices, start, values);
+            return Raw2.SetPseudoValues(source, count, indices, start, values);
         }
 
         #endregion
@@ -1047,7 +986,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetValues2(DEBUG_REGSRC source, int count, int[] indices, int start, out DEBUG_VALUE[] values)
         {
-            InitDelegate(ref getValues2, Vtbl2->GetValues2);
             /*HRESULT GetValues2(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
@@ -1055,7 +993,7 @@ namespace ClrDebug.DbgEng
             [In] int Start,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
             values = new DEBUG_VALUE[count];
-            HRESULT hr = getValues2(Raw2, source, count, indices, start, values);
+            HRESULT hr = Raw2.GetValues2(source, count, indices, start, values);
 
             return hr;
         }
@@ -1109,15 +1047,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySetValues2(DEBUG_REGSRC source, int count, int[] indices, int start, DEBUG_VALUE[] values)
         {
-            InitDelegate(ref setValues2, Vtbl2->SetValues2);
-
             /*HRESULT SetValues2(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
-            return setValues2(Raw2, source, count, indices, start, values);
+            return Raw2.SetValues2(source, count, indices, start, values);
         }
 
         #endregion
@@ -1153,13 +1089,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryOutputRegisters2(DEBUG_OUTCTL outputControl, DEBUG_REGSRC source, DEBUG_REGISTERS flags)
         {
-            InitDelegate(ref outputRegisters2, Vtbl2->OutputRegisters2);
-
             /*HRESULT OutputRegisters2(
             [In] DEBUG_OUTCTL OutputControl,
             [In] DEBUG_REGSRC Source,
             [In] DEBUG_REGISTERS Flags);*/
-            return outputRegisters2(Raw2, outputControl, source, flags);
+            return Raw2.OutputRegisters2(outputControl, source, flags);
         }
 
         #endregion
@@ -1198,12 +1132,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetInstructionOffset2(DEBUG_REGSRC source, out long offset)
         {
-            InitDelegate(ref getInstructionOffset2, Vtbl2->GetInstructionOffset2);
-
             /*HRESULT GetInstructionOffset2(
             [In] DEBUG_REGSRC Source,
             [Out] out long Offset);*/
-            return getInstructionOffset2(Raw2, source, out offset);
+            return Raw2.GetInstructionOffset2(source, out offset);
         }
 
         #endregion
@@ -1230,12 +1162,10 @@ namespace ClrDebug.DbgEng
         /// <returns>This list does not contain all the errors that might occur. For a list of possible errors, see HRESULT Values.</returns>
         public HRESULT TryGetStackOffset2(DEBUG_REGSRC source, out long offset)
         {
-            InitDelegate(ref getStackOffset2, Vtbl2->GetStackOffset2);
-
             /*HRESULT GetStackOffset2(
             [In] DEBUG_REGSRC Source,
             [Out] out long Offset);*/
-            return getStackOffset2(Raw2, source, out offset);
+            return Raw2.GetStackOffset2(source, out offset);
         }
 
         #endregion
@@ -1272,118 +1202,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetFrameOffset2(DEBUG_REGSRC source, out long offset)
         {
-            InitDelegate(ref getFrameOffset2, Vtbl2->GetFrameOffset2);
-
             /*HRESULT GetFrameOffset2(
             [In] DEBUG_REGSRC Source,
             [Out] out long Offset);*/
-            return getFrameOffset2(Raw2, source, out offset);
+            return Raw2.GetFrameOffset2(source, out offset);
         }
 
         #endregion
         #endregion
-        #region Cached Delegates
-        #region IDebugRegisters
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetNumberRegistersDelegate getNumberRegisters;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetInstructionOffsetDelegate getInstructionOffset;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetStackOffsetDelegate getStackOffset;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetFrameOffsetDelegate getFrameOffset;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetDescriptionDelegate getDescription;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetIndexByNameDelegate getIndexByName;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetValueDelegate getValue;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetValueDelegate setValue;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetValuesDelegate getValues;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetValuesDelegate setValues;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OutputRegistersDelegate outputRegisters;
-
-        #endregion
-        #region IDebugRegisters2
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetNumberPseudoRegistersDelegate getNumberPseudoRegisters;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetDescriptionWideDelegate getDescriptionWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetIndexByNameWideDelegate getIndexByNameWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetPseudoDescriptionDelegate getPseudoDescription;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetPseudoDescriptionWideDelegate getPseudoDescriptionWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetPseudoIndexByNameDelegate getPseudoIndexByName;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetPseudoIndexByNameWideDelegate getPseudoIndexByNameWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetPseudoValuesDelegate getPseudoValues;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetPseudoValuesDelegate setPseudoValues;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetValues2Delegate getValues2;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SetValues2Delegate setValues2;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OutputRegisters2Delegate outputRegisters2;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetInstructionOffset2Delegate getInstructionOffset2;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetStackOffset2Delegate getStackOffset2;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetFrameOffset2Delegate getFrameOffset2;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugRegisters
-
-        private delegate HRESULT GetNumberRegistersDelegate(IntPtr self, [Out] out int Number);
-        private delegate HRESULT GetInstructionOffsetDelegate(IntPtr self, [Out] out long Offset);
-        private delegate HRESULT GetStackOffsetDelegate(IntPtr self, [Out] out long Offset);
-        private delegate HRESULT GetFrameOffsetDelegate(IntPtr self, [Out] out long Offset);
-        private delegate HRESULT GetDescriptionDelegate(IntPtr self, [In] int Register, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
-        private delegate HRESULT GetIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out int Index);
-        private delegate HRESULT GetValueDelegate(IntPtr self, [In] int Register, [Out] out DEBUG_VALUE Value);
-        private delegate HRESULT SetValueDelegate(IntPtr self, [In] int Register, [In] ref DEBUG_VALUE Value);
-        private delegate HRESULT GetValuesDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices, [In] int Start, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
-        private delegate HRESULT SetValuesDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices, [In] int Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
-        private delegate HRESULT OutputRegistersDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_REGISTERS Flags);
-
-        #endregion
-        #region IDebugRegisters2
-
-        private delegate HRESULT GetNumberPseudoRegistersDelegate(IntPtr self, [Out] out int Number);
-        private delegate HRESULT GetDescriptionWideDelegate(IntPtr self, [In] int Register, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
-        private delegate HRESULT GetIndexByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out int Index);
-        private delegate HRESULT GetPseudoDescriptionDelegate(IntPtr self, [In] int Register, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
-        private delegate HRESULT GetPseudoDescriptionWideDelegate(IntPtr self, [In] int Register, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
-        private delegate HRESULT GetPseudoIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out int Index);
-        private delegate HRESULT GetPseudoIndexByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out int Index);
-        private delegate HRESULT GetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
-        private delegate HRESULT SetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
-        private delegate HRESULT GetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
-        private delegate HRESULT SetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
-        private delegate HRESULT OutputRegisters2Delegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_REGSRC Source, [In] DEBUG_REGISTERS Flags);
-        private delegate HRESULT GetInstructionOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out long Offset);
-        private delegate HRESULT GetStackOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out long Offset);
-        private delegate HRESULT GetFrameOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out long Offset);
-
-        #endregion
-        #endregion
-
-        protected override void ReleaseSubInterfaces()
-        {
-            ReleaseInterface(ref raw2);
-        }
     }
 }

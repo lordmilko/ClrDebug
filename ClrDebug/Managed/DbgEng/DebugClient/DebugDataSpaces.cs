@@ -1,36 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using SRI = System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
-    public unsafe class DebugDataSpaces : RuntimeCallableWrapper
+    public class DebugDataSpaces : ComObject<IDebugDataSpaces>
     {
-        public static readonly Guid IID_IDebugDataSpaces = new Guid("88f7dfab-3ea7-4c3a-aefb-c4e8106173aa");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugDataSpacesVtbl* Vtbl => (IDebugDataSpacesVtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugDataSpaces2Vtbl* Vtbl2 => (IDebugDataSpaces2Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugDataSpaces3Vtbl* Vtbl3 => (IDebugDataSpaces3Vtbl*) base.Vtbl;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IDebugDataSpaces4Vtbl* Vtbl4 => (IDebugDataSpaces4Vtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugDataSpaces(IntPtr raw) : base(raw, IID_IDebugDataSpaces)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugDataSpaces"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugDataSpaces(IDebugDataSpaces raw) : base(raw)
         {
         }
@@ -77,14 +56,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadVirtual(long offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
-            InitDelegate(ref readVirtual, Vtbl->ReadVirtual);
-
             /*HRESULT ReadVirtual(
             [In] long Offset,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesRead);*/
-            return readVirtual(Raw, offset, buffer, bufferSize, out bytesRead);
+            return Raw.ReadVirtual(offset, buffer, bufferSize, out bytesRead);
         }
 
         #endregion
@@ -123,14 +100,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWriteVirtual(long offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
-            InitDelegate(ref writeVirtual, Vtbl->WriteVirtual);
-
             /*HRESULT WriteVirtual(
             [In] long Offset,
             [In] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesWritten);*/
-            return writeVirtual(Raw, offset, buffer, bufferSize, out bytesWritten);
+            return Raw.WriteVirtual(offset, buffer, bufferSize, out bytesWritten);
         }
 
         #endregion
@@ -179,8 +154,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySearchVirtual(long offset, long length, IntPtr pattern, int patternSize, int patternGranularity, out long matchOffset)
         {
-            InitDelegate(ref searchVirtual, Vtbl->SearchVirtual);
-
             /*HRESULT SearchVirtual(
             [In] long Offset,
             [In] long Length,
@@ -188,7 +161,7 @@ namespace ClrDebug.DbgEng
             [In] int PatternSize,
             [In] int PatternGranularity,
             [Out] out long MatchOffset);*/
-            return searchVirtual(Raw, offset, length, pattern, patternSize, patternGranularity, out matchOffset);
+            return Raw.SearchVirtual(offset, length, pattern, patternSize, patternGranularity, out matchOffset);
         }
 
         #endregion
@@ -231,14 +204,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadVirtualUncached(long offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
-            InitDelegate(ref readVirtualUncached, Vtbl->ReadVirtualUncached);
-
             /*HRESULT ReadVirtualUncached(
             [In] long Offset,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesRead);*/
-            return readVirtualUncached(Raw, offset, buffer, bufferSize, out bytesRead);
+            return Raw.ReadVirtualUncached(offset, buffer, bufferSize, out bytesRead);
         }
 
         #endregion
@@ -281,14 +252,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWriteVirtualUncached(long offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
-            InitDelegate(ref writeVirtualUncached, Vtbl->WriteVirtualUncached);
-
             /*HRESULT WriteVirtualUncached(
             [In] long Offset,
             [In] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesWritten);*/
-            return writeVirtualUncached(Raw, offset, buffer, bufferSize, out bytesWritten);
+            return Raw.WriteVirtualUncached(offset, buffer, bufferSize, out bytesWritten);
         }
 
         #endregion
@@ -325,13 +294,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadPointersVirtual(int count, long offset, out long[] ptrs)
         {
-            InitDelegate(ref readPointersVirtual, Vtbl->ReadPointersVirtual);
             /*HRESULT ReadPointersVirtual(
             [In] int Count,
             [In] long Offset,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);*/
             ptrs = new long[count];
-            HRESULT hr = readPointersVirtual(Raw, count, offset, ptrs);
+            HRESULT hr = Raw.ReadPointersVirtual(count, offset, ptrs);
 
             return hr;
         }
@@ -367,13 +335,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWritePointersVirtual(int count, long offset, long[] ptrs)
         {
-            InitDelegate(ref writePointersVirtual, Vtbl->WritePointersVirtual);
-
             /*HRESULT WritePointersVirtual(
             [In] int Count,
             [In] long Offset,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);*/
-            return writePointersVirtual(Raw, count, offset, ptrs);
+            return Raw.WritePointersVirtual(count, offset, ptrs);
         }
 
         #endregion
@@ -410,14 +376,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadPhysical(long offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
-            InitDelegate(ref readPhysical, Vtbl->ReadPhysical);
-
             /*HRESULT ReadPhysical(
             [In] long Offset,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesRead);*/
-            return readPhysical(Raw, offset, buffer, bufferSize, out bytesRead);
+            return Raw.ReadPhysical(offset, buffer, bufferSize, out bytesRead);
         }
 
         #endregion
@@ -454,14 +418,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWritePhysical(long offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
-            InitDelegate(ref writePhysical, Vtbl->WritePhysical);
-
             /*HRESULT WritePhysical(
             [In] long Offset,
             [In] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesWritten);*/
-            return writePhysical(Raw, offset, buffer, bufferSize, out bytesWritten);
+            return Raw.WritePhysical(offset, buffer, bufferSize, out bytesWritten);
         }
 
         #endregion
@@ -500,15 +462,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadControl(int processor, long offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
-            InitDelegate(ref readControl, Vtbl->ReadControl);
-
             /*HRESULT ReadControl(
             [In] int Processor,
             [In] long Offset,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesRead);*/
-            return readControl(Raw, processor, offset, buffer, bufferSize, out bytesRead);
+            return Raw.ReadControl(processor, offset, buffer, bufferSize, out bytesRead);
         }
 
         #endregion
@@ -547,15 +507,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWriteControl(int processor, long offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
-            InitDelegate(ref writeControl, Vtbl->WriteControl);
-
             /*HRESULT WriteControl(
             [In] int Processor,
             [In] long Offset,
             [In] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesWritten);*/
-            return writeControl(Raw, processor, offset, buffer, bufferSize, out bytesWritten);
+            return Raw.WriteControl(processor, offset, buffer, bufferSize, out bytesWritten);
         }
 
         #endregion
@@ -598,8 +556,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadIo(INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
-            InitDelegate(ref readIo, Vtbl->ReadIo);
-
             /*HRESULT ReadIo(
             [In] INTERFACE_TYPE InterfaceType,
             [In] int BusNumber,
@@ -608,7 +564,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesRead);*/
-            return readIo(Raw, interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesRead);
+            return Raw.ReadIo(interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesRead);
         }
 
         #endregion
@@ -651,8 +607,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWriteIo(INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
-            InitDelegate(ref writeIo, Vtbl->WriteIo);
-
             /*HRESULT WriteIo(
             [In] INTERFACE_TYPE InterfaceType,
             [In] int BusNumber,
@@ -661,7 +615,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesWritten);*/
-            return writeIo(Raw, interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesWritten);
+            return Raw.WriteIo(interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesWritten);
         }
 
         #endregion
@@ -696,12 +650,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadMsr(int msr, out long msrValue)
         {
-            InitDelegate(ref readMsr, Vtbl->ReadMsr);
-
             /*HRESULT ReadMsr(
             [In] int Msr,
             [Out] out long MsrValue);*/
-            return readMsr(Raw, msr, out msrValue);
+            return Raw.ReadMsr(msr, out msrValue);
         }
 
         #endregion
@@ -733,12 +685,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWriteMsr(int msr, long msrValue)
         {
-            InitDelegate(ref writeMsr, Vtbl->WriteMsr);
-
             /*HRESULT WriteMsr(
             [In] int Msr,
             [In] long MsrValue);*/
-            return writeMsr(Raw, msr, msrValue);
+            return Raw.WriteMsr(msr, msrValue);
         }
 
         #endregion
@@ -783,8 +733,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadBusData(BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
-            InitDelegate(ref readBusData, Vtbl->ReadBusData);
-
             /*HRESULT ReadBusData(
             [In] BUS_DATA_TYPE BusDataType,
             [In] int BusNumber,
@@ -793,7 +741,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesRead);*/
-            return readBusData(Raw, busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesRead);
+            return Raw.ReadBusData(busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesRead);
         }
 
         #endregion
@@ -838,8 +786,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWriteBusData(BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
-            InitDelegate(ref writeBusData, Vtbl->WriteBusData);
-
             /*HRESULT WriteBusData(
             [In] BUS_DATA_TYPE BusDataType,
             [In] int BusNumber,
@@ -848,7 +794,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesWritten);*/
-            return writeBusData(Raw, busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesWritten);
+            return Raw.WriteBusData(busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesWritten);
         }
 
         #endregion
@@ -884,10 +830,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryCheckLowMemory()
         {
-            InitDelegate(ref checkLowMemory, Vtbl->CheckLowMemory);
-
             /*HRESULT CheckLowMemory();*/
-            return checkLowMemory(Raw);
+            return Raw.CheckLowMemory();
         }
 
         #endregion
@@ -942,14 +886,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadDebuggerData(DEBUG_DATA index, IntPtr buffer, int bufferSize, out int dataSize)
         {
-            InitDelegate(ref readDebuggerData, Vtbl->ReadDebuggerData);
-
             /*HRESULT ReadDebuggerData(
             [In] DEBUG_DATA Index,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int DataSize);*/
-            return readDebuggerData(Raw, index, buffer, bufferSize, out dataSize);
+            return Raw.ReadDebuggerData(index, buffer, bufferSize, out dataSize);
         }
 
         #endregion
@@ -996,15 +938,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadProcessorSystemData(int processor, DEBUG_DATA index, IntPtr buffer, int bufferSize, out int dataSize)
         {
-            InitDelegate(ref readProcessorSystemData, Vtbl->ReadProcessorSystemData);
-
             /*HRESULT ReadProcessorSystemData(
             [In] int Processor,
             [In] DEBUG_DATA Index,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int DataSize);*/
-            return readProcessorSystemData(Raw, processor, index, buffer, bufferSize, out dataSize);
+            return Raw.ReadProcessorSystemData(processor, index, buffer, bufferSize, out dataSize);
         }
 
         #endregion
@@ -1012,18 +952,7 @@ namespace ClrDebug.DbgEng
         #region IDebugDataSpaces2
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw2;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw2
-        {
-            get
-            {
-                InitInterface(typeof(IDebugDataSpaces2).GUID, ref raw2);
-
-                return raw2;
-            }
-        }
+        public IDebugDataSpaces2 Raw2 => (IDebugDataSpaces2) Raw;
 
         #region VirtualToPhysical
 
@@ -1054,12 +983,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryVirtualToPhysical(long @virtual, out long physical)
         {
-            InitDelegate(ref virtualToPhysical, Vtbl2->VirtualToPhysical);
-
             /*HRESULT VirtualToPhysical(
             [In] long Virtual,
             [Out] out long Physical);*/
-            return virtualToPhysical(Raw2, @virtual, out physical);
+            return Raw2.VirtualToPhysical(@virtual, out physical);
         }
 
         #endregion
@@ -1102,7 +1029,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetVirtualTranslationPhysicalOffsets(long @virtual, out long[] offsets)
         {
-            InitDelegate(ref getVirtualTranslationPhysicalOffsets, Vtbl2->GetVirtualTranslationPhysicalOffsets);
             /*HRESULT GetVirtualTranslationPhysicalOffsets(
             [In] long Virtual,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets,
@@ -1111,14 +1037,14 @@ namespace ClrDebug.DbgEng
             offsets = null;
             int offsetsSize = 0;
             int levels;
-            HRESULT hr = getVirtualTranslationPhysicalOffsets(Raw2, @virtual, null, offsetsSize, out levels);
+            HRESULT hr = Raw2.GetVirtualTranslationPhysicalOffsets(@virtual, null, offsetsSize, out levels);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             offsetsSize = levels;
             offsets = new long[offsetsSize];
-            hr = getVirtualTranslationPhysicalOffsets(Raw2, @virtual, offsets, offsetsSize, out levels);
+            hr = Raw2.GetVirtualTranslationPhysicalOffsets(@virtual, offsets, offsetsSize, out levels);
             fail:
             return hr;
         }
@@ -1165,15 +1091,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadHandleData(long handle, DEBUG_HANDLE_DATA_TYPE dataType, IntPtr buffer, int bufferSize, out int dataSize)
         {
-            InitDelegate(ref readHandleData, Vtbl2->ReadHandleData);
-
             /*HRESULT ReadHandleData(
             [In] long Handle,
             [In] DEBUG_HANDLE_DATA_TYPE DataType,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int DataSize);*/
-            return readHandleData(Raw2, handle, dataType, buffer, bufferSize, out dataSize);
+            return Raw2.ReadHandleData(handle, dataType, buffer, bufferSize, out dataSize);
         }
 
         #endregion
@@ -1218,15 +1142,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryFillVirtual(long start, int size, IntPtr buffer, int patternSize, out int filled)
         {
-            InitDelegate(ref fillVirtual, Vtbl2->FillVirtual);
-
             /*HRESULT FillVirtual(
             [In] long Start,
             [In] int Size,
             [In] IntPtr Buffer,
             [In] int PatternSize,
             [Out] out int Filled);*/
-            return fillVirtual(Raw2, start, size, buffer, patternSize, out filled);
+            return Raw2.FillVirtual(start, size, buffer, patternSize, out filled);
         }
 
         #endregion
@@ -1271,15 +1193,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryFillPhysical(long start, int size, IntPtr buffer, int patternSize, out int filled)
         {
-            InitDelegate(ref fillPhysical, Vtbl2->FillPhysical);
-
             /*HRESULT FillPhysical(
             [In] long Start,
             [In] int Size,
             [In] IntPtr Buffer,
             [In] int PatternSize,
             [Out] out int Filled);*/
-            return fillPhysical(Raw2, start, size, buffer, patternSize, out filled);
+            return Raw2.FillPhysical(start, size, buffer, patternSize, out filled);
         }
 
         #endregion
@@ -1319,12 +1239,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryQueryVirtual(long offset, IntPtr info)
         {
-            InitDelegate(ref queryVirtual, Vtbl2->QueryVirtual);
-
             /*HRESULT QueryVirtual(
             [In] long Offset,
             [Out] IntPtr Info);*/
-            return queryVirtual(Raw2, offset, info);
+            return Raw2.QueryVirtual(offset, info);
         }
 
         #endregion
@@ -1332,18 +1250,7 @@ namespace ClrDebug.DbgEng
         #region IDebugDataSpaces3
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw3;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw3
-        {
-            get
-            {
-                InitInterface(typeof(IDebugDataSpaces3).GUID, ref raw3);
-
-                return raw3;
-            }
-        }
+        public IDebugDataSpaces3 Raw3 => (IDebugDataSpaces3) Raw;
 
         #region ReadImageNtHeaders
 
@@ -1381,12 +1288,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadImageNtHeaders(long imageBase, IntPtr headers)
         {
-            InitDelegate(ref readImageNtHeaders, Vtbl3->ReadImageNtHeaders);
-
             /*HRESULT ReadImageNtHeaders(
             [In] long ImageBase,
             [Out] IntPtr Headers);*/
-            return readImageNtHeaders(Raw3, imageBase, headers);
+            return Raw3.ReadImageNtHeaders(imageBase, headers);
         }
 
         #endregion
@@ -1431,15 +1336,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadTagged(Guid tag, int offset, IntPtr buffer, int bufferSize, out int totalSize)
         {
-            InitDelegate(ref readTagged, Vtbl3->ReadTagged);
-
             /*HRESULT ReadTagged(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid Tag,
             [In] int Offset,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int TotalSize);*/
-            return readTagged(Raw3, tag, offset, buffer, bufferSize, out totalSize);
+            return Raw3.ReadTagged(tag, offset, buffer, bufferSize, out totalSize);
         }
 
         #endregion
@@ -1470,11 +1373,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryStartEnumTagged(out long handle)
         {
-            InitDelegate(ref startEnumTagged, Vtbl3->StartEnumTagged);
-
             /*HRESULT StartEnumTagged(
             [Out] out long Handle);*/
-            return startEnumTagged(Raw3, out handle);
+            return Raw3.StartEnumTagged(out handle);
         }
 
         #endregion
@@ -1501,14 +1402,13 @@ namespace ClrDebug.DbgEng
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
         public HRESULT TryGetNextTagged(long handle, out GetNextTaggedResult result)
         {
-            InitDelegate(ref getNextTagged, Vtbl3->GetNextTagged);
             /*HRESULT GetNextTagged(
             [In] long Handle,
             [Out] out Guid Tag,
             [Out] out int Size);*/
             Guid tag;
             int size;
-            HRESULT hr = getNextTagged(Raw3, handle, out tag, out size);
+            HRESULT hr = Raw3.GetNextTagged(handle, out tag, out size);
 
             if (hr == HRESULT.S_OK)
                 result = new GetNextTaggedResult(tag, size);
@@ -1543,11 +1443,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryEndEnumTagged(long handle)
         {
-            InitDelegate(ref endEnumTagged, Vtbl3->EndEnumTagged);
-
             /*HRESULT EndEnumTagged(
             [In] long Handle);*/
-            return endEnumTagged(Raw3, handle);
+            return Raw3.EndEnumTagged(handle);
         }
 
         #endregion
@@ -1555,18 +1453,7 @@ namespace ClrDebug.DbgEng
         #region IDebugDataSpaces4
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private IntPtr raw4;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public IntPtr Raw4
-        {
-            get
-            {
-                InitInterface(typeof(IDebugDataSpaces4).GUID, ref raw4);
-
-                return raw4;
-            }
-        }
+        public IDebugDataSpaces4 Raw4 => (IDebugDataSpaces4) Raw;
 
         #region GetOffsetInformation
 
@@ -1607,8 +1494,6 @@ namespace ClrDebug.DbgEng
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
         public HRESULT TryGetOffsetInformation(DEBUG_DATA_SPACE space, DEBUG_OFFSINFO which, long offset, IntPtr buffer, int bufferSize, out int infoSize)
         {
-            InitDelegate(ref getOffsetInformation, Vtbl4->GetOffsetInformation);
-
             /*HRESULT GetOffsetInformation(
             [In] DEBUG_DATA_SPACE Space,
             [In] DEBUG_OFFSINFO Which,
@@ -1616,7 +1501,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);*/
-            return getOffsetInformation(Raw4, space, which, offset, buffer, bufferSize, out infoSize);
+            return Raw4.GetOffsetInformation(space, which, offset, buffer, bufferSize, out infoSize);
         }
 
         #endregion
@@ -1653,12 +1538,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryGetNextDifferentlyValidOffsetVirtual(long offset, out long nextOffset)
         {
-            InitDelegate(ref getNextDifferentlyValidOffsetVirtual, Vtbl4->GetNextDifferentlyValidOffsetVirtual);
-
             /*HRESULT GetNextDifferentlyValidOffsetVirtual(
             [In] long Offset,
             [Out] out long NextOffset);*/
-            return getNextDifferentlyValidOffsetVirtual(Raw4, offset, out nextOffset);
+            return Raw4.GetNextDifferentlyValidOffsetVirtual(offset, out nextOffset);
         }
 
         #endregion
@@ -1687,7 +1570,6 @@ namespace ClrDebug.DbgEng
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
         public HRESULT TryGetValidRegionVirtual(long @base, int size, out GetValidRegionVirtualResult result)
         {
-            InitDelegate(ref getValidRegionVirtual, Vtbl4->GetValidRegionVirtual);
             /*HRESULT GetValidRegionVirtual(
             [In] long Base,
             [In] int Size,
@@ -1695,7 +1577,7 @@ namespace ClrDebug.DbgEng
             [Out] out int ValidSize);*/
             long validBase;
             int validSize;
-            HRESULT hr = getValidRegionVirtual(Raw4, @base, size, out validBase, out validSize);
+            HRESULT hr = Raw4.GetValidRegionVirtual(@base, size, out validBase, out validSize);
 
             if (hr == HRESULT.S_OK)
                 result = new GetValidRegionVirtualResult(validBase, validSize);
@@ -1751,8 +1633,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TrySearchVirtual2(long offset, long length, DEBUG_VSEARCH flags, IntPtr buffer, int patternSize, int patternGranularity, out long matchOffset)
         {
-            InitDelegate(ref searchVirtual2, Vtbl4->SearchVirtual2);
-
             /*HRESULT SearchVirtual2(
             [In] long Offset,
             [In] long Length,
@@ -1761,7 +1641,7 @@ namespace ClrDebug.DbgEng
             [In] int PatternSize,
             [In] int PatternGranularity,
             [Out] out long MatchOffset);*/
-            return searchVirtual2(Raw4, offset, length, flags, buffer, patternSize, patternGranularity, out matchOffset);
+            return Raw4.SearchVirtual2(offset, length, flags, buffer, patternSize, patternGranularity, out matchOffset);
         }
 
         #endregion
@@ -1798,24 +1678,23 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadMultiByteStringVirtual(long offset, int maxBytes, out string bufferResult)
         {
-            InitDelegate(ref readMultiByteStringVirtual, Vtbl4->ReadMultiByteStringVirtual);
             /*HRESULT ReadMultiByteStringVirtual(
             [In] long Offset,
             [In] int MaxBytes,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int stringBytes;
-            HRESULT hr = readMultiByteStringVirtual(Raw4, offset, maxBytes, null, bufferSize, out stringBytes);
+            HRESULT hr = Raw4.ReadMultiByteStringVirtual(offset, maxBytes, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
-            buffer = new char[bufferSize];
-            hr = readMultiByteStringVirtual(Raw4, offset, maxBytes, buffer, bufferSize, out stringBytes);
+            buffer = new byte[bufferSize];
+            hr = Raw4.ReadMultiByteStringVirtual(offset, maxBytes, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1874,7 +1753,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadMultiByteStringVirtualWide(long offset, int maxBytes, CODE_PAGE codePage, out string bufferResult)
         {
-            InitDelegate(ref readMultiByteStringVirtualWide, Vtbl4->ReadMultiByteStringVirtualWide);
             /*HRESULT ReadMultiByteStringVirtualWide(
             [In] long Offset,
             [In] int MaxBytes,
@@ -1885,14 +1763,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringBytes;
-            HRESULT hr = readMultiByteStringVirtualWide(Raw4, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
+            HRESULT hr = Raw4.ReadMultiByteStringVirtualWide(offset, maxBytes, codePage, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
             buffer = new char[bufferSize];
-            hr = readMultiByteStringVirtualWide(Raw4, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
+            hr = Raw4.ReadMultiByteStringVirtualWide(offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
@@ -1945,25 +1823,24 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadUnicodeStringVirtual(long offset, int maxBytes, CODE_PAGE codePage, out string bufferResult)
         {
-            InitDelegate(ref readUnicodeStringVirtual, Vtbl4->ReadUnicodeStringVirtual);
             /*HRESULT ReadUnicodeStringVirtual(
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer,
+            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
-            char[] buffer;
+            byte[] buffer;
             int bufferSize = 0;
             int stringBytes;
-            HRESULT hr = readUnicodeStringVirtual(Raw4, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
+            HRESULT hr = Raw4.ReadUnicodeStringVirtual(offset, maxBytes, codePage, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
-            buffer = new char[bufferSize];
-            hr = readUnicodeStringVirtual(Raw4, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
+            buffer = new byte[bufferSize];
+            hr = Raw4.ReadUnicodeStringVirtual(offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2012,7 +1889,6 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadUnicodeStringVirtualWide(long offset, int maxBytes, out string bufferResult)
         {
-            InitDelegate(ref readUnicodeStringVirtualWide, Vtbl4->ReadUnicodeStringVirtualWide);
             /*HRESULT ReadUnicodeStringVirtualWide(
             [In] long Offset,
             [In] int MaxBytes,
@@ -2022,14 +1898,14 @@ namespace ClrDebug.DbgEng
             char[] buffer;
             int bufferSize = 0;
             int stringBytes;
-            HRESULT hr = readUnicodeStringVirtualWide(Raw4, offset, maxBytes, null, bufferSize, out stringBytes);
+            HRESULT hr = Raw4.ReadUnicodeStringVirtualWide(offset, maxBytes, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
             buffer = new char[bufferSize];
-            hr = readUnicodeStringVirtualWide(Raw4, offset, maxBytes, buffer, bufferSize, out stringBytes);
+            hr = Raw4.ReadUnicodeStringVirtualWide(offset, maxBytes, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2086,15 +1962,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryReadPhysical2(long offset, DEBUG_PHYSICAL flags, IntPtr buffer, int bufferSize, out int bytesRead)
         {
-            InitDelegate(ref readPhysical2, Vtbl4->ReadPhysical2);
-
             /*HRESULT ReadPhysical2(
             [In] long Offset,
             [In] DEBUG_PHYSICAL Flags,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesRead);*/
-            return readPhysical2(Raw4, offset, flags, buffer, bufferSize, out bytesRead);
+            return Raw4.ReadPhysical2(offset, flags, buffer, bufferSize, out bytesRead);
         }
 
         #endregion
@@ -2139,184 +2013,16 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public HRESULT TryWritePhysical2(long offset, DEBUG_PHYSICAL flags, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
-            InitDelegate(ref writePhysical2, Vtbl4->WritePhysical2);
-
             /*HRESULT WritePhysical2(
             [In] long Offset,
             [In] DEBUG_PHYSICAL Flags,
             [In] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int BytesWritten);*/
-            return writePhysical2(Raw4, offset, flags, buffer, bufferSize, out bytesWritten);
+            return Raw4.WritePhysical2(offset, flags, buffer, bufferSize, out bytesWritten);
         }
 
         #endregion
         #endregion
-        #region Cached Delegates
-        #region IDebugDataSpaces
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadVirtualDelegate readVirtual;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteVirtualDelegate writeVirtual;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SearchVirtualDelegate searchVirtual;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadVirtualUncachedDelegate readVirtualUncached;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteVirtualUncachedDelegate writeVirtualUncached;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadPointersVirtualDelegate readPointersVirtual;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WritePointersVirtualDelegate writePointersVirtual;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadPhysicalDelegate readPhysical;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WritePhysicalDelegate writePhysical;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadControlDelegate readControl;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteControlDelegate writeControl;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadIoDelegate readIo;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteIoDelegate writeIo;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadMsrDelegate readMsr;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteMsrDelegate writeMsr;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadBusDataDelegate readBusData;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WriteBusDataDelegate writeBusData;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CheckLowMemoryDelegate checkLowMemory;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadDebuggerDataDelegate readDebuggerData;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadProcessorSystemDataDelegate readProcessorSystemData;
-
-        #endregion
-        #region IDebugDataSpaces2
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private VirtualToPhysicalDelegate virtualToPhysical;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetVirtualTranslationPhysicalOffsetsDelegate getVirtualTranslationPhysicalOffsets;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadHandleDataDelegate readHandleData;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private FillVirtualDelegate fillVirtual;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private FillPhysicalDelegate fillPhysical;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private QueryVirtualDelegate queryVirtual;
-
-        #endregion
-        #region IDebugDataSpaces3
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadImageNtHeadersDelegate readImageNtHeaders;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadTaggedDelegate readTagged;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private StartEnumTaggedDelegate startEnumTagged;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetNextTaggedDelegate getNextTagged;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private EndEnumTaggedDelegate endEnumTagged;
-
-        #endregion
-        #region IDebugDataSpaces4
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOffsetInformationDelegate getOffsetInformation;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetNextDifferentlyValidOffsetVirtualDelegate getNextDifferentlyValidOffsetVirtual;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetValidRegionVirtualDelegate getValidRegionVirtual;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private SearchVirtual2Delegate searchVirtual2;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadMultiByteStringVirtualDelegate readMultiByteStringVirtual;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadMultiByteStringVirtualWideDelegate readMultiByteStringVirtualWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadUnicodeStringVirtualDelegate readUnicodeStringVirtual;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadUnicodeStringVirtualWideDelegate readUnicodeStringVirtualWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ReadPhysical2Delegate readPhysical2;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private WritePhysical2Delegate writePhysical2;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugDataSpaces
-
-        private delegate HRESULT ReadVirtualDelegate(IntPtr self, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
-        private delegate HRESULT WriteVirtualDelegate(IntPtr self, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
-        private delegate HRESULT SearchVirtualDelegate(IntPtr self, [In] long Offset, [In] long Length, [In] IntPtr Pattern, [In] int PatternSize, [In] int PatternGranularity, [Out] out long MatchOffset);
-        private delegate HRESULT ReadVirtualUncachedDelegate(IntPtr self, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
-        private delegate HRESULT WriteVirtualUncachedDelegate(IntPtr self, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
-        private delegate HRESULT ReadPointersVirtualDelegate(IntPtr self, [In] int Count, [In] long Offset, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
-        private delegate HRESULT WritePointersVirtualDelegate(IntPtr self, [In] int Count, [In] long Offset, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
-        private delegate HRESULT ReadPhysicalDelegate(IntPtr self, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
-        private delegate HRESULT WritePhysicalDelegate(IntPtr self, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
-        private delegate HRESULT ReadControlDelegate(IntPtr self, [In] int Processor, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
-        private delegate HRESULT WriteControlDelegate(IntPtr self, [In] int Processor, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
-        private delegate HRESULT ReadIoDelegate(IntPtr self, [In] INTERFACE_TYPE InterfaceType, [In] int BusNumber, [In] int AddressSpace, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
-        private delegate HRESULT WriteIoDelegate(IntPtr self, [In] INTERFACE_TYPE InterfaceType, [In] int BusNumber, [In] int AddressSpace, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
-        private delegate HRESULT ReadMsrDelegate(IntPtr self, [In] int Msr, [Out] out long MsrValue);
-        private delegate HRESULT WriteMsrDelegate(IntPtr self, [In] int Msr, [In] long MsrValue);
-        private delegate HRESULT ReadBusDataDelegate(IntPtr self, [In] BUS_DATA_TYPE BusDataType, [In] int BusNumber, [In] int SlotNumber, [In] int Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
-        private delegate HRESULT WriteBusDataDelegate(IntPtr self, [In] BUS_DATA_TYPE BusDataType, [In] int BusNumber, [In] int SlotNumber, [In] int Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
-        private delegate HRESULT CheckLowMemoryDelegate(IntPtr self);
-        private delegate HRESULT ReadDebuggerDataDelegate(IntPtr self, [In] DEBUG_DATA Index, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int DataSize);
-        private delegate HRESULT ReadProcessorSystemDataDelegate(IntPtr self, [In] int Processor, [In] DEBUG_DATA Index, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int DataSize);
-
-        #endregion
-        #region IDebugDataSpaces2
-
-        private delegate HRESULT VirtualToPhysicalDelegate(IntPtr self, [In] long Virtual, [Out] out long Physical);
-        private delegate HRESULT GetVirtualTranslationPhysicalOffsetsDelegate(IntPtr self, [In] long Virtual, [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets, [In] int OffsetsSize, [Out] out int Levels);
-        private delegate HRESULT ReadHandleDataDelegate(IntPtr self, [In] long Handle, [In] DEBUG_HANDLE_DATA_TYPE DataType, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int DataSize);
-        private delegate HRESULT FillVirtualDelegate(IntPtr self, [In] long Start, [In] int Size, [In] IntPtr Buffer, [In] int PatternSize, [Out] out int Filled);
-        private delegate HRESULT FillPhysicalDelegate(IntPtr self, [In] long Start, [In] int Size, [In] IntPtr Buffer, [In] int PatternSize, [Out] out int Filled);
-        private delegate HRESULT QueryVirtualDelegate(IntPtr self, [In] long Offset, [Out] IntPtr Info);
-
-        #endregion
-        #region IDebugDataSpaces3
-
-        private delegate HRESULT ReadImageNtHeadersDelegate(IntPtr self, [In] long ImageBase, [Out] IntPtr Headers);
-        private delegate HRESULT ReadTaggedDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] Guid Tag, [In] int Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int TotalSize);
-        private delegate HRESULT StartEnumTaggedDelegate(IntPtr self, [Out] out long Handle);
-        private delegate HRESULT GetNextTaggedDelegate(IntPtr self, [In] long Handle, [Out] out Guid Tag, [Out] out int Size);
-        private delegate HRESULT EndEnumTaggedDelegate(IntPtr self, [In] long Handle);
-
-        #endregion
-        #region IDebugDataSpaces4
-
-        private delegate HRESULT GetOffsetInformationDelegate(IntPtr self, [In] DEBUG_DATA_SPACE Space, [In] DEBUG_OFFSINFO Which, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
-        private delegate HRESULT GetNextDifferentlyValidOffsetVirtualDelegate(IntPtr self, [In] long Offset, [Out] out long NextOffset);
-        private delegate HRESULT GetValidRegionVirtualDelegate(IntPtr self, [In] long Base, [In] int Size, [Out] out long ValidBase, [Out] out int ValidSize);
-        private delegate HRESULT SearchVirtual2Delegate(IntPtr self, [In] long Offset, [In] long Length, [In] DEBUG_VSEARCH Flags, [In] IntPtr Buffer, [In] int PatternSize, [In] int PatternGranularity, [Out] out long MatchOffset);
-        private delegate HRESULT ReadMultiByteStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadMultiByteStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadUnicodeStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadUnicodeStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadPhysical2Delegate(IntPtr self, [In] long Offset, [In] DEBUG_PHYSICAL Flags, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
-        private delegate HRESULT WritePhysical2Delegate(IntPtr self, [In] long Offset, [In] DEBUG_PHYSICAL Flags, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
-
-        #endregion
-        #endregion
-
-        protected override void ReleaseSubInterfaces()
-        {
-            ReleaseInterface(ref raw2);
-            ReleaseInterface(ref raw3);
-            ReleaseInterface(ref raw4);
-        }
     }
 }

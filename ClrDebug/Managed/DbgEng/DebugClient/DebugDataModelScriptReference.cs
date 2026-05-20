@@ -1,25 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
-
-namespace ClrDebug.DbgEng
+﻿namespace ClrDebug.DbgEng
 {
-    public unsafe class DebugDataModelScriptReference : RuntimeCallableWrapper
+    public class DebugDataModelScriptReference : ComObject<IDebugDataModelScriptReference>
     {
-        public static readonly Guid IID_IDebugDataModelScriptReference = new Guid("FD5D43CB-9A6D-418E-8804-4EDE27CFC3A4");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugDataModelScriptReferenceVtbl* Vtbl => (IDebugDataModelScriptReferenceVtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugDataModelScriptReference(IntPtr raw) : base(raw, IID_IDebugDataModelScriptReference)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugDataModelScriptReference"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugDataModelScriptReference(IDebugDataModelScriptReference raw) : base(raw)
         {
         }
@@ -34,11 +20,9 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryPopulate(string contents)
         {
-            InitDelegate(ref populate, Vtbl->Populate);
-
             /*HRESULT Populate(
             [MarshalAs(UnmanagedType.LPWStr), In] string contents);*/
-            return populate(Raw, contents);
+            return Raw.Populate(contents);
         }
 
         #endregion
@@ -51,11 +35,9 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryExecute(IDebugOutputStream executionResult)
         {
-            InitDelegate(ref execute, Vtbl->Execute);
-
             /*HRESULT Execute(
             [MarshalAs(UnmanagedType.Interface), In] IDebugOutputStream executionResult);*/
-            return execute(Raw, executionResult);
+            return Raw.Execute(executionResult);
         }
 
         #endregion
@@ -68,10 +50,8 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryUnlink()
         {
-            InitDelegate(ref unlink, Vtbl->Unlink);
-
             /*HRESULT Unlink();*/
-            return unlink(Raw);
+            return Raw.Unlink();
         }
 
         #endregion
@@ -84,11 +64,9 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryInvokeMain(IDebugOutputStream executionResult)
         {
-            InitDelegate(ref invokeMain, Vtbl->InvokeMain);
-
             /*HRESULT InvokeMain(
             [MarshalAs(UnmanagedType.Interface), In] IDebugOutputStream executionResult);*/
-            return invokeMain(Raw, executionResult);
+            return Raw.InvokeMain(executionResult);
         }
 
         #endregion
@@ -101,39 +79,10 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryRename(string name)
         {
-            InitDelegate(ref rename, Vtbl->Rename);
-
             /*HRESULT Rename(
             [MarshalAs(UnmanagedType.LPWStr), In] string name);*/
-            return rename(Raw, name);
+            return Raw.Rename(name);
         }
-
-        #endregion
-        #endregion
-        #region Cached Delegates
-        #region IDebugDataModelScriptReference
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private PopulateDelegate populate;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ExecuteDelegate execute;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private UnlinkDelegate unlink;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private InvokeMainDelegate invokeMain;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private RenameDelegate rename;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugDataModelScriptReference
-
-        private delegate HRESULT PopulateDelegate(IntPtr self, [MarshalAs(UnmanagedType.LPWStr), In] string contents);
-        private delegate HRESULT ExecuteDelegate(IntPtr self, [MarshalAs(UnmanagedType.Interface), In] IDebugOutputStream executionResult);
-        private delegate HRESULT UnlinkDelegate(IntPtr self);
-        private delegate HRESULT InvokeMainDelegate(IntPtr self, [MarshalAs(UnmanagedType.Interface), In] IDebugOutputStream executionResult);
-        private delegate HRESULT RenameDelegate(IntPtr self, [MarshalAs(UnmanagedType.LPWStr), In] string name);
 
         #endregion
         #endregion

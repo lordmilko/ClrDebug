@@ -5,6 +5,8 @@ namespace ClrDebug.DbgEng
 {
     public partial class DebugClient
     {
+        private object lockObj = new object();
+
         #region Advanced
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -17,7 +19,7 @@ namespace ClrDebug.DbgEng
                 if (advanced == null)
                 {
                     lock (lockObj)
-                        advanced ??= new DebugAdvanced(Raw);
+                        advanced ??= new DebugAdvanced((IDebugAdvanced) Raw);
                 }
 
                 return advanced;
@@ -37,7 +39,7 @@ namespace ClrDebug.DbgEng
                 if (clientInternal == null)
                 {
                     lock (lockObj)
-                        clientInternal ??= new DebugClientInternal(Raw);
+                        clientInternal ??= new DebugClientInternal((IDebugClientInternal) Raw);
                 }
 
                 return clientInternal;
@@ -57,7 +59,7 @@ namespace ClrDebug.DbgEng
                 if (control == null)
                 {
                     lock (lockObj)
-                        control ??= new DebugControl(Raw);
+                        control ??= new DebugControl((IDebugControl) Raw);
                 }
 
                 return control;
@@ -77,7 +79,7 @@ namespace ClrDebug.DbgEng
                 if (dataModelScripting == null)
                 {
                     lock (lockObj)
-                        dataModelScripting ??= new DebugDataModelScripting(Raw);
+                        dataModelScripting ??= new DebugDataModelScripting((IDebugDataModelScripting) Raw);
                 }
 
                 return dataModelScripting;
@@ -97,7 +99,7 @@ namespace ClrDebug.DbgEng
                 if (dataSpaces == null)
                 {
                     lock (lockObj)
-                        dataSpaces ??= new DebugDataSpaces(Raw);
+                        dataSpaces ??= new DebugDataSpaces((IDebugDataSpaces) Raw);
                 }
 
                 return dataSpaces;
@@ -117,7 +119,7 @@ namespace ClrDebug.DbgEng
                 if (debugTargetCompositionBridge == null)
                 {
                     lock (lockObj)
-                        debugTargetCompositionBridge ??= new DebugTargetCompositionBridge(AsInterface<IDebugTargetCompositionBridge>());
+                        debugTargetCompositionBridge ??= new DebugTargetCompositionBridge((IDebugTargetCompositionBridge) Raw);
                 }
 
                 return debugTargetCompositionBridge;
@@ -137,7 +139,7 @@ namespace ClrDebug.DbgEng
                 if (hostDataModelAccess == null)
                 {
                     lock (lockObj)
-                        hostDataModelAccess ??= new HostDataModelAccess(AsInterface<IHostDataModelAccess>());
+                        hostDataModelAccess ??= new HostDataModelAccess((IHostDataModelAccess) Raw);
                 }
 
                 return hostDataModelAccess;
@@ -157,7 +159,7 @@ namespace ClrDebug.DbgEng
                 if (linkableProcessServer == null)
                 {
                     lock (lockObj)
-                        linkableProcessServer ??= new DebugLinkableProcessServer(Raw);
+                        linkableProcessServer ??= new DebugLinkableProcessServer((IDebugLinkableProcessServer) Raw);
                 }
 
                 return linkableProcessServer;
@@ -177,7 +179,7 @@ namespace ClrDebug.DbgEng
                 if (modelQuery == null)
                 {
                     lock (lockObj)
-                        modelQuery ??= new DebugModelQuery(Raw);
+                        modelQuery ??= new DebugModelQuery((IDebugModelQuery) Raw);
                 }
 
                 return modelQuery;
@@ -197,7 +199,7 @@ namespace ClrDebug.DbgEng
                 if (plmClient == null)
                 {
                     lock (lockObj)
-                        plmClient ??= new DebugPlmClient(Raw);
+                        plmClient ??= new DebugPlmClient((IDebugPlmClient) Raw);
                 }
 
                 return plmClient;
@@ -217,7 +219,7 @@ namespace ClrDebug.DbgEng
                 if (registers == null)
                 {
                     lock (lockObj)
-                        registers ??= new DebugRegisters(Raw);
+                        registers ??= new DebugRegisters((IDebugRegisters) Raw);
                 }
 
                 return registers;
@@ -237,7 +239,7 @@ namespace ClrDebug.DbgEng
                 if (serviceProvider == null)
                 {
                     lock (lockObj)
-                        serviceProvider ??= new DebugServiceProvider(Raw);
+                        serviceProvider ??= new DebugServiceProvider((IDebugServiceProvider) Raw);
                 }
 
                 return serviceProvider;
@@ -257,7 +259,7 @@ namespace ClrDebug.DbgEng
                 if (settings == null)
                 {
                     lock (lockObj)
-                        settings ??= new DebugSettings(Raw);
+                        settings ??= new DebugSettings((IDebugSettings) Raw);
                 }
 
                 return settings;
@@ -277,7 +279,7 @@ namespace ClrDebug.DbgEng
                 if (symbols == null)
                 {
                     lock (lockObj)
-                        symbols ??= new DebugSymbols(Raw);
+                        symbols ??= new DebugSymbols((IDebugSymbols) Raw);
                 }
 
                 return symbols;
@@ -297,7 +299,7 @@ namespace ClrDebug.DbgEng
                 if (systemObjects == null)
                 {
                     lock (lockObj)
-                        systemObjects ??= new DebugSystemObjects(Raw);
+                        systemObjects ??= new DebugSystemObjects((IDebugSystemObjects) Raw);
                 }
 
                 return systemObjects;

@@ -27,7 +27,7 @@ namespace ClrDebug.DbgEng
 
         [PreserveSig]
         DEBUG_STATUS Breakpoint(
-            [In, ComAliasName("IDebugBreakpoint2")] IntPtr bp,
+            [In, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugBreakpoint2")] IDebugBreakpoint2 bp,
             [In] ref DEBUG_EVENT_CONTEXT context,
             [In] int contextSize);
 

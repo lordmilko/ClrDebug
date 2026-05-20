@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using SRI = System.Runtime.InteropServices;
 #if GENERATED_MARSHALLING
 using System.Runtime.InteropServices.Marshalling;
@@ -28,6 +29,6 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string sourceCodeFileSpec,
             [In, MarshalAs(UnmanagedType.LPWStr)] string algorithmRetrievalName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string algorithmParameters,
-            [SRI.Out, MarshalAs(UnmanagedType.SafeArray)] out object[] ppUrlList);
+            [Out] out IntPtr ppUrlList); //This is a SAFEARRAY but it doesn't seem like this is supported in source generated COM
     }
 }

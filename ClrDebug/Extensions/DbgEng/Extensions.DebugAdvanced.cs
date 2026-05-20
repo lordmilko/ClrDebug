@@ -16,7 +16,7 @@ namespace ClrDebug.DbgEng
         /// <param name="advanced">The <see cref="DebugAdvanced"/> whose current context should be retrieved.</param>
         /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
         /// <returns>The thread context that was read.</returns>
-        public static T GetThreadContext<T>(this DebugAdvanced advanced, ContextFlags contextFlags)
+        public static T GetThreadContext<T>(this DebugAdvanced advanced, ContextFlags contextFlags) where T : unmanaged
         {
             T context;
             TryGetThreadContext(advanced, contextFlags, out context).ThrowDbgEngNotOK();
@@ -31,9 +31,9 @@ namespace ClrDebug.DbgEng
         /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
         /// <param name="context">The thread context that was read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryGetThreadContext<T>(this DebugAdvanced advanced, ContextFlags contextFlags, out T context)
+        public static unsafe HRESULT TryGetThreadContext<T>(this DebugAdvanced advanced, ContextFlags contextFlags, out T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
 
             var buffer = Extensions.AllocAndInitContext<T>(size, contextFlags);
 
@@ -42,7 +42,7 @@ namespace ClrDebug.DbgEng
                 var hr = advanced.TryGetThreadContext(buffer, size);
 
                 if (hr == HRESULT.S_OK)
-                    context = Marshal.PtrToStructure<T>(buffer);
+                    context = *(T*) buffer;
                 else
                     context = default(T);
 
@@ -60,7 +60,7 @@ namespace ClrDebug.DbgEng
         /// <typeparam name="T">The type of a processor specific CONTEXT structure that stores the thread context.</typeparam>
         /// <param name="advanced">The <see cref="DebugAdvanced"/> whose current context should be modified.</param>
         /// <param name="context">Specifies the thread context. The type of the thread context is the CONTEXT structure for the target's effective processor.</param>
-        public static void SetThreadContext<T>(this DebugAdvanced advanced, T context) =>
+        public static unsafe void SetThreadContext<T>(this DebugAdvanced advanced, T context) where T : unmanaged =>
             TrySetThreadContext(advanced, context).ThrowDbgEngNotOK();
 
         /// <summary>
@@ -70,9 +70,9 @@ namespace ClrDebug.DbgEng
         /// <param name="advanced">The <see cref="DebugAdvanced"/> whose current context should be modified.</param>
         /// <param name="context">Specifies the thread context. The type of the thread context is the CONTEXT structure for the target's effective processor.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TrySetThreadContext<T>(this DebugAdvanced advanced, T context)
+        public static unsafe HRESULT TrySetThreadContext<T>(this DebugAdvanced advanced, T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -94,12 +94,12 @@ namespace ClrDebug.DbgEng
         #endregion
         #region Request [in]
 
-        public static void Request<T>(this DebugAdvanced advanced, DEBUG_REQUEST request, T value) where T : struct =>
+        public static void Request<T>(this DebugAdvanced advanced, DEBUG_REQUEST request, T value) where T : unmanaged =>
             advanced.TryRequest(request, value).ThrowDbgEngNotOK();
 
-        public static HRESULT TryRequest<T>(this DebugAdvanced advanced, DEBUG_REQUEST request, T value) where T : struct
+        public static unsafe HRESULT TryRequest<T>(this DebugAdvanced advanced, DEBUG_REQUEST request, T value) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -125,15 +125,15 @@ namespace ClrDebug.DbgEng
         #endregion
         #region Request [out]
 
-        public static T Request<T>(this DebugAdvanced advanced, DEBUG_REQUEST request) where T : struct
+        public static unsafe T Request<T>(this DebugAdvanced advanced, DEBUG_REQUEST request) where T : unmanaged
         {
             advanced.TryRequest<T>(request, out var result).ThrowDbgEngNotOK();
             return result;
         }
         
-        public static HRESULT TryRequest<T>(this DebugAdvanced advanced, DEBUG_REQUEST request, out T result) where T : struct
+        public static unsafe HRESULT TryRequest<T>(this DebugAdvanced advanced, DEBUG_REQUEST request, out T result) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -148,7 +148,7 @@ namespace ClrDebug.DbgEng
                 );
 
                 if (hr == HRESULT.S_OK)
-                    result = Marshal.PtrToStructure<T>(buffer);
+                    result = *(T*) buffer;
                 else
                     result = default(T);
 
@@ -252,7 +252,7 @@ namespace ClrDebug.DbgEng
 
             //Only works with kernel dumps; DbgEng sets the type to "2" for user mode dumps,
             //but Request() wants the type to be "1"
-            public void GetDumpHeader<T>() where T : struct =>
+            public void GetDumpHeader<T>() where T : unmanaged =>
                 advanced.Request<T>(DEBUG_REQUEST.GET_DUMP_HEADER);
 
             public string GetExtensionSearchPathWide() =>
@@ -376,7 +376,7 @@ namespace ClrDebug.DbgEng
                 advanced.RequestHRESULT(DEBUG_REQUEST.TARGET_CAN_DETACH) == HRESULT.S_OK;
 
             //Return the thread context for the stored event in a user-mode minidump file.
-            public T TargetExceptionContext<T>() where T : struct =>
+            public T TargetExceptionContext<T>() where T : unmanaged =>
                 advanced.Request<T>(DEBUG_REQUEST.TARGET_EXCEPTION_CONTEXT);
 
             public void TargetExceptionRecord() =>

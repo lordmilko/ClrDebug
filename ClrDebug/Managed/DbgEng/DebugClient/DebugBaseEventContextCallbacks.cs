@@ -12,7 +12,7 @@ namespace ClrDebug.DbgEng
     {
         public abstract HRESULT GetInterestMask(out DEBUG_EVENT_TYPE mask);
 
-        public DEBUG_STATUS Breakpoint(IntPtr bp, ref DEBUG_EVENT_CONTEXT context, int contextSize) => DEBUG_STATUS.NO_CHANGE;
+        public DEBUG_STATUS Breakpoint(IDebugBreakpoint2 bp, ref DEBUG_EVENT_CONTEXT context, int contextSize) => DEBUG_STATUS.NO_CHANGE;
 
         public DEBUG_STATUS Exception(ref EXCEPTION_RECORD64 exception, int firstChance, ref DEBUG_EVENT_CONTEXT context, int contextSize) => DEBUG_STATUS.NO_CHANGE;
 

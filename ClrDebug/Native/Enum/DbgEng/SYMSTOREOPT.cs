@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChaosLib
+namespace ClrDebug.DbgEng
 {
     //https://learn.microsoft.com/en-us/previous-versions/ee942775(v=vs.85)
 

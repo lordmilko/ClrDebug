@@ -23,7 +23,7 @@ namespace ClrDebug
         #endregion
         #region ICorDebugUnmanagedCallback Methods
 
-        HRESULT ICorDebugUnmanagedCallback.DebugEvent(ref DEBUG_EVENT pDebugEvent, bool fOutOfBand) => HandleEvent(OnDebugEvent, new DebugEventCorDebugUnmanagedCallbackEventArgs(pDebugEvent, fOutOfBand));
+        unsafe HRESULT ICorDebugUnmanagedCallback.DebugEvent(DEBUG_EVENT* pDebugEvent, bool fOutOfBand) => HandleEvent(OnDebugEvent, new DebugEventCorDebugUnmanagedCallbackEventArgs(pDebugEvent, fOutOfBand));
 
         #endregion
 

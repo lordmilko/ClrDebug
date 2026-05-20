@@ -13,7 +13,7 @@ namespace ClrDebug
         /// <param name="stackWalk">The <see cref="CorDebugStackWalk"/> whose current context should be retrieved.</param>
         /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
         /// <returns>The thread context that was read.</returns>
-        public static T GetContext<T>(this CorDebugStackWalk stackWalk, ContextFlags contextFlags) where T : struct
+        public static unsafe T GetContext<T>(this CorDebugStackWalk stackWalk, ContextFlags contextFlags) where T : unmanaged
         {
             T context;
             TryGetContext(stackWalk, contextFlags, out context).ThrowOnNotOK();
@@ -28,9 +28,9 @@ namespace ClrDebug
         /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
         /// <param name="context">The thread context that was read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryGetContext<T>(this CorDebugStackWalk stackWalk, ContextFlags contextFlags, out T context) where T : struct
+        public static unsafe HRESULT TryGetContext<T>(this CorDebugStackWalk stackWalk, ContextFlags contextFlags, out T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -38,7 +38,7 @@ namespace ClrDebug
                 var hr = stackWalk.TryGetContext(contextFlags, size, out var actualSize, buffer);
 
                 if (hr == HRESULT.S_OK)
-                    context = Marshal.PtrToStructure<T>(buffer);
+                    context = *(T*) buffer;
                 else
                     context = default(T);
 
@@ -60,7 +60,7 @@ namespace ClrDebug
         /// <param name="stackWalk">The <see cref="CorDebugStackWalk"/> whose current context should be modified.</param>
         /// <param name="flag">A <see cref="CorDebugSetContextFlag"/> flag that indicates whether the context is from the active frame on the stack, or a context obtained by unwinding the stack.</param>
         /// <param name="context">The context to set. The data in the context buffer will be in the format of the Win32 CONTEXT structure.</param>
-        public static void SetContext<T>(this CorDebugStackWalk stackWalk, CorDebugSetContextFlag flag, T context) where T : struct
+        public static unsafe void SetContext<T>(this CorDebugStackWalk stackWalk, CorDebugSetContextFlag flag, T context) where T : unmanaged
         {
             TrySetContext(stackWalk, flag, context).ThrowOnNotOK();
         }
@@ -73,9 +73,9 @@ namespace ClrDebug
         /// <param name="flag">A <see cref="CorDebugSetContextFlag"/> flag that indicates whether the context is from the active frame on the stack, or a context obtained by unwinding the stack.</param>
         /// <param name="context">The context to set. The data in the context buffer will be in the format of the Win32 CONTEXT structure.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TrySetContext<T>(this CorDebugStackWalk stackWalk, CorDebugSetContextFlag flag, T context) where T : struct
+        public static unsafe HRESULT TrySetContext<T>(this CorDebugStackWalk stackWalk, CorDebugSetContextFlag flag, T context) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try

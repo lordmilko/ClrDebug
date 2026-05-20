@@ -1,28 +1,15 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
-using SRI = System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
-    public unsafe class DebugContainerManager : RuntimeCallableWrapper
+    public class DebugContainerManager : ComObject<IDebugContainerManager>
     {
-        public static readonly Guid IID_IDebugContainerManager = new Guid("390a7e36-079a-4dbe-82d6-76c96fa040b2");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugContainerManagerVtbl* Vtbl => (IDebugContainerManagerVtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugContainerManager(IntPtr raw) : base(raw, IID_IDebugContainerManager)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugContainerManager"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugContainerManager(IDebugContainerManager raw) : base(raw)
         {
         }
@@ -40,13 +27,11 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryCreateContainer(string owner, int maxContainerMemory, out long container)
         {
-            InitDelegate(ref createContainer, Vtbl->CreateContainer);
-
             /*HRESULT CreateContainer(
             [MarshalAs(UnmanagedType.LPWStr), In] string owner,
             [In] int maxContainerMemory,
             [Out] out long container);*/
-            return createContainer(Raw, owner, maxContainerMemory, out container);
+            return Raw.CreateContainer(owner, maxContainerMemory, out container);
         }
 
         #endregion
@@ -62,12 +47,10 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryOpenContainer(Guid id, out long container)
         {
-            InitDelegate(ref openContainer, Vtbl->OpenContainer);
-
             /*HRESULT OpenContainer(
             [MarshalAs(UnmanagedType.LPStruct), In] Guid id,
             [Out] out long container);*/
-            return openContainer(Raw, id, out container);
+            return Raw.OpenContainer(id, out container);
         }
 
         #endregion
@@ -80,11 +63,9 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryCloseContainer(long container)
         {
-            InitDelegate(ref closeContainer, Vtbl->CloseContainer);
-
             /*HRESULT CloseContainer(
             [In] long container);*/
-            return closeContainer(Raw, container);
+            return Raw.CloseContainer(container);
         }
 
         #endregion
@@ -100,7 +81,6 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryGetOwner(long containerHandle, out string ownerResult)
         {
-            InitDelegate(ref getOwner, Vtbl->GetOwner);
             /*HRESULT GetOwner(
             [In] long containerHandle,
             [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), SRI.Out] char[] owner,
@@ -109,14 +89,14 @@ namespace ClrDebug.DbgEng
             char[] owner;
             int ownerSize = 0;
             int ownerRequiredSize;
-            HRESULT hr = getOwner(Raw, containerHandle, null, ownerSize, out ownerRequiredSize);
+            HRESULT hr = Raw.GetOwner(containerHandle, null, ownerSize, out ownerRequiredSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             ownerSize = ownerRequiredSize;
             owner = new char[ownerSize];
-            hr = getOwner(Raw, containerHandle, owner, ownerSize, out ownerRequiredSize);
+            hr = Raw.GetOwner(containerHandle, owner, ownerSize, out ownerRequiredSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -144,12 +124,10 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryStartActivity(long container, out long activity)
         {
-            InitDelegate(ref startActivity, Vtbl->StartActivity);
-
             /*HRESULT StartActivity(
             [In] long container,
             [Out] out long activity);*/
-            return startActivity(Raw, container, out activity);
+            return Raw.StartActivity(container, out activity);
         }
 
         #endregion
@@ -162,14 +140,12 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryStartProcessInContainer(long activity, string commandLine, string username, bool useExistingLoginSession)
         {
-            InitDelegate(ref startProcessInContainer, Vtbl->StartProcessInContainer);
-
             /*HRESULT StartProcessInContainer(
             [In] long activity,
             [MarshalAs(UnmanagedType.LPWStr), In] string commandLine,
             [MarshalAs(UnmanagedType.LPWStr), In] string username,
-            [In] bool useExistingLoginSession);*/
-            return startProcessInContainer(Raw, activity, commandLine, username, useExistingLoginSession);
+            [In, MarshalAs(UnmanagedType.Bool)] bool useExistingLoginSession);*/
+            return Raw.StartProcessInContainer(activity, commandLine, username, useExistingLoginSession);
         }
 
         #endregion
@@ -185,16 +161,14 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryRunProcessInContainer(long activity, string commandLine, string username, bool useExistingLoginSession, IDebugOutputStream programOutput, out int exitCode)
         {
-            InitDelegate(ref runProcessInContainer, Vtbl->RunProcessInContainer);
-
             /*HRESULT RunProcessInContainer(
             [In] long activity,
             [MarshalAs(UnmanagedType.LPWStr), In] string commandLine,
             [MarshalAs(UnmanagedType.LPWStr), In] string username,
-            [In] bool useExistingLoginSession,
+            [In, MarshalAs(UnmanagedType.Bool)] bool useExistingLoginSession,
             [MarshalAs(UnmanagedType.Interface), In] IDebugOutputStream programOutput,
             [Out] out int exitCode);*/
-            return runProcessInContainer(Raw, activity, commandLine, username, useExistingLoginSession, programOutput, out exitCode);
+            return Raw.RunProcessInContainer(activity, commandLine, username, useExistingLoginSession, programOutput, out exitCode);
         }
 
         #endregion
@@ -207,14 +181,12 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryMapFolderToContainer(long activity, string hostFolder, string containerFolder, bool readOnly)
         {
-            InitDelegate(ref mapFolderToContainer, Vtbl->MapFolderToContainer);
-
             /*HRESULT MapFolderToContainer(
             [In] long activity,
             [MarshalAs(UnmanagedType.LPWStr), In] string hostFolder,
             [MarshalAs(UnmanagedType.LPWStr), In] string containerFolder,
-            [In] bool readOnly);*/
-            return mapFolderToContainer(Raw, activity, hostFolder, containerFolder, readOnly);
+            [In, MarshalAs(UnmanagedType.Bool)] bool readOnly);*/
+            return Raw.MapFolderToContainer(activity, hostFolder, containerFolder, readOnly);
         }
 
         #endregion
@@ -227,12 +199,10 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryUnmapFolderFromContainer(long activity, string containerFolder)
         {
-            InitDelegate(ref unmapFolderFromContainer, Vtbl->UnmapFolderFromContainer);
-
             /*HRESULT UnmapFolderFromContainer(
             [In] long activity,
             [MarshalAs(UnmanagedType.LPWStr), In] string containerFolder);*/
-            return unmapFolderFromContainer(Raw, activity, containerFolder);
+            return Raw.UnmapFolderFromContainer(activity, containerFolder);
         }
 
         #endregion
@@ -245,11 +215,9 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryStopActivity(long activity)
         {
-            InitDelegate(ref stopActivity, Vtbl->StopActivity);
-
             /*HRESULT StopActivity(
             [In] long activity);*/
-            return stopActivity(Raw, activity);
+            return Raw.StopActivity(activity);
         }
 
         #endregion
@@ -267,7 +235,6 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryEnumerateContainers(out Guid[] containerGuids)
         {
-            InitDelegate(ref enumerateContainers, Vtbl->EnumerateContainers);
             /*HRESULT EnumerateContainers(
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] Guid[] containerGuids,
             [In] int size,
@@ -275,62 +242,17 @@ namespace ClrDebug.DbgEng
             containerGuids = null;
             int size = 0;
             int numContainers;
-            HRESULT hr = enumerateContainers(Raw, null, size, out numContainers);
+            HRESULT hr = Raw.EnumerateContainers(null, size, out numContainers);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             size = numContainers;
             containerGuids = new Guid[size];
-            hr = enumerateContainers(Raw, containerGuids, size, out numContainers);
+            hr = Raw.EnumerateContainers(containerGuids, size, out numContainers);
             fail:
             return hr;
         }
-
-        #endregion
-        #endregion
-        #region Cached Delegates
-        #region IDebugContainerManager
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CreateContainerDelegate createContainer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private OpenContainerDelegate openContainer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CloseContainerDelegate closeContainer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetOwnerDelegate getOwner;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private StartActivityDelegate startActivity;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private StartProcessInContainerDelegate startProcessInContainer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private RunProcessInContainerDelegate runProcessInContainer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private MapFolderToContainerDelegate mapFolderToContainer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private UnmapFolderFromContainerDelegate unmapFolderFromContainer;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private StopActivityDelegate stopActivity;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private EnumerateContainersDelegate enumerateContainers;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugContainerManager
-
-        private delegate HRESULT CreateContainerDelegate(IntPtr self, [MarshalAs(UnmanagedType.LPWStr), In] string owner, [In] int maxContainerMemory, [Out] out long container);
-        private delegate HRESULT OpenContainerDelegate(IntPtr self, [MarshalAs(UnmanagedType.LPStruct), In] Guid id, [Out] out long container);
-        private delegate HRESULT CloseContainerDelegate(IntPtr self, [In] long container);
-        private delegate HRESULT GetOwnerDelegate(IntPtr self, [In] long containerHandle, [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), SRI.Out] char[] owner, [In] int ownerSize, [Out] out int ownerRequiredSize);
-        private delegate HRESULT StartActivityDelegate(IntPtr self, [In] long container, [Out] out long activity);
-        private delegate HRESULT StartProcessInContainerDelegate(IntPtr self, [In] long activity, [MarshalAs(UnmanagedType.LPWStr), In] string commandLine, [MarshalAs(UnmanagedType.LPWStr), In] string username, [In] bool useExistingLoginSession);
-        private delegate HRESULT RunProcessInContainerDelegate(IntPtr self, [In] long activity, [MarshalAs(UnmanagedType.LPWStr), In] string commandLine, [MarshalAs(UnmanagedType.LPWStr), In] string username, [In] bool useExistingLoginSession, [MarshalAs(UnmanagedType.Interface), In] IDebugOutputStream programOutput, [Out] out int exitCode);
-        private delegate HRESULT MapFolderToContainerDelegate(IntPtr self, [In] long activity, [MarshalAs(UnmanagedType.LPWStr), In] string hostFolder, [MarshalAs(UnmanagedType.LPWStr), In] string containerFolder, [In] bool readOnly);
-        private delegate HRESULT UnmapFolderFromContainerDelegate(IntPtr self, [In] long activity, [MarshalAs(UnmanagedType.LPWStr), In] string containerFolder);
-        private delegate HRESULT StopActivityDelegate(IntPtr self, [In] long activity);
-        private delegate HRESULT EnumerateContainersDelegate(IntPtr self, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), SRI.Out] Guid[] containerGuids, [In] int size, [Out] out int numContainers);
 
         #endregion
         #endregion

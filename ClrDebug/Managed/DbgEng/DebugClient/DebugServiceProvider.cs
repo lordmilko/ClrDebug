@@ -1,25 +1,13 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using ClrDebug.DbgEng.Vtbl;
 
 namespace ClrDebug.DbgEng
 {
-    public unsafe class DebugServiceProvider : RuntimeCallableWrapper
+    public class DebugServiceProvider : ComObject<IDebugServiceProvider>
     {
-        public static readonly Guid IID_IDebugServiceProvider = new Guid("58034A5B-F616-47C5-B5D5-B1390E0F0B23");
-
-        #region Vtbl
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private new IDebugServiceProviderVtbl* Vtbl => (IDebugServiceProviderVtbl*) base.Vtbl;
-
-        #endregion
-
-        public DebugServiceProvider(IntPtr raw) : base(raw, IID_IDebugServiceProvider)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DebugServiceProvider"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public DebugServiceProvider(IDebugServiceProvider raw) : base(raw)
         {
         }
@@ -37,14 +25,13 @@ namespace ClrDebug.DbgEng
 
         public HRESULT TryQueryService(long server, Guid serviceId, Guid serviceInterfaceId, out DebugService interfaceResult)
         {
-            InitDelegate(ref queryService, Vtbl->QueryService);
             /*HRESULT QueryService(
             [In] long server,
             [MarshalAs(UnmanagedType.LPStruct), In] Guid serviceId,
             [MarshalAs(UnmanagedType.LPStruct), In] Guid serviceInterfaceId,
             [MarshalAs(UnmanagedType.Interface), Out] out IDebugService @interface);*/
             IDebugService @interface;
-            HRESULT hr = queryService(Raw, server, serviceId, serviceInterfaceId, out @interface);
+            HRESULT hr = Raw.QueryService(server, serviceId, serviceInterfaceId, out @interface);
 
             if (hr == HRESULT.S_OK)
                 interfaceResult = @interface == null ? null : new DebugService(@interface);
@@ -53,21 +40,6 @@ namespace ClrDebug.DbgEng
 
             return hr;
         }
-
-        #endregion
-        #endregion
-        #region Cached Delegates
-        #region IDebugServiceProvider
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private QueryServiceDelegate queryService;
-
-        #endregion
-        #endregion
-        #region Delegates
-        #region IDebugServiceProvider
-
-        private delegate HRESULT QueryServiceDelegate(IntPtr self, [In] long server, [MarshalAs(UnmanagedType.LPStruct), In] Guid serviceId, [MarshalAs(UnmanagedType.LPStruct), In] Guid serviceInterfaceId, [MarshalAs(UnmanagedType.Interface), Out] out IDebugService @interface);
 
         #endregion
         #endregion

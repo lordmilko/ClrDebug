@@ -658,8 +658,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetScopeSymbolGroup(
             [In] DEBUG_SCOPE_GROUP Flags,
-            [In, ComAliasName("IDebugSymbolGroup")] IntPtr Update,
-            [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Symbols);
+            [In, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugSymbolGroup")] IDebugSymbolGroup Update,
+            [Out, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugSymbolGroup")] out IDebugSymbolGroup Symbols);
 
         /// <summary>
         /// The CreateSymbolGroup method creates a new symbol group.
@@ -675,7 +675,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT CreateSymbolGroup(
-            [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Group);
+            [Out, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugSymbolGroup")] out IDebugSymbolGroup Group);
 
         /// <summary>
         /// The StartSymbolMatch method initializes a search for symbols whose names match a given pattern.
@@ -1361,8 +1361,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetScopeSymbolGroup2(
             [In] DEBUG_SCOPE_GROUP Flags,
-            [In, ComAliasName("IDebugSymbolGroup2")] IntPtr Update,
-            [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Symbols);
+            [In, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugSymbolGroup2")] IDebugSymbolGroup2 Update,
+            [Out, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugSymbolGroup2")] out IDebugSymbolGroup2 Symbols);
 
         /// <summary>
         /// The CreateSymbolGroup2 method creates a new symbol group.
@@ -1378,7 +1378,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT CreateSymbolGroup2(
-            [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Group);
+            [Out, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugSymbolGroup2")] out IDebugSymbolGroup2 Group);
 
         /// <summary>
         /// The StartSymbolMatchWide method initializes a search for symbols whose names match a given pattern.

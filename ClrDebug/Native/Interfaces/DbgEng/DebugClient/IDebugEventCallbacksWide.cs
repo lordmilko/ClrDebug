@@ -48,7 +48,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         DEBUG_STATUS Breakpoint(
-            [In, ComAliasName("IDebugBreakpoint2")] IntPtr bp);
+            [In, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugBreakpoint2")] IDebugBreakpoint2 bp);
 
         /// <summary>
         /// The Exception callback method is called by the engine when an exceptiondebugging event occurs in the target.
