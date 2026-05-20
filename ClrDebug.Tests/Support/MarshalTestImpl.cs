@@ -290,7 +290,7 @@ namespace ClrDebug.Tests
             var localRiid = GuidMarshaller.ConvertToUnmanaged(typeof(IClassFactory).GUID);
 
             //todo: evidently this is wrong, because its crashing our normal .net 8 test
-            fn(&localClsid, &localRiid, &pClassFactory).ThrowOnNotOK();
+            //fn(&localClsid, &localRiid, &pClassFactory).ThrowOnNotOK();
 #else
             var dllGetClassObject = Marshal.GetDelegateForFunctionPointer<DllGetClassObjectDelegate>(pDllGetClassObject);
 

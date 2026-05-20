@@ -52,6 +52,15 @@ namespace ClrDebug
 
             items = null;
         }
+
+        public EnumerateCLRsResult(EnumerateCLRsResultItem[] items)
+        {
+            this.items = items;
+
+            HandleArrayOut = default;
+            StringArrayOut = default;
+            ArrayLengthOut = default;
+        }
     }
 
     [DebuggerDisplay("Handle = {Handle.ToString(),nq}, Path = {Path}")]

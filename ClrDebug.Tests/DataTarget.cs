@@ -27,7 +27,7 @@ namespace ClrDebug.Tests
         public HRESULT GetMachineType(out IMAGE_FILE_MACHINE machineType)
         {
             //This sample assumes Windows
-            machineType = IntPtr.Size == 4 ? IMAGE_FILE_MACHINE.I386 : IMAGE_FILE_MACHINE.AMD64;
+            machineType = IntPtr.Size == 4 ? IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_I386 : IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_AMD64;
             return HRESULT.S_OK;
         }
 

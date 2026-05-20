@@ -14297,6 +14297,10 @@
         //This value is also known as EXCEPTION_MSVC
         STATUS_CPP_EH_EXCEPTION = 0xE06D7363, //0xE0 + "msc"
 
-        STATUS_SERVICE_HANG = 0xEFFFFFFF
+        STATUS_SERVICE_HANG = 0xEFFFFFFF,
+
+        EXCEPTION_COMPLUS = 0xE0434352, //0xE0 + "CCR"
+        EXCEPTION_HIJACK = 0xE0434F4E, //0xE0 + "CON" (i.e. "COM"+1)
+        EXCEPTION_EXX = 0xE0455858 //0xE0 + "EXX"
     }
 }

@@ -4,6 +4,9 @@
     //implementations only contained types (hence also why the TPI header is just called HDR)
     public enum TPIImpv
     {
+        //This value is a bit weird; it's defined outside the enum by itself, but then they cast to it. For all intents and purposes it's part of the enum
+        intvVC2 = 920924,
+
         impv40 = 19950410,
         impv41 = 19951122,
         impv50Interim = 19960307,

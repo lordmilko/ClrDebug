@@ -9,9 +9,11 @@ namespace ClrDebug.TTD
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
     public unsafe delegate void BuildIndexCallback([In] IntPtr context, IndexBuildProgressType* b);
 
-    public unsafe class ReplayEngine
+    public unsafe class ReplayEngine : IDisposable
     {
         public IntPtr Raw { get; }
+
+        private bool disposed;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private ReplayEngineVtbl* vtbl;
@@ -21,7 +23,7 @@ namespace ClrDebug.TTD
         //TTD::Replay::ReplayEngine::UnsafeAsInterface(_GUID const &)
         //TTD::Replay::ReplayEngine::UnsafeAsInterface(_GUID const &)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr UnsafeAsInterfaceDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid);
@@ -41,7 +43,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetPebAddress(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate GuestAddress GetPebAddressDelegate(
             [In] IntPtr @this);
 
@@ -62,7 +64,7 @@ namespace ClrDebug.TTD
         #region GetSystemInfo
 
         //TTD::Replay::ReplayEngine::GetSystemInfo(void)
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate SystemInfo* GetSystemInfoDelegate(
             [In] IntPtr @this);
 
@@ -85,7 +87,7 @@ namespace ClrDebug.TTD
         //TTD::Replay::ReplayEngine::GetFirstPosition(void)
         //TTD::Replay::ReplayEngine::GetFirstPosition(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate Position* GetFirstPositionDelegate(
             [In] IntPtr @this);
 
@@ -107,7 +109,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetLastPosition(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate Position* GetLastPositionDelegate(
             [In] IntPtr @this);
 
@@ -129,7 +131,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetRecordingType(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate RecordingType GetRecordingTypeDelegate(
             [In] IntPtr @this);
 
@@ -151,7 +153,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetThreadInfo(TTD::Replay::UniqueThreadId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ThreadInfo* GetThreadInfoDelegate(
             [In] IntPtr @this,
             [In] UniqueThreadId threadId);
@@ -171,7 +173,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetThreadCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetThreadCountDelegate(
             [In] IntPtr @this);
 
@@ -193,7 +195,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetThreadList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ThreadInfo* GetThreadListDelegate(
             [In] IntPtr @this);
 
@@ -229,7 +231,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetThreadFirstPositionIndex(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetThreadFirstPositionIndexDelegate(
             [In] IntPtr @this);
 
@@ -251,7 +253,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetThreadLastPositionIndex(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetThreadLastPositionIndexDelegate(
             [In] IntPtr @this);
 
@@ -273,7 +275,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetThreadLifetimeFirstPositionIndex(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetThreadLifetimeFirstPositionIndexDelegate(
             [In] IntPtr @this);
 
@@ -295,7 +297,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetThreadLifetimeLastPositionIndex(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetThreadLifetimeLastPositionIndexDelegate(
             [In] IntPtr @this);
 
@@ -317,7 +319,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetThreadCreatedEventCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetThreadCreatedEventCountDelegate(
             [In] IntPtr @this);
 
@@ -339,7 +341,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetThreadCreatedEventList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ThreadCreatedEvent* GetThreadCreatedEventListDelegate(
             [In] IntPtr @this);
 
@@ -374,7 +376,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetThreadTerminatedEventCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetThreadTerminatedEventCountDelegate(
             [In] IntPtr @this);
 
@@ -396,7 +398,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetThreadTerminatedEventList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ThreadTerminatedEvent* GetThreadTerminatedEventListDelegate(
             [In] IntPtr @this);
 
@@ -431,7 +433,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetModuleCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetModuleCountDelegate(
             [In] IntPtr @this);
 
@@ -453,7 +455,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetModuleList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate Module* GetModuleListDelegate(
             [In] IntPtr @this);
 
@@ -488,7 +490,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetModuleInstanceCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetModuleInstanceCountDelegate(
             [In] IntPtr @this);
 
@@ -510,7 +512,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetModuleInstanceList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ModuleInstance* GetModuleInstanceListDelegate(
             [In] IntPtr @this);
 
@@ -545,7 +547,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetModuleInstanceUnloadIndex(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetModuleInstanceUnloadIndexDelegate(
             [In] IntPtr @this);
 
@@ -567,7 +569,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetModuleLoadedEventCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetModuleLoadedEventCountDelegate(
             [In] IntPtr @this);
 
@@ -589,7 +591,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetModuleLoadedEventList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ModuleLoadedEvent* GetModuleLoadedEventListDelegate(
             [In] IntPtr @this);
 
@@ -624,7 +626,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetModuleUnloadedEventCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetModuleUnloadedEventCountDelegate(
             [In] IntPtr @this);
 
@@ -646,7 +648,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetModuleUnloadedEventList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ModuleUnloadedEvent* GetModuleUnloadedEventListDelegate(
             [In] IntPtr @this);
 
@@ -681,7 +683,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetExceptionEventCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetExceptionEventCountDelegate(
             [In] IntPtr @this);
 
@@ -703,7 +705,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetExceptionEventList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ExceptionEvent* GetExceptionEventListDelegate(
             [In] IntPtr @this);
 
@@ -738,10 +740,10 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetExceptionAtOrAfterPosition(TTD::Replay::Position const &)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ExceptionEvent* GetExceptionAtOrAfterPositionDelegate(
             [In] IntPtr @this,
-            [In] Position position);
+            [In] Position* position);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetExceptionAtOrAfterPositionDelegate getExceptionAtOrAfterPosition;
@@ -750,7 +752,7 @@ namespace ClrDebug.TTD
         {
             InitDelegate(ref getExceptionAtOrAfterPosition, vtbl->GetExceptionAtOrAfterPosition);
 
-            return getExceptionAtOrAfterPosition(Raw, position);
+            return getExceptionAtOrAfterPosition(Raw, &position);
         }
 
         #endregion
@@ -758,7 +760,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetKeyframeCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetKeyframeCountDelegate(
             [In] IntPtr @this);
 
@@ -780,7 +782,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetKeyframeList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate Position* GetKeyframeListDelegate(
             [In] IntPtr @this);
 
@@ -815,7 +817,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetRecordClientCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetRecordClientCountDelegate(
             [In] IntPtr @this);
 
@@ -837,7 +839,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetRecordClientList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate RecordClient* GetRecordClientListDelegate(
             [In] IntPtr @this);
 
@@ -859,7 +861,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetRecordClient(TTD::RecordClientId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate RecordClient GetRecordClientDelegate(
             [In] IntPtr @this);
 
@@ -878,7 +880,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetCustomEventCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetCustomEventCountDelegate(
             [In] IntPtr @this);
 
@@ -900,7 +902,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetCustomEventList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate CustomEvent* GetCustomEventListDelegate(
             [In] IntPtr @this);
 
@@ -922,7 +924,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetActivityCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetActivityCountDelegate(
             [In] IntPtr @this);
 
@@ -944,7 +946,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetActivityList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate Activity* GetActivityListDelegate(
             [In] IntPtr @this);
 
@@ -979,7 +981,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetIslandCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetIslandCountDelegate(
             [In] IntPtr @this);
 
@@ -1001,7 +1003,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetIslandList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate Island* GetIslandListDelegate(
             [In] IntPtr @this);
 
@@ -1023,7 +1025,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::NewCursor(_GUID const &)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr NewCursorDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid);
@@ -1045,7 +1047,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::BuildIndex(void (*)(void const *,TTD::Replay::IndexBuildProgressType const *),void const *,TTD::Replay::IndexBuildFlags)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IndexStatus BuildIndexDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] BuildIndexCallback callback,
@@ -1069,7 +1071,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetIndexStatus(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IndexStatus GetIndexStatusDelegate(
             [In] IntPtr @this);
 
@@ -1091,7 +1093,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetIndexFileStats(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr GetIndexFileStatsDelegate(
             [In] IntPtr @this,
             [In] IntPtr buffer);
@@ -1122,7 +1124,7 @@ namespace ClrDebug.TTD
         #region RegisterDebugModeAndLogging
 
         //TTD::Replay::ReplayEngine::RegisterDebugModeAndLogging(TTD::Replay::DebugModeType,TTD::ErrorReporting *)
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void RegisterDebugModeAndLoggingDelegate(
             [In] IntPtr @this,
             [In] DebugModeType debugModeType,
@@ -1143,7 +1145,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetInternals(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr GetInternalsDelegate(
             [In] IntPtr @this);
 
@@ -1151,11 +1153,11 @@ namespace ClrDebug.TTD
         private GetInternalsDelegate getInternals;
 
         #endregion
-        #region
+        #region Destroy
 
         //TTD::Replay::ReplayEngine::Destroy(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void DestroyDelegate(
             [In] IntPtr @this);
 
@@ -1173,7 +1175,7 @@ namespace ClrDebug.TTD
         #region Initialize
 
         //TTD::Replay::ReplayEngine::Initialize(wchar_t const *)
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate bool InitializeDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPWStr)] string filePath);
@@ -1203,6 +1205,15 @@ namespace ClrDebug.TTD
 
             Raw = raw;
             vtbl = *(ReplayEngineVtbl**) raw;
+        }
+
+        public void Dispose()
+        {
+            if (disposed)
+                return;
+
+            Destroy();
+            disposed = true;
         }
     }
 }

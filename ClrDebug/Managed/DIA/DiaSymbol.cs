@@ -3719,7 +3719,7 @@ namespace ClrDebug.DIA
         #region InlSpec
 
         /// <summary>
-        /// This function retrieves a flag indicating whether the function was marked as inline (using one of the inline, attributes).
+        /// This function retrieves a flag indicating whether the function was marked as inline (using one of the inline, __inline, __forceinline attributes).
         /// </summary>
         public bool InlSpec
         {
@@ -3733,7 +3733,7 @@ namespace ClrDebug.DIA
         }
 
         /// <summary>
-        /// This function retrieves a flag indicating whether the function was marked as inline (using one of the inline, attributes).
+        /// This function retrieves a flag indicating whether the function was marked as inline (using one of the inline, __inline, __forceinline attributes).
         /// </summary>
         /// <param name="pRetVal">[out] Returns TRUE if the function was marked as inline; otherwise, returns FALSE.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
@@ -4923,11 +4923,11 @@ namespace ClrDebug.DIA
         /// <summary>
         /// Retrieves the register type.
         /// </summary>
-        public int RegisterType
+        public CV_HLSLREG_e RegisterType
         {
             get
             {
-                int pRetVal;
+                CV_HLSLREG_e pRetVal;
                 TryGetRegisterType(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
@@ -4939,10 +4939,10 @@ namespace ClrDebug.DIA
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a DWORD that holds the register type.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
-        public HRESULT TryGetRegisterType(out int pRetVal)
+        public HRESULT TryGetRegisterType(out CV_HLSLREG_e pRetVal)
         {
             /*HRESULT get_registerType(
-            [Out] out int pRetVal);*/
+            [Out] out CV_HLSLREG_e pRetVal);*/
             return Raw.get_registerType(out pRetVal);
         }
 

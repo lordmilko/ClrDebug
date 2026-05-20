@@ -86,16 +86,17 @@ namespace ClrDebug.PDB
 
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool SkipDelegate(
-            [In] IntPtr @this);
+            [In] IntPtr @this,
+            [In] int celt);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SkipDelegate skip;
 
-        public bool TrySkip()
+        public bool TrySkip(int celt)
         {
             InitDelegate(ref skip, vtbl->Skip);
 
-            return skip(Raw);
+            return skip(Raw, celt);
         }
 
         #endregion
@@ -177,6 +178,17 @@ namespace ClrDebug.PDB
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private AppendDelegate append;
+
+        /// <summary>
+        /// Appends celt elements to the current data stream
+        /// </summary>
+        /// <param name="celt">number of DbgdataType elements to be appended</param>
+        /// <param name="rgelt">array containing the elements to be appended</param>
+        public void Append(int celt, IntPtr rgelt)
+        {
+            if (!TryAppend(celt, rgelt))
+                throw new NotImplementedException();
+        }
 
         public bool TryAppend(int celt, IntPtr rgelt)
         {

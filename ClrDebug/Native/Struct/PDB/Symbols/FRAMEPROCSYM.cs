@@ -46,7 +46,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// section id of exception handler
         /// </summary>
-        public short sectExHdlr;
+        public ushort sectExHdlr;
 
         #region BitField
 

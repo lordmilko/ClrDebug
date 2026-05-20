@@ -91,20 +91,20 @@ namespace SymStore
                 var machine = _peFile.FileHeader.Machine;
                 switch (machine)
                 {
-                    case IMAGE_FILE_MACHINE.AMD64:
+                    case IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_AMD64:
                         targetArchitecture = "amd64";
                         break;
 
-                    case IMAGE_FILE_MACHINE.I386:
+                    case IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_I386:
                         targetArchitecture = "x86";
                         break;
 
-                    case IMAGE_FILE_MACHINE.ARMNT:
+                    case IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_ARMNT:
                         targetArchitecture = "arm";
                         hostArchitectures.Add("x86");
                         break;
 
-                    case IMAGE_FILE_MACHINE.ARM64:
+                    case IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_ARM64:
                         targetArchitecture = "arm64";
                         hostArchitectures.Add("amd64");
                         break;

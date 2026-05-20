@@ -2328,7 +2328,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetBreakpointByIndex2(
             [In] int Index,
-            [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);
+            [Out, MarshalAs(UnmanagedType.Interface), ComAliasName("IDebugBreakpoint2")] out IDebugBreakpoint2 bp);
 
         /// <summary>
         /// The GetBreakpointById2 method returns the breakpoint with the specified breakpoint ID.
@@ -2503,14 +2503,14 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
 
         [PreserveSig]
-        HRESULT GetSpecificEventFilterArgumentWide(
+        HRESULT GetSpecificFilterArgumentWide(
             [In] int Index,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int ArgumentSize);
 
         [PreserveSig]
-        HRESULT SetSpecificEventFilterArgumentWide(
+        HRESULT SetSpecificFilterArgumentWide(
             [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Argument);
 

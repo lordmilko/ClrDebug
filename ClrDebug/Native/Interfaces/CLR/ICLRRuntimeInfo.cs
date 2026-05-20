@@ -182,13 +182,13 @@ namespace ClrDebug
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid rclsid,
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in
+            [MarshalUsing(typeof(GuidMarshaller))]
 #endif
             Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);

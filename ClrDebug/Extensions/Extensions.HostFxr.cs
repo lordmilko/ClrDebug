@@ -414,6 +414,88 @@ namespace ClrDebug
 
     #endregion
     #endregion
+    #region Runtime Delegates
+
+    /// <summary>
+    /// Signature of delegate returned by <see cref="hostfxr_delegate_type.hdt_load_assembly_and_get_function_pointer"/>.
+    /// </summary>
+    /// <param name="assembly_path">Fully qualified path to assembly</param>
+    /// <param name="type_name">Assembly qualified type name</param>
+    /// <param name="method_name">Public static method name compatible with delegateType</param>
+    /// <param name="delegate_type_name">Assembly qualified delegate type name or null or UNMANAGEDCALLERSONLY_METHOD if the method is marked with the UnmanagedCallersOnlyAttribute.</param>
+    /// <param name="reserved">Extensibility parameter (currently unused and must be 0)</param>
+    /// <param name="delegate">Pointer where to store the function pointer result</param>
+    /// <returns></returns>
+    [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Auto)]
+    public delegate int load_assembly_and_get_function_pointer_fn(
+        [In, MarshalAs(UnmanagedType.LPTStr)] string assembly_path,
+        [In, MarshalAs(UnmanagedType.LPTStr)] string type_name,
+        [In, MarshalAs(UnmanagedType.LPTStr)] string method_name,
+        [In, MarshalAs(UnmanagedType.LPTStr)] string delegate_type_name,
+        [In] IntPtr reserved,
+        [Out] out IntPtr @delegate);
+
+    /// <summary>
+    /// Signature of delegate returned by load_assembly_and_get_function_pointer_fn when delegate_type_name == null (default)
+    /// </summary>
+    /// <param name="arg"></param>
+    /// <param name="arg_size_in_bytes"></param>
+    /// <returns></returns>
+    [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Auto)]
+    public delegate int component_entry_point_fn(IntPtr arg, int arg_size_in_bytes);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="type_name">Assembly qualified type name</param>
+    /// <param name="method_name">Public static method name compatible with delegateType</param>
+    /// <param name="delegate_type_name">Assembly qualified delegate type name or null or UNMANAGEDCALLERSONLY_METHOD if the method is marked with the UnmanagedCallersOnlyAttribute.</param>
+    /// <param name="load_context">Extensibility parameter (currently unused and must be 0)</param>
+    /// <param name="reserved">Extensibility parameter (currently unused and must be 0)</param>
+    /// <param name="delegate">Pointer where to store the function pointer result</param>
+    /// <returns></returns>
+    [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Auto)]
+    public delegate int get_function_pointer_fn(
+        [In, MarshalAs(UnmanagedType.LPTStr)] string type_name,
+        [In, MarshalAs(UnmanagedType.LPTStr)] string method_name,
+        [In, MarshalAs(UnmanagedType.LPTStr)] string delegate_type_name,
+        [In] IntPtr load_context,
+        [In] IntPtr reserved,
+        [Out] out IntPtr @delegate);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="assembly_path">Fully qualified path to assembly</param>
+    /// <param name="load_context">Extensibility parameter (currently unused and must be 0)</param>
+    /// <param name="reserved">Extensibility parameter (currently unused and must be 0)</param>
+    /// <returns></returns>
+    [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Auto)]
+    public delegate int load_assembly_fn(
+        [In, MarshalAs(UnmanagedType.LPTStr)] string assembly_path,
+        [In] IntPtr load_context,
+        [In] IntPtr reserved);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="assembly_bytes">Bytes of the assembly to load</param>
+    /// <param name="assembly_bytes_len">Byte length of the assembly to load</param>
+    /// <param name="symbols_bytes">Optional. Bytes of the symbols for the assembly</param>
+    /// <param name="symbols_bytes_len">Optional. Byte length of the symbols for the assembly</param>
+    /// <param name="load_context">Extensibility parameter (currently unused and must be 0)</param>
+    /// <param name="reserved">Extensibility parameter (currently unused and must be 0)</param>
+    /// <returns></returns>
+    [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Auto)]
+    public delegate int load_assembly_bytes_fn(
+        [In] IntPtr assembly_bytes,
+        [In] IntPtr assembly_bytes_len,
+        [In] IntPtr symbols_bytes,
+        [In] IntPtr symbols_bytes_len,
+        [In] IntPtr load_context,
+        [In] IntPtr reserved);
+
+    #endregion
     #endregion
 
     public class NetHost
@@ -890,6 +972,10 @@ namespace ClrDebug
 
             return delegateInternal(hostContextHandle, type, out @delegate);
         }
+
+        public GetRuntimeDelegateDelegates GetRuntimeDelegate() => new GetRuntimeDelegateDelegates(this, null);
+
+        public GetRuntimeDelegateDelegates GetRuntimeDelegate(IntPtr hostContextHandle) => new GetRuntimeDelegateDelegates(this, hostContextHandle);
 
         #endregion
         #region hostfxr_get_runtime_properties
@@ -1566,4 +1652,64 @@ namespace ClrDebug
     public delegate void HostFxrDotnetEnvironmentInfoResultDelegate(HostFxrDotnetEnvironmentInfo info, IntPtr result_context);
     public delegate void HostFxrResolveSdk2ResultDelegate(hostfxr_resolve_sdk2_result_key_t key, string value);
     public delegate void HostFxrErrorWriterDelegate(string message);
+
+    public class GetRuntimeDelegateDelegates
+    {
+        private readonly HostFxr hostFxr;
+        private readonly IntPtr? hostContextHandle;
+
+        internal GetRuntimeDelegateDelegates(HostFxr hostFxr, IntPtr? hostContextHandle)
+        {
+            this.hostFxr = hostFxr;
+            this.hostContextHandle = hostContextHandle;
+        }
+
+        public load_assembly_and_get_function_pointer_fn LoadAssemblyAndGetFunctionPointer
+        {
+            get
+            {
+                var fn = GetRawPointer(hostfxr_delegate_type.hdt_load_assembly_and_get_function_pointer);
+
+                return DelegateProvider.load_assembly_and_get_function_pointer(fn);
+            }
+        }
+
+        public get_function_pointer_fn GetFunctionPointer
+        {
+            get
+            {
+                var fn = GetRawPointer(hostfxr_delegate_type.hdt_get_function_pointer);
+
+                return DelegateProvider.get_function_pointer(fn);
+            }
+        }
+
+        public load_assembly_fn LoadAssembly
+        {
+            get
+            {
+                var fn = GetRawPointer(hostfxr_delegate_type.hdt_load_assembly);
+
+                return DelegateProvider.load_assembly(fn);
+            }
+        }
+
+        public load_assembly_bytes_fn LoadAssemblyBytes
+        {
+            get
+            {
+                var fn = GetRawPointer(hostfxr_delegate_type.hdt_load_assembly_bytes);
+
+                return DelegateProvider.load_assembly_bytes(fn);
+            }
+        }
+
+        private IntPtr GetRawPointer(hostfxr_delegate_type type)
+        {
+            if (hostContextHandle != null)
+                return hostFxr.GetRuntimeDelegate(hostContextHandle.Value, type);
+
+            return hostFxr.GetRuntimeDelegate(type);
+        }
+    }
 }

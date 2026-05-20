@@ -98,19 +98,21 @@ namespace ClrDebug.PDB
 
         //virtual BYTE* NearestSym(USHORT isect, long off, OUT long* pdisp) pure;      //currently only supported for publics
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool NearestSymDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate SYMTYPE* NearestSymDelegate(
+            [In] IntPtr @this,
+            [In] ushort isect,
+            [In] int off,
+            [Out] out int pdisp);
 
-        //private NearestSymDelegate nearestSym;
+        private NearestSymDelegate nearestSym;
 
-        //public bar NearestSym()
-        //{
-        //    InitDelegate(ref nearestSym, vtbl->NearestSym);
+        public SYMTYPE* NearestSym(ushort isect, int off, out int pdisp)
+        {
+            InitDelegate(ref nearestSym, vtbl->NearestSym);
 
-        //    if (!nearestSym(Raw))
-        //        throw new NotImplementedException();
-        //}
+            return nearestSym(Raw, isect, off, out pdisp);
+        }
 
         #endregion
         #region Close
@@ -137,19 +139,72 @@ namespace ClrDebug.PDB
 
         //virtual BOOL getEnumThunk(USHORT isect, long off, OUT EnumThunk** ppenum) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool getEnumThunkDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool getEnumThunkDelegate(
+            [In] IntPtr @this,
+            [In] ushort isect,
+            [In] int off,
+            [Out] out IntPtr ppenum);
 
-        //private getEnumThunkDelegate getEnumThunk;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private getEnumThunkDelegate getEnumThunk;
 
-        //public bar getEnumThunk()
-        //{
-        //    InitDelegate(ref getEnumThunk, vtbl->getEnumThunk);
+        public EnumThunk GetEnumThunk(ushort isect, int off)
+        {
+            if (!TryGetEnumThunk(isect, off, out var ppEnum))
+                throw PDB1.GetUnknownError(MethodBase.GetCurrentMethod());
 
-        //    if (!getEnumThunk(Raw))
-        //        throw new NotImplementedException();
-        //}
+            return ppEnum;
+        }
+
+        /* How does getEnumThunkWork?
+         *
+         * Suppose we have a PE File with the following
+         *
+         * - Section 2 is the .text section whose VirtualAddress is 0x11000
+         * - At RVA 0x143C0 (.text + 0x33C0) there is a function Foo
+         * - At RVA 0x11479 (.text + 0x479) there is a thunk that simply contains a jump to foo.
+         *   This is much more likely in a debug build, where every function will have a thunk in
+         *   order to support EnC
+         *
+         * PSGSIHDR contains a thunk map that describes the RVAs of all of these thunks.
+         * If you want to know that a given function has a corresponding thunk, you can use this method.
+         * As PDB1 does not support querying by RVA, you would first split your RVA into its section and offset
+         * (so in the case of RVA 0x143C0, we pass in isect = 2, off = 0x33C0). PSGSI1::getEnumThunk will then
+         * scan bufSectMap for a SO whose isect matches the isect that you pass to this method. If there is a match,
+         * the offset you specified is incremented by SO.off to get an RVA again, to be matched against in bufThunkMap.
+         * bufThunkMap is not sorted. PSEnumThunk::next simply iterates through the entire list of thunk offsets
+         * trying to find any entries whose RVA is a match.
+         *
+         * Based on the position of the matching RVA in bufThunkMap, the location of the thunk itself can be computed.
+         * PSGSIHDR.isectThunkTable and offThunkTable describe the location in the PE File where the thunk table is listed.
+         * In this example, if isectThunkTable is 2, and offThunkTable is 5, this is the .text section described above, so
+         * the thunk table starts at 0x11005. The size of each thunk depends on the CPU architecture in use; in an AMD64 process
+         * each thunk will simply consist of a jmp, meaning that the size of each thunk is 5 bytes. By using PSGSIHDR.nThunks,
+         * we can also compute the end of the thunk table: it will simply be 0x11005 + (nThunks * 5). The order of the entries
+         * in bufThunkMap matches the physical order that exists in the PE File. As such, we can see that the offset of a give
+         * thunk can be computed by multiplying its position in bufThunkMap by 5. The match for 0x143C0 was found at index 229,
+         * giving 5+229 = 0x479.
+         *
+         * Thus, if a match is found, PSEnumThunk::get returns the following information
+         *
+         * - isect: PSGSIHDR.isectThunkTable
+         * - off: the index of the match in bufThunkMap * cbSizeOfThunk
+         * - pcb: PSGSIHDR.cbSizeOfThunk
+         *
+         */
+
+        //If isect is not in PSGSIHDR.nSects, this method will return false
+        public bool TryGetEnumThunk(ushort isect, int off, out EnumThunk ppEnum)
+        {
+            InitDelegate(ref getEnumThunk, vtbl->getEnumThunk);
+
+            var result = getEnumThunk(Raw, isect, off, out var ppEnumRaw);
+
+            ppEnum = ppEnumRaw != IntPtr.Zero ? new EnumThunk(ppEnumRaw) : null;
+
+            return result;
+        }
 
         #endregion
         #region OffForSym

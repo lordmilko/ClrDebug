@@ -13,7 +13,7 @@ namespace ClrDebug.Tests
         public bool Called { get; set; }
 
         public HRESULT ProvideWindowsLibrary(string pwszFileName, string pwszRuntimeModule, LIBRARY_PROVIDER_INDEX_TYPE indexType,
-            int dwTimestamp, int dwSizeOfImage, out IntPtr ppResolvedModulePath)
+            uint dwTimestamp, int dwSizeOfImage, out IntPtr ppResolvedModulePath)
         {
             Called = true;
             ppResolvedModulePath = default;

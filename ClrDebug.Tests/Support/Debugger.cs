@@ -57,8 +57,8 @@ namespace ClrDebug.Tests.DbgEng
             //var proxy = new DbgEngProxy();
 
             IntPtr debugClientPtr;
-            debugCreate(DebugClient.IID_IDebugClient, out debugClientPtr).ThrowOnNotOK();
-            var debugClient = new DebugClient(debugClientPtr);
+            debugCreate(typeof(IDebugClient).GUID, out debugClientPtr).ThrowOnNotOK();
+            var debugClient = new DebugClient(Extensions.GetObjectForIUnknown<IDebugClient>(debugClientPtr));
 
             return debugClient;
         }

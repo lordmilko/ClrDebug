@@ -6,6 +6,7 @@
  ********************************************************************************/
 using System;
 using System.Runtime.InteropServices;
+using ClrDebug.PDB;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug
@@ -30,7 +31,7 @@ namespace ClrDebug
         }
 
 <#
-var types = new[]
+var exportTypes = new[]
 {
     "CLRCreateInstanceDelegate",
     "CloseCLREnumerationDelegate",
@@ -81,14 +82,27 @@ var types = new[]
     "coreclr_set_error_writer_fn",
     "coreclr_shutdown_fn",
     "coreclr_shutdown_2_fn",
-    "GetCLRRuntimeHostDelegate"
+    "GetCLRRuntimeHostDelegate",
+
+    "MSFOpenWDelegate",
+    "PDBOpen2WDelegate",
+    "NameMapOpenDelegate"
 };
 
-for(var i = 0; i < types.Length; i++)
+var functionPointerTypes = new[]
 {
-    var name = types[i].Replace("Delegate", string.Empty).Replace("_fn", string.Empty);
+    "load_assembly_and_get_function_pointer_fn",
+    "component_entry_point_fn",
+    "get_function_pointer_fn",
+    "load_assembly_fn",
+    "load_assembly_bytes_fn"
+};
+
+for(var i = 0; i < exportTypes.Length; i++)
+{
+    var name = exportTypes[i].Replace("Delegate", string.Empty).Replace("_fn", string.Empty);
 #>
-        public <#= types[i] #> <#= name #>
+        public <#= exportTypes[i] #> <#= name #>
         {
             get
             {
@@ -97,12 +111,31 @@ for(var i = 0; i < types.Length; i++)
 #if GENERATED_MARSHALLING
                 return new DelegateHolder(export).<#= name #>;
 #else
-                return Marshal.GetDelegateForFunctionPointer<<#= types[i] #>>(export);
+                return Marshal.GetDelegateForFunctionPointer<<#= exportTypes[i] #>>(export);
 #endif
             }
         }
 <#
-    if(i < types.Length - 1)
+    if(i < exportTypes.Length - 1)
+        WriteLine("");
+#>
+<#
+}
+
+for(var i = 0; i < functionPointerTypes.Length; i++)
+{
+    var name = functionPointerTypes[i].Replace("Delegate", string.Empty).Replace("_fn", string.Empty);
+#>
+        public static <#= functionPointerTypes[i] #> <#= name #>(IntPtr fn)
+        {
+#if GENERATED_MARSHALLING
+            return new DelegateHolder(fn).<#= name #>;
+#else
+            return Marshal.GetDelegateForFunctionPointer<<#= functionPointerTypes[i] #>>(fn);
+#endif
+        }
+<#
+    if(i < functionPointerTypes.Length - 1)
         WriteLine("");
 #>
 <#

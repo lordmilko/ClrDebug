@@ -67,11 +67,12 @@ namespace ClrDebug.PDB
             [In] TYPTYPE* pb,
             [Out] out CV_typ16_t pti);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryTi16ForCVRecordDelegate queryTi16ForCVRecord;
 
         public CV_typ16_t QueryTi16ForCVRecord(TYPTYPE* pb)
         {
-            if (!queryTi16ForCVRecord(Raw, pb, out var pti))
+            if (!TryQueryTi16ForCVRecord(pb, out var pti))
                 throw PDB1.GetUnknownError(MethodBase.GetCurrentMethod());
 
             return pti;
@@ -188,6 +189,7 @@ namespace ClrDebug.PDB
         delegate bool CloseDelegate(
             [In] IntPtr @this);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private CloseDelegate close;
 
         public void Close()
@@ -203,19 +205,20 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Commit() pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool CommitDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool CommitDelegate(
+            [In] IntPtr @this);
 
-        //private CommitDelegate commit;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private CommitDelegate commit;
 
-        //public bar Commit()
-        //{
-        //    InitDelegate(ref commit, vtbl->Commit);
+        public void Commit()
+        {
+            InitDelegate(ref commit, vtbl->Commit);
 
-        //    if (!commit(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!commit(Raw))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region QueryTi16ForUDT
@@ -286,6 +289,7 @@ namespace ClrDebug.PDB
             [In] bool fCase,
             [Out] CV_typ_t* pti);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryTiForUDTDelegate queryTiForUDT;
 
         public bool TryQueryTiForUDT(string sz, bool fCase, CV_typ_t* pti)
@@ -306,6 +310,7 @@ namespace ClrDebug.PDB
             [In] TYPTYPE* pb,
             [Out] out CV_typ_t pti);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryTiForCVRecordDelegate queryTiForCVRecord;
 
         public CV_typ_t QueryTiForCVRecord(TYPTYPE* pb)
@@ -351,6 +356,7 @@ namespace ClrDebug.PDB
             [In] CV_typ_t ti,
             [Out] out TYPTYPE* ppb);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryPbCVRecordForTiDelegate queryPbCVRecordForTi;
 
         public TYPTYPE* QueryPbCVRecordForTi(CV_typ_t ti)
@@ -370,6 +376,7 @@ namespace ClrDebug.PDB
         delegate CV_typ_t QueryTiMinDelegate(
             [In] IntPtr @this);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryTiMinDelegate queryTiMin;
 
         public CV_typ_t TiMin
@@ -389,6 +396,7 @@ namespace ClrDebug.PDB
         delegate CV_typ_t QueryTiMacDelegate(
             [In] IntPtr @this);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryTiMacDelegate queryTiMac;
 
         public CV_typ_t TiMac

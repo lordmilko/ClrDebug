@@ -11,44 +11,46 @@ namespace ClrDebug.TTD
     
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
     public unsafe delegate bool MemoryWatchpointCallbackRaw(long context, MemoryWatchpointResult* b, IntPtr pThreadView);
-    public unsafe delegate bool MemoryWatchpointCallback(long context, MemoryWatchpointResult* b, ThreadView pThreadView);
+    public unsafe delegate bool MemoryWatchpointCallback(long context, MemoryWatchpointResult* b, ThreadView threadView);
 
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
-    public unsafe delegate bool PositionWatchpointCallbackRaw(long a, Position* b, IntPtr pThreadView);
-    public unsafe delegate bool PositionWatchpointCallback(long a, Position* b, ThreadView pThreadView);
+    public unsafe delegate bool PositionWatchpointCallbackRaw(long context, Position* b, IntPtr pThreadView);
+    public unsafe delegate bool PositionWatchpointCallback(long context, Position* b, ThreadView threadView);
 
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
-    public delegate bool GapEventCallbackRaw(long a, GapKind b, GapEventType c, IntPtr pThreadView);
-    public delegate bool GapEventCallback(long a, GapKind b, GapEventType c, ThreadView pThreadView);
+    public delegate bool GapEventCallbackRaw(long context, GapKind b, GapEventType c, IntPtr pThreadView);
+    public delegate bool GapEventCallback(long context, GapKind b, GapEventType c, ThreadView threadView);
 
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
-    public delegate void ThreadContinuityBreakCallback(long a);
+    public delegate void ThreadContinuityBreakCallback(long context);
 
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
-    public unsafe delegate void ReplayProgressCallback(long a, Position* b);
+    public unsafe delegate void ReplayProgressCallback(long context, Position* keyFrame);
 
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
-    public delegate void FallbackCallbackRaw(long a, bool b, GuestAddress c, long d, IntPtr pThreadView);
-    public delegate void FallbackCallback(long a, bool b, GuestAddress c, long d, ThreadView pThreadView);
+    public delegate void FallbackCallbackRaw(long context, bool b, GuestAddress c, long d, IntPtr pThreadView);
+    public delegate void FallbackCallback(long context, bool b, GuestAddress c, long d, ThreadView threadView);
 
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
-    public delegate void CallReturnCallbackRaw(long context, GuestAddress b, IntPtr c, IntPtr pThreadView);
-    public delegate void CallReturnCallback(long context, GuestAddress b, IntPtr c, ThreadView pThreadView);
+    public delegate void CallReturnCallbackRaw(long context, GuestAddress address, GuestAddress returnAddress, IntPtr pThreadView);
+    public delegate void CallReturnCallback(long context, GuestAddress address, GuestAddress returnAddress, ThreadView threadView);
 
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
-    public delegate void IndirectJumpCallbackRaw(long context, GuestAddress b, IntPtr pThreadView);
-    public delegate void IndirectJumpCallback(long context, GuestAddress b, ThreadView pThreadView);
+    public delegate void IndirectJumpCallbackRaw(long context, GuestAddress address, IntPtr pThreadView);
+    public delegate void IndirectJumpCallback(long context, GuestAddress address, ThreadView pThreadView);
 
     [UnmanagedFunctionPointer(CallingConvention.Winapi)]
     public delegate void RegisterChangedCallbackRaw(long context, byte b, IntPtr c, IntPtr d, long e, IntPtr pThreadView);
-    public delegate void RegisterChangedCallback(long context, byte b, IntPtr c, IntPtr d, long e, ThreadView pThreadView);
+    public delegate void RegisterChangedCallback(long context, byte b, IntPtr c, IntPtr d, long e, ThreadView threadView);
 
-    public unsafe class Cursor
+    public unsafe class Cursor : IDisposable
     {
         public IntPtr Raw { get; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private CursorVtbl* vtbl;
+
+        private bool disposed;
 
         private MemoryWatchpointCallbackRaw lastSetMemoryWatchpointCallback;
         private PositionWatchpointCallbackRaw lastSetPositionWatchpointCallback;
@@ -64,7 +66,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::QueryMemoryRange(Nirvana::GuestAddress,TTD::Replay::QueryMemoryPolicy)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate MemoryRange* QueryMemoryRangeDelegate(
             [In] IntPtr @this,
             [In] IntPtr _unknown1,
@@ -86,7 +88,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::QueryMemoryBuffer(Nirvana::GuestAddress,TTD::TBufferView<0>,TTD::Replay::QueryMemoryPolicy)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate MemoryBuffer* QueryMemoryBufferDelegate(
             [In] IntPtr @this,
             [In] IntPtr resultBuffer,
@@ -125,7 +127,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::QueryMemoryBufferWithRanges(Nirvana::GuestAddress,TTD::TBufferView<0>,unsigned __int64,TTD::Replay::MemoryRange *,TTD::Replay::QueryMemoryPolicy)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate MemoryBufferWithRanges QueryMemoryBufferWithRangesDelegate(
             [In] IntPtr @this);
 
@@ -145,14 +147,14 @@ namespace ClrDebug.TTD
         //TTD::Replay::Cursor::GetDefaultMemoryPolicy(void)
         //TTD::Replay::Cursor::SetDefaultMemoryPolicy(TTD::Replay::QueryMemoryPolicy)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate QueryMemoryPolicy GetDefaultMemoryPolicyDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetDefaultMemoryPolicyDelegate getDefaultMemoryPolicy;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetDefaultMemoryPolicyDelegate(
             [In] IntPtr @this,
             [In] QueryMemoryPolicy queryMemoryPolicy);
@@ -181,7 +183,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::UnsafeGetReplayEngine(_GUID const &)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr UnsafeGetReplayEngineDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid);
@@ -201,7 +203,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::UnsafeAsInterface(_GUID const &)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr UnsafeAsInterfaceDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid);
@@ -221,7 +223,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetThreadInfo(TTD::ThreadId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ThreadInfo* GetThreadInfoDelegate(
             [In] IntPtr @this,
             [In] ThreadId threadId);
@@ -241,7 +243,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetTebAddress(TTD::ThreadId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate GuestAddress GetTebAddressDelegate(
             [In] IntPtr @this,
             [In] ThreadId threadId);
@@ -261,7 +263,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetPosition(TTD::ThreadId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate Position* GetPositionDelegate(
             [In] IntPtr @this,
             [In] ThreadId threadId);
@@ -281,7 +283,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetPreviousPosition(TTD::ThreadId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate Position* GetPreviousPositionDelegate(
             [In] IntPtr @this,
             [In] ThreadId threadId);
@@ -301,7 +303,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetProgramCounter(TTD::ThreadId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate GuestAddress GetProgramCounterDelegate(
             [In] IntPtr @this,
             [In] ThreadId threadId);
@@ -321,7 +323,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetStackPointer(TTD::ThreadId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate GuestAddress GetStackPointerDelegate(
             [In] IntPtr @this,
             [In] ThreadId threadId);
@@ -341,7 +343,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetFramePointer(TTD::ThreadId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate GuestAddress GetFramePointerDelegate(
             [In] IntPtr @this,
             [In] ThreadId threadId);
@@ -361,7 +363,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetBasicReturnValue(TTD::ThreadId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetBasicReturnValueDelegate(
             [In] IntPtr @this,
             [In] ThreadId threadId);
@@ -381,7 +383,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetCrossPlatformContext(TTD::ThreadId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr GetCrossPlatformContextDelegate(
             [In] IntPtr @this,
             [In] IntPtr buffer,
@@ -405,7 +407,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetAvxExtendedContext(TTD::ThreadId)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr GetAvxExtendedContextDelegate(
             [In] IntPtr @this,
             [In] IntPtr buffer,
@@ -426,7 +428,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetModuleCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetModuleCountDelegate(
             [In] IntPtr @this);
 
@@ -448,7 +450,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetModuleList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ModuleInstance* GetModuleListDelegate(
             [In] IntPtr @this);
 
@@ -483,7 +485,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetThreadCount(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetThreadCountDelegate(
             [In] IntPtr @this);
 
@@ -505,7 +507,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetThreadList(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ActiveThreadInfo* GetThreadListDelegate(
             [In] IntPtr @this);
 
@@ -541,14 +543,14 @@ namespace ClrDebug.TTD
         //TTD::Replay::Cursor::GetEventMask(void)
         //TTD::Replay::Cursor::SetEventMask(TTD::Replay::EventMask)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate EventMask GetEventMaskDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetEventMaskDelegate getEventMask;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetEventMaskDelegate(
             [In] IntPtr @this,
             [In] EventMask eventMask);
@@ -578,14 +580,14 @@ namespace ClrDebug.TTD
         //TTD::Replay::Cursor::GetGapKindMask(void)
         //TTD::Replay::Cursor::SetGapKindMask(TTD::Replay::GapKindMask)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate GapKindMask GetGapKindMaskDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetGapKindMaskDelegate getGapKindMask;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetGapKindMaskDelegate(
             [In] IntPtr @this,
             [In] GapKindMask gapKindMask);
@@ -615,14 +617,14 @@ namespace ClrDebug.TTD
         //TTD::Replay::Cursor::GetGapEventMask(void)
         //TTD::Replay::Cursor::SetGapEventMask(TTD::Replay::GapEventMask)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate GapEventMask GetGapEventMaskDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetGapEventMaskDelegate getGapEventMask;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetGapEventMaskDelegate(
             [In] IntPtr @this,
             [In] GapEventMask gapEventMask);
@@ -652,14 +654,14 @@ namespace ClrDebug.TTD
         //TTD::Replay::Cursor::GetExceptionMask(void)
         //TTD::Replay::Cursor::SetExceptionMask(TTD::Replay::ExceptionMask)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ExceptionMask GetExceptionMaskDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetExceptionMaskDelegate getExceptionMask;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetExceptionMaskDelegate(
             [In] IntPtr @this,
             [In] ExceptionMask exceptionMask);
@@ -689,14 +691,14 @@ namespace ClrDebug.TTD
         //TTD::Replay::Cursor::GetReplayFlags(void)
         //TTD::Replay::Cursor::SetReplayFlags(TTD::Replay::ReplayFlags)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ReplayFlags GetReplayFlagsDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetReplayFlagsDelegate getReplayFlags;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetReplayFlagsDelegate(
             [In] IntPtr @this,
             [In] ReplayFlags replayFlags);
@@ -725,7 +727,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::AddMemoryWatchpoint(TTD::Replay::MemoryWatchpointData const &)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate bool AddMemoryWatchpointDelegate(
             [In] IntPtr @this,
             [In] IntPtr memoryWatchpointData);
@@ -749,7 +751,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::RemoveMemoryWatchpoint(TTD::Replay::MemoryWatchpointData const &)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate bool RemoveMemoryWatchpointDelegate(
             [In] IntPtr @this,
             [In] IntPtr memoryWatchpointData);
@@ -773,7 +775,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::AddPositionWatchpoint(TTD::Replay::PositionWatchpointData const &)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate bool AddPositionWatchpointDelegate(
             [In] IntPtr @this,
             [In] IntPtr positionWatchpointData); //PositionWatchpointData. Don't know what this is yet
@@ -797,7 +799,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::RemovePositionWatchpoint(TTD::Replay::PositionWatchpointData const &)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate bool RemovePositionWatchpointDelegate(
             [In] IntPtr @this,
             [In] IntPtr positionWatchpointData); //PositionWatchpointData. Don't know what this is yet
@@ -821,7 +823,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::Clear(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void ClearDelegate(
             [In] IntPtr @this);
 
@@ -840,10 +842,10 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::SetPosition(TTD::Replay::Position const &)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetPositionDelegate(
             [In] IntPtr @this,
-            [In] Position position);
+            [In] Position* position);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetPositionDelegate setPosition;
@@ -852,7 +854,7 @@ namespace ClrDebug.TTD
         {
             InitDelegate(ref setPosition, vtbl->SetPosition);
 
-            setPosition(Raw, position);
+            setPosition(Raw, &position);
         }
 
         #endregion
@@ -860,11 +862,11 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::SetPositionOnThread(TTD::Replay::UniqueThreadId,TTD::Replay::Position const &)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetPositionOnThreadDelegate(
             [In] IntPtr @this,
             [In] UniqueThreadId threadId,
-            [In] Position position);
+            [In] Position* position);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetPositionOnThreadDelegate setPositionOnThread;
@@ -873,7 +875,7 @@ namespace ClrDebug.TTD
         {
             InitDelegate(ref setPositionOnThread, vtbl->SetPositionOnThread);
 
-            setPositionOnThread(Raw, threadId, position);
+            setPositionOnThread(Raw, threadId, &position);
         }
 
         #endregion
@@ -881,7 +883,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::SetMemoryWatchpointCallback(bool (*const)(unsigned __int64,TTD::Replay::ICursorView::MemoryWatchpointResult const &,TTD::Replay::IThreadView const *),unsigned __int64)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetMemoryWatchpointCallbackDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] MemoryWatchpointCallbackRaw callback,
@@ -916,16 +918,16 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::SetPositionWatchpointCallback(bool (*const)(unsigned __int64,TTD::Replay::Position const &,TTD::Replay::IThreadView const *),unsigned __int64)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetPositionWatchpointCallbackDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] PositionWatchpointCallbackRaw callback,
-            [In] long _unknown);
+            [In] long context);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetPositionWatchpointCallbackDelegate setPositionWatchpointCallback;
 
-        public void SetPositionWatchpointCallback(PositionWatchpointCallback callback, long _unknown) //addr_ret?
+        public void SetPositionWatchpointCallback(PositionWatchpointCallback callback, long context) //addr_ret?
         {
             InitDelegate(ref setPositionWatchpointCallback, vtbl->SetPositionWatchpointCallback);
 
@@ -943,7 +945,7 @@ namespace ClrDebug.TTD
 
             lastSetPositionWatchpointCallback = raw;
 
-            setPositionWatchpointCallback(Raw, raw, _unknown);
+            setPositionWatchpointCallback(Raw, raw, context);
         }
 
         #endregion
@@ -951,16 +953,16 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::SetGapEventCallback(bool (*const)(unsigned __int64,TTD::Replay::GapKind,TTD::Replay::GapEventType,TTD::Replay::IThreadView const *),unsigned __int64)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetGapEventCallbackDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] GapEventCallbackRaw callback,
-            [In] long _unknown);
+            [In] long context);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetGapEventCallbackDelegate setGapEventCallback;
 
-        public void SetGapEventCallback(GapEventCallback callback, long _unknown)
+        public void SetGapEventCallback(GapEventCallback callback, long context)
         {
             InitDelegate(ref setGapEventCallback, vtbl->SetGapEventCallback);
 
@@ -978,7 +980,7 @@ namespace ClrDebug.TTD
 
             lastSetGapEventCallback = raw;
 
-            setGapEventCallback(Raw, raw, _unknown);
+            setGapEventCallback(Raw, raw, context);
         }
 
         #endregion
@@ -986,22 +988,22 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::SetThreadContinuityBreakCallback(void (*const)(unsigned __int64),unsigned __int64)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetThreadContinuityBreakCallbackDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] ThreadContinuityBreakCallback callback,
-            [In] long _unknown);
+            [In] long context);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetThreadContinuityBreakCallbackDelegate setThreadContinuityBreakCallback;
 
-        public void SetThreadContinuityBreakCallback(ThreadContinuityBreakCallback callback, long _unknown)
+        public void SetThreadContinuityBreakCallback(ThreadContinuityBreakCallback callback, long context)
         {
             InitDelegate(ref setThreadContinuityBreakCallback, vtbl->SetThreadContinuityBreakCallback);
 
             lastSetThreadContinuityBreakCallback = callback;
 
-            setThreadContinuityBreakCallback(Raw, callback, _unknown);
+            setThreadContinuityBreakCallback(Raw, callback, context);
         }
 
         #endregion
@@ -1009,22 +1011,27 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::SetReplayProgressCallback(void (*const)(unsigned __int64,TTD::Replay::Position const &),unsigned __int64)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetReplayProgressCallbackDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] ReplayProgressCallback callback,
-            [In] long _unknown);
+            [In] long context);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetReplayProgressCallbackDelegate setReplayProgressCallback;
 
-        public void SetReplayProgressCallback(ReplayProgressCallback callback, long _unknown)
+        //The positions passed to the callback appear to be keyframes. By looking up the index of the keyframe in the keyframe list you can see how far along
+        //the trace has been processed. Not all keyframes may necessarily be reported. You get more events using ReplayFlags 5 and EventMask 1 (values I've seen DbgEng
+        //set internally at times so I know they're valid). You get less events just specifying EventMask 1, and even less specifying neither. ReplayFlags 5 by itself
+        //is sufficient to get the maximum number of events, indicating EventMask is not needed. ReplayFlags 4 works, 3 doesn't. The flip side however is that ReplayFlags 5
+        //is way slower than using no flags at all, and you still wind up with the same number of results either way
+        public void SetReplayProgressCallback(ReplayProgressCallback callback, long context)
         {
             InitDelegate(ref setReplayProgressCallback, vtbl->SetReplayProgressCallback);
 
             lastSetReplayProgressCallback = callback;
 
-            setReplayProgressCallback(Raw, callback, _unknown);
+            setReplayProgressCallback(Raw, callback, context);
         }
 
         #endregion
@@ -1032,16 +1039,16 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::SetFallbackCallback(void (*const)(unsigned __int64,bool,Nirvana::GuestAddress,unsigned __int64,TTD::Replay::IThreadView const *),unsigned __int64)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetFallbackCallbackDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] FallbackCallbackRaw callback,
-            [In] long _unknown);
+            [In] long context);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetFallbackCallbackDelegate setFallbackCallback;
 
-        public void SetFallbackCallback(FallbackCallback callback, long _unknown)
+        public void SetFallbackCallback(FallbackCallback callback, long context)
         {
             InitDelegate(ref setFallbackCallback, vtbl->SetFallbackCallback);
 
@@ -1059,7 +1066,7 @@ namespace ClrDebug.TTD
 
             lastSetFallbackCallback = raw;
 
-            setFallbackCallback(Raw, raw, _unknown);
+            setFallbackCallback(Raw, raw, context);
         }
 
         #endregion
@@ -1067,7 +1074,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::SetCallReturnCallback(void (*const)(unsigned __int64,Nirvana::GuestAddress,Nirvana::GuestAddress,TTD::Replay::IThreadView const *),unsigned __int64)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetCallReturnCallbackDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] CallReturnCallbackRaw callback,
@@ -1102,7 +1109,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::SetIndirectJumpCallback(void (*const)(unsigned __int64,Nirvana::GuestAddress,TTD::Replay::IThreadView const *),unsigned __int64)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetIndirectJumpCallbackDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] IndirectJumpCallbackRaw callback,
@@ -1137,7 +1144,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::SetRegisterChangedCallback(void (*const)(unsigned __int64,uchar,void const *,void const *,unsigned __int64,TTD::Replay::IThreadView const *),unsigned __int64)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void SetRegisterChangedCallbackDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] RegisterChangedCallbackRaw callback,
@@ -1172,7 +1179,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::ReplayForward(TTD::Replay::Position,TTD::Replay::StepCount)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr ReplayForwardDelegate(
             [In] IntPtr @this,
             [In] IntPtr replayResult,
@@ -1201,7 +1208,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::ReplayBackward(TTD::Replay::Position,TTD::Replay::StepCount)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr ReplayBackwardDelegate(
             [In] IntPtr @this,
             [In] IntPtr replayResult,
@@ -1227,7 +1234,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::InterruptReplay(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void InterruptReplayDelegate(
             [In] IntPtr @this);
 
@@ -1246,7 +1253,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ReplayEngine::GetInternals(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr GetInternalsDelegate(
             [In] IntPtr @this);
 
@@ -1258,7 +1265,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::GetInternalData(TTD::Replay::ICursorView::InternalDataId,void *,unsigned __int64)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetInternalDataDelegate(
             [In] IntPtr @this);
 
@@ -1277,15 +1284,13 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::Cursor::Destroy(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void DestroyDelegate(
             [In] IntPtr @this);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private DestroyDelegate destroy;
 
-        //It's not clear to me whether or not you should call Destroy() as soon as you are done with your cursor. TTD's DbgModel never seems to call Destroy and calls NewCursor all over the place. I also don't know
-        //whether the ReplayEngine will clean up all its cursors when it's free'd. As such, for now neither ReplayEngine or Cursor are IDisposable
         public void Destroy()
         {
             InitDelegate(ref destroy, vtbl->Destroy);
@@ -1302,6 +1307,17 @@ namespace ClrDebug.TTD
 
             Raw = raw;
             vtbl = *(CursorVtbl**) raw;
+        }
+
+        public void Dispose()
+        {
+            //TTD's DbgModel never seems to call Destroy and calls NewCursor all over the place, but during shutdown DbgEng does call Destroy on its Cursor, and also ttdext destroys
+            //the cursor that it creates. As such, I think that it makes for Cursor to be disposable
+            if (disposed)
+                return;
+
+            Destroy();
+            disposed = true;
         }
     }
 }

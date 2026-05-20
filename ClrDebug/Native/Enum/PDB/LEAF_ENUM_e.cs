@@ -1,5 +1,52 @@
 ﻿namespace ClrDebug.PDB
 {
+    /* LEAF_ENUM_e has a series of items described as "leaf indices starting records but referenced only from type records"
+     * I had initially taken this grammatically incorrect statement to mean that the records listed under that section cannot
+     * be top level types, and so cannot have their own length. However, this does not appear to be the case. LF_ARGLIST is in
+     * this list, and LF_ARGLIST can be a top level type.
+     *
+     * Ignoring the comments in LEAF_ENUM_e, the following types have comments above them that say they are used as subfields
+     *
+     * subfield record for base class field
+     * lfBClass_16t
+     * lfBClass
+     *
+     * subfield record for direct and indirect virtual base class field
+     * lfVBClass_16t
+     * lfVBClass
+     *
+     * subfield record for friend class
+     * lfFriendCls_16t
+     *
+     * subfield record for friend function
+     * lfFriendFcn_16t
+     * fFriendFcn
+     *
+     * subfield record for non-static data members
+     * lfMember_16t
+     * lfMember
+     *
+     * subfield record for virtual function table pointer
+     * lfVFuncTab_16t
+     *
+     * subfield record for virtual function table pointer with offset
+     * lfVFuncOff_16t
+     * lfVFuncOff
+     *
+     * subfield record for overloaded method list
+     * lfMethod_16t
+     * lfMethod
+     *
+     * subfield record for nonoverloaded method
+     * lfOneMethod_16t
+     * lfOneMethod
+     *
+     * subfield record for enumerate
+     * lfEnumerate
+     *
+     * However, even this is not the true list. The true list is what we've battle tested in PESpy
+     */
+
     public enum LEAF_ENUM_e : ushort
     {
         // leaf indices starting records but referenced from symbol records

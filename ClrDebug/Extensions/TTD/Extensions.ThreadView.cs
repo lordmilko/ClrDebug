@@ -17,7 +17,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::GetThreadInfo(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate ThreadInfo* GetThreadInfoDelegate(
             [In] IntPtr @this);
 
@@ -39,7 +39,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::GetTebAddress(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate GuestAddress GetTebAddressDelegate(
             [In] IntPtr @this);
 
@@ -61,7 +61,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::GetPosition(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate Position* GetPositionDelegate(
             [In] IntPtr @this);
 
@@ -83,7 +83,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::GetPreviousPosition(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr GetPreviousPositionDelegate( //Can't use pointers here as this will mess up our ability to inspect detoured values when the value is null
             [In] IntPtr @this,
             [In] IntPtr position);
@@ -114,7 +114,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::GetProgramCounter(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate GuestAddress GetProgramCounterDelegate(
             [In] IntPtr @this);
 
@@ -136,7 +136,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::GetStackPointer(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate GuestAddress GetStackPointerDelegate(
             [In] IntPtr @this);
 
@@ -158,7 +158,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::GetFramePointer(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate GuestAddress GetFramePointerDelegate(
             [In] IntPtr @this);
 
@@ -180,7 +180,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::GetBasicReturnValue(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate long GetBasicReturnValueDelegate(
             [In] IntPtr @this);
 
@@ -202,7 +202,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::GetCrossPlatformContext(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr GetCrossPlatformContextDelegate(
             [In] IntPtr @this,
             [In] IntPtr buffer);
@@ -222,7 +222,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::GetAvxExtendedContext(void)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate IntPtr GetAvxExtendedContextDelegate(
             [In] IntPtr @this,
             [In] IntPtr buffer);
@@ -242,7 +242,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::QueryMemoryRange(Nirvana::GuestAddress)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate MemoryRange* QueryMemoryRangeDelegate(
             [In] IntPtr @this,
             [In] GuestAddress address);
@@ -262,7 +262,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::QueryMemoryBuffer(Nirvana::GuestAddress,TTD::TBufferView<0>)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate MemoryBuffer* QueryMemoryBufferDelegate(
             [In] IntPtr @this,
             [In] IntPtr resultBuffer,
@@ -299,7 +299,7 @@ namespace ClrDebug.TTD
 
         //TTD::Replay::ExecutionState::QueryMemoryBufferWithRanges(Nirvana::GuestAddress,TTD::TBufferView<0>,unsigned __int64,TTD::Replay::MemoryRange *)
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate MemoryBufferWithRanges* QueryMemoryBufferWithRangesDelegate(
             [In] IntPtr @this,
             [In] GuestAddress address);

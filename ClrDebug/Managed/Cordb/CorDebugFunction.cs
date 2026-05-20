@@ -519,5 +519,56 @@ namespace ClrDebug
 
         #endregion
         #endregion
+        #region ICorDebugBreakpoint5
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ICorDebugFunction5 Raw5 => (ICorDebugFunction5) Raw;
+
+        #region DisableOptimizations
+
+        /// <summary>
+        /// Triggers a new JIT so the next time the function is called, it will be unoptimized. Will trigger a JIT even for R2R code.
+        /// </summary>
+        public void DisableOptimizations()
+        {
+            TryDisableOptimizations().ThrowOnNotOK();
+        }
+
+        /// <summary>
+        /// Triggers a new JIT so the next time the function is called, it will be unoptimized. Will trigger a JIT even for R2R code.
+        /// </summary>
+        public HRESULT TryDisableOptimizations()
+        {
+            /*[PreserveSig]
+            HRESULT DisableOptimizations();*/
+            return Raw5.DisableOptimizations();
+        }
+
+        #endregion
+        #region AreOptimizationsDisabled
+
+        /// <summary>
+        /// Indicates whether this method had optimizations disabled already.
+        /// </summary>
+        public bool AreOptimizationsDisabled()
+        {
+            bool pOptimizationsDisabled;
+            TryAreOptimizationsDisabled(out pOptimizationsDisabled).ThrowOnNotOK();
+
+            return pOptimizationsDisabled;
+        }
+
+        /// <summary>
+        /// Indicates whether this method had optimizations disabled already.
+        /// </summary>
+        public HRESULT TryAreOptimizationsDisabled(out bool pOptimizationsDisabled)
+        {
+            /*HRESULT AreOptimizationsDisabled(
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pOptimizationsDisabled);*/
+            return Raw5.AreOptimizationsDisabled(out pOptimizationsDisabled);
+        }
+
+        #endregion
+        #endregion
     }
 }

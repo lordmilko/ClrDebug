@@ -108,8 +108,8 @@ namespace DbgEngConsole
             var debugCreate = Marshal.GetDelegateForFunctionPointer<DebugCreateDelegate>(debugCreatePtr);
 
             IntPtr debugClientPtr;
-            debugCreate(DebugClient.IID_IDebugClient, out debugClientPtr).ThrowOnNotOK();
-            var debugClient = new DebugClient(debugClientPtr);
+            debugCreate(typeof(IDebugClient).GUID, out debugClientPtr).ThrowOnNotOK();
+            var debugClient = new DebugClient((IDebugClient) Extensions.GetObjectForIUnknown(debugClientPtr));
 
             return debugClient;
         }

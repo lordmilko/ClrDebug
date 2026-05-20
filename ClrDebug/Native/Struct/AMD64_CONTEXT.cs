@@ -1,18 +1,32 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-//In netstandard2.0 we don't have a type to represent a 128 bit value, so the caller will need to do *(Int128*)(&context.Xmm0) themselves,
-//or use some other mechanism of accessing the hidden upper values of the numbers. Even though there are no explicit fields that touch this data,
-//the data is still inside the struct, and can be accessed using pointer arithmetic
-#if GENERATED_MARSHALLING
-using Integer128 = System.Int128;
-#else
-using Integer128 = System.Int64;
-#endif
-
 namespace ClrDebug
 {
-    //This is 100% right, theres some items which should be arrays,
+    public unsafe struct AMD64_LEGACY_SAVE_AREA
+    {
+        public short ControlWord;
+        public short Reserved0;
+        public short StatusWord;
+        public short Reserved1;
+        public short TagWord;
+        public short Reserved2;
+        public int ErrorOffset;
+        public short ErrorSelector;
+        public short ErrorOpcode;
+        public int DataOffset;
+        public short DataSelector;
+        public short Reserved3;
+        public fixed byte FloatRegisters[8 * 10];
+    }
+
+    public struct M128A
+    {
+        public long Low;
+        public long High;
+    }
+
+    //This isn't 100% right, theres some items which should be arrays,
     //and some minor items missing (e.g. FltSave, Header and Legacy, etc in the Floating Point State section)
     [DebuggerDisplay("P1Home = {P1Home}, P2Home = {P2Home}, P3Home = {P3Home}, P4Home = {P4Home}, P5Home = {P5Home}, P6Home = {P6Home}, ContextFlags = {ContextFlags.ToString(),nq}, MxCsr = {MxCsr}, SegCs = {SegCs}, SegDs = {SegDs}, SegEs = {SegEs}, SegFs = {SegFs}, SegGs = {SegGs}, SegSs = {SegSs}, EFlags = {EFlags}, Dr0 = {Dr0}, Dr1 = {Dr1}, Dr2 = {Dr2}, Dr3 = {Dr3}, Dr6 = {Dr6}, Dr7 = {Dr7}, Rax = {Rax}, Rcx = {Rcx}, Rdx = {Rdx}, Rbx = {Rbx}, Rsp = {Rsp}, Rbp = {Rbp}, Rsi = {Rsi}, Rdi = {Rdi}, R8 = {R8}, R9 = {R9}, R10 = {R10}, R11 = {R11}, R12 = {R12}, R13 = {R13}, R14 = {R14}, R15 = {R15}, Rip = {Rip}, FltSave = {FltSave}, Legacy = {Legacy}, Xmm0 = {Xmm0}, Xmm1 = {Xmm1}, Xmm2 = {Xmm2}, Xmm3 = {Xmm3}, Xmm4 = {Xmm4}, Xmm5 = {Xmm5}, Xmm6 = {Xmm6}, Xmm7 = {Xmm7}, Xmm8 = {Xmm8}, Xmm9 = {Xmm9}, Xmm10 = {Xmm10}, Xmm11 = {Xmm11}, Xmm12 = {Xmm12}, Xmm13 = {Xmm13}, Xmm14 = {Xmm14}, Xmm15 = {Xmm15}, VectorRegister = {VectorRegister}, VectorControl = {VectorControl}, DebugControl = {DebugControl}, LastBranchToRip = {LastBranchToRip}, LastBranchFromRip = {LastBranchFromRip}, LastExceptionToRip = {LastExceptionToRip}, LastExceptionFromRip = {LastExceptionFromRip}")]
     [StructLayout(LayoutKind.Explicit, Size = 1232)]
@@ -108,41 +122,42 @@ namespace ClrDebug
 
         // Floating Point State
         [FieldOffset(0x100)]
-        public Integer128 FltSave;
+        public AMD64_LEGACY_SAVE_AREA FltSave;
+
         [FieldOffset(0x120)]
-        public Integer128 Legacy;
+        public M128A Legacy;
         [FieldOffset(0x1a0)]
-        public Integer128 Xmm0;
+        public M128A Xmm0;
         [FieldOffset(0x1b0)]
-        public Integer128 Xmm1;
+        public M128A Xmm1;
         [FieldOffset(0x1c0)]
-        public Integer128 Xmm2;
+        public M128A Xmm2;
         [FieldOffset(0x1d0)]
-        public Integer128 Xmm3;
+        public M128A Xmm3;
         [FieldOffset(0x1e0)]
-        public Integer128 Xmm4;
+        public M128A Xmm4;
         [FieldOffset(0x1f0)]
-        public Integer128 Xmm5;
+        public M128A Xmm5;
         [FieldOffset(0x200)]
-        public Integer128 Xmm6;
+        public M128A Xmm6;
         [FieldOffset(0x210)]
-        public Integer128 Xmm7;
+        public M128A Xmm7;
         [FieldOffset(0x220)]
-        public Integer128 Xmm8;
+        public M128A Xmm8;
         [FieldOffset(0x230)]
-        public Integer128 Xmm9;
+        public M128A Xmm9;
         [FieldOffset(0x240)]
-        public Integer128 Xmm10;
+        public M128A Xmm10;
         [FieldOffset(0x250)]
-        public Integer128 Xmm11;
+        public M128A Xmm11;
         [FieldOffset(0x260)]
-        public Integer128 Xmm12;
+        public M128A Xmm12;
         [FieldOffset(0x270)]
-        public Integer128 Xmm13;
+        public M128A Xmm13;
         [FieldOffset(0x280)]
-        public Integer128 Xmm14;
+        public M128A Xmm14;
         [FieldOffset(0x290)]
-        public Integer128 Xmm15;
+        public M128A Xmm15;
 
         // Vector Registers
         [FieldOffset(0x300)]

@@ -28,8 +28,6 @@ namespace ClrDebug.Tests.DbgEng
         public static void ClassCleanup()
         {
             debugger.Client.Control.Execute(DEBUG_OUTCTL.ALL_CLIENTS, "q", DEBUG_EXECUTE.DEFAULT);
-
-            debugger.Client.Dispose();
         }
 
         [TestMethod]

@@ -324,47 +324,38 @@ namespace ClrDebug.DbgEng
 
         #region ReadIntrinsics
 
-        public ReadIntrinsicsResult ReadIntrinsics(IDebugHostContext context, Location location, VARENUM vt, long count)
+        public long ReadIntrinsics(IDebugHostContext context, Location location, VARENUM vt, long count, IntPtr vals)
         {
-            ReadIntrinsicsResult result;
-            TryReadIntrinsics(context, location, vt, count, out result).ThrowDbgEngNotOK();
+            long intrinsicsRead;
+            TryReadIntrinsics(context, location, vt, count, vals, out intrinsicsRead).ThrowDbgEngNotOK();
 
-            return result;
+            return intrinsicsRead;
         }
 
-        public HRESULT TryReadIntrinsics(IDebugHostContext context, Location location, VARENUM vt, long count, out ReadIntrinsicsResult result)
+        public HRESULT TryReadIntrinsics(IDebugHostContext context, Location location, VARENUM vt, long count, IntPtr vals, out long intrinsicsRead)
         {
             /*HRESULT ReadIntrinsics(
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostContext context,
             [In] Location location,
             [In] VARENUM vt,
             [In] long count,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Struct, SizeParamIndex = 3)] object[] vals,
+            [Out] IntPtr vals,
             [Out] out long intrinsicsRead);*/
-            object[] vals = new object[(int) count];
-            long intrinsicsRead;
-            HRESULT hr = Raw5.ReadIntrinsics(context, location, vt, count, vals, out intrinsicsRead);
-
-            if (hr == HRESULT.S_OK)
-                result = new ReadIntrinsicsResult(vals, intrinsicsRead);
-            else
-                result = default(ReadIntrinsicsResult);
-
-            return hr;
+            return Raw5.ReadIntrinsics(context, location, vt, count, vals, out intrinsicsRead);
         }
 
         #endregion
         #region ReadOrdinalIntrinsics
 
-        public ReadOrdinalIntrinsicsResult ReadOrdinalIntrinsics(IDebugHostContext context, Location location, long ordinalSize, bool ordinalIsSigned, long count)
+        public long ReadOrdinalIntrinsics(IDebugHostContext context, Location location, long ordinalSize, bool ordinalIsSigned, long count, IntPtr vals)
         {
-            ReadOrdinalIntrinsicsResult result;
-            TryReadOrdinalIntrinsics(context, location, ordinalSize, ordinalIsSigned, count, out result).ThrowDbgEngNotOK();
+            long intrinsicsRead;
+            TryReadOrdinalIntrinsics(context, location, ordinalSize, ordinalIsSigned, count, vals, out intrinsicsRead).ThrowDbgEngNotOK();
 
-            return result;
+            return intrinsicsRead;
         }
 
-        public HRESULT TryReadOrdinalIntrinsics(IDebugHostContext context, Location location, long ordinalSize, bool ordinalIsSigned, long count, out ReadOrdinalIntrinsicsResult result)
+        public HRESULT TryReadOrdinalIntrinsics(IDebugHostContext context, Location location, long ordinalSize, bool ordinalIsSigned, long count, IntPtr vals, out long intrinsicsRead)
         {
             /*HRESULT ReadOrdinalIntrinsics(
             [In, MarshalAs(UnmanagedType.Interface)] IDebugHostContext context,
@@ -372,18 +363,9 @@ namespace ClrDebug.DbgEng
             [In] long ordinalSize,
             [In, MarshalAs(UnmanagedType.U1)] bool ordinalIsSigned,
             [In] long count,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Struct, SizeParamIndex = 4)] object[] vals,
+            [Out] IntPtr vals,
             [Out] out long intrinsicsRead);*/
-            object[] vals = new object[(int) count];
-            long intrinsicsRead;
-            HRESULT hr = Raw5.ReadOrdinalIntrinsics(context, location, ordinalSize, ordinalIsSigned, count, vals, out intrinsicsRead);
-
-            if (hr == HRESULT.S_OK)
-                result = new ReadOrdinalIntrinsicsResult(vals, intrinsicsRead);
-            else
-                result = default(ReadOrdinalIntrinsicsResult);
-
-            return hr;
+            return Raw5.ReadOrdinalIntrinsics(context, location, ordinalSize, ordinalIsSigned, count, vals, out intrinsicsRead);
         }
 
         #endregion

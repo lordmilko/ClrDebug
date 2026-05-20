@@ -3,13 +3,15 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug.TTD
 {
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate bool InitiateReplayEngineHandshakeDelegate(
         [In, MarshalAs(UnmanagedType.LPStr)] string Seed,
         [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeConst = 48)] byte[] Source);
 
     //Can return several error codes on failure such as 1 and 3. Error 1 relates to an invalid encoded handshake
-    public delegate int CreateReplayEngineWithHandshakeDelegate(
-        [In, MarshalAs(UnmanagedType.LPStr)] string EncodedHandshake,
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public unsafe delegate int CreateReplayEngineWithHandshakeDelegate(
+        [In] byte* EncodedHandshake, //Should be 48 bytes
         [Out] out IntPtr pReplayEngine,
         [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid);
 
@@ -50,7 +52,7 @@ namespace ClrDebug.TTD
             cursor.SetPosition(result);
         }
 
-        public static T QueryMemoryBuffer<T>(this Cursor cursor, GuestAddress address, QueryMemoryPolicy queryMemoryPolicy)
+        public static unsafe T QueryMemoryBuffer<T>(this Cursor cursor, GuestAddress address, QueryMemoryPolicy queryMemoryPolicy) where T : unmanaged
         {
             if (!TryQueryMemoryBuffer<T>(cursor, address, queryMemoryPolicy, out var result))
                 throw new InvalidOperationException($"Failed to query address {address}");
@@ -58,9 +60,9 @@ namespace ClrDebug.TTD
             return result;
         }
 
-        public static bool TryQueryMemoryBuffer<T>(this Cursor cursor, GuestAddress address, QueryMemoryPolicy queryMemoryPolicy, out T result)
+        public static unsafe bool TryQueryMemoryBuffer<T>(this Cursor cursor, GuestAddress address, QueryMemoryPolicy queryMemoryPolicy, out T result) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -73,7 +75,7 @@ namespace ClrDebug.TTD
                     return false;
                 }
 
-                result = Marshal.PtrToStructure<T>(buffer);
+                result = *(T*) buffer;
                 return true;
             }
             finally
@@ -119,7 +121,7 @@ namespace ClrDebug.TTD
 
         #endregion
 
-        public static T QueryMemoryBuffer<T>(this ThreadView threadView, GuestAddress address)
+        public static unsafe T QueryMemoryBuffer<T>(this ThreadView threadView, GuestAddress address) where T : unmanaged
         {
             if (!TryQueryMemoryBuffer<T>(threadView, address, out var result))
                 throw new InvalidOperationException($"Failed to query address {address}");
@@ -127,9 +129,9 @@ namespace ClrDebug.TTD
             return result;
         }
 
-        public static bool TryQueryMemoryBuffer<T>(this ThreadView threadView, GuestAddress address, out T result)
+        public static unsafe bool TryQueryMemoryBuffer<T>(this ThreadView threadView, GuestAddress address, out T result) where T : unmanaged
         {
-            var size = Marshal.SizeOf<T>();
+            var size = sizeof(T);
             var buffer = Marshal.AllocHGlobal(size);
 
             try
@@ -142,7 +144,7 @@ namespace ClrDebug.TTD
                     return false;
                 }
 
-                result = Marshal.PtrToStructure<T>(buffer);
+                result = *(T*) buffer;
                 return true;
             }
             finally

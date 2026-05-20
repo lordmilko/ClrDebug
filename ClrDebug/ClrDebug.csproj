@@ -17,7 +17,9 @@
     <IsPackable>true</IsPackable>
     <LangVersion>latest</LangVersion>
     <AssemblyTitle>Managed wrappers around the .NET Unmanaged API</AssemblyTitle>
-    <EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
+
+    <!-- Toggle to true to debug source generated files -->
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
   <!-- T4 Templates -->

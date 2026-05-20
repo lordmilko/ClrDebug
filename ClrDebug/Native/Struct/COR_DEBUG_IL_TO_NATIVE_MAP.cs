@@ -1,15 +1,46 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace ClrDebug
 {
     /// <summary>
     /// Contains the offsets that are used to map Microsoft intermediate language (MSIL) code to native code.
     /// </summary>
-    [DebuggerDisplay("ilOffset = {ilOffset}, nativeStartOffset = {nativeStartOffset}, nativeEndOffset = {nativeEndOffset}")]
+    [DebuggerDisplay("{DebuggerDisplay(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct COR_DEBUG_IL_TO_NATIVE_MAP
     {
+        private string DebuggerDisplay()
+        {
+            var builder = new StringBuilder();
+
+            builder.Append("ilOffset = ");
+
+            switch (ilOffset)
+            {
+                case (int) CorDebugIlToNativeMappingTypes.NO_MAPPING:
+                    builder.Append("NO_MAPPING");
+                    break;
+
+                case (int) CorDebugIlToNativeMappingTypes.PROLOG:
+                    builder.Append("PROLOG");
+                    break;
+
+                case (int) CorDebugIlToNativeMappingTypes.EPILOG:
+                    builder.Append("EPILOG");
+                    break;
+
+                default:
+                    builder.AppendFormat("0x{0:x8}", ilOffset);
+                    break;
+            }
+
+            builder.Append($", nativeStartOffset = 0x{nativeStartOffset:x8}, nativeEndOffset = 0x{nativeEndOffset:x8}");
+
+            return builder.ToString();
+        }
+
         /// <summary>
         /// The offset of the MSIL code.
         /// </summary>

@@ -37,9 +37,9 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid languageVendor,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid documentType,
 #else
-            [MarshalUsing(typeof(GuidMarshaller))] in Guid language,
-            [MarshalUsing(typeof(GuidMarshaller))] in Guid languageVendor,
-            [MarshalUsing(typeof(GuidMarshaller))] in Guid documentType,
+            [MarshalUsing(typeof(GuidMarshaller))] Guid language,
+            [MarshalUsing(typeof(GuidMarshaller))] Guid languageVendor,
+            [MarshalUsing(typeof(GuidMarshaller))] Guid documentType,
 #endif
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedDocument pRetVal);
 
@@ -99,7 +99,7 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         HRESULT GetVariables(
-            [In] int parent,
+            [In] mdToken parent,
             [In] int cVars,
             [Out] out int pcVars,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] pVars);

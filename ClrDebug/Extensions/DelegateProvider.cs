@@ -4,6 +4,7 @@
  ********************************************************************************/
 using System;
 using System.Runtime.InteropServices;
+using ClrDebug.PDB;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug
@@ -655,6 +656,92 @@ namespace ClrDebug
                 return Marshal.GetDelegateForFunctionPointer<GetCLRRuntimeHostDelegate>(export);
 #endif
             }
+        }
+
+        public MSFOpenWDelegate MSFOpenW
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(MSFOpenW));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).MSFOpenW;
+#else
+                return Marshal.GetDelegateForFunctionPointer<MSFOpenWDelegate>(export);
+#endif
+            }
+        }
+
+        public PDBOpen2WDelegate PDBOpen2W
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(PDBOpen2W));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).PDBOpen2W;
+#else
+                return Marshal.GetDelegateForFunctionPointer<PDBOpen2WDelegate>(export);
+#endif
+            }
+        }
+
+        public NameMapOpenDelegate NameMapOpen
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(NameMapOpen));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).NameMapOpen;
+#else
+                return Marshal.GetDelegateForFunctionPointer<NameMapOpenDelegate>(export);
+#endif
+            }
+        }
+        public static load_assembly_and_get_function_pointer_fn load_assembly_and_get_function_pointer(IntPtr fn)
+        {
+#if GENERATED_MARSHALLING
+            return new DelegateHolder(fn).load_assembly_and_get_function_pointer;
+#else
+            return Marshal.GetDelegateForFunctionPointer<load_assembly_and_get_function_pointer_fn>(fn);
+#endif
+        }
+
+        public static component_entry_point_fn component_entry_point(IntPtr fn)
+        {
+#if GENERATED_MARSHALLING
+            return new DelegateHolder(fn).component_entry_point;
+#else
+            return Marshal.GetDelegateForFunctionPointer<component_entry_point_fn>(fn);
+#endif
+        }
+
+        public static get_function_pointer_fn get_function_pointer(IntPtr fn)
+        {
+#if GENERATED_MARSHALLING
+            return new DelegateHolder(fn).get_function_pointer;
+#else
+            return Marshal.GetDelegateForFunctionPointer<get_function_pointer_fn>(fn);
+#endif
+        }
+
+        public static load_assembly_fn load_assembly(IntPtr fn)
+        {
+#if GENERATED_MARSHALLING
+            return new DelegateHolder(fn).load_assembly;
+#else
+            return Marshal.GetDelegateForFunctionPointer<load_assembly_fn>(fn);
+#endif
+        }
+
+        public static load_assembly_bytes_fn load_assembly_bytes(IntPtr fn)
+        {
+#if GENERATED_MARSHALLING
+            return new DelegateHolder(fn).load_assembly_bytes;
+#else
+            return Marshal.GetDelegateForFunctionPointer<load_assembly_bytes_fn>(fn);
+#endif
         }
     }
 }

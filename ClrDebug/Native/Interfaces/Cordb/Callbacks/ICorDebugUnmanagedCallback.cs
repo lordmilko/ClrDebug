@@ -43,8 +43,8 @@ namespace ClrDebug
         /// cref="ICorDebugProcess.SetThreadContext"/>, or any other member of the debugging API.
         /// </remarks>
         [PreserveSig]
-        HRESULT DebugEvent(
-            [In] ref DEBUG_EVENT pDebugEvent,
+        unsafe HRESULT DebugEvent(
+            [In] DEBUG_EVENT* pDebugEvent,
             [In, MarshalAs(UnmanagedType.Bool)] bool fOutOfBand);
     }
 }

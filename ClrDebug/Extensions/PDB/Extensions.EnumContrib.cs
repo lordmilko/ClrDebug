@@ -18,11 +18,11 @@ namespace ClrDebug.PDB
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate void GetDelegate(
             [In] IntPtr @this,
-            [Out] out short pimod,
-            [Out] out short pisect,
+            [Out] out ushort pimod,
+            [Out] out ushort pisect,
             [Out] out int poff,
             [Out] out int pcb,
-            [Out] out int pdwCharacteristics);
+            [Out] out IMAGE_SCN pdwCharacteristics);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetDelegate get;
@@ -44,25 +44,25 @@ namespace ClrDebug.PDB
 
         //virtual void getCrcs(OUT DWORD* pcrcData, OUT DWORD* pcrcReloc ) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate void GetCrcsDelegate(
-        //    [In] IntPtr @this,
-        //    [Out] out IntPtr pcrcData,
-        //    [Out] out int pcrcReloc);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate void GetCrcsDelegate(
+            [In] IntPtr @this,
+            [Out] out int pcrcData,
+            [Out] out int pcrcReloc);
 
-        //private GetCrcsDelegate getCrcs;
+        private GetCrcsDelegate getCrcs;
 
-        //public GetCrcsResult GetCrcs
-        //{
-        //    get
-        //    {
-        //        InitDelegate(ref getCrcs, vtbl->getCrcs);
+        public EnumContrib_GetCrcsResult Crcs
+        {
+            get
+            {
+                InitDelegate(ref getCrcs, vtbl->getCrcs);
 
-        //        getCrcs(Raw, out var pcrcData, out var pcrcReloc);
+                getCrcs(Raw, out var pcrcData, out var pcrcReloc);
 
-        //        return new GetCrcsResult(pcrcData, pcrcReloc);
-        //    }
-        //}
+                return new EnumContrib_GetCrcsResult(pcrcData, pcrcReloc);
+            }
+        }
 
         #endregion
         #region fUpdate
@@ -157,12 +157,12 @@ namespace ClrDebug.PDB
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate void Get2Delegate(
             [In] IntPtr @this,
-            [Out] out short pimod,
-            [Out] out short pisect,
+            [Out] out ushort pimod,
+            [Out] out ushort pisect,
             [Out] out int poff,
             [Out] out int pisectCoff,
             [Out] out int pcb,
-            [Out] out int pdwCharacteristics);
+            [Out] out IMAGE_SCN pdwCharacteristics);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private Get2Delegate get2;

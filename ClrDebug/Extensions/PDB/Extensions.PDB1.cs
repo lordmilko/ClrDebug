@@ -19,7 +19,7 @@ namespace ClrDebug.PDB
     /// <summary>
     /// Represents a Program Database.
     /// </summary>
-    public unsafe class PDB1
+    public unsafe class PDB1 : IDisposable
     {
         internal const byte CV_OFFSET_PARENT_LENGTH_LIMIT = 12;
 
@@ -30,6 +30,9 @@ namespace ClrDebug.PDB
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private PDB1Vtbl* vtbl;
+
+        //Cache delegates passed to unmanaged code to prevent them from being garbage collected
+        private PfnFindDebugInfoFile lastOpenDBIExFindDebugInfoFile;
 
         #region QueryInterfaceVersion
 
@@ -179,19 +182,25 @@ namespace ClrDebug.PDB
 
         //virtual BOOL CreateDBI(_In_z_ const char* szTarget, OUT DBI** ppdbi) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool CreateDBIDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool CreateDBIDelegate(
+            [In] IntPtr @this,
+            [In, MarshalAs(UnmanagedType.LPStr)] string szTarget,
+            [Out] out IntPtr ppdbi);
 
-        //private CreateDBIDelegate createDBI;
+        //szTarget does not appear to be used anywhere in microsoft-pdb
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private CreateDBIDelegate createDBI;
 
-        //public bar CreateDBI()
-        //{
-        //    InitDelegate(ref createDBI, vtbl->CreateDBI);
+        public DBI1 CreateDBI(string szTarget)
+        {
+            InitDelegate(ref createDBI, vtbl->CreateDBI);
 
-        //    if (!createDBI(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!createDBI(Raw, szTarget, out var ppdbi))
+                throw new NotImplementedException();
+
+            return new DBI1(ppdbi);
+        }
 
         #endregion
         #region OpenDBI
@@ -390,7 +399,7 @@ namespace ClrDebug.PDB
         {
             InitDelegate(ref openDBIEx, vtbl->OpenDBIEx);
 
-            //todo: need to cache last pfn so it doesnt gc
+            lastOpenDBIExFindDebugInfoFile = pfn;
 
             var result = openDBIEx(Raw, szTarget, szMode, out var ppdbiRaw, pfn);
 
@@ -423,19 +432,23 @@ namespace ClrDebug.PDB
 
         //virtual BOOL OpenSrc(OUT Src** ppsrc) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool OpenSrcDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool OpenSrcDelegate(
+            [In] IntPtr @this,
+            [Out] out IntPtr ppsrc);
 
-        //private OpenSrcDelegate openSrc;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private OpenSrcDelegate openSrc;
 
-        //public bar OpenSrc()
-        //{
-        //    InitDelegate(ref openSrc, vtbl->OpenSrc);
+        public Src OpenSrc()
+        {
+            InitDelegate(ref openSrc, vtbl->OpenSrc);
 
-        //    if (!openSrc(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!openSrc(Raw, out var ppsrc))
+                throw new NotImplementedException();
+
+            return new Src(ppsrc);
+        }
 
         #endregion
         #region QueryLastErrorExW
@@ -448,6 +461,7 @@ namespace ClrDebug.PDB
             [Out, MarshalAs(UnmanagedType.LPArray)] char[] szError,
             [In] IntPtr cchMax);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryLastErrorExWDelegate queryLastErrorExW;
 
         public PDB1_QueryLastErrorResult QueryLastErrorExW()
@@ -604,19 +618,25 @@ namespace ClrDebug.PDB
 
         //virtual BOOL OpenStreamEx(_In_z_ const char * szStream, _In_z_ const char *szMode, Stream **ppStream) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool OpenStreamExDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool OpenStreamExDelegate(
+            [In] IntPtr @this,
+            [In, MarshalAs(UnmanagedType.LPStr)] string szStream,
+            [In, MarshalAs(UnmanagedType.LPStr)] string szMode,
+            [Out] out IntPtr ppStream);
 
-        //private OpenStreamExDelegate openStreamEx;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private OpenStreamExDelegate openStreamEx;
 
-        //public bar OpenStreamEx()
-        //{
-        //    InitDelegate(ref openStreamEx, vtbl->OpenStreamEx);
+        public Stream OpenStreamEx(string szStream, string szMode)
+        {
+            InitDelegate(ref openStreamEx, vtbl->OpenStreamEx);
 
-        //    if (!openStreamEx(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!openStreamEx(Raw, szStream, szMode, out var ppStream))
+                throw new NotImplementedException();
+
+            return new Stream(ppStream);
+        }
 
         #endregion
         #region RegisterPDBMapping
@@ -801,6 +821,11 @@ namespace ClrDebug.PDB
 
             Raw = raw;
             vtbl = *(PDB1Vtbl**) raw;
+        }
+
+        public void Dispose()
+        {
+            Close();
         }
 
         internal static DebugException GetUnknownError(MethodBase method)

@@ -943,7 +943,11 @@
         S_GDATA_HLSL = 0x1151, //DATASYMHLSL
         S_LDATA_HLSL = 0x1152, //DATASYMHLSL
 
-        S_FILESTATIC = 0x1153, //FILESTATICSYM
+        /// <summary>
+        /// ?<para/>
+        /// Type: <see cref="FILESTATICSYM"/>
+        /// </summary>
+        S_FILESTATIC = 0x1153,
 
         /// <summary>
         /// DPC groupshared variable.<para/>
@@ -957,6 +961,10 @@
         /// </summary>
         S_LPROC32_DPC = 0x1155,
 
+        /// <summary>
+        /// ?<para/>
+        /// Type: <see cref="PROCSYM32"/>
+        /// </summary>
         S_LPROC32_DPC_ID = 0x1156, //PROCSYM32
 
         /// <summary>
@@ -1020,6 +1028,9 @@
         //which has the numeric value of a given enum value around a pointer to its name.
         //Types are taken from parameter types listed in msdia140!GetTheData::disp_S_ symbols
 
+        //For all of the ENCTMP ones, I suspect their format is the same as their non-ENCTMP versions,
+        //it's just a different name. This was certainly true of S_REGREL32_ENCTMP
+
         S_FRAMEREG = 0x1166,
         S_REF_MINIPDB2 = 0x1167,
         S_INLINEES = 0x1168,
@@ -1032,10 +1043,21 @@
         S_LPROC32EX_ID = 0x1175, //PROCSYM32EX
         S_STATICLOCAL = 0x1176, //STATICLOCAL
         S_DEFRANGE_REGISTER_REL_INDIR = 0x1177,
+
+        //BPRELSYM32?
         S_BPREL32_ENCTMP = 0x1178,
+
+        /// <summary>
+        /// Type: <see cref="REGREL32"/>
+        /// </summary>
         S_REGREL32_ENCTMP = 0x1179,
+
+        //BPRELSYM32INDIR? (that type is also unknown)
         S_BPREL32_INDIR_ENCTMP = 0x117a,
+
+        //REGREL32INDIR? (that type is also unknown)
         S_REGREL32_INDIR_ENCTMP = 0x117b,
+
         S_ASSOCIATION = 0x117C,
         S_DEFRANGE_CONSTVAL_ON_ENTRY = 0x117F,
         S_DEFRANGE_GLOBALSYM_ON_ENTRY = 0x1180,

@@ -211,5 +211,7 @@
         TaggedUnionCase,     // 43
 
         SymTagMax,
+
+        //cppdebug!CppEE::CStructChildEnum::Next shows theres a value 45 which represents some type of property
     }
 }

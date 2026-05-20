@@ -12,7 +12,7 @@ namespace ClrDebug.PDB
     /// </summary>
     [Serializable]
     [DebuggerDisplay("{Value}")]
-    public struct CV_typ16_t : IComparable, IEquatable<CV_typ16_t>
+    public partial struct CV_typ16_t : IComparable, IEquatable<CV_typ16_t>
     {
         public short Value { get; }
 
@@ -42,11 +42,16 @@ namespace ClrDebug.PDB
         public static bool operator !=(CV_typ16_t left, int right) => left.Value != (short) right;
 
         public override int GetHashCode() => Value.GetHashCode();
+
+        public override string ToString()
+        {
+            return "0x" + Value.ToString("X");
+        }
     }
 
     [Serializable]
     [DebuggerDisplay("{Value}")]
-    public struct CV_off16_t : IComparable, IEquatable<CV_off16_t>
+    public partial struct CV_off16_t : IComparable, IEquatable<CV_off16_t>
     {
         public short Value { get; }
 
@@ -76,11 +81,16 @@ namespace ClrDebug.PDB
         public static bool operator !=(CV_off16_t left, int right) => left.Value != (short) right;
 
         public override int GetHashCode() => Value.GetHashCode();
+
+        public override string ToString()
+        {
+            return "0x" + Value.ToString("X");
+        }
     }
 
     [Serializable]
     [DebuggerDisplay("{Value}")]
-    public struct CV_uoff16_t : IComparable, IEquatable<CV_uoff16_t>
+    public partial struct CV_uoff16_t : IComparable, IEquatable<CV_uoff16_t>
     {
         public short Value { get; }
 
@@ -110,6 +120,48 @@ namespace ClrDebug.PDB
         public static bool operator !=(CV_uoff16_t left, int right) => left.Value != (short) right;
 
         public override int GetHashCode() => Value.GetHashCode();
+
+        public override string ToString()
+        {
+            return "0x" + Value.ToString("X");
+        }
+    }
+
+    [Serializable]
+    [DebuggerDisplay("{Value}")]
+    public partial struct CV_pubsymflag_t : IComparable, IEquatable<CV_pubsymflag_t>
+    {
+        public int Value { get; }
+
+        public CV_pubsymflag_t(int value)
+        {
+            Value = value;
+        }
+
+        public static implicit operator int(CV_pubsymflag_t value) => value.Value;
+
+        public static implicit operator CV_pubsymflag_t(int value) => new CV_pubsymflag_t(value);
+
+        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo((ulong) Value, value is CV_pubsymflag_t v ? v.Value : value);
+
+        public bool Equals(CV_pubsymflag_t other) => other.Value.Equals(Value);
+
+        public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(CV_pubsymflag_t left, CV_pubsymflag_t right) => left.Value == right.Value;
+
+        public static bool operator ==(CV_pubsymflag_t left, int right) => left.Value == (int) right;
+
+        public static bool operator !=(CV_pubsymflag_t left, CV_pubsymflag_t right) => left.Value != right.Value;
+
+        public static bool operator !=(CV_pubsymflag_t left, int right) => left.Value != (int) right;
+
+        public override int GetHashCode() => Value.GetHashCode();
+
+        public override string ToString()
+        {
+            return "0x" + Value.ToString("X");
+        }
     }
 
     /// <summary>
@@ -117,7 +169,7 @@ namespace ClrDebug.PDB
     /// </summary>
     [Serializable]
     [DebuggerDisplay("{Value}")]
-    public struct CV_typ_t : IComparable, IEquatable<CV_typ_t>
+    public partial struct CV_typ_t : IComparable, IEquatable<CV_typ_t>
     {
         public int Value { get; }
 
@@ -145,11 +197,16 @@ namespace ClrDebug.PDB
         public static bool operator !=(CV_typ_t left, int right) => left.Value != (int) right;
 
         public override int GetHashCode() => Value.GetHashCode();
+
+        public override string ToString()
+        {
+            return "0x" + Value.ToString("X");
+        }
     }
 
     [Serializable]
     [DebuggerDisplay("{Value}")]
-    public struct CV_off32_t : IComparable, IEquatable<CV_off32_t>
+    public partial struct CV_off32_t : IComparable, IEquatable<CV_off32_t>
     {
         public int Value { get; }
 
@@ -177,11 +234,16 @@ namespace ClrDebug.PDB
         public static bool operator !=(CV_off32_t left, int right) => left.Value != (int) right;
 
         public override int GetHashCode() => Value.GetHashCode();
+
+        public override string ToString()
+        {
+            return "0x" + Value.ToString("X");
+        }
     }
 
     [Serializable]
     [DebuggerDisplay("{Value}")]
-    public struct CV_uoff32_t : IComparable, IEquatable<CV_uoff32_t>
+    public partial struct CV_uoff32_t : IComparable, IEquatable<CV_uoff32_t>
     {
         public int Value { get; }
 
@@ -209,22 +271,29 @@ namespace ClrDebug.PDB
         public static bool operator !=(CV_uoff32_t left, int right) => left.Value != (int) right;
 
         public override int GetHashCode() => Value.GetHashCode();
+
+        public override string ToString()
+        {
+            return "0x" + Value.ToString("X");
+        }
     }
 
     [Serializable]
     [DebuggerDisplay("{Value}")]
-    public struct CV_ItemId : IComparable, IEquatable<CV_ItemId>
+    public partial struct CV_ItemId : IComparable, IEquatable<CV_ItemId>
     {
-        public int Value { get; }
+        public uint Value { get; }
 
-        public CV_ItemId(int value)
+        public CV_ItemId(uint value)
         {
             Value = value;
         }
 
-        public static implicit operator int(CV_ItemId value) => value.Value;
+        public static implicit operator uint(CV_ItemId value) => value.Value;
 
-        public static implicit operator CV_ItemId(int value) => new CV_ItemId(value);
+        public static implicit operator CV_ItemId(uint value) => new CV_ItemId(value);
+
+        public static implicit operator CV_ItemId(int value) => new CV_ItemId((uint) value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo((ulong) Value, value is CV_ItemId v ? v.Value : value);
 
@@ -234,12 +303,17 @@ namespace ClrDebug.PDB
 
         public static bool operator ==(CV_ItemId left, CV_ItemId right) => left.Value == right.Value;
 
-        public static bool operator ==(CV_ItemId left, int right) => left.Value == (int) right;
+        public static bool operator ==(CV_ItemId left, int right) => left.Value == (uint) right;
 
         public static bool operator !=(CV_ItemId left, CV_ItemId right) => left.Value != right.Value;
 
-        public static bool operator !=(CV_ItemId left, int right) => left.Value != (int) right;
+        public static bool operator !=(CV_ItemId left, int right) => left.Value != (uint) right;
 
         public override int GetHashCode() => Value.GetHashCode();
+
+        public override string ToString()
+        {
+            return "0x" + Value.ToString("X");
+        }
     }
 }

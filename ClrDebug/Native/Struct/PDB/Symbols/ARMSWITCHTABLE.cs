@@ -25,12 +25,12 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Section index of the base for switch offsets
         /// </summary>
-        public short sectBase;
+        public ushort sectBase;
 
         /// <summary>
         /// type of each entry
         /// </summary>
-        public short switchType; //todo: enum?
+        public CV_armswitchtype switchType;
 
         /// <summary>
         /// Section-relative offset to the table branch instruction
@@ -45,12 +45,12 @@ namespace ClrDebug.PDB
         /// <summary>
         /// Section index of the table branch instruction
         /// </summary>
-        public short sectBranch;
+        public ushort sectBranch;
 
         /// <summary>
         /// Section index of the table
         /// </summary>
-        public short sectTable;
+        public ushort sectTable;
 
         /// <summary>
         /// number of switch table entries

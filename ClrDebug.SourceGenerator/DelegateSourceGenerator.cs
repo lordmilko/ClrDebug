@@ -48,7 +48,8 @@ namespace ClrDebug.SourceGenerator
             "Extensions.cs",
             "Extensions.CoreCLR.cs",
             "Extensions.DbgShim.cs",
-            "Extensions.HostFxr.cs"
+            "Extensions.HostFxr.cs",
+            "Extensions.MsPdbCore.cs"
         };
 
         public void Initialize(IncrementalGeneratorInitializationContext context)
@@ -100,6 +101,7 @@ namespace ClrDebug.SourceGenerator
                     UsingDirective(IdentifierName("System")),
                     UsingDirective(IdentifierName("System.Runtime.InteropServices")),
                     UsingDirective(IdentifierName("System.Runtime.InteropServices.Marshalling")),
+                    UsingDirective(IdentifierName("ClrDebug.PDB")),
                     UsingDirective(IdentifierName("ClrDebug.Extensions")).WithStaticKeyword(Token(SyntaxKind.StaticKeyword))
                 );
 

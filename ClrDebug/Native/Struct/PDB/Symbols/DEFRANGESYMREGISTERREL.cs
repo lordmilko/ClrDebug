@@ -15,7 +15,7 @@ namespace ClrDebug.PDB
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct DEFRANGESYMREGISTERREL
     {
-        internal const int CV_OFFSET_PARENT_LENGTH_LIMIT = 12;
+        public const int CV_OFFSET_PARENT_LENGTH_LIMIT = 12;
 
         /// <summary>
         /// Record length

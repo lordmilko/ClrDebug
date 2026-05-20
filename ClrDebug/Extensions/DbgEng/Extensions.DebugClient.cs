@@ -307,51 +307,5 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
-
-        protected override void Dispose(bool disposing)
-        {
-            advanced?.Dispose();
-            clientInternal?.Dispose();
-            control?.Dispose();
-            dataModelScripting?.Dispose();
-            dataSpaces?.Dispose();
-
-            if (debugTargetCompositionBridge != null)
-                Marshal.FinalReleaseComObject(debugTargetCompositionBridge.Raw);
-
-            if (hostDataModelAccess != null)
-                Marshal.FinalReleaseComObject(hostDataModelAccess.Raw);
-
-            linkableProcessServer?.Dispose();
-            modelQuery?.Dispose();
-            plmClient?.Dispose();
-            registers?.Dispose();
-            serviceProvider?.Dispose();
-            settings?.Dispose();
-            symbols?.Dispose();
-            systemObjects?.Dispose();
-
-            advanced = null;
-            clientInternal = null;
-            control = null;
-            dataModelScripting = null;
-            dataSpaces = null;
-            debugTargetCompositionBridge = null;
-            hostDataModelAccess = null;
-            linkableProcessServer = null;
-            modelQuery = null;
-            plmClient = null;
-            registers = null;
-            serviceProvider = null;
-            settings = null;
-            symbols = null;
-            systemObjects = null;
-
-            base.Dispose(disposing);
-
-#if DEBUG
-            Debug.Assert(remainingRefs == 0, $"RCW leak has occurred in DebugClient {GetHashCode()}: object was disposed but COM RefCount was still {remainingRefs}");
-#endif
-        }
     }
 }

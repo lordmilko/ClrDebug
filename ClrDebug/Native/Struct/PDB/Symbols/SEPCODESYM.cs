@@ -50,7 +50,8 @@ namespace ClrDebug.PDB
         /// <summary>
         /// (proc, block, or sepcode)
         /// </summary>
-        public short sect;
-        public short sectParent;
+        public ushort sect;
+
+        public ushort sectParent;
     }
 }

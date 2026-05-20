@@ -43,11 +43,11 @@ namespace ClrDebug.PDB
         /// <summary>
         /// section index of the thunk
         /// </summary>
-        public short sectThunk;
+        public ushort sectThunk;
 
         /// <summary>
         /// section index of the target of the thunk
         /// </summary>
-        public short sectTarget;
+        public ushort sectTarget;
     }
 }

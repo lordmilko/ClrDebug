@@ -16,10 +16,11 @@ var types = new[]
     Tuple.Create("CV_off16_t", "short"),
     Tuple.Create("CV_uoff16_t", "short"),
 
+    Tuple.Create("CV_pubsymflag_t", "int"),
     Tuple.Create("CV_typ_t", "int"), //CV_typ_t is the name given to this type within CodeView, however PDB1 aliases this to "TI". It's exactly the same thing however, and so would be confusing to have both concepts
     Tuple.Create("CV_off32_t", "int"),
     Tuple.Create("CV_uoff32_t", "int"),
-    Tuple.Create("CV_ItemId", "int"),
+    Tuple.Create("CV_ItemId", "uint"),
 };
 
 for(int i = 0; i < types.Length; i++)
@@ -46,7 +47,7 @@ else if (type == "CV_typ16_t")
 #>
     [Serializable]
     [DebuggerDisplay("{Value}")]
-    public struct <#= type #> : IComparable, IEquatable<<#= type #>>
+    public partial struct <#= type #> : IComparable, IEquatable<<#= type #>>
     {
         public <#= baseType #> Value { get; }
 
@@ -85,6 +86,11 @@ if (baseType != "int")
         public static bool operator !=(<#= type #> left, int right) => left.Value != (<#= baseType #>) right;
 
         public override int GetHashCode() => Value.GetHashCode();
+
+        public override string ToString()
+        {
+            return "0x" + Value.ToString("X");
+        }
     }
 <#
 if (i < types.Length - 1)

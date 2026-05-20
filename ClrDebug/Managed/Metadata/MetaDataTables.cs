@@ -323,7 +323,7 @@ namespace ClrDebug
             /*HRESULT GetCodedTokenInfo(
             [In] int ixCdTkn,
             [Out] out int pcTokens,
-            [Out, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 1), ComAliasName("mdToken")] out IntPtr ppTokens,
+            [Out, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 1), MarshalAs(UnmanagedType.Interface), ComAliasName("mdToken")] out mdToken ppTokens,
             [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(NoFreeAnsiStringMarshaler))] out string ppName);*/
             int pcTokens = 0;
             IntPtr ppTokens = default(IntPtr);

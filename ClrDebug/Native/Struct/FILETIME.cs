@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug
@@ -7,7 +8,12 @@ namespace ClrDebug
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct FILETIME
     {
-        public int dwLowDateTime;
-        public int dwHighDateTime;
+        public uint dwLowDateTime;
+        public uint dwHighDateTime;
+
+        public override string ToString()
+        {
+            return DateTime.FromFileTime((long) dwHighDateTime << 32 | (long) dwLowDateTime).ToString();
+        }
     }
 }

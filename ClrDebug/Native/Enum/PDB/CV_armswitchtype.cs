@@ -1,6 +1,6 @@
 ﻿namespace ClrDebug.PDB
 {
-    public enum CV_armswitchtype
+    public enum CV_armswitchtype : ushort
     {
         CV_SWT_INT1 = 0,
         CV_SWT_UINT1 = 1,

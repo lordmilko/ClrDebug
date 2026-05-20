@@ -46,7 +46,7 @@ namespace ClrDebug.PDB
         /// <summary>
         /// section index of call site
         /// </summary>
-        public short sect;
+        public ushort sect;
 
         /// <summary>
         /// alignment padding field, must be zero

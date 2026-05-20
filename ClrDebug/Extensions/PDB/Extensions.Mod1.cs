@@ -10,7 +10,7 @@ namespace ClrDebug.PDB
     /// <summary>
     /// Represents a module within the DBI.
     /// </summary>
-    public unsafe class Mod1
+    public unsafe class Mod1 : IDisposable
     {
         public IntPtr Raw { get; }
 
@@ -60,100 +60,121 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddTypes(BYTE* pbTypes, int cb) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddTypesDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddTypesDelegate(
+            [In] IntPtr @this,
+            [In] IntPtr pbTypes,
+            [In] int cb);
 
-        //private AddTypesDelegate addTypes;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private AddTypesDelegate addTypes;
 
-        //public bar AddTypes()
-        //{
-        //    InitDelegate(ref addTypes, vtbl->AddTypes);
+        public void AddTypes(IntPtr pbTypes, int cb)
+        {
+            InitDelegate(ref addTypes, vtbl->AddTypes);
 
-        //    if (!addTypes(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addTypes(Raw, pbTypes, cb))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region AddSymbols
 
         //virtual BOOL AddSymbols(BYTE* pbSym, int cb) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddSymbolsDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddSymbolsDelegate(
+            [In] IntPtr @this,
+            [In] IntPtr pbSym,
+            [In] int cb);
 
-        //private AddSymbolsDelegate addSymbols;
+        private AddSymbolsDelegate addSymbols;
 
-        //public bar AddSymbols()
-        //{
-        //    InitDelegate(ref addSymbols, vtbl->AddSymbols);
+        public void AddSymbols(IntPtr pbSym, int cb)
+        {
+            InitDelegate(ref addSymbols, vtbl->AddSymbols);
 
-        //    if (!addSymbols(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addSymbols(Raw, pbSym, cb))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region AddPublic
 
         //virtual BOOL AddPublic(_In_z_ const char* szPublic, USHORT isect, int off) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddPublicDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddPublicDelegate(
+            [In] IntPtr @this,
+            [In, MarshalAs(UnmanagedType.LPStr)] string szPublic,
+            [In] ushort isect,
+            [In] int off);
 
-        //private AddPublicDelegate addPublic;
+        private AddPublicDelegate addPublic;
 
-        //public bar AddPublic()
-        //{
-        //    InitDelegate(ref addPublic, vtbl->AddPublic);
+        public void AddPublic(string szPublic, ushort isect, int off)
+        {
+            InitDelegate(ref addPublic, vtbl->AddPublic);
 
-        //    if (!addPublic(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addPublic(Raw, szPublic, isect, off))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region AddLines
 
         //virtual BOOL AddLines(_In_z_ const char* szSrc, USHORT isect, int offCon, int cbCon, int doff, USHORT lineStart, BYTE* pbCoff, int cbCoff) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddLinesDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddLinesDelegate(
+            [In] IntPtr @this,
+            [In, MarshalAs(UnmanagedType.LPStr)] string szSrc,
+            [In] ushort isect,
+            [In] int offCon,
+            [In] int cbCon,
+            [In] int doff,
+            [In] short lineStart,
+            [In] IntPtr pbCoff,
+            [In] int cbCoff);
 
-        //private AddLinesDelegate addLines;
+        private AddLinesDelegate addLines;
 
-        //public bar AddLines()
-        //{
-        //    InitDelegate(ref addLines, vtbl->AddLines);
+        public void AddLines(string szSrc, ushort isect, int offCon, int cbCon, int doff, short lineStart, IntPtr pbCoff, int cbCoff)
+        {
+            InitDelegate(ref addLines, vtbl->AddLines);
 
-        //    if (!addLines(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addLines(Raw, szSrc, isect, offCon, cbCon, doff, lineStart, pbCoff, cbCoff))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region AddSecContrib
 
         //virtual BOOL AddSecContrib(USHORT isect, int off, int cb, UINT dwCharacteristics) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddSecContribDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddSecContribDelegate(
+            [In] IntPtr @this,
+            [In] ushort isect,
+            [In] int cb,
+            [In] IMAGE_SCN dwCharacteristics);
 
-        //private AddSecContribDelegate addSecContrib;
+        private AddSecContribDelegate addSecContrib;
 
-        //public bar AddSecContrib()
-        //{
-        //    InitDelegate(ref addSecContrib, vtbl->AddSecContrib);
+        public void AddSecContrib(ushort isect, int cb, IMAGE_SCN dwCharacteristics)
+        {
+            InitDelegate(ref addSecContrib, vtbl->AddSecContrib);
 
-        //    if (!addSecContrib(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addSecContrib(Raw, isect, cb, dwCharacteristics))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region QueryCBName
 
         //virtual BOOL QueryCBName(OUT int* pcb) pure;
+
+        //Just gets the size required for calling QueryName
 
         //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryCBNameDelegate(
@@ -237,19 +258,21 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryLines(BYTE* pbLines, int* pcb) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryLinesDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryLinesDelegate(
+            [In] IntPtr @this,
+            [In] IntPtr pbLines,
+            [In, Out] ref int pcb);
 
-        //private QueryLinesDelegate queryLines;
+        private QueryLinesDelegate queryLines;
 
-        //public bar QueryLines()
-        //{
-        //    InitDelegate(ref queryLines, vtbl->QueryLines);
+        public void QueryLines(IntPtr pbLines, ref int pcb)
+        {
+            InitDelegate(ref queryLines, vtbl->QueryLines);
 
-        //    if (!queryLines(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!queryLines(Raw, pbLines, ref pcb))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region SetPvClient
@@ -313,19 +336,26 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryImod(OUT USHORT* pimod) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryImodDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryImodDelegate(
+            [In] IntPtr @this,
+            [Out] out ushort pimod);
 
-        //private QueryImodDelegate queryImod;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private QueryImodDelegate queryImod;
 
-        //public bar QueryImod()
-        //{
-        //    InitDelegate(ref queryImod, vtbl->QueryImod);
+        public ushort Imod
+        {
+            get
+            {
+                InitDelegate(ref queryImod, vtbl->QueryImod);
 
-        //    if (!queryImod(Raw))
-        //        throw new NotImplementedException();
-        //}
+                if (!queryImod(Raw, out var pimod))
+                    throw new NotImplementedException();
+
+                return pimod;
+            }
+        }
 
         #endregion
         #region QueryDBI
@@ -351,24 +381,27 @@ namespace ClrDebug.PDB
 
         //virtual BOOL Close() pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool CloseDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool CloseDelegate(
+            [In] IntPtr @this);
 
-        //private CloseDelegate close;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private CloseDelegate close;
 
-        //public bar Close()
-        //{
-        //    InitDelegate(ref close, vtbl->Close);
+        public void Close()
+        {
+            InitDelegate(ref close, vtbl->Close);
 
-        //    if (!close(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!close(Raw))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region QueryCBFile
 
         //virtual BOOL QueryCBFile(OUT int* pcb) pure;
+
+        //Just gets the size required for calling QueryFile
 
         //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryCBFileDelegate(
@@ -450,19 +483,26 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddSecContribEx(USHORT isect, int off, int cb, UINT dwCharacteristics, DWORD dwDataCrc, DWORD dwRelocCrc) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddSecContribExDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddSecContribExDelegate(
+            [In] IntPtr @this,
+            [In] int isect,
+            [In] int off,
+            [In] int cb,
+            [In] IMAGE_SCN dwCharacteristics,
+            [In] int dwDataCrc,
+            [In] int dwRelocCrc);
 
-        //private AddSecContribExDelegate addSecContribEx;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private AddSecContribExDelegate addSecContribEx;
 
-        //public bar AddSecContribEx()
-        //{
-        //    InitDelegate(ref addSecContribEx, vtbl->AddSecContribEx);
+        public void AddSecContribEx(int isect, int off, int cb, IMAGE_SCN dwCharacteristics, int dwDataCrc, int dwRelocCrc)
+        {
+            InitDelegate(ref addSecContribEx, vtbl->AddSecContribEx);
 
-        //    if (!addSecContribEx(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addSecContribEx(Raw, isect, off, cb, dwCharacteristics, dwDataCrc, dwRelocCrc))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region QueryItsm
@@ -548,19 +588,21 @@ namespace ClrDebug.PDB
 
         //virtual BOOL ReplaceLines(BYTE* pbLines, int cb) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool ReplaceLinesDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool ReplaceLinesDelegate(
+            [In] IntPtr @this,
+            [In] IntPtr pbLines,
+            [In] int cb);
 
-        //private ReplaceLinesDelegate replaceLines;
+        private ReplaceLinesDelegate replaceLines;
 
-        //public bar ReplaceLines()
-        //{
-        //    InitDelegate(ref replaceLines, vtbl->ReplaceLines);
+        public void ReplaceLines(IntPtr pbLines, int cb)
+        {
+            InitDelegate(ref replaceLines, vtbl->ReplaceLines);
 
-        //    if (!replaceLines(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!replaceLines(Raw, pbLines, cb))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region GetEnumLines
@@ -572,15 +614,16 @@ namespace ClrDebug.PDB
             [In] IntPtr @this,
             [Out] out IntPtr ppenum);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetEnumLinesDelegate getEnumLines;
 
-        //public bar GetEnumLines()
-        //{
-        //    InitDelegate(ref getEnumLines, vtbl->GetEnumLines);
+        public EnumLines GetEnumLines()
+        {
+            if (!TryGetEnumLines(out var enumLines))
+                throw new NotImplementedException();
 
-        //    if (!getEnumLines(Raw))
-        //        throw new NotImplementedException();
-        //}
+            return enumLines;
+        }
 
         public bool TryGetEnumLines(out EnumLines enumLines)
         {
@@ -606,15 +649,26 @@ namespace ClrDebug.PDB
             [In] IntPtr @this,
             [Out] out CV_LINES pdwFlags);
 
-        //private QueryLineFlagsDelegate queryLineFlags;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private QueryLineFlagsDelegate queryLineFlags;
 
-        //public bar QueryLineFlags()
-        //{
-        //    InitDelegate(ref queryLineFlags, vtbl->QueryLineFlags);
+        public CV_LINES LineFlags
+        {
+            get
+            {
+                if (!TryQueryLineFlags(out var pdwFlags))
+                    throw new NotImplementedException();
 
-        //    if (!queryLineFlags(Raw))
-        //        throw new NotImplementedException();
-        //}
+                return pdwFlags;
+            }
+        }
+
+        public bool TryQueryLineFlags(out CV_LINES pdwFlags)
+        {
+            InitDelegate(ref queryLineFlags, vtbl->QueryLineFlags);
+
+            return queryLineFlags(Raw, out pdwFlags);
+        }
 
         #endregion
         #region QueryFileNameInfo
@@ -626,24 +680,25 @@ namespace ClrDebug.PDB
             [In] IntPtr @this,
             [In] int fileId,
             [In] IntPtr szFilename, //wchar_t*
-            [In] int* pccFilename, //in/out
+            [In, Out] ref int pccFilename, //in/out
             [Out] out CV_SourceChksum_t pChksumType,
             [Out] IntPtr pbChksum,
-            [In] int* pcbChksum); //in/out
+            [In, Out] ref int pcbChksum); //in/out
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryFileNameInfoDelegate queryFileNameInfo;
 
         public bool QueryFileNameInfo(
             int fileId,
             IntPtr szFilename, //wchar_t*
-            int* pccFilename,
+            ref int pccFilename,
             out CV_SourceChksum_t pChksumType,
             IntPtr pbChksum,
-            int* pcbChksum)
+            ref int pcbChksum)
         {
             InitDelegate(ref queryFileNameInfo, vtbl->QueryFileNameInfo);
 
-            return queryFileNameInfo(Raw, fileId, szFilename, pccFilename, out pChksumType, pbChksum, pcbChksum);
+            return queryFileNameInfo(Raw, fileId, szFilename, ref pccFilename, out pChksumType, pbChksum, ref pcbChksum);
         }
 
         #endregion
@@ -651,38 +706,50 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddPublicW(_In_z_ const wchar_t* szPublic, USHORT isect, int off, CV_pubsymflag_t cvpsf =0) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddPublicWDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddPublicWDelegate(
+            [In] IntPtr @this,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szPublic,
+            [In] ushort isect,
+            [In] int coff,
+            [In] CV_PUBSYMFLAGS cvpsf); //There are 3 definitions for pub sym flags. CV_pubsymflag_t is the least useful
 
-        //private AddPublicWDelegate addPublicW;
+        private AddPublicWDelegate addPublicW;
 
-        //public bar AddPublicW()
-        //{
-        //    InitDelegate(ref addPublicW, vtbl->AddPublicW);
+        public void AddPublicW(string szPublic, ushort isect, int off, CV_PUBSYMFLAGS cvpsf = default)
+        {
+            InitDelegate(ref addPublicW, vtbl->AddPublicW);
 
-        //    if (!addPublicW(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addPublicW(Raw, szPublic, isect, off, cvpsf))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region AddLinesW
 
         //virtual BOOL AddLinesW(_In_z_ const wchar_t* szSrc, USHORT isect, int offCon, int cbCon, int doff, UINT lineStart, BYTE* pbCoff, int cbCoff) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddLinesWDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddLinesWDelegate(
+            [In] IntPtr @this,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szSrc,
+            [In] ushort isect,
+            [In] int offCon,
+            [In] int cbCon,
+            [In] int doff,
+            [In] int lineStart,
+            [In] IntPtr pbCoff,
+            [In] int cbCoff);
 
-        //private AddLinesWDelegate addLinesW;
+        private AddLinesWDelegate addLinesW;
 
-        //public bar AddLinesW()
-        //{
-        //    InitDelegate(ref addLinesW, vtbl->AddLinesW);
+        public void AddLinesW(string szSrc, ushort isect, int offCon, int cbCon, int doff, int lineStart, IntPtr pbCoff, int cbCoff)
+        {
+            InitDelegate(ref addLinesW, vtbl->AddLinesW);
 
-        //    if (!addLinesW(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addLinesW(Raw, szSrc, isect, offCon, cbCon, doff, lineStart, pbCoff, cbCoff))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region QueryNameW
@@ -857,114 +924,138 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddPublic2(_In_z_ const char* szPublic, USHORT isect, int off, CV_pubsymflag_t cvpsf =0) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddPublic2Delegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddPublic2Delegate(
+            [In] IntPtr @this,
+            [In, MarshalAs(UnmanagedType.LPStr)] string szPublic,
+            [In] ushort isect,
+            [In] int off,
+            [In] CV_PUBSYMFLAGS cvpsf); //There are 3 definitions for pub sym flags. CV_pubsymflag_t is the least useful
 
-        //private AddPublic2Delegate addPublic2;
+        private AddPublic2Delegate addPublic2;
 
-        //public bar AddPublic2()
-        //{
-        //    InitDelegate(ref addPublic2, vtbl->AddPublic2);
+        public void AddPublic2(string szPublic, ushort isect, int off, CV_PUBSYMFLAGS cvpsf = default)
+        {
+            InitDelegate(ref addPublic2, vtbl->AddPublic2);
 
-        //    if (!addPublic2(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addPublic2(Raw, szPublic, isect, off, cvpsf))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region InsertLines
 
         //virtual BOOL InsertLines(BYTE* pbLines, int cb) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool InsertLinesDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool InsertLinesDelegate(
+            [In] IntPtr @this,
+            [In] IntPtr pbLines,
+            [In] int cb);
 
-        //private InsertLinesDelegate insertLines;
+        private InsertLinesDelegate insertLines;
 
-        //public bar InsertLines()
-        //{
-        //    InitDelegate(ref insertLines, vtbl->InsertLines);
+        public void InsertLines(IntPtr pbLines, int cb)
+        {
+            InitDelegate(ref insertLines, vtbl->InsertLines);
 
-        //    if (!insertLines(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!insertLines(Raw, pbLines, cb))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region QueryLines2
 
         //virtual BOOL QueryLines2(IN int cbLines, OUT BYTE *pbLines, OUT int *pcbLines) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryLines2Delegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryLines2Delegate(
+            [In] IntPtr @this,
+            [In] int cbLines,
+            [Out] IntPtr pbLines,
+            [Out] out int pcbLines);
 
-        //private QueryLines2Delegate queryLines2;
+        private QueryLines2Delegate queryLines2;
 
-        //public bar QueryLines2()
-        //{
-        //    InitDelegate(ref queryLines2, vtbl->QueryLines2);
+        public void QueryLines2(int cbLines, IntPtr pbLines, out int pcbLines)
+        {
+            InitDelegate(ref queryLines2, vtbl->QueryLines2);
 
-        //    if (!queryLines2(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!queryLines2(Raw, cbLines, pbLines, out pcbLines))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region QueryCrossScopeExports
 
         //virtual BOOL QueryCrossScopeExports(DWORD cb, BYTE* pb, DWORD* pcb) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryCrossScopeExportsDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryCrossScopeExportsDelegate(
+            [In] IntPtr @this,
+            [In] int cb,
+            [In] IntPtr pb,
+            [Out] out int pcb);
 
-        //private QueryCrossScopeExportsDelegate queryCrossScopeExports;
+        private QueryCrossScopeExportsDelegate queryCrossScopeExports;
 
-        //public bar QueryCrossScopeExports()
-        //{
-        //    InitDelegate(ref queryCrossScopeExports, vtbl->QueryCrossScopeExports);
+        //Query C13 DEBUG_S_CROSSSCOPEEXPORTS
 
-        //    if (!queryCrossScopeExports(Raw))
-        //        throw new NotImplementedException();
-        //}
+        public void QueryCrossScopeExports(int cb, IntPtr pb, out int pcb)
+        {
+            InitDelegate(ref queryCrossScopeExports, vtbl->QueryCrossScopeExports);
+
+            if (!queryCrossScopeExports(Raw, cb, pb, out pcb))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region QueryCrossScopeImports
 
         //virtual BOOL QueryCrossScopeImports(DWORD cb, BYTE* pb, DWORD* pcb) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryCrossScopeImportsDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryCrossScopeImportsDelegate(
+            [In] IntPtr @this,
+            [In] int cb,
+            [In] IntPtr pb,
+            [Out] out int pcb);
 
-        //private QueryCrossScopeImportsDelegate queryCrossScopeImports;
+        private QueryCrossScopeImportsDelegate queryCrossScopeImports;
 
-        //public bar QueryCrossScopeImports()
-        //{
-        //    InitDelegate(ref queryCrossScopeImports, vtbl->QueryCrossScopeImports);
+        //Query C13 DEBUG_S_CROSSSCOPEIMPORTS
 
-        //    if (!queryCrossScopeImports(Raw))
-        //        throw new NotImplementedException();
-        //}
+        public void QueryCrossScopeImports(int cb, IntPtr pb, out int pcb)
+        {
+            InitDelegate(ref queryCrossScopeImports, vtbl->QueryCrossScopeImports);
+
+            if (!queryCrossScopeImports(Raw, cb, pb, out pcb))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region QueryInlineeLines
 
         //virtual BOOL QueryInlineeLines(DWORD cb, BYTE* pb, DWORD* pcb) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryInlineeLinesDelegate(
-        //          [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryInlineeLinesDelegate(
+            [In] IntPtr @this,
+            [In] int cb,
+            [In] IntPtr pb,
+            [Out] out int pcb);
 
-        //      private QueryInlineeLinesDelegate queryInlineeLines;
+        private QueryInlineeLinesDelegate queryInlineeLines;
 
-        //      public bar QueryInlineeLines()
-        //      {
-        //          InitDelegate(ref queryInlineeLines, vtbl->QueryInlineeLines);
+        //Query C13 DEBUG_S_INLINEELINES
 
-        //          if (!queryInlineeLines(Raw))
-        //              throw new NotImplementedException();
-        //      }
+        public void QueryInlineeLines(int cb, IntPtr pb, out int pcb)
+        {
+            InitDelegate(ref queryInlineeLines, vtbl->QueryInlineeLines);
+
+            if (!queryInlineeLines(Raw, cb, pb, out pcb))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region TranslateFileId
@@ -1047,58 +1138,85 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryILLines(DWORD cb, BYTE* pb, DWORD* pcb) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryILLinesDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryILLinesDelegate(
+            [In] IntPtr @this,
+            [In] int cb,
+            [In] IntPtr pb,
+            [Out] out int pcb);
 
-        //private QueryILLinesDelegate queryILLines;
+        private QueryILLinesDelegate queryILLines;
 
-        //public bar QueryILLines()
-        //{
-        //    InitDelegate(ref queryILLines, vtbl->QueryILLines);
+        public bool TryQueryILLines(int cb, IntPtr pb, out int pcb)
+        {
+            InitDelegate(ref queryILLines, vtbl->QueryILLines);
 
-        //    if (!queryILLines(Raw))
-        //        throw new NotImplementedException();
-        //}
+            return queryILLines(Raw, cb, pb, out pcb);
+        }
 
         #endregion
         #region GetEnumILLines
 
         //virtual bool GetEnumILLines(EnumLines** ppenum) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool GetEnumILLinesDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool GetEnumILLinesDelegate(
+            [In] IntPtr @this,
+            [Out] out IntPtr ppenum);
 
-        //private GetEnumILLinesDelegate getEnumILLines;
+        private GetEnumILLinesDelegate getEnumILLines;
 
-        //public bar GetEnumILLines()
-        //{
-        //    InitDelegate(ref getEnumILLines, vtbl->GetEnumILLines);
+        public EnumLines GetEnumILLines()
+        {
+            if (!TryGetEnumILLines(out var enumLines))
+                throw new NotImplementedException();
 
-        //    if (!getEnumILLines(Raw))
-        //        throw new NotImplementedException();
-        //}
+            return enumLines;
+        }
+
+        public bool TryGetEnumILLines(out EnumLines enumLines)
+        {
+            InitDelegate(ref getEnumILLines, vtbl->GetEnumILLines);
+
+            if (!getEnumILLines(Raw, out var ppenum))
+            {
+                enumLines = null;
+                return false;
+            }
+
+            enumLines = new EnumLines(ppenum);
+            return true;
+        }
 
         #endregion
         #region QueryILLineFlags
 
         //virtual bool QueryILLineFlags(OUT DWORD* pdwFlags) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryILLineFlagsDelegate(
-        //    [In] IntPtr @this,
-        //    [Out] out CV_LINES pdwFlags);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryILLineFlagsDelegate(
+            [In] IntPtr @this,
+            [Out] out CV_LINES pdwFlags);
 
-        //private QueryILLineFlagsDelegate queryILLineFlags;
+        private QueryILLineFlagsDelegate queryILLineFlags;
 
-        //public bar QueryILLineFlags()
-        //{
-        //    InitDelegate(ref queryILLineFlags, vtbl->QueryILLineFlags);
+        public CV_LINES ILLineFlags
+        {
+            get
+            {
+                if (!TryQueryILLineFlags(out var pdwFlags))
+                    throw new NotImplementedException();
 
-        //    if (!queryILLineFlags(Raw))
-        //        throw new NotImplementedException();
-        //}
+                return pdwFlags;
+            }
+        }
+
+        public bool TryQueryILLineFlags(out CV_LINES pdwFlags)
+        {
+            InitDelegate(ref queryILLineFlags, vtbl->QueryILLineFlags);
+
+            return queryILLineFlags(Raw, out pdwFlags);
+        }
 
         #endregion
         #region MergeTypes
@@ -1297,19 +1415,23 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddSymbols2(BYTE* pbSym, DWORD cb, DWORD isectCoff) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddSymbols2Delegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddSymbols2Delegate(
+            [In] IntPtr @this,
+            [In] IntPtr pbSym,
+            [In] int cb,
+            [In] int isectCoff);
 
-        //private AddSymbols2Delegate addSymbols2;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private AddSymbols2Delegate addSymbols2;
 
-        //public bar AddSymbols2()
-        //{
-        //    InitDelegate(ref addSymbols2, vtbl->AddSymbols2);
+        public void AddSymbols2(IntPtr pbSym, int cb, int isectCoff)
+        {
+            InitDelegate(ref addSymbols2, vtbl->AddSymbols2);
 
-        //    if (!addSymbols2(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addSymbols2(Raw, pbSym, cb, isectCoff))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region RemoveGlobalRefs
@@ -1451,6 +1573,11 @@ namespace ClrDebug.PDB
 
             Raw = raw;
             vtbl = *(Mod1Vtbl**) raw;
+        }
+
+        public void Dispose()
+        {
+            Close();
         }
 
         public override string ToString()

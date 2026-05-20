@@ -40,24 +40,24 @@ namespace ClrDebug.PDB
             [Out] out short pseg,
             [Out] out int pcb,
             [In, Out] ref int pcLines,
-            [Out] out CV_Line_t* pLines,
-            [Out] out CV_Column_t* pColumns);
+            [In, Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] CV_Line_t[] pLines,
+            [In, Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] CV_Column_t[] pColumns);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetLinesColumnsDelegate getLinesColumns;
 
-        public bool GetLinesColumns(
+        public bool TryGetLinesColumns(
             out int fileId,
             out int poffset,
             out short pseg,
             out int pcb,
             ref int pcLines,
-            out CV_Line_t* pLines,
-            out CV_Column_t* pColumns)
+            CV_Line_t[] pLines,
+            CV_Column_t[] pColumns) //Don't create this buffer within the method; if CV_LINES.HAVE_COLUMNS is not set, we're not going to have any columns
         {
             Extensions.InitDelegate(ref getLinesColumns, vtbl->getLinesColumns);
 
-            return getLinesColumns(Raw, out fileId, out poffset, out pseg, out pcb, ref pcLines, out pLines, out pColumns);
+            return getLinesColumns(Raw, out fileId, out poffset, out pseg, out pcb, ref pcLines, pLines, pColumns);
         }
 
         #endregion

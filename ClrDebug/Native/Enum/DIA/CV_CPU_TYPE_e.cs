@@ -72,7 +72,7 @@
         CV_CFL_THUMB = 0xF0,
         CV_CFL_ARMNT = 0xF4,
         CV_CFL_ARM64 = 0xF6,
-        CV_CFL_HYBRID_X86_ARM64 = 0xF7,
+        CV_CFL_HYBRID_X86_ARM64 = 0xF7, //It's in the latest cvconst.h
         CV_CFL_ARM64EC = 0xF8,
         CV_CFL_ARM64X = 0xF9,
         CV_CFL_UNKNOWN = 0xFF,

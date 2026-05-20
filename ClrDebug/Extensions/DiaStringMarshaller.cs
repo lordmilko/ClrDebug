@@ -115,7 +115,27 @@ namespace ClrDebug
             if (managed == null)
                 return (void*) IntPtr.Zero;
 
-            throw new NotImplementedException();
+            if (DiaStringsUseComHeap)
+                return (void*) Marshal.StringToBSTR(managed);
+
+            //We can't just do Marshal.StringToHGlobalUni; we need to create a fake BSTR with a length in front of it and hand out a pointer to the area
+            //after the length, so that when dbghelp!DiaFreeString rewinds the pointer, it gets the true allocation address
+
+            var charBytes = managed.Length * 2 + 2; //+2 for the null terminator
+            var buffer = Marshal.AllocHGlobal(charBytes + 4); //Each character is 2 bytes + 4 bytes at the start for the length + 2 bytes for the null terminator
+
+            IntPtr str = buffer + 4;
+
+            char* dest = (char*) str;
+
+            for (var i = 0; i < managed.Length; i++)
+                dest[i] = managed[i];
+
+            dest[managed.Length] = '\0';
+
+            *((int*) buffer) = charBytes;
+
+            return (void*) str;
         }
 
         public static string ConvertToManaged(void* unmanaged) => DiaStringToManaged((IntPtr) unmanaged);

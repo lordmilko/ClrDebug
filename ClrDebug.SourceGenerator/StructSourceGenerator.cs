@@ -217,27 +217,57 @@ namespace ClrDebug.SourceGenerator
 
             foreach (var field in fields)
             {
-                var inputFieldToMarshal = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(inputName), IdentifierName(field.Name));
-
-                var statement = ExpressionStatement(
-                    AssignmentExpression(
-                        SyntaxKind.SimpleAssignmentExpression,
-                        MemberAccessExpression(
-                            SyntaxKind.SimpleMemberAccessExpression,
-                            IdentifierName(outputName),
-                            IdentifierName(field.Name)
-                        ),
-                        marshaller(field.Marshaller, inputFieldToMarshal)
-                    )
+                var rhs = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(inputName), IdentifierName(field.Name));
+                var lhs = MemberAccessExpression(
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    IdentifierName(outputName),
+                    IdentifierName(field.Name)
                 );
 
-                statements.Add(statement);
+                if (field.FixedLength == null)
+                {
+                    var statement = ExpressionStatement(
+                        AssignmentExpression(
+                            SyntaxKind.SimpleAssignmentExpression,
+                            lhs,
+                            marshaller(field.Marshaller, rhs)
+                        )
+                    );
+
+                    statements.Add(statement);
+                }
+                else
+                {
+                    //It's a fixed field. Copy rhs to lhs via a span
+
+                    var rhsSpan = ObjectCreationExpression(
+                        GenericName(Identifier("System.Span"), TypeArgumentList().AddArguments(IdentifierName(field.Type)))
+                    ).WithArgumentList(ArgumentList().AddArguments(
+                        Argument(methodName == "ConvertToUnmanaged" ? rhs : (ExpressionSyntax) PrefixUnaryExpression(SyntaxKind.AddressOfExpression, rhs)),
+                        Argument(IdentifierName(field.FixedLength.Value.ToString()))
+                    ));
+
+                    var lhsSpan = ObjectCreationExpression(
+                        GenericName(Identifier("System.Span"), TypeArgumentList().AddArguments(IdentifierName(field.Type)))
+                    ).WithArgumentList(ArgumentList().AddArguments(
+                        Argument(methodName == "ConvertToManaged" ? lhs : (ExpressionSyntax) PrefixUnaryExpression(SyntaxKind.AddressOfExpression, lhs)),
+                        Argument(IdentifierName(field.FixedLength.Value.ToString()))
+                    ));
+
+                    var statement = ExpressionStatement(
+                        InvocationExpression(
+                            MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, rhsSpan, IdentifierName("CopyTo"))
+                        ).WithArgumentList(ArgumentList().AddArguments(Argument(lhsSpan)))
+                    );
+
+                    statements.Add(statement);
+                }
 
                 if (field.Marshaller is IComplexMarshaller c)
                 {
                     var outputFieldToMarshal = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(outputName), IdentifierName(field.Name));
 
-                    additionalStatements.AddRange(complexMarshaller(c, inputFieldToMarshal, outputFieldToMarshal));
+                    additionalStatements.AddRange(complexMarshaller(c, rhs, outputFieldToMarshal));
                 }
             }
 
@@ -291,21 +321,25 @@ namespace ClrDebug.SourceGenerator
 
             var nativeType = StructDeclaration(info.NativeName).WithModifiers(TokenList(nativeTypeModifiers)).WithMembers(
                 List(
-                    info.Fields.Select(
+                    info.Fields.SelectMany(
                         f =>
                         {
-                            var newField = FieldDeclaration(
-                                VariableDeclaration(
-                                    IdentifierName(f.Marshaller.UnmanagedType)
-                                ).AddVariables(
-                                    VariableDeclarator(f.Name)
-                                )
-                            ).WithModifiers(TokenList(Token(SyntaxKind.PublicKeyword)));
+                            //ByValArray requires multiple fields
+                            return f.NativeNames.Select(n =>
+                            {
+                                var newField = FieldDeclaration(
+                                    VariableDeclaration(
+                                        IdentifierName(f.Marshaller.UnmanagedType)
+                                    ).AddVariables(
+                                        VariableDeclarator(n)
+                                    )
+                                ).WithModifiers(TokenList(Token(SyntaxKind.PublicKeyword)));
 
-                            if (f.FieldOffset != null)
-                                newField = newField.AddAttributeLists(AttributeList().AddAttributes(f.FieldOffset));
+                                if (f.FieldOffset != null)
+                                    newField = newField.AddAttributeLists(AttributeList().AddAttributes(f.FieldOffset));
 
-                            return (MemberDeclarationSyntax) newField;
+                                return (MemberDeclarationSyntax) newField;
+                            });
                         }
                     )
                 )
@@ -347,7 +381,7 @@ namespace ClrDebug.SourceGenerator
             var solution = FileVersionInfo.GetVersionInfo(dll).FileDescription;
             var structDir = Path.GetFullPath(Path.Combine(solution, "..", "ClrDebug", "Native", "Struct"));
 
-            var files = Directory.EnumerateFiles(structDir, "*.cs", SearchOption.AllDirectories).Where(f => Path.GetFileName(Path.GetDirectoryName(f)) != "DbgEng").ToArray();
+            var files = Directory.EnumerateFiles(structDir, "*.cs", SearchOption.AllDirectories).ToArray();
 
             var trees = files.Select(f => CSharpSyntaxTree.ParseText(File.ReadAllText(f), CSharpParseOptions.Default.WithPreprocessorSymbols("GENERATED_MARSHALLING"))).ToArray();
 

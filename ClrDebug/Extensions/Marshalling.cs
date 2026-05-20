@@ -39,6 +39,9 @@ namespace ClrDebug
     //Even though Guid is now considered "strictly blittable", it still doesn't natively work
     //https://github.com/dotnet/runtime/pull/88213
 
+    //Guid is always passed byref; putting "in" on each Guid parameter causes issues when consumers are
+    //trying to implement interfaces from both .NET Standard 2.0 and .NET 8.0
+
     [CustomMarshaller(typeof(Guid), MarshalMode.Default, typeof(GuidMarshaller))]
     public static unsafe class GuidMarshaller
     {
@@ -57,9 +60,16 @@ namespace ClrDebug
             public byte k;
         }
 
-        public static GuidNative ConvertToUnmanaged(Guid managed) => *(GuidNative*)&managed;
+        public static GuidNative* ConvertToUnmanaged(Guid managed)
+        {
+            var pNative = (Guid*) Marshal.AllocHGlobal(16);
+            *pNative = managed;
+            return (GuidNative*) pNative;
+        }
 
-        public static Guid ConvertToManaged(GuidNative unmanaged) => *(Guid*)&unmanaged;
+        public static Guid ConvertToManaged(GuidNative* unmanaged) => *(Guid*)unmanaged;
+
+        public static void Free(GuidNative* unmanaged) => Marshal.FreeHGlobal((IntPtr) unmanaged);
     }
 
     #endregion

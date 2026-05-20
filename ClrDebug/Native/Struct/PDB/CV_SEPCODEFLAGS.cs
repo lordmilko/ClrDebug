@@ -42,5 +42,8 @@ namespace ClrDebug.PDB
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         private int flags;
+
+        public static implicit operator int(CV_SEPCODEFLAGS value) => value.flags;
+        public static implicit operator CV_SEPCODEFLAGS(int value) => new CV_SEPCODEFLAGS {flags = value};
     }
 }

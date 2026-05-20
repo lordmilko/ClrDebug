@@ -11,7 +11,7 @@
         /// <summary>
         /// Record type
         /// </summary>
-        public byte rectyp;
+        public OLDSYM rectyp;
 
         /// <summary>
         /// Type index

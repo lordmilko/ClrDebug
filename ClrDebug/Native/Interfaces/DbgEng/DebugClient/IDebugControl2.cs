@@ -1432,14 +1432,14 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
 
         [PreserveSig]
-        new HRESULT GetSpecificEventFilterArgument(
+        new HRESULT GetSpecificFilterArgument(
             [In] int Index,
             [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] Buffer,
             [In] int BufferSize,
             [Out] out int ArgumentSize);
 
         [PreserveSig]
-        new HRESULT SetSpecificEventFilterArgument(
+        new HRESULT SetSpecificFilterArgument(
             [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Argument);
 

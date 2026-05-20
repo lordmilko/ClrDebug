@@ -19,5 +19,11 @@
         DEBUG_S_MERGED_ASSEMBLYINPUT,
 
         DEBUG_S_COFF_SYMBOL_RVA,
+
+        //0xfe has not been seen and/or is unknown
+
+        //Confirmed by someone at Microsoft: https://github.com/llvm/llvm-project/issues/56285
+        DEBUG_S_XFGHASH_TYPE = 0xff,
+        DEBUG_S_XFGHASH_VIRTUAL = 0x100
     }
 }

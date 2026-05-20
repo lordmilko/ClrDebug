@@ -11,7 +11,7 @@ namespace ClrDebug
         /// <typeparam name="T">The type of value the domains should be casted to, e.g. <see cref="AppDomain"/> or _AppDomain.</typeparam>
         /// <param name="corRuntimeHost">The <see cref="CorRuntimeHost"/> that should be used to enumerate AppDomains.</param>
         /// <returns>The AppDomains in the current process.</returns>
-        public static unsafe T[] EnumDomains<T>(this CorRuntimeHost corRuntimeHost) where T : unmanaged
+        public static unsafe T[] EnumDomains<T>(this CorRuntimeHost corRuntimeHost)
         {
             var results = new List<T>();
 

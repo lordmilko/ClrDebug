@@ -1194,23 +1194,5 @@ namespace ClrDebug
 
         #endregion
         #endregion
-        #region ISymUnmanagedWriter6
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public ISymUnmanagedWriter6 Raw6 => (ISymUnmanagedWriter6) Raw;
-
-        #endregion
-        #region ISymUnmanagedWriter7
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public ISymUnmanagedWriter7 Raw7 => (ISymUnmanagedWriter7) Raw;
-
-        #endregion
-        #region ISymUnmanagedWriter8
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public ISymUnmanagedWriter8 Raw8 => (ISymUnmanagedWriter8) Raw;
-
-        #endregion
     }
 }

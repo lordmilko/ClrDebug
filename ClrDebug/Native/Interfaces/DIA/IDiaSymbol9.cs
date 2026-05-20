@@ -1419,7 +1419,7 @@ namespace ClrDebug.DIA
             [Out, MarshalAs(UnmanagedType.Interface)] out IDiaSymbol pRetVal);
 
         /// <summary>
-        /// This function retrieves a flag indicating whether the function was marked as inline (using one of the inline, attributes).
+        /// This function retrieves a flag indicating whether the function was marked as inline (using one of the inline, __inline, __forceinline attributes).
         /// </summary>
         /// <param name="pRetVal">[out] Returns TRUE if the function was marked as inline; otherwise, returns FALSE.</param>
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or error code.</returns>
@@ -1794,7 +1794,7 @@ namespace ClrDebug.DIA
         /// <returns>If successful, returns S_OK; otherwise, returns S_FALSE or an error code.</returns>
         [PreserveSig]
         new HRESULT get_registerType(
-            [Out] out int pRetVal);
+            [Out] out CV_HLSLREG_e pRetVal);
 
         /// <summary>
         /// Retrieves the base data slot.
@@ -2370,11 +2370,11 @@ namespace ClrDebug.DIA
 
         [PreserveSig]
         new HRESULT get_associatedSymbolKind(
-            [Out] out int pRetVal);
+            [Out] out CV_AssociationKind_e pRetVal);
 
         [PreserveSig]
         new HRESULT get_associatedSymbolSection(
-            [Out] out CV_AssociationKind_e pRetVal);
+            [Out] out int pRetVal);
 
         [PreserveSig]
         new HRESULT get_associatedSymbolOffset(

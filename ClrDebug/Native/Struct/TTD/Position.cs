@@ -6,7 +6,7 @@ namespace ClrDebug.TTD
     {
         //All three of these have symbols in TTDReplay.dll
         public static readonly Position Min = new Position(0, 0);
-        public static readonly Position Max = new Position(0xFFFFFFFFFFFFFFFE, 0xFFFFFFFFFFFFFFFE);
+        public static readonly Position Max = new Position(0xFFFFFFFFFFFFFFFE, 0xFFFFFFFFFFFFFFFE); //When a trace is terminated, you can have modules that say they were unloaded at 0xFFFFFFFFFFFFFFFE:0. Not sure what to make of that
         public static readonly Position Invalid = new Position(0xFFFFFFFFFFFFFFFF, 0);
 
         public ulong Sequence { get; }

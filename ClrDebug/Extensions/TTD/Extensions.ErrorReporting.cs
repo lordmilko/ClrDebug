@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug.TTD
@@ -34,11 +35,12 @@ namespace ClrDebug.TTD
 
         #region PrintError
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void PrintErrorDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStr)] ref string error);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private PrintErrorDelegate printError;
 
         private void PrintErrorInternal(IntPtr @this, ref string error) =>
@@ -48,12 +50,13 @@ namespace ClrDebug.TTD
 
         #endregion
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         public delegate void VPrintErrorDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStr)] string format,
             [In] IntPtr vaList);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private VPrintErrorDelegate vPrintError;
 
         private void VPrintErrorInternal(IntPtr @this, string format, IntPtr vaList) =>

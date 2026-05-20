@@ -63,17 +63,17 @@ namespace ClrDebug.PDB
         delegate bool OpenModDelegate(
             [In] IntPtr @this,
             [In, MarshalAs(UnmanagedType.LPStr)] string szModule,
-            [In, MarshalAs(UnmanagedType.LPStr)] string szFile,
+            [In, MarshalAs(UnmanagedType.LPStr)] string szObjFile,
             [Out] out IntPtr ppmod);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private OpenModDelegate openMod;
 
-        public Mod1 OpenMod(string szModule, string szFile)
+        public Mod1 OpenMod(string szModule, string szObjFile)
         {
             InitDelegate(ref openMod, vtbl->OpenMod);
 
-            if (!openMod(Raw, szModule, szFile, out var ppmod))
+            if (!openMod(Raw, szModule, szObjFile, out var ppmod))
                 throw PDB1.GetUnknownError(MethodBase.GetCurrentMethod());
 
             return new Mod1(ppmod);
@@ -180,7 +180,7 @@ namespace ClrDebug.PDB
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool AddSecDelegate(
             [In] IntPtr @this,
-            [In] short isect,
+            [In] ushort isect,
             [In] short flags,
             [In] int off,
             [In] int cb);
@@ -188,7 +188,7 @@ namespace ClrDebug.PDB
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private AddSecDelegate addSec;
 
-        public void AddSec(short isect, short flags, int off, int cb)
+        public void AddSec(ushort isect, short flags, int off, int cb)
         {
             InitDelegate(ref addSec, vtbl->AddSec);
 
@@ -204,21 +204,21 @@ namespace ClrDebug.PDB
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QueryModFromAddrDelegate(
             [In] IntPtr @this,
-            [In] short isect,
+            [In] ushort isect,
             [In] int off,
             [Out] out IntPtr ppmod,
-            [Out] out short pisect,
+            [Out] out ushort pisect,
             [Out] out int poff,
             [Out] out int pcb);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryModFromAddrDelegate queryModFromAddr;
 
-        public bool TryQueryModFromAddr(int isect, int off, out DBI1_QueryModFromAddrResult result)
+        public bool TryQueryModFromAddr(ushort isect, int off, out DBI1_QueryModFromAddrResult result)
         {
             InitDelegate(ref queryModFromAddr, vtbl->QueryModFromAddr);
 
-            if (queryModFromAddr(Raw, (short) isect, off, out var ppmod, out var pisect, out var poff, out var pcb))
+            if (queryModFromAddr(Raw, isect, off, out var ppmod, out var pisect, out var poff, out var pcb))
             {
                 result = new DBI1_QueryModFromAddrResult(ppmod != IntPtr.Zero ? new Mod1(ppmod) : null, pisect, poff, pcb);
                 return true;
@@ -258,19 +258,16 @@ namespace ClrDebug.PDB
         delegate bool QueryFileInfoDelegate(
             [In] IntPtr @this,
             [Out] IntPtr pb,
-            [Out] out int pcb);
+            [In, Out] ref int pcb);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryFileInfoDelegate queryFileInfo;
 
-        public int QueryFileInfo(IntPtr pb)
+        public bool QueryFileInfo(IntPtr pb, ref int pcb)
         {
             InitDelegate(ref queryFileInfo, vtbl->QueryFileInfo);
 
-            if (!queryFileInfo(Raw, pb, out var pcb))
-                throw PDB1.GetUnknownError(MethodBase.GetCurrentMethod());
-
-            return pcb;
+            return queryFileInfo(Raw, pb, ref pcb);
         }
 
         #endregion
@@ -349,19 +346,27 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddThunkMap(long* poffThunkMap, unsigned nThunks, int cbSizeOfThunk, struct SO* psoSectMap, unsigned nSects, USHORT isectThunkTable, int offThunkTable) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddThunkMapDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddThunkMapDelegate(
+            [In] IntPtr @this,
+            [In] int* poffThunkMap,
+            [In] int nThunks,
+            [In] int cbSizeOfThunk,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] SO[] psoSectMap,
+            [In] int nSects,
+            [In] ushort isectThunkTable,
+            [In] int offThunkTable);
 
-        //private AddThunkMapDelegate addThunkMap;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private AddThunkMapDelegate addThunkMap;
 
-        //public bar AddThunkMap()
-        //{
-        //    InitDelegate(ref addThunkMap, vtbl->AddThunkMap);
+        public void AddThunkMap(int* poffThunkMap, int nThunks, int cbSizeOfThunk, SO[] psoSectMap, ushort isectThunkTable, int offThunkTable)
+        {
+            InitDelegate(ref addThunkMap, vtbl->AddThunkMap);
 
-        //    if (!addThunkMap(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addThunkMap(Raw, poffThunkMap, nThunks, cbSizeOfThunk, psoSectMap, psoSectMap.Length, isectThunkTable, offThunkTable))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region AddPublic
@@ -419,19 +424,24 @@ namespace ClrDebug.PDB
 
         //virtual BOOL QueryTypeServer( ITSM itsm, OUT TPI** pptpi ) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool QueryTypeServerDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool QueryTypeServerDelegate(
+            [In] IntPtr @this,
+            [In] byte itsm,
+            [Out] out IntPtr pptpi);
 
-        //private QueryTypeServerDelegate queryTypeServer;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private QueryTypeServerDelegate queryTypeServer;
 
-        //public bar QueryTypeServer()
-        //{
-        //    InitDelegate(ref queryTypeServer, vtbl->QueryTypeServer);
+        public TPI1 QueryTypeServer(byte itsm)
+        {
+            InitDelegate(ref queryTypeServer, vtbl->QueryTypeServer);
 
-        //    if (!queryTypeServer(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!queryTypeServer(Raw, itsm, out var pptpi))
+                throw new NotImplementedException();
+
+            return new TPI1(pptpi);
+        }
 
         #endregion
         #region QueryItsmForTi
@@ -495,19 +505,21 @@ namespace ClrDebug.PDB
 
         //virtual BOOL SetLazyTypes( BOOL fLazy ) pure;   // lazy is default and can only be turned off
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool SetLazyTypesDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool SetLazyTypesDelegate(
+            [In] IntPtr @this,
+            [In] bool flazy);
 
-        //private SetLazyTypesDelegate setLazyTypes;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private SetLazyTypesDelegate setLazyTypes;
 
-        //public bar SetLazyTypes()
-        //{
-        //    InitDelegate(ref setLazyTypes, vtbl->SetLazyTypes);
+        public void SetLazyTypes(bool fLazy)
+        {
+            InitDelegate(ref setLazyTypes, vtbl->SetLazyTypes);
 
-        //    if (!setLazyTypes(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!setLazyTypes(Raw, fLazy))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region FindTypeServers
@@ -533,19 +545,21 @@ namespace ClrDebug.PDB
 
         //virtual void DumpTypeServers() pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool DumpTypeServersDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool DumpTypeServersDelegate(
+            [In] IntPtr @this);
 
-        //private DumpTypeServersDelegate dumpTypeServers;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private DumpTypeServersDelegate dumpTypeServers;
 
-        //public bar DumpTypeServers()
-        //{
-        //    InitDelegate(ref dumpTypeServers, vtbl->DumpTypeServers);
+        //Dumps to stdout
+        public void DumpTypeServers()
+        {
+            InitDelegate(ref dumpTypeServers, vtbl->DumpTypeServers);
 
-        //    if (!dumpTypeServers(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!dumpTypeServers(Raw))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region OpenDbg
@@ -797,19 +811,25 @@ namespace ClrDebug.PDB
 
         //virtual BOOL OpenModW(_In_z_ const wchar_t* szModule, _In_z_ const wchar_t* szFile, OUT Mod** ppmod) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool OpenModWDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool OpenModWDelegate(
+            [In] IntPtr @this,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string wszModule, //DBI1::OpenModW has more descriptive parameter names than DBI::OpenModW does
+            [In, MarshalAs(UnmanagedType.LPWStr)] string wszObjFile,
+            [Out] out IntPtr ppmod);
 
-        //private OpenModWDelegate openModW;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private OpenModWDelegate openModW;
 
-        //public bar OpenModW()
-        //{
-        //    InitDelegate(ref openModW, vtbl->OpenModW);
+        public Mod1 OpenModW(string wszModule, string wszObjFile)
+        {
+            InitDelegate(ref openModW, vtbl->OpenModW);
 
-        //    if (!openModW(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!openModW(Raw, wszModule, wszObjFile, out var ppmod))
+                throw new NotImplementedException();
+
+            return new Mod1(ppmod);
+        }
 
         #endregion
         #region DeleteModW
@@ -873,41 +893,48 @@ namespace ClrDebug.PDB
 
         //virtual BOOL AddLinkInfoW(IN PLinkInfoW ) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddLinkInfoWDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddLinkInfoWDelegate(
+            [In] IntPtr @this,
+            [In] IntPtr pli); //LinkInfoW, but I think there can be data after the fixed fields in the struct
 
-        //private AddLinkInfoWDelegate addLinkInfoW;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private AddLinkInfoWDelegate addLinkInfoW;
 
-        //public bar AddLinkInfoW()
-        //{
-        //    InitDelegate(ref addLinkInfoW, vtbl->AddLinkInfoW);
+        public unsafe void AddLinkInfoW(IntPtr pli) //LinkInfoW, but I think there can be data after the fixed fields in the struct
+        {
+            InitDelegate(ref addLinkInfoW, vtbl->AddLinkInfoW);
 
-        //    if (!addLinkInfoW(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addLinkInfoW(Raw, pli))
+                throw new NotImplementedException();
+        }
 
         #endregion
         #region AddPublic2
 
         //virtual BOOL AddPublic2(_In_z_ const char* szPublic, USHORT isect, int off, CV_pubsymflag_t cvpsf =0) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool AddPublic2Delegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool AddPublic2Delegate(
+            [In] IntPtr @this,
+            [In, MarshalAs(UnmanagedType.LPStr)] string szPublic,
+            [In] ushort isect,
+            [In] int off,
+            [In] CV_pubsymflag_t cvpsf);
 
-        //private AddPublic2Delegate addPublic2;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private AddPublic2Delegate addPublic2;
 
-        //public bar AddPublic2()
-        //{
-        //    InitDelegate(ref addPublic2, vtbl->AddPublic2);
+        public void AddPublic2(string szPublic, ushort isect, int off, CV_pubsymflag_t cvpsf = default)
+        {
+            InitDelegate(ref addPublic2, vtbl->AddPublic2);
 
-        //    if (!addPublic2(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!addPublic2(Raw, szPublic, isect, off, cvpsf))
+                throw new NotImplementedException();
+        }
 
         #endregion
-        #region QueryMachineType
+        #region QueryMachineType / SetMachineType
 
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate ushort QueryMachineTypeDelegate(
@@ -915,6 +942,16 @@ namespace ClrDebug.PDB
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryMachineTypeDelegate queryMachineType;
+
+        //virtual void SetMachineType(USHORT wMachine) pure;
+
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate void SetMachineTypeDelegate(
+            [In] IntPtr @this,
+            [In] ushort wMachine);
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private SetMachineTypeDelegate setMachineType;
 
         public IMAGE_FILE_MACHINE MachineType
         {
@@ -924,26 +961,16 @@ namespace ClrDebug.PDB
 
                 return (IMAGE_FILE_MACHINE) queryMachineType(Raw);
             }
+            set
+            {
+                InitDelegate(ref setMachineType, vtbl->SetMachineType);
+
+                setMachineType(Raw, (ushort) value);
+            }
         }
 
         #endregion
-        #region SetMachineType
-
-        //virtual void SetMachineType(USHORT wMachine) pure;
-
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool SetMachineTypeDelegate(
-        //    [In] IntPtr @this);
-
-        //private SetMachineTypeDelegate setMachineType;
-
-        //public bar SetMachineType()
-        //{
-        //    InitDelegate(ref setMachineType, vtbl->SetMachineType);
-
-        //    if (!setMachineType(Raw))
-        //        throw new NotImplementedException();
-        //}
+        #region 
 
         #endregion
         #region RemoveDataForRva
@@ -994,22 +1021,22 @@ namespace ClrDebug.PDB
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QueryModFromAddr2Delegate(
             [In] IntPtr @this,
-            [In] short isect,
+            [In] ushort isect,
             [In] int off,
             [Out] out IntPtr ppmod,
-            [Out] out short pisect,
+            [Out] out ushort pisect,
             [Out] out int poff,
             [Out] out int pcb,
-            [Out] out int pdwCharacteristics);
+            [Out] out IMAGE_SCN pdwCharacteristics);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryModFromAddr2Delegate queryModFromAddr2;
 
-        public bool TryQueryModFromAddr2(int isect, int off, out DBI1_QueryModFromAddr2Result result)
+        public bool TryQueryModFromAddr2(ushort isect, int off, out DBI1_QueryModFromAddr2Result result)
         {
             InitDelegate(ref queryModFromAddr2, vtbl->QueryModFromAddr2);
 
-            if (queryModFromAddr2(Raw, (short) isect, off, out var ppmod, out var pisect, out var poff, out var pcb, out var pdwCharacteristics))
+            if (queryModFromAddr2(Raw, isect, off, out var ppmod, out var pisect, out var poff, out var pcb, out var pdwCharacteristics))
             {
                 result = new DBI1_QueryModFromAddr2Result(ppmod != IntPtr.Zero ? new Mod1(ppmod) : null, pisect, poff, pcb, pdwCharacteristics);
                 return true;
@@ -1065,24 +1092,24 @@ namespace ClrDebug.PDB
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         delegate bool QueryImodFromAddrDelegate(
             [In] IntPtr @this,
-            [In] short isect,
+            [In] ushort isect,
             [In] int off,
-            [Out] out short pimod,
-            [Out] out short pisect,
+            [Out] out ushort pimod,
+            [Out] out ushort pisect,
             [Out] out int poff,
             [Out] out int pcb,
-            [Out] out int pdwCharacteristics);
+            [Out] out IMAGE_SCN pdwCharacteristics);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private QueryImodFromAddrDelegate queryImodFromAddr;
 
         //Like QueryModFromAddr but only returns the module index, instead of creating a new Mod1.
         //It's very annoying having to downcast ints to shorts to call this method, so we make isect an int instead
-        public bool TryQueryImodFromAddr(int isect, int off, out DBI1_QueryImodFromAddrResult result)
+        public bool TryQueryImodFromAddr(ushort isect, int off, out DBI1_QueryImodFromAddrResult result)
         {
             InitDelegate(ref queryImodFromAddr, vtbl->QueryImodFromAddr);
 
-            if (queryImodFromAddr(Raw, (short) isect, off, out var pimod, out var pisect, out var poff, out var pcb, out var pdwCharacteristics))
+            if (queryImodFromAddr(Raw, isect, off, out var pimod, out var pisect, out var poff, out var pcb, out var pdwCharacteristics))
             {
                 result = new DBI1_QueryImodFromAddrResult(pimod, pisect, poff, pcb, pdwCharacteristics);
                 return true;
@@ -1097,19 +1124,24 @@ namespace ClrDebug.PDB
 
         //virtual BOOL OpenModFromImod( USHORT imod, OUT Mod **ppmod ) pure;
 
-        //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
-        //delegate bool OpenModFromImodDelegate(
-        //    [In] IntPtr @this);
+        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        delegate bool OpenModFromImodDelegate(
+            [In] IntPtr @this,
+            [In] ushort imod,
+            [Out] out IntPtr ppmod);
 
-        //private OpenModFromImodDelegate openModFromImod;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private OpenModFromImodDelegate openModFromImod;
 
-        //public bar OpenModFromImod()
-        //{
-        //    InitDelegate(ref openModFromImod, vtbl->OpenModFromImod);
+        public Mod1 OpenModFromImod(ushort imod)
+        {
+            InitDelegate(ref openModFromImod, vtbl->OpenModFromImod);
 
-        //    if (!openModFromImod(Raw))
-        //        throw new NotImplementedException();
-        //}
+            if (!openModFromImod(Raw, imod, out var ppmod))
+                throw new NotImplementedException();
+
+            return new Mod1(ppmod);
+        }
 
         #endregion
         #region QueryHeader2
@@ -1341,13 +1373,13 @@ namespace ClrDebug.PDB
         //[UnmanagedFunctionPointer(CallingConvention.ThisCall)]
         //delegate bool QueryModFromAddrExDelegate(
         //    [In] IntPtr @this,
-        //    [In] short isect,
+        //    [In] ushort isect,
         //    [In] int off,
         //    [Out] out IntPtr ppmod,
-        //    [Out] out short pisect,
+        //    [Out] out ushort pisect,
         //    [Out] out int pisectCoff,
         //    [Out] out int pcb,
-        //    [Out] out int pdwCharacteristics);
+        //    [Out] out IMAGE_SCN pdwCharacteristics);
 
         //private QueryModFromAddrExDelegate queryModFromAddrEx;
 

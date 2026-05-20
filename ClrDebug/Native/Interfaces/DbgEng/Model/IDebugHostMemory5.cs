@@ -138,7 +138,7 @@ namespace ClrDebug.DbgEng
             [In] Location location,
             [In] VARENUM vt,
             [In] long count,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Struct, SizeParamIndex = 3)] object[] vals,
+            [Out] IntPtr vals, //I believe it's an array of variant, which we can't do in source generated COM
             [Out] out long intrinsicsRead);
         
         [PreserveSig]
@@ -148,7 +148,7 @@ namespace ClrDebug.DbgEng
             [In] long ordinalSize,
             [In, MarshalAs(UnmanagedType.U1)] bool ordinalIsSigned,
             [In] long count,
-            [SRI.Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Struct, SizeParamIndex = 4)] object[] vals,
+            [Out] IntPtr vals, //I believe it's an array of variant, which we can't do in source generated COM
             [Out] out long intrinsicsRead);
     }
 }
