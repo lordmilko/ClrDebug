@@ -211,8 +211,6 @@ Note: while it is commonly believed that DIA is a thread-safe alternative to Dbg
 
 ### DbgEng
 
-Due to an oversight by Microsoft, the RPC proxy types that are created when using `DebugConnect` do not respond correctly to a `QueryInterface` for `IUnknown`. This completely violates the COM specification, and prevents the CLR from creating RCWs around these objects. To circumvent this, ClrDebug implements its own custom RCW/VTable definitions for use with DbgEng. A consequence of this is that ClrDebug's DbgEng wrappers are not (currently) compatible with NativeAOT.
-
 To start using DbgEng, use either `DebugCreate` or `DebugConnect` to create a `DebugClient`. It is recommended to use a modern version of DbgEng, rather than the version located in system32. The `Microsoft.Debugging.Platform.DbgEng` NuGet package can be used to include a redistributable version of DbgEng in your project. (consider including `Microsoft.Debugging.Platform.SymSrv` as well for proper symbol resolution)
 
 ```c#
@@ -232,7 +230,18 @@ var debugClient = new DebugClient(pDebugClient);
 debugClient.Control.Execute(DEBUG_OUTCTL.THIS_CLIENT, "k", DEBUG_EXECUTE.DEFAULT);
 ```
 
-When you are done using your `DebugClient`, it is recommended to call `Dispose` on it prior to unloading `dbgeng.dll`. `DebugClient.Dispose` will automatically call `Dispose` on all sub-interface wrappers that you accessed during its lifetime. If you unload `dbgeng.dll` while there are still live DbgEng interface objects, your program will crash when these RCWs attempt to `Release` their remaining references on the finalizer thread. If, instead of using these extension properties, you use ClrDebug's `As<T>` extension methods, or manually create new wrapper objects from the `DebugClient.Raw` property directly, you may find yourself with stray un-released RCWs that may blow up your process when finalized after you've already unloaded `dbgeng.dll`. Ensuring RCW's have been properly disposed prior to unloading their DLL is a common .NET problem, and is not something specific to ClrDebug.
+Due to an oversight by Microsoft, the RPC proxy types that are created when using `DebugConnect` do not respond correctly to a `QueryInterface` for `IUnknown`. This completely violates the COM specification, and prevents the CLR from creating RCWs around these objects. In modern versions of DbgEng, there is a secret "test hook" `IDebugTestHook` that can be used to enable `QueryInterface` for `IUnknown` on DbgEng's proxy objects
+
+```c#
+DebugCreateDelegate debugCreate = ... //Retrieve your DebugCreate delegate
+
+debugCreate(typeof(IDebugTestHook).GUID, out var pTestHook);
+
+var testHook = GetObjectForIUnknown<IDebugTestHook>(pTestHook);
+testHook.SetValue(DEBUG_HOOK_INDEX.ALLOW_QI_IUNKNOWN, 1).ThrowDbgEngNotOK();
+```
+
+As with any library that provides COM objects, you must not unload `dbgeng.dll` until you have guaranteed that all outstanding COM objects have been released. This can be done via a call to `GC.Collect` followed by `GC.WaitForPendingFinalizers` from a scope that absolutely did not ever hold a COM object in it from the library you want to unload.
 
 When working with `HRESULT` values returned from DbgEng COM methods, use the `ThrowDbgEngNotOK` and `ThrowDbgEngFailed` extension methods, rather than the usual `ThrowOnNotOK` and `ThrowOnFailed` extension methods. Certain `HRESULT` values have specific meanings within the context of DbgEng (e.g. `E_NOINTERFACE` doesn't have anything to do with "interfaces"), and ClrDebug will automatically wrap these `HRESULT` values up in a custom exception type that more properly explains what exactly is going on.
 
