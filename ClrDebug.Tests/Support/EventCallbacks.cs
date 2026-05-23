@@ -1,8 +1,14 @@
-﻿using ClrDebug.DbgEng;
+﻿#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
+using ClrDebug.DbgEng;
 
 namespace ClrDebug.Tests.DbgEng
 {
-    internal class EventCallbacks : DebugBaseEventCallbacks
+#if GENERATED_MARSHALLING
+    [GeneratedComClass]
+#endif
+    internal partial class EventCallbacks : DebugBaseEventCallbacks
     {
         private Debugger debugger;
 

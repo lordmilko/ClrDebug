@@ -458,7 +458,7 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// This method loads the debug data directly from a .pdb file. To validate the.pdb file against specific criteria, use the <see cref="LoadAndValidateDataFromPdbEx"/> method.
         /// To gain access to the data load process (through a callback mechanism), use the <see cref="LoadDataForExeEx"/> method. To load a .pdb file directly from memory, use the
-        /// <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the ValidatePdb method.
         /// </remarks>
         public void LoadDataFromPdbEx(string pdbPath, bool fPdbPrefetching)
         {
@@ -485,7 +485,7 @@ namespace ClrDebug.DIA
         /// <remarks>
         /// This method loads the debug data directly from a .pdb file. To validate the.pdb file against specific criteria, use the <see cref="LoadAndValidateDataFromPdbEx"/> method.
         /// To gain access to the data load process (through a callback mechanism), use the <see cref="LoadDataForExeEx"/> method. To load a .pdb file directly from memory, use the
-        /// <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the ValidatePdb method.
         /// </remarks>
         public HRESULT TryLoadDataFromPdbEx(string pdbPath, bool fPdbPrefetching)
         {
@@ -512,7 +512,7 @@ namespace ClrDebug.DIA
         /// A .pdb file contains both signature and age values. These values are replicated in the .exe or .dll file that matches the .pdb file. Before preparing the data source,
         /// this method verifies that the named .pdb file's signature and age match the values provided. To load a .pdb file without validation, use the <see cref="LoadDataFromPdbEx"/>
         /// method. To gain access to the data load process (through a callback mechanism), use the <see cref="LoadDataForExeEx"/> method. To load a .pdb file directly from memory,
-        /// use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the ValidatePdb method.
         /// </remarks>
         public void LoadAndValidateDataFromPdbEx(string pdbPath, Guid pcsig70, int sig, int age, bool fPdbPrefetching)
         {
@@ -545,7 +545,7 @@ namespace ClrDebug.DIA
         /// A .pdb file contains both signature and age values. These values are replicated in the .exe or .dll file that matches the .pdb file. Before preparing the data source,
         /// this method verifies that the named .pdb file's signature and age match the values provided. To load a .pdb file without validation, use the <see cref="LoadDataFromPdbEx"/>
         /// method. To gain access to the data load process (through a callback mechanism), use the <see cref="LoadDataForExeEx"/> method. To load a .pdb file directly from memory,
-        /// use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the ValidatePdb method.
         /// </remarks>
         public HRESULT TryLoadAndValidateDataFromPdbEx(string pdbPath, Guid pcsig70, int sig, int age, bool fPdbPrefetching)
         {
@@ -577,7 +577,7 @@ namespace ClrDebug.DIA
         /// optionally, be reported and controlled through callbacks.For example, the <see cref="IDiaLoadCallback.NotifyDebugDir"/> is invoked when the <see cref="LoadDataForExeEx"/> method finds and processes a debug directory.
         /// The <see cref="IDiaReadExeAtOffsetCallback"/> and <see cref="IDiaReadExeAtRVACallback"/> interfaces allow the client application to provide alternative methods for reading data from the executable file when the file cannot be accessed
         /// directly through standard file I/O. To load a .pdb file without validation, use the <see cref="LoadDataFromPdbEx"/> method. To validate the.pdb file against specific criteria, use the <see cref="LoadAndValidateDataFromPdbEx"/>
-        /// method. To load a .pdb file directly from memory, use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// method. To load a .pdb file directly from memory, use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the ValidatePdb method.
         /// </remarks>
         public void LoadDataForExeEx(string executable, string searchPath, object pCallback, bool fPdbPrefetching)
         {
@@ -612,7 +612,7 @@ namespace ClrDebug.DIA
         /// optionally, be reported and controlled through callbacks.For example, the <see cref="IDiaLoadCallback.NotifyDebugDir"/> is invoked when the <see cref="LoadDataForExeEx"/> method finds and processes a debug directory.
         /// The <see cref="IDiaReadExeAtOffsetCallback"/> and <see cref="IDiaReadExeAtRVACallback"/> interfaces allow the client application to provide alternative methods for reading data from the executable file when the file cannot be accessed
         /// directly through standard file I/O. To load a .pdb file without validation, use the <see cref="LoadDataFromPdbEx"/> method. To validate the.pdb file against specific criteria, use the <see cref="LoadAndValidateDataFromPdbEx"/>
-        /// method. To load a .pdb file directly from memory, use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the <see cref="ValidatePdb"/> method.
+        /// method. To load a .pdb file directly from memory, use the <see cref="LoadDataFromIStreamEx"/> method. To validate a .pdb file without loading it, use the ValidatePdb method.
         /// </remarks>
         public HRESULT TryLoadDataForExeEx(string executable, string searchPath, object pCallback, bool fPdbPrefetching)
         {
