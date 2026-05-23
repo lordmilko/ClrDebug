@@ -48,6 +48,7 @@ var exportTypes = new[]
     "RegisterForRuntimeStartupDelegate",
     "RegisterForRuntimeStartupExDelegate",
     "RegisterForRuntimeStartup3Delegate",
+    "RegisterForRuntimeStartupRemotePort",
     "ResumeProcessDelegate",
     "UnregisterForRuntimeStartupDelegate",
 

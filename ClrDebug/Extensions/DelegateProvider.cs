@@ -238,6 +238,20 @@ namespace ClrDebug
             }
         }
 
+        public RegisterForRuntimeStartupRemotePort RegisterForRuntimeStartupRemotePort
+        {
+            get
+            {
+                var export = GetExport(hModule, nameof(RegisterForRuntimeStartupRemotePort));
+
+#if GENERATED_MARSHALLING
+                return new DelegateHolder(export).RegisterForRuntimeStartupRemotePort;
+#else
+                return Marshal.GetDelegateForFunctionPointer<RegisterForRuntimeStartupRemotePort>(export);
+#endif
+            }
+        }
+
         public ResumeProcessDelegate ResumeProcess
         {
             get

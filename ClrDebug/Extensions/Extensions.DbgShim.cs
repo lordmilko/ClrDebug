@@ -216,6 +216,15 @@ namespace ClrDebug
         [In] IntPtr parameter,
         [Out] out IntPtr ppUnregisterToken);
 
+    public delegate HRESULT RegisterForRuntimeStartupRemotePort(
+        [In, MarshalAs(UnmanagedType.LPWStr)] string szIp,
+        [In] int dwPort,
+        [In, MarshalAs(UnmanagedType.LPWStr)] string szPlatform,
+        [In, MarshalAs(UnmanagedType.Bool)] bool bIsServer,
+        [In, MarshalAs(UnmanagedType.LPWStr)] string szMscordbiPath,
+        [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyBasePath,
+        [Out] out IntPtr ppCordb);
+
     /// <summary>
     /// Resumes the process using the resume handle returned by the CreateProcessForLaunch function.
     /// </summary>
@@ -849,6 +858,35 @@ namespace ClrDebug
         }
 
         #endregion
+        #region RegisterForRuntimeStartupRemotePort
+
+        public IntPtr RegisterForRuntimeStartupRemotePort(
+            string szIp,
+            int dwPort,
+            string szPlatform,
+            bool bIsServer,
+            string szMscordbiPath,
+            string szAssemblyBasePath)
+        {
+            TryRegisterForRuntimeStartupRemotePort(szIp, dwPort, szPlatform, bIsServer, szMscordbiPath, szMscordbiPath, out var ppCordb).ThrowOnNotOK();
+            return ppCordb;
+        }
+
+        public HRESULT TryRegisterForRuntimeStartupRemotePort(
+            string szIp,
+            int dwPort,
+            string szPlatform,
+            bool bIsServer,
+            string szMscordbiPath,
+            string szAssemblyBasePath,
+            out IntPtr ppCordb)
+        {
+            var @delegate = delegateProvider.RegisterForRuntimeStartupRemotePort;
+
+            return @delegate(szIp, dwPort, szPlatform, bIsServer, szMscordbiPath, szAssemblyBasePath, out ppCordb);
+        }
+
+        #endregion
         #region ResumeProcess
 
         /// <summary>
@@ -1012,13 +1050,54 @@ namespace ClrDebug
         /// <param name="parameter">[in] data pointer passed to pfnCallback.</param>
         /// <param name="ppUnregisterToken">[out] pointer to return the UnregisterForRuntimeStartup token.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public static HRESULT TryRegisterForRuntimeStartup3(this DbgShim dbgShim,
+        public static HRESULT TryRegisterForRuntimeStartup3(
+            this DbgShim dbgShim,
             int dwProcessId,
             string lpApplicationGroupId,
             ICLRDebuggingLibraryProvider3 pLibraryProvider,
             RuntimeStartupCallback pfnCallback,
             IntPtr parameter,
             out IntPtr ppUnregisterToken) => dbgShim.TryRegisterForRuntimeStartup3(dwProcessId, lpApplicationGroupId, pLibraryProvider, NativeToManagedCallback(pfnCallback), parameter, out ppUnregisterToken);
+
+        #endregion
+        #region RegisterForRuntimeStartupRemotePort
+
+        //Note that this method is ambiguous with the raw method that returns an IntPtr and can only be invoked by explicitly calling it from the Extensions class directly
+        public static CorDebug RegisterForRuntimeStartupRemotePort(
+            this DbgShim dbgShim,
+            string szIp,
+            int dwPort,
+            string szPlatform,
+            bool bIsServer,
+            string szMscordbiPath,
+            string szAssemblyBasePath)
+        {
+            CorDebug ppCordb;
+            dbgShim.TryRegisterForRuntimeStartupRemotePort(szIp, dwPort, szPlatform, bIsServer, szMscordbiPath, szMscordbiPath, out ppCordb).ThrowOnNotOK();
+            return ppCordb;
+        }
+
+        //To disambiguate this method with the underlying raw method, do not do "out var ppCordb"; you must explicitly type your variable
+        public static HRESULT TryRegisterForRuntimeStartupRemotePort(
+            this DbgShim dbgShim,
+            string szIp,
+            int dwPort,
+            string szPlatform,
+            bool bIsServer,
+            string szMscordbiPath,
+            string szAssemblyBasePath,
+            out CorDebug ppCordb)
+        {
+            IntPtr raw;
+            var hr = dbgShim.TryRegisterForRuntimeStartupRemotePort(szIp, dwPort, szPlatform, bIsServer, szMscordbiPath, szAssemblyBasePath, out raw);
+
+            if (hr == HRESULT.S_OK)
+                ppCordb = new CorDebug(GetObjectForIUnknown<ICorDebug>(raw));
+            else
+                ppCordb = default;
+
+            return hr;
+        }
 
         #endregion
 
