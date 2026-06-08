@@ -21,6 +21,11 @@
     <!-- Toggle to true to debug source generated files -->
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)' == 'Release' AND '$(TargetFramework)' == 'netstandard2.0'">
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\ClrDebug.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
 
   <!-- T4 Templates -->
 
