@@ -286,8 +286,8 @@ namespace ClrDebug.Tests
 #if NET8_0_OR_GREATER
             var fn = (delegate* unmanaged<GuidMarshaller.GuidNative*, GuidMarshaller.GuidNative*, IntPtr*, HRESULT>) pDllGetClassObject;
 
-            var localClsid = GuidMarshaller.ConvertToUnmanaged(clsid.Value);
-            var localRiid = GuidMarshaller.ConvertToUnmanaged(typeof(IClassFactory).GUID);
+            var localClsid = GuidMarshaller.Default.ConvertToUnmanaged(clsid.Value);
+            var localRiid = GuidMarshaller.Default.ConvertToUnmanaged(typeof(IClassFactory).GUID);
 
             //todo: evidently this is wrong, because its crashing our normal .net 8 test
             //fn(&localClsid, &localRiid, &pClassFactory).ThrowOnNotOK();

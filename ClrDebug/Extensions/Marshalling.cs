@@ -42,7 +42,9 @@ namespace ClrDebug
     //Guid is always passed byref; putting "in" on each Guid parameter causes issues when consumers are
     //trying to implement interfaces from both .NET Standard 2.0 and .NET 8.0
 
-    [CustomMarshaller(typeof(Guid), MarshalMode.Default, typeof(GuidMarshaller))]
+    [CustomMarshaller(typeof(Guid), MarshalMode.Default, typeof(Default))]
+    [CustomMarshaller(typeof(Guid), MarshalMode.ManagedToUnmanagedOut, typeof(Out))]
+    [CustomMarshaller(typeof(Guid), MarshalMode.UnmanagedToManagedOut, typeof(Out))]
     public static unsafe class GuidMarshaller
     {
         public struct GuidNative
@@ -60,16 +62,26 @@ namespace ClrDebug
             public byte k;
         }
 
-        public static GuidNative* ConvertToUnmanaged(Guid managed)
+        public static class Default
         {
-            var pNative = (Guid*) Marshal.AllocHGlobal(16);
-            *pNative = managed;
-            return (GuidNative*) pNative;
+            public static GuidNative* ConvertToUnmanaged(Guid managed)
+            {
+                var pNative = (Guid*) Marshal.AllocHGlobal(16);
+                *pNative = managed;
+                return (GuidNative*) pNative;
+            }
+
+            public static Guid ConvertToManaged(GuidNative* unmanaged) => *(Guid*) unmanaged;
+
+            public static void Free(GuidNative* unmanaged) => Marshal.FreeHGlobal((IntPtr) unmanaged);
         }
 
-        public static Guid ConvertToManaged(GuidNative* unmanaged) => *(Guid*)unmanaged;
+        public static class Out
+        {
+            public static GuidNative ConvertToUnmanaged(Guid managed) => *(GuidNative*) &managed;
 
-        public static void Free(GuidNative* unmanaged) => Marshal.FreeHGlobal((IntPtr) unmanaged);
+            public static Guid ConvertToManaged(GuidNative unmanaged) => *(Guid*) &unmanaged;
+        }
     }
 
     #endregion
