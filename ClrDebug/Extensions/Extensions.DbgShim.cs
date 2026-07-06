@@ -868,7 +868,7 @@ namespace ClrDebug
             string szMscordbiPath,
             string szAssemblyBasePath)
         {
-            TryRegisterForRuntimeStartupRemotePort(szIp, dwPort, szPlatform, bIsServer, szMscordbiPath, szMscordbiPath, out var ppCordb).ThrowOnNotOK();
+            TryRegisterForRuntimeStartupRemotePort(szIp, dwPort, szPlatform, bIsServer, szMscordbiPath, szAssemblyBasePath, out var ppCordb).ThrowOnNotOK();
             return ppCordb;
         }
 
