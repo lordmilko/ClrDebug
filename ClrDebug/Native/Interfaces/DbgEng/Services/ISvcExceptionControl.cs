@@ -28,6 +28,7 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Indicates whether this exception will be passed onto the target or will be considered handled by the halt.
         /// </summary>
+        [PreserveSig]
         [return: MarshalAs(UnmanagedType.U1)]
         bool WillPassToTarget();
 

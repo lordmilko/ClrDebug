@@ -27,6 +27,7 @@ namespace ClrDebug.DbgEng
         /// This method returning "true" indicates that the values returned reflect the hardware without any such "adjustments" applied.<para/>
         /// This method returning "false" indicates the Windows behavior where the context record (&amp; trap frame) @pc refer to an instruction *AFTER* the "BRK ...".
         /// </summary>
+        [PreserveSig]
         [return: MarshalAs(UnmanagedType.U1)]
         bool DoesBreakpointTrapAddressReflectHardware();
     }

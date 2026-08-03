@@ -23,7 +23,7 @@ namespace ClrDebug
         /// <remarks>
         /// The implementer is responsible for managing the lifetime of the resulting object.
         /// </remarks>
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.Interface)] //I'm not sure if this should be PreserveSig or not. I'm guessing the actual native implementation returns a HRESULT and emits the IMetaDataImport as an out parameter
         IMetaDataImport GetMetadataImport();
     }
 }

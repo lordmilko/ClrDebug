@@ -113,6 +113,7 @@ namespace ClrDebug.TTD
         // If the calling thread wasn't recording because recording never was started,
         // or because recording was already explicitly stopped via this function,
         // then the result will be InstructionCount::Zero.
+        [PreserveSig]
         InstructionCount StopRecordingCurrentThread();
 
         // Query the current instruction counts relevant to the throttle.

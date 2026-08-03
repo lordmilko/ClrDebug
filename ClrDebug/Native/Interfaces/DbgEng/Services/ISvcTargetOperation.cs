@@ -39,6 +39,7 @@ namespace ClrDebug.DbgEng
         /// If the operation can be canceled, it will be canceled. The semantic meaning of a cancellation depends on the operation in question.<para/>
         /// For instance For a halt : the target will no longer be halted For a breakpoint: the breakpoint will be cleared.
         /// </summary>
+        [PreserveSig]
         [return: MarshalAs(UnmanagedType.U1)]
         bool Cancel();
 

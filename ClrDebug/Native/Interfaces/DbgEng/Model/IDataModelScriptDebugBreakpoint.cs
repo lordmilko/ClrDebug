@@ -30,6 +30,7 @@ namespace ClrDebug.DbgEng
         /// All breakpoints should be created in the enabled state.
         /// </summary>
         /// <returns>This method returns bool. The value is an indication of whether the breakpoint is enabled or not.</returns>
+        [PreserveSig]
         [return: MarshalAs(UnmanagedType.U1)]
         bool IsEnabled();
 

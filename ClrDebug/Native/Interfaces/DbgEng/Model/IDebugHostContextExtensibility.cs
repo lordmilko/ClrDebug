@@ -15,6 +15,7 @@ namespace ClrDebug.DbgEng
 #endif
     public partial interface IDebugHostContextExtensibility
     {
+        [PreserveSig]
         [return: MarshalAs(UnmanagedType.U1)]
         bool HasExtensionData(
             [In] int blobId);
