@@ -3007,7 +3007,8 @@ namespace ClrDebug
         /// <param name="tk">[in] The token to check the reference validity for.</param>
         public bool IsValidToken(mdToken tk)
         {
-            /*bool IsValidToken(
+            /*[PreserveSig]
+            bool IsValidToken(
             [In] mdToken tk);*/
             return Raw.IsValidToken(tk);
         }

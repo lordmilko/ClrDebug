@@ -1249,6 +1249,12 @@ namespace ClrDebug
         /// </summary>
         /// <param name="tk">[in] The token to check the reference validity for.</param>
         /// <returns>true if tk is a valid metadata token within the current scope. Otherwise, false.</returns>
+        /// <remarks>
+        /// The native method returns BOOL directly rather than an HRESULT, so this declaration must be
+        /// [PreserveSig]; without it the marshaller assumes an HRESULT-plus-retval shape and returns
+        /// uninitialized memory.
+        /// </remarks>
+        [PreserveSig]
         [return: MarshalAs(UnmanagedType.Bool)]
         bool IsValidToken(
             [In] mdToken tk);
