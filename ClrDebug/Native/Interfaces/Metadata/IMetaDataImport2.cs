@@ -1245,6 +1245,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="tk">[in] The token to check the reference validity for.</param>
         /// <returns>true if tk is a valid metadata token within the current scope. Otherwise, false.</returns>
+        [PreserveSig]
         [return: MarshalAs(UnmanagedType.Bool)]
         new bool IsValidToken(
             [In] mdToken tk);

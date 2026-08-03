@@ -35,7 +35,8 @@ namespace ClrDebug.DbgEng
         new HRESULT GetArgumentPosition(
             [Out] out long argPosition);
 #endif
-        
+
+        [PreserveSig]
         [return: MarshalAs(UnmanagedType.U1)]
         bool IsInlineScope();
         

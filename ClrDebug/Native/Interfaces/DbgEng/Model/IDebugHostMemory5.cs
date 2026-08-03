@@ -126,7 +126,8 @@ namespace ClrDebug.DbgEng
         new HRESULT GetPhysicalAddressLocation(
             [In] long physAddr,
             [Out] out Location pPhysicalAddressLocation);
-        
+
+        [PreserveSig]
         [return: MarshalAs(UnmanagedType.U1)]
         new bool IsPhysicalAddressLocation(
             [In] ref Location pLocation);
