@@ -1651,7 +1651,7 @@ namespace ClrDebug
         /// <param name="eventThread">[in] The ID of the thread the event occurred on.</param>
         /// <param name="numStackFrames">[in] The number of elements in the stackFrames array.</param>
         /// <param name="stackFrames">[in] An array of code addresses representing the managed callstack of the event.</param>
-        public virtual HRESULT EventPipeEventDelivered(
+        public virtual unsafe HRESULT EventPipeEventDelivered(
             EVENTPIPE_PROVIDER provider,
             int eventId,
             int eventVersion,
@@ -1673,7 +1673,7 @@ namespace ClrDebug
             Guid pRelatedActivityId,
             ThreadID eventThread,
             int numStackFrames,
-            IntPtr[] stackFrames)
+            IntPtr* stackFrames)
         {
             return HRESULT.E_NOTIMPL;
         }

@@ -18,7 +18,7 @@ namespace ClrDebug
 #else
     [GeneratedComInterface]
 #endif
-    public partial interface ICorProfilerCallback10 : ICorProfilerCallback9
+    public unsafe partial interface ICorProfilerCallback10 : ICorProfilerCallback9
     {
 #if !GENERATED_MARSHALLING
         /// <summary>
@@ -1450,8 +1450,8 @@ namespace ClrDebug
 #endif
             Guid pRelatedActivityId,
             [In] ThreadID eventThread,
-            [In] int numStackFrames,
-            [MarshalAs(UnmanagedType.LPArray), In] IntPtr[] stackFrames);
+            [In] int numStackFrames, //Note that due to a bug in the CLR, this is actually the number of _bytes_ in the stackFrames parameter
+            [In] IntPtr* stackFrames);
 
         /// <summary>
         /// Notifies the profiler whenever an EventPipe provider is created.
