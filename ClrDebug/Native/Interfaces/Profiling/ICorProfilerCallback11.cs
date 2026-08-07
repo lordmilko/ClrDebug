@@ -1433,18 +1433,8 @@ namespace ClrDebug
             [In] IntPtr metadataBlob,
             [In] int cbEventData,
             [In] IntPtr eventData,
-#if !GENERATED_MARSHALLING
-            [In, MarshalAs(UnmanagedType.LPStruct)]
-#else
-            [MarshalUsing(typeof(GuidMarshaller))]
-#endif
-            Guid pActivityId,
-#if !GENERATED_MARSHALLING
-            [In, MarshalAs(UnmanagedType.LPStruct)]
-#else
-            [MarshalUsing(typeof(GuidMarshaller))]
-#endif
-            Guid pRelatedActivityId,
+            [In] Guid* pActivityId,
+            [In] Guid* pRelatedActivityId,
             [In] ThreadID eventThread,
             [In] int numStackFrames,
             [In] IntPtr* stackFrames);
